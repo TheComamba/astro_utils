@@ -11,6 +11,7 @@ pub static METERS_PER_SUN_RADIUS: Float = 695_700_000.0;
 pub static METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.0;
 pub static METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.0;
 
+#[derive(Debug, Copy, Clone)]
 pub struct Distance {
     meters: Float,
 }

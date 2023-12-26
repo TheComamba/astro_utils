@@ -9,6 +9,7 @@ pub static KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
 pub static KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
 pub static KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
 
+#[derive(Debug, Copy, Clone)]
 pub struct Mass {
     kilograms: Float,
 }

@@ -9,6 +9,7 @@ pub static SECONDS_PER_DAY: Float = 86400.0;
 pub static SECONDS_PER_HOUR: Float = 3600.0;
 pub static SECONDS_PER_YEAR: Float = 31557600.0;
 
+#[derive(Debug, Copy, Clone)]
 pub struct Time {
     seconds: Float,
 }
