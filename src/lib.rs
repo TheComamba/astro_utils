@@ -1,5 +1,5 @@
 pub type Float = f32;
 
-mod distance;
-mod mass;
-mod time;
+pub mod distance;
+pub mod mass;
+pub mod time;
