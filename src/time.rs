@@ -4,10 +4,14 @@ use std::{
     ops::{Add, Sub},
 };
 
-pub static SECONDS_PER_MINUTE: Float = 60.0;
-pub static SECONDS_PER_DAY: Float = 86400.0;
-pub static SECONDS_PER_HOUR: Float = 3600.0;
-pub static SECONDS_PER_YEAR: Float = 31557600.0;
+static SECONDS_PER_MINUTE: Float = 60.0;
+static MINUTES_PER_SECOND: Float = 1.0 / SECONDS_PER_MINUTE;
+static SECONDS_PER_DAY: Float = 86400.0;
+static DAYS_PER_SECOND: Float = 1.0 / SECONDS_PER_DAY;
+static SECONDS_PER_HOUR: Float = 3600.0;
+static HOURS_PER_SECOND: Float = 1.0 / SECONDS_PER_HOUR;
+static SECONDS_PER_YEAR: Float = 31557600.0;
+static YEARS_PER_SECOND: Float = 1.0 / SECONDS_PER_YEAR;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Time {
@@ -48,19 +52,19 @@ impl Time {
     }
 
     pub fn as_minutes(&self) -> Float {
-        self.seconds / SECONDS_PER_MINUTE
+        self.seconds * MINUTES_PER_SECOND
     }
 
     pub fn as_hours(&self) -> Float {
-        self.seconds / SECONDS_PER_HOUR
+        self.seconds * HOURS_PER_SECOND
     }
 
     pub fn as_days(&self) -> Float {
-        self.seconds / SECONDS_PER_DAY
+        self.seconds * DAYS_PER_SECOND
     }
 
     pub fn as_years(&self) -> Float {
-        self.seconds / SECONDS_PER_YEAR
+        self.seconds * YEARS_PER_SECOND
     }
 
     pub fn eq_within(&self, other: Time, relative_accuracy: Float) -> bool {
@@ -75,13 +79,13 @@ impl Time {
 
 impl Display for Time {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.seconds.abs() > SECONDS_PER_YEAR {
+        if self.seconds.abs() > 0.99 * SECONDS_PER_YEAR {
             write!(f, "{:.2} yrs", self.as_years())
-        } else if self.seconds.abs() > SECONDS_PER_DAY {
+        } else if self.seconds.abs() > 0.99 * SECONDS_PER_DAY {
             write!(f, "{:.2} days", self.as_days())
-        } else if self.seconds.abs() > SECONDS_PER_HOUR {
+        } else if self.seconds.abs() > 0.99 * SECONDS_PER_HOUR {
             write!(f, "{:.2} hrs", self.as_hours())
-        } else if self.seconds.abs() > SECONDS_PER_MINUTE {
+        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MINUTE {
             write!(f, "{:.2} min", self.as_minutes())
         } else {
             write!(f, "{:.2} sec", self.as_seconds())
@@ -171,15 +175,15 @@ mod tests {
 
     #[test]
     fn test_display() {
-        let time = Time::from_seconds(1.23);
-        assert_eq!(format!("{}", time), "1.23 sec");
-        let time = Time::from_minutes(1.23);
-        assert_eq!(format!("{}", time), "1.23 min");
-        let time = Time::from_hours(1.23);
-        assert_eq!(format!("{}", time), "1.23 hrs");
-        let time = Time::from_days(1.23);
-        assert_eq!(format!("{}", time), "1.23 days");
-        let time = Time::from_years(1.23);
-        assert_eq!(format!("{}", time), "1.23 yrs");
+        let time = Time::from_seconds(1.0);
+        assert_eq!(format!("{}", time), "1.00 sec");
+        let time = Time::from_minutes(1.0);
+        assert_eq!(format!("{}", time), "1.00 min");
+        let time = Time::from_hours(1.0);
+        assert_eq!(format!("{}", time), "1.00 hrs");
+        let time = Time::from_days(1.0);
+        assert_eq!(format!("{}", time), "1.00 days");
+        let time = Time::from_years(1.0);
+        assert_eq!(format!("{}", time), "1.00 yrs");
     }
 }

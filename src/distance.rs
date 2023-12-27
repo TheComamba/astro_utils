@@ -4,12 +4,18 @@ use std::{
     ops::{Add, Sub},
 };
 
-pub static METERS_PER_KILOMETER: Float = 1000.0;
-pub static METERS_PER_EARTH_RADIUS: Float = 6_371_000.0;
-pub static METERS_PER_JUPITER_RADIUS: Float = 69_911_000.0;
-pub static METERS_PER_SUN_RADIUS: Float = 695_700_000.0;
-pub static METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.0;
-pub static METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.0;
+static METERS_PER_KILOMETER: Float = 1000.0;
+static KILOMETERS_PER_METER: Float = 1.0 / METERS_PER_KILOMETER;
+static METERS_PER_EARTH_RADIUS: Float = 6_371_000.0;
+static EARTH_RADII_PER_METER: Float = 1.0 / METERS_PER_EARTH_RADIUS;
+static METERS_PER_JUPITER_RADIUS: Float = 69_911_000.0;
+static JUPITER_RADII_PER_METER: Float = 1.0 / METERS_PER_JUPITER_RADIUS;
+static METERS_PER_SUN_RADIUS: Float = 695_700_000.0;
+static SUN_RADII_PER_METER: Float = 1.0 / METERS_PER_SUN_RADIUS;
+static METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.0;
+static ASTRONOMICAL_UNITS_PER_METER: Float = 1.0 / METERS_PER_ASTRONOMICAL_UNIT;
+static METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.0;
+static LIGHT_YEARS_PER_METER: Float = 1.0 / METERS_PER_LIGHT_YEAR;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Distance {
@@ -62,27 +68,27 @@ impl Distance {
     }
 
     pub fn as_kilometers(&self) -> Float {
-        self.meters / METERS_PER_KILOMETER
+        self.meters * KILOMETERS_PER_METER
     }
 
     pub fn as_earth_radii(&self) -> Float {
-        self.meters / METERS_PER_EARTH_RADIUS
+        self.meters * EARTH_RADII_PER_METER
     }
 
     pub fn as_jupiter_radii(&self) -> Float {
-        self.meters / METERS_PER_JUPITER_RADIUS
+        self.meters * JUPITER_RADII_PER_METER
     }
 
     pub fn as_sun_radii(&self) -> Float {
-        self.meters / METERS_PER_SUN_RADIUS
+        self.meters * SUN_RADII_PER_METER
     }
 
     pub fn as_astronomical_units(&self) -> Float {
-        self.meters / METERS_PER_ASTRONOMICAL_UNIT
+        self.meters * ASTRONOMICAL_UNITS_PER_METER
     }
 
     pub fn as_light_years(&self) -> Float {
-        self.meters / METERS_PER_LIGHT_YEAR
+        self.meters * LIGHT_YEARS_PER_METER
     }
 
     pub fn eq_within(&self, other: Distance, relative_accuracy: Float) -> bool {
@@ -97,20 +103,20 @@ impl Distance {
 
 impl Display for Distance {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.meters >= METERS_PER_LIGHT_YEAR {
-            write!(f, "{} light years", self.as_light_years())
-        } else if self.meters >= METERS_PER_ASTRONOMICAL_UNIT {
-            write!(f, "{} AU", self.as_astronomical_units())
-        } else if self.meters >= METERS_PER_SUN_RADIUS {
-            write!(f, "{} Sun radii", self.as_sun_radii())
-        } else if self.meters >= METERS_PER_JUPITER_RADIUS {
-            write!(f, "{} Jupiter radii", self.as_jupiter_radii())
-        } else if self.meters >= METERS_PER_EARTH_RADIUS {
-            write!(f, "{} Earth radii", self.as_earth_radii())
-        } else if self.meters >= METERS_PER_KILOMETER {
-            write!(f, "{} km", self.as_kilometers())
+        if self.meters > 0.99 * METERS_PER_LIGHT_YEAR {
+            write!(f, "{:.2} light years", self.as_light_years())
+        } else if self.meters > 0.99 * METERS_PER_ASTRONOMICAL_UNIT {
+            write!(f, "{:.2} AU", self.as_astronomical_units())
+        } else if self.meters > 0.99 * METERS_PER_SUN_RADIUS {
+            write!(f, "{:.2} Sun radii", self.as_sun_radii())
+        } else if self.meters > 0.99 * METERS_PER_JUPITER_RADIUS {
+            write!(f, "{:.2} Jupiter radii", self.as_jupiter_radii())
+        } else if self.meters > 0.99 * METERS_PER_EARTH_RADIUS {
+            write!(f, "{:.2} Earth radii", self.as_earth_radii())
+        } else if self.meters > 0.99 * METERS_PER_KILOMETER {
+            write!(f, "{:.2} km", self.as_kilometers())
         } else {
-            write!(f, "{} m", self.as_meters())
+            write!(f, "{:.2} m", self.as_meters())
         }
     }
 }
@@ -225,5 +231,22 @@ mod tests {
         assert_eq!(format!("{}", astronomical_units), "1.23 AU");
         let light_years = Distance::from_light_years(1.23);
         assert_eq!(format!("{}", light_years), "1.23 light years");
+    }
+
+    #[test]
+    fn test_display_thresholds() {
+        use crate::distance::Distance;
+        let km = Distance::from_kilometers(1.0);
+        assert_eq!(format!("{}", km), "1.00 km");
+        let earth_radii = Distance::from_earth_radii(1.0);
+        assert_eq!(format!("{}", earth_radii), "1.00 Earth radii");
+        let jupiter_radii = Distance::from_jupiter_radii(1.0);
+        assert_eq!(format!("{}", jupiter_radii), "1.00 Jupiter radii");
+        let sun_radii = Distance::from_sun_radii(1.0);
+        assert_eq!(format!("{}", sun_radii), "1.00 Sun radii");
+        let astronomical_units = Distance::from_astronomical_units(1.0);
+        assert_eq!(format!("{}", astronomical_units), "1.00 AU");
+        let light_years = Distance::from_light_years(1.0);
+        assert_eq!(format!("{}", light_years), "1.00 light years");
     }
 }

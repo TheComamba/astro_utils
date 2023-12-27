@@ -5,9 +5,12 @@ use std::{
 
 use crate::Float;
 
-pub static KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
-pub static KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
-pub static KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
+static KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
+static EARTH_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_EARTH_MASS;
+static KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
+static JUPITER_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_JUPITER_MASS;
+static KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
+static SOLAR_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_SOLAR_MASS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Mass {
@@ -42,15 +45,15 @@ impl Mass {
     }
 
     pub fn as_earth_masses(&self) -> Float {
-        self.kilograms / KILOGRAMS_PER_EARTH_MASS
+        self.kilograms * EARTH_MASSES_PER_KILOGRAM
     }
 
     pub fn as_jupiter_masses(&self) -> Float {
-        self.kilograms / KILOGRAMS_PER_JUPITER_MASS
+        self.kilograms * JUPITER_MASSES_PER_KILOGRAM
     }
 
     pub fn as_solar_masses(&self) -> Float {
-        self.kilograms / KILOGRAMS_PER_SOLAR_MASS
+        self.kilograms * SOLAR_MASSES_PER_KILOGRAM
     }
 
     pub fn eq_within(&self, other: Mass, relative_accuracy: Float) -> bool {
@@ -65,14 +68,14 @@ impl Mass {
 
 impl Display for Mass {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.kilograms > KILOGRAMS_PER_SOLAR_MASS {
-            write!(f, "{} solar masses", self.as_solar_masses())
-        } else if self.kilograms > KILOGRAMS_PER_JUPITER_MASS {
-            write!(f, "{} Jupiter masses", self.as_jupiter_masses())
-        } else if self.kilograms > KILOGRAMS_PER_EARTH_MASS {
-            write!(f, "{} Earth masses", self.as_earth_masses())
+        if self.kilograms > 0.99 * KILOGRAMS_PER_SOLAR_MASS {
+            write!(f, "{:.2} solar masses", self.as_solar_masses())
+        } else if self.kilograms > 0.99 * KILOGRAMS_PER_JUPITER_MASS {
+            write!(f, "{:.2} Jupiter masses", self.as_jupiter_masses())
+        } else if self.kilograms > 0.99 * KILOGRAMS_PER_EARTH_MASS {
+            write!(f, "{:.2} Earth masses", self.as_earth_masses())
         } else {
-            write!(f, "{} kg", self.kilograms)
+            write!(f, "{:.2} kg", self.kilograms)
         }
     }
 }
@@ -159,5 +162,17 @@ mod tests {
         assert_eq!(mass.to_string(), "1.23 Jupiter masses");
         let mass = Mass::from_solar_masses(1.23);
         assert_eq!(mass.to_string(), "1.23 solar masses");
+    }
+
+    #[test]
+    fn test_display_thresholds() {
+        let mass = Mass::from_kilograms(1.0);
+        assert_eq!(mass.to_string(), "1.00 kg");
+        let mass = Mass::from_earth_masses(1.0);
+        assert_eq!(mass.to_string(), "1.00 Earth masses");
+        let mass = Mass::from_jupiter_masses(1.0);
+        assert_eq!(mass.to_string(), "1.00 Jupiter masses");
+        let mass = Mass::from_solar_masses(1.0);
+        assert_eq!(mass.to_string(), "1.00 solar masses");
     }
 }
