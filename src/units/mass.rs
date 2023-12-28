@@ -1,6 +1,6 @@
 use std::{
     fmt::Display,
-    ops::{Add, Sub},
+    ops::{Add, Div, Mul, Sub},
 };
 
 use crate::Float;
@@ -96,6 +96,26 @@ impl Sub for Mass {
     fn sub(self, other: Mass) -> Mass {
         Mass {
             kilograms: self.kilograms - other.kilograms,
+        }
+    }
+}
+
+impl Mul<Float> for Mass {
+    type Output = Mass;
+
+    fn mul(self, f: Float) -> Mass {
+        Mass {
+            kilograms: self.kilograms * f,
+        }
+    }
+}
+
+impl Div<Float> for Mass {
+    type Output = Mass;
+
+    fn div(self, f: Float) -> Mass {
+        Mass {
+            kilograms: self.kilograms / f,
         }
     }
 }

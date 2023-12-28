@@ -1,6 +1,6 @@
 use std::{
     fmt::Display,
-    ops::{Add, Sub},
+    ops::{Add, Div, Mul, Sub},
 };
 
 use crate::{Float, PI, TWO_PI};
@@ -96,7 +96,9 @@ impl Add for Angle {
     type Output = Angle;
 
     fn add(self, other: Angle) -> Angle {
-        Angle::from_radians(self.radian + other.radian)
+        Angle {
+            radian: self.radian + other.radian,
+        }
     }
 }
 
@@ -104,7 +106,29 @@ impl Sub for Angle {
     type Output = Angle;
 
     fn sub(self, other: Angle) -> Angle {
-        Angle::from_radians(self.radian - other.radian)
+        Angle {
+            radian: self.radian - other.radian,
+        }
+    }
+}
+
+impl Mul<Float> for Angle {
+    type Output = Angle;
+
+    fn mul(self, f: Float) -> Angle {
+        Angle {
+            radian: self.radian * f,
+        }
+    }
+}
+
+impl Div<Float> for Angle {
+    type Output = Angle;
+
+    fn div(self, f: Float) -> Angle {
+        Angle {
+            radian: self.radian / f,
+        }
     }
 }
 
