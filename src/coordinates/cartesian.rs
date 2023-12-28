@@ -49,7 +49,7 @@ impl CartesianCoordinates {
         self.z
     }
 
-    pub(super) fn rotated(&self, angle: Angle, axis: UnitVector) -> CartesianCoordinates {
+    pub(super) fn rotated(&self, angle: Angle, axis: &UnitVector) -> CartesianCoordinates {
         todo!();
     }
 }
@@ -118,9 +118,9 @@ impl Neg for CartesianCoordinates {
 mod tests {
     use super::CartesianCoordinates;
     use crate::{
-        coordinates::unit_vector::{self},
+        coordinates::unit_vector::{self, UnitVector},
         units::{angle::Angle, length::Length},
-        Float, PI, PI_HALF,
+        Float, PI,
     };
 
     const TEST_ACCURACY: Float = 1e-5;
@@ -144,9 +144,11 @@ mod tests {
     };
 
     const QUARTER_TURN: Angle = Angle::from_radians(PI / 4.0);
-    const HALF_TURN: Angle = Angle::from_radians(PI_HALF);
+    const HALF_TURN: Angle = Angle::from_radians(PI / 2.0);
     const THREE_QUARTER_TURN: Angle = Angle::from_radians(3.0 * PI / 4.0);
     const FULL_TURN: Angle = Angle::from_radians(PI);
+    const ONE_THIRD_TURN: Angle = Angle::from_radians(2.0 * PI / 3.0);
+    const TWO_THIRDS_TURN: Angle = Angle::from_radians(2.0 * 2.0 * PI / 3.0);
 
     #[test]
     fn test_length() {
@@ -168,19 +170,19 @@ mod tests {
     fn test_rotating_x_around_z() {
         let start = X_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::Z_DIRECTION);
         let expected = Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::Z_DIRECTION);
         let expected = -X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::Z_DIRECTION);
         let expected = -Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::Z_DIRECTION);
         let expected = X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
@@ -189,19 +191,19 @@ mod tests {
     fn test_rotating_y_around_z() {
         let start = Y_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::Z_DIRECTION);
         let expected = -X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::Z_DIRECTION);
         let expected = -Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::Z_DIRECTION);
         let expected = X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::Z_DIRECTION);
         let expected = Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
@@ -210,19 +212,19 @@ mod tests {
     fn test_rotating_z_around_z() {
         let start = Z_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::Z_DIRECTION);
         let expected = Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::Z_DIRECTION);
         let expected = Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::Z_DIRECTION);
         let expected = Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::Z_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::Z_DIRECTION);
         let expected = Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
@@ -231,19 +233,19 @@ mod tests {
     fn test_rotating_x_around_x() {
         let start = X_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::X_DIRECTION);
         let expected = X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::X_DIRECTION);
         let expected = X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::X_DIRECTION);
         let expected = X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::X_DIRECTION);
         let expected = X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
@@ -252,19 +254,19 @@ mod tests {
     fn test_rotating_y_around_x() {
         let start = Y_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::X_DIRECTION);
         let expected = Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::X_DIRECTION);
         let expected = -Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::X_DIRECTION);
         let expected = -Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::X_DIRECTION);
         let expected = Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
@@ -273,19 +275,19 @@ mod tests {
     fn test_rotating_z_around_x() {
         let start = Z_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::X_DIRECTION);
         let expected = -Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::X_DIRECTION);
         let expected = -Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::X_DIRECTION);
         let expected = Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::X_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::X_DIRECTION);
         let expected = Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
@@ -294,19 +296,19 @@ mod tests {
     fn test_rotating_x_around_y() {
         let start = X_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::Y_DIRECTION);
         let expected = -Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::Y_DIRECTION);
         let expected = -X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::Y_DIRECTION);
         let expected = Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::Y_DIRECTION);
         let expected = X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
@@ -315,19 +317,19 @@ mod tests {
     fn test_rotating_y_around_y() {
         let start = Y_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::Y_DIRECTION);
         let expected = Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::Y_DIRECTION);
         let expected = Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::Y_DIRECTION);
         let expected = Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::Y_DIRECTION);
         let expected = Y_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
@@ -336,22 +338,66 @@ mod tests {
     fn test_rotating_z_around_y() {
         let start = Z_DIRECTION;
 
-        let rotated = start.rotated(QUARTER_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(QUARTER_TURN, &unit_vector::Y_DIRECTION);
         let expected = X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(HALF_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(HALF_TURN, &unit_vector::Y_DIRECTION);
         let expected = -Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(THREE_QUARTER_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(THREE_QUARTER_TURN, &unit_vector::Y_DIRECTION);
         let expected = -X_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
 
-        let rotated = start.rotated(FULL_TURN, unit_vector::Y_DIRECTION);
+        let rotated = start.rotated(FULL_TURN, &unit_vector::Y_DIRECTION);
         let expected = Z_DIRECTION;
         assert!(rotated.eq_within(&expected, TEST_ACCURACY));
     }
 
-    //TODO: test rotating around arbitrary axes
+    #[test]
+    fn test_rotating_around_diagonal_axis() {
+        let start = X_DIRECTION;
+        let axis = UnitVector::from_cartesian(&CartesianCoordinates {
+            x: Length::from_meters(1.0),
+            y: Length::from_meters(1.0),
+            z: Length::from_meters(0.0),
+        });
+
+        let rotated = X_DIRECTION.rotated(ONE_THIRD_TURN, &axis);
+        let expected = Y_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+
+        let rotated = Y_DIRECTION.rotated(ONE_THIRD_TURN, &axis);
+        let expected = Z_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+
+        let rotated = Z_DIRECTION.rotated(ONE_THIRD_TURN, &axis);
+        let expected = X_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+
+        let rotated = X_DIRECTION.rotated(TWO_THIRDS_TURN, &axis);
+        let expected = Z_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+
+        let rotated = Y_DIRECTION.rotated(TWO_THIRDS_TURN, &axis);
+        let expected = X_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+
+        let rotated = Z_DIRECTION.rotated(TWO_THIRDS_TURN, &axis);
+        let expected = Y_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+
+        let rotated = X_DIRECTION.rotated(-ONE_THIRD_TURN, &axis);
+        let expected = Z_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+
+        let rotated = Y_DIRECTION.rotated(-ONE_THIRD_TURN, &axis);
+        let expected = X_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+
+        let rotated = Z_DIRECTION.rotated(-ONE_THIRD_TURN, &axis);
+        let expected = Y_DIRECTION;
+        assert!(rotated.eq_within(&expected, TEST_ACCURACY));
+    }
 }
