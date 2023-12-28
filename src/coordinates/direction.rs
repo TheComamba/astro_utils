@@ -2,32 +2,32 @@ use super::{cartesian::CartesianCoordinates, ecliptic::EclipticCoordinates};
 use crate::{units::length::Length, Float};
 use std::fmt::Display;
 
-pub const X_DIRECTION: UnitVector = UnitVector {
+pub const X: Direction = Direction {
     x: 1.,
     y: 0.,
     z: 0.,
 };
-pub const Y_DIRECTION: UnitVector = UnitVector {
+pub const Y: Direction = Direction {
     x: 0.,
     y: 1.,
     z: 0.,
 };
-pub const Z_DIRECTION: UnitVector = UnitVector {
+pub const Z: Direction = Direction {
     x: 0.,
     y: 0.,
     z: 1.,
 };
 
-pub struct UnitVector {
+pub struct Direction {
     x: Float,
     y: Float,
     z: Float,
 }
 
-impl UnitVector {
+impl Direction {
     pub(crate) fn from_cartesian(coords: &CartesianCoordinates) -> Self {
         let length = coords.length();
-        UnitVector {
+        Direction {
             x: coords.x() / length,
             y: coords.y() / length,
             z: coords.z() / length,
@@ -38,7 +38,7 @@ impl UnitVector {
         let x = ecliptic.longitude().cos() * ecliptic.latitude().cos();
         let y = ecliptic.longitude().sin() * ecliptic.latitude().cos();
         let z = ecliptic.latitude().sin();
-        UnitVector { x, y, z }
+        Direction { x, y, z }
     }
 
     pub(crate) fn to_cartesian(&self, length: Length) -> CartesianCoordinates {
@@ -58,7 +58,7 @@ impl UnitVector {
     }
 }
 
-impl Display for UnitVector {
+impl Display for Direction {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "({:.2}, {:.2}, {:.2})", self.x, self.y, self.z)
     }
@@ -85,11 +85,11 @@ mod tests {
                     let expected_z = z / length;
 
                     let ecliptic = EclipticCoordinates::from_cartesian(&cartesian);
-                    let unit_vector = UnitVector::from_ecliptic(&ecliptic);
+                    let direction = Direction::from_ecliptic(&ecliptic);
 
-                    assert!((unit_vector.x() - expected_x).abs() < TEST_ACCURACY);
-                    assert!((unit_vector.y() - expected_y).abs() < TEST_ACCURACY);
-                    assert!((unit_vector.z() - expected_z).abs() < TEST_ACCURACY);
+                    assert!((direction.x() - expected_x).abs() < TEST_ACCURACY);
+                    assert!((direction.y() - expected_y).abs() < TEST_ACCURACY);
+                    assert!((direction.z() - expected_z).abs() < TEST_ACCURACY);
                 }
             }
         }

@@ -1,5 +1,5 @@
 use crate::{
-    coordinates::{ecliptic::EclipticCoordinates, unit_vector::UnitVector},
+    coordinates::{direction::Direction, ecliptic::EclipticCoordinates},
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float, TWO_PI,
 };
@@ -91,7 +91,7 @@ pub fn position_relative_to_central_body(
     true_anomaly: Angle,
 ) -> Length {
     let ecliptic_from_focus = EclipticCoordinates::horizontal(true_anomaly);
-    let direction = UnitVector::from_ecliptic(&ecliptic_from_focus);
+    let direction = Direction::from_ecliptic(&ecliptic_from_focus);
     let distance_from_focus = distance_from_focus(semi_major_axis, true_anomaly, eccentricity);
     let position_relative_to_focus = direction.to_cartesian(distance_from_focus);
     todo!()
