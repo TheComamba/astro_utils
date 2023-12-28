@@ -1,6 +1,6 @@
 use std::{
     fmt::Display,
-    ops::{Add, Div, Mul, Sub},
+    ops::{Add, Div, Mul, Neg, Sub},
 };
 
 use crate::{Float, PI, TWO_PI};
@@ -129,6 +129,16 @@ impl Div<Float> for Angle {
     fn div(self, f: Float) -> Angle {
         Angle {
             radian: self.radian / f,
+        }
+    }
+}
+
+impl Neg for Angle {
+    type Output = Angle;
+
+    fn neg(self) -> Angle {
+        Angle {
+            radian: -self.radian,
         }
     }
 }

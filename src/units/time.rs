@@ -1,7 +1,7 @@
 use crate::Float;
 use std::{
     fmt::Display,
-    ops::{Add, Div, Mul, Sub},
+    ops::{Add, Div, Mul, Neg, Sub},
 };
 
 static SECONDS_PER_MINUTE: Float = 60.0;
@@ -139,6 +139,16 @@ impl Div<Float> for Time {
     fn div(self, f: Float) -> Time {
         Time {
             seconds: self.seconds / f,
+        }
+    }
+}
+
+impl Neg for Time {
+    type Output = Time;
+
+    fn neg(self) -> Time {
+        Time {
+            seconds: -self.seconds,
         }
     }
 }

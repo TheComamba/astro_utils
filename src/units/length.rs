@@ -1,7 +1,7 @@
 use crate::Float;
 use std::{
     fmt::Display,
-    ops::{Add, Div, Mul, Sub},
+    ops::{Add, Div, Mul, Neg, Sub},
 };
 
 static METERS_PER_KILOMETER: Float = 1000.0;
@@ -167,6 +167,16 @@ impl Div<Float> for Length {
     fn div(self, f: Float) -> Length {
         Length {
             meters: self.meters / f,
+        }
+    }
+}
+
+impl Neg for Length {
+    type Output = Length;
+
+    fn neg(self) -> Length {
+        Length {
+            meters: -self.meters,
         }
     }
 }
