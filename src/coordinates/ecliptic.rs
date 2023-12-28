@@ -115,7 +115,7 @@ mod tests {
             latitude: Angle::from_degrees(90. - 54.7356),
         };
         let actual = EclipticCoordinates::from_cartesian(&cartesian);
-        println!("x, expected: {}, actual: {}", expected, actual);
+        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -128,38 +128,12 @@ mod tests {
             latitude: Angle::from_degrees(-90. + 54.7356),
         };
         let actual = EclipticCoordinates::from_cartesian(&cartesian);
-        println!("x, expected: {}, actual: {}", expected, actual);
+        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
             Length::from_meters(1.),
             Length::from_meters(-1.),
-            Length::from_meters(1.),
-        );
-        let expected = EclipticCoordinates {
-            longitude: Angle::from_degrees(135.),
-            latitude: Angle::from_degrees(90. - 54.7356),
-        };
-        let actual = EclipticCoordinates::from_cartesian(&cartesian);
-        println!("x, expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
-
-        let cartesian = CartesianCoordinates::new(
-            Length::from_meters(1.),
-            Length::from_meters(-1.),
-            Length::from_meters(-1.),
-        );
-        let expected = EclipticCoordinates {
-            longitude: Angle::from_degrees(135.),
-            latitude: Angle::from_degrees(-90. + 54.7356),
-        };
-        let actual = EclipticCoordinates::from_cartesian(&cartesian);
-        println!("x, expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
-
-        let cartesian = CartesianCoordinates::new(
-            Length::from_meters(-1.),
-            Length::from_meters(1.),
             Length::from_meters(1.),
         );
         let expected = EclipticCoordinates {
@@ -167,7 +141,33 @@ mod tests {
             latitude: Angle::from_degrees(90. - 54.7356),
         };
         let actual = EclipticCoordinates::from_cartesian(&cartesian);
-        println!("x, expected: {}, actual: {}", expected, actual);
+        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(1.),
+            Length::from_meters(-1.),
+            Length::from_meters(-1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(-45.),
+            latitude: Angle::from_degrees(-90. + 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(-1.),
+            Length::from_meters(1.),
+            Length::from_meters(1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(135.),
+            latitude: Angle::from_degrees(90. - 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -176,11 +176,11 @@ mod tests {
             Length::from_meters(-1.),
         );
         let expected = EclipticCoordinates {
-            longitude: Angle::from_degrees(-45.),
+            longitude: Angle::from_degrees(135.),
             latitude: Angle::from_degrees(-90. + 54.7356),
         };
         let actual = EclipticCoordinates::from_cartesian(&cartesian);
-        println!("x, expected: {}, actual: {}", expected, actual);
+        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -193,7 +193,7 @@ mod tests {
             latitude: Angle::from_degrees(90. - 54.7356),
         };
         let actual = EclipticCoordinates::from_cartesian(&cartesian);
-        println!("x, expected: {}, actual: {}", expected, actual);
+        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -206,7 +206,7 @@ mod tests {
             latitude: Angle::from_degrees(-90. + 54.7356),
         };
         let actual = EclipticCoordinates::from_cartesian(&cartesian);
-        println!("x, expected: {}, actual: {}", expected, actual);
+        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
     }
 
