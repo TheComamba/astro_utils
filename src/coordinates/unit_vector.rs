@@ -35,7 +35,10 @@ impl UnitVector {
     }
 
     pub(crate) fn from_ecliptic(ecliptic: &EclipticCoordinates) -> Self {
-        todo!()
+        let x = ecliptic.longitude().cos() * ecliptic.latitude().cos();
+        let y = ecliptic.longitude().sin() * ecliptic.latitude().cos();
+        let z = ecliptic.latitude().sin();
+        UnitVector { x, y, z }
     }
 
     pub(crate) fn to_cartesian(&self, length: Length) -> CartesianCoordinates {

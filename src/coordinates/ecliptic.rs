@@ -76,6 +76,14 @@ impl EclipticCoordinates {
         };
         latitudes_equal && longitudes_equal
     }
+
+    pub(super) fn longitude(&self) -> Angle {
+        self.longitude
+    }
+
+    pub(super) fn latitude(&self) -> Angle {
+        self.latitude
+    }
 }
 
 impl Neg for EclipticCoordinates {
