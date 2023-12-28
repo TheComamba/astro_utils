@@ -91,13 +91,9 @@ impl Length {
         self.meters * LIGHT_YEARS_PER_METER
     }
 
-    pub fn eq_within(&self, other: Length, relative_accuracy: Float) -> bool {
-        let max = if self.meters > other.meters {
-            self.meters.abs()
-        } else {
-            other.meters.abs()
-        };
-        (self.meters - other.meters).abs() <= relative_accuracy * max
+    pub fn eq_within(&self, other: &Length, accuracy: Length) -> bool {
+        let diff = self.meters - other.meters;
+        diff.abs() <= accuracy.meters
     }
 }
 
@@ -191,9 +187,9 @@ impl Neg for Length {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::tests::{TEST_ACCURACY, TEST_LENGTH_ACCURACY};
 
-    const TEST_ACCURACY: Float = 1e-5;
+    use super::*;
 
     #[test]
     fn test_meters() {
@@ -205,7 +201,7 @@ mod tests {
     fn test_kilometer() {
         let expected = Length::from_meters(METERS_PER_KILOMETER);
         let length = Length::from_kilometers(1.0);
-        assert!(length.eq_within(expected, TEST_ACCURACY));
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_kilometers() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -213,7 +209,7 @@ mod tests {
     fn test_earth_radii() {
         let expected = Length::from_meters(METERS_PER_EARTH_RADIUS);
         let length = Length::from_earth_radii(1.0);
-        assert!(length.eq_within(expected, TEST_ACCURACY));
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_earth_radii() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -221,7 +217,7 @@ mod tests {
     fn test_jupiter_radii() {
         let expected = Length::from_meters(METERS_PER_JUPITER_RADIUS);
         let length = Length::from_jupiter_radii(1.0);
-        assert!(length.eq_within(expected, TEST_ACCURACY));
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_jupiter_radii() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -229,7 +225,7 @@ mod tests {
     fn test_sun_radii() {
         let expected = Length::from_meters(METERS_PER_SUN_RADIUS);
         let length = Length::from_sun_radii(1.0);
-        assert!(length.eq_within(expected, TEST_ACCURACY));
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_sun_radii() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -237,7 +233,7 @@ mod tests {
     fn test_astronomical_units() {
         let expected = Length::from_meters(METERS_PER_ASTRONOMICAL_UNIT);
         let length = Length::from_astronomical_units(1.0);
-        assert!(length.eq_within(expected, TEST_ACCURACY));
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_astronomical_units() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -245,7 +241,7 @@ mod tests {
     fn test_light_years() {
         let expected = Length::from_meters(METERS_PER_LIGHT_YEAR);
         let length = Length::from_light_years(1.0);
-        assert!(length.eq_within(expected, TEST_ACCURACY));
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_light_years() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -253,14 +249,18 @@ mod tests {
     fn test_add() {
         let expected = Length::from_meters(2.0 * METERS_PER_KILOMETER);
         let length = Length::from_kilometers(1.0);
-        assert!(length.add(length).eq_within(expected, TEST_ACCURACY));
+        assert!(length
+            .add(length)
+            .eq_within(&expected, TEST_LENGTH_ACCURACY));
     }
 
     #[test]
     fn test_sub() {
         let expected = Length::from_meters(0.0);
         let length = Length::from_kilometers(1.0);
-        assert!(length.sub(length).eq_within(expected, TEST_ACCURACY));
+        assert!(length
+            .sub(length)
+            .eq_within(&expected, TEST_LENGTH_ACCURACY));
     }
 
     #[test]

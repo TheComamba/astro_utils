@@ -67,14 +67,17 @@ pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
 
 #[cfg(test)]
 mod tests {
-    use crate::solar_system_data::{
-        EARTH_MASS, EARTH_SEMI_MAJOR_AXIS, JUPITER_MASS, JUPITER_SEMI_MAJOR_AXIS, MOON_MASS,
-        MOON_SEMI_MAJOR_AXIS, SUN_MASS,
+    use crate::{
+        solar_system_data::{
+            EARTH_MASS, EARTH_SEMI_MAJOR_AXIS, JUPITER_MASS, JUPITER_SEMI_MAJOR_AXIS, MOON_MASS,
+            MOON_SEMI_MAJOR_AXIS, SUN_MASS,
+        },
+        tests::TEST_ANGLE_ACCURACY,
     };
 
     use super::*;
 
-    const TEST_ACCURACY: Float = 1e-2;
+    const TEST_ORBITAL_PERIOD_ACCURACY: Time = Time::from_seconds(100.0);
 
     #[test]
     fn orbital_period_of_earth() {
@@ -82,7 +85,7 @@ mod tests {
         let orbital_period = orbital_period(EARTH_SEMI_MAJOR_AXIS, EARTH_MASS, SUN_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ACCURACY));
+        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ORBITAL_PERIOD_ACCURACY));
     }
 
     #[test]
@@ -91,7 +94,7 @@ mod tests {
         let orbital_period = orbital_period(JUPITER_SEMI_MAJOR_AXIS, JUPITER_MASS, SUN_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ACCURACY));
+        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ORBITAL_PERIOD_ACCURACY));
     }
 
     #[test]
@@ -100,7 +103,7 @@ mod tests {
         let orbital_period = orbital_period(MOON_SEMI_MAJOR_AXIS, MOON_MASS, EARTH_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ACCURACY));
+        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ORBITAL_PERIOD_ACCURACY));
     }
 
     #[test]
@@ -109,7 +112,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_years(4.0), Time::from_years(1.0));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -118,7 +121,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_years(4.0), Time::from_years(2.0));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -127,7 +130,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_years(4.0), Time::from_years(-1.0));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -137,7 +140,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_years(1.0), passed_time);
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -146,7 +149,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 4.0), 0.0);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
+        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -155,7 +158,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 2.0), 0.0);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
+        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -164,7 +167,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.0);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
+        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -173,7 +176,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(-TWO_PI / 4.0), 0.0);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
+        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -182,7 +185,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
+        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -191,7 +194,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 2.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
+        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -200,7 +203,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
+        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -209,7 +212,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(-TWO_PI / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
+        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -218,7 +221,7 @@ mod tests {
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI / 4.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ACCURACY));
+        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -227,7 +230,7 @@ mod tests {
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI / 2.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ACCURACY));
+        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -236,6 +239,6 @@ mod tests {
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ACCURACY));
+        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ANGLE_ACCURACY));
     }
 }

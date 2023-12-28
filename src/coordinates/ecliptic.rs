@@ -54,28 +54,20 @@ impl EclipticCoordinates {
         }
     }
 
-    pub fn eq_within(&self, other: &EclipticCoordinates, relative_accuracy: Float) -> bool {
+    pub fn eq_within(&self, other: &EclipticCoordinates, accuracy: Angle) -> bool {
         const NORTHPOLE_LATITUDE: Angle = Angle::from_radians(PI_HALF);
         const SOUTHPOLE_LATITUDE: Angle = Angle::from_radians(-PI_HALF);
         let mut clone = self.clone();
         let mut other_clone = other.clone();
         clone.normalize();
         other_clone.normalize();
-        let latitudes_equal = clone
-            .latitude
-            .eq_within(other_clone.latitude, relative_accuracy);
-        let is_pole = clone
-            .latitude
-            .eq_within(NORTHPOLE_LATITUDE, relative_accuracy)
-            || clone
-                .latitude
-                .eq_within(SOUTHPOLE_LATITUDE, relative_accuracy);
+        let latitudes_equal = clone.latitude.eq_within(other_clone.latitude, accuracy);
+        let is_pole = clone.latitude.eq_within(NORTHPOLE_LATITUDE, accuracy)
+            || clone.latitude.eq_within(SOUTHPOLE_LATITUDE, accuracy);
         let longitudes_equal = if is_pole {
             true
         } else {
-            clone
-                .longitude
-                .eq_within(other_clone.longitude, relative_accuracy)
+            clone.longitude.eq_within(other_clone.longitude, accuracy)
         };
         latitudes_equal && longitudes_equal
     }
@@ -103,11 +95,8 @@ impl Display for EclipticCoordinates {
 
 #[cfg(test)]
 mod tests {
-    use crate::TWO_PI;
-
     use super::*;
-
-    const TEST_ACCURACY: Float = 1e-5;
+    use crate::{tests::TEST_ANGLE_ACCURACY, TWO_PI};
 
     #[test]
     fn test_unary_minus() {
@@ -129,27 +118,31 @@ mod tests {
 
         let minus_x = -x;
         println!("-x, expected: {}, actual: {}", expected_minus_x, minus_x);
-        assert!(minus_x.eq_within(&expected_minus_x, TEST_ACCURACY));
+        assert!(minus_x.eq_within(&expected_minus_x, TEST_ANGLE_ACCURACY));
 
         let minus_y = -y;
         println!("-y, expected: {}, actual: {}", expected_minus_y, minus_y);
-        assert!(minus_y.eq_within(&expected_minus_y, TEST_ACCURACY));
+        assert!(minus_y.eq_within(&expected_minus_y, TEST_ANGLE_ACCURACY));
 
         let minus_z = -z;
         println!("-z, expected: {}, actual: {}", expected_minus_z, minus_z);
-        assert!(minus_z.eq_within(&expected_minus_z, TEST_ACCURACY));
+        assert!(minus_z.eq_within(&expected_minus_z, TEST_ANGLE_ACCURACY));
 
         let minus_xyz = -xyz;
         println!(
             "-xyz, expected: {}, actual: {}",
             expected_minus_xyz, minus_xyz
         );
-        assert!(minus_xyz.eq_within(&expected_minus_xyz, TEST_ACCURACY));
+        assert!(minus_xyz.eq_within(&expected_minus_xyz, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
     fn test_eq_within() {
-        let small_offsets = vec![-TEST_ACCURACY / 100.0, 0.0, TEST_ACCURACY / 100.0];
+        let small_offsets = vec![
+            -TEST_ANGLE_ACCURACY / 100.0,
+            Angle::from_radians(0.0),
+            TEST_ANGLE_ACCURACY / 100.0,
+        ];
         let large_offsets = vec![-TWO_PI, 0.0, TWO_PI, 100.0 * TWO_PI];
         let directions = vec![
             X_DIRECTION,
@@ -164,17 +157,17 @@ mod tests {
                 for large_offset in large_offsets.clone() {
                     let longitude1 = direction.longitude;
                     let latitude1 = direction.latitude;
-                    let longitude2 = longitude1 + Angle::from_radians(large_offset + small_offset);
-                    let latitude2 = latitude1 + Angle::from_radians(large_offset + small_offset);
+                    let longitude2 = longitude1 + Angle::from_radians(large_offset) + small_offset;
+                    let latitude2 = latitude1 + Angle::from_radians(large_offset) + small_offset;
                     let coords1 = EclipticCoordinates::new(longitude2, latitude1);
                     let coords2 = EclipticCoordinates::new(longitude1, latitude2);
                     let coords3 = EclipticCoordinates::new(longitude2, latitude2);
                     println!("Expecting {} == {}", direction, coords1);
-                    assert![direction.eq_within(&coords1, TEST_ACCURACY)];
+                    assert![direction.eq_within(&coords1, TEST_ANGLE_ACCURACY)];
                     println!("Expecting {} == {}", direction, coords2);
-                    assert![direction.eq_within(&coords2, TEST_ACCURACY)];
+                    assert![direction.eq_within(&coords2, TEST_ANGLE_ACCURACY)];
                     println!("Expecting {} == {}", direction, coords3);
-                    assert![direction.eq_within(&coords3, TEST_ACCURACY)];
+                    assert![direction.eq_within(&coords3, TEST_ANGLE_ACCURACY)];
                 }
             }
         }
@@ -213,9 +206,9 @@ mod tests {
                     coords2.normalize();
                     coords3.normalize();
                     coords4.normalize();
-                    assert!(coords1.eq_within(&coords2, TEST_ACCURACY));
-                    assert!(coords1.eq_within(&coords3, TEST_ACCURACY));
-                    assert!(coords1.eq_within(&coords4, TEST_ACCURACY));
+                    assert!(coords1.eq_within(&coords2, TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords3, TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords4, TEST_ANGLE_ACCURACY));
                 }
             }
         }
@@ -231,7 +224,7 @@ mod tests {
             EclipticCoordinates::new(Angle::from_radians(PI), Angle::from_radians(PI / 4.0));
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ACCURACY));
+        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates::new(
             Angle::from_radians(0.0),
@@ -241,7 +234,7 @@ mod tests {
             EclipticCoordinates::new(Angle::from_radians(PI), Angle::from_radians(-PI / 4.0));
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ACCURACY));
+        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord =
             EclipticCoordinates::new(Angle::from_radians(PI), Angle::from_radians(3.0 / 4.0 * PI));
@@ -249,7 +242,7 @@ mod tests {
             EclipticCoordinates::new(Angle::from_radians(0.0), Angle::from_radians(PI / 4.0));
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ACCURACY));
+        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates::new(
             Angle::from_radians(PI),
@@ -259,7 +252,7 @@ mod tests {
             EclipticCoordinates::new(Angle::from_radians(0.0), Angle::from_radians(-PI / 4.0));
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ACCURACY));
+        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates::new(
             Angle::from_radians(PI / 2.0),
@@ -271,7 +264,7 @@ mod tests {
         );
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ACCURACY));
+        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates::new(
             Angle::from_radians(PI / 2.0),
@@ -283,7 +276,7 @@ mod tests {
         );
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ACCURACY));
+        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates::new(
             Angle::from_radians(3.0 / 2.0 * PI),
@@ -293,6 +286,6 @@ mod tests {
             EclipticCoordinates::new(Angle::from_radians(PI / 2.0), Angle::from_radians(PI / 4.0));
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ACCURACY));
+        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
     }
 }

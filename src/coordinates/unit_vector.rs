@@ -32,4 +32,16 @@ impl UnitVector {
             z: coords.z() / length,
         }
     }
+
+    pub(crate) fn x(&self) -> Float {
+        self.x
+    }
+
+    pub(crate) fn y(&self) -> Float {
+        self.y
+    }
+
+    pub(crate) fn z(&self) -> Float {
+        self.z
+    }
 }

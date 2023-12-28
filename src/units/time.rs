@@ -19,7 +19,7 @@ pub struct Time {
 }
 
 impl Time {
-    pub fn from_seconds(seconds: Float) -> Time {
+    pub const fn from_seconds(seconds: Float) -> Time {
         Time { seconds }
     }
 
@@ -67,13 +67,9 @@ impl Time {
         self.seconds * YEARS_PER_SECOND
     }
 
-    pub fn eq_within(&self, other: Time, relative_accuracy: Float) -> bool {
-        let max = if self.seconds > other.seconds {
-            self.seconds.abs()
-        } else {
-            other.seconds.abs()
-        };
-        (self.seconds - other.seconds).abs() <= relative_accuracy * max
+    pub fn eq_within(&self, other: Time, accuracy: Time) -> bool {
+        let diff = self.seconds - other.seconds;
+        diff.abs() <= accuracy.seconds
     }
 }
 
@@ -156,8 +152,7 @@ impl Neg for Time {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    const TEST_ACCURACY: Float = 1e-5;
+    use crate::tests::{TEST_ACCURACY, TEST_TIME_ACCURACY};
 
     #[test]
     fn test_seconds() {
@@ -169,7 +164,7 @@ mod tests {
     fn test_minutes() {
         let expected = Time::from_seconds(SECONDS_PER_MINUTE);
         let time = Time::from_minutes(1.0);
-        assert!(time.eq_within(expected, TEST_ACCURACY));
+        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
         assert!((time.as_minutes() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -177,7 +172,7 @@ mod tests {
     fn test_hours() {
         let expected = Time::from_seconds(SECONDS_PER_HOUR);
         let time = Time::from_hours(1.0);
-        assert!(time.eq_within(expected, TEST_ACCURACY));
+        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
         assert!((time.as_hours() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -185,7 +180,7 @@ mod tests {
     fn test_days() {
         let expected = Time::from_seconds(SECONDS_PER_DAY);
         let time = Time::from_days(1.0);
-        assert!(time.eq_within(expected, TEST_ACCURACY));
+        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
         assert!((time.as_days() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -193,7 +188,7 @@ mod tests {
     fn test_years() {
         let expected = Time::from_seconds(SECONDS_PER_YEAR);
         let time = Time::from_years(1.0);
-        assert!(time.eq_within(expected, TEST_ACCURACY));
+        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
         assert!((time.as_years() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -202,7 +197,7 @@ mod tests {
         let time1 = Time::from_seconds(1.0);
         let time2 = Time::from_seconds(2.0);
         let expected = Time::from_seconds(3.0);
-        assert!(expected.eq_within(time1 + time2, TEST_ACCURACY));
+        assert!(expected.eq_within(time1 + time2, TEST_TIME_ACCURACY));
     }
 
     #[test]
@@ -210,7 +205,7 @@ mod tests {
         let time1 = Time::from_seconds(1.0);
         let time2 = Time::from_seconds(2.0);
         let expected = Time::from_seconds(-1.0);
-        assert!(expected.eq_within(time1 - time2, TEST_ACCURACY));
+        assert!(expected.eq_within(time1 - time2, TEST_TIME_ACCURACY));
     }
 
     #[test]

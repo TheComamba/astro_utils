@@ -56,13 +56,9 @@ impl Mass {
         self.kilograms * SOLAR_MASSES_PER_KILOGRAM
     }
 
-    pub fn eq_within(&self, other: Mass, relative_accuracy: Float) -> bool {
-        let max = if self.kilograms > other.kilograms {
-            self.kilograms.abs()
-        } else {
-            other.kilograms.abs()
-        };
-        (self.kilograms - other.kilograms).abs() <= relative_accuracy * max
+    pub fn eq_within(&self, other: Mass, accuracy: Mass) -> bool {
+        let diff = self.kilograms - other.kilograms;
+        diff.abs() <= accuracy.kilograms
     }
 }
 
@@ -142,9 +138,9 @@ impl Neg for Mass {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::tests::{TEST_ACCURACY, TEST_MASS_ACCURACY};
 
-    const TEST_ACCURACY: Float = 1e-5;
+    use super::*;
 
     #[test]
     fn test_kilogram() {
@@ -156,7 +152,7 @@ mod tests {
     fn test_earth_masses() {
         let expected = Mass::from_kilograms(KILOGRAMS_PER_EARTH_MASS);
         let mass = Mass::from_earth_masses(1.0);
-        assert!(mass.eq_within(expected, TEST_ACCURACY));
+        assert!(mass.eq_within(expected, TEST_MASS_ACCURACY));
         assert!((mass.as_earth_masses() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -164,7 +160,7 @@ mod tests {
     fn test_jupiter_masses() {
         let expected = Mass::from_kilograms(KILOGRAMS_PER_JUPITER_MASS);
         let mass = Mass::from_jupiter_masses(1.0);
-        assert!(mass.eq_within(expected, TEST_ACCURACY));
+        assert!(mass.eq_within(expected, TEST_MASS_ACCURACY));
         assert!((mass.as_jupiter_masses() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -172,7 +168,7 @@ mod tests {
     fn test_solar_masses() {
         let expected = Mass::from_kilograms(KILOGRAMS_PER_SOLAR_MASS);
         let mass = Mass::from_solar_masses(1.0);
-        assert!(mass.eq_within(expected, TEST_ACCURACY));
+        assert!(mass.eq_within(expected, TEST_MASS_ACCURACY));
         assert!((mass.as_solar_masses() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -181,7 +177,7 @@ mod tests {
         let mass1 = Mass::from_kilograms(1.0);
         let mass2 = Mass::from_kilograms(2.0);
         let expected = Mass::from_kilograms(3.0);
-        assert!((mass1 + mass2).eq_within(expected, TEST_ACCURACY));
+        assert!((mass1 + mass2).eq_within(expected, TEST_MASS_ACCURACY));
     }
 
     #[test]
@@ -189,7 +185,7 @@ mod tests {
         let mass1 = Mass::from_kilograms(1.0);
         let mass2 = Mass::from_kilograms(2.0);
         let expected = Mass::from_kilograms(-1.0);
-        assert!((mass1 - mass2).eq_within(expected, TEST_ACCURACY));
+        assert!((mass1 - mass2).eq_within(expected, TEST_MASS_ACCURACY));
     }
 
     #[test]

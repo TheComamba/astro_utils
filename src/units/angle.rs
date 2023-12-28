@@ -44,8 +44,7 @@ impl Angle {
         self.radian * ARCSECS_PER_RADIAN
     }
 
-    pub fn eq_within(&self, other: Angle, relative_accuracy: Float) -> bool {
-        let abs_accuracy = relative_accuracy * TWO_PI;
+    pub fn eq_within(&self, other: Angle, accuracy: Angle) -> bool {
         let diff = self.radian - other.radian;
         let diff = diff % TWO_PI;
         let diff = if diff > PI {
@@ -55,7 +54,7 @@ impl Angle {
         } else {
             diff
         };
-        diff.abs() <= abs_accuracy
+        diff.abs() <= accuracy.radian
     }
 
     /*
@@ -152,9 +151,10 @@ impl Display for Angle {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::Float;
-
-    const TEST_ACCURACY: Float = 1e-5;
+    use crate::{
+        tests::{TEST_ACCURACY, TEST_ANGLE_ACCURACY},
+        Float,
+    };
 
     #[test]
     fn test_radians() {
@@ -166,7 +166,7 @@ mod tests {
     fn test_degrees() {
         let expected = Angle::from_radians(RADIANS_PER_DEGREE);
         let angle = Angle::from_degrees(1.0);
-        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
         assert!((angle.as_degrees() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -174,7 +174,7 @@ mod tests {
     fn test_arcsecs() {
         let expected = Angle::from_radians(RADIAN_PER_ARCSEC);
         let angle = Angle::from_arcsecs(1.0);
-        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
         assert!((angle.as_arcsecs() - 1.0).abs() < TEST_ACCURACY);
     }
 
@@ -183,8 +183,8 @@ mod tests {
         let radians = Angle::from_radians(PI / 2.0);
         let degrees = Angle::from_degrees(90.0);
         let arcsecs = Angle::from_arcsecs(90.0 * 3600.0);
-        assert!(radians.eq_within(degrees, TEST_ACCURACY));
-        assert!(radians.eq_within(arcsecs, TEST_ACCURACY));
+        assert!(radians.eq_within(degrees, TEST_ANGLE_ACCURACY));
+        assert!(radians.eq_within(arcsecs, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -192,8 +192,8 @@ mod tests {
         let radians = Angle::from_radians(PI);
         let degrees = Angle::from_degrees(180.0);
         let arcsecs = Angle::from_arcsecs(180.0 * 3600.0);
-        assert!(radians.eq_within(degrees, TEST_ACCURACY));
-        assert!(radians.eq_within(arcsecs, TEST_ACCURACY));
+        assert!(radians.eq_within(degrees, TEST_ANGLE_ACCURACY));
+        assert!(radians.eq_within(arcsecs, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -234,7 +234,7 @@ mod tests {
         let expected = Angle::from_radians(PI / 4.0);
         angle.normalize();
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -243,7 +243,7 @@ mod tests {
         let expected = Angle::from_radians(3.0 * PI / 4.0);
         angle.normalize();
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -252,7 +252,7 @@ mod tests {
         let expected = Angle::from_radians(-PI / 4.0);
         angle.normalize();
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
     }
 
     #[test]
@@ -274,7 +274,7 @@ mod tests {
                     let angle1 = Angle::from_radians(rad1);
                     let angle2 = Angle::from_radians(rad2);
                     println!("Expecting {} == {}", angle1, angle2);
-                    assert!(angle1.eq_within(angle2, TEST_ACCURACY));
+                    assert!(angle1.eq_within(angle2, TEST_ANGLE_ACCURACY));
                 }
             }
         }
