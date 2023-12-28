@@ -20,7 +20,7 @@ pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time
  */
 pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
     let mean_motion = TWO_PI / orbital_period.as_seconds();
-    let mean_anomaly = mean_motion * time.as_seconds();
+    let mean_anomaly = mean_motion * (time.as_seconds() % orbital_period.as_seconds());
     Angle::from_radians(mean_anomaly)
 }
 
@@ -33,12 +33,13 @@ pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
     static ACCURACY: Float = 1e-6;
     let mean_anomaly = mean_anomaly.as_radians();
     let mut eccentric_anomaly = mean_anomaly;
-    let mut error = 1.0;
+    let mut error = 10.0 * ACCURACY;
     while error > ACCURACY {
-        let next_eccentric_anomaly = eccentric_anomaly
-            - (eccentric_anomaly - eccentricity * eccentric_anomaly.sin() - mean_anomaly)
-                / (1.0 - eccentricity * eccentric_anomaly.cos());
-        error = (next_eccentric_anomaly - eccentric_anomaly).abs();
+        let numerator = eccentric_anomaly - eccentricity * eccentric_anomaly.sin() - mean_anomaly;
+        let denominator = 1.0 - eccentricity * eccentric_anomaly.cos();
+        let next_correction = numerator / denominator;
+        let next_eccentric_anomaly = eccentric_anomaly - next_correction;
+        error = next_correction.abs();
         eccentric_anomaly = next_eccentric_anomaly;
     }
 
@@ -51,10 +52,9 @@ pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
  * https://en.wikipedia.org/wiki/True_anomaly
  */
 pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
-    let true_anomaly = 2.0
-        * ((eccentric_anomaly.as_radians() / 2.0).tan()
-            / ((1.0 + eccentricity) / (1.0 - eccentricity)).sqrt())
-        .atan();
+    let sqrt_arg = (1.0 + eccentricity) / (1.0 - eccentricity);
+    let artan_arg = (eccentric_anomaly.as_radians() / 2.0).tan() * sqrt_arg.sqrt();
+    let true_anomaly = 2.0 * artan_arg.atan();
     Angle::from_radians(true_anomaly)
 }
 
@@ -118,6 +118,16 @@ mod tests {
     fn mean_anomaly_three_quarters_circle() {
         let expected_mean_anomaly = Angle::from_radians(TWO_PI * 3.0 / 4.0);
         let mean_anomaly = mean_anomaly(Time::from_years(4.0), Time::from_years(-1.0));
+        println!("Expected mean anomaly: {}", expected_mean_anomaly);
+        println!("Calculated mean anomaly: {}", mean_anomaly);
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn mean_anomaly_is_stable_after_loads_of_revolutions() {
+        let expected_mean_anomaly = Angle::from_radians(TWO_PI / 4.0);
+        let passed_time = Time::from_years(1e5 + 0.25);
+        let mean_anomaly = mean_anomaly(Time::from_years(1.0), passed_time);
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
         assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
