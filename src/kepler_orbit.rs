@@ -196,7 +196,7 @@ mod tests {
     }
 
     #[test]
-    fn true_anomaly_a_quarter() {
+    fn true_anomaly_from_quarter_circle_eccentric_anomaly_and_zero_eccentricity() {
         let expected_true_anomaly = Angle::from_radians(TWO_PI / 4.0);
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI / 4.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
@@ -205,7 +205,7 @@ mod tests {
     }
 
     #[test]
-    fn true_anomaly_a_half() {
+    fn true_anomaly_from_half_circle_eccentric_anomaly_and_zero_eccentricity() {
         let expected_true_anomaly = Angle::from_radians(TWO_PI / 2.0);
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI / 2.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
@@ -214,7 +214,7 @@ mod tests {
     }
 
     #[test]
-    fn true_anomaly_three_quarters() {
+    fn true_anomaly_from_three_quarters_circle_eccentric_anomaly_and_zero_eccentricity() {
         let expected_true_anomaly = Angle::from_radians(TWO_PI * 3.0 / 4.0);
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
