@@ -2,19 +2,19 @@ use super::cartesian::CartesianCoordinates;
 use crate::Float;
 
 pub const X_DIRECTION: UnitVector = UnitVector {
-    x: 1.0,
-    y: 0.0,
-    z: 0.0,
+    x: 1.,
+    y: 0.,
+    z: 0.,
 };
 pub const Y_DIRECTION: UnitVector = UnitVector {
-    x: 0.0,
-    y: 1.0,
-    z: 0.0,
+    x: 0.,
+    y: 1.,
+    z: 0.,
 };
 pub const Z_DIRECTION: UnitVector = UnitVector {
-    x: 0.0,
-    y: 0.0,
-    z: 1.0,
+    x: 0.,
+    y: 0.,
+    z: 1.,
 };
 
 pub struct UnitVector {

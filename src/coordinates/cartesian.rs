@@ -9,9 +9,9 @@ use std::{
 };
 
 pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
-    x: Length::from_meters(0.0),
-    y: Length::from_meters(0.0),
-    z: Length::from_meters(0.0),
+    x: Length::from_meters(0.),
+    y: Length::from_meters(0.),
+    z: Length::from_meters(0.),
 };
 
 #[derive(Debug, Copy, Clone)]
@@ -64,17 +64,17 @@ impl CartesianCoordinates {
         let uy = axis.y();
         let uz = axis.z();
 
-        let r_11 = cos + ux * ux * (1.0 - cos);
-        let r_12 = ux * uy * (1.0 - cos) - uz * sin;
-        let r_13 = ux * uz * (1.0 - cos) + uy * sin;
+        let r_11 = cos + ux * ux * (1. - cos);
+        let r_12 = ux * uy * (1. - cos) - uz * sin;
+        let r_13 = ux * uz * (1. - cos) + uy * sin;
 
-        let r_21 = uy * ux * (1.0 - cos) + uz * sin;
-        let r_22 = cos + uy * uy * (1.0 - cos);
-        let r_23 = uy * uz * (1.0 - cos) - ux * sin;
+        let r_21 = uy * ux * (1. - cos) + uz * sin;
+        let r_22 = cos + uy * uy * (1. - cos);
+        let r_23 = uy * uz * (1. - cos) - ux * sin;
 
-        let r_31 = uz * ux * (1.0 - cos) - uy * sin;
-        let r_32 = uz * uy * (1.0 - cos) + ux * sin;
-        let r_33 = cos + uz * uz * (1.0 - cos);
+        let r_31 = uz * ux * (1. - cos) - uy * sin;
+        let r_32 = uz * uy * (1. - cos) + ux * sin;
+        let r_33 = cos + uz * uz * (1. - cos);
 
         let x = self.x * r_11 + self.y * r_12 + self.z * r_13;
         let y = self.x * r_21 + self.y * r_22 + self.z * r_23;
@@ -161,29 +161,29 @@ mod tests {
     };
 
     pub(super) const X_VECTOR: CartesianCoordinates = CartesianCoordinates {
-        x: Length::from_meters(1.0),
-        y: Length::from_meters(0.0),
-        z: Length::from_meters(0.0),
+        x: Length::from_meters(1.),
+        y: Length::from_meters(0.),
+        z: Length::from_meters(0.),
     };
 
     pub(super) const Y_VECTOR: CartesianCoordinates = CartesianCoordinates {
-        x: Length::from_meters(0.0),
-        y: Length::from_meters(1.0),
-        z: Length::from_meters(0.0),
+        x: Length::from_meters(0.),
+        y: Length::from_meters(1.),
+        z: Length::from_meters(0.),
     };
 
     pub(super) const Z_VECTOR: CartesianCoordinates = CartesianCoordinates {
-        x: Length::from_meters(0.0),
-        y: Length::from_meters(0.0),
-        z: Length::from_meters(1.0),
+        x: Length::from_meters(0.),
+        y: Length::from_meters(0.),
+        z: Length::from_meters(1.),
     };
 
-    const QUARTER_TURN: Angle = Angle::from_radians(TWO_PI / 4.0);
-    const HALF_TURN: Angle = Angle::from_radians(TWO_PI / 2.0);
-    const THREE_QUARTER_TURN: Angle = Angle::from_radians(3.0 / 4.0 * TWO_PI);
+    const QUARTER_TURN: Angle = Angle::from_radians(TWO_PI / 4.);
+    const HALF_TURN: Angle = Angle::from_radians(TWO_PI / 2.);
+    const THREE_QUARTER_TURN: Angle = Angle::from_radians(3. / 4. * TWO_PI);
     const FULL_TURN: Angle = Angle::from_radians(TWO_PI);
-    const ONE_THIRD_TURN: Angle = Angle::from_radians(TWO_PI / 3.0);
-    const TWO_THIRDS_TURN: Angle = Angle::from_radians(2.0 / 3.0 * TWO_PI);
+    const ONE_THIRD_TURN: Angle = Angle::from_radians(TWO_PI / 3.);
+    const TWO_THIRDS_TURN: Angle = Angle::from_radians(2. / 3. * TWO_PI);
 
     #[test]
     fn test_length() {
@@ -191,9 +191,9 @@ mod tests {
         use crate::units::length::Length;
 
         let coordinates = CartesianCoordinates {
-            x: Length::from_meters(3.0),
-            y: Length::from_meters(4.0),
-            z: Length::from_meters(5.0),
+            x: Length::from_meters(3.),
+            y: Length::from_meters(4.),
+            z: Length::from_meters(5.),
         };
 
         assert!(coordinates.length().eq_within(
@@ -430,9 +430,9 @@ mod tests {
     #[test]
     fn test_rotating_around_diagonal_axis() {
         let axis = UnitVector::from_cartesian(&CartesianCoordinates {
-            x: Length::from_meters(1.0),
-            y: Length::from_meters(1.0),
-            z: Length::from_meters(1.0),
+            x: Length::from_meters(1.),
+            y: Length::from_meters(1.),
+            z: Length::from_meters(1.),
         });
 
         let rotated = X_VECTOR.rotated(ONE_THIRD_TURN, &axis);
