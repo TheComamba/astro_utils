@@ -171,6 +171,14 @@ impl Div<Float> for Length {
     }
 }
 
+impl Div<Length> for Length {
+    type Output = Float;
+
+    fn div(self, other: Length) -> Float {
+        self.meters / other.meters
+    }
+}
+
 impl Neg for Length {
     type Output = Length;
 

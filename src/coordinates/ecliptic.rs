@@ -1,8 +1,6 @@
+use crate::{units::angle::Angle, Float, PI, PI_HALF};
 use std::fmt::{Display, Formatter};
 use std::ops::Neg;
-
-use crate::{units::angle::Angle, Float, PI};
-use crate::{PI_HALF, TWO_PI};
 
 pub const X_DIRECTION: EclipticCoordinates = EclipticCoordinates {
     longitude: Angle::from_radians(0.0),
@@ -103,7 +101,7 @@ impl Display for EclipticCoordinates {
 
 #[cfg(test)]
 mod tests {
-    use crate::PI_HALF;
+    use crate::{PI_HALF, TWO_PI};
 
     use super::*;
 

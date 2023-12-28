@@ -1,6 +1,7 @@
+use crate::{units::length::Length, Float};
 use std::ops::{Add, Div, Mul, Sub};
 
-use crate::{units::length::Length, Float};
+use super::unit_vector::UnitVector;
 
 pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
     x: Length::from_meters(0.0),
@@ -31,6 +32,18 @@ impl CartesianCoordinates {
     pub fn distance(&self, other: &CartesianCoordinates) -> Length {
         let diff = self - other;
         diff.length()
+    }
+
+    pub(super) fn x(&self) -> Length {
+        self.x
+    }
+
+    pub(super) fn y(&self) -> Length {
+        self.y
+    }
+
+    pub(super) fn z(&self) -> Length {
+        self.z
     }
 }
 
@@ -79,5 +92,25 @@ impl Div<Float> for CartesianCoordinates {
             y: self.y / f,
             z: self.z / f,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_length() {
+        use super::CartesianCoordinates;
+        use crate::units::length::Length;
+
+        let coordinates = CartesianCoordinates {
+            x: Length::from_meters(3.0),
+            y: Length::from_meters(4.0),
+            z: Length::from_meters(5.0),
+        };
+
+        assert_eq!(
+            coordinates.length(),
+            Length::from_meters(7.0710678118654755)
+        );
     }
 }
