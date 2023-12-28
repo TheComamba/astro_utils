@@ -99,16 +99,16 @@ impl Length {
 
 impl Display for Length {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.meters > 0.99 * METERS_PER_LIGHT_YEAR {
-            write!(f, "{:.2} light years", self.as_light_years())
-        } else if self.meters > 0.99 * METERS_PER_ASTRONOMICAL_UNIT {
+        if self.meters > 0.0099 * METERS_PER_LIGHT_YEAR {
+            write!(f, "{:.2} ly", self.as_light_years())
+        } else if self.meters > 0.0099 * METERS_PER_ASTRONOMICAL_UNIT {
             write!(f, "{:.2} AU", self.as_astronomical_units())
         } else if self.meters > 0.99 * METERS_PER_SUN_RADIUS {
-            write!(f, "{:.2} Sun radii", self.as_sun_radii())
+            write!(f, "{:.2} R_Sun", self.as_sun_radii())
         } else if self.meters > 0.99 * METERS_PER_JUPITER_RADIUS {
-            write!(f, "{:.2} Jupiter radii", self.as_jupiter_radii())
+            write!(f, "{:.2} R_Jup", self.as_jupiter_radii())
         } else if self.meters > 0.99 * METERS_PER_EARTH_RADIUS {
-            write!(f, "{:.2} Earth radii", self.as_earth_radii())
+            write!(f, "{:.2} R_Earth", self.as_earth_radii())
         } else if self.meters > 0.99 * METERS_PER_KILOMETER {
             write!(f, "{:.2} km", self.as_kilometers())
         } else {
@@ -268,15 +268,15 @@ mod tests {
         let km = Length::from_kilometers(1.23);
         assert_eq!(format!("{}", km), "1.23 km");
         let earth_radii = Length::from_earth_radii(1.23);
-        assert_eq!(format!("{}", earth_radii), "1.23 Earth radii");
+        assert_eq!(format!("{}", earth_radii), "1.23 R_Earth");
         let jupiter_radii = Length::from_jupiter_radii(1.23);
-        assert_eq!(format!("{}", jupiter_radii), "1.23 Jupiter radii");
+        assert_eq!(format!("{}", jupiter_radii), "1.23 R_Jup");
         let sun_radii = Length::from_sun_radii(1.23);
-        assert_eq!(format!("{}", sun_radii), "1.23 Sun radii");
+        assert_eq!(format!("{}", sun_radii), "1.23 R_Sun");
         let astronomical_units = Length::from_astronomical_units(1.23);
         assert_eq!(format!("{}", astronomical_units), "1.23 AU");
         let light_years = Length::from_light_years(1.23);
-        assert_eq!(format!("{}", light_years), "1.23 light years");
+        assert_eq!(format!("{}", light_years), "1.23 ly");
     }
 
     #[test]
@@ -284,14 +284,14 @@ mod tests {
         let km = Length::from_kilometers(1.);
         assert_eq!(format!("{}", km), "1.00 km");
         let earth_radii = Length::from_earth_radii(1.);
-        assert_eq!(format!("{}", earth_radii), "1.00 Earth radii");
+        assert_eq!(format!("{}", earth_radii), "1.00 R_Earth");
         let jupiter_radii = Length::from_jupiter_radii(1.);
-        assert_eq!(format!("{}", jupiter_radii), "1.00 Jupiter radii");
+        assert_eq!(format!("{}", jupiter_radii), "1.00 R_Jup");
         let sun_radii = Length::from_sun_radii(1.);
-        assert_eq!(format!("{}", sun_radii), "1.00 Sun radii");
-        let astronomical_units = Length::from_astronomical_units(1.);
-        assert_eq!(format!("{}", astronomical_units), "1.00 AU");
-        let light_years = Length::from_light_years(1.);
-        assert_eq!(format!("{}", light_years), "1.00 light years");
+        assert_eq!(format!("{}", sun_radii), "1.00 R_Sun");
+        let astronomical_units = Length::from_astronomical_units(0.01);
+        assert_eq!(format!("{}", astronomical_units), "0.01 AU");
+        let light_years = Length::from_light_years(0.01);
+        assert_eq!(format!("{}", light_years), "0.01 ly");
     }
 }

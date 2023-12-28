@@ -5,6 +5,8 @@ use std::{
 
 use crate::Float;
 
+pub(crate) const KILOGRAMS_PER_MOON_MASS: Float = 7.342e22;
+const MOON_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_MOON_MASS;
 pub(crate) const KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
 const EARTH_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_EARTH_MASS;
 pub(crate) const KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
@@ -20,6 +22,12 @@ pub struct Mass {
 impl Mass {
     pub const fn from_kilograms(kilograms: Float) -> Mass {
         Mass { kilograms }
+    }
+
+    pub fn from_moon_masses(moon_masses: Float) -> Mass {
+        Mass {
+            kilograms: moon_masses * KILOGRAMS_PER_MOON_MASS,
+        }
     }
 
     pub fn from_earth_masses(earth_masses: Float) -> Mass {
@@ -44,6 +52,10 @@ impl Mass {
         self.kilograms
     }
 
+    pub fn as_moon_masses(&self) -> Float {
+        self.kilograms * MOON_MASSES_PER_KILOGRAM
+    }
+
     pub fn as_earth_masses(&self) -> Float {
         self.kilograms * EARTH_MASSES_PER_KILOGRAM
     }
@@ -65,11 +77,13 @@ impl Mass {
 impl Display for Mass {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if self.kilograms > 0.99 * KILOGRAMS_PER_SOLAR_MASS {
-            write!(f, "{:.2} solar masses", self.as_solar_masses())
+            write!(f, "{:.2} M_Sun", self.as_solar_masses())
         } else if self.kilograms > 0.99 * KILOGRAMS_PER_JUPITER_MASS {
-            write!(f, "{:.2} Jupiter masses", self.as_jupiter_masses())
+            write!(f, "{:.2} M_Jup", self.as_jupiter_masses())
         } else if self.kilograms > 0.99 * KILOGRAMS_PER_EARTH_MASS {
-            write!(f, "{:.2} Earth masses", self.as_earth_masses())
+            write!(f, "{:.2} M_Earth", self.as_earth_masses())
+        } else if self.kilograms > 0.0099 * KILOGRAMS_PER_MOON_MASS {
+            write!(f, "{:.2} M_Moon", self.as_moon_masses())
         } else {
             write!(f, "{:.2} kg", self.kilograms)
         }
@@ -149,6 +163,14 @@ mod tests {
     }
 
     #[test]
+    fn test_moon_masses() {
+        let expected = Mass::from_kilograms(KILOGRAMS_PER_MOON_MASS);
+        let mass = Mass::from_moon_masses(1.);
+        assert!(mass.eq_within(expected, TEST_MASS_ACCURACY));
+        assert!((mass.as_moon_masses() - 1.).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
     fn test_earth_masses() {
         let expected = Mass::from_kilograms(KILOGRAMS_PER_EARTH_MASS);
         let mass = Mass::from_earth_masses(1.);
@@ -192,23 +214,27 @@ mod tests {
     fn test_display() {
         let mass = Mass::from_kilograms(1.23);
         assert_eq!(mass.to_string(), "1.23 kg");
+        let mass = Mass::from_moon_masses(1.23);
+        assert_eq!(mass.to_string(), "1.23 M_Moon");
         let mass = Mass::from_earth_masses(1.23);
-        assert_eq!(mass.to_string(), "1.23 Earth masses");
+        assert_eq!(mass.to_string(), "1.23 M_Earth");
         let mass = Mass::from_jupiter_masses(1.23);
-        assert_eq!(mass.to_string(), "1.23 Jupiter masses");
+        assert_eq!(mass.to_string(), "1.23 M_Jup");
         let mass = Mass::from_solar_masses(1.23);
-        assert_eq!(mass.to_string(), "1.23 solar masses");
+        assert_eq!(mass.to_string(), "1.23 M_Sun");
     }
 
     #[test]
     fn test_display_thresholds() {
         let mass = Mass::from_kilograms(1.);
         assert_eq!(mass.to_string(), "1.00 kg");
+        let mass = Mass::from_moon_masses(0.01);
+        assert_eq!(mass.to_string(), "0.01 M_Moon");
         let mass = Mass::from_earth_masses(1.);
-        assert_eq!(mass.to_string(), "1.00 Earth masses");
+        assert_eq!(mass.to_string(), "1.00 M_Earth");
         let mass = Mass::from_jupiter_masses(1.);
-        assert_eq!(mass.to_string(), "1.00 Jupiter masses");
+        assert_eq!(mass.to_string(), "1.00 M_Jup");
         let mass = Mass::from_solar_masses(1.);
-        assert_eq!(mass.to_string(), "1.00 solar masses");
+        assert_eq!(mass.to_string(), "1.00 M_Sun");
     }
 }
