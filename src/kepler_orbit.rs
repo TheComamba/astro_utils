@@ -126,10 +126,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_quarter_circle_mean_anomaly_and_zero_eccentricity() {
         let expected_eccentric_anomaly = Angle::from_radians(TWO_PI / 4.0);
-        let eccentric_anomaly = eccentric_anomaly(
-            Angle::from_radians(TWO_PI / 4.0),
-            0.0,
-        );
+        let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 4.0), 0.0);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
         assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
@@ -138,10 +135,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_half_circle_mean_anomaly_and_zero_eccentricity() {
         let expected_eccentric_anomaly = Angle::from_radians(TWO_PI / 2.0);
-        let eccentric_anomaly = eccentric_anomaly(
-            Angle::from_radians(TWO_PI / 2.0),
-            0.0,
-        );
+        let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 2.0), 0.0);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
         assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
@@ -150,10 +144,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_three_quarters_circle_mean_anomaly_and_zero_eccentricity() {
         let expected_eccentric_anomaly = Angle::from_radians(TWO_PI * 3.0 / 4.0);
-        let eccentric_anomaly = eccentric_anomaly(
-            Angle::from_radians(TWO_PI * 3.0 / 4.0),
-            0.0,
-        );
+        let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.0);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
         assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
@@ -162,10 +153,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_negative_quarter_circle_mean_anomaly_and_zero_eccentricity() {
         let expected_eccentric_anomaly = Angle::from_radians(TWO_PI * 3.0 / 4.0);
-        let eccentric_anomaly = eccentric_anomaly(
-            Angle::from_radians(-TWO_PI / 4.0),
-            0.0,
-        );
+        let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(-TWO_PI / 4.0), 0.0);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
         assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
@@ -174,10 +162,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_quarter_circle_mean_anomaly_and_half_eccentricity() {
         let expected_eccentric_anomaly = Angle::from_degrees(115.79362093315422);
-        let eccentric_anomaly = eccentric_anomaly(
-            Angle::from_radians(TWO_PI / 4.0),
-            0.5,
-        );
+        let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
         assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
@@ -186,10 +171,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_half_circle_mean_anomaly_and_half_eccentricity() {
         let expected_eccentric_anomaly = Angle::from_radians(TWO_PI / 2.0);
-        let eccentric_anomaly = eccentric_anomaly(
-            Angle::from_radians(TWO_PI / 2.0),
-            0.5,
-        );
+        let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 2.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
         assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
@@ -197,11 +179,8 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_three_quarters_circle_mean_anomaly_and_half_eccentricity() {
-        let expected_eccentric_anomaly = Angle::from_degrees(180.0+115.79362093315422);
-        let eccentric_anomaly = eccentric_anomaly(
-            Angle::from_radians(TWO_PI * 3.0 / 4.0),
-            0.5,
-        );
+        let expected_eccentric_anomaly = Angle::from_degrees(180.0 + 115.79362093315422);
+        let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
         assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
@@ -209,11 +188,8 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_negative_quarter_circle_mean_anomaly_and_half_eccentricity() {
-        let expected_eccentric_anomaly = Angle::from_degrees(180.0+115.79362093315422);
-        let eccentric_anomaly = eccentric_anomaly(
-            Angle::from_radians(-TWO_PI / 4.0),
-            0.5,
-        );
+        let expected_eccentric_anomaly = Angle::from_degrees(180.0 + 115.79362093315422);
+        let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(-TWO_PI / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
         assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ACCURACY));
@@ -222,10 +198,7 @@ mod tests {
     #[test]
     fn true_anomaly_a_quarter() {
         let expected_true_anomaly = Angle::from_radians(TWO_PI / 4.0);
-        let true_anomaly = true_anomaly(
-            Angle::from_radians(TWO_PI / 4.0),
-            0.0,
-        );
+        let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI / 4.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
         assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ACCURACY));
@@ -234,10 +207,7 @@ mod tests {
     #[test]
     fn true_anomaly_a_half() {
         let expected_true_anomaly = Angle::from_radians(TWO_PI / 2.0);
-        let true_anomaly = true_anomaly(
-            Angle::from_radians(TWO_PI / 2.0),
-            0.0,
-        );
+        let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI / 2.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
         assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ACCURACY));
@@ -246,10 +216,7 @@ mod tests {
     #[test]
     fn true_anomaly_three_quarters() {
         let expected_true_anomaly = Angle::from_radians(TWO_PI * 3.0 / 4.0);
-        let true_anomaly = true_anomaly(
-            Angle::from_radians(TWO_PI * 3.0 / 4.0),
-            0.0,
-        );
+        let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.0);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
         assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ACCURACY));

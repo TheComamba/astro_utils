@@ -7,6 +7,8 @@ use crate::{Float, PI, TWO_PI};
 
 static RADIANS_PER_DEGREE: Float = PI / 180.0;
 static DEGREES_PER_RADIAN: Float = 1.0 / RADIANS_PER_DEGREE;
+static ARCSECS_PER_RADIAN: Float = 3600.0 * DEGREES_PER_RADIAN;
+static RADIAN_PER_ARCSEC: Float = 1.0 / ARCSECS_PER_RADIAN;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Angle {
@@ -28,12 +30,24 @@ impl Angle {
         angle
     }
 
+    pub fn from_arcsecs(arcsec: Float) -> Angle {
+        let mut angle = Angle {
+            radian: arcsec * RADIAN_PER_ARCSEC,
+        };
+        angle.normalize();
+        angle
+    }
+
     pub fn as_radians(&self) -> Float {
         self.radian
     }
 
     pub fn as_degrees(&self) -> Float {
         self.radian * DEGREES_PER_RADIAN
+    }
+
+    pub fn as_arcsecs(&self) -> Float {
+        self.radian * ARCSECS_PER_RADIAN
     }
 
     pub fn eq_within(&self, other: Angle, relative_accuracy: Float) -> bool {
@@ -97,6 +111,32 @@ mod tests {
         let angle = Angle::from_degrees(1.0);
         assert!(angle.eq_within(expected, TEST_ACCURACY));
         assert!((angle.as_degrees() - 1.0).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
+    fn test_arcsecs() {
+        let expected = Angle::from_radians(RADIAN_PER_ARCSEC);
+        let angle = Angle::from_arcsecs(1.0);
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        assert!((angle.as_arcsecs() - 1.0).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
+    fn quarter_circle_in_various_units() {
+        let radians = Angle::from_radians(PI / 2.0);
+        let degrees = Angle::from_degrees(90.0);
+        let arcsecs = Angle::from_arcsecs(90.0 * 3600.0);
+        assert!(radians.eq_within(degrees, TEST_ACCURACY));
+        assert!(radians.eq_within(arcsecs, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn half_circle_in_various_units() {
+        let radians = Angle::from_radians(PI);
+        let degrees = Angle::from_degrees(180.0);
+        let arcsecs = Angle::from_arcsecs(180.0 * 3600.0);
+        assert!(radians.eq_within(degrees, TEST_ACCURACY));
+        assert!(radians.eq_within(arcsecs, TEST_ACCURACY));
     }
 
     #[test]
