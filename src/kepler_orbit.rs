@@ -37,7 +37,7 @@ pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
  * https://en.wikipedia.org/wiki/Eccentric_anomaly
  */
 pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
-    static ACCURACY: Float = 1e-6;
+    const ACCURACY: Float = 1e-6;
     let mean_anomaly = mean_anomaly.as_radians();
     let mut eccentric_anomaly = mean_anomaly;
     let mut error = 10.0 * ACCURACY;
@@ -74,7 +74,7 @@ mod tests {
 
     use super::*;
 
-    static TEST_ACCURACY: Float = 1e-2;
+    const TEST_ACCURACY: Float = 1e-2;
 
     #[test]
     fn orbital_period_of_earth() {

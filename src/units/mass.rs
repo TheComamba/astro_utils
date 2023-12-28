@@ -5,12 +5,12 @@ use std::{
 
 use crate::Float;
 
-pub(crate) static KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
-static EARTH_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_EARTH_MASS;
-pub(crate) static KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
-static JUPITER_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_JUPITER_MASS;
-pub(crate) static KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
-static SOLAR_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_SOLAR_MASS;
+pub(crate) const KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
+const EARTH_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_EARTH_MASS;
+pub(crate) const KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
+const JUPITER_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_JUPITER_MASS;
+pub(crate) const KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
+const SOLAR_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_SOLAR_MASS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Mass {

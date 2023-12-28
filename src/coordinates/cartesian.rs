@@ -2,7 +2,7 @@ use std::ops::{Add, Div, Mul, Sub};
 
 use crate::{units::length::Length, Float};
 
-pub static ORIGIN: CartesianCoordinates = CartesianCoordinates {
+pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
     x: Length::from_meters(0.0),
     y: Length::from_meters(0.0),
     z: Length::from_meters(0.0),

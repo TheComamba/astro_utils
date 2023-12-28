@@ -4,14 +4,14 @@ use std::{
     ops::{Add, Div, Mul, Neg, Sub},
 };
 
-static SECONDS_PER_MINUTE: Float = 60.0;
-static MINUTES_PER_SECOND: Float = 1.0 / SECONDS_PER_MINUTE;
-static SECONDS_PER_DAY: Float = 86400.0;
-static DAYS_PER_SECOND: Float = 1.0 / SECONDS_PER_DAY;
-static SECONDS_PER_HOUR: Float = 3600.0;
-static HOURS_PER_SECOND: Float = 1.0 / SECONDS_PER_HOUR;
-static SECONDS_PER_YEAR: Float = 31557600.0;
-static YEARS_PER_SECOND: Float = 1.0 / SECONDS_PER_YEAR;
+const SECONDS_PER_MINUTE: Float = 60.0;
+const MINUTES_PER_SECOND: Float = 1.0 / SECONDS_PER_MINUTE;
+const SECONDS_PER_DAY: Float = 86400.0;
+const DAYS_PER_SECOND: Float = 1.0 / SECONDS_PER_DAY;
+const SECONDS_PER_HOUR: Float = 3600.0;
+const HOURS_PER_SECOND: Float = 1.0 / SECONDS_PER_HOUR;
+const SECONDS_PER_YEAR: Float = 31557600.0;
+const YEARS_PER_SECOND: Float = 1.0 / SECONDS_PER_YEAR;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Time {
@@ -157,7 +157,7 @@ impl Neg for Time {
 mod tests {
     use super::*;
 
-    static TEST_ACCURACY: Float = 1e-5;
+    const TEST_ACCURACY: Float = 1e-5;
 
     #[test]
     fn test_seconds() {

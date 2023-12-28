@@ -5,10 +5,10 @@ use std::{
 
 use crate::{Float, PI, TWO_PI};
 
-static RADIANS_PER_DEGREE: Float = PI / 180.0;
-static DEGREES_PER_RADIAN: Float = 1.0 / RADIANS_PER_DEGREE;
-static ARCSECS_PER_RADIAN: Float = 3600.0 * DEGREES_PER_RADIAN;
-static RADIAN_PER_ARCSEC: Float = 1.0 / ARCSECS_PER_RADIAN;
+const RADIANS_PER_DEGREE: Float = PI / 180.0;
+const DEGREES_PER_RADIAN: Float = 1.0 / RADIANS_PER_DEGREE;
+const ARCSECS_PER_RADIAN: Float = 3600.0 * DEGREES_PER_RADIAN;
+const RADIAN_PER_ARCSEC: Float = 1.0 / ARCSECS_PER_RADIAN;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Angle {
