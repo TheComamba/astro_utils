@@ -1,4 +1,5 @@
 use crate::{
+    coordinates::{ecliptic::EclipticCoordinates, unit_vector::UnitVector},
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float, TWO_PI,
 };
@@ -7,7 +8,7 @@ use crate::{
  * The orbital period is the time it takes for a given object to make one full orbit around another object.
  * https://en.wikipedia.org/wiki/Orbital_period
  */
-pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time {
+fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time {
     const G: Float = 6.67430e-11;
 
     let semi_major_axis_cubed = semi_major_axis.as_meters().powi(3);
@@ -23,7 +24,7 @@ pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time
  *
  * Output is normalised to the range [-π, π].
  */
-pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
+fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
     let mean_motion = TWO_PI / orbital_period.as_seconds();
     let mean_anomaly = mean_motion * (time.as_seconds() % orbital_period.as_seconds());
     let mut mean_anomaly = Angle::from_radians(mean_anomaly);
@@ -36,7 +37,7 @@ pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
  * as seen from the center of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/Eccentric_anomaly
  */
-pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
+fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
     const ACCURACY: Float = 1e-6;
     let mean_anomaly = mean_anomaly.as_radians();
     let mut eccentric_anomaly = mean_anomaly;
@@ -58,7 +59,7 @@ pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
  * as seen from the main focus of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/True_anomaly
  */
-pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
+fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
     let sqrt_arg = (1. + eccentricity) / (1. - eccentricity);
     let artan_arg = (eccentric_anomaly.as_radians() / 2.).tan() * sqrt_arg.sqrt();
     let true_anomaly = 2. * artan_arg.atan();
@@ -70,7 +71,7 @@ pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
  * (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/Ellipse#Distance_from_focus
  */
-pub fn distance_from_focus(
+fn distance_from_focus(
     semi_major_axis: Length,
     true_anomaly: Angle,
     eccentricity: Float,
@@ -89,6 +90,10 @@ pub fn position_relative_to_central_body(
     eccentricity: Float,
     true_anomaly: Angle,
 ) -> Length {
+    let ecliptic_from_focus = EclipticCoordinates::horizontal(true_anomaly);
+    let direction = UnitVector::from_ecliptic(&ecliptic_from_focus);
+    let distance_from_focus = distance_from_focus(semi_major_axis, true_anomaly, eccentricity);
+    let position_relative_to_focus = direction.to_cartesian(distance_from_focus);
     todo!()
 }
 
