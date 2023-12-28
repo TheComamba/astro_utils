@@ -6,11 +6,11 @@ use std::{
 
 static METERS_PER_KILOMETER: Float = 1000.0;
 static KILOMETERS_PER_METER: Float = 1.0 / METERS_PER_KILOMETER;
-pub(super) static METERS_PER_EARTH_RADIUS: Float = 6_371_000.0;
+pub(crate) static METERS_PER_EARTH_RADIUS: Float = 6_371_000.0;
 static EARTH_RADII_PER_METER: Float = 1.0 / METERS_PER_EARTH_RADIUS;
-pub(super) static METERS_PER_JUPITER_RADIUS: Float = 69_911_000.0;
+pub(crate) static METERS_PER_JUPITER_RADIUS: Float = 69_911_000.0;
 static JUPITER_RADII_PER_METER: Float = 1.0 / METERS_PER_JUPITER_RADIUS;
-pub(super) static METERS_PER_SUN_RADIUS: Float = 695_700_000.0;
+pub(crate) static METERS_PER_SUN_RADIUS: Float = 695_700_000.0;
 static SUN_RADII_PER_METER: Float = 1.0 / METERS_PER_SUN_RADIUS;
 static METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.0;
 static ASTRONOMICAL_UNITS_PER_METER: Float = 1.0 / METERS_PER_ASTRONOMICAL_UNIT;
@@ -144,7 +144,6 @@ impl Sub for Length {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{length::METERS_PER_KILOMETER, Float};
 
     const TEST_ACCURACY: Float = 1e-5;
 
@@ -218,7 +217,6 @@ mod tests {
 
     #[test]
     fn test_display() {
-        use crate::length::Length;
         let km = Length::from_kilometers(1.23);
         assert_eq!(format!("{}", km), "1.23 km");
         let earth_radii = Length::from_earth_radii(1.23);
@@ -235,7 +233,6 @@ mod tests {
 
     #[test]
     fn test_display_thresholds() {
-        use crate::length::Length;
         let km = Length::from_kilometers(1.0);
         assert_eq!(format!("{}", km), "1.00 km");
         let earth_radii = Length::from_earth_radii(1.0);
