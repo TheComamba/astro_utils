@@ -5,21 +5,21 @@ use std::ops::Neg;
 use super::cartesian::CartesianCoordinates;
 
 pub const X_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    longitude: Angle::from_radians(0.0),
-    latitude: Angle::from_radians(0.0),
+    longitude: Angle::from_radians(0.),
+    latitude: Angle::from_radians(0.),
 };
 
 pub const Y_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    longitude: Angle::from_radians(PI / 2.0),
-    latitude: Angle::from_radians(0.0),
+    longitude: Angle::from_radians(PI / 2.),
+    latitude: Angle::from_radians(0.),
 };
 
 pub const Z_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    longitude: Angle::from_radians(0.0),
-    latitude: Angle::from_radians(PI / 2.0),
+    longitude: Angle::from_radians(0.),
+    latitude: Angle::from_radians(PI / 2.),
 };
 
-const PI_HALF: Float = PI / 2.0;
+const PI_HALF: Float = PI / 2.;
 
 /*  The "absolute" reference we use for polar coordiantes is heliocentric ecliptic coordinates:
  * Longitude denotes the angle between the vernal equinox and the body, measured in the ecliptic plane.
@@ -34,13 +34,15 @@ pub struct EclipticCoordinates {
 
 impl EclipticCoordinates {
     pub(crate) fn from_cartesian(cart: &CartesianCoordinates) -> EclipticCoordinates {
-        todo!()
-        // let mut coords = EclipticCoordinates {
-        //     longitude,
-        //     latitude,
-        // };
-        // coords.normalize();
-        // coords
+        let x = cart.x().as_meters();
+        let y = cart.y().as_meters();
+        let z = cart.z().as_meters();
+        let longitude = Angle::from_radians(y.atan2(x));
+        let latitude = Angle::from_radians(z.atan2((x * x + y * y).sqrt()));
+        EclipticCoordinates {
+            longitude,
+            latitude,
+        }
     }
 
     pub fn normalize(&mut self) {
@@ -99,7 +101,114 @@ impl Display for EclipticCoordinates {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{tests::TEST_ANGLE_ACCURACY, TWO_PI};
+    use crate::{tests::TEST_ANGLE_ACCURACY, units::length::Length, TWO_PI};
+
+    #[test]
+    fn test_from_cartesian() {
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(1.),
+            Length::from_meters(1.),
+            Length::from_meters(1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(45.),
+            latitude: Angle::from_degrees(90. - 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("x, expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(1.),
+            Length::from_meters(1.),
+            Length::from_meters(-1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(45.),
+            latitude: Angle::from_degrees(-90. + 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("x, expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(1.),
+            Length::from_meters(-1.),
+            Length::from_meters(1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(135.),
+            latitude: Angle::from_degrees(90. - 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("x, expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(1.),
+            Length::from_meters(-1.),
+            Length::from_meters(-1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(135.),
+            latitude: Angle::from_degrees(-90. + 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("x, expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(-1.),
+            Length::from_meters(1.),
+            Length::from_meters(1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(-45.),
+            latitude: Angle::from_degrees(90. - 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("x, expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(-1.),
+            Length::from_meters(1.),
+            Length::from_meters(-1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(-45.),
+            latitude: Angle::from_degrees(-90. + 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("x, expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(-1.),
+            Length::from_meters(-1.),
+            Length::from_meters(1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(-135.),
+            latitude: Angle::from_degrees(90. - 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("x, expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let cartesian = CartesianCoordinates::new(
+            Length::from_meters(-1.),
+            Length::from_meters(-1.),
+            Length::from_meters(-1.),
+        );
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_degrees(-135.),
+            latitude: Angle::from_degrees(-90. + 54.7356),
+        };
+        let actual = EclipticCoordinates::from_cartesian(&cartesian);
+        println!("x, expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+    }
 
     #[test]
     fn test_unary_minus() {
@@ -107,24 +216,24 @@ mod tests {
         let y = Y_DIRECTION;
         let z = Z_DIRECTION;
         let xyz = EclipticCoordinates {
-            longitude: Angle::from_radians(PI / 4.0),
-            latitude: Angle::from_radians(PI / 4.0),
+            longitude: Angle::from_radians(PI / 4.),
+            latitude: Angle::from_radians(PI / 4.),
         };
         let expected_minus_x = EclipticCoordinates {
             longitude: Angle::from_radians(PI),
-            latitude: Angle::from_radians(0.0),
+            latitude: Angle::from_radians(0.),
         };
         let expected_minus_y = EclipticCoordinates {
             longitude: Angle::from_radians(-PI_HALF),
-            latitude: Angle::from_radians(0.0),
+            latitude: Angle::from_radians(0.),
         };
         let expected_minus_z = EclipticCoordinates {
-            longitude: Angle::from_radians(0.0),
+            longitude: Angle::from_radians(0.),
             latitude: Angle::from_radians(-PI_HALF),
         };
         let expected_minus_xyz = EclipticCoordinates {
-            longitude: Angle::from_radians(-PI * 3.0 / 4.0),
-            latitude: Angle::from_radians(-PI / 4.0),
+            longitude: Angle::from_radians(-PI * 3. / 4.),
+            latitude: Angle::from_radians(-PI / 4.),
         };
 
         let minus_x = -x;
@@ -149,14 +258,14 @@ mod tests {
 
     #[test]
     fn test_eq_within() {
-        let local_test_angle_accuracy: Angle = 10.0 * TEST_ANGLE_ACCURACY;
+        let local_test_angle_accuracy: Angle = 10. * TEST_ANGLE_ACCURACY;
 
         let small_offsets = vec![
-            -local_test_angle_accuracy / 100.0,
-            Angle::from_radians(0.0),
-            local_test_angle_accuracy / 100.0,
+            -local_test_angle_accuracy / 100.,
+            Angle::from_radians(0.),
+            local_test_angle_accuracy / 100.,
         ];
-        let large_offsets = vec![-TWO_PI, 0.0, TWO_PI, 100.0 * TWO_PI];
+        let large_offsets = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
         let directions = vec![
             X_DIRECTION,
             Y_DIRECTION,
@@ -201,7 +310,7 @@ mod tests {
             -0.75 * PI,
             -0.5 * PI,
             -0.25 * PI,
-            0.0,
+            0.,
             0.25 * PI,
             0.5 * PI,
             0.75 * PI,
@@ -209,10 +318,10 @@ mod tests {
             1.25 * PI,
             1.5 * PI,
             1.75 * PI,
-            2.0 * PI,
+            2. * PI,
         ];
-        let latitudes = vec![-0.25 * PI, 0.0, 0.25 * PI];
-        let offsets = vec![-TWO_PI, 0.0, TWO_PI, 100.0 * TWO_PI];
+        let latitudes = vec![-0.25 * PI, 0., 0.25 * PI];
+        let offsets = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
         for longitude in longitudes.clone() {
             for latitude in latitudes.clone() {
                 for offset in offsets.clone() {
@@ -240,9 +349,9 @@ mod tests {
                     coords2.normalize();
                     coords3.normalize();
                     coords4.normalize();
-                    assert!(coords1.eq_within(&coords2, 10.0 * TEST_ANGLE_ACCURACY));
-                    assert!(coords1.eq_within(&coords3, 10.0 * TEST_ANGLE_ACCURACY));
-                    assert!(coords1.eq_within(&coords4, 10.0 * TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords2, 10. * TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords3, 10. * TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords4, 10. * TEST_ANGLE_ACCURACY));
                 }
             }
         }
@@ -251,36 +360,24 @@ mod tests {
     #[test]
     fn test_normalization_crossing_poles() {
         let mut coord = EclipticCoordinates {
-            longitude: Angle::from_radians(0.0),
-            latitude: Angle::from_radians(3.0 / 4.0 * PI),
+            longitude: Angle::from_radians(0.),
+            latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = EclipticCoordinates {
             longitude: Angle::from_radians(PI),
-            latitude: Angle::from_radians(PI / 4.0),
+            latitude: Angle::from_radians(PI / 4.),
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
         assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates {
-            longitude: Angle::from_radians(0.0),
-            latitude: Angle::from_radians(-3.0 / 4.0 * PI),
+            longitude: Angle::from_radians(0.),
+            latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = EclipticCoordinates {
             longitude: Angle::from_radians(PI),
-            latitude: Angle::from_radians(-PI / 4.0),
-        };
-        coord.normalize();
-        println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
-
-        let mut coord = EclipticCoordinates {
-            longitude: Angle::from_radians(PI),
-            latitude: Angle::from_radians(3.0 / 4.0 * PI),
-        };
-        let expected = EclipticCoordinates {
-            longitude: Angle::from_radians(0.0),
-            latitude: Angle::from_radians(PI / 4.0),
+            latitude: Angle::from_radians(-PI / 4.),
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
@@ -288,47 +385,59 @@ mod tests {
 
         let mut coord = EclipticCoordinates {
             longitude: Angle::from_radians(PI),
-            latitude: Angle::from_radians(-3.0 / 4.0 * PI),
+            latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = EclipticCoordinates {
-            longitude: Angle::from_radians(0.0),
-            latitude: Angle::from_radians(-PI / 4.0),
+            longitude: Angle::from_radians(0.),
+            latitude: Angle::from_radians(PI / 4.),
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
         assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates {
-            longitude: Angle::from_radians(PI / 2.0),
-            latitude: Angle::from_radians(3.0 / 4.0 * PI),
+            longitude: Angle::from_radians(PI),
+            latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = EclipticCoordinates {
-            longitude: Angle::from_radians(3.0 / 2.0 * PI),
-            latitude: Angle::from_radians(PI / 4.0),
+            longitude: Angle::from_radians(0.),
+            latitude: Angle::from_radians(-PI / 4.),
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
         assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates {
-            longitude: Angle::from_radians(PI / 2.0),
-            latitude: Angle::from_radians(-3.0 / 4.0 * PI),
+            longitude: Angle::from_radians(PI / 2.),
+            latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = EclipticCoordinates {
-            longitude: Angle::from_radians(3.0 / 2.0 * PI),
-            latitude: Angle::from_radians(-PI / 4.0),
+            longitude: Angle::from_radians(3. / 2. * PI),
+            latitude: Angle::from_radians(PI / 4.),
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
         assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = EclipticCoordinates {
-            longitude: Angle::from_radians(3.0 / 2.0 * PI),
-            latitude: Angle::from_radians(3.0 / 4.0 * PI),
+            longitude: Angle::from_radians(PI / 2.),
+            latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = EclipticCoordinates {
-            longitude: Angle::from_radians(PI / 2.0),
-            latitude: Angle::from_radians(PI / 4.0),
+            longitude: Angle::from_radians(3. / 2. * PI),
+            latitude: Angle::from_radians(-PI / 4.),
+        };
+        coord.normalize();
+        println!("expected: {}, actual: {}", expected, coord);
+        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+
+        let mut coord = EclipticCoordinates {
+            longitude: Angle::from_radians(3. / 2. * PI),
+            latitude: Angle::from_radians(3. / 4. * PI),
+        };
+        let expected = EclipticCoordinates {
+            longitude: Angle::from_radians(PI / 2.),
+            latitude: Angle::from_radians(PI / 4.),
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);

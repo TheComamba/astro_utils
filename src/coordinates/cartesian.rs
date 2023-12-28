@@ -1,3 +1,4 @@
+use super::unit_vector::UnitVector;
 use crate::{
     units::{angle::Angle, length::Length},
     Float,
@@ -7,14 +8,13 @@ use std::{
     ops::{Add, Div, Mul, Neg, Sub},
 };
 
-use super::unit_vector::UnitVector;
-
 pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
     x: Length::from_meters(0.0),
     y: Length::from_meters(0.0),
     z: Length::from_meters(0.0),
 };
 
+#[derive(Debug, Copy, Clone)]
 pub struct CartesianCoordinates {
     x: Length,
     y: Length,
@@ -22,6 +22,10 @@ pub struct CartesianCoordinates {
 }
 
 impl CartesianCoordinates {
+    pub const fn new(x: Length, y: Length, z: Length) -> CartesianCoordinates {
+        CartesianCoordinates { x, y, z }
+    }
+
     pub fn eq_within(&self, other: &CartesianCoordinates, accuracy: Length) -> bool {
         self.x.eq_within(&other.x, accuracy)
             && self.y.eq_within(&other.y, accuracy)
@@ -104,7 +108,7 @@ impl Sub for &CartesianCoordinates {
     }
 }
 
-impl Mul<Float> for CartesianCoordinates {
+impl Mul<Float> for &CartesianCoordinates {
     type Output = CartesianCoordinates;
 
     fn mul(self, f: Float) -> CartesianCoordinates {
@@ -116,7 +120,7 @@ impl Mul<Float> for CartesianCoordinates {
     }
 }
 
-impl Div<Float> for CartesianCoordinates {
+impl Div<Float> for &CartesianCoordinates {
     type Output = CartesianCoordinates;
 
     fn div(self, f: Float) -> CartesianCoordinates {
@@ -156,19 +160,19 @@ mod tests {
         TWO_PI,
     };
 
-    const X_VECTOR: CartesianCoordinates = CartesianCoordinates {
+    pub(super) const X_VECTOR: CartesianCoordinates = CartesianCoordinates {
         x: Length::from_meters(1.0),
         y: Length::from_meters(0.0),
         z: Length::from_meters(0.0),
     };
 
-    const Y_VECTOR: CartesianCoordinates = CartesianCoordinates {
+    pub(super) const Y_VECTOR: CartesianCoordinates = CartesianCoordinates {
         x: Length::from_meters(0.0),
         y: Length::from_meters(1.0),
         z: Length::from_meters(0.0),
     };
 
-    const Z_VECTOR: CartesianCoordinates = CartesianCoordinates {
+    pub(super) const Z_VECTOR: CartesianCoordinates = CartesianCoordinates {
         x: Length::from_meters(0.0),
         y: Length::from_meters(0.0),
         z: Length::from_meters(1.0),
