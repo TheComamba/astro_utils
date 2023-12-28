@@ -425,11 +425,10 @@ mod tests {
 
     #[test]
     fn test_rotating_around_diagonal_axis() {
-        let start = X_VECTOR;
         let axis = UnitVector::from_cartesian(&CartesianCoordinates {
             x: Length::from_meters(1.0),
             y: Length::from_meters(1.0),
-            z: Length::from_meters(0.0),
+            z: Length::from_meters(1.0),
         });
 
         let rotated = X_VECTOR.rotated(ONE_THIRD_TURN, &axis);
