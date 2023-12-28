@@ -33,7 +33,7 @@ pub struct EclipticCoordinates {
 }
 
 impl EclipticCoordinates {
-    pub(crate) fn from_cartesian(cart: &CartesianCoordinates) -> EclipticCoordinates {
+    pub fn from_cartesian(cart: &CartesianCoordinates) -> EclipticCoordinates {
         let x = cart.x().as_meters();
         let y = cart.y().as_meters();
         let z = cart.z().as_meters();
@@ -93,7 +93,7 @@ impl EclipticCoordinates {
     }
 }
 
-impl Neg for EclipticCoordinates {
+impl Neg for &EclipticCoordinates {
     type Output = EclipticCoordinates;
 
     fn neg(self) -> EclipticCoordinates {
@@ -104,6 +104,14 @@ impl Neg for EclipticCoordinates {
             longitude,
             latitude,
         }
+    }
+}
+
+impl Neg for EclipticCoordinates {
+    type Output = EclipticCoordinates;
+
+    fn neg(self) -> EclipticCoordinates {
+        -&self
     }
 }
 

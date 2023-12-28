@@ -31,7 +31,7 @@ pub struct Direction {
 }
 
 impl Direction {
-    pub(crate) fn from_cartesian(coords: &CartesianCoordinates) -> Self {
+    pub fn from_cartesian(coords: &CartesianCoordinates) -> Self {
         let length = coords.length();
         Direction {
             x: coords.x() / length,

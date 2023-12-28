@@ -92,7 +92,7 @@ pub fn position_relative_to_central_body(
     semi_major_axis: Length,
     eccentricity: Float,
     true_anomaly: Angle,
-    orientation: OrbitOrientation,
+    orientation: &OrbitOrientation,
 ) -> CartesianCoordinates {
     let ecliptic_from_focus = EclipticCoordinates::horizontal(true_anomaly);
     let direction = Direction::from_ecliptic(&ecliptic_from_focus);

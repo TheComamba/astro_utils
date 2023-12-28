@@ -44,15 +44,15 @@ impl CartesianCoordinates {
         diff.length()
     }
 
-    pub(super) fn x(&self) -> Length {
+    pub fn x(&self) -> Length {
         self.x
     }
 
-    pub(super) fn y(&self) -> Length {
+    pub fn y(&self) -> Length {
         self.y
     }
 
-    pub(super) fn z(&self) -> Length {
+    pub fn z(&self) -> Length {
         self.z
     }
 
@@ -74,6 +74,18 @@ impl Add for &CartesianCoordinates {
     }
 }
 
+impl Add for CartesianCoordinates {
+    type Output = CartesianCoordinates;
+
+    fn add(self, other: CartesianCoordinates) -> CartesianCoordinates {
+        CartesianCoordinates {
+            x: self.x + other.x,
+            y: self.y + other.y,
+            z: self.z + other.z,
+        }
+    }
+}
+
 impl Sub for &CartesianCoordinates {
     type Output = CartesianCoordinates;
 
@@ -86,7 +98,31 @@ impl Sub for &CartesianCoordinates {
     }
 }
 
+impl Sub for CartesianCoordinates {
+    type Output = CartesianCoordinates;
+
+    fn sub(self, other: CartesianCoordinates) -> CartesianCoordinates {
+        CartesianCoordinates {
+            x: self.x - other.x,
+            y: self.y - other.y,
+            z: self.z - other.z,
+        }
+    }
+}
+
 impl Mul<Float> for &CartesianCoordinates {
+    type Output = CartesianCoordinates;
+
+    fn mul(self, f: Float) -> CartesianCoordinates {
+        CartesianCoordinates {
+            x: self.x * f,
+            y: self.y * f,
+            z: self.z * f,
+        }
+    }
+}
+
+impl Mul<Float> for CartesianCoordinates {
     type Output = CartesianCoordinates;
 
     fn mul(self, f: Float) -> CartesianCoordinates {
@@ -110,7 +146,31 @@ impl Div<Float> for &CartesianCoordinates {
     }
 }
 
+impl Div<Float> for CartesianCoordinates {
+    type Output = CartesianCoordinates;
+
+    fn div(self, f: Float) -> CartesianCoordinates {
+        CartesianCoordinates {
+            x: self.x / f,
+            y: self.y / f,
+            z: self.z / f,
+        }
+    }
+}
+
 impl Neg for CartesianCoordinates {
+    type Output = CartesianCoordinates;
+
+    fn neg(self) -> CartesianCoordinates {
+        CartesianCoordinates {
+            x: -self.x,
+            y: -self.y,
+            z: -self.z,
+        }
+    }
+}
+
+impl Neg for &CartesianCoordinates {
     type Output = CartesianCoordinates;
 
     fn neg(self) -> CartesianCoordinates {
