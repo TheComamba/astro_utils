@@ -1,10 +1,5 @@
 use crate::{
-    units::{
-        angle::{Angle, Normalization},
-        length::Length,
-        mass::Mass,
-        time::Time,
-    },
+    units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float, TWO_PI,
 };
 
@@ -26,13 +21,13 @@ pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time
  * as seen from the center of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/Mean_anomaly
  *
- * Output is normalised to the range [0, 2π).
+ * Output is normalised to the range [-π, π].
  */
 pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
     let mean_motion = TWO_PI / orbital_period.as_seconds();
     let mean_anomaly = mean_motion * (time.as_seconds() % orbital_period.as_seconds());
     let mut mean_anomaly = Angle::from_radians(mean_anomaly);
-    mean_anomaly.normalize(Normalization::ZeroToTwoPi);
+    mean_anomaly.normalize();
     mean_anomaly
 }
 
@@ -201,8 +196,7 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_three_quarters_circle_mean_anomaly_and_half_eccentricity() {
-        let mut expected_eccentric_anomaly = Angle::from_degrees(-115.79362093315422);
-        expected_eccentric_anomaly.normalize(Normalization::ZeroToTwoPi);
+        let expected_eccentric_anomaly = Angle::from_degrees(-115.79362093315422);
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
