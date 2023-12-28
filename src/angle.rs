@@ -15,7 +15,7 @@ pub struct Angle {
     radian: Float,
 }
 
-pub enum Normalizations {
+pub enum Normalization {
     ZeroToTwoPi,
     MinusPiToPi,
     MinusPiHalfToPiHalf,
@@ -51,24 +51,28 @@ impl Angle {
     }
 
     pub fn eq_within(&self, other: Angle, relative_accuracy: Float) -> bool {
-        let max = if self.radian > other.radian {
-            self.radian.abs()
+        let abs_accuracy = relative_accuracy * TWO_PI;
+        let diff = self.radian - other.radian;
+        let diff = diff % TWO_PI;
+        let diff = if diff > PI {
+            diff - TWO_PI
+        } else if diff < -PI {
+            diff + TWO_PI
         } else {
-            other.radian.abs()
+            diff
         };
-        let diff = (self.radian - other.radian).abs();
-        diff <= max * relative_accuracy
+        diff.abs() <= abs_accuracy
     }
 
-    pub fn normalize(&mut self, normalization: Normalizations) {
+    pub fn normalize(&mut self, normalization: Normalization) {
         match normalization {
-            Normalizations::ZeroToTwoPi => {
+            Normalization::ZeroToTwoPi => {
                 self.radian = self.radian % TWO_PI;
                 if self.radian < 0.0 {
                     self.radian += TWO_PI;
                 }
             }
-            Normalizations::MinusPiToPi => {
+            Normalization::MinusPiToPi => {
                 self.radian = self.radian % TWO_PI;
                 if self.radian > PI {
                     self.radian -= TWO_PI;
@@ -76,7 +80,7 @@ impl Angle {
                     self.radian += TWO_PI;
                 }
             }
-            Normalizations::MinusPiHalfToPiHalf => {
+            Normalization::MinusPiHalfToPiHalf => {
                 self.radian = self.radian % PI;
                 if self.radian > PI / 2.0 {
                     self.radian -= PI;
@@ -178,7 +182,7 @@ mod tests {
         for i in -100..100 {
             let radians = TWO_PI / 5.0 * i as Float;
             let mut angle = Angle::from_radians(radians);
-            angle.normalize(Normalizations::ZeroToTwoPi);
+            angle.normalize(Normalization::ZeroToTwoPi);
             println!(
                 "ZeroToTwoPi: {} deg got normalised to {}",
                 radians * DEGREES_PER_RADIAN,
@@ -188,7 +192,7 @@ mod tests {
             assert!(angle.as_radians() < TWO_PI);
 
             let mut angle = Angle::from_radians(radians);
-            angle.normalize(Normalizations::MinusPiToPi);
+            angle.normalize(Normalization::MinusPiToPi);
             println!(
                 "MinusPiToPi: {} deg got normalised to {}",
                 radians * DEGREES_PER_RADIAN,
@@ -198,7 +202,7 @@ mod tests {
             assert!(angle.as_radians() < PI);
 
             let mut angle = Angle::from_radians(radians);
-            angle.normalize(Normalizations::MinusPiHalfToPiHalf);
+            angle.normalize(Normalization::MinusPiHalfToPiHalf);
             println!(
                 "MinusPiHalfToPiHalf: {} deg got normalised to {}",
                 radians * DEGREES_PER_RADIAN,
@@ -213,13 +217,15 @@ mod tests {
     fn test_normalizing_quarter_pi() {
         let mut angle = Angle::from_radians(PI / 4.0);
         let expected = Angle::from_radians(PI / 4.0);
-        angle.normalize(Normalizations::ZeroToTwoPi);
+        angle.normalize(Normalization::ZeroToTwoPi);
         println!("ZeroToTwoPi: expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ACCURACY));
-        angle.normalize(Normalizations::MinusPiToPi);
+
+        angle.normalize(Normalization::MinusPiToPi);
         println!("MinusPiToPi: expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ACCURACY));
-        angle.normalize(Normalizations::MinusPiHalfToPiHalf);
+
+        angle.normalize(Normalization::MinusPiHalfToPiHalf);
         println!(
             "MinusPiHalfToPiHalf: expected: {}, actual: {}",
             expected, angle
@@ -231,14 +237,16 @@ mod tests {
     fn test_normalizing_three_quarters_pi() {
         let mut angle = Angle::from_radians(3.0 * PI / 4.0);
         let expected = Angle::from_radians(3.0 * PI / 4.0);
-        angle.normalize(Normalizations::ZeroToTwoPi);
+        angle.normalize(Normalization::ZeroToTwoPi);
         println!("ZeroToTwoPi: expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ACCURACY));
-        let expected = Angle::from_radians(-PI / 4.0);
-        angle.normalize(Normalizations::MinusPiToPi);
+
+        angle.normalize(Normalization::MinusPiToPi);
         println!("MinusPiToPi: expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ACCURACY));
-        angle.normalize(Normalizations::MinusPiHalfToPiHalf);
+
+        let expected = Angle::from_radians(-PI / 4.0);
+        angle.normalize(Normalization::MinusPiHalfToPiHalf);
         println!(
             "MinusPiHalfToPiHalf: expected: {}, actual: {}",
             expected, angle
@@ -250,14 +258,16 @@ mod tests {
     fn test_normalizing_minus_quarter_pi() {
         let mut angle = Angle::from_radians(-PI / 4.0);
         let expected = Angle::from_radians(7.0 * PI / 4.0);
-        angle.normalize(Normalizations::ZeroToTwoPi);
+        angle.normalize(Normalization::ZeroToTwoPi);
         println!("ZeroToTwoPi: expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ACCURACY));
+
         let expected = Angle::from_radians(-PI / 4.0);
-        angle.normalize(Normalizations::MinusPiToPi);
+        angle.normalize(Normalization::MinusPiToPi);
         println!("MinusPiToPi: expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ACCURACY));
-        angle.normalize(Normalizations::MinusPiHalfToPiHalf);
+
+        angle.normalize(Normalization::MinusPiHalfToPiHalf);
         println!(
             "MinusPiHalfToPiHalf: expected: {}, actual: {}",
             expected, angle
@@ -269,5 +279,24 @@ mod tests {
     fn test_display() {
         let angle = Angle::from_degrees(100.0);
         assert_eq!(format!("{}", angle), "100.00 deg");
+    }
+
+    #[test]
+    fn test_eq_within() {
+        let starts = vec![-10.0, 0.0, 3.0, 7.0];
+        let small_diffs = vec![-TEST_ACCURACY / 100.0, 0.0, TEST_ACCURACY / 100.0];
+        let large_diffs = vec![-TWO_PI, 0.0, TWO_PI, 100.0 * TWO_PI];
+        for start in starts {
+            for small_diff in &small_diffs {
+                for large_diff in &large_diffs {
+                    let rad1 = start;
+                    let rad2 = start + small_diff + large_diff;
+                    let angle1 = Angle::from_radians(rad1);
+                    let angle2 = Angle::from_radians(rad2);
+                    println!("Expecting {} == {}", angle1, angle2);
+                    assert!(angle1.eq_within(angle2, TEST_ACCURACY));
+                }
+            }
+        }
     }
 }
