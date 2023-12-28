@@ -56,17 +56,21 @@ impl CartesianCoordinates {
         let cos = angle.cos();
         let sin = angle.sin();
 
-        let r_11 = cos + axis.x() * axis.x() * (1.0 - cos);
-        let r_12 = axis.x() * axis.y() * (1.0 - cos) - axis.z() * sin;
-        let r_13 = axis.x() * axis.z() * (1.0 - cos) + axis.y() * sin;
+        let ux = axis.x();
+        let uy = axis.y();
+        let uz = axis.z();
 
-        let r_21 = axis.y() * axis.x() * (1.0 - cos) + axis.z() * sin;
-        let r_22 = cos + axis.y() * axis.y() * (1.0 - cos);
-        let r_23 = axis.y() * axis.z() * (1.0 - cos) - axis.x() * sin;
+        let r_11 = cos + ux * ux * (1.0 - cos);
+        let r_12 = ux * uy * (1.0 - cos) - uz * sin;
+        let r_13 = ux * uz * (1.0 - cos) + uy * sin;
 
-        let r_31 = axis.z() * axis.x() * (1.0 - cos) - axis.y() * sin;
-        let r_32 = axis.z() * axis.y() * (1.0 - cos) + axis.x() * sin;
-        let r_33 = cos + axis.z() * axis.z() * (1.0 - cos);
+        let r_21 = uy * ux * (1.0 - cos) + uz * sin;
+        let r_22 = cos + uy * uy * (1.0 - cos);
+        let r_23 = uy * uz * (1.0 - cos) - ux * sin;
+
+        let r_31 = uz * ux * (1.0 - cos) - uy * sin;
+        let r_32 = uz * uy * (1.0 - cos) + ux * sin;
+        let r_33 = cos + uz * uz * (1.0 - cos);
 
         let x = self.x * r_11 + self.y * r_12 + self.z * r_13;
         let y = self.x * r_21 + self.y * r_22 + self.z * r_23;
@@ -399,7 +403,7 @@ mod tests {
         let start = Z_VECTOR;
 
         let rotated = start.rotated(QUARTER_TURN, &Y_DIRECTION);
-        let expected = -X_VECTOR;
+        let expected = X_VECTOR;
         println!("expected {}, actual {}", expected, rotated);
         assert!(rotated.eq_within(&expected, TEST_LENGTH_ACCURACY));
 
@@ -409,7 +413,7 @@ mod tests {
         assert!(rotated.eq_within(&expected, TEST_LENGTH_ACCURACY));
 
         let rotated = start.rotated(THREE_QUARTER_TURN, &Y_DIRECTION);
-        let expected = X_VECTOR;
+        let expected = -X_VECTOR;
         println!("expected {}, actual {}", expected, rotated);
         assert!(rotated.eq_within(&expected, TEST_LENGTH_ACCURACY));
 

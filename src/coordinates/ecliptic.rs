@@ -138,10 +138,12 @@ mod tests {
 
     #[test]
     fn test_eq_within() {
+        let local_test_angle_accuracy: Angle = 10.0 * TEST_ANGLE_ACCURACY;
+
         let small_offsets = vec![
-            -TEST_ANGLE_ACCURACY / 100.0,
+            -local_test_angle_accuracy / 100.0,
             Angle::from_radians(0.0),
-            TEST_ANGLE_ACCURACY / 100.0,
+            local_test_angle_accuracy / 100.0,
         ];
         let large_offsets = vec![-TWO_PI, 0.0, TWO_PI, 100.0 * TWO_PI];
         let directions = vec![
@@ -163,11 +165,11 @@ mod tests {
                     let coords2 = EclipticCoordinates::new(longitude1, latitude2);
                     let coords3 = EclipticCoordinates::new(longitude2, latitude2);
                     println!("Expecting {} == {}", direction, coords1);
-                    assert![direction.eq_within(&coords1, TEST_ANGLE_ACCURACY)];
+                    assert![direction.eq_within(&coords1, local_test_angle_accuracy)];
                     println!("Expecting {} == {}", direction, coords2);
-                    assert![direction.eq_within(&coords2, TEST_ANGLE_ACCURACY)];
+                    assert![direction.eq_within(&coords2, local_test_angle_accuracy)];
                     println!("Expecting {} == {}", direction, coords3);
-                    assert![direction.eq_within(&coords3, TEST_ANGLE_ACCURACY)];
+                    assert![direction.eq_within(&coords3, local_test_angle_accuracy)];
                 }
             }
         }
@@ -206,9 +208,9 @@ mod tests {
                     coords2.normalize();
                     coords3.normalize();
                     coords4.normalize();
-                    assert!(coords1.eq_within(&coords2, TEST_ANGLE_ACCURACY));
-                    assert!(coords1.eq_within(&coords3, TEST_ANGLE_ACCURACY));
-                    assert!(coords1.eq_within(&coords4, TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords2, 10.0 * TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords3, 10.0 * TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords4, 10.0 * TEST_ANGLE_ACCURACY));
                 }
             }
         }

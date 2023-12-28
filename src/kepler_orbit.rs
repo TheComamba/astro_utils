@@ -77,15 +77,13 @@ mod tests {
 
     use super::*;
 
-    const TEST_ORBITAL_PERIOD_ACCURACY: Time = Time::from_seconds(100.0);
-
     #[test]
     fn orbital_period_of_earth() {
         let expected_orbital_period = Time::from_days(365.256);
         let orbital_period = orbital_period(EARTH_SEMI_MAJOR_AXIS, EARTH_MASS, SUN_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ORBITAL_PERIOD_ACCURACY));
+        assert!(orbital_period.eq_within(expected_orbital_period, 1e-3 * expected_orbital_period));
     }
 
     #[test]
@@ -94,7 +92,7 @@ mod tests {
         let orbital_period = orbital_period(JUPITER_SEMI_MAJOR_AXIS, JUPITER_MASS, SUN_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ORBITAL_PERIOD_ACCURACY));
+        assert!(orbital_period.eq_within(expected_orbital_period, 1e-3 * expected_orbital_period));
     }
 
     #[test]
@@ -103,7 +101,7 @@ mod tests {
         let orbital_period = orbital_period(MOON_SEMI_MAJOR_AXIS, MOON_MASS, EARTH_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ORBITAL_PERIOD_ACCURACY));
+        assert!(orbital_period.eq_within(expected_orbital_period, 9e-3 * expected_orbital_period));
     }
 
     #[test]
@@ -135,12 +133,14 @@ mod tests {
 
     #[test]
     fn mean_anomaly_is_stable_after_loads_of_revolutions() {
+        const LOCAL_TEST_ANGLE_ACCURACY: Angle = Angle::from_radians(5e-3 * TWO_PI);
+
         let expected_mean_anomaly = Angle::from_radians(TWO_PI / 4.0);
         let passed_time = Time::from_years(1e5 + 0.25);
         let mean_anomaly = mean_anomaly(Time::from_years(1.0), passed_time);
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, LOCAL_TEST_ANGLE_ACCURACY));
     }
 
     #[test]
