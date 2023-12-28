@@ -123,7 +123,7 @@ mod tests {
         let expected_minus_z =
             EclipticCoordinates::new(Angle::from_radians(0.0), Angle::from_radians(-PI_HALF));
         let expected_minus_xyz = EclipticCoordinates::new(
-            Angle::from_radians(-PI / 4.0),
+            Angle::from_radians(-PI * 3.0 / 4.0),
             Angle::from_radians(-PI / 4.0),
         );
 
