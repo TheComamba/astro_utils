@@ -110,6 +110,16 @@ impl Mul<Float> for Mass {
     }
 }
 
+impl Mul<Mass> for Float {
+    type Output = Mass;
+
+    fn mul(self, mass: Mass) -> Mass {
+        Mass {
+            kilograms: self * mass.kilograms,
+        }
+    }
+}
+
 impl Div<Float> for Mass {
     type Output = Mass;
 

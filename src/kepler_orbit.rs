@@ -16,7 +16,7 @@ pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time
     const G: Float = 6.67430e-11;
 
     let semi_major_axis_cubed = semi_major_axis.as_meters().powi(3);
-    let total_mass = mass1.as_kilograms() + mass2.as_kilograms();
+    let total_mass = (mass1 + mass2).as_kilograms();
     let orbital_period = TWO_PI * (semi_major_axis_cubed / total_mass / G).sqrt();
     Time::from_seconds(orbital_period)
 }

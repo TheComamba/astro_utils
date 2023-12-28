@@ -151,6 +151,16 @@ impl Mul<Float> for Length {
     }
 }
 
+impl Mul<Length> for Float {
+    type Output = Length;
+
+    fn mul(self, length: Length) -> Length {
+        Length {
+            meters: self * length.meters,
+        }
+    }
+}
+
 impl Div<Float> for Length {
     type Output = Length;
 

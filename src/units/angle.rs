@@ -90,6 +90,18 @@ impl Angle {
             }
         }
     }
+
+    pub fn sin(&self) -> Float {
+        self.radian.sin()
+    }
+
+    pub fn cos(&self) -> Float {
+        self.radian.cos()
+    }
+
+    pub fn tan(&self) -> Float {
+        self.radian.tan()
+    }
 }
 
 impl Add for Angle {
@@ -118,6 +130,16 @@ impl Mul<Float> for Angle {
     fn mul(self, f: Float) -> Angle {
         Angle {
             radian: self.radian * f,
+        }
+    }
+}
+
+impl Mul<Angle> for Float {
+    type Output = Angle;
+
+    fn mul(self, angle: Angle) -> Angle {
+        Angle {
+            radian: self * angle.radian,
         }
     }
 }

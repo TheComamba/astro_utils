@@ -123,6 +123,16 @@ impl Mul<Float> for Time {
     }
 }
 
+impl Mul<Time> for Float {
+    type Output = Time;
+
+    fn mul(self, time: Time) -> Time {
+        Time {
+            seconds: time.seconds * self,
+        }
+    }
+}
+
 impl Div<Float> for Time {
     type Output = Time;
 
