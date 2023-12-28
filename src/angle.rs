@@ -15,27 +15,27 @@ pub struct Angle {
     radian: Float,
 }
 
+pub enum Normalizations {
+    ZeroToTwoPi,
+    MinusPiToPi,
+    MinusPiHalfToPiHalf,
+}
+
 impl Angle {
-    pub fn from_radians(radian: Float) -> Angle {
-        let mut angle = Angle { radian };
-        angle.normalize();
-        angle
+    pub const fn from_radians(radian: Float) -> Angle {
+        Angle { radian }
     }
 
     pub fn from_degrees(degree: Float) -> Angle {
-        let mut angle = Angle {
+        Angle {
             radian: degree * RADIANS_PER_DEGREE,
-        };
-        angle.normalize();
-        angle
+        }
     }
 
     pub fn from_arcsecs(arcsec: Float) -> Angle {
-        let mut angle = Angle {
+        Angle {
             radian: arcsec * RADIAN_PER_ARCSEC,
-        };
-        angle.normalize();
-        angle
+        }
     }
 
     pub fn as_radians(&self) -> Float {
@@ -60,12 +60,30 @@ impl Angle {
         diff <= max * relative_accuracy
     }
 
-    fn normalize(&mut self) {
-        while self.radian < 0.0 {
-            self.radian += TWO_PI;
-        }
-        while self.radian >= TWO_PI {
-            self.radian -= TWO_PI;
+    pub fn normalize(&mut self, normalization: Normalizations) {
+        match normalization {
+            Normalizations::ZeroToTwoPi => {
+                self.radian = self.radian % TWO_PI;
+                if self.radian < 0.0 {
+                    self.radian += TWO_PI;
+                }
+            }
+            Normalizations::MinusPiToPi => {
+                self.radian = self.radian % TWO_PI;
+                if self.radian > PI {
+                    self.radian -= TWO_PI;
+                } else if self.radian < -PI {
+                    self.radian += TWO_PI;
+                }
+            }
+            Normalizations::MinusPiHalfToPiHalf => {
+                self.radian = self.radian % PI;
+                if self.radian > PI / 2.0 {
+                    self.radian -= PI;
+                } else if self.radian < -PI / 2.0 {
+                    self.radian += PI;
+                }
+            }
         }
     }
 }
@@ -156,12 +174,95 @@ mod tests {
     }
 
     #[test]
-    fn test_moduloness() {
-        let angle1 = Angle::from_radians(1.0);
-        let angle2 = Angle::from_radians(TWO_PI + 1.0);
-        let angle3 = Angle::from_radians(-TWO_PI + 1.0);
-        assert!(angle1.eq_within(angle2, TEST_ACCURACY));
-        assert!(angle1.eq_within(angle3, TEST_ACCURACY));
+    fn test_normalization_range() {
+        for i in -100..100 {
+            let radians = TWO_PI / 5.0 * i as Float;
+            let mut angle = Angle::from_radians(radians);
+            angle.normalize(Normalizations::ZeroToTwoPi);
+            println!(
+                "ZeroToTwoPi: {} deg got normalised to {}",
+                radians * DEGREES_PER_RADIAN,
+                angle
+            );
+            assert!(angle.as_radians() >= 0.0);
+            assert!(angle.as_radians() < TWO_PI);
+
+            let mut angle = Angle::from_radians(radians);
+            angle.normalize(Normalizations::MinusPiToPi);
+            println!(
+                "MinusPiToPi: {} deg got normalised to {}",
+                radians * DEGREES_PER_RADIAN,
+                angle
+            );
+            assert!(angle.as_radians() >= -PI);
+            assert!(angle.as_radians() < PI);
+
+            let mut angle = Angle::from_radians(radians);
+            angle.normalize(Normalizations::MinusPiHalfToPiHalf);
+            println!(
+                "MinusPiHalfToPiHalf: {} deg got normalised to {}",
+                radians * DEGREES_PER_RADIAN,
+                angle
+            );
+            assert!(angle.as_radians() >= -PI / 2.0);
+            assert!(angle.as_radians() < PI / 2.0);
+        }
+    }
+
+    #[test]
+    fn test_normalizing_quarter_pi() {
+        let mut angle = Angle::from_radians(PI / 4.0);
+        let expected = Angle::from_radians(PI / 4.0);
+        angle.normalize(Normalizations::ZeroToTwoPi);
+        println!("ZeroToTwoPi: expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        angle.normalize(Normalizations::MinusPiToPi);
+        println!("MinusPiToPi: expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        angle.normalize(Normalizations::MinusPiHalfToPiHalf);
+        println!(
+            "MinusPiHalfToPiHalf: expected: {}, actual: {}",
+            expected, angle
+        );
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn test_normalizing_three_quarters_pi() {
+        let mut angle = Angle::from_radians(3.0 * PI / 4.0);
+        let expected = Angle::from_radians(3.0 * PI / 4.0);
+        angle.normalize(Normalizations::ZeroToTwoPi);
+        println!("ZeroToTwoPi: expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        let expected = Angle::from_radians(-PI / 4.0);
+        angle.normalize(Normalizations::MinusPiToPi);
+        println!("MinusPiToPi: expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        angle.normalize(Normalizations::MinusPiHalfToPiHalf);
+        println!(
+            "MinusPiHalfToPiHalf: expected: {}, actual: {}",
+            expected, angle
+        );
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn test_normalizing_minus_quarter_pi() {
+        let mut angle = Angle::from_radians(-PI / 4.0);
+        let expected = Angle::from_radians(7.0 * PI / 4.0);
+        angle.normalize(Normalizations::ZeroToTwoPi);
+        println!("ZeroToTwoPi: expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        let expected = Angle::from_radians(-PI / 4.0);
+        angle.normalize(Normalizations::MinusPiToPi);
+        println!("MinusPiToPi: expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
+        angle.normalize(Normalizations::MinusPiHalfToPiHalf);
+        println!(
+            "MinusPiHalfToPiHalf: expected: {}, actual: {}",
+            expected, angle
+        );
+        assert!(angle.eq_within(expected, TEST_ACCURACY));
     }
 
     #[test]
