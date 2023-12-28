@@ -65,14 +65,29 @@ pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
     Angle::from_radians(true_anomaly)
 }
 
+/*
+ * The distance from the focus is the distance between the orbiting body and the main focus of the ellipse
+ * (the point around which the object orbits).
+ * https://en.wikipedia.org/wiki/Ellipse#Distance_from_focus
+ */
+pub fn distance_from_focus(
+    semi_major_axis: Length,
+    eccentric_anomaly: Angle,
+    eccentricity: Float,
+) -> Length {
+    let distance_from_focus = semi_major_axis * (1. - eccentricity * eccentric_anomaly.cos());
+    distance_from_focus
+}
+
 #[cfg(test)]
 mod tests {
     use crate::{
+        coordinates::cartesian::CartesianCoordinates,
         solar_system_data::{
             EARTH_MASS, EARTH_SEMI_MAJOR_AXIS, JUPITER_MASS, JUPITER_SEMI_MAJOR_AXIS, MOON_MASS,
             MOON_SEMI_MAJOR_AXIS, SUN_MASS,
         },
-        tests::TEST_ANGLE_ACCURACY,
+        tests::{TEST_ANGLE_ACCURACY, TEST_LENGTH_ACCURACY},
     };
 
     use super::*;
@@ -240,5 +255,65 @@ mod tests {
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
         assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ANGLE_ACCURACY));
+    }
+
+    #[test]
+    fn distance_from_focusfor_eccentric_ellipse() {
+        let semi_major_axis = Length::from_meters(2.);
+        let semi_minor_axis = Length::from_meters(1.);
+        let eccentricity = (1. - (semi_minor_axis / semi_major_axis).powi(2)).sqrt();
+        let linear_eccentricity = semi_major_axis * eccentricity;
+        let focal_point = CartesianCoordinates::new(
+            linear_eccentricity,
+            Length::from_meters(0.),
+            Length::from_meters(0.),
+        );
+
+        let eccentric_anomaly = Angle::from_radians(0.);
+        let point = CartesianCoordinates::new(
+            semi_major_axis,
+            Length::from_meters(0.),
+            Length::from_meters(0.),
+        );
+        let expected = focal_point.distance(&point);
+        let actual = distance_from_focus(semi_major_axis, eccentric_anomaly, eccentricity);
+        println!("Expected distance from focus: {}", expected);
+        println!("Calculated distance from focus: {}", actual);
+        assert!(actual.eq_within(&expected, TEST_LENGTH_ACCURACY));
+
+        let eccentric_anomaly = Angle::from_radians(TWO_PI / 4.);
+        let point = CartesianCoordinates::new(
+            Length::from_meters(0.),
+            semi_minor_axis,
+            Length::from_meters(0.),
+        );
+        let expected = focal_point.distance(&point);
+        let actual = distance_from_focus(semi_major_axis, eccentric_anomaly, eccentricity);
+        println!("Expected distance from focus: {}", expected);
+        println!("Calculated distance from focus: {}", actual);
+        assert!(actual.eq_within(&expected, TEST_LENGTH_ACCURACY));
+
+        let eccentric_anomaly = Angle::from_radians(TWO_PI / 2.);
+        let point = CartesianCoordinates::new(
+            -semi_major_axis,
+            Length::from_meters(0.),
+            Length::from_meters(0.),
+        );
+        let expected = focal_point.distance(&point);
+        let actual = distance_from_focus(semi_major_axis, eccentric_anomaly, eccentricity);
+        println!("Expected distance from focus: {}", expected);
+        println!("Calculated distance from focus: {}", actual);
+        assert!(actual.eq_within(&expected, TEST_LENGTH_ACCURACY));
+
+        let eccentric_anomaly = Angle::from_radians(TWO_PI * 3. / 4.);
+        let point = CartesianCoordinates::new(
+            Length::from_meters(0.),
+            -semi_minor_axis,
+            Length::from_meters(0.),
+        );
+        let expected = focal_point.distance(&point);
+        let actual = distance_from_focus(semi_major_axis, eccentric_anomaly, eccentricity);
+        println!("Expected distance from focus: {}", expected);
+        println!("Calculated distance from focus: {}", actual);
     }
 }
