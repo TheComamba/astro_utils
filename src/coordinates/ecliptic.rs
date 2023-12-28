@@ -1,4 +1,4 @@
-use crate::{units::angle::Angle, Float, PI, PI_HALF};
+use crate::{units::angle::Angle, Float, PI};
 use std::fmt::{Display, Formatter};
 use std::ops::Neg;
 
@@ -16,6 +16,8 @@ pub const Z_DIRECTION: EclipticCoordinates = EclipticCoordinates {
     longitude: Angle::from_radians(0.0),
     latitude: Angle::from_radians(PI / 2.0),
 };
+
+const PI_HALF: Float = PI / 2.0;
 
 /*  The "absolute" reference we use for polar coordiantes is heliocentric ecliptic coordinates:
  * Longitude denotes the angle between the vernal equinox and the body, measured in the ecliptic plane.
@@ -101,7 +103,7 @@ impl Display for EclipticCoordinates {
 
 #[cfg(test)]
 mod tests {
-    use crate::{PI_HALF, TWO_PI};
+    use crate::TWO_PI;
 
     use super::*;
 
