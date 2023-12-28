@@ -179,7 +179,7 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_three_quarters_circle_mean_anomaly_and_half_eccentricity() {
-        let expected_eccentric_anomaly = Angle::from_degrees(180.0 + 115.79362093315422);
+        let expected_eccentric_anomaly = Angle::from_degrees(-115.79362093315422);
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI * 3.0 / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
@@ -188,7 +188,7 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_negative_quarter_circle_mean_anomaly_and_half_eccentricity() {
-        let expected_eccentric_anomaly = Angle::from_degrees(180.0 + 115.79362093315422);
+        let expected_eccentric_anomaly = Angle::from_degrees(-115.79362093315422);
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(-TWO_PI / 4.0), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);

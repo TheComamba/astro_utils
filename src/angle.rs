@@ -88,7 +88,7 @@ impl Sub for Angle {
 
 impl Display for Angle {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "{:.2} rad", self.as_radians())
+        write!(f, "{:.2} deg", self.as_degrees())
     }
 }
 
@@ -166,7 +166,7 @@ mod tests {
 
     #[test]
     fn test_display() {
-        let angle = Angle::from_radians(1.0);
-        assert_eq!(format!("{}", angle), "1.00 rad");
+        let angle = Angle::from_degrees(100.0);
+        assert_eq!(format!("{}", angle), "100.00 deg");
     }
 }
