@@ -6,11 +6,11 @@ use std::{
 use crate::Float;
 
 static KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
-static EARTH_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_EARTH_MASS;
+pub(super) static EARTH_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_EARTH_MASS;
 static KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
-static JUPITER_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_JUPITER_MASS;
+pub(super) static JUPITER_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_JUPITER_MASS;
 static KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
-static SOLAR_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_SOLAR_MASS;
+pub(super) static SOLAR_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_SOLAR_MASS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Mass {
@@ -18,7 +18,7 @@ pub struct Mass {
 }
 
 impl Mass {
-    pub fn from_kilograms(kilograms: Float) -> Mass {
+    pub const fn from_kilograms(kilograms: Float) -> Mass {
         Mass { kilograms }
     }
 
@@ -40,7 +40,7 @@ impl Mass {
         }
     }
 
-    pub fn as_kilograms(&self) -> Float {
+    pub const fn as_kilograms(&self) -> Float {
         self.kilograms
     }
 

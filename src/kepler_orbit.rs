@@ -1,0 +1,126 @@
+use crate::{angle::Angle, length::Length, mass::Mass, time::Time, Float, TWO_PI};
+
+/*
+ * The orbital period is the time it takes for a given object to make one full orbit around another object.
+ * https://en.wikipedia.org/wiki/Orbital_period
+ */
+pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time {
+    const G: Float = 6.67430e-11;
+    const PI: Float = std::f32::consts::PI;
+
+    let semi_major_axis_cubed = semi_major_axis.as_meters().powi(3);
+    let total_mass = mass1.as_kilograms() + mass2.as_kilograms();
+    let orbital_period = 2.0 * PI * (semi_major_axis_cubed / total_mass / G).sqrt();
+    Time::from_seconds(orbital_period)
+}
+
+/*
+ * The mean anomaly is the angle between the direction of periapsis and the current position of the orbiting body,
+ * as seen from the center of the ellipse (the point around which the object orbits).
+ * https://en.wikipedia.org/wiki/Mean_anomaly
+ */
+pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
+    let mean_motion = TWO_PI / orbital_period.as_seconds();
+    let mean_anomaly = mean_motion * time.as_seconds();
+    Angle::from_radians(mean_anomaly)
+}
+
+/*
+ * The eccentric anomaly is the angle between the direction of periapsis and the current position of the orbiting body,
+ * as seen from the center of the ellipse (the point around which the object orbits).
+ * https://en.wikipedia.org/wiki/Eccentric_anomaly
+ */
+pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
+    static ACCURACY: Float = 1e-6;
+    let mean_anomaly = mean_anomaly.as_radians();
+    let mut eccentric_anomaly = mean_anomaly;
+    let mut error = 1.0;
+    while error > ACCURACY {
+        let next_eccentric_anomaly = eccentric_anomaly
+            - (eccentric_anomaly - eccentricity * eccentric_anomaly.sin() - mean_anomaly)
+                / (1.0 - eccentricity * eccentric_anomaly.cos());
+        error = (next_eccentric_anomaly - eccentric_anomaly).abs();
+        eccentric_anomaly = next_eccentric_anomaly;
+    }
+
+    Angle::from_radians(eccentric_anomaly)
+}
+
+/*
+ * The true anomaly is the angle between the direction of periapsis and the current position of the orbiting body,
+ * as seen from the main focus of the ellipse (the point around which the object orbits).
+ * https://en.wikipedia.org/wiki/True_anomaly
+ */
+pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
+    let true_anomaly = 2.0
+        * ((eccentric_anomaly.as_radians() / 2.0).tan()
+            / ((1.0 + eccentricity) / (1.0 - eccentricity)).sqrt())
+        .atan();
+    Angle::from_radians(true_anomaly)
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::solar_system_data::{
+        EARTH_MASS, EARTH_SEMI_MAJOR_AXIS, JUPITER_MASS, JUPITER_SEMI_MAJOR_AXIS, MOON_MASS,
+        MOON_SEMI_MAJOR_AXIS, SUN_MASS,
+    };
+
+    use super::*;
+
+    static TEST_ACCURACY: Float = 1e-2;
+
+    #[test]
+    fn orbital_period_of_earth() {
+        let expected_orbital_period = Time::from_days(365.256);
+        let orbital_period = orbital_period(EARTH_SEMI_MAJOR_AXIS, EARTH_MASS, SUN_MASS);
+        println!("Expected orbital period: {}", expected_orbital_period);
+        println!("Calculated orbital period: {}", orbital_period);
+        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn orbital_period_of_jupiter() {
+        let expected_orbital_period = Time::from_days(4332.59);
+        let orbital_period = orbital_period(JUPITER_SEMI_MAJOR_AXIS, JUPITER_MASS, SUN_MASS);
+        println!("Expected orbital period: {}", expected_orbital_period);
+        println!("Calculated orbital period: {}", orbital_period);
+        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn orbital_period_of_moon() {
+        let expected_orbital_period = Time::from_days(27.321);
+        let orbital_period = orbital_period(MOON_SEMI_MAJOR_AXIS, MOON_MASS, EARTH_MASS);
+        println!("Expected orbital period: {}", expected_orbital_period);
+        println!("Calculated orbital period: {}", orbital_period);
+        assert!(orbital_period.eq_within(expected_orbital_period, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn mean_anomaly_a_quarter() {
+        let expected_mean_anomaly = Angle::from_radians(TWO_PI / 4.0);
+        let mean_anomaly = mean_anomaly(Time::from_years(4.0), Time::from_years(1.0));
+        println!("Expected mean anomaly: {}", expected_mean_anomaly);
+        println!("Calculated mean anomaly: {}", mean_anomaly);
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn mean_anomaly_a_half() {
+        let expected_mean_anomaly = Angle::from_radians(TWO_PI / 2.0);
+        let mean_anomaly = mean_anomaly(Time::from_years(4.0), Time::from_years(2.0));
+        println!("Expected mean anomaly: {}", expected_mean_anomaly);
+        println!("Calculated mean anomaly: {}", mean_anomaly);
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn mean_anomaly_three_quarters() {
+        let expected_mean_anomaly = Angle::from_radians(TWO_PI * 3.0 / 4.0);
+        let mean_anomaly = mean_anomaly(Time::from_years(4.0), Time::from_years(-1.0));
+        println!("Expected mean anomaly: {}", expected_mean_anomaly);
+        println!("Calculated mean anomaly: {}", mean_anomaly);
+        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ACCURACY));
+    }
+}
