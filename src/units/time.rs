@@ -1,17 +1,17 @@
 use crate::Float;
 use std::{
     fmt::Display,
-    ops::{Add, Sub},
+    ops::{Add, Div, Mul, Neg, Sub},
 };
 
-static SECONDS_PER_MINUTE: Float = 60.0;
-static MINUTES_PER_SECOND: Float = 1.0 / SECONDS_PER_MINUTE;
-static SECONDS_PER_DAY: Float = 86400.0;
-static DAYS_PER_SECOND: Float = 1.0 / SECONDS_PER_DAY;
-static SECONDS_PER_HOUR: Float = 3600.0;
-static HOURS_PER_SECOND: Float = 1.0 / SECONDS_PER_HOUR;
-static SECONDS_PER_YEAR: Float = 31557600.0;
-static YEARS_PER_SECOND: Float = 1.0 / SECONDS_PER_YEAR;
+const SECONDS_PER_MINUTE: Float = 60.;
+const MINUTES_PER_SECOND: Float = 1. / SECONDS_PER_MINUTE;
+const SECONDS_PER_DAY: Float = 86400.;
+const DAYS_PER_SECOND: Float = 1. / SECONDS_PER_DAY;
+const SECONDS_PER_HOUR: Float = 3600.;
+const HOURS_PER_SECOND: Float = 1. / SECONDS_PER_HOUR;
+const SECONDS_PER_YEAR: Float = 31557600.;
+const YEARS_PER_SECOND: Float = 1. / SECONDS_PER_YEAR;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Time {
@@ -19,7 +19,7 @@ pub struct Time {
 }
 
 impl Time {
-    pub fn from_seconds(seconds: Float) -> Time {
+    pub const fn from_seconds(seconds: Float) -> Time {
         Time { seconds }
     }
 
@@ -67,13 +67,9 @@ impl Time {
         self.seconds * YEARS_PER_SECOND
     }
 
-    pub fn eq_within(&self, other: Time, relative_accuracy: Float) -> bool {
-        let max = if self.seconds > other.seconds {
-            self.seconds.abs()
-        } else {
-            other.seconds.abs()
-        };
-        (self.seconds - other.seconds).abs() <= relative_accuracy * max
+    pub fn eq_within(&self, other: Time, accuracy: Time) -> bool {
+        let diff = self.seconds - other.seconds;
+        diff.abs() <= accuracy.seconds
     }
 }
 
@@ -113,77 +109,116 @@ impl Sub for Time {
     }
 }
 
+impl Mul<Float> for Time {
+    type Output = Time;
+
+    fn mul(self, f: Float) -> Time {
+        Time {
+            seconds: self.seconds * f,
+        }
+    }
+}
+
+impl Mul<Time> for Float {
+    type Output = Time;
+
+    fn mul(self, time: Time) -> Time {
+        Time {
+            seconds: time.seconds * self,
+        }
+    }
+}
+
+impl Div<Float> for Time {
+    type Output = Time;
+
+    fn div(self, f: Float) -> Time {
+        Time {
+            seconds: self.seconds / f,
+        }
+    }
+}
+
+impl Neg for Time {
+    type Output = Time;
+
+    fn neg(self) -> Time {
+        Time {
+            seconds: -self.seconds,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    static TEST_ACCURACY: Float = 1e-5;
+    use crate::tests::{TEST_ACCURACY, TEST_TIME_ACCURACY};
 
     #[test]
     fn test_seconds() {
-        let time = Time::from_seconds(1.0);
-        assert!((time.as_seconds() - 1.0).abs() < TEST_ACCURACY);
+        let time = Time::from_seconds(1.);
+        assert!((time.as_seconds() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_minutes() {
         let expected = Time::from_seconds(SECONDS_PER_MINUTE);
-        let time = Time::from_minutes(1.0);
-        assert!(time.eq_within(expected, TEST_ACCURACY));
-        assert!((time.as_minutes() - 1.0).abs() < TEST_ACCURACY);
+        let time = Time::from_minutes(1.);
+        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
+        assert!((time.as_minutes() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_hours() {
         let expected = Time::from_seconds(SECONDS_PER_HOUR);
-        let time = Time::from_hours(1.0);
-        assert!(time.eq_within(expected, TEST_ACCURACY));
-        assert!((time.as_hours() - 1.0).abs() < TEST_ACCURACY);
+        let time = Time::from_hours(1.);
+        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
+        assert!((time.as_hours() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_days() {
         let expected = Time::from_seconds(SECONDS_PER_DAY);
-        let time = Time::from_days(1.0);
-        assert!(time.eq_within(expected, TEST_ACCURACY));
-        assert!((time.as_days() - 1.0).abs() < TEST_ACCURACY);
+        let time = Time::from_days(1.);
+        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
+        assert!((time.as_days() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_years() {
         let expected = Time::from_seconds(SECONDS_PER_YEAR);
-        let time = Time::from_years(1.0);
-        assert!(time.eq_within(expected, TEST_ACCURACY));
-        assert!((time.as_years() - 1.0).abs() < TEST_ACCURACY);
+        let time = Time::from_years(1.);
+        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
+        assert!((time.as_years() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_add() {
-        let time1 = Time::from_seconds(1.0);
-        let time2 = Time::from_seconds(2.0);
-        let expected = Time::from_seconds(3.0);
-        assert!(expected.eq_within(time1 + time2, TEST_ACCURACY));
+        let time1 = Time::from_seconds(1.);
+        let time2 = Time::from_seconds(2.);
+        let expected = Time::from_seconds(3.);
+        assert!(expected.eq_within(time1 + time2, TEST_TIME_ACCURACY));
     }
 
     #[test]
     fn test_sub() {
-        let time1 = Time::from_seconds(1.0);
-        let time2 = Time::from_seconds(2.0);
-        let expected = Time::from_seconds(-1.0);
-        assert!(expected.eq_within(time1 - time2, TEST_ACCURACY));
+        let time1 = Time::from_seconds(1.);
+        let time2 = Time::from_seconds(2.);
+        let expected = Time::from_seconds(-1.);
+        assert!(expected.eq_within(time1 - time2, TEST_TIME_ACCURACY));
     }
 
     #[test]
     fn test_display() {
-        let time = Time::from_seconds(1.0);
+        let time = Time::from_seconds(1.);
         assert_eq!(format!("{}", time), "1.00 sec");
-        let time = Time::from_minutes(1.0);
+        let time = Time::from_minutes(1.);
         assert_eq!(format!("{}", time), "1.00 min");
-        let time = Time::from_hours(1.0);
+        let time = Time::from_hours(1.);
         assert_eq!(format!("{}", time), "1.00 hrs");
-        let time = Time::from_days(1.0);
+        let time = Time::from_days(1.);
         assert_eq!(format!("{}", time), "1.00 days");
-        let time = Time::from_years(1.0);
+        let time = Time::from_years(1.);
         assert_eq!(format!("{}", time), "1.00 yrs");
     }
 }

@@ -1,16 +1,16 @@
 use std::{
     fmt::Display,
-    ops::{Add, Sub},
+    ops::{Add, Div, Mul, Neg, Sub},
 };
 
 use crate::Float;
 
-pub(super) static KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
-static EARTH_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_EARTH_MASS;
-pub(super) static KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
-static JUPITER_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_JUPITER_MASS;
-pub(super) static KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
-static SOLAR_MASSES_PER_KILOGRAM: Float = 1.0 / KILOGRAMS_PER_SOLAR_MASS;
+pub(crate) const KILOGRAMS_PER_EARTH_MASS: Float = 5.972e24;
+const EARTH_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_EARTH_MASS;
+pub(crate) const KILOGRAMS_PER_JUPITER_MASS: Float = 1.898e27;
+const JUPITER_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_JUPITER_MASS;
+pub(crate) const KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
+const SOLAR_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_SOLAR_MASS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub struct Mass {
@@ -56,13 +56,9 @@ impl Mass {
         self.kilograms * SOLAR_MASSES_PER_KILOGRAM
     }
 
-    pub fn eq_within(&self, other: Mass, relative_accuracy: Float) -> bool {
-        let max = if self.kilograms > other.kilograms {
-            self.kilograms.abs()
-        } else {
-            other.kilograms.abs()
-        };
-        (self.kilograms - other.kilograms).abs() <= relative_accuracy * max
+    pub fn eq_within(&self, other: Mass, accuracy: Mass) -> bool {
+        let diff = self.kilograms - other.kilograms;
+        diff.abs() <= accuracy.kilograms
     }
 }
 
@@ -100,56 +96,96 @@ impl Sub for Mass {
     }
 }
 
+impl Mul<Float> for Mass {
+    type Output = Mass;
+
+    fn mul(self, f: Float) -> Mass {
+        Mass {
+            kilograms: self.kilograms * f,
+        }
+    }
+}
+
+impl Mul<Mass> for Float {
+    type Output = Mass;
+
+    fn mul(self, mass: Mass) -> Mass {
+        Mass {
+            kilograms: self * mass.kilograms,
+        }
+    }
+}
+
+impl Div<Float> for Mass {
+    type Output = Mass;
+
+    fn div(self, f: Float) -> Mass {
+        Mass {
+            kilograms: self.kilograms / f,
+        }
+    }
+}
+
+impl Neg for Mass {
+    type Output = Mass;
+
+    fn neg(self) -> Mass {
+        Mass {
+            kilograms: -self.kilograms,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::tests::{TEST_ACCURACY, TEST_MASS_ACCURACY};
 
-    const TEST_ACCURACY: Float = 1e-5;
+    use super::*;
 
     #[test]
     fn test_kilogram() {
-        let mass = Mass::from_kilograms(1.0);
-        assert!((mass.as_kilograms() - 1.0).abs() < TEST_ACCURACY);
+        let mass = Mass::from_kilograms(1.);
+        assert!((mass.as_kilograms() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_earth_masses() {
         let expected = Mass::from_kilograms(KILOGRAMS_PER_EARTH_MASS);
-        let mass = Mass::from_earth_masses(1.0);
-        assert!(mass.eq_within(expected, TEST_ACCURACY));
-        assert!((mass.as_earth_masses() - 1.0).abs() < TEST_ACCURACY);
+        let mass = Mass::from_earth_masses(1.);
+        assert!(mass.eq_within(expected, TEST_MASS_ACCURACY));
+        assert!((mass.as_earth_masses() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_jupiter_masses() {
         let expected = Mass::from_kilograms(KILOGRAMS_PER_JUPITER_MASS);
-        let mass = Mass::from_jupiter_masses(1.0);
-        assert!(mass.eq_within(expected, TEST_ACCURACY));
-        assert!((mass.as_jupiter_masses() - 1.0).abs() < TEST_ACCURACY);
+        let mass = Mass::from_jupiter_masses(1.);
+        assert!(mass.eq_within(expected, TEST_MASS_ACCURACY));
+        assert!((mass.as_jupiter_masses() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_solar_masses() {
         let expected = Mass::from_kilograms(KILOGRAMS_PER_SOLAR_MASS);
-        let mass = Mass::from_solar_masses(1.0);
-        assert!(mass.eq_within(expected, TEST_ACCURACY));
-        assert!((mass.as_solar_masses() - 1.0).abs() < TEST_ACCURACY);
+        let mass = Mass::from_solar_masses(1.);
+        assert!(mass.eq_within(expected, TEST_MASS_ACCURACY));
+        assert!((mass.as_solar_masses() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_addition() {
-        let mass1 = Mass::from_kilograms(1.0);
-        let mass2 = Mass::from_kilograms(2.0);
-        let expected = Mass::from_kilograms(3.0);
-        assert!((mass1 + mass2).eq_within(expected, TEST_ACCURACY));
+        let mass1 = Mass::from_kilograms(1.);
+        let mass2 = Mass::from_kilograms(2.);
+        let expected = Mass::from_kilograms(3.);
+        assert!((mass1 + mass2).eq_within(expected, TEST_MASS_ACCURACY));
     }
 
     #[test]
     fn test_subtraction() {
-        let mass1 = Mass::from_kilograms(1.0);
-        let mass2 = Mass::from_kilograms(2.0);
-        let expected = Mass::from_kilograms(-1.0);
-        assert!((mass1 - mass2).eq_within(expected, TEST_ACCURACY));
+        let mass1 = Mass::from_kilograms(1.);
+        let mass2 = Mass::from_kilograms(2.);
+        let expected = Mass::from_kilograms(-1.);
+        assert!((mass1 - mass2).eq_within(expected, TEST_MASS_ACCURACY));
     }
 
     #[test]
@@ -166,13 +202,13 @@ mod tests {
 
     #[test]
     fn test_display_thresholds() {
-        let mass = Mass::from_kilograms(1.0);
+        let mass = Mass::from_kilograms(1.);
         assert_eq!(mass.to_string(), "1.00 kg");
-        let mass = Mass::from_earth_masses(1.0);
+        let mass = Mass::from_earth_masses(1.);
         assert_eq!(mass.to_string(), "1.00 Earth masses");
-        let mass = Mass::from_jupiter_masses(1.0);
+        let mass = Mass::from_jupiter_masses(1.);
         assert_eq!(mass.to_string(), "1.00 Jupiter masses");
-        let mass = Mass::from_solar_masses(1.0);
+        let mass = Mass::from_solar_masses(1.);
         assert_eq!(mass.to_string(), "1.00 solar masses");
     }
 }
