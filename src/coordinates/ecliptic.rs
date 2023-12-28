@@ -45,6 +45,13 @@ impl EclipticCoordinates {
         }
     }
 
+    pub(crate) fn horizontal(longitude: Angle) -> EclipticCoordinates {
+        EclipticCoordinates {
+            longitude,
+            latitude: Angle::from_radians(0.),
+        }
+    }
+
     pub fn normalize(&mut self) {
         self.longitude.normalize();
         self.latitude.normalize();
@@ -75,6 +82,14 @@ impl EclipticCoordinates {
             clone.longitude.eq_within(other_clone.longitude, accuracy)
         };
         latitudes_equal && longitudes_equal
+    }
+
+    pub(super) fn longitude(&self) -> Angle {
+        self.longitude
+    }
+
+    pub(super) fn latitude(&self) -> Angle {
+        self.latitude
     }
 }
 
