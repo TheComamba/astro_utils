@@ -52,7 +52,7 @@ impl CartesianCoordinates {
         self.z
     }
 
-    pub(super) fn rotated(&self, angle: Angle, axis: &UnitVector) -> CartesianCoordinates {
+    pub fn rotated(&self, angle: Angle, axis: &UnitVector) -> CartesianCoordinates {
         let cos = angle.cos();
         let sin = angle.sin();
 
@@ -153,7 +153,7 @@ mod tests {
         coordinates::unit_vector::{UnitVector, X_DIRECTION, Y_DIRECTION, Z_DIRECTION},
         tests::TEST_LENGTH_ACCURACY,
         units::{angle::Angle, length::Length},
-        Float, TWO_PI,
+        TWO_PI,
     };
 
     const X_VECTOR: CartesianCoordinates = CartesianCoordinates {
