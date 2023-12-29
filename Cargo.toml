@@ -8,3 +8,4 @@ name         = "astro_utils"
 crate-type   = ["rlib"]
 
 [dependencies]
+serde = { version = "1.0", features = ["derive"] }

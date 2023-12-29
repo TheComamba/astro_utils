@@ -1,16 +1,16 @@
+use crate::{Float, PI, TWO_PI};
+use serde::{Deserialize, Serialize};
 use std::{
     fmt::Display,
     ops::{Add, Div, Mul, Neg, Sub},
 };
-
-use crate::{Float, PI, TWO_PI};
 
 pub(crate) const RADIANS_PER_DEGREE: Float = PI / 180.;
 const DEGREES_PER_RADIAN: Float = 1. / RADIANS_PER_DEGREE;
 const ARCSECS_PER_RADIAN: Float = 3600. * DEGREES_PER_RADIAN;
 const RADIAN_PER_ARCSEC: Float = 1. / ARCSECS_PER_RADIAN;
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Angle {
     radian: Float,
 }

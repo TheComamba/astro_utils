@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 use super::{cartesian::CartesianCoordinates, ecliptic::EclipticCoordinates};
 use crate::{
     units::{angle::Angle, length::Length},
@@ -24,6 +26,7 @@ pub const Z: Direction = Direction {
     z: 1.,
 };
 
+#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Direction {
     x: Float,
     y: Float,

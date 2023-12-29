@@ -1,8 +1,8 @@
+use super::cartesian::CartesianCoordinates;
 use crate::{units::angle::Angle, Float, PI};
+use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 use std::ops::Neg;
-
-use super::cartesian::CartesianCoordinates;
 
 pub const X_DIRECTION: EclipticCoordinates = EclipticCoordinates {
     longitude: Angle::from_radians(0.),
@@ -26,7 +26,7 @@ const PI_HALF: Float = PI / 2.;
  * Latitude denotes the angle between the ecliptic plane and the body.
  * https://en.wikipedia.org/wiki/Ecliptic_coordinate_system
  */
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EclipticCoordinates {
     longitude: Angle,
     latitude: Angle,

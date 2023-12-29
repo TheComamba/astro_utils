@@ -1,4 +1,5 @@
 use crate::Float;
+use serde::{Deserialize, Serialize};
 use std::{
     fmt::Display,
     ops::{Add, Div, Mul, Neg, Sub},
@@ -13,7 +14,7 @@ const DAYS_PER_SECOND: Float = 1. / SECONDS_PER_DAY;
 const SECONDS_PER_YEAR: Float = 31557600.;
 const YEARS_PER_SECOND: Float = 1. / SECONDS_PER_YEAR;
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Time {
     seconds: Float,
 }

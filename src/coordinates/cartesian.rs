@@ -3,6 +3,7 @@ use crate::{
     units::{angle::Angle, length::Length},
     Float,
 };
+use serde::{Deserialize, Serialize};
 use std::{
     fmt::{Display, Formatter},
     ops::{Add, Div, Mul, Neg, Sub},
@@ -14,7 +15,7 @@ pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
     z: Length::from_meters(0.),
 };
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CartesianCoordinates {
     x: Length,
     y: Length,

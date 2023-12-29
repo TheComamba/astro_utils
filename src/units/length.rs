@@ -1,4 +1,5 @@
 use crate::Float;
+use serde::{Deserialize, Serialize};
 use std::{
     fmt::Display,
     ops::{Add, Div, Mul, Neg, Sub},
@@ -17,7 +18,7 @@ const ASTRONOMICAL_UNITS_PER_METER: Float = 1. / METERS_PER_ASTRONOMICAL_UNIT;
 const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
 const LIGHT_YEARS_PER_METER: Float = 1. / METERS_PER_LIGHT_YEAR;
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Length {
     meters: Float,
 }

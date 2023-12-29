@@ -1,9 +1,9 @@
+use crate::Float;
+use serde::{Deserialize, Serialize};
 use std::{
     fmt::Display,
     ops::{Add, Div, Mul, Neg, Sub},
 };
-
-use crate::Float;
 
 pub(crate) const KILOGRAMS_PER_MOON_MASS: Float = 7.342e22;
 const MOON_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_MOON_MASS;
@@ -14,7 +14,7 @@ const JUPITER_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_JUPITER_MASS;
 pub(crate) const KILOGRAMS_PER_SOLAR_MASS: Float = 1.989e30;
 const SOLAR_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_SOLAR_MASS;
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Mass {
     kilograms: Float,
 }

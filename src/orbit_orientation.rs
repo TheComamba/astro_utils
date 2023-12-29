@@ -5,8 +5,9 @@ use crate::{
     },
     units::angle::Angle,
 };
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct OrbitOrientation {
     inclination: Angle, // The angle between the orbital plane and the reference plane
     longitude_of_ascending_node: Angle, // The angle between the reference plane and the ascending node
