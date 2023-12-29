@@ -5,7 +5,7 @@ use std::{
 
 use crate::{Float, PI, TWO_PI};
 
-const RADIANS_PER_DEGREE: Float = PI / 180.;
+pub(crate) const RADIANS_PER_DEGREE: Float = PI / 180.;
 const DEGREES_PER_RADIAN: Float = 1. / RADIANS_PER_DEGREE;
 const ARCSECS_PER_RADIAN: Float = 3600. * DEGREES_PER_RADIAN;
 const RADIAN_PER_ARCSEC: Float = 1. / ARCSECS_PER_RADIAN;
