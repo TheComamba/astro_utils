@@ -1,5 +1,4 @@
 use super::cartesian::CartesianCoordinates;
-use super::direction::Direction;
 use crate::{units::angle::Angle, Float, PI};
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
@@ -34,7 +33,7 @@ pub struct EclipticCoordinates {
 }
 
 impl EclipticCoordinates {
-    pub(super) fn new(longitude: Angle, latitude: Angle) -> EclipticCoordinates {
+    pub(crate) const fn new(longitude: Angle, latitude: Angle) -> EclipticCoordinates {
         EclipticCoordinates {
             longitude,
             latitude,
@@ -106,10 +105,6 @@ impl EclipticCoordinates {
 
     pub fn set_latitude(&mut self, latitude: Angle) {
         self.latitude = latitude;
-    }
-
-    pub(super) fn angle_to(&self, other: &EclipticCoordinates) -> Angle {
-        Direction::from_ecliptic(self).angle_to(&Direction::from_ecliptic(other))
     }
 }
 

@@ -32,7 +32,7 @@ impl Angle {
         }
     }
 
-    pub fn as_radians(&self) -> Float {
+    pub const fn as_radians(&self) -> Float {
         self.radian
     }
 

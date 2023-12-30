@@ -1,4 +1,5 @@
 use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
+use crate::coordinates::ecliptic::EclipticCoordinates;
 use crate::orbit_orientation::OrbitOrientation;
 use crate::units::angle::{Angle, RADIANS_PER_DEGREE};
 use crate::units::length::{
@@ -52,7 +53,7 @@ pub const VENUS_NORTH: EarthEquatorialCoordinates = EarthEquatorialCoordinates::
 
 pub const EARTH_SEMI_MAJOR_AXIS: Length = Length::from_meters(149_598_023_000.);
 pub const EARTH_ECCENTRICITY: Float = 0.016_708_6;
-pub const EARH_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
+pub const EARTH_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(0.00005 * RADIANS_PER_DEGREE),
     Angle::from_radians(-11.26064 * RADIANS_PER_DEGREE),
     Angle::from_radians(114.20783 * RADIANS_PER_DEGREE),
