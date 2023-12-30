@@ -33,6 +33,20 @@ where
     (x_out, y_out, z_out)
 }
 
+pub(super) fn angle_between<T>(a: (T, T, T), b: (T, T, T)) -> Angle
+where
+    T: Mul<Float, Output = T> + Add<Output = T> + Copy,
+{
+    todo!()
+}
+
+pub(super) fn cross_product<T>(a: (T, T, T), b: (T, T, T)) -> (T, T, T)
+where
+    T: Mul<Float, Output = T> + Add<Output = T> + Copy,
+{
+    todo!()
+}
+
 pub(super) fn get_rotation_parameters<T>(start: (T, T, T), end: (T, T, T)) -> (Angle, Direction)
 where
     T: Mul<Float, Output = T> + Add<Output = T> + Copy,
@@ -45,9 +59,9 @@ mod tests {
     use crate::{
         coordinates::{
             direction::{Direction, X, Y, Z},
-            rotations::{get_rotation_parameters, rotated_tuple},
+            rotations::{angle_between, cross_product, get_rotation_parameters, rotated_tuple},
         },
-        tests::TEST_ACCURACY,
+        tests::{TEST_ACCURACY, TEST_ANGLE_ACCURACY},
         units::angle::Angle,
         Float, TWO_PI,
     };
@@ -354,6 +368,121 @@ mod tests {
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
+    }
+
+    #[test]
+    fn angle_between_is_half_turn() {
+        let angle = angle_between(X_VECTOR, MINUS_X_VECTOR);
+        let expected = HALF_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let angle = angle_between(Y_VECTOR, MINUS_Y_VECTOR);
+        let expected = HALF_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let angle = angle_between(Z_VECTOR, MINUS_Z_VECTOR);
+        let expected = HALF_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let tup1 = (1., 1., 0.);
+        let tup2 = (-1., -1., 0.);
+        let angle = angle_between(tup1, tup2);
+        let expected = HALF_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let tup1 = (1., 0., 1.);
+        let tup2 = (-1., 0., -1.);
+        let angle = angle_between(tup1, tup2);
+        let expected = HALF_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let tup1 = (0., 1., 1.);
+        let tup2 = (0., -1., -1.);
+        let angle = angle_between(tup1, tup2);
+        let expected = HALF_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+    }
+
+    #[test]
+    fn angle_between_is_quarter_turn() {
+        let angle = angle_between(X_VECTOR, Y_VECTOR);
+        let expected = QUARTER_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let angle = angle_between(X_VECTOR, Z_VECTOR);
+        let expected = QUARTER_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let angle = angle_between(Y_VECTOR, Z_VECTOR);
+        let expected = QUARTER_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let tup1 = (1., 1., 0.);
+        let tup2 = (1., 0., 1.);
+        let angle = angle_between(tup1, tup2);
+        let expected = QUARTER_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+
+        let tup1 = (1., 1., 0.);
+        let tup2 = (1., 0., -1.);
+        let angle = angle_between(tup1, tup2);
+        let expected = QUARTER_TURN;
+        println!("expected: {}, actual: {}", expected, angle);
+    }
+
+    #[test]
+    fn test_cross_product() {
+        let tup1 = (1., 0., 0.);
+        let tup2 = (0., 1., 0.);
+        let expected = (0., 0., 1.);
+        let actual = cross_product(tup1, tup2);
+        print_expectations(expected, actual);
+        assert!(kinda_equal(expected, actual));
+
+        let tup1 = (1., 0., 0.);
+        let tup2 = (0., 0., 1.);
+        let expected = (0., -1., 0.);
+        let actual = cross_product(tup1, tup2);
+        print_expectations(expected, actual);
+        assert!(kinda_equal(expected, actual));
+
+        let tup1 = (0., 1., 0.);
+        let tup2 = (0., 0., 1.);
+        let expected = (1., 0., 0.);
+        let actual = cross_product(tup1, tup2);
+        print_expectations(expected, actual);
+        assert!(kinda_equal(expected, actual));
+
+        let tup1 = (0., 1., 0.);
+        let tup2 = (0., 0., -1.);
+        let expected = (-1., 0., 0.);
+        let actual = cross_product(tup1, tup2);
+        print_expectations(expected, actual);
+        assert!(kinda_equal(expected, actual));
+
+        let tup1 = (0., 0., 1.);
+        let tup2 = (0., 1., 0.);
+        let expected = (0., -1., 0.);
+        let actual = cross_product(tup1, tup2);
+        print_expectations(expected, actual);
+        assert!(kinda_equal(expected, actual));
+
+        let tup1 = (0., 0., 1.);
+        let tup2 = (1., 0., 0.);
+        let expected = (0., 0., -1.);
+        let actual = cross_product(tup1, tup2);
+        print_expectations(expected, actual);
+        assert!(kinda_equal(expected, actual));
     }
 
     #[test]
