@@ -434,12 +434,12 @@ mod tests {
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
         let tup1 = Direction::new(1., 1., 0.);
-        let tup2 = Direction::new(1., 0., 1.);
+        let tup2 = Direction::new(1., -1., 0.);
         let angle = angle_between(tup1, tup2);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let tup1 = Direction::new(1., 1., 0.);
+        let tup1 = Direction::new(1., 0., 1.);
         let tup2 = Direction::new(1., 0., -1.);
         let angle = angle_between(tup1, tup2);
         println!("expected: {}, actual: {}", expected, angle);
