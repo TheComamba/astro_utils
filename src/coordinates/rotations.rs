@@ -501,14 +501,14 @@ mod tests {
 
         let tup1 = Direction::new(0., 0., 1.);
         let tup2 = Direction::new(0., 1., 0.);
-        let expected = Direction::new(0., -1., 0.);
+        let expected = Direction::new(-1., 0., 0.);
         let actual = cross_product(tup1, tup2);
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
         let tup1 = Direction::new(0., 0., 1.);
         let tup2 = Direction::new(1., 0., 0.);
-        let expected = Direction::new(0., 0., -1.);
+        let expected = Direction::new(0., 1., 0.);
         let actual = cross_product(tup1, tup2);
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
