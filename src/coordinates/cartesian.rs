@@ -1,4 +1,4 @@
-use super::direction::{rotated_tuple, Direction};
+use super::{direction::Direction, rotations::rotated_tuple};
 use crate::{
     units::{angle::Angle, length::Length},
     Float,
