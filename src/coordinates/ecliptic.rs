@@ -33,6 +33,13 @@ pub struct EclipticCoordinates {
 }
 
 impl EclipticCoordinates {
+    pub(super) fn new(longitude: Angle, latitude: Angle) -> EclipticCoordinates {
+        EclipticCoordinates {
+            longitude,
+            latitude,
+        }
+    }
+
     pub fn from_cartesian(cart: &CartesianCoordinates) -> EclipticCoordinates {
         let x = cart.x().as_meters();
         let y = cart.y().as_meters();
