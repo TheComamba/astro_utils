@@ -45,7 +45,7 @@ pub const VENUS_BOND_ALBEDO: Float = 0.76;
 pub const VENUS_RADIUS: Length = Length::from_meters(6_051_800.);
 pub const VENUS_MASS: Mass = Mass::from_kilograms(4.8675e24);
 pub const VENUS_SIDERIAL_ROTATION_PERIOD: Time = Time::from_seconds(-243.022_6 * SECONDS_PER_DAY);
-pub const VENUS_AXIS_TILT: Angle = Angle::from_radians(177.36 * RADIANS_PER_DEGREE);
+pub const VENUS_AXIS_TILT: Angle = Angle::from_radians(2.64 * RADIANS_PER_DEGREE);
 pub const VENUS_NORTH: EarthEquatorialCoordinates = EarthEquatorialCoordinates::new(
     Angle::from_radians(272.76 * RADIANS_PER_DEGREE),
     Angle::from_radians(67.16 * RADIANS_PER_DEGREE),
@@ -191,8 +191,8 @@ pub const PLUTO_MASS: Mass = Mass::from_kilograms(1.303e22);
 pub const PLUTO_SIDERIAL_ROTATION_PERIOD: Time = Time::from_seconds(-6.387_230 * SECONDS_PER_DAY);
 pub const PLUTO_AXIS_TILT: Angle = Angle::from_radians(122.53 * RADIANS_PER_DEGREE);
 pub const PLUTO_NORTH: EarthEquatorialCoordinates = EarthEquatorialCoordinates::new(
-    Angle::from_radians(132.993 * RADIANS_PER_DEGREE),
-    Angle::from_radians(-6.163 * RADIANS_PER_DEGREE),
+    Angle::from_radians(132.99 * RADIANS_PER_DEGREE),
+    Angle::from_radians(-6.16 * RADIANS_PER_DEGREE),
 );
 
 pub const MOON_SEMI_MAJOR_AXIS: Length = Length::from_meters(384_399_000.);

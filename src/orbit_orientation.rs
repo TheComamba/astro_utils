@@ -50,7 +50,6 @@ impl OrbitOrientation {
         let ecliptic_normal = Z;
         let orbit_normal = ecliptic_normal.rotated(self.inclination, &X);
         let orbit_normal = orbit_normal.rotated(self.longitude_of_ascending_node, &Z);
-        let orbit_normal = orbit_normal.rotated(self.argument_of_periapsis, &orbit_normal);
         orbit_normal
     }
 }
