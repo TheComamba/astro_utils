@@ -183,7 +183,7 @@ pub const PLUTO_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(110.30347 * RADIANS_PER_DEGREE),
     Angle::from_radians(113.76329 * RADIANS_PER_DEGREE),
 );
-pub const PLUTO_BOND_ALBEDO: Float = 0.41;
+pub const PLUTO_BOND_ALBEDO: Float = 0.72;
 
 pub const PLUTO_RADIUS: Length = Length::from_meters(1_188_300.);
 pub const PLUTO_MASS: Mass = Mass::from_kilograms(1.303e22);
