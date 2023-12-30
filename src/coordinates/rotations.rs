@@ -526,12 +526,14 @@ mod tests {
                             for end_z in ordinates.clone().iter() {
                                 let start = Direction::new(*start_x, *start_y, *start_z);
                                 let end = Direction::new(*end_x, *end_y, *end_z);
+                                println!("start: {}, end: {}", start, end);
                                 if start.eq_within(&problematic, TEST_ACCURACY)
                                     || end.eq_within(&problematic, TEST_ACCURACY)
                                 {
                                     continue;
                                 }
                                 let (angle, axis) = get_rotation_parameters(start, end);
+                                println!("angle: {}, axis: {}", angle, axis);
                                 let rotated = start.rotated(angle, &axis);
                                 println!("expected: {}, actual: {}", end, rotated);
                                 assert!(rotated.eq_within(&end, TEST_ACCURACY));
