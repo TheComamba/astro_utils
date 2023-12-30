@@ -37,21 +37,40 @@ pub(super) fn angle_between<T>(a: (T, T, T), b: (T, T, T)) -> Angle
 where
     T: Mul<Float, Output = T> + Add<Output = T> + Copy,
 {
-    todo!()
+    let (ax, ay, az) = a;
+    let (bx, by, bz) = b;
+
+    let dot_product = ax * bx + ay * by + az * bz;
+    let a_length = (ax * ax + ay * ay + az * az).sqrt();
+    let b_length = (bx * bx + by * by + bz * bz).sqrt();
+
+    let cos = dot_product / (a_length * b_length);
+    Angle::from_radians(cos.acos())
 }
 
 pub(super) fn cross_product<T>(a: (T, T, T), b: (T, T, T)) -> (T, T, T)
 where
     T: Mul<Float, Output = T> + Add<Output = T> + Copy,
 {
-    todo!()
+    let (ax, ay, az) = a;
+    let (bx, by, bz) = b;
+
+    let cx = ay * bz - az * by;
+    let cy = az * bx - ax * bz;
+    let cz = ax * by - ay * bx;
+
+    (cx, cy, cz)
 }
 
 pub(super) fn get_rotation_parameters<T>(start: (T, T, T), end: (T, T, T)) -> (Angle, Direction)
 where
     T: Mul<Float, Output = T> + Add<Output = T> + Copy,
 {
-    todo!()
+    let angle = angle_between(start, end);
+    let axis = cross_product(start, end);
+    let axis_length = (axis.0 * axis.0 + axis.1 * axis.1 + axis.2 * axis.2).sqrt();
+    let axis = Direction::new(axis.0 / axis_length, axis.1 / axis_length, axis.2 / axis_length);
+    (angle, axis)
 }
 
 #[cfg(test)]
