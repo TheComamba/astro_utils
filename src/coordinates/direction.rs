@@ -8,6 +8,8 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use std::{fmt::Display, ops::Neg};
 
+pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-10;
+
 pub const X: Direction = Direction {
     x: 1.,
     y: 0.,
@@ -34,7 +36,7 @@ pub struct Direction {
 impl Direction {
     pub fn new(x: Float, y: Float, z: Float) -> Direction {
         let length = (x * x + y * y + z * z).sqrt();
-        if length < 1e-10 {
+        if length < NORMALIZATION_THRESHOLD {
             Z //return default axis
         } else {
             Direction {

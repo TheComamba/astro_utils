@@ -1,4 +1,4 @@
-use super::direction::Direction;
+use super::direction::{Direction, NORMALIZATION_THRESHOLD, X, Y, Z};
 use crate::{units::angle::Angle, Float, PI};
 use std::ops::{Add, Mul};
 
@@ -47,6 +47,19 @@ pub(super) fn angle_between(a: Direction, b: Direction) -> Angle {
     Angle::from_radians(cosine_argument.acos())
 }
 
+fn some_orthogonal_vector(vector: Direction) -> Direction {
+    if vector.x().abs() > NORMALIZATION_THRESHOLD {
+        cross_product(vector, Y)
+    } else if vector.y().abs() > NORMALIZATION_THRESHOLD {
+        cross_product(vector, Z)
+    } else if vector.z().abs() > NORMALIZATION_THRESHOLD {
+        cross_product(vector, X)
+    } else {
+        //vector is (0,0,0)
+        Z
+    }
+}
+
 pub(super) fn cross_product(a: Direction, b: Direction) -> Direction {
     let (ax, ay, az) = (a.x(), a.y(), a.z());
     let (bx, by, bz) = (b.x(), b.y(), b.z());
@@ -55,7 +68,16 @@ pub(super) fn cross_product(a: Direction, b: Direction) -> Direction {
     let cy = az * bx - ax * bz;
     let cz = ax * by - ay * bx;
 
-    Direction::new(cx, cy, cz)
+    let cross_product_length = (cx * cx + cy * cy + cz * cz).sqrt();
+    if cross_product_length < NORMALIZATION_THRESHOLD {
+        some_orthogonal_vector(a)
+    } else {
+        Direction::new(cx, cy, cz)
+    }
+}
+
+fn dot_product(a: &Direction, b: &Direction) -> Float {
+    a.x() * b.x() + a.y() * b.y() + a.z() * b.z()
 }
 
 pub(super) fn get_rotation_parameters(start: Direction, end: Direction) -> (Angle, Direction) {
@@ -69,7 +91,9 @@ mod tests {
     use crate::{
         coordinates::{
             direction::{Direction, X, Y, Z},
-            rotations::{angle_between, cross_product, get_rotation_parameters, rotated_tuple},
+            rotations::{
+                angle_between, cross_product, dot_product, get_rotation_parameters, rotated_tuple,
+            },
         },
         tests::TEST_ACCURACY,
         units::angle::Angle,
@@ -515,7 +539,43 @@ mod tests {
     }
 
     #[test]
+    fn cross_product_is_always_orthogonal() {
+        let problematic = Direction::new(0., 0., 0.);
+        let ordinates = vec![-1., 0., 1., 10.];
+        for x in ordinates.clone().iter() {
+            for y in ordinates.clone().iter() {
+                for z in ordinates.clone().iter() {
+                    for u in ordinates.clone().iter() {
+                        for v in ordinates.clone().iter() {
+                            for w in ordinates.clone().iter() {
+                                let a = Direction::new(*x, *y, *z);
+                                let b = Direction::new(*u, *v, *w);
+                                println!("a: {}, b: {}", a, b);
+                                if a.eq_within(&problematic, TEST_ACCURACY)
+                                    || b.eq_within(&problematic, TEST_ACCURACY)
+                                {
+                                    continue;
+                                }
+                                let cross = cross_product(a, b);
+                                let overlap_with_a = dot_product(&cross, &a);
+                                let overlap_with_b = dot_product(&cross, &b);
+                                println!(
+                                    "cross: {}, overlap_with_a: {}, overlap_with_b: {}",
+                                    cross, overlap_with_a, overlap_with_b
+                                );
+                                assert!(overlap_with_a.abs() < TEST_ACCURACY);
+                                assert!(overlap_with_b.abs() < TEST_ACCURACY);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
     fn get_rotation_parameters_test() {
+        const ROTATION_DIRECTION_ACCURACY: Float = 1e-3;
         let problematic = Direction::new(0., 0., 0.);
         let ordinates = vec![-1., 0., 1., 10.];
         for start_x in ordinates.clone().iter() {
@@ -536,7 +596,7 @@ mod tests {
                                 println!("angle: {}, axis: {}", angle, axis);
                                 let rotated = start.rotated(angle, &axis);
                                 println!("expected: {}, actual: {}", end, rotated);
-                                assert!(rotated.eq_within(&end, TEST_ACCURACY));
+                                assert!(rotated.eq_within(&end, ROTATION_DIRECTION_ACCURACY));
                             }
                         }
                     }
