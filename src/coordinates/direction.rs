@@ -32,6 +32,15 @@ pub struct Direction {
 }
 
 impl Direction {
+    pub fn new(x: Float, y: Float, z: Float) -> Direction {
+        let length = (x * x + y * y + z * z).sqrt();
+        Direction {
+            x: x / length,
+            y: y / length,
+            z: z / length,
+        }
+    }
+
     pub fn from_cartesian(coords: &CartesianCoordinates) -> Self {
         let length = coords.length();
         Direction {
