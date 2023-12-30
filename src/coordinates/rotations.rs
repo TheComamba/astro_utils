@@ -33,7 +33,7 @@ where
     (x_out, y_out, z_out)
 }
 
-pub(super) fn angle_between(a: Direction, b: Direction) -> Angle {
+pub(super) fn angle_between(a: &Direction, b: &Direction) -> Angle {
     let (ax, ay, az) = (a.x(), a.y(), a.z());
     let (bx, by, bz) = (b.x(), b.y(), b.z());
 
@@ -47,20 +47,20 @@ pub(super) fn angle_between(a: Direction, b: Direction) -> Angle {
     Angle::from_radians(cosine_argument.acos())
 }
 
-fn some_orthogonal_vector(vector: Direction) -> Direction {
+fn some_orthogonal_vector(vector: &Direction) -> Direction {
     if vector.x().abs() > NORMALIZATION_THRESHOLD {
-        cross_product(vector, Y)
+        cross_product(vector, &Y)
     } else if vector.y().abs() > NORMALIZATION_THRESHOLD {
-        cross_product(vector, Z)
+        cross_product(vector, &Z)
     } else if vector.z().abs() > NORMALIZATION_THRESHOLD {
-        cross_product(vector, X)
+        cross_product(vector, &X)
     } else {
         //vector is (0,0,0)
         Z
     }
 }
 
-pub(super) fn cross_product(a: Direction, b: Direction) -> Direction {
+pub(super) fn cross_product(a: &Direction, b: &Direction) -> Direction {
     let (ax, ay, az) = (a.x(), a.y(), a.z());
     let (bx, by, bz) = (b.x(), b.y(), b.z());
 
@@ -80,7 +80,7 @@ fn dot_product(a: &Direction, b: &Direction) -> Float {
     a.x() * b.x() + a.y() * b.y() + a.z() * b.z()
 }
 
-pub(super) fn get_rotation_parameters(start: Direction, end: Direction) -> (Angle, Direction) {
+pub(super) fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle, Direction) {
     let angle = angle_between(start, end);
     let axis = cross_product(start, end);
     (angle, axis)
@@ -410,33 +410,33 @@ mod tests {
     fn angle_between_is_half_turn() {
         const EXPECTED: Angle = HALF_TURN;
 
-        let angle = angle_between(X, -X);
+        let angle = angle_between(&X, &(-X));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = angle_between(Y, -Y);
+        let angle = angle_between(&Y, &(-Y));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = angle_between(Z, -Z);
+        let angle = angle_between(&Z, &(-Z));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let tup1 = Direction::new(1., 1., 0.);
-        let tup2 = Direction::new(-1., -1., 0.);
-        let angle = angle_between(tup1, tup2);
+        let angle1 = Direction::new(1., 1., 0.);
+        let angle2 = Direction::new(-1., -1., 0.);
+        let angle = angle_between(&angle1, &angle2);
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let tup1 = Direction::new(1., 0., 1.);
-        let tup2 = Direction::new(-1., 0., -1.);
-        let angle = angle_between(tup1, tup2);
+        let angle1 = Direction::new(1., 0., 1.);
+        let angle2 = Direction::new(-1., 0., -1.);
+        let angle = angle_between(&angle1, &angle2);
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let tup1 = Direction::new(0., 1., 1.);
-        let tup2 = Direction::new(0., -1., -1.);
-        let angle = angle_between(tup1, tup2);
+        let angle1 = Direction::new(0., 1., 1.);
+        let angle2 = Direction::new(0., -1., -1.);
+        let angle = angle_between(&angle1, &angle2);
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
     }
@@ -445,27 +445,27 @@ mod tests {
     fn angle_between_is_quarter_turn() {
         let expected = QUARTER_TURN;
 
-        let angle = angle_between(X, Y);
+        let angle = angle_between(&X, &Y);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let angle = angle_between(X, Z);
+        let angle = angle_between(&X, &Z);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let angle = angle_between(Y, Z);
+        let angle = angle_between(&Y, &Z);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let tup1 = Direction::new(1., 1., 0.);
-        let tup2 = Direction::new(1., -1., 0.);
-        let angle = angle_between(tup1, tup2);
+        let angle1 = Direction::new(1., 1., 0.);
+        let angle2 = Direction::new(1., -1., 0.);
+        let angle = angle_between(&angle1, &angle2);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let tup1 = Direction::new(1., 0., 1.);
-        let tup2 = Direction::new(1., 0., -1.);
-        let angle = angle_between(tup1, tup2);
+        let angle1 = Direction::new(1., 0., 1.);
+        let angle2 = Direction::new(1., 0., -1.);
+        let angle = angle_between(&angle1, &angle2);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
     }
@@ -474,66 +474,66 @@ mod tests {
     fn angle_between_is_zero() {
         const EXPECTED: Angle = Angle::from_radians(0.);
 
-        let angle = angle_between(X, X);
+        let angle = angle_between(&X, &X);
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = angle_between(Y, Y);
+        let angle = angle_between(&Y, &Y);
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = angle_between(Z, Z);
+        let angle = angle_between(&Z, &Z);
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let tup1 = Direction::new(1., 1., 0.);
-        let tup2 = Direction::new(1., 1., 0.);
-        let angle = angle_between(tup1, tup2);
+        let angle1 = Direction::new(1., 1., 0.);
+        let angle2 = Direction::new(1., 1., 0.);
+        let angle = angle_between(&angle1, &angle2);
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
     }
 
     #[test]
     fn test_cross_product() {
-        let tup1 = Direction::new(1., 0., 0.);
-        let tup2 = Direction::new(0., 1., 0.);
+        let angle1 = Direction::new(1., 0., 0.);
+        let angle2 = Direction::new(0., 1., 0.);
         let expected = Direction::new(0., 0., 1.);
-        let actual = cross_product(tup1, tup2);
+        let actual = cross_product(&angle1, &angle2);
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = Direction::new(1., 0., 0.);
-        let tup2 = Direction::new(0., 0., 1.);
+        let angle1 = Direction::new(1., 0., 0.);
+        let angle2 = Direction::new(0., 0., 1.);
         let expected = Direction::new(0., -1., 0.);
-        let actual = cross_product(tup1, tup2);
+        let actual = cross_product(&angle1, &angle2);
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = Direction::new(0., 1., 0.);
-        let tup2 = Direction::new(0., 0., 1.);
+        let angle1 = Direction::new(0., 1., 0.);
+        let angle2 = Direction::new(0., 0., 1.);
         let expected = Direction::new(1., 0., 0.);
-        let actual = cross_product(tup1, tup2);
+        let actual = cross_product(&angle1, &angle2);
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = Direction::new(0., 1., 0.);
-        let tup2 = Direction::new(0., 0., -1.);
+        let angle1 = Direction::new(0., 1., 0.);
+        let angle2 = Direction::new(0., 0., -1.);
         let expected = Direction::new(-1., 0., 0.);
-        let actual = cross_product(tup1, tup2);
+        let actual = cross_product(&angle1, &angle2);
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = Direction::new(0., 0., 1.);
-        let tup2 = Direction::new(0., 1., 0.);
+        let angle1 = Direction::new(0., 0., 1.);
+        let angle2 = Direction::new(0., 1., 0.);
         let expected = Direction::new(-1., 0., 0.);
-        let actual = cross_product(tup1, tup2);
+        let actual = cross_product(&angle1, &angle2);
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = Direction::new(0., 0., 1.);
-        let tup2 = Direction::new(1., 0., 0.);
+        let angle1 = Direction::new(0., 0., 1.);
+        let angle2 = Direction::new(1., 0., 0.);
         let expected = Direction::new(0., 1., 0.);
-        let actual = cross_product(tup1, tup2);
+        let actual = cross_product(&angle1, &angle2);
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
     }
@@ -556,7 +556,7 @@ mod tests {
                                 {
                                     continue;
                                 }
-                                let cross = cross_product(a, b);
+                                let cross = cross_product(&a, &b);
                                 let overlap_with_a = dot_product(&cross, &a);
                                 let overlap_with_b = dot_product(&cross, &b);
                                 println!(
@@ -592,7 +592,7 @@ mod tests {
                                 {
                                     continue;
                                 }
-                                let (angle, axis) = get_rotation_parameters(start, end);
+                                let (angle, axis) = get_rotation_parameters(&start, &end);
                                 println!("angle: {}, axis: {}", angle, axis);
                                 let rotated = start.rotated(angle, &axis);
                                 println!("expected: {}, actual: {}", end, rotated);
