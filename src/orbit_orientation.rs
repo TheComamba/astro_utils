@@ -15,7 +15,7 @@ pub struct OrbitOrientation {
 }
 
 impl OrbitOrientation {
-    pub fn new(
+    pub const fn new(
         inclination: Angle,
         longitude_of_ascending_node: Angle,
         argument_of_periapsis: Angle,

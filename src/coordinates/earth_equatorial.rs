@@ -29,3 +29,8 @@ impl EarthEquatorialCoordinates {
         )
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+}
