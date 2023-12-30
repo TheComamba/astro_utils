@@ -7,9 +7,9 @@ use std::{
 
 const SECONDS_PER_MINUTE: Float = 60.;
 const MINUTES_PER_SECOND: Float = 1. / SECONDS_PER_MINUTE;
-const SECONDS_PER_HOUR: Float = 3600.;
+pub(crate) const SECONDS_PER_HOUR: Float = 3600.;
 const HOURS_PER_SECOND: Float = 1. / SECONDS_PER_HOUR;
-const SECONDS_PER_DAY: Float = 86400.;
+pub(crate) const SECONDS_PER_DAY: Float = 86400.;
 const DAYS_PER_SECOND: Float = 1. / SECONDS_PER_DAY;
 const SECONDS_PER_YEAR: Float = 31557600.;
 const YEARS_PER_SECOND: Float = 1. / SECONDS_PER_YEAR;
