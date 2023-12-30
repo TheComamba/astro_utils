@@ -1,18 +1,12 @@
 use crate::{
     solar_system_data::EARTH_AXIS_TILT,
     units::{angle::Angle, length::Length},
-    PI,
 };
 
 use super::{
-    direction::{Direction, X, Y, Z},
+    direction::{Direction, X},
     ecliptic::EclipticCoordinates,
 };
-
-const EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES: EclipticCoordinates = EclipticCoordinates::new(
-    Angle::from_radians(PI / 2.),
-    Angle::from_radians(PI / 2. - EARTH_AXIS_TILT.as_radians()),
-);
 
 pub struct EarthEquatorialCoordinates {
     right_ascension: Angle,
@@ -26,21 +20,6 @@ impl EarthEquatorialCoordinates {
             declination,
         }
     }
-
-    // /*
-    //  * https://aas.aanda.org/articles/aas/full/1998/01/ds1449/node3.html
-    //  */
-    // pub fn to_ecliptic(&self) -> EclipticCoordinates {
-    //     let obliquity = EARTH_AXIS_TILT;
-    //     let alpha = self.right_ascension;
-    //     let delta = self.declination;
-    //     let sinbeta = delta.sin() * obliquity.cos() + delta.cos() * obliquity.sin() * alpha.sin();
-    //     let beta = sinbeta.asin();
-    //     let coslambda = delta.cos() * alpha.cos() / beta.cos();
-    //     let lambda = coslambda.acos();
-
-    //     EclipticCoordinates::new(Angle::from_radians(lambda), Angle::from_radians(beta))
-    // }
 
     pub fn to_direction(&self) -> Direction {
         let direction_in_equatorial = Direction::from_ecliptic(&EclipticCoordinates::new(
@@ -62,16 +41,16 @@ impl EarthEquatorialCoordinates {
 mod tests {
     use super::EarthEquatorialCoordinates;
     use crate::{
-        coordinates::{
-            earth_equatorial::EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
-            ecliptic::EclipticCoordinates,
-        },
-        solar_system_data::*,
-        tests::TEST_ANGLE_ACCURACY,
-        units::angle::Angle,
+        coordinates::ecliptic::EclipticCoordinates, solar_system_data::*,
+        tests::TEST_ANGLE_ACCURACY, units::angle::Angle, PI,
     };
 
     const TILT_TEST_ACCURACY: Angle = Angle::from_radians(1e-3);
+
+    const EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES: EclipticCoordinates = EclipticCoordinates::new(
+        Angle::from_radians(PI / 2.),
+        Angle::from_radians(PI / 2. - EARTH_AXIS_TILT.as_radians()),
+    );
 
     /*
      * https://ned.ipac.caltech.edu/coordinate_calculator?in_csys=Equatorial&in_equinox=J2000.0&obs_epoch=2000.0&ra=0&dec=90&pa=0.0&out_csys=Ecliptic&out_equinox=J2000.0

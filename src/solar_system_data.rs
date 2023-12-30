@@ -1,5 +1,4 @@
 use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
-use crate::coordinates::ecliptic::EclipticCoordinates;
 use crate::orbit_orientation::OrbitOrientation;
 use crate::units::angle::{Angle, RADIANS_PER_DEGREE};
 use crate::units::length::{
