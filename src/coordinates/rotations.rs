@@ -33,12 +33,19 @@ where
     (x_out, y_out, z_out)
 }
 
+pub(super) fn get_rotation_parameters<T>(start: (T, T, T), end: (T, T, T)) -> (Angle, Direction)
+where
+    T: Mul<Float, Output = T> + Add<Output = T> + Copy,
+{
+    todo!()
+}
+
 #[cfg(test)]
 mod tests {
     use crate::{
         coordinates::{
             direction::{Direction, X, Y, Z},
-            rotations::rotated_tuple,
+            rotations::{get_rotation_parameters, rotated_tuple},
         },
         tests::TEST_ACCURACY,
         units::angle::Angle,
@@ -347,5 +354,33 @@ mod tests {
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
+    }
+
+    #[test]
+    fn get_rotation_parameters_test() {
+        const PROBLEMATIC: (Float, Float, Float) = (0., 0., 0.);
+        let ordinates = vec![-1., 0., 1., 10.];
+        for start_x in ordinates.clone().iter() {
+            for start_y in ordinates.clone().iter() {
+                for start_z in ordinates.clone().iter() {
+                    for end_x in ordinates.clone().iter() {
+                        for end_y in ordinates.clone().iter() {
+                            for end_z in ordinates.clone().iter() {
+                                let start = (*start_x, *start_y, *start_z);
+                                let end = (*end_x, *end_y, *end_z);
+                                if kinda_equal(start, PROBLEMATIC) || kinda_equal(end, PROBLEMATIC)
+                                {
+                                    continue;
+                                }
+                                let (angle, axis) = get_rotation_parameters(start, end);
+                                let rotated = rotated_tuple(start, angle, &axis);
+                                print_expectations(rotated, end);
+                                assert!(kinda_equal(rotated, end));
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
