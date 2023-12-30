@@ -56,14 +56,14 @@ impl Direction {
         }
     }
 
-    pub(crate) fn from_ecliptic(ecliptic: &EclipticCoordinates) -> Self {
+    pub fn from_ecliptic(ecliptic: &EclipticCoordinates) -> Self {
         let x = ecliptic.get_longitude().cos() * ecliptic.get_latitude().cos();
         let y = ecliptic.get_longitude().sin() * ecliptic.get_latitude().cos();
         let z = ecliptic.get_latitude().sin();
         Direction { x, y, z }
     }
 
-    pub(crate) fn to_cartesian(&self, length: Length) -> CartesianCoordinates {
+    pub fn to_cartesian(&self, length: Length) -> CartesianCoordinates {
         CartesianCoordinates::new(self.x * length, self.y * length, self.z * length)
     }
 
@@ -90,7 +90,7 @@ impl Direction {
             && (self.z - other.z).abs() < accuracy
     }
 
-    pub(super) fn angle_to(&self, other: &Direction) -> Angle {
+    pub fn angle_to(&self, other: &Direction) -> Angle {
         let (ax, ay, az) = (self.x(), self.y(), self.z());
         let (bx, by, bz) = (other.x(), other.y(), other.z());
 
