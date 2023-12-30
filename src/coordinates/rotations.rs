@@ -1,5 +1,5 @@
-use super::direction::{Direction, NORMALIZATION_THRESHOLD, X, Y, Z};
-use crate::{units::angle::Angle, Float, PI};
+use super::direction::Direction;
+use crate::{units::angle::Angle, Float};
 use std::ops::{Add, Mul};
 
 pub(super) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle, axis: &Direction) -> (T, T, T)
@@ -33,56 +33,9 @@ where
     (x_out, y_out, z_out)
 }
 
-pub(super) fn angle_between(a: &Direction, b: &Direction) -> Angle {
-    let (ax, ay, az) = (a.x(), a.y(), a.z());
-    let (bx, by, bz) = (b.x(), b.y(), b.z());
-
-    let cosine_argument = ax * bx + ay * by + az * bz; //Directions have unit length
-    if cosine_argument > 1. {
-        //Saving acos from being called with an argument > 1 due to numerical instability
-        return Angle::from_radians(0.);
-    } else if cosine_argument < -1. {
-        return Angle::from_radians(PI);
-    }
-    Angle::from_radians(cosine_argument.acos())
-}
-
-fn some_orthogonal_vector(vector: &Direction) -> Direction {
-    if vector.x().abs() > NORMALIZATION_THRESHOLD {
-        cross_product(vector, &Y)
-    } else if vector.y().abs() > NORMALIZATION_THRESHOLD {
-        cross_product(vector, &Z)
-    } else if vector.z().abs() > NORMALIZATION_THRESHOLD {
-        cross_product(vector, &X)
-    } else {
-        //vector is (0,0,0)
-        Z
-    }
-}
-
-pub(super) fn cross_product(a: &Direction, b: &Direction) -> Direction {
-    let (ax, ay, az) = (a.x(), a.y(), a.z());
-    let (bx, by, bz) = (b.x(), b.y(), b.z());
-
-    let cx = ay * bz - az * by;
-    let cy = az * bx - ax * bz;
-    let cz = ax * by - ay * bx;
-
-    let cross_product_length = (cx * cx + cy * cy + cz * cz).sqrt();
-    if cross_product_length < NORMALIZATION_THRESHOLD {
-        some_orthogonal_vector(a)
-    } else {
-        Direction::new(cx, cy, cz)
-    }
-}
-
-fn dot_product(a: &Direction, b: &Direction) -> Float {
-    a.x() * b.x() + a.y() * b.y() + a.z() * b.z()
-}
-
-pub(super) fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle, Direction) {
-    let angle = angle_between(start, end);
-    let axis = cross_product(start, end);
+pub fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle, Direction) {
+    let angle = start.angle_to(end);
+    let axis = start.cross_product(end);
     (angle, axis)
 }
 
@@ -91,16 +44,12 @@ mod tests {
     use crate::{
         coordinates::{
             direction::{Direction, X, Y, Z},
-            rotations::{
-                angle_between, cross_product, dot_product, get_rotation_parameters, rotated_tuple,
-            },
+            rotations::{get_rotation_parameters, rotated_tuple},
         },
         tests::TEST_ACCURACY,
         units::angle::Angle,
         Float, TWO_PI,
     };
-
-    const ROTATION_ANGLE_ACCURACY: Angle = Angle::from_radians(1e-3); //Accos is a bit unstable
 
     const X_VECTOR: (Float, Float, Float) = (1., 0., 0.);
     const MINUS_X_VECTOR: (Float, Float, Float) = (-1., 0., 0.);
@@ -404,173 +353,6 @@ mod tests {
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
-    }
-
-    #[test]
-    fn angle_between_is_half_turn() {
-        const EXPECTED: Angle = HALF_TURN;
-
-        let angle = angle_between(&X, &(-X));
-        println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-
-        let angle = angle_between(&Y, &(-Y));
-        println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-
-        let angle = angle_between(&Z, &(-Z));
-        println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-
-        let angle1 = Direction::new(1., 1., 0.);
-        let angle2 = Direction::new(-1., -1., 0.);
-        let angle = angle_between(&angle1, &angle2);
-        println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-
-        let angle1 = Direction::new(1., 0., 1.);
-        let angle2 = Direction::new(-1., 0., -1.);
-        let angle = angle_between(&angle1, &angle2);
-        println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-
-        let angle1 = Direction::new(0., 1., 1.);
-        let angle2 = Direction::new(0., -1., -1.);
-        let angle = angle_between(&angle1, &angle2);
-        println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn angle_between_is_quarter_turn() {
-        let expected = QUARTER_TURN;
-
-        let angle = angle_between(&X, &Y);
-        println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
-
-        let angle = angle_between(&X, &Z);
-        println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
-
-        let angle = angle_between(&Y, &Z);
-        println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
-
-        let angle1 = Direction::new(1., 1., 0.);
-        let angle2 = Direction::new(1., -1., 0.);
-        let angle = angle_between(&angle1, &angle2);
-        println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
-
-        let angle1 = Direction::new(1., 0., 1.);
-        let angle2 = Direction::new(1., 0., -1.);
-        let angle = angle_between(&angle1, &angle2);
-        println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn angle_between_is_zero() {
-        const EXPECTED: Angle = Angle::from_radians(0.);
-
-        let angle = angle_between(&X, &X);
-        println!("expected: {}, actual: {}", EXPECTED, angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-
-        let angle = angle_between(&Y, &Y);
-        println!("expected: {}, actual: {}", EXPECTED, angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-
-        let angle = angle_between(&Z, &Z);
-        println!("expected: {}, actual: {}", EXPECTED, angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-
-        let angle1 = Direction::new(1., 1., 0.);
-        let angle2 = Direction::new(1., 1., 0.);
-        let angle = angle_between(&angle1, &angle2);
-        println!("expected: {}, actual: {}", EXPECTED, angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn test_cross_product() {
-        let angle1 = Direction::new(1., 0., 0.);
-        let angle2 = Direction::new(0., 1., 0.);
-        let expected = Direction::new(0., 0., 1.);
-        let actual = cross_product(&angle1, &angle2);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ACCURACY));
-
-        let angle1 = Direction::new(1., 0., 0.);
-        let angle2 = Direction::new(0., 0., 1.);
-        let expected = Direction::new(0., -1., 0.);
-        let actual = cross_product(&angle1, &angle2);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ACCURACY));
-
-        let angle1 = Direction::new(0., 1., 0.);
-        let angle2 = Direction::new(0., 0., 1.);
-        let expected = Direction::new(1., 0., 0.);
-        let actual = cross_product(&angle1, &angle2);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ACCURACY));
-
-        let angle1 = Direction::new(0., 1., 0.);
-        let angle2 = Direction::new(0., 0., -1.);
-        let expected = Direction::new(-1., 0., 0.);
-        let actual = cross_product(&angle1, &angle2);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ACCURACY));
-
-        let angle1 = Direction::new(0., 0., 1.);
-        let angle2 = Direction::new(0., 1., 0.);
-        let expected = Direction::new(-1., 0., 0.);
-        let actual = cross_product(&angle1, &angle2);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ACCURACY));
-
-        let angle1 = Direction::new(0., 0., 1.);
-        let angle2 = Direction::new(1., 0., 0.);
-        let expected = Direction::new(0., 1., 0.);
-        let actual = cross_product(&angle1, &angle2);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ACCURACY));
-    }
-
-    #[test]
-    fn cross_product_is_always_orthogonal() {
-        let problematic = Direction::new(0., 0., 0.);
-        let ordinates = vec![-1., 0., 1., 10.];
-        for x in ordinates.clone().iter() {
-            for y in ordinates.clone().iter() {
-                for z in ordinates.clone().iter() {
-                    for u in ordinates.clone().iter() {
-                        for v in ordinates.clone().iter() {
-                            for w in ordinates.clone().iter() {
-                                let a = Direction::new(*x, *y, *z);
-                                let b = Direction::new(*u, *v, *w);
-                                println!("a: {}, b: {}", a, b);
-                                if a.eq_within(&problematic, TEST_ACCURACY)
-                                    || b.eq_within(&problematic, TEST_ACCURACY)
-                                {
-                                    continue;
-                                }
-                                let cross = cross_product(&a, &b);
-                                let overlap_with_a = dot_product(&cross, &a);
-                                let overlap_with_b = dot_product(&cross, &b);
-                                println!(
-                                    "cross: {}, overlap_with_a: {}, overlap_with_b: {}",
-                                    cross, overlap_with_a, overlap_with_b
-                                );
-                                assert!(overlap_with_a.abs() < TEST_ACCURACY);
-                                assert!(overlap_with_b.abs() < TEST_ACCURACY);
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     #[test]
