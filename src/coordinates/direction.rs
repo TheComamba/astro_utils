@@ -6,7 +6,7 @@ use crate::{
     Float,
 };
 use serde::{Deserialize, Serialize};
-use std::fmt::Display;
+use std::{fmt::Display, ops::Neg};
 
 pub const X: Direction = Direction {
     x: 1.,
@@ -76,6 +76,24 @@ impl Direction {
     pub fn rotated(&self, angle: Angle, axis: &Direction) -> Direction {
         let (x, y, z) = rotated_tuple((self.x, self.y, self.z), angle, axis);
         Direction { x, y, z }
+    }
+
+    pub(crate) fn eq_within(&self, other: &Direction, accuracy: Float) -> bool {
+        (self.x - other.x).abs() < accuracy
+            && (self.y - other.y).abs() < accuracy
+            && (self.z - other.z).abs() < accuracy
+    }
+}
+
+impl Neg for Direction {
+    type Output = Direction;
+
+    fn neg(self) -> Self::Output {
+        Direction {
+            x: -self.x,
+            y: -self.y,
+            z: -self.z,
+        }
     }
 }
 

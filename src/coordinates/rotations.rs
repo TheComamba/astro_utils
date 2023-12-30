@@ -33,12 +33,9 @@ where
     (x_out, y_out, z_out)
 }
 
-pub(super) fn angle_between<T>(a: (T, T, T), b: (T, T, T)) -> Angle
-where
-    T: Mul<Float, Output = T> + Add<Output = T> + Copy,
-{
-    let (ax, ay, az) = a;
-    let (bx, by, bz) = b;
+pub(super) fn angle_between(a: Direction, b: Direction) -> Angle {
+    let (ax, ay, az) = (a.x(), a.y(), a.z());
+    let (bx, by, bz) = (b.x(), b.y(), b.z());
 
     let dot_product = ax * bx + ay * by + az * bz;
     let a_length = (ax * ax + ay * ay + az * az).sqrt();
@@ -48,28 +45,20 @@ where
     Angle::from_radians(cos.acos())
 }
 
-pub(super) fn cross_product<T>(a: (T, T, T), b: (T, T, T)) -> (T, T, T)
-where
-    T: Mul<Float, Output = T> + Add<Output = T> + Copy,
-{
-    let (ax, ay, az) = a;
-    let (bx, by, bz) = b;
+pub(super) fn cross_product(a: Direction, b: Direction) -> Direction {
+    let (ax, ay, az) = (a.x(), a.y(), a.z());
+    let (bx, by, bz) = (b.x(), b.y(), b.z());
 
     let cx = ay * bz - az * by;
     let cy = az * bx - ax * bz;
     let cz = ax * by - ay * bx;
 
-    (cx, cy, cz)
+    Direction::new(cx, cy, cz)
 }
 
-pub(super) fn get_rotation_parameters<T>(start: (T, T, T), end: (T, T, T)) -> (Angle, Direction)
-where
-    T: Mul<Float, Output = T> + Add<Output = T> + Copy,
-{
+pub(super) fn get_rotation_parameters(start: Direction, end: Direction) -> (Angle, Direction) {
     let angle = angle_between(start, end);
     let axis = cross_product(start, end);
-    let axis_length = (axis.0 * axis.0 + axis.1 * axis.1 + axis.2 * axis.2).sqrt();
-    let axis = Direction::new(axis.0 / axis_length, axis.1 / axis_length, axis.2 / axis_length);
     (angle, axis)
 }
 
@@ -391,37 +380,37 @@ mod tests {
 
     #[test]
     fn angle_between_is_half_turn() {
-        let angle = angle_between(X_VECTOR, MINUS_X_VECTOR);
+        let angle = angle_between(X, -X);
         let expected = HALF_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let angle = angle_between(Y_VECTOR, MINUS_Y_VECTOR);
+        let angle = angle_between(Y, -Y);
         let expected = HALF_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let angle = angle_between(Z_VECTOR, MINUS_Z_VECTOR);
+        let angle = angle_between(Z, -Z);
         let expected = HALF_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let tup1 = (1., 1., 0.);
-        let tup2 = (-1., -1., 0.);
+        let tup1 = Direction::new(1., 1., 0.);
+        let tup2 = Direction::new(-1., -1., 0.);
         let angle = angle_between(tup1, tup2);
         let expected = HALF_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let tup1 = (1., 0., 1.);
-        let tup2 = (-1., 0., -1.);
+        let tup1 = Direction::new(1., 0., 1.);
+        let tup2 = Direction::new(-1., 0., -1.);
         let angle = angle_between(tup1, tup2);
         let expected = HALF_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let tup1 = (0., 1., 1.);
-        let tup2 = (0., -1., -1.);
+        let tup1 = Direction::new(0., 1., 1.);
+        let tup2 = Direction::new(0., -1., -1.);
         let angle = angle_between(tup1, tup2);
         let expected = HALF_TURN;
         println!("expected: {}, actual: {}", expected, angle);
@@ -430,30 +419,30 @@ mod tests {
 
     #[test]
     fn angle_between_is_quarter_turn() {
-        let angle = angle_between(X_VECTOR, Y_VECTOR);
+        let angle = angle_between(X, Y);
         let expected = QUARTER_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let angle = angle_between(X_VECTOR, Z_VECTOR);
+        let angle = angle_between(X, Z);
         let expected = QUARTER_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let angle = angle_between(Y_VECTOR, Z_VECTOR);
+        let angle = angle_between(Y, Z);
         let expected = QUARTER_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let tup1 = (1., 1., 0.);
-        let tup2 = (1., 0., 1.);
+        let tup1 = Direction::new(1., 1., 0.);
+        let tup2 = Direction::new(1., 0., 1.);
         let angle = angle_between(tup1, tup2);
         let expected = QUARTER_TURN;
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
 
-        let tup1 = (1., 1., 0.);
-        let tup2 = (1., 0., -1.);
+        let tup1 = Direction::new(1., 1., 0.);
+        let tup2 = Direction::new(1., 0., -1.);
         let angle = angle_between(tup1, tup2);
         let expected = QUARTER_TURN;
         println!("expected: {}, actual: {}", expected, angle);
@@ -461,52 +450,52 @@ mod tests {
 
     #[test]
     fn test_cross_product() {
-        let tup1 = (1., 0., 0.);
-        let tup2 = (0., 1., 0.);
-        let expected = (0., 0., 1.);
+        let tup1 = Direction::new(1., 0., 0.);
+        let tup2 = Direction::new(0., 1., 0.);
+        let expected = Direction::new(0., 0., 1.);
         let actual = cross_product(tup1, tup2);
-        print_expectations(expected, actual);
-        assert!(kinda_equal(expected, actual));
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = (1., 0., 0.);
-        let tup2 = (0., 0., 1.);
-        let expected = (0., -1., 0.);
+        let tup1 = Direction::new(1., 0., 0.);
+        let tup2 = Direction::new(0., 0., 1.);
+        let expected = Direction::new(0., -1., 0.);
         let actual = cross_product(tup1, tup2);
-        print_expectations(expected, actual);
-        assert!(kinda_equal(expected, actual));
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = (0., 1., 0.);
-        let tup2 = (0., 0., 1.);
-        let expected = (1., 0., 0.);
+        let tup1 = Direction::new(0., 1., 0.);
+        let tup2 = Direction::new(0., 0., 1.);
+        let expected = Direction::new(1., 0., 0.);
         let actual = cross_product(tup1, tup2);
-        print_expectations(expected, actual);
-        assert!(kinda_equal(expected, actual));
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = (0., 1., 0.);
-        let tup2 = (0., 0., -1.);
-        let expected = (-1., 0., 0.);
+        let tup1 = Direction::new(0., 1., 0.);
+        let tup2 = Direction::new(0., 0., -1.);
+        let expected = Direction::new(-1., 0., 0.);
         let actual = cross_product(tup1, tup2);
-        print_expectations(expected, actual);
-        assert!(kinda_equal(expected, actual));
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = (0., 0., 1.);
-        let tup2 = (0., 1., 0.);
-        let expected = (0., -1., 0.);
+        let tup1 = Direction::new(0., 0., 1.);
+        let tup2 = Direction::new(0., 1., 0.);
+        let expected = Direction::new(0., -1., 0.);
         let actual = cross_product(tup1, tup2);
-        print_expectations(expected, actual);
-        assert!(kinda_equal(expected, actual));
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let tup1 = (0., 0., 1.);
-        let tup2 = (1., 0., 0.);
-        let expected = (0., 0., -1.);
+        let tup1 = Direction::new(0., 0., 1.);
+        let tup2 = Direction::new(1., 0., 0.);
+        let expected = Direction::new(0., 0., -1.);
         let actual = cross_product(tup1, tup2);
-        print_expectations(expected, actual);
-        assert!(kinda_equal(expected, actual));
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
     }
 
     #[test]
     fn get_rotation_parameters_test() {
-        const PROBLEMATIC: (Float, Float, Float) = (0., 0., 0.);
+        let problematic = Direction::new(0., 0., 0.);
         let ordinates = vec![-1., 0., 1., 10.];
         for start_x in ordinates.clone().iter() {
             for start_y in ordinates.clone().iter() {
@@ -514,16 +503,17 @@ mod tests {
                     for end_x in ordinates.clone().iter() {
                         for end_y in ordinates.clone().iter() {
                             for end_z in ordinates.clone().iter() {
-                                let start = (*start_x, *start_y, *start_z);
-                                let end = (*end_x, *end_y, *end_z);
-                                if kinda_equal(start, PROBLEMATIC) || kinda_equal(end, PROBLEMATIC)
+                                let start = Direction::new(*start_x, *start_y, *start_z);
+                                let end = Direction::new(*end_x, *end_y, *end_z);
+                                if start.eq_within(&problematic, TEST_ACCURACY)
+                                    || end.eq_within(&problematic, TEST_ACCURACY)
                                 {
                                     continue;
                                 }
                                 let (angle, axis) = get_rotation_parameters(start, end);
-                                let rotated = rotated_tuple(start, angle, &axis);
-                                print_expectations(rotated, end);
-                                assert!(kinda_equal(rotated, end));
+                                let rotated = start.rotated(angle, &axis);
+                                println!("expected: {}, actual: {}", end, rotated);
+                                assert!(rotated.eq_within(&end, TEST_ACCURACY));
                             }
                         }
                     }
