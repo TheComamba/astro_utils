@@ -84,12 +84,20 @@ impl EclipticCoordinates {
         latitudes_equal && longitudes_equal
     }
 
-    pub(super) fn longitude(&self) -> Angle {
+    pub fn get_longitude(&self) -> Angle {
         self.longitude
     }
 
-    pub(super) fn latitude(&self) -> Angle {
+    pub fn get_latitude(&self) -> Angle {
         self.latitude
+    }
+
+    pub fn set_longitude(&mut self, longitude: Angle) {
+        self.longitude = longitude;
+    }
+
+    pub fn set_latitude(&mut self, latitude: Angle) {
+        self.latitude = latitude;
     }
 }
 

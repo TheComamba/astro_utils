@@ -57,9 +57,9 @@ impl Direction {
     }
 
     pub(crate) fn from_ecliptic(ecliptic: &EclipticCoordinates) -> Self {
-        let x = ecliptic.longitude().cos() * ecliptic.latitude().cos();
-        let y = ecliptic.longitude().sin() * ecliptic.latitude().cos();
-        let z = ecliptic.latitude().sin();
+        let x = ecliptic.get_longitude().cos() * ecliptic.get_latitude().cos();
+        let y = ecliptic.get_longitude().sin() * ecliptic.get_latitude().cos();
+        let z = ecliptic.get_latitude().sin();
         Direction { x, y, z }
     }
 
