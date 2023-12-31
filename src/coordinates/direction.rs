@@ -56,10 +56,10 @@ impl Direction {
         }
     }
 
-    pub fn from_spherical(ecliptic: &SphericalCoordinates) -> Self {
-        let x = ecliptic.get_longitude().cos() * ecliptic.get_latitude().cos();
-        let y = ecliptic.get_longitude().sin() * ecliptic.get_latitude().cos();
-        let z = ecliptic.get_latitude().sin();
+    pub fn from_spherical(spherical: &SphericalCoordinates) -> Self {
+        let x = spherical.get_longitude().cos() * spherical.get_latitude().cos();
+        let y = spherical.get_longitude().sin() * spherical.get_latitude().cos();
+        let z = spherical.get_latitude().sin();
         Direction { x, y, z }
     }
 

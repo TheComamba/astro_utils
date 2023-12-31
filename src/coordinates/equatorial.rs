@@ -4,12 +4,15 @@ use super::{direction::Direction, spherical::SphericalCoordinates};
 
 pub struct EquatorialCoordinates {
     spherical: SphericalCoordinates,
-    axis: Direction,
+    rotation_axis: Direction,
 }
 
 impl EquatorialCoordinates {
-    pub const fn new(spherical: SphericalCoordinates, axis: Direction) -> Self {
-        Self { spherical, axis }
+    pub const fn new(spherical: SphericalCoordinates, rotation_axis: Direction) -> Self {
+        Self {
+            spherical,
+            rotation_axis,
+        }
     }
 
     pub(crate) fn add_longitude(&mut self, longitude: Angle) {
@@ -20,7 +23,7 @@ impl EquatorialCoordinates {
 
     pub(crate) fn to_direction(&self) -> Direction {
         self.spherical
-            .direction_after_passive_rotation_to_new_z_axis(&self.axis)
+            .direction_after_active_rotation_to_new_z_axis(&self.rotation_axis)
     }
 }
 
