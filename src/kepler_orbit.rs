@@ -95,7 +95,7 @@ pub fn position_relative_to_central_body(
     orientation: &OrbitOrientation,
 ) -> CartesianCoordinates {
     let ecliptic_from_focus = EclipticCoordinates::horizontal(true_anomaly);
-    let direction = Direction::from_ecliptic(&ecliptic_from_focus);
+    let direction = Direction::from_spherical(&ecliptic_from_focus);
     let distance_from_focus = distance_from_focus(semi_major_axis, true_anomaly, eccentricity);
     let position = direction.to_cartesian(distance_from_focus);
     orientation.apply_to(position)

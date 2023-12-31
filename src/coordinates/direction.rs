@@ -1,5 +1,5 @@
 use super::{
-    cartesian::CartesianCoordinates, ecliptic::EclipticCoordinates, rotations::rotated_tuple,
+    cartesian::CartesianCoordinates, rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
 use crate::{
     units::{angle::Angle, length::Length},
@@ -56,7 +56,7 @@ impl Direction {
         }
     }
 
-    pub fn from_ecliptic(ecliptic: &EclipticCoordinates) -> Self {
+    pub fn from_spherical(ecliptic: &SphericalCoordinates) -> Self {
         let x = ecliptic.get_longitude().cos() * ecliptic.get_latitude().cos();
         let y = ecliptic.get_longitude().sin() * ecliptic.get_latitude().cos();
         let z = ecliptic.get_latitude().sin();
@@ -165,7 +165,7 @@ mod tests {
     const ROTATION_ANGLE_ACCURACY: Angle = Angle::from_radians(1e-3); //Accos is a bit unstable
 
     #[test]
-    fn from_ecliptic() {
+    fn from_spherical() {
         let values = vec![-1., 1., 10.];
         for x in values.iter() {
             for y in values.iter() {
@@ -179,8 +179,8 @@ mod tests {
                     let expected_y = y / length;
                     let expected_z = z / length;
 
-                    let ecliptic = EclipticCoordinates::from_cartesian(&cartesian);
-                    let direction = Direction::from_ecliptic(&ecliptic);
+                    let spherical = SphericalCoordinates::from_cartesian(&cartesian);
+                    let direction = Direction::from_spherical(&spherical);
 
                     assert!((direction.x() - expected_x).abs() < TEST_ACCURACY);
                     assert!((direction.y() - expected_y).abs() < TEST_ACCURACY);

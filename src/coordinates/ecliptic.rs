@@ -1,20 +1,20 @@
 use super::cartesian::CartesianCoordinates;
-use super::spherical::{SphericalCoordinates, self};
+use super::spherical::{self, SphericalCoordinates};
 use crate::{units::angle::Angle, Float, PI};
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 use std::ops::Neg;
 
 pub const X_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    coords: spherical::X_DIRECTION
+    coords: spherical::X_DIRECTION,
 };
 
 pub const Y_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-   coords: spherical::Y_DIRECTION
+    coords: spherical::Y_DIRECTION,
 };
 
 pub const Z_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    coords: spherical::Z_DIRECTION
+    coords: spherical::Z_DIRECTION,
 };
 
 const PI_HALF: Float = PI / 2.;
@@ -26,19 +26,17 @@ const PI_HALF: Float = PI / 2.;
  */
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EclipticCoordinates {
-    coords: SphericalCoordinates
+    coords: SphericalCoordinates,
 }
 
 impl EclipticCoordinates {
     pub(crate) const fn new(coords: SphericalCoordinates) -> EclipticCoordinates {
-        EclipticCoordinates {
-            coords
-        }
+        EclipticCoordinates { coords }
     }
 
     pub fn from_cartesian(cart: &CartesianCoordinates) -> EclipticCoordinates {
         EclipticCoordinates {
-            coords: SphericalCoordinates::from_cartesian(cart)
+            coords: SphericalCoordinates::from_cartesian(cart),
         }
     }
 
@@ -58,6 +56,10 @@ impl EclipticCoordinates {
         self.coords.get_latitude()
     }
 
+    pub fn get_spherical(&self) -> SphericalCoordinates {
+        self.coords
+    }
+
     pub fn set_longitude(&mut self, longitude: Angle) {
         self.coords.set_longitude(longitude);
     }
@@ -72,7 +74,7 @@ impl Neg for &EclipticCoordinates {
 
     fn neg(self) -> EclipticCoordinates {
         EclipticCoordinates {
-            coords: -self.coords
+            coords: -self.coords,
         }
     }
 }
