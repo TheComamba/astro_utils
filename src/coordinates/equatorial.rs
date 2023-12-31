@@ -20,7 +20,7 @@ impl EquatorialCoordinates {
 
     pub(crate) fn to_direction(&self) -> Direction {
         self.spherical
-            .as_direction_rotated_to_primary_axis(&self.axis, true)
+            .direction_after_passive_rotation_to_new_z_axis(&self.axis)
     }
 }
 

@@ -110,20 +110,15 @@ impl SphericalCoordinates {
     }
 
     /*
-     * This method is for example used to convert from equatorial coordinates to ecliptic coordinates and back.
+     * This method is for example used to convert from equatorial coordinates to ecliptic coordinates.
      * It operates the following way:
      * 1. The spherical coordinates are converted to a direction vector.
-     * 2. The direction vector is rotated around the X axis by the angle between the equatorial axis and the ecliptic axis.
-     * 3. The direction vector is rotated around Z by the angle between the ecliptic axis and the primary axis.
-     * 4. The direction vector is converted back to spherical coordinates.
-     * The result is the ecliptic coordinates.
+     * 2. The vector is rotated around the X axis by the angle between new and old Z axis.
+     * 3. The vector is rotated around old Z by the angle between new and old X, projected on the old X-Y plane.
+     * The result is the coordinates. The new X-axis still lies in the old X-Y plane.
      */
-    pub fn as_direction_rotated_to_primary_axis(
-        &self,
-        axis: &Direction,
-        is_passive: bool,
-    ) -> Direction {
-        let mut axis_tilt_to_ecliptic = axis.angle_to(&Z);
+    pub fn direction_after_passive_rotation_to_new_z_axis(&self, axis: &Direction) -> Direction {
+        let angle_to_old_z = axis.angle_to(&Z);
 
         let axis_projected_onto_xy_plane = Direction::new(axis.x(), axis.y(), 0.);
         let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
@@ -131,19 +126,14 @@ impl SphericalCoordinates {
             polar_rotation_angle = -polar_rotation_angle;
         }
 
-        if is_passive {
-            axis_tilt_to_ecliptic = -axis_tilt_to_ecliptic;
-            polar_rotation_angle = -polar_rotation_angle;
-        }
-
         let dir = Direction::from_spherical(&self);
-        let dir = dir.rotated(axis_tilt_to_ecliptic, &X);
-        let dir = dir.rotated(polar_rotation_angle, &Z);
+        let dir = dir.rotated(-angle_to_old_z, &X);
+        let dir = dir.rotated(-polar_rotation_angle, &Z);
         dir
     }
 
-    pub fn rotated_to_primary_axis(&self, axis: &Direction, is_passive: bool) -> Self {
-        Self::from_direction(&self.as_direction_rotated_to_primary_axis(axis, is_passive))
+    pub fn passive_rotation_to_new_z_axis(&self, axis: &Direction) -> Self {
+        Self::from_direction(&self.direction_after_passive_rotation_to_new_z_axis(axis))
     }
 }
 
