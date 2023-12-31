@@ -1,7 +1,7 @@
 use crate::{
     coordinates::{
         cartesian::CartesianCoordinates,
-        direction::{X, Z},
+        direction::{Direction, X, Z},
     },
     units::angle::Angle,
 };
@@ -15,7 +15,7 @@ pub struct OrbitOrientation {
 }
 
 impl OrbitOrientation {
-    pub fn new(
+    pub const fn new(
         inclination: Angle,
         longitude_of_ascending_node: Angle,
         argument_of_periapsis: Angle,
@@ -40,12 +40,16 @@ impl OrbitOrientation {
     }
 
     pub(crate) fn apply_to(&self, position_in_plane: CartesianCoordinates) -> CartesianCoordinates {
-        let ecliptic_normal = Z;
         let position = position_in_plane.rotated(self.inclination, &X);
-        let orbit_normal = ecliptic_normal.rotated(self.inclination, &X);
         let position = position.rotated(self.longitude_of_ascending_node, &Z);
-        let orbit_normal = orbit_normal.rotated(self.longitude_of_ascending_node, &Z);
-        let position = position.rotated(self.argument_of_periapsis, &orbit_normal);
+        let position = position.rotated(self.argument_of_periapsis, &self.normal());
         position
+    }
+
+    pub(crate) fn normal(&self) -> Direction {
+        let ecliptic_normal = Z;
+        let orbit_normal = ecliptic_normal.rotated(self.inclination, &X);
+        let orbit_normal = orbit_normal.rotated(self.longitude_of_ascending_node, &Z);
+        orbit_normal
     }
 }
