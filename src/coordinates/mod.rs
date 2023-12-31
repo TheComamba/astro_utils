@@ -4,3 +4,4 @@ pub mod earth_equatorial;
 pub mod ecliptic;
 pub mod equatorial;
 pub mod rotations;
+pub mod spherical;
