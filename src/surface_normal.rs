@@ -13,6 +13,9 @@ pub fn surface_normal_at_time(
     time_since_epoch: Time,
     siderial_day: Time,
 ) -> Direction {
+    if siderial_day.as_seconds() <= 1. {
+        return observer.get_rotation_axis().clone();
+    }
     let time_of_day = time_since_epoch % siderial_day;
     let rotation = angle_at_epoch + Angle::from_radians(time_of_day / siderial_day * TWO_PI);
     observer.set_longitude(observer.get_longitude() + rotation);
