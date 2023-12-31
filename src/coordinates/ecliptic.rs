@@ -6,15 +6,15 @@ use std::fmt::{Display, Formatter};
 use std::ops::Neg;
 
 pub const X_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    coords: spherical::X_DIRECTION,
+    spherical: spherical::X_DIRECTION,
 };
 
 pub const Y_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    coords: spherical::Y_DIRECTION,
+    spherical: spherical::Y_DIRECTION,
 };
 
 pub const Z_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    coords: spherical::Z_DIRECTION,
+    spherical: spherical::Z_DIRECTION,
 };
 
 /*  The "absolute" reference we use for polar coordiantes is heliocentric ecliptic coordinates:
@@ -24,46 +24,46 @@ pub const Z_DIRECTION: EclipticCoordinates = EclipticCoordinates {
  */
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EclipticCoordinates {
-    coords: SphericalCoordinates,
+    spherical: SphericalCoordinates,
 }
 
 impl EclipticCoordinates {
-    pub const fn new(coords: SphericalCoordinates) -> EclipticCoordinates {
-        EclipticCoordinates { coords }
+    pub const fn new(spherical: SphericalCoordinates) -> EclipticCoordinates {
+        EclipticCoordinates { spherical }
     }
 
     pub fn from_cartesian(cart: &CartesianCoordinates) -> EclipticCoordinates {
         EclipticCoordinates {
-            coords: SphericalCoordinates::from_cartesian(cart),
+            spherical: SphericalCoordinates::from_cartesian(cart),
         }
     }
 
     pub fn normalize(&mut self) {
-        self.coords.normalize();
+        self.spherical.normalize();
     }
 
     pub fn eq_within(&self, other: &EclipticCoordinates, accuracy: Angle) -> bool {
-        self.coords.eq_within(&other.coords, accuracy)
+        self.spherical.eq_within(&other.spherical, accuracy)
     }
 
     pub fn get_longitude(&self) -> Angle {
-        self.coords.get_longitude()
+        self.spherical.get_longitude()
     }
 
     pub fn get_latitude(&self) -> Angle {
-        self.coords.get_latitude()
+        self.spherical.get_latitude()
     }
 
     pub fn get_spherical(&self) -> SphericalCoordinates {
-        self.coords
+        self.spherical
     }
 
     pub fn set_longitude(&mut self, longitude: Angle) {
-        self.coords.set_longitude(longitude);
+        self.spherical.set_longitude(longitude);
     }
 
     pub fn set_latitude(&mut self, latitude: Angle) {
-        self.coords.set_latitude(latitude);
+        self.spherical.set_latitude(latitude);
     }
 }
 
@@ -72,7 +72,7 @@ impl Neg for &EclipticCoordinates {
 
     fn neg(self) -> EclipticCoordinates {
         EclipticCoordinates {
-            coords: -self.coords,
+            spherical: -self.spherical,
         }
     }
 }
@@ -87,6 +87,6 @@ impl Neg for EclipticCoordinates {
 
 impl Display for EclipticCoordinates {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} to ecliptic plane", self.coords)
+        write!(f, "{} to ecliptic plane", self.spherical)
     }
 }

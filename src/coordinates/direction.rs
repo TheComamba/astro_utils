@@ -47,12 +47,12 @@ impl Direction {
         }
     }
 
-    pub fn from_cartesian(coords: &CartesianCoordinates) -> Self {
-        let length = coords.length();
+    pub fn from_cartesian(cartesian: &CartesianCoordinates) -> Self {
+        let length = cartesian.length();
         Direction {
-            x: coords.x() / length,
-            y: coords.y() / length,
-            z: coords.z() / length,
+            x: cartesian.x() / length,
+            y: cartesian.y() / length,
+            z: cartesian.z() / length,
         }
     }
 

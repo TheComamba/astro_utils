@@ -6,19 +6,19 @@ use crate::{
 use super::{direction::Direction, spherical::SphericalCoordinates};
 
 pub struct EquatorialCoordinates {
-    coords: SphericalCoordinates,
+    spherical: SphericalCoordinates,
     axis: Direction,
 }
 
 impl EquatorialCoordinates {
-    pub const fn new(coords: SphericalCoordinates, axis: Direction) -> Self {
-        Self { coords, axis }
+    pub const fn new(spherical: SphericalCoordinates, axis: Direction) -> Self {
+        Self { spherical, axis }
     }
 
     pub(crate) fn add_longitude(&mut self, longitude: Angle) {
-        self.coords
-            .set_longitude(longitude + self.coords.get_longitude());
-        self.coords.normalize();
+        self.spherical
+            .set_longitude(longitude + self.spherical.get_longitude());
+        self.spherical.normalize();
     }
 
     pub(crate) fn to_direction(&self) -> Direction {
@@ -29,7 +29,7 @@ impl EquatorialCoordinates {
         }
         let axis_tilt_to_ecliptic = self.axis.angle_to(&Z);
 
-        let dir = Direction::from_spherical(&self.coords);
+        let dir = Direction::from_spherical(&self.spherical);
         let dir = dir.rotated(-axis_tilt_to_ecliptic, &X);
         dir.rotated(-polar_rotation_angle, &Z)
     }
