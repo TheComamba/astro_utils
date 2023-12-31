@@ -1,6 +1,6 @@
 use super::{
     cartesian::CartesianCoordinates,
-    direction::{Direction, NORMALIZATION_THRESHOLD, X, Y, Z},
+    direction::{Direction, X, Y, Z},
 };
 use crate::{units::angle::Angle, Float, PI};
 use serde::{Deserialize, Serialize};
@@ -137,22 +137,22 @@ impl SphericalCoordinates {
     }
 
     pub fn direction_after_passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
-        todo!()
+        let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
+        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
+        if axis_projected_onto_xy_plane.x() < 0. {
+            polar_rotation_angle = -polar_rotation_angle;
+        }
+
+        let angle_to_old_z = new_z.angle_to(&Z);
+
+        let mut dir = Direction::from_spherical(&self);
+        dir = dir.rotated(polar_rotation_angle, &Z);
+        dir = dir.rotated(angle_to_old_z, &X);
+        dir
     }
 
     pub fn passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Self {
         Self::from_direction(&self.direction_after_passive_rotation_to_new_z_axis(new_z))
-    }
-
-    pub(crate) fn original_z_axis_in_coordinate_system_of_new_z_axis(
-        new_z: &Direction,
-    ) -> Direction {
-        if new_z.eq_within(&Z, NORMALIZATION_THRESHOLD) {
-            return Z;
-        }
-        let new_x = -new_z.cross_product(&Z);
-        let new_y = new_z.cross_product(&new_x);
-        Direction::new(new_x.z(), new_y.z(), new_z.z())
     }
 }
 
@@ -567,7 +567,6 @@ mod tests {
                 }
             }
         }
-        todo!();
     }
 
     #[test]
