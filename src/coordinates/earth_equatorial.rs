@@ -55,7 +55,6 @@ mod tests {
         solar_system_data::*,
         tests::TEST_ANGLE_ACCURACY,
         units::angle::Angle,
-        PI,
     };
 
     const TILT_TEST_ACCURACY: Angle = Angle::from_radians(1e-3);

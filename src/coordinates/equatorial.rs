@@ -38,7 +38,6 @@ impl EquatorialCoordinates {
 
         let dir =
             Direction::from_ecliptic(&EclipticCoordinates::new(self.longitude, self.latitude));
-        //TODO: sign of axis_tilt_to_ecliptic is wrong
         let dir = dir.rotated(-axis_tilt_to_ecliptic, &X);
         dir.rotated(-polar_rotation_angle, &Z)
     }
