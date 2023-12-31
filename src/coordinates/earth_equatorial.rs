@@ -52,7 +52,7 @@ mod tests {
         coordinates::{
             earth_equatorial::EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
             ecliptic::{self, EclipticCoordinates},
-            spherical::{SphericalCoordinates, X_DIRECTION, Y_DIRECTION},
+            spherical::SphericalCoordinates,
         },
         solar_system_data::*,
         tests::TEST_ANGLE_ACCURACY,

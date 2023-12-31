@@ -48,7 +48,7 @@ mod tests {
         },
         tests::TEST_ACCURACY,
         units::angle::Angle,
-        Float, PI,
+        Float,
     };
 
     #[test]
