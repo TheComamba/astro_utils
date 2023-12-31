@@ -1,7 +1,4 @@
-use crate::{
-    coordinates::direction::{X, Y, Z},
-    units::angle::Angle,
-};
+use crate::units::angle::Angle;
 
 use super::{direction::Direction, spherical::SphericalCoordinates};
 
@@ -22,16 +19,8 @@ impl EquatorialCoordinates {
     }
 
     pub(crate) fn to_direction(&self) -> Direction {
-        let axis_projected_onto_xy_plane = Direction::new(self.axis.x(), self.axis.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
-        if axis_projected_onto_xy_plane.x() < 0. {
-            polar_rotation_angle = -polar_rotation_angle;
-        }
-        let axis_tilt_to_ecliptic = self.axis.angle_to(&Z);
-
-        let dir = Direction::from_spherical(&self.spherical);
-        let dir = dir.rotated(-axis_tilt_to_ecliptic, &X);
-        dir.rotated(-polar_rotation_angle, &Z)
+        self.spherical
+            .as_direction_rotated_to_primary_axis(&self.axis, true)
     }
 }
 

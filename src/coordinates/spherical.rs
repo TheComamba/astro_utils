@@ -1,4 +1,7 @@
-use super::cartesian::CartesianCoordinates;
+use super::{
+    cartesian::CartesianCoordinates,
+    direction::{Direction, X, Y, Z},
+};
 use crate::{units::angle::Angle, Float, PI};
 use serde::{Deserialize, Serialize};
 use std::{
@@ -85,15 +88,62 @@ impl SphericalCoordinates {
     }
 
     pub fn from_cartesian(cart: &CartesianCoordinates) -> Self {
-        let x = cart.x().as_meters();
-        let y = cart.y().as_meters();
-        let z = cart.z().as_meters();
+        Self::cartesian_to_spherical((
+            cart.x().as_meters(),
+            cart.y().as_meters(),
+            cart.z().as_meters(),
+        ))
+    }
+
+    pub fn from_direction(dir: &Direction) -> Self {
+        Self::cartesian_to_spherical((dir.x(), dir.y(), dir.z()))
+    }
+
+    fn cartesian_to_spherical(cart: (Float, Float, Float)) -> Self {
+        let (x, y, z) = cart;
         let longitude = Angle::from_radians(y.atan2(x));
         let latitude = Angle::from_radians(z.atan2((x * x + y * y).sqrt()));
         Self {
             longitude,
             latitude,
         }
+    }
+
+    /*
+     * This method is for example used to convert from equatorial coordinates to ecliptic coordinates and back.
+     * It operates the following way:
+     * 1. The spherical coordinates are converted to a direction vector.
+     * 2. The direction vector is rotated around the X axis by the angle between the equatorial axis and the ecliptic axis.
+     * 3. The direction vector is rotated around Z by the angle between the ecliptic axis and the primary axis.
+     * 4. The direction vector is converted back to spherical coordinates.
+     * The result is the ecliptic coordinates.
+     */
+    pub fn as_direction_rotated_to_primary_axis(
+        &self,
+        axis: &Direction,
+        is_passive: bool,
+    ) -> Direction {
+        let mut axis_tilt_to_ecliptic = axis.angle_to(&Z);
+
+        let axis_projected_onto_xy_plane = Direction::new(axis.x(), axis.y(), 0.);
+        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
+        if axis_projected_onto_xy_plane.x() < 0. {
+            polar_rotation_angle = -polar_rotation_angle;
+        }
+
+        if is_passive {
+            axis_tilt_to_ecliptic = -axis_tilt_to_ecliptic;
+            polar_rotation_angle = -polar_rotation_angle;
+        }
+
+        let dir = Direction::from_spherical(&self);
+        let dir = dir.rotated(axis_tilt_to_ecliptic, &X);
+        let dir = dir.rotated(polar_rotation_angle, &Z);
+        dir
+    }
+
+    pub fn rotated_to_primary_axis(&self, axis: &Direction, is_passive: bool) -> Self {
+        Self::from_direction(&self.as_direction_rotated_to_primary_axis(axis, is_passive))
     }
 }
 
