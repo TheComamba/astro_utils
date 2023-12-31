@@ -38,19 +38,27 @@ impl EarthEquatorialCoordinates {
 }
 
 #[cfg(test)]
+pub(super) const EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES: EclipticCoordinates =
+    EclipticCoordinates::new(
+        Angle::from_radians(crate::PI / 2.),
+        Angle::from_radians(crate::PI / 2. - EARTH_AXIS_TILT.as_radians()),
+    );
+
+#[cfg(test)]
 mod tests {
     use super::EarthEquatorialCoordinates;
     use crate::{
-        coordinates::ecliptic::EclipticCoordinates, solar_system_data::*,
-        tests::TEST_ANGLE_ACCURACY, units::angle::Angle, PI,
+        coordinates::{
+            earth_equatorial::EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
+            ecliptic::EclipticCoordinates,
+        },
+        solar_system_data::*,
+        tests::TEST_ANGLE_ACCURACY,
+        units::angle::Angle,
+        PI,
     };
 
     const TILT_TEST_ACCURACY: Angle = Angle::from_radians(1e-3);
-
-    const EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES: EclipticCoordinates = EclipticCoordinates::new(
-        Angle::from_radians(PI / 2.),
-        Angle::from_radians(PI / 2. - EARTH_AXIS_TILT.as_radians()),
-    );
 
     /*
      * https://ned.ipac.caltech.edu/coordinate_calculator?in_csys=Equatorial&in_equinox=J2000.0&obs_epoch=2000.0&ra=0&dec=90&pa=0.0&out_csys=Ecliptic&out_equinox=J2000.0

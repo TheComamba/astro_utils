@@ -2,7 +2,7 @@ use crate::Float;
 use serde::{Deserialize, Serialize};
 use std::{
     fmt::Display,
-    ops::{Add, Div, Mul, Neg, Sub},
+    ops::{Add, Div, Mul, Neg, Rem, Sub},
 };
 
 const SECONDS_PER_MINUTE: Float = 60.;
@@ -140,12 +140,30 @@ impl Div<Float> for Time {
     }
 }
 
+impl Div<Time> for Time {
+    type Output = Float;
+
+    fn div(self, time: Time) -> Float {
+        self.seconds / time.seconds
+    }
+}
+
 impl Neg for Time {
     type Output = Time;
 
     fn neg(self) -> Time {
         Time {
             seconds: -self.seconds,
+        }
+    }
+}
+
+impl Rem for Time {
+    type Output = Time;
+
+    fn rem(self, other: Time) -> Time {
+        Time {
+            seconds: self.seconds % other.seconds,
         }
     }
 }
@@ -207,6 +225,15 @@ mod tests {
         let time2 = Time::from_seconds(2.);
         let expected = Time::from_seconds(-1.);
         assert!(expected.eq_within(time1 - time2, TEST_TIME_ACCURACY));
+    }
+
+    #[test]
+    fn test_div_by_time() {
+        let time1 = Time::from_seconds(1.);
+        let time2 = Time::from_seconds(2.);
+        let expected = 0.5 as Float;
+        let actual = time1 / time2;
+        assert!((expected - actual).abs() < TEST_ACCURACY);
     }
 
     #[test]

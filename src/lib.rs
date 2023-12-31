@@ -6,6 +6,7 @@ pub mod coordinates;
 pub mod kepler_orbit;
 pub mod orbit_orientation;
 pub mod solar_system_data;
+pub mod surface_normal;
 pub mod units;
 
 #[cfg(test)]
