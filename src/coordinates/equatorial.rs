@@ -1,4 +1,10 @@
-use crate::units::angle::Angle;
+use crate::{
+    coordinates::{
+        direction::{X, Y, Z},
+        ecliptic::EclipticCoordinates,
+    },
+    units::angle::Angle,
+};
 
 use super::direction::Direction;
 
@@ -23,9 +29,18 @@ impl EquatorialCoordinates {
     }
 
     pub(crate) fn to_direction(&self) -> Direction {
-        //rotate around z
-        //rotate around new x
-        todo!()
+        let axis_projected_onto_xy_plane = Direction::new(self.axis.x(), self.axis.y(), 0.);
+        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
+        if axis_projected_onto_xy_plane.x() < 0. {
+            polar_rotation_angle = -polar_rotation_angle;
+        }
+        let axis_tilt_to_ecliptic = self.axis.angle_to(&Z);
+
+        let dir =
+            Direction::from_ecliptic(&EclipticCoordinates::new(self.longitude, self.latitude));
+        //TODO: sign of axis_tilt_to_ecliptic is wrong
+        let dir = dir.rotated(-axis_tilt_to_ecliptic, &X);
+        dir.rotated(-polar_rotation_angle, &Z)
     }
 }
 
@@ -35,7 +50,7 @@ mod tests {
         coordinates::{
             direction::Direction,
             earth_equatorial::{
-                self, EarthEquatorialCoordinates, EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
+                EarthEquatorialCoordinates, EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
             },
         },
         tests::TEST_ACCURACY,
@@ -58,8 +73,10 @@ mod tests {
                         Angle::from_radians(PI / 2.),
                         axis,
                     );
-                    let direction = coordinates.to_direction();
-                    assert!(direction.eq_within(&axis, TEST_ACCURACY));
+                    let expected = axis;
+                    let actual = coordinates.to_direction();
+                    println!("expected: {},\n actual: {}", expected, actual);
+                    assert!(actual.eq_within(&axis, TEST_ACCURACY));
                 }
             }
         }
@@ -80,8 +97,10 @@ mod tests {
                         Angle::from_radians(-PI / 2.),
                         axis,
                     );
-                    let direction = coordinates.to_direction();
-                    assert!(direction.eq_within(&-axis, TEST_ACCURACY));
+                    let expected = -axis;
+                    let actual = coordinates.to_direction();
+                    println!("expected: {},\n actual: {}", expected, actual);
+                    assert!(actual.eq_within(&expected, TEST_ACCURACY));
                 }
             }
         }
