@@ -15,10 +15,20 @@ impl EquatorialCoordinates {
         }
     }
 
-    pub(crate) fn add_longitude(&mut self, longitude: Angle) {
-        self.spherical
-            .set_longitude(longitude + self.spherical.get_longitude());
-        self.spherical.normalize();
+    pub fn get_longitude(&self) -> Angle {
+        self.spherical.get_longitude()
+    }
+
+    pub fn get_latitude(&self) -> Angle {
+        self.spherical.get_latitude()
+    }
+
+    pub fn set_longitude(&mut self, longitude: Angle) {
+        self.spherical.set_longitude(longitude);
+    }
+
+    pub fn set_latitude(&mut self, latitude: Angle) {
+        self.spherical.set_latitude(latitude);
     }
 
     pub(crate) fn to_direction(&self) -> Direction {
