@@ -2,6 +2,8 @@ use crate::Float;
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
+const METERS_PER_NANOMETER: Float = 1e-9;
+const NANOMETERS_PER_METER: Float = 1. / METERS_PER_NANOMETER;
 const METERS_PER_KILOMETER: Float = 1000.;
 const KILOMETERS_PER_METER: Float = 1. / METERS_PER_KILOMETER;
 pub(crate) const METERS_PER_EARTH_RADIUS: Float = 6_371_000.;
@@ -21,6 +23,12 @@ pub struct Length {
 }
 
 impl Length {
+    pub fn from_nanometers(nanometers: Float) -> Length {
+        Length {
+            meters: nanometers * METERS_PER_NANOMETER,
+        }
+    }
+
     pub const fn from_meters(meters: Float) -> Length {
         Length { meters }
     }
@@ -59,6 +67,10 @@ impl Length {
         Length {
             meters: light_years * METERS_PER_LIGHT_YEAR,
         }
+    }
+
+    pub fn as_nanometers(&self) -> Float {
+        self.meters * NANOMETERS_PER_METER
     }
 
     pub const fn as_meters(&self) -> Float {
@@ -109,8 +121,10 @@ impl Display for Length {
             write!(f, "{:.2} R_Earth", self.as_earth_radii())
         } else if self.meters > 0.99 * METERS_PER_KILOMETER {
             write!(f, "{:.2} km", self.as_kilometers())
-        } else {
+        } else if self.meters > 1001. * METERS_PER_NANOMETER {
             write!(f, "{:.2} m", self.as_meters())
+        } else {
+            write!(f, "{:.2} nm", self.as_nanometers())
         }
     }
 }
@@ -191,6 +205,10 @@ mod tests {
 
     #[test]
     fn test_display() {
+        let nm = Length::from_nanometers(1.23);
+        assert_eq!(format!("{}", nm), "1.23 nm");
+        let m = Length::from_meters(1.23);
+        assert_eq!(format!("{}", m), "1.23 m");
         let km = Length::from_kilometers(1.23);
         assert_eq!(format!("{}", km), "1.23 km");
         let earth_radii = Length::from_earth_radii(1.23);
@@ -207,6 +225,10 @@ mod tests {
 
     #[test]
     fn test_display_thresholds() {
+        let nm = Length::from_nanometers(1000.);
+        assert_eq!(format!("{}", nm), "1000.00 nm");
+        let m = Length::from_meters(1.);
+        assert_eq!(format!("{}", m), "1.00 m");
         let km = Length::from_kilometers(1.);
         assert_eq!(format!("{}", km), "1.00 km");
         let earth_radii = Length::from_earth_radii(1.);
