@@ -1,5 +1,5 @@
 use crate::{
-    black_body::planck_radiant_emittance,
+    color::black_body::planck_radiant_emittance,
     units::{length::Length, temperature::Temperature},
     Float,
 };

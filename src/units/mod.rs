@@ -1,6 +1,5 @@
 pub mod angle;
 pub mod angle_std_ops;
-pub mod color;
 pub mod length;
 pub mod length_std_ops;
 pub mod luminosity;

@@ -1,7 +1,7 @@
+use crate::color::Color;
 use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
 use crate::orbit_orientation::OrbitOrientation;
 use crate::units::angle::{Angle, RADIANS_PER_DEGREE};
-use crate::units::color::Color;
 use crate::units::length::{Length, METERS_PER_EARTH_RADIUS, METERS_PER_JUPITER_RADIUS};
 use crate::units::mass::{
     Mass, KILOGRAMS_PER_EARTH_MASS, KILOGRAMS_PER_JUPITER_MASS, KILOGRAMS_PER_MOON_MASS,

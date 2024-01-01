@@ -1,5 +1,14 @@
-use super::{length::Length, temperature::Temperature};
-use crate::{color_matching_functions::*, Float};
+use std::fmt::Display;
+
+use self::color_matching_functions::*;
+use crate::{
+    units::{length::Length, temperature::Temperature},
+    Float,
+};
+use serde::{Deserialize, Serialize};
+
+pub mod black_body;
+pub(crate) mod color_matching_functions;
 
 /*
  * https://engineering.purdue.edu/~bouman/ece637/notes/pdf/Tristimulus.pdf
@@ -17,10 +26,19 @@ const XYZ_TO_RGB: [[Float; 3]; 3] = [
     [-0.5148, 1.4252, 0.0896],
     [0.0052, -0.0144, 1.0092],
 ];
+
+#[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Color {
     red: Float,
     green: Float,
     blue: Float,
+}
+
+impl Display for Color {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let (r, g, b) = self.normalized_rgb();
+        write!(f, "(r: {:.2}, g: {:.2}, b: {:.2})", r, g, b)
+    }
 }
 
 pub struct CIEXYZColor {
