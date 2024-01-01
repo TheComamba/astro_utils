@@ -6,13 +6,11 @@ use crate::units::length::{
 };
 use crate::units::mass::{
     Mass, KILOGRAMS_PER_EARTH_MASS, KILOGRAMS_PER_JUPITER_MASS, KILOGRAMS_PER_MOON_MASS,
-    KILOGRAMS_PER_SOLAR_MASS,
 };
 use crate::units::time::{Time, SECONDS_PER_DAY, SECONDS_PER_HOUR};
 use crate::Float;
 
 pub const SUN_RADIUS: Length = Length::from_meters(METERS_PER_SUN_RADIUS);
-pub const SUN_MASS: Mass = Mass::from_kilograms(KILOGRAMS_PER_SOLAR_MASS);
 
 pub const MERCURY_SEMI_MAJOR_AXIS: Length = Length::from_meters(57_909_050_000.);
 pub const MERCURY_ECCENTRICITY: Float = 0.205_630_69;

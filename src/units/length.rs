@@ -12,7 +12,7 @@ pub(crate) const METERS_PER_SUN_RADIUS: Float = 695_700_000.;
 const SUN_RADII_PER_METER: Float = 1. / METERS_PER_SUN_RADIUS;
 const METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.;
 const ASTRONOMICAL_UNITS_PER_METER: Float = 1. / METERS_PER_ASTRONOMICAL_UNIT;
-const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
+pub(crate) const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
 const LIGHT_YEARS_PER_METER: Float = 1. / METERS_PER_LIGHT_YEAR;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]

@@ -1,8 +1,11 @@
+use std::borrow::Cow;
+
 use crate::units::{length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct StellarProperties {
+    name: Cow<'static, str>,
     radius: Length,
     mass: Mass,
     absolute_magnitude: Luminosity,
@@ -10,13 +13,15 @@ pub struct StellarProperties {
 }
 
 impl StellarProperties {
-    pub const fn new(
+    pub const fn new_const(
+        name: &'static str,
         radius: Length,
         mass: Mass,
         absolute_magnitude: Luminosity,
         temperature: Temperature,
     ) -> StellarProperties {
         StellarProperties {
+            name: Cow::Borrowed(name),
             radius,
             mass,
             absolute_magnitude,
