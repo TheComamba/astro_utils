@@ -391,4 +391,97 @@ mod tests {
             }
         }
     }
+
+    #[test]
+    fn test_revertability_of_rotation() {
+        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        for x1 in ordinates.clone() {
+            for y1 in ordinates.clone() {
+                for z1 in ordinates.clone() {
+                    for x2 in ordinates.clone() {
+                        for y2 in ordinates.clone() {
+                            for z2 in ordinates.clone() {
+                                if x1.abs() < TEST_ACCURACY
+                                    && y1.abs() < TEST_ACCURACY
+                                    && z1.abs() < TEST_ACCURACY
+                                {
+                                    continue;
+                                }
+                                if x2.abs() < TEST_ACCURACY
+                                    && y2.abs() < TEST_ACCURACY
+                                    && z2.abs() < TEST_ACCURACY
+                                {
+                                    continue;
+                                }
+
+                                let original_dir = Direction::new(x1, y1, z1);
+                                let new_z_axis = Direction::new(x2, y2, z2);
+
+                                let after_active_rotation =
+                                    original_dir.active_rotation_to_new_z_axis(&new_z_axis);
+                                let transformed_back = after_active_rotation
+                                    .passive_rotation_to_new_z_axis(&new_z_axis);
+
+                                println!("new_z_axis: {}", new_z_axis);
+                                println!("original_dir: {}", original_dir);
+                                println!("after_active_rotation: {}", after_active_rotation);
+                                println!("transformed_back: {}", transformed_back);
+                                assert!(original_dir.eq_within(&transformed_back, TEST_ACCURACY));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn test_north_after_active_rotation() {
+        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        for x in ordinates.clone() {
+            for y in ordinates.clone() {
+                for z in ordinates.clone() {
+                    if x.abs() < TEST_ACCURACY && y.abs() < TEST_ACCURACY && z.abs() < TEST_ACCURACY
+                    {
+                        continue;
+                    }
+
+                    let new_z_axis = Direction::new(x, y, z);
+
+                    let expected = new_z_axis;
+                    let actual = Z.active_rotation_to_new_z_axis(&new_z_axis);
+
+                    println!("new_z_axis: {}", new_z_axis);
+                    println!("expected: {}", expected);
+                    println!("actual: {}", actual);
+                    assert!(expected.eq_within(&actual, TEST_ACCURACY));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn test_north_after_passive_rotation() {
+        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        for x in ordinates.clone() {
+            for y in ordinates.clone() {
+                for z in ordinates.clone() {
+                    if x.abs() < TEST_ACCURACY && y.abs() < TEST_ACCURACY && z.abs() < TEST_ACCURACY
+                    {
+                        continue;
+                    }
+
+                    let new_z_axis = Direction::new(x, y, z);
+
+                    let expected = Z;
+                    let actual = new_z_axis.passive_rotation_to_new_z_axis(&new_z_axis);
+
+                    println!("new_z_axis: {}", new_z_axis);
+                    println!("expected: {}", expected);
+                    println!("actual: {}", actual);
+                    assert!(expected.eq_within(&actual, TEST_ACCURACY));
+                }
+            }
+        }
+    }
 }
