@@ -2,6 +2,8 @@ pub type Float = f32;
 pub(crate) const PI: Float = std::f32::consts::PI;
 pub(crate) const TWO_PI: Float = 2. * PI;
 
+pub mod black_body;
+pub(crate) mod color_matching_functions;
 pub mod coordinates;
 pub mod data;
 pub mod kepler_orbit;

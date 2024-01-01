@@ -11,7 +11,7 @@ impl Temperature {
         Temperature { kelvin }
     }
 
-    pub const fn get_kelvin(&self) -> Float {
+    pub const fn as_kelvin(&self) -> Float {
         self.kelvin
     }
 }
