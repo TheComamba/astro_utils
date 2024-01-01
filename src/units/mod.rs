@@ -3,7 +3,6 @@ pub mod angle_std_ops;
 pub mod length;
 pub mod length_std_ops;
 pub mod luminosity;
-pub mod luminosity_std_ops;
 pub mod mass;
 pub mod mass_std_ops;
 pub mod temperature;

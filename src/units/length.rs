@@ -179,18 +179,14 @@ mod tests {
     fn test_add() {
         let expected = Length::from_meters(2. * METERS_PER_KILOMETER);
         let length = Length::from_kilometers(1.);
-        assert!(length
-            .add(length)
-            .eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!((length + length).eq_within(&expected, TEST_LENGTH_ACCURACY));
     }
 
     #[test]
     fn test_sub() {
         let expected = Length::from_meters(0.);
         let length = Length::from_kilometers(1.);
-        assert!(length
-            .sub(length)
-            .eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!((length - length).eq_within(&expected, TEST_LENGTH_ACCURACY));
     }
 
     #[test]

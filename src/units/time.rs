@@ -1,9 +1,6 @@
 use crate::Float;
 use serde::{Deserialize, Serialize};
-use std::{
-    fmt::Display,
-    ops::{Add, Div, Mul, Neg, Rem, Sub},
-};
+use std::fmt::Display;
 
 const SECONDS_PER_MINUTE: Float = 60.;
 const MINUTES_PER_SECOND: Float = 1. / SECONDS_PER_MINUTE;
@@ -86,84 +83,6 @@ impl Display for Time {
             write!(f, "{:.2} min", self.as_minutes())
         } else {
             write!(f, "{:.2} sec", self.as_seconds())
-        }
-    }
-}
-
-impl Add for Time {
-    type Output = Time;
-
-    fn add(self, other: Time) -> Time {
-        Time {
-            seconds: self.seconds + other.seconds,
-        }
-    }
-}
-
-impl Sub for Time {
-    type Output = Time;
-
-    fn sub(self, other: Time) -> Time {
-        Time {
-            seconds: self.seconds - other.seconds,
-        }
-    }
-}
-
-impl Mul<Float> for Time {
-    type Output = Time;
-
-    fn mul(self, f: Float) -> Time {
-        Time {
-            seconds: self.seconds * f,
-        }
-    }
-}
-
-impl Mul<Time> for Float {
-    type Output = Time;
-
-    fn mul(self, time: Time) -> Time {
-        Time {
-            seconds: time.seconds * self,
-        }
-    }
-}
-
-impl Div<Float> for Time {
-    type Output = Time;
-
-    fn div(self, f: Float) -> Time {
-        Time {
-            seconds: self.seconds / f,
-        }
-    }
-}
-
-impl Div<Time> for Time {
-    type Output = Float;
-
-    fn div(self, time: Time) -> Float {
-        self.seconds / time.seconds
-    }
-}
-
-impl Neg for Time {
-    type Output = Time;
-
-    fn neg(self) -> Time {
-        Time {
-            seconds: -self.seconds,
-        }
-    }
-}
-
-impl Rem for Time {
-    type Output = Time;
-
-    fn rem(self, other: Time) -> Time {
-        Time {
-            seconds: self.seconds % other.seconds,
         }
     }
 }

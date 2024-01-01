@@ -1,7 +1,9 @@
 use super::angle::Angle;
 use crate::Float;
 use forward_ref_generic::{forward_ref_binop, forward_ref_op_assign, forward_ref_unop};
-use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
+use std::ops::{
+    Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Rem, RemAssign, Sub, SubAssign,
+};
 
 impl Add for Angle {
     type Output = Angle;
@@ -93,13 +95,31 @@ impl Neg for Angle {
     }
 }
 
+impl Rem for Angle {
+    type Output = Angle;
+
+    fn rem(self, other: Angle) -> Angle {
+        Angle {
+            radian: self.radian % other.radian,
+        }
+    }
+}
+
+impl RemAssign for Angle {
+    fn rem_assign(&mut self, other: Angle) {
+        self.radian %= other.radian;
+    }
+}
+
 forward_ref_binop!(impl Add, add for Angle, Angle);
 forward_ref_binop!(impl Sub, sub for Angle, Angle);
 forward_ref_binop!(impl Mul, mul for Angle, Float);
 forward_ref_binop!(impl Mul, mul for Float, Angle);
 forward_ref_binop!(impl Div, div for Angle, Float);
+forward_ref_binop!(impl Rem, rem for Angle, Angle);
 forward_ref_op_assign!(impl AddAssign, add_assign for Angle, Angle);
 forward_ref_op_assign!(impl SubAssign, sub_assign for Angle, Angle);
 forward_ref_op_assign!(impl MulAssign, mul_assign for Angle, Float);
 forward_ref_op_assign!(impl DivAssign, div_assign for Angle, Float);
+forward_ref_op_assign!(impl RemAssign, rem_assign for Angle, Angle);
 forward_ref_unop!(impl Neg, neg for Angle);
