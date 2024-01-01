@@ -23,32 +23,24 @@ pub struct Color {
     blue: Float,
 }
 
-pub(crate) struct CIEXYZColor {
+pub struct CIEXYZColor {
     x: Float,
     y: Float,
     z: Float,
 }
 
 impl Color {
-    pub fn from_rgb(red: Float, green: Float, blue: Float) -> Color {
-        let mut color = Color { red, green, blue };
-        color.normalize();
-        color
+    pub const fn from_rgb(red: Float, green: Float, blue: Float) -> Color {
+        Color { red, green, blue }
     }
 
     pub fn from_temperature(temperature: Temperature) -> Color {
         CIEXYZColor::from_temperature(temperature).to_rgb()
     }
 
-    pub const fn as_rgb(&self) -> (Float, Float, Float) {
-        (self.red, self.green, self.blue)
-    }
-
-    fn normalize(&mut self) {
+    pub fn normalized_rgb(&self) -> (Float, Float, Float) {
         let sum = self.red + self.green + self.blue;
-        self.red /= sum;
-        self.green /= sum;
-        self.blue /= sum;
+        (self.red / sum, self.green / sum, self.blue / sum)
     }
 }
 
@@ -67,14 +59,14 @@ impl CIEXYZColor {
         CIEXYZColor::from_xyz(x, y, z)
     }
 
-    fn from_rgb(red: Float, green: Float, blue: Float) -> CIEXYZColor {
+    pub fn from_rgb(red: Float, green: Float, blue: Float) -> CIEXYZColor {
         let x = RGB_TO_XYZ[0][0] * red + RGB_TO_XYZ[0][1] * green + RGB_TO_XYZ[0][2] * blue;
         let y = RGB_TO_XYZ[1][0] * red + RGB_TO_XYZ[1][1] * green + RGB_TO_XYZ[1][2] * blue;
         let z = RGB_TO_XYZ[2][0] * red + RGB_TO_XYZ[2][1] * green + RGB_TO_XYZ[2][2] * blue;
         CIEXYZColor { x, y, z }
     }
 
-    fn to_rgb(&self) -> Color {
+    pub fn to_rgb(&self) -> Color {
         let r = XYZ_TO_RGB[0][0] * self.x + XYZ_TO_RGB[0][1] * self.y + XYZ_TO_RGB[0][2] * self.z;
         let g = XYZ_TO_RGB[1][0] * self.x + XYZ_TO_RGB[1][1] * self.y + XYZ_TO_RGB[1][2] * self.z;
         let b = XYZ_TO_RGB[2][0] * self.x + XYZ_TO_RGB[2][1] * self.y + XYZ_TO_RGB[2][2] * self.z;
@@ -98,10 +90,10 @@ mod tests {
     }
 
     #[test]
-    fn fifteenhundred_kelvin_is_red() {
-        let color = Color::from_temperature(Temperature::from_kelvin(1500.0));
-        let expected = normed_color_tuple((255., 99., -120.)); //https://viereck.ch/hue-xy-rgb/
-        let actual = color.as_rgb();
+    fn fivehundred_kelvin_is_red() {
+        let color = Color::from_temperature(Temperature::from_kelvin(500.0));
+        let expected = normed_color_tuple((0.9, 0.1, 0.));
+        let actual = color.normalized_rgb();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
@@ -112,8 +104,8 @@ mod tests {
     #[test]
     fn six_thousand_kelvin_is_white() {
         let color = Color::from_temperature(Temperature::from_kelvin(6000.0));
-        let expected = normed_color_tuple((255., 255., 255.));
-        let actual = color.as_rgb();
+        let expected = normed_color_tuple((1., 1., 1.));
+        let actual = color.normalized_rgb();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
@@ -124,8 +116,8 @@ mod tests {
     #[test]
     fn thirty_thousand_kelvin_is_blue() {
         let color = Color::from_temperature(Temperature::from_kelvin(30_000.0));
-        let expected: (f32, f32, f32) = normed_color_tuple((146., 181., 255.)); //https://viereck.ch/hue-xy-rgb/
-        let actual = color.as_rgb();
+        let expected: (f32, f32, f32) = normed_color_tuple((0.1, 0.3, 0.6));
+        let actual = color.normalized_rgb();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
