@@ -67,15 +67,15 @@ impl Direction {
         CartesianCoordinates::new(self.x * length, self.y * length, self.z * length)
     }
 
-    pub(crate) fn x(&self) -> Float {
+    pub fn x(&self) -> Float {
         self.x
     }
 
-    pub(crate) fn y(&self) -> Float {
+    pub fn y(&self) -> Float {
         self.y
     }
 
-    pub(crate) fn z(&self) -> Float {
+    pub fn z(&self) -> Float {
         self.z
     }
 
