@@ -1,8 +1,5 @@
 use crate::{
-    coordinates::{
-        direction::Direction, ecliptic::EclipticCoordinates, equatorial::EquatorialCoordinates,
-        spherical::SphericalCoordinates,
-    },
+    coordinates::{direction::Direction, equatorial::EquatorialCoordinates},
     units::{angle::Angle, time::Time},
     TWO_PI,
 };
@@ -22,11 +19,9 @@ pub fn surface_normal_at_time(
     observer.to_direction()
 }
 
-pub fn apparent_celestial_position(
-    object: &EclipticCoordinates,
+pub fn direction_relative_to_surface_normal(
+    object_direction: &Direction,
     observer_normal: &Direction,
-) -> SphericalCoordinates {
-    object
-        .get_spherical()
-        .passive_rotation_to_new_z_axis(observer_normal)
+) -> Direction {
+    object_direction.passive_rotation_to_new_z_axis(observer_normal)
 }

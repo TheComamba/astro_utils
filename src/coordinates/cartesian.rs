@@ -9,12 +9,6 @@ use std::{
     ops::{Add, Div, Mul, Neg, Sub},
 };
 
-pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
-    x: Length::from_meters(0.),
-    y: Length::from_meters(0.),
-    z: Length::from_meters(0.),
-};
-
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CartesianCoordinates {
     x: Length,
@@ -23,6 +17,12 @@ pub struct CartesianCoordinates {
 }
 
 impl CartesianCoordinates {
+    pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
+        x: Length::from_meters(0.),
+        y: Length::from_meters(0.),
+        z: Length::from_meters(0.),
+    };
+
     pub const fn new(x: Length, y: Length, z: Length) -> CartesianCoordinates {
         CartesianCoordinates { x, y, z }
     }

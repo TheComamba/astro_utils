@@ -1,27 +1,9 @@
-use super::{
-    cartesian::CartesianCoordinates,
-    direction::{Direction, X, Y, Z},
-};
+use super::{cartesian::CartesianCoordinates, direction::Direction};
 use crate::{units::angle::Angle, Float, PI};
 use serde::{Deserialize, Serialize};
 use std::{
     fmt::{Display, Formatter},
     ops::Neg,
-};
-
-pub const X_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-    longitude: Angle::from_radians(0.),
-    latitude: Angle::from_radians(0.),
-};
-
-pub const Y_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-    longitude: Angle::from_radians(PI / 2.),
-    latitude: Angle::from_radians(0.),
-};
-
-pub const Z_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-    longitude: Angle::from_radians(0.),
-    latitude: Angle::from_radians(PI / 2.),
 };
 
 const PI_HALF: Float = PI / 2.;
@@ -33,6 +15,21 @@ pub struct SphericalCoordinates {
 }
 
 impl SphericalCoordinates {
+    pub const X_DIRECTION: SphericalCoordinates = SphericalCoordinates {
+        longitude: Angle::from_radians(0.),
+        latitude: Angle::from_radians(0.),
+    };
+
+    pub const Y_DIRECTION: SphericalCoordinates = SphericalCoordinates {
+        longitude: Angle::from_radians(PI / 2.),
+        latitude: Angle::from_radians(0.),
+    };
+
+    pub const Z_DIRECTION: SphericalCoordinates = SphericalCoordinates {
+        longitude: Angle::from_radians(0.),
+        latitude: Angle::from_radians(PI / 2.),
+    };
+
     pub const fn new(longitude: Angle, latitude: Angle) -> Self {
         Self {
             longitude,
@@ -107,52 +104,6 @@ impl SphericalCoordinates {
             longitude,
             latitude,
         }
-    }
-
-    /*
-     * This method is for example used to convert from equatorial coordinates to ecliptic coordinates.
-     * It operates the following way:
-     * 1. The spherical coordinates are converted to a direction vector.
-     * 2. The vector is rotated around the X axis by the angle between new and old Z axis.
-     * 3. The vector is rotated around old Z by the angle between new and old X, projected on the old X-Y plane.
-     * The result is the coordinates. The new X-axis still lies in the old X-Y plane.
-     */
-    pub fn direction_after_active_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
-        let angle_to_old_z = new_z.angle_to(&Z);
-
-        let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
-        if axis_projected_onto_xy_plane.x() < 0. {
-            polar_rotation_angle = -polar_rotation_angle;
-        }
-
-        let mut dir = Direction::from_spherical(&self);
-        dir = dir.rotated(-angle_to_old_z, &X);
-        dir = dir.rotated(-polar_rotation_angle, &Z);
-        dir
-    }
-
-    pub fn active_rotation_to_new_z_axis(&self, new_z: &Direction) -> Self {
-        Self::from_direction(&self.direction_after_active_rotation_to_new_z_axis(new_z))
-    }
-
-    pub fn direction_after_passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
-        let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
-        if axis_projected_onto_xy_plane.x() < 0. {
-            polar_rotation_angle = -polar_rotation_angle;
-        }
-
-        let angle_to_old_z = new_z.angle_to(&Z);
-
-        let mut dir = Direction::from_spherical(&self);
-        dir = dir.rotated(polar_rotation_angle, &Z);
-        dir = dir.rotated(angle_to_old_z, &X);
-        dir
-    }
-
-    pub fn passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Self {
-        Self::from_direction(&self.direction_after_passive_rotation_to_new_z_axis(new_z))
     }
 }
 
@@ -298,9 +249,9 @@ mod tests {
 
     #[test]
     fn test_unary_minus() {
-        let x = X_DIRECTION;
-        let y = Y_DIRECTION;
-        let z = Z_DIRECTION;
+        let x = SphericalCoordinates::X_DIRECTION;
+        let y = SphericalCoordinates::Y_DIRECTION;
+        let z = SphericalCoordinates::Z_DIRECTION;
         let xyz = SphericalCoordinates {
             longitude: Angle::from_radians(PI / 4.),
             latitude: Angle::from_radians(PI / 4.),
@@ -353,12 +304,12 @@ mod tests {
         ];
         let large_offsets = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
         let directions = vec![
-            X_DIRECTION,
-            Y_DIRECTION,
-            Z_DIRECTION,
-            -X_DIRECTION,
-            -Y_DIRECTION,
-            -Z_DIRECTION,
+            SphericalCoordinates::X_DIRECTION,
+            SphericalCoordinates::Y_DIRECTION,
+            SphericalCoordinates::Z_DIRECTION,
+            -SphericalCoordinates::X_DIRECTION,
+            -SphericalCoordinates::Y_DIRECTION,
+            -SphericalCoordinates::Z_DIRECTION,
         ];
         for direction in directions.clone() {
             for small_offset in small_offsets.clone() {
@@ -528,92 +479,5 @@ mod tests {
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
         assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn test_revertability_of_rotation() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
-        for long1 in ordinates.clone() {
-            for lat1 in ordinates.clone() {
-                for long2 in ordinates.clone() {
-                    for lat2 in ordinates.clone() {
-                        let mut original_point = SphericalCoordinates {
-                            longitude: Angle::from_radians(long1),
-                            latitude: Angle::from_radians(lat1),
-                        };
-                        original_point.normalize();
-                        let new_z_axis = Direction::from_spherical(&SphericalCoordinates {
-                            longitude: Angle::from_radians(long2),
-                            latitude: Angle::from_radians(lat2),
-                        });
-
-                        let mut point_after_active_rotation =
-                            original_point.active_rotation_to_new_z_axis(&new_z_axis);
-                        point_after_active_rotation.normalize();
-                        let mut point_transformed_back_to_original =
-                            point_after_active_rotation.passive_rotation_to_new_z_axis(&new_z_axis);
-                        point_transformed_back_to_original.normalize();
-
-                        println!("new_z_axis: {}", new_z_axis);
-                        println!("original_point: {}", original_point);
-                        println!("point_in_new_system: {}", point_after_active_rotation);
-                        println!(
-                            "point_transformed_back_to_original: {}",
-                            point_transformed_back_to_original
-                        );
-                        assert!(original_point
-                            .eq_within(&point_transformed_back_to_original, TEST_ANGLE_ACCURACY));
-                    }
-                }
-            }
-        }
-    }
-
-    #[test]
-    fn test_north_after_active_rotation() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
-        for long in ordinates.clone() {
-            for lat in ordinates.clone() {
-                let mut new_z_axis = SphericalCoordinates {
-                    longitude: Angle::from_radians(long),
-                    latitude: Angle::from_radians(lat),
-                };
-                new_z_axis.normalize();
-                let new_z_axis_direction = Direction::from_spherical(&new_z_axis);
-
-                let expected = new_z_axis;
-                let mut actual = Z_DIRECTION.active_rotation_to_new_z_axis(&new_z_axis_direction);
-                actual.normalize();
-
-                println!("new_z_axis: {}", new_z_axis);
-                println!("expected: {}", expected);
-                println!("actual: {}", actual);
-                assert!(expected.eq_within(&actual, TEST_ANGLE_ACCURACY));
-            }
-        }
-    }
-
-    #[test]
-    fn test_north_after_passive_rotation() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
-        for long in ordinates.clone() {
-            for lat in ordinates.clone() {
-                let mut new_z_axis = SphericalCoordinates {
-                    longitude: Angle::from_radians(long),
-                    latitude: Angle::from_radians(lat),
-                };
-                new_z_axis.normalize();
-                let new_z_axis_direction = Direction::from_spherical(&new_z_axis);
-
-                let expected = Z_DIRECTION;
-                let mut actual = new_z_axis.passive_rotation_to_new_z_axis(&new_z_axis_direction);
-                actual.normalize();
-
-                println!("new_z_axis: {}", new_z_axis);
-                println!("expected: {}", expected);
-                println!("actual: {}", actual);
-                assert!(expected.eq_within(&actual, TEST_ANGLE_ACCURACY));
-            }
-        }
     }
 }
