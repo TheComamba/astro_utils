@@ -6,21 +6,6 @@ use std::{
     ops::Neg,
 };
 
-pub const X_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-    longitude: Angle::from_radians(0.),
-    latitude: Angle::from_radians(0.),
-};
-
-pub const Y_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-    longitude: Angle::from_radians(PI / 2.),
-    latitude: Angle::from_radians(0.),
-};
-
-pub const Z_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-    longitude: Angle::from_radians(0.),
-    latitude: Angle::from_radians(PI / 2.),
-};
-
 const PI_HALF: Float = PI / 2.;
 
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
@@ -30,6 +15,21 @@ pub struct SphericalCoordinates {
 }
 
 impl SphericalCoordinates {
+    pub const X_DIRECTION: SphericalCoordinates = SphericalCoordinates {
+        longitude: Angle::from_radians(0.),
+        latitude: Angle::from_radians(0.),
+    };
+
+    pub const Y_DIRECTION: SphericalCoordinates = SphericalCoordinates {
+        longitude: Angle::from_radians(PI / 2.),
+        latitude: Angle::from_radians(0.),
+    };
+
+    pub const Z_DIRECTION: SphericalCoordinates = SphericalCoordinates {
+        longitude: Angle::from_radians(0.),
+        latitude: Angle::from_radians(PI / 2.),
+    };
+
     pub const fn new(longitude: Angle, latitude: Angle) -> Self {
         Self {
             longitude,
@@ -249,9 +249,9 @@ mod tests {
 
     #[test]
     fn test_unary_minus() {
-        let x = X_DIRECTION;
-        let y = Y_DIRECTION;
-        let z = Z_DIRECTION;
+        let x = SphericalCoordinates::X_DIRECTION;
+        let y = SphericalCoordinates::Y_DIRECTION;
+        let z = SphericalCoordinates::Z_DIRECTION;
         let xyz = SphericalCoordinates {
             longitude: Angle::from_radians(PI / 4.),
             latitude: Angle::from_radians(PI / 4.),
@@ -304,12 +304,12 @@ mod tests {
         ];
         let large_offsets = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
         let directions = vec![
-            X_DIRECTION,
-            Y_DIRECTION,
-            Z_DIRECTION,
-            -X_DIRECTION,
-            -Y_DIRECTION,
-            -Z_DIRECTION,
+            SphericalCoordinates::X_DIRECTION,
+            SphericalCoordinates::Y_DIRECTION,
+            SphericalCoordinates::Z_DIRECTION,
+            -SphericalCoordinates::X_DIRECTION,
+            -SphericalCoordinates::Y_DIRECTION,
+            -SphericalCoordinates::Z_DIRECTION,
         ];
         for direction in directions.clone() {
             for small_offset in small_offsets.clone() {

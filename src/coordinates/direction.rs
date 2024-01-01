@@ -10,22 +10,6 @@ use std::{fmt::Display, ops::Neg};
 
 pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-10;
 
-pub const X: Direction = Direction {
-    x: 1.,
-    y: 0.,
-    z: 0.,
-};
-pub const Y: Direction = Direction {
-    x: 0.,
-    y: 1.,
-    z: 0.,
-};
-pub const Z: Direction = Direction {
-    x: 0.,
-    y: 0.,
-    z: 1.,
-};
-
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Direction {
     x: Float,
@@ -34,10 +18,26 @@ pub struct Direction {
 }
 
 impl Direction {
+    pub const X: Direction = Direction {
+        x: 1.,
+        y: 0.,
+        z: 0.,
+    };
+    pub const Y: Direction = Direction {
+        x: 0.,
+        y: 1.,
+        z: 0.,
+    };
+    pub const Z: Direction = Direction {
+        x: 0.,
+        y: 0.,
+        z: 1.,
+    };
+
     pub fn new(x: Float, y: Float, z: Float) -> Direction {
         let length = (x * x + y * y + z * z).sqrt();
         if length < NORMALIZATION_THRESHOLD {
-            Z //return default axis
+            Self::Z //return default axis
         } else {
             Direction {
                 x: x / length,
@@ -106,14 +106,14 @@ impl Direction {
 
     fn some_orthogonal_vector(&self) -> Direction {
         if self.x().abs() > NORMALIZATION_THRESHOLD {
-            self.cross_product(&Y)
+            self.cross_product(&Self::Y)
         } else if self.y().abs() > NORMALIZATION_THRESHOLD {
-            self.cross_product(&Z)
+            self.cross_product(&Self::Z)
         } else if self.z().abs() > NORMALIZATION_THRESHOLD {
-            self.cross_product(&X)
+            self.cross_product(&Self::X)
         } else {
             //vector is (0,0,0)
-            Z
+            Self::Z
         }
     }
 
@@ -146,30 +146,30 @@ impl Direction {
      * The result is the coordinates. The new X-axis still lies in the old X-Y plane.
      */
     pub fn active_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
-        let angle_to_old_z = new_z.angle_to(&Z);
+        let angle_to_old_z = new_z.angle_to(&Self::Z);
 
         let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
+        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Self::Y);
         if axis_projected_onto_xy_plane.x() < 0. {
             polar_rotation_angle = -polar_rotation_angle;
         }
 
-        let mut dir = self.rotated(-angle_to_old_z, &X);
-        dir = dir.rotated(-polar_rotation_angle, &Z);
+        let mut dir = self.rotated(-angle_to_old_z, &Self::X);
+        dir = dir.rotated(-polar_rotation_angle, &Self::Z);
         dir
     }
 
     pub fn passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
         let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
+        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Self::Y);
         if axis_projected_onto_xy_plane.x() < 0. {
             polar_rotation_angle = -polar_rotation_angle;
         }
 
-        let angle_to_old_z = new_z.angle_to(&Z);
+        let angle_to_old_z = new_z.angle_to(&Self::Z);
 
-        let mut dir = self.rotated(polar_rotation_angle, &Z);
-        dir = dir.rotated(angle_to_old_z, &X);
+        let mut dir = self.rotated(polar_rotation_angle, &Self::Z);
+        dir = dir.rotated(angle_to_old_z, &Self::X);
         dir
     }
 }
@@ -229,15 +229,15 @@ mod tests {
     fn angle_between_is_half_turn() {
         const EXPECTED: Angle = Angle::from_radians(PI);
 
-        let angle = X.angle_to(&(-X));
+        let angle = Direction::X.angle_to(&(-Direction::X));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Y.angle_to(&(-Y));
+        let angle = Direction::Y.angle_to(&(-Direction::Y));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Z.angle_to(&(-Z));
+        let angle = Direction::Z.angle_to(&(-Direction::Z));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
@@ -264,15 +264,15 @@ mod tests {
     fn angle_between_is_quarter_turn() {
         let expected = Angle::from_radians(PI / 2.);
 
-        let angle = X.angle_to(&Y);
+        let angle = Direction::X.angle_to(&Direction::Y);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let angle = X.angle_to(&Z);
+        let angle = Direction::X.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Y.angle_to(&Z);
+        let angle = Direction::Y.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
@@ -293,15 +293,15 @@ mod tests {
     fn angle_between_is_zero() {
         const EXPECTED: Angle = Angle::from_radians(0.);
 
-        let angle = X.angle_to(&X);
+        let angle = Direction::X.angle_to(&Direction::X);
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Y.angle_to(&Y);
+        let angle = Direction::Y.angle_to(&Direction::Y);
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Z.angle_to(&Z);
+        let angle = Direction::Z.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
@@ -449,7 +449,7 @@ mod tests {
                     let new_z_axis = Direction::new(x, y, z);
 
                     let expected = new_z_axis;
-                    let actual = Z.active_rotation_to_new_z_axis(&new_z_axis);
+                    let actual = Direction::Z.active_rotation_to_new_z_axis(&new_z_axis);
 
                     println!("new_z_axis: {}", new_z_axis);
                     println!("expected: {}", expected);
@@ -473,7 +473,7 @@ mod tests {
 
                     let new_z_axis = Direction::new(x, y, z);
 
-                    let expected = Z;
+                    let expected = Direction::Z;
                     let actual = new_z_axis.passive_rotation_to_new_z_axis(&new_z_axis);
 
                     println!("new_z_axis: {}", new_z_axis);

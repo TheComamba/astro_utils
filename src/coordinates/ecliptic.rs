@@ -1,21 +1,9 @@
 use super::cartesian::CartesianCoordinates;
-use super::spherical::{self, SphericalCoordinates};
+use super::spherical::SphericalCoordinates;
 use crate::units::angle::Angle;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 use std::ops::Neg;
-
-pub const X_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    spherical: spherical::X_DIRECTION,
-};
-
-pub const Y_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    spherical: spherical::Y_DIRECTION,
-};
-
-pub const Z_DIRECTION: EclipticCoordinates = EclipticCoordinates {
-    spherical: spherical::Z_DIRECTION,
-};
 
 /*  The "absolute" reference we use for polar coordiantes is heliocentric ecliptic coordinates:
  * Longitude denotes the angle between the vernal equinox and the body, measured in the ecliptic plane.
@@ -28,6 +16,18 @@ pub struct EclipticCoordinates {
 }
 
 impl EclipticCoordinates {
+    pub const X_DIRECTION: EclipticCoordinates = EclipticCoordinates {
+        spherical: SphericalCoordinates::X_DIRECTION,
+    };
+
+    pub const Y_DIRECTION: EclipticCoordinates = EclipticCoordinates {
+        spherical: SphericalCoordinates::Y_DIRECTION,
+    };
+
+    pub const Z_DIRECTION: EclipticCoordinates = EclipticCoordinates {
+        spherical: SphericalCoordinates::Z_DIRECTION,
+    };
+
     pub const fn new(spherical: SphericalCoordinates) -> EclipticCoordinates {
         EclipticCoordinates { spherical }
     }

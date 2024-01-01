@@ -1,8 +1,5 @@
 use crate::{
-    coordinates::{
-        cartesian::CartesianCoordinates,
-        direction::{Direction, X, Z},
-    },
+    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     units::angle::Angle,
 };
 use serde::{Deserialize, Serialize};
@@ -40,16 +37,16 @@ impl OrbitOrientation {
     }
 
     pub(crate) fn apply_to(&self, position_in_plane: CartesianCoordinates) -> CartesianCoordinates {
-        let position = position_in_plane.rotated(self.inclination, &X);
-        let position = position.rotated(self.longitude_of_ascending_node, &Z);
+        let position = position_in_plane.rotated(self.inclination, &Direction::X);
+        let position = position.rotated(self.longitude_of_ascending_node, &Direction::Z);
         let position = position.rotated(self.argument_of_periapsis, &self.normal());
         position
     }
 
     pub(crate) fn normal(&self) -> Direction {
-        let ecliptic_normal = Z;
-        let orbit_normal = ecliptic_normal.rotated(self.inclination, &X);
-        let orbit_normal = orbit_normal.rotated(self.longitude_of_ascending_node, &Z);
+        let ecliptic_normal = Direction::Z;
+        let orbit_normal = ecliptic_normal.rotated(self.inclination, &Direction::X);
+        let orbit_normal = orbit_normal.rotated(self.longitude_of_ascending_node, &Direction::Z);
         orbit_normal
     }
 }

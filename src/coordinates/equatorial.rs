@@ -65,7 +65,7 @@ mod tests {
                 EarthEquatorialCoordinates, EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
             },
             equatorial::EquatorialCoordinates,
-            spherical::{SphericalCoordinates, X_DIRECTION, Z_DIRECTION},
+            spherical::SphericalCoordinates,
         },
         tests::TEST_ACCURACY,
         units::angle::Angle,
@@ -82,7 +82,8 @@ mod tests {
                         continue;
                     }
                     let axis = Direction::new(x, y, z);
-                    let coordinates = EquatorialCoordinates::new(Z_DIRECTION, axis);
+                    let coordinates =
+                        EquatorialCoordinates::new(SphericalCoordinates::Z_DIRECTION, axis);
                     let expected = axis;
                     let actual = coordinates.to_direction();
                     println!("expected: {},\n actual: {}", expected, actual);
@@ -102,7 +103,8 @@ mod tests {
                         continue;
                     }
                     let axis = Direction::new(x, y, z);
-                    let coordinates = super::EquatorialCoordinates::new(-Z_DIRECTION, axis);
+                    let coordinates =
+                        super::EquatorialCoordinates::new(-SphericalCoordinates::Z_DIRECTION, axis);
                     let expected = -axis;
                     let actual = coordinates.to_direction();
                     println!("expected: {},\n actual: {}", expected, actual);
@@ -122,7 +124,8 @@ mod tests {
                         continue;
                     }
                     let axis = Direction::new(x, y, z);
-                    let coordinates = super::EquatorialCoordinates::new(X_DIRECTION, axis);
+                    let coordinates =
+                        super::EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, axis);
                     let direction = coordinates.to_direction();
                     assert!(direction.z().abs() < TEST_ACCURACY);
                 }
@@ -140,7 +143,8 @@ mod tests {
                         continue;
                     }
                     let axis = Direction::new(x, y, z);
-                    let coordinates = super::EquatorialCoordinates::new(-X_DIRECTION, axis);
+                    let coordinates =
+                        super::EquatorialCoordinates::new(-SphericalCoordinates::X_DIRECTION, axis);
                     let direction = coordinates.to_direction();
                     assert!(direction.z().abs() < TEST_ACCURACY);
                 }
