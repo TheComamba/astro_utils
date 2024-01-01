@@ -51,12 +51,6 @@ pub(crate) fn convolute_with_black_body(
 mod tests {
     use super::*;
 
-    struct TestExpectance {
-        wavelength: Length,
-        temperature: Temperature,
-        expected: Float,
-    }
-
     #[test]
     fn color_matching_functions_are_between_zero_and_two() {
         let mut lambda = Length::from_nanometers(380.);

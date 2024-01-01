@@ -1,7 +1,22 @@
+use super::{length::Length, temperature::Temperature};
 use crate::{color_matching_functions::*, Float};
 
-use super::{length::Length, temperature::Temperature};
+/*
+ * https://engineering.purdue.edu/~bouman/ece637/notes/pdf/Tristimulus.pdf
+ * Page 15 dfines the transformation matrix from RGB to XYZ
+ * Page 19 defines the transformation matrix from XYZ to RGB
+ */
+const RGB_TO_XYZ: [[Float; 3]; 3] = [
+    [0.490, 0.310, 0.200],
+    [0.177, 0.813, 0.010],
+    [0.000, 0.010, 0.990],
+];
 
+const XYZ_TO_RGB: [[Float; 3]; 3] = [
+    [2.3644, -0.8958, -0.4686],
+    [-0.5148, 1.4252, 0.0896],
+    [0.0052, -0.0144, 1.0092],
+];
 pub struct Color {
     red: Float,
     green: Float,
@@ -15,51 +30,54 @@ pub(crate) struct CIEXYZColor {
 }
 
 impl Color {
-    pub const fn from_rgb(red: Float, green: Float, blue: Float) -> Color {
-        Color { red, green, blue }
+    pub fn from_rgb(red: Float, green: Float, blue: Float) -> Color {
+        let mut color = Color { red, green, blue };
+        color.normalize();
+        color
     }
 
     pub fn from_temperature(temperature: Temperature) -> Color {
+        CIEXYZColor::from_temperature(temperature).to_rgb()
+    }
+
+    pub const fn as_rgb(&self) -> (Float, Float, Float) {
+        (self.red, self.green, self.blue)
+    }
+
+    fn normalize(&mut self) {
+        let sum = self.red + self.green + self.blue;
+        self.red /= sum;
+        self.green /= sum;
+        self.blue /= sum;
+    }
+}
+
+impl CIEXYZColor {
+    fn from_xyz(x: Float, y: Float, z: Float) -> CIEXYZColor {
+        CIEXYZColor { x, y, z }
+    }
+
+    pub(super) fn from_temperature(temperature: Temperature) -> Self {
         let x_fun = Box::new(|lambda: Length| x_color_matching(lambda));
         let y_fun = Box::new(|lambda: Length| y_color_matching(lambda));
         let z_fun = Box::new(|lambda: Length| z_color_matching(lambda));
         let x = convolute_with_black_body(x_fun, temperature);
         let y = convolute_with_black_body(y_fun, temperature);
         let z = convolute_with_black_body(z_fun, temperature);
-        let xyz = CIEXYZColor::from_xyz(x, y, z);
-        xyz.to_rgb()
+        CIEXYZColor::from_xyz(x, y, z)
     }
 
-    pub const fn as_rgb(&self) -> (Float, Float, Float) {
-        (self.red, self.green, self.blue)
-    }
-}
-
-/*
- * https://engineering.purdue.edu/~bouman/ece637/notes/pdf/Tristimulus.pdf
- * Page 15 dfines the transformation matrix from RGB to XYZ
- */
-impl CIEXYZColor {
-    const M: [[Float; 3]; 3] = [
-        [0.490, 0.310, 0.200],
-        [0.177, 0.813, 0.010],
-        [0.000, 0.010, 0.990],
-    ];
-
-    const M_INV: [[Float; 3]; 3] = [
-        [2.36, -0.896, -0.469],
-        [-0.515, 1.425, 0.090],
-        [0.005, -0.014, 1.009],
-    ];
-
-    fn from_xyz(x: Float, y: Float, z: Float) -> CIEXYZColor {
+    fn from_rgb(red: Float, green: Float, blue: Float) -> CIEXYZColor {
+        let x = RGB_TO_XYZ[0][0] * red + RGB_TO_XYZ[0][1] * green + RGB_TO_XYZ[0][2] * blue;
+        let y = RGB_TO_XYZ[1][0] * red + RGB_TO_XYZ[1][1] * green + RGB_TO_XYZ[1][2] * blue;
+        let z = RGB_TO_XYZ[2][0] * red + RGB_TO_XYZ[2][1] * green + RGB_TO_XYZ[2][2] * blue;
         CIEXYZColor { x, y, z }
     }
 
     fn to_rgb(&self) -> Color {
-        let r = Self::M[0][0] * self.x + Self::M[0][1] * self.y + Self::M[0][2] * self.z;
-        let g = Self::M[1][0] * self.x + Self::M[1][1] * self.y + Self::M[1][2] * self.z;
-        let b = Self::M[2][0] * self.x + Self::M[2][1] * self.y + Self::M[2][2] * self.z;
+        let r = XYZ_TO_RGB[0][0] * self.x + XYZ_TO_RGB[0][1] * self.y + XYZ_TO_RGB[0][2] * self.z;
+        let g = XYZ_TO_RGB[1][0] * self.x + XYZ_TO_RGB[1][1] * self.y + XYZ_TO_RGB[1][2] * self.z;
+        let b = XYZ_TO_RGB[2][0] * self.x + XYZ_TO_RGB[2][1] * self.y + XYZ_TO_RGB[2][2] * self.z;
         Color::from_rgb(r, g, b)
     }
 
@@ -71,35 +89,47 @@ impl CIEXYZColor {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::tests::TEST_ACCURACY;
 
-    #[test]
-    fn thousand_degrees_is_red() {
-        let color = Color::from_temperature(Temperature::from_kelvin(5000.0));
-        let (r, g, b) = color.as_rgb();
-        println!("r: {}, g: {}, b: {}", r, g, b);
-        assert!((r - 0.999).abs() < TEST_ACCURACY);
-        assert!((g - 0.999).abs() < TEST_ACCURACY);
-        assert!((b - 0.999).abs() < TEST_ACCURACY);
+    const TEST_ACCURACY: Float = 0.05;
+
+    fn normed_color_tuple(color: (Float, Float, Float)) -> (Float, Float, Float) {
+        let sum = color.0 + color.1 + color.2;
+        (color.0 / sum, color.1 / sum, color.2 / sum)
     }
 
     #[test]
-    fn six_thousand_degrees_is_white() {
+    fn fifteenhundred_kelvin_is_red() {
+        let color = Color::from_temperature(Temperature::from_kelvin(1500.0));
+        let expected = normed_color_tuple((255., 99., -120.)); //https://viereck.ch/hue-xy-rgb/
+        let actual = color.as_rgb();
+        println!("expected: {:?}", expected);
+        println!("actual: {:?}", actual);
+        assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
+        assert!((expected.1 - actual.1).abs() < TEST_ACCURACY);
+        assert!((expected.2 - actual.2).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
+    fn six_thousand_kelvin_is_white() {
         let color = Color::from_temperature(Temperature::from_kelvin(6000.0));
-        let (r, g, b) = color.as_rgb();
-        println!("r: {}, g: {}, b: {}", r, g, b);
-        assert!((r - 1.0).abs() < TEST_ACCURACY);
-        assert!((g - 1.0).abs() < TEST_ACCURACY);
-        assert!((b - 1.0).abs() < TEST_ACCURACY);
+        let expected = normed_color_tuple((255., 255., 255.));
+        let actual = color.as_rgb();
+        println!("expected: {:?}", expected);
+        println!("actual: {:?}", actual);
+        assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
+        assert!((expected.1 - actual.1).abs() < TEST_ACCURACY);
+        assert!((expected.2 - actual.2).abs() < TEST_ACCURACY);
     }
 
     #[test]
-    fn twelve_thousand_degrees_is_blue() {
-        let color = Color::from_temperature(Temperature::from_kelvin(10000.0));
-        let (r, g, b) = color.as_rgb();
-        println!("r: {}, g: {}, b: {}", r, g, b);
-        assert!((r - 0.999).abs() < TEST_ACCURACY);
-        assert!((g - 0.999).abs() < TEST_ACCURACY);
-        assert!((b - 1.0).abs() < TEST_ACCURACY);
+    fn thirty_thousand_kelvin_is_blue() {
+        let color = Color::from_temperature(Temperature::from_kelvin(30_000.0));
+        let expected: (f32, f32, f32) = normed_color_tuple((146., 181., 255.)); //https://viereck.ch/hue-xy-rgb/
+        let actual = color.as_rgb();
+        println!("expected: {:?}", expected);
+        println!("actual: {:?}", actual);
+        assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
+        assert!((expected.1 - actual.1).abs() < TEST_ACCURACY);
+        assert!((expected.2 - actual.2).abs() < TEST_ACCURACY);
     }
 }
