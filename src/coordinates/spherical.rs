@@ -1,7 +1,4 @@
-use super::{
-    cartesian::CartesianCoordinates,
-    direction::{Direction, X, Y, Z},
-};
+use super::{cartesian::CartesianCoordinates, direction::Direction};
 use crate::{units::angle::Angle, Float, PI};
 use serde::{Deserialize, Serialize};
 use std::{
@@ -109,50 +106,16 @@ impl SphericalCoordinates {
         }
     }
 
-    /*
-     * This method is for example used to convert from equatorial coordinates to ecliptic coordinates.
-     * It operates the following way:
-     * 1. The spherical coordinates are converted to a direction vector.
-     * 2. The vector is rotated around the X axis by the angle between new and old Z axis.
-     * 3. The vector is rotated around old Z by the angle between new and old X, projected on the old X-Y plane.
-     * The result is the coordinates. The new X-axis still lies in the old X-Y plane.
-     */
-    pub fn direction_after_active_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
-        let angle_to_old_z = new_z.angle_to(&Z);
-
-        let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
-        if axis_projected_onto_xy_plane.x() < 0. {
-            polar_rotation_angle = -polar_rotation_angle;
-        }
-
-        let mut dir = Direction::from_spherical(&self);
-        dir = dir.rotated(-angle_to_old_z, &X);
-        dir = dir.rotated(-polar_rotation_angle, &Z);
-        dir
-    }
-
     pub fn active_rotation_to_new_z_axis(&self, new_z: &Direction) -> Self {
-        Self::from_direction(&self.direction_after_active_rotation_to_new_z_axis(new_z))
-    }
-
-    pub fn direction_after_passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
-        let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
-        if axis_projected_onto_xy_plane.x() < 0. {
-            polar_rotation_angle = -polar_rotation_angle;
-        }
-
-        let angle_to_old_z = new_z.angle_to(&Z);
-
-        let mut dir = Direction::from_spherical(&self);
-        dir = dir.rotated(polar_rotation_angle, &Z);
-        dir = dir.rotated(angle_to_old_z, &X);
-        dir
+        let dir = Direction::from_spherical(self);
+        let new_dir = dir.active_rotation_to_new_z_axis(new_z);
+        Self::from_direction(&new_dir)
     }
 
     pub fn passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Self {
-        Self::from_direction(&self.direction_after_passive_rotation_to_new_z_axis(new_z))
+        let dir = Direction::from_spherical(self);
+        let new_dir = dir.passive_rotation_to_new_z_axis(new_z);
+        Self::from_direction(&new_dir)
     }
 }
 

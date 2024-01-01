@@ -30,3 +30,10 @@ pub fn apparent_celestial_position(
         .get_spherical()
         .passive_rotation_to_new_z_axis(observer_normal)
 }
+
+pub fn direction_relative_to_surface_normal(
+    object_direction: &Direction,
+    observer_normal: &Direction,
+) -> Direction {
+    object_direction.passive_rotation_to_new_z_axis(observer_normal)
+}

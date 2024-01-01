@@ -137,6 +137,41 @@ impl Direction {
     fn dot_product(&self, other: &Direction) -> Float {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
+
+    /*
+     * This method is for example used to convert from equatorial coordinates to ecliptic coordinates.
+     * It operates the following way:
+     * 1. The vector is rotated around the X axis by the angle between new and old Z axis.
+     * 2. The vector is rotated around old Z by the angle between new and old X, projected on the old X-Y plane.
+     * The result is the coordinates. The new X-axis still lies in the old X-Y plane.
+     */
+    pub fn active_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
+        let angle_to_old_z = new_z.angle_to(&Z);
+
+        let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
+        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
+        if axis_projected_onto_xy_plane.x() < 0. {
+            polar_rotation_angle = -polar_rotation_angle;
+        }
+
+        let mut dir = self.rotated(-angle_to_old_z, &X);
+        dir = dir.rotated(-polar_rotation_angle, &Z);
+        dir
+    }
+
+    pub fn passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
+        let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
+        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Y);
+        if axis_projected_onto_xy_plane.x() < 0. {
+            polar_rotation_angle = -polar_rotation_angle;
+        }
+
+        let angle_to_old_z = new_z.angle_to(&Z);
+
+        let mut dir = self.rotated(polar_rotation_angle, &Z);
+        dir = dir.rotated(angle_to_old_z, &X);
+        dir
+    }
 }
 
 impl Neg for Direction {

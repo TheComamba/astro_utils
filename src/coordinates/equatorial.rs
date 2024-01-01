@@ -41,8 +41,8 @@ impl EquatorialCoordinates {
     }
 
     pub(crate) fn to_direction(&self) -> Direction {
-        self.spherical
-            .direction_after_active_rotation_to_new_z_axis(&self.rotation_axis)
+        let dir = Direction::from_spherical(&self.spherical);
+        dir.active_rotation_to_new_z_axis(&self.rotation_axis)
     }
 }
 
