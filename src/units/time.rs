@@ -16,7 +16,7 @@ const YEARS_PER_SECOND: Float = 1. / SECONDS_PER_YEAR;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Time {
-    seconds: Float,
+    pub(super) seconds: Float,
 }
 
 impl Time {

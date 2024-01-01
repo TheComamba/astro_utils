@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Luminosity {
-    magnitude: Float,
+    pub(super) magnitude: Float,
 }
 
 impl Luminosity {

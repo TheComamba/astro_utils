@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Temperature {
-    kelvin: Float,
+    pub(super) kelvin: Float,
 }
 
 impl Temperature {

@@ -9,7 +9,7 @@ use std::{
     ops::{Add, Div, Mul, Neg, Sub},
 };
 
-#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CartesianCoordinates {
     x: Length,
     y: Length,

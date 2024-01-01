@@ -1,9 +1,8 @@
+use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
 use crate::{
     solar_system_data::EARTH_AXIS_TILT,
     units::{angle::Angle, length::Length},
 };
-
-use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
 
 pub struct EarthEquatorialCoordinates {
     right_ascension: Angle,

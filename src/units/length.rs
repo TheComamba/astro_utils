@@ -1,9 +1,6 @@
 use crate::Float;
 use serde::{Deserialize, Serialize};
-use std::{
-    fmt::Display,
-    ops::{Add, Div, Mul, Neg, Sub},
-};
+use std::fmt::Display;
 
 const METERS_PER_KILOMETER: Float = 1000.;
 const KILOMETERS_PER_METER: Float = 1. / METERS_PER_KILOMETER;
@@ -20,7 +17,7 @@ const LIGHT_YEARS_PER_METER: Float = 1. / METERS_PER_LIGHT_YEAR;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Length {
-    meters: Float,
+    pub(super) meters: Float,
 }
 
 impl Length {
@@ -114,74 +111,6 @@ impl Display for Length {
             write!(f, "{:.2} km", self.as_kilometers())
         } else {
             write!(f, "{:.2} m", self.as_meters())
-        }
-    }
-}
-
-impl Add for Length {
-    type Output = Length;
-
-    fn add(self, other: Length) -> Length {
-        Length {
-            meters: self.meters + other.meters,
-        }
-    }
-}
-
-impl Sub for Length {
-    type Output = Length;
-
-    fn sub(self, other: Length) -> Length {
-        Length {
-            meters: self.meters - other.meters,
-        }
-    }
-}
-
-impl Mul<Float> for Length {
-    type Output = Length;
-
-    fn mul(self, f: Float) -> Length {
-        Length {
-            meters: self.meters * f,
-        }
-    }
-}
-
-impl Mul<Length> for Float {
-    type Output = Length;
-
-    fn mul(self, length: Length) -> Length {
-        Length {
-            meters: self * length.meters,
-        }
-    }
-}
-
-impl Div<Float> for Length {
-    type Output = Length;
-
-    fn div(self, f: Float) -> Length {
-        Length {
-            meters: self.meters / f,
-        }
-    }
-}
-
-impl Div<Length> for Length {
-    type Output = Float;
-
-    fn div(self, other: Length) -> Float {
-        self.meters / other.meters
-    }
-}
-
-impl Neg for Length {
-    type Output = Length;
-
-    fn neg(self) -> Length {
-        Length {
-            meters: -self.meters,
         }
     }
 }

@@ -16,7 +16,7 @@ const SOLAR_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_SOLAR_MASS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Mass {
-    kilograms: Float,
+    pub(super) kilograms: Float,
 }
 
 impl Mass {

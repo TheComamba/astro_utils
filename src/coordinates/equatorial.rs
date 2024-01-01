@@ -83,11 +83,11 @@ mod tests {
                     }
                     let axis = Direction::new(x, y, z);
                     let coordinates =
-                        EquatorialCoordinates::new(SphericalCoordinates::Z_DIRECTION, axis);
+                        EquatorialCoordinates::new(SphericalCoordinates::Z_DIRECTION, axis.clone());
                     let expected = axis;
                     let actual = coordinates.to_direction();
                     println!("expected: {},\n actual: {}", expected, actual);
-                    assert!(actual.eq_within(&axis, TEST_ACCURACY));
+                    assert!(actual.eq_within(&expected, TEST_ACCURACY));
                 }
             }
         }
@@ -103,8 +103,10 @@ mod tests {
                         continue;
                     }
                     let axis = Direction::new(x, y, z);
-                    let coordinates =
-                        super::EquatorialCoordinates::new(-SphericalCoordinates::Z_DIRECTION, axis);
+                    let coordinates = super::EquatorialCoordinates::new(
+                        -SphericalCoordinates::Z_DIRECTION,
+                        axis.clone(),
+                    );
                     let expected = -axis;
                     let actual = coordinates.to_direction();
                     println!("expected: {},\n actual: {}", expected, actual);
@@ -165,7 +167,7 @@ mod tests {
                 let spherical = SphericalCoordinates::new(long, lat);
 
                 let equatorial_coordinates =
-                    super::EquatorialCoordinates::new(spherical, earth_north);
+                    super::EquatorialCoordinates::new(spherical, earth_north.clone());
                 let earth_equatorial_coordinates = EarthEquatorialCoordinates::new(long, lat);
 
                 let expected = earth_equatorial_coordinates.to_direction();

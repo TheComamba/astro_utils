@@ -10,7 +10,7 @@ use std::{fmt::Display, ops::Neg};
 
 pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-10;
 
-#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Direction {
     x: Float,
     y: Float,
@@ -34,7 +34,7 @@ impl Direction {
         z: 1.,
     };
 
-    pub fn new(x: Float, y: Float, z: Float) -> Direction {
+    pub fn new(x: Float, y: Float, z: Float) -> Self {
         let length = (x * x + y * y + z * z).sqrt();
         if length < NORMALIZATION_THRESHOLD {
             Self::Z //return default axis
@@ -448,7 +448,7 @@ mod tests {
 
                     let new_z_axis = Direction::new(x, y, z);
 
-                    let expected = new_z_axis;
+                    let expected = new_z_axis.clone();
                     let actual = Direction::Z.active_rotation_to_new_z_axis(&new_z_axis);
 
                     println!("new_z_axis: {}", new_z_axis);

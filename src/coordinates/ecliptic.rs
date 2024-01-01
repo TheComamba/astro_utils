@@ -10,7 +10,7 @@ use std::ops::Neg;
  * Latitude denotes the angle between the ecliptic plane and the body.
  * https://en.wikipedia.org/wiki/Ecliptic_coordinate_system
  */
-#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EclipticCoordinates {
     spherical: SphericalCoordinates,
 }
@@ -54,8 +54,8 @@ impl EclipticCoordinates {
         self.spherical.get_latitude()
     }
 
-    pub fn get_spherical(&self) -> SphericalCoordinates {
-        self.spherical
+    pub fn get_spherical(&self) -> &SphericalCoordinates {
+        &self.spherical
     }
 
     pub fn set_longitude(&mut self, longitude: Angle) {
