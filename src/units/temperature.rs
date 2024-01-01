@@ -7,11 +7,11 @@ pub struct Temperature {
 }
 
 impl Temperature {
-    pub fn from_kelvin(kelvin: Float) -> Temperature {
+    pub const fn from_kelvin(kelvin: Float) -> Temperature {
         Temperature { kelvin }
     }
 
-    pub fn get_kelvin(&self) -> Float {
+    pub const fn get_kelvin(&self) -> Float {
         self.kelvin
     }
 }

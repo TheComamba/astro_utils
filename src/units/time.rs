@@ -45,7 +45,7 @@ impl Time {
         }
     }
 
-    pub fn as_seconds(&self) -> Float {
+    pub const fn as_seconds(&self) -> Float {
         self.seconds
     }
 

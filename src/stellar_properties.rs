@@ -10,7 +10,7 @@ pub struct StellarProperties {
 }
 
 impl StellarProperties {
-    pub fn new(
+    pub const fn new(
         radius: Length,
         mass: Mass,
         absolute_magnitude: Luminosity,
@@ -24,19 +24,19 @@ impl StellarProperties {
         }
     }
 
-    pub fn get_radius(&self) -> Length {
+    pub const fn get_radius(&self) -> Length {
         self.radius
     }
 
-    pub fn get_mass(&self) -> Mass {
+    pub const fn get_mass(&self) -> Mass {
         self.mass
     }
 
-    pub fn get_absolute_magnitude(&self) -> Luminosity {
+    pub const fn get_absolute_magnitude(&self) -> Luminosity {
         self.absolute_magnitude
     }
 
-    pub fn get_temperature(&self) -> Temperature {
+    pub const fn get_temperature(&self) -> Temperature {
         self.temperature
     }
 }
