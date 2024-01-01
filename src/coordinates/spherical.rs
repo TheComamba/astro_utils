@@ -105,18 +105,6 @@ impl SphericalCoordinates {
             latitude,
         }
     }
-
-    pub fn active_rotation_to_new_z_axis(&self, new_z: &Direction) -> Self {
-        let dir = Direction::from_spherical(self);
-        let new_dir = dir.active_rotation_to_new_z_axis(new_z);
-        Self::from_direction(&new_dir)
-    }
-
-    pub fn passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Self {
-        let dir = Direction::from_spherical(self);
-        let new_dir = dir.passive_rotation_to_new_z_axis(new_z);
-        Self::from_direction(&new_dir)
-    }
 }
 
 impl Neg for &SphericalCoordinates {
