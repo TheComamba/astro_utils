@@ -1,9 +1,6 @@
 use crate::{Float, PI, TWO_PI};
 use serde::{Deserialize, Serialize};
-use std::{
-    fmt::Display,
-    ops::{Add, Div, Mul, Neg, Sub},
-};
+use std::fmt::Display;
 
 pub(crate) const RADIANS_PER_DEGREE: Float = PI / 180.;
 const DEGREES_PER_RADIAN: Float = 1. / RADIANS_PER_DEGREE;
@@ -12,7 +9,7 @@ const RADIAN_PER_ARCSEC: Float = 1. / ARCSECS_PER_RADIAN;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Angle {
-    radian: Float,
+    pub(super) radian: Float,
 }
 
 impl Angle {
@@ -79,66 +76,6 @@ impl Angle {
 
     pub fn tan(&self) -> Float {
         self.radian.tan()
-    }
-}
-
-impl Add for Angle {
-    type Output = Angle;
-
-    fn add(self, other: Angle) -> Angle {
-        Angle {
-            radian: self.radian + other.radian,
-        }
-    }
-}
-
-impl Sub for Angle {
-    type Output = Angle;
-
-    fn sub(self, other: Angle) -> Angle {
-        Angle {
-            radian: self.radian - other.radian,
-        }
-    }
-}
-
-impl Mul<Float> for Angle {
-    type Output = Angle;
-
-    fn mul(self, f: Float) -> Angle {
-        Angle {
-            radian: self.radian * f,
-        }
-    }
-}
-
-impl Mul<Angle> for Float {
-    type Output = Angle;
-
-    fn mul(self, angle: Angle) -> Angle {
-        Angle {
-            radian: self * angle.radian,
-        }
-    }
-}
-
-impl Div<Float> for Angle {
-    type Output = Angle;
-
-    fn div(self, f: Float) -> Angle {
-        Angle {
-            radian: self.radian / f,
-        }
-    }
-}
-
-impl Neg for Angle {
-    type Output = Angle;
-
-    fn neg(self) -> Angle {
-        Angle {
-            radian: -self.radian,
-        }
     }
 }
 

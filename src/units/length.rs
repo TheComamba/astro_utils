@@ -1,9 +1,6 @@
 use crate::Float;
 use serde::{Deserialize, Serialize};
-use std::{
-    fmt::Display,
-    ops::{Add, Div, Mul, Neg, Sub},
-};
+use std::fmt::Display;
 
 const METERS_PER_KILOMETER: Float = 1000.;
 const KILOMETERS_PER_METER: Float = 1. / METERS_PER_KILOMETER;
@@ -15,12 +12,12 @@ pub(crate) const METERS_PER_SUN_RADIUS: Float = 695_700_000.;
 const SUN_RADII_PER_METER: Float = 1. / METERS_PER_SUN_RADIUS;
 const METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.;
 const ASTRONOMICAL_UNITS_PER_METER: Float = 1. / METERS_PER_ASTRONOMICAL_UNIT;
-const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
+pub(crate) const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
 const LIGHT_YEARS_PER_METER: Float = 1. / METERS_PER_LIGHT_YEAR;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Length {
-    meters: Float,
+    pub(super) meters: Float,
 }
 
 impl Length {
@@ -118,74 +115,6 @@ impl Display for Length {
     }
 }
 
-impl Add for Length {
-    type Output = Length;
-
-    fn add(self, other: Length) -> Length {
-        Length {
-            meters: self.meters + other.meters,
-        }
-    }
-}
-
-impl Sub for Length {
-    type Output = Length;
-
-    fn sub(self, other: Length) -> Length {
-        Length {
-            meters: self.meters - other.meters,
-        }
-    }
-}
-
-impl Mul<Float> for Length {
-    type Output = Length;
-
-    fn mul(self, f: Float) -> Length {
-        Length {
-            meters: self.meters * f,
-        }
-    }
-}
-
-impl Mul<Length> for Float {
-    type Output = Length;
-
-    fn mul(self, length: Length) -> Length {
-        Length {
-            meters: self * length.meters,
-        }
-    }
-}
-
-impl Div<Float> for Length {
-    type Output = Length;
-
-    fn div(self, f: Float) -> Length {
-        Length {
-            meters: self.meters / f,
-        }
-    }
-}
-
-impl Div<Length> for Length {
-    type Output = Float;
-
-    fn div(self, other: Length) -> Float {
-        self.meters / other.meters
-    }
-}
-
-impl Neg for Length {
-    type Output = Length;
-
-    fn neg(self) -> Length {
-        Length {
-            meters: -self.meters,
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use crate::tests::{TEST_ACCURACY, TEST_LENGTH_ACCURACY};
@@ -250,18 +179,14 @@ mod tests {
     fn test_add() {
         let expected = Length::from_meters(2. * METERS_PER_KILOMETER);
         let length = Length::from_kilometers(1.);
-        assert!(length
-            .add(length)
-            .eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!((length + length).eq_within(&expected, TEST_LENGTH_ACCURACY));
     }
 
     #[test]
     fn test_sub() {
         let expected = Length::from_meters(0.);
         let length = Length::from_kilometers(1.);
-        assert!(length
-            .sub(length)
-            .eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!((length - length).eq_within(&expected, TEST_LENGTH_ACCURACY));
     }
 
     #[test]

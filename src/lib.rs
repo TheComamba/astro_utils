@@ -3,9 +3,10 @@ pub(crate) const PI: Float = std::f32::consts::PI;
 pub(crate) const TWO_PI: Float = 2. * PI;
 
 pub mod coordinates;
+pub mod data;
 pub mod kepler_orbit;
 pub mod orbit_orientation;
-pub mod solar_system_data;
+pub mod stellar_properties;
 pub mod surface_normal;
 pub mod units;
 

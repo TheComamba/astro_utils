@@ -105,9 +105,12 @@ pub fn position_relative_to_central_body(
 mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
-        solar_system_data::{
-            EARTH_MASS, EARTH_SEMI_MAJOR_AXIS, JUPITER_MASS, JUPITER_SEMI_MAJOR_AXIS, MOON_MASS,
-            MOON_SEMI_MAJOR_AXIS, SUN_MASS,
+        data::{
+            planets::{
+                EARTH_MASS, EARTH_SEMI_MAJOR_AXIS, JUPITER_MASS, JUPITER_SEMI_MAJOR_AXIS,
+                MOON_MASS, MOON_SEMI_MAJOR_AXIS,
+            },
+            SUN_MASS,
         },
         tests::{TEST_ANGLE_ACCURACY, TEST_LENGTH_ACCURACY},
     };

@@ -1,9 +1,6 @@
 use crate::Float;
 use serde::{Deserialize, Serialize};
-use std::{
-    fmt::Display,
-    ops::{Add, Div, Mul, Neg, Sub},
-};
+use std::fmt::Display;
 
 pub(crate) const KILOGRAMS_PER_MOON_MASS: Float = 7.342e22;
 const MOON_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_MOON_MASS;
@@ -16,7 +13,7 @@ const SOLAR_MASSES_PER_KILOGRAM: Float = 1. / KILOGRAMS_PER_SOLAR_MASS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Mass {
-    kilograms: Float,
+    pub(super) kilograms: Float,
 }
 
 impl Mass {
@@ -86,66 +83,6 @@ impl Display for Mass {
             write!(f, "{:.2} M_Moon", self.as_moon_masses())
         } else {
             write!(f, "{:.2} kg", self.kilograms)
-        }
-    }
-}
-
-impl Add for Mass {
-    type Output = Mass;
-
-    fn add(self, other: Mass) -> Mass {
-        Mass {
-            kilograms: self.kilograms + other.kilograms,
-        }
-    }
-}
-
-impl Sub for Mass {
-    type Output = Mass;
-
-    fn sub(self, other: Mass) -> Mass {
-        Mass {
-            kilograms: self.kilograms - other.kilograms,
-        }
-    }
-}
-
-impl Mul<Float> for Mass {
-    type Output = Mass;
-
-    fn mul(self, f: Float) -> Mass {
-        Mass {
-            kilograms: self.kilograms * f,
-        }
-    }
-}
-
-impl Mul<Mass> for Float {
-    type Output = Mass;
-
-    fn mul(self, mass: Mass) -> Mass {
-        Mass {
-            kilograms: self * mass.kilograms,
-        }
-    }
-}
-
-impl Div<Float> for Mass {
-    type Output = Mass;
-
-    fn div(self, f: Float) -> Mass {
-        Mass {
-            kilograms: self.kilograms / f,
-        }
-    }
-}
-
-impl Neg for Mass {
-    type Output = Mass;
-
-    fn neg(self) -> Mass {
-        Mass {
-            kilograms: -self.kilograms,
         }
     }
 }

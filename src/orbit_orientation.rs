@@ -24,15 +24,15 @@ impl OrbitOrientation {
         }
     }
 
-    pub fn inclination(&self) -> Angle {
+    pub const fn inclination(&self) -> Angle {
         self.inclination
     }
 
-    pub fn longitude_of_ascending_node(&self) -> Angle {
+    pub const fn longitude_of_ascending_node(&self) -> Angle {
         self.longitude_of_ascending_node
     }
 
-    pub fn argument_of_periapsis(&self) -> Angle {
+    pub const fn argument_of_periapsis(&self) -> Angle {
         self.argument_of_periapsis
     }
 
