@@ -29,6 +29,10 @@ impl StellarProperties {
         }
     }
 
+    pub fn get_name(&self) -> &str {
+        &self.name
+    }
+
     pub const fn get_radius(&self) -> Length {
         self.radius
     }
