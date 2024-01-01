@@ -1,6 +1,6 @@
 use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
 use crate::{
-    solar_system_data::EARTH_AXIS_TILT,
+    data::planets::EARTH_AXIS_TILT,
     units::{angle::Angle, length::Length},
 };
 
@@ -49,7 +49,7 @@ mod tests {
             earth_equatorial::EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
             ecliptic::EclipticCoordinates, spherical::SphericalCoordinates,
         },
-        solar_system_data::*,
+        data::planets::*,
         tests::TEST_ANGLE_ACCURACY,
         units::angle::Angle,
     };
