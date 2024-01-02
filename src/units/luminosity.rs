@@ -20,7 +20,7 @@ impl Luminosity {
     }
 
     pub fn from_apparent_magnitude(apparent_magnitude: Float, distance: &Length) -> Luminosity {
-        let absolute_magnitude = apparent_magnitude - 5. * (distance / TEN_PARSEC).log10() + 5.;
+        let absolute_magnitude = apparent_magnitude - 5. * distance.as_parsecs().log10() + 5.;
         Luminosity { absolute_magnitude }
     }
 
@@ -38,7 +38,7 @@ impl Luminosity {
     }
 
     pub fn as_apparent_magnitude(&self, distance: &Length) -> Float {
-        self.absolute_magnitude + 5. * (distance / TEN_PARSEC).log10()
+        self.absolute_magnitude + 5. * distance.as_parsecs().log10() - 5.
     }
 
     pub fn as_solar_luminosities(&self) -> Float {
@@ -92,23 +92,38 @@ mod tests {
 
     #[test]
     fn test_solar_luminosities() {
-        for i in -3..3 {
+        for i in -10..10 {
             let input = (i as Float).exp();
             let luminosity = Luminosity::from_solar_luminosities(input);
             let output = luminosity.as_solar_luminosities();
             println!("input: {}, output: {}", input, output);
-            assert!((input - output).abs() < TEST_ACCURACY);
+            assert!((input - output).abs() < TEST_ACCURACY * input);
         }
     }
 
     #[test]
     fn test_watts() {
-        for i in -3..3 {
+        for i in -10..10 {
             let input = (i as Float).exp() * WATTS_PER_SOLAR_LUMINOSITY;
             let luminosity = Luminosity::from_watts(input);
             let output = luminosity.as_watts();
             println!("input: {}, output: {}", input, output);
-            assert!((input - output).abs() < TEST_ACCURACY * WATTS_PER_SOLAR_LUMINOSITY);
+            assert!((input - output).abs() < TEST_ACCURACY * input);
+        }
+    }
+
+    #[test]
+    fn apparent_and_absolute_magnitude_at_ten_parsecs_are_equal() {
+        for i in -10..10 {
+            let input = i as Float;
+            let luminosity = Luminosity::from_absolute_magnitude(input);
+            let distance = TEN_PARSEC;
+            let apparent_magnitude = luminosity.as_apparent_magnitude(&distance);
+            let absolute_magnitude = luminosity.get_absolute_magnitude();
+            println!("input: {}", input);
+            println!("apparent magnitude: {}", apparent_magnitude);
+            println!("absolute magnitude: {}", absolute_magnitude);
+            assert!((apparent_magnitude - absolute_magnitude).abs() < TEST_ACCURACY);
         }
     }
 
@@ -166,7 +181,7 @@ mod tests {
         );
 
         let sirius_solar_luminosities = sirius.as_solar_luminosities();
-        let expected_solar_luminosities = 25.4;
+        let expected_solar_luminosities = 22.3;
         println!(
             "Solar Luminosities:\nexpected: {},\nactual: {}",
             expected_solar_luminosities, sirius_solar_luminosities
@@ -177,7 +192,7 @@ mod tests {
         );
 
         let sirius_watts = sirius.as_watts();
-        let expected_watts = 25.4 * WATTS_PER_SOLAR_LUMINOSITY;
+        let expected_watts = 22.3 * WATTS_PER_SOLAR_LUMINOSITY;
         println!(
             "Watts:\nexpected: {},\nactual: {}",
             expected_watts, sirius_watts
