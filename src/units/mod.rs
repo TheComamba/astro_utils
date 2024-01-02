@@ -1,3 +1,5 @@
+// https://www.astro.princeton.edu/~gk/A403/constants.pdf
+
 pub mod angle;
 pub mod angle_std_ops;
 pub mod length;

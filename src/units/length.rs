@@ -16,6 +16,8 @@ const METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.;
 const ASTRONOMICAL_UNITS_PER_METER: Float = 1. / METERS_PER_ASTRONOMICAL_UNIT;
 pub(crate) const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
 const LIGHT_YEARS_PER_METER: Float = 1. / METERS_PER_LIGHT_YEAR;
+pub(crate) const METERS_PER_PARSEC: Float = 30_856_775_814_671_900.;
+const PARSECS_PER_METER: Float = 1. / METERS_PER_PARSEC;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Length {
@@ -69,6 +71,12 @@ impl Length {
         }
     }
 
+    pub fn from_parsecs(parsecs: Float) -> Length {
+        Length {
+            meters: parsecs * METERS_PER_PARSEC,
+        }
+    }
+
     pub fn as_nanometers(&self) -> Float {
         self.meters * NANOMETERS_PER_METER
     }
@@ -101,6 +109,10 @@ impl Length {
         self.meters * LIGHT_YEARS_PER_METER
     }
 
+    pub fn as_parsecs(&self) -> Float {
+        self.meters * PARSECS_PER_METER
+    }
+
     pub fn eq_within(&self, other: &Length, accuracy: Length) -> bool {
         let diff = self.meters - other.meters;
         diff.abs() <= accuracy.meters
@@ -113,12 +125,10 @@ impl Display for Length {
             write!(f, "{:.2} ly", self.as_light_years())
         } else if self.meters > 0.0099 * METERS_PER_ASTRONOMICAL_UNIT {
             write!(f, "{:.2} AU", self.as_astronomical_units())
-        } else if self.meters > 0.99 * METERS_PER_SUN_RADIUS {
-            write!(f, "{:.2} R_Sun", self.as_sun_radii())
-        } else if self.meters > 0.99 * METERS_PER_JUPITER_RADIUS {
-            write!(f, "{:.2} R_Jup", self.as_jupiter_radii())
+        } else if self.meters > 0.099 * METERS_PER_SUN_RADIUS {
+            write!(f, "{:.2} R☉", self.as_sun_radii())
         } else if self.meters > 0.99 * METERS_PER_EARTH_RADIUS {
-            write!(f, "{:.2} R_Earth", self.as_earth_radii())
+            write!(f, "{:.2} R🜨", self.as_earth_radii())
         } else if self.meters > 0.99 * METERS_PER_KILOMETER {
             write!(f, "{:.2} km", self.as_kilometers())
         } else if self.meters > 1001. * METERS_PER_NANOMETER {
@@ -190,6 +200,14 @@ mod tests {
     }
 
     #[test]
+    fn test_parsecs() {
+        let expected = Length::from_meters(METERS_PER_PARSEC);
+        let length = Length::from_parsecs(1.);
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!((length.as_parsecs() - 1.).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
     fn test_add() {
         let expected = Length::from_meters(2. * METERS_PER_KILOMETER);
         let length = Length::from_kilometers(1.);
@@ -212,11 +230,9 @@ mod tests {
         let km = Length::from_kilometers(1.23);
         assert_eq!(format!("{}", km), "1.23 km");
         let earth_radii = Length::from_earth_radii(1.23);
-        assert_eq!(format!("{}", earth_radii), "1.23 R_Earth");
-        let jupiter_radii = Length::from_jupiter_radii(1.23);
-        assert_eq!(format!("{}", jupiter_radii), "1.23 R_Jup");
+        assert_eq!(format!("{}", earth_radii), "1.23 R🜨");
         let sun_radii = Length::from_sun_radii(1.23);
-        assert_eq!(format!("{}", sun_radii), "1.23 R_Sun");
+        assert_eq!(format!("{}", sun_radii), "1.23 R☉");
         let astronomical_units = Length::from_astronomical_units(1.23);
         assert_eq!(format!("{}", astronomical_units), "1.23 AU");
         let light_years = Length::from_light_years(1.23);
@@ -232,11 +248,9 @@ mod tests {
         let km = Length::from_kilometers(1.);
         assert_eq!(format!("{}", km), "1.00 km");
         let earth_radii = Length::from_earth_radii(1.);
-        assert_eq!(format!("{}", earth_radii), "1.00 R_Earth");
-        let jupiter_radii = Length::from_jupiter_radii(1.);
-        assert_eq!(format!("{}", jupiter_radii), "1.00 R_Jup");
-        let sun_radii = Length::from_sun_radii(1.);
-        assert_eq!(format!("{}", sun_radii), "1.00 R_Sun");
+        assert_eq!(format!("{}", earth_radii), "1.00 R🜨");
+        let sun_radii = Length::from_sun_radii(0.1);
+        assert_eq!(format!("{}", sun_radii), "0.10 R☉");
         let astronomical_units = Length::from_astronomical_units(0.01);
         assert_eq!(format!("{}", astronomical_units), "0.01 AU");
         let light_years = Length::from_light_years(0.01);
