@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use crate::Float;
 use serde::{Deserialize, Serialize};
 
@@ -42,6 +44,12 @@ impl Luminosity {
 
     pub fn as_watts(&self) -> Float {
         todo!()
+    }
+}
+
+impl Display for Luminosity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:.2} L☉", self.as_solar_luminosities())
     }
 }
 

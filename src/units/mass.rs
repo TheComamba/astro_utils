@@ -73,14 +73,10 @@ impl Mass {
 
 impl Display for Mass {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.kilograms > 0.99 * KILOGRAMS_PER_SOLAR_MASS {
-            write!(f, "{:.2} M_Sun", self.as_solar_masses())
-        } else if self.kilograms > 0.99 * KILOGRAMS_PER_JUPITER_MASS {
-            write!(f, "{:.2} M_Jup", self.as_jupiter_masses())
-        } else if self.kilograms > 0.99 * KILOGRAMS_PER_EARTH_MASS {
-            write!(f, "{:.2} M_Earth", self.as_earth_masses())
-        } else if self.kilograms > 0.0099 * KILOGRAMS_PER_MOON_MASS {
-            write!(f, "{:.2} M_Moon", self.as_moon_masses())
+        if self.kilograms > 0.099 * KILOGRAMS_PER_SOLAR_MASS {
+            write!(f, "{:.2} M☉", self.as_solar_masses())
+        } else if self.kilograms > 0.099 * KILOGRAMS_PER_EARTH_MASS {
+            write!(f, "{:.2} M🜨", self.as_earth_masses())
         } else {
             write!(f, "{:.2} kg", self.kilograms)
         }
@@ -151,27 +147,19 @@ mod tests {
     fn test_display() {
         let mass = Mass::from_kilograms(1.23);
         assert_eq!(mass.to_string(), "1.23 kg");
-        let mass = Mass::from_moon_masses(1.23);
-        assert_eq!(mass.to_string(), "1.23 M_Moon");
         let mass = Mass::from_earth_masses(1.23);
-        assert_eq!(mass.to_string(), "1.23 M_Earth");
-        let mass = Mass::from_jupiter_masses(1.23);
-        assert_eq!(mass.to_string(), "1.23 M_Jup");
+        assert_eq!(mass.to_string(), "1.23 M🜨");
         let mass = Mass::from_solar_masses(1.23);
-        assert_eq!(mass.to_string(), "1.23 M_Sun");
+        assert_eq!(mass.to_string(), "1.23 M☉");
     }
 
     #[test]
     fn test_display_thresholds() {
         let mass = Mass::from_kilograms(1.);
         assert_eq!(mass.to_string(), "1.00 kg");
-        let mass = Mass::from_moon_masses(0.01);
-        assert_eq!(mass.to_string(), "0.01 M_Moon");
-        let mass = Mass::from_earth_masses(1.);
-        assert_eq!(mass.to_string(), "1.00 M_Earth");
-        let mass = Mass::from_jupiter_masses(1.);
-        assert_eq!(mass.to_string(), "1.00 M_Jup");
-        let mass = Mass::from_solar_masses(1.);
-        assert_eq!(mass.to_string(), "1.00 M_Sun");
+        let mass = Mass::from_earth_masses(0.1);
+        assert_eq!(mass.to_string(), "0.10 M🜨");
+        let mass = Mass::from_solar_masses(0.1);
+        assert_eq!(mass.to_string(), "0.10 M☉");
     }
 }
