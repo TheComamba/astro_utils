@@ -3,11 +3,10 @@ use std::fmt::Display;
 use crate::Float;
 use serde::{Deserialize, Serialize};
 
-use super::length::{Length, METERS_PER_PARSEC};
+use super::length::Length;
 
 const WATTS_PER_SOLAR_LUMINOSITY: Float = 3.828e26;
 const SOLAR_LUMINOSITY_PER_WATT: Float = 1. / WATTS_PER_SOLAR_LUMINOSITY;
-const TEN_PARSEC: Length = Length::from_meters(10. * METERS_PER_PARSEC);
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Luminosity {
@@ -117,7 +116,7 @@ mod tests {
         for i in -10..10 {
             let input = i as Float;
             let luminosity = Luminosity::from_absolute_magnitude(input);
-            let distance = TEN_PARSEC;
+            let distance = Length::from_parsecs(10.);
             let apparent_magnitude = luminosity.as_apparent_magnitude(&distance);
             let absolute_magnitude = luminosity.get_absolute_magnitude();
             println!("input: {}", input);
