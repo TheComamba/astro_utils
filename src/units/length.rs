@@ -16,6 +16,8 @@ const METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.;
 const ASTRONOMICAL_UNITS_PER_METER: Float = 1. / METERS_PER_ASTRONOMICAL_UNIT;
 pub(crate) const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
 const LIGHT_YEARS_PER_METER: Float = 1. / METERS_PER_LIGHT_YEAR;
+pub(crate) const METERS_PER_PARSEC: Float = 30_856_775_814_671_900.;
+const PARSECS_PER_METER: Float = 1. / METERS_PER_PARSEC;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Length {
@@ -69,6 +71,12 @@ impl Length {
         }
     }
 
+    pub fn from_parsecs(parsecs: Float) -> Length {
+        Length {
+            meters: parsecs * METERS_PER_PARSEC,
+        }
+    }
+
     pub fn as_nanometers(&self) -> Float {
         self.meters * NANOMETERS_PER_METER
     }
@@ -99,6 +107,10 @@ impl Length {
 
     pub fn as_light_years(&self) -> Float {
         self.meters * LIGHT_YEARS_PER_METER
+    }
+
+    pub fn as_parsecs(&self) -> Float {
+        self.meters * PARSECS_PER_METER
     }
 
     pub fn eq_within(&self, other: &Length, accuracy: Length) -> bool {
@@ -185,6 +197,14 @@ mod tests {
         let length = Length::from_light_years(1.);
         assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_light_years() - 1.).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
+    fn test_parsecs() {
+        let expected = Length::from_meters(METERS_PER_PARSEC);
+        let length = Length::from_parsecs(1.);
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!((length.as_parsecs() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
