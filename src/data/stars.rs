@@ -14,7 +14,7 @@ pub const SUN_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Sun",
     Length::from_meters(6.957e8),
     Mass::from_kilograms(1.98847e30),
-    Luminosity::from_magnitude(4.83),
+    Luminosity::from_absolute_magnitude(4.83),
     Temperature::from_kelvin(5778.0),
 );
 
@@ -22,7 +22,7 @@ pub const SIRIUS_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Sirius",
     Length::from_meters(1.711 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(2.063 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(1.43),
+    Luminosity::from_absolute_magnitude(1.43),
     Temperature::from_kelvin(9940.),
 );
 
@@ -37,7 +37,7 @@ pub const CANOPUS_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Canopus",
     Length::from_meters(71.2 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(8.02 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-5.71),
+    Luminosity::from_absolute_magnitude(-5.71),
     Temperature::from_kelvin(7350.),
 );
 
@@ -52,7 +52,7 @@ pub const RIGIL_KENTAURUS_PROPERTIES: StellarProperties = StellarProperties::new
     "Rigil Kentaurus",
     Length::from_meters(1.227 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(1.33 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(4.38),
+    Luminosity::from_absolute_magnitude(4.38),
     Temperature::from_kelvin(5790.),
 );
 
@@ -67,7 +67,7 @@ pub const ARCTURUS_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Arcturus",
     Length::from_meters(25.4 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(1.08 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-0.04),
+    Luminosity::from_absolute_magnitude(-0.04),
     Temperature::from_kelvin(4286.),
 );
 
@@ -82,7 +82,7 @@ pub const VEGA_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Vega",
     Length::from_meters(2.362 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(2.135 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(0.58),
+    Luminosity::from_absolute_magnitude(0.58),
     Temperature::from_kelvin(9602.),
 );
 
@@ -97,7 +97,7 @@ pub const CAPELLA_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Capella",
     Length::from_meters(11.98 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(2.56 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-0.51),
+    Luminosity::from_absolute_magnitude(-0.51),
     Temperature::from_kelvin(4900.),
 );
 
@@ -112,7 +112,7 @@ pub const RIGEL_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Rigel",
     Length::from_meters(0.296 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(0.00048 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(10.4),
+    Luminosity::from_absolute_magnitude(10.4),
     Temperature::from_kelvin(3060.),
 );
 
@@ -127,7 +127,7 @@ pub const PROCYON_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Procyon",
     Length::from_meters(1.911 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(1.499 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(2.66),
+    Luminosity::from_absolute_magnitude(2.66),
     Temperature::from_kelvin(6530.),
 );
 
@@ -142,7 +142,7 @@ pub const ACHERNAR_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Achernar",
     Length::from_meters(7.144 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(6.7 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-1.57),
+    Luminosity::from_absolute_magnitude(-1.57),
     Temperature::from_kelvin(15000.),
 );
 
@@ -157,7 +157,7 @@ pub const BETELGEUSE_PROPERTIES: StellarProperties = StellarProperties::new_cons
     "Betelgeuse",
     Length::from_meters(887. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(11.6 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-5.85),
+    Luminosity::from_absolute_magnitude(-5.85),
     Temperature::from_kelvin(3600.),
 );
 
@@ -172,7 +172,7 @@ pub const HADAR_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Hadar",
     Length::from_meters(13.2 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(9.7 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-3.77),
+    Luminosity::from_absolute_magnitude(-3.77),
     Temperature::from_kelvin(25000.),
 );
 
@@ -187,7 +187,7 @@ pub const ALTAIR_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Altair",
     Length::from_meters(1.63 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(1.79 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(2.21),
+    Luminosity::from_absolute_magnitude(2.21),
     Temperature::from_kelvin(7670.),
 );
 
@@ -202,7 +202,7 @@ pub const ACRUX_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Acrux",
     Length::from_meters(7.8 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(17. * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-3.77),
+    Luminosity::from_absolute_magnitude(-3.77),
     Temperature::from_kelvin(28_000.),
 );
 
@@ -217,7 +217,7 @@ pub const ALDEBARAN_PROPERTIES: StellarProperties = StellarProperties::new_const
     "Aldebaran",
     Length::from_meters(44.2 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(1.65 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-0.63),
+    Luminosity::from_absolute_magnitude(-0.63),
     Temperature::from_kelvin(3910.),
 );
 
@@ -232,7 +232,7 @@ pub const ANTARES_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Antares",
     Length::from_meters(883. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(12.4 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-5.28),
+    Luminosity::from_absolute_magnitude(-5.28),
     Temperature::from_kelvin(3600.),
 );
 
@@ -247,7 +247,7 @@ pub const SPICA_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Spica",
     Length::from_meters(7.04 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(11. * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-3.55),
+    Luminosity::from_absolute_magnitude(-3.55),
     Temperature::from_kelvin(22500.),
 );
 
@@ -262,7 +262,7 @@ pub const POLLUX_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Pollux",
     Length::from_meters(9.3 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(1.8 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(1.15),
+    Luminosity::from_absolute_magnitude(1.15),
     Temperature::from_kelvin(4690.),
 );
 
@@ -277,7 +277,7 @@ pub const FORMALHAUT_PROPERTIES: StellarProperties = StellarProperties::new_cons
     "Formalhaut",
     Length::from_meters(1.84 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(1.92 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(1.72),
+    Luminosity::from_absolute_magnitude(1.72),
     Temperature::from_kelvin(8590.),
 );
 
@@ -292,7 +292,7 @@ pub const DENEB_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Deneb",
     Length::from_meters(203. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(19. * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-7.17),
+    Luminosity::from_absolute_magnitude(-7.17),
     Temperature::from_kelvin(8500.),
 );
 
@@ -307,7 +307,7 @@ pub const MIMOSA_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Mimosa",
     Length::from_meters(9. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(15. * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-4.7),
+    Luminosity::from_absolute_magnitude(-4.7),
     Temperature::from_kelvin(22000.),
 );
 
@@ -322,7 +322,7 @@ pub const REGULUS_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Regulus",
     Length::from_meters(3.15 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(3.8 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(1.4),
+    Luminosity::from_absolute_magnitude(1.4),
     Temperature::from_kelvin(12100.),
 );
 
@@ -337,7 +337,7 @@ pub const ADHARA_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Adhara",
     Length::from_meters(23. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(18. * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-4.99),
+    Luminosity::from_absolute_magnitude(-4.99),
     Temperature::from_kelvin(22000.),
 );
 
@@ -352,7 +352,7 @@ pub const SHAULA_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Shaula",
     Length::from_meters(7. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(18. * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-3.3),
+    Luminosity::from_absolute_magnitude(-3.3),
     Temperature::from_kelvin(25000.),
 );
 
@@ -367,7 +367,7 @@ pub const CASTOR_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Castor",
     Length::from_meters(2.9 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(2.2 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(0.986),
+    Luminosity::from_absolute_magnitude(0.986),
     Temperature::from_kelvin(8840.),
 );
 
@@ -382,7 +382,7 @@ pub const GACRUX_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Gacrux",
     Length::from_meters(120. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(1.5 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-0.52),
+    Luminosity::from_absolute_magnitude(-0.52),
     Temperature::from_kelvin(3689.),
 );
 
@@ -397,7 +397,7 @@ pub const BELLATRIX_PROPERTIES: StellarProperties = StellarProperties::new_const
     "Bellatrix",
     Length::from_meters(5.7 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(7.7 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-2.78),
+    Luminosity::from_absolute_magnitude(-2.78),
     Temperature::from_kelvin(21_800.),
 );
 
@@ -412,7 +412,7 @@ pub const ELNATH_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Elnath",
     Length::from_meters(4.2 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(5.0 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-1.42),
+    Luminosity::from_absolute_magnitude(-1.42),
     Temperature::from_kelvin(13_824.),
 );
 
@@ -427,7 +427,7 @@ pub const MIAPLACIDUS_PROPERTIES: StellarProperties = StellarProperties::new_con
     "Miaplacidus",
     Length::from_meters(6.8 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(3.5 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-1.03),
+    Luminosity::from_absolute_magnitude(-1.03),
     Temperature::from_kelvin(8866.),
 );
 
@@ -442,7 +442,7 @@ pub const ALNILAM_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Alnilam",
     Length::from_meters(42. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(64.5 * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-6.89),
+    Luminosity::from_absolute_magnitude(-6.89),
     Temperature::from_kelvin(27_000.),
 );
 
@@ -457,7 +457,7 @@ pub const GAMMA_VELORUM_PROPERTIES: StellarProperties = StellarProperties::new_c
     "Gamma Velorum",
     Length::from_meters(6. * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(9. * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-4.23),
+    Luminosity::from_absolute_magnitude(-4.23),
     Temperature::from_kelvin(57000.),
 );
 
@@ -472,7 +472,7 @@ pub const ALNAIR_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Alnair",
     Length::from_meters(3.4 * METERS_PER_SUN_RADIUS),
     Mass::from_kilograms(4. * KILOGRAMS_PER_SOLAR_MASS),
-    Luminosity::from_magnitude(-0.72),
+    Luminosity::from_absolute_magnitude(-0.72),
     Temperature::from_kelvin(13_920.),
 );
 
