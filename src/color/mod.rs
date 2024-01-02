@@ -15,84 +15,94 @@ pub(crate) mod color_matching_functions;
  * Page 15 dfines the transformation matrix from RGB to XYZ
  * Page 19 defines the transformation matrix from XYZ to RGB
  */
-const RGB_TO_XYZ: [[Float; 3]; 3] = [
+#[allow(non_upper_case_globals)]
+const sRGB_TO_XYZ: [[Float; 3]; 3] = [
     [0.490, 0.310, 0.200],
     [0.177, 0.813, 0.010],
     [0.000, 0.010, 0.990],
 ];
 
-const XYZ_TO_RGB: [[Float; 3]; 3] = [
+#[allow(non_upper_case_globals)]
+const XYZ_TO_sRGB: [[Float; 3]; 3] = [
     [2.3644, -0.8958, -0.4686],
     [-0.5148, 1.4252, 0.0896],
     [0.0052, -0.0144, 1.0092],
 ];
 
 #[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
-pub struct Color {
-    red: Float,
-    green: Float,
-    blue: Float,
+#[allow(non_camel_case_types)]
+#[allow(non_snake_case)]
+pub struct sRGBColor {
+    R: Float,
+    G: Float,
+    B: Float,
 }
 
-impl Display for Color {
+impl Display for sRGBColor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let (r, g, b) = self.normalized_rgb();
+        let (r, g, b) = self.normalized_sRGB_tuple();
         write!(f, "(r: {:.2}, g: {:.2}, b: {:.2})", r, g, b)
     }
 }
 
-pub struct CIEXYZColor {
-    x: Float,
-    y: Float,
-    z: Float,
+#[allow(non_snake_case)]
+pub struct XYZColor {
+    X: Float,
+    Y: Float,
+    Z: Float,
 }
 
-impl Color {
-    pub const fn from_rgb(red: Float, green: Float, blue: Float) -> Color {
-        Color { red, green, blue }
+impl sRGBColor {
+    #[allow(non_snake_case)]
+    pub const fn from_sRGB(R: Float, G: Float, B: Float) -> sRGBColor {
+        sRGBColor { R, G, B }
     }
 
-    pub fn from_temperature(temperature: Temperature) -> Color {
-        CIEXYZColor::from_temperature(temperature).to_rgb()
+    pub fn from_temperature(temperature: Temperature) -> sRGBColor {
+        XYZColor::from_temperature(temperature).to_sRGB()
     }
 
-    pub fn normalized_rgb(&self) -> (Float, Float, Float) {
-        let sum = self.red + self.green + self.blue;
-        (self.red / sum, self.green / sum, self.blue / sum)
+    #[allow(non_snake_case)]
+    pub fn normalized_sRGB_tuple(&self) -> (Float, Float, Float) {
+        let sum = self.R + self.G + self.B;
+        (self.R / sum, self.G / sum, self.B / sum)
     }
 }
 
-impl CIEXYZColor {
-    fn from_xyz(x: Float, y: Float, z: Float) -> CIEXYZColor {
-        CIEXYZColor { x, y, z }
+impl XYZColor {
+    #[allow(non_snake_case)]
+    fn from_XYZ(X: Float, Y: Float, Z: Float) -> XYZColor {
+        XYZColor { X, Y, Z }
     }
 
+    #[allow(non_snake_case)]
     pub(super) fn from_temperature(temperature: Temperature) -> Self {
         let x_fun = Box::new(|lambda: Length| x_color_matching(lambda));
         let y_fun = Box::new(|lambda: Length| y_color_matching(lambda));
         let z_fun = Box::new(|lambda: Length| z_color_matching(lambda));
-        let x = convolute_with_black_body(x_fun, temperature);
-        let y = convolute_with_black_body(y_fun, temperature);
-        let z = convolute_with_black_body(z_fun, temperature);
-        CIEXYZColor::from_xyz(x, y, z)
+        let X = convolute_with_black_body(x_fun, temperature);
+        let Y = convolute_with_black_body(y_fun, temperature);
+        let Z = convolute_with_black_body(z_fun, temperature);
+        XYZColor::from_XYZ(X, Y, Z)
     }
 
-    pub fn from_rgb(red: Float, green: Float, blue: Float) -> CIEXYZColor {
-        let x = RGB_TO_XYZ[0][0] * red + RGB_TO_XYZ[0][1] * green + RGB_TO_XYZ[0][2] * blue;
-        let y = RGB_TO_XYZ[1][0] * red + RGB_TO_XYZ[1][1] * green + RGB_TO_XYZ[1][2] * blue;
-        let z = RGB_TO_XYZ[2][0] * red + RGB_TO_XYZ[2][1] * green + RGB_TO_XYZ[2][2] * blue;
-        CIEXYZColor { x, y, z }
+    #[allow(non_snake_case)]
+    pub fn from_sRGB(R: Float, G: Float, B: Float) -> XYZColor {
+        let X = sRGB_TO_XYZ[0][0] * R + sRGB_TO_XYZ[0][1] * G + sRGB_TO_XYZ[0][2] * B;
+        let Y = sRGB_TO_XYZ[1][0] * R + sRGB_TO_XYZ[1][1] * G + sRGB_TO_XYZ[1][2] * B;
+        let Z = sRGB_TO_XYZ[2][0] * R + sRGB_TO_XYZ[2][1] * G + sRGB_TO_XYZ[2][2] * B;
+        XYZColor { X, Y, Z }
     }
 
-    pub fn to_rgb(&self) -> Color {
-        let r = XYZ_TO_RGB[0][0] * self.x + XYZ_TO_RGB[0][1] * self.y + XYZ_TO_RGB[0][2] * self.z;
-        let g = XYZ_TO_RGB[1][0] * self.x + XYZ_TO_RGB[1][1] * self.y + XYZ_TO_RGB[1][2] * self.z;
-        let b = XYZ_TO_RGB[2][0] * self.x + XYZ_TO_RGB[2][1] * self.y + XYZ_TO_RGB[2][2] * self.z;
-        Color::from_rgb(r, g, b)
-    }
-
-    pub const fn as_xyz(&self) -> (Float, Float, Float) {
-        (self.x, self.y, self.z)
+    #[allow(non_snake_case)]
+    pub fn to_sRGB(&self) -> sRGBColor {
+        let R =
+            XYZ_TO_sRGB[0][0] * self.X + XYZ_TO_sRGB[0][1] * self.Y + XYZ_TO_sRGB[0][2] * self.Z;
+        let G =
+            XYZ_TO_sRGB[1][0] * self.X + XYZ_TO_sRGB[1][1] * self.Y + XYZ_TO_sRGB[1][2] * self.Z;
+        let B =
+            XYZ_TO_sRGB[2][0] * self.X + XYZ_TO_sRGB[2][1] * self.Y + XYZ_TO_sRGB[2][2] * self.Z;
+        sRGBColor::from_sRGB(R, G, B)
     }
 }
 
@@ -109,9 +119,9 @@ mod tests {
 
     #[test]
     fn fivehundred_kelvin_is_red() {
-        let color = Color::from_temperature(Temperature::from_kelvin(500.0));
+        let color = sRGBColor::from_temperature(Temperature::from_kelvin(500.0));
         let expected = normed_color_tuple((0.9, 0.1, 0.));
-        let actual = color.normalized_rgb();
+        let actual = color.normalized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
@@ -121,9 +131,9 @@ mod tests {
 
     #[test]
     fn six_thousand_kelvin_is_white() {
-        let color = Color::from_temperature(Temperature::from_kelvin(6000.0));
+        let color = sRGBColor::from_temperature(Temperature::from_kelvin(6000.0));
         let expected = normed_color_tuple((1., 1., 1.));
-        let actual = color.normalized_rgb();
+        let actual = color.normalized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
@@ -133,9 +143,9 @@ mod tests {
 
     #[test]
     fn thirty_thousand_kelvin_is_blue() {
-        let color = Color::from_temperature(Temperature::from_kelvin(30_000.0));
+        let color = sRGBColor::from_temperature(Temperature::from_kelvin(30_000.0));
         let expected: (f32, f32, f32) = normed_color_tuple((0.1, 0.3, 0.6));
-        let actual = color.normalized_rgb();
+        let actual = color.normalized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
