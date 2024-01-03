@@ -37,6 +37,10 @@ impl Illuminance {
         let nit = self.lux / PI;
         Luminance::from_nit(nit)
     }
+
+    pub fn eq_within(&self, other: Illuminance, accuracy: Illuminance) -> bool {
+        (self.lux - other.lux).abs() <= accuracy.lux
+    }
 }
 
 impl Display for Illuminance {

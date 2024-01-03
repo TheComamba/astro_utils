@@ -45,6 +45,7 @@ mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
         data::{planets::*, SUN_RADIUS},
+        tests::TEST_ILLUMINANCE_ACCURACY,
         units::length::Length,
     };
 
@@ -76,13 +77,13 @@ mod tests {
 
     #[test]
     fn jupiter_at_opposition() {
+        let expected = Illuminance::from_apparent_magnitude(-2.94);
         let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position =
             CartesianCoordinates::new(JUPITER_SEMI_MAJOR_AXIS, Length::ZERO, Length::ZERO);
         let observer_position =
             CartesianCoordinates::new(EARTH_SEMI_MAJOR_AXIS, Length::ZERO, Length::ZERO);
-        let expected = -2.94;
         let actual = planet_brightness(
             sun_luminosity,
             &star_position,
@@ -90,21 +91,20 @@ mod tests {
             &observer_position,
             JUPITER_RADIUS,
             JUPITER_BOND_ALBEDO,
-        )
-        .as_apparent_magnitude();
+        );
         println!("expected: {}, actual: {}", expected, actual);
-        assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY);
+        assert!(actual.eq_within(expected, TEST_ILLUMINANCE_ACCURACY));
     }
 
     #[test]
     fn venus_at_greatest_elongation() {
+        let expected = Illuminance::from_apparent_magnitude(-4.92);
         let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position =
             CartesianCoordinates::new(Length::ZERO, VENUS_SEMI_MAJOR_AXIS, Length::ZERO);
         let observer_position =
             CartesianCoordinates::new(EARTH_SEMI_MAJOR_AXIS, Length::ZERO, Length::ZERO);
-        let expected = -4.92;
         let actual = planet_brightness(
             sun_luminosity,
             &star_position,
@@ -112,21 +112,20 @@ mod tests {
             &observer_position,
             VENUS_RADIUS,
             VENUS_BOND_ALBEDO,
-        )
-        .as_apparent_magnitude();
+        );
         println!("expected: {}, actual: {}", expected, actual);
-        assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY);
+        assert!(actual.eq_within(expected, TEST_ILLUMINANCE_ACCURACY));
     }
 
     #[test]
     fn venus_at_occultation() {
+        let expected = Illuminance::from_apparent_magnitude(0.);
         let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position =
             CartesianCoordinates::new(VENUS_SEMI_MAJOR_AXIS, Length::ZERO, Length::ZERO);
         let observer_position =
             CartesianCoordinates::new(EARTH_SEMI_MAJOR_AXIS, Length::ZERO, Length::ZERO);
-        let expected = 0.;
         let actual = planet_brightness(
             sun_luminosity,
             &star_position,
@@ -134,9 +133,8 @@ mod tests {
             &observer_position,
             VENUS_RADIUS,
             VENUS_BOND_ALBEDO,
-        )
-        .get_lux();
+        );
         println!("expected: {}, actual: {}", expected, actual);
-        assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY);
+        assert!(actual.eq_within(expected, TEST_ILLUMINANCE_ACCURACY));
     }
 }
