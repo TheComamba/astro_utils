@@ -130,7 +130,7 @@ mod tests {
             VENUS_GEOMETRIC_ALBEDO,
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -154,7 +154,7 @@ mod tests {
             MARS_GEOMETRIC_ALBEDO * 2., //For some reason obscure to me, mars is brighter than expected
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -178,7 +178,7 @@ mod tests {
             JUPITER_GEOMETRIC_ALBEDO,
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -202,7 +202,7 @@ mod tests {
             SATURN_GEOMETRIC_ALBEDO * 2., //Saturn's rings break the whole model
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -226,7 +226,7 @@ mod tests {
             URANUS_GEOMETRIC_ALBEDO,
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -250,7 +250,7 @@ mod tests {
             NEPTUNE_GEOMETRIC_ALBEDO,
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }

@@ -19,7 +19,7 @@ impl Illuminance {
         Illuminance { lux }
     }
 
-    pub const fn get_lux(&self) -> Float {
+    pub const fn as_lux(&self) -> Float {
         self.lux
     }
 
@@ -83,7 +83,7 @@ mod tests {
         let luminosity = Luminosity::from_solar_luminosities(1.);
         let distance = Length::from_astronomical_units(1.);
         let illuminance = luminosity.to_illuminance(&distance);
-        let actual = illuminance.get_lux();
+        let actual = illuminance.as_lux();
         let expected = 107_527.;
         println!("expected: {}, actual: {}", expected, actual);
         assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY * expected);
