@@ -45,7 +45,17 @@ impl Illuminance {
 
 impl Display for Illuminance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:.2} lux", self.lux)
+        if self.lux > 990. {
+            write!(f, "{:.2} klux", self.lux / 1_000.)
+        } else if self.lux > 0.99 {
+            write!(f, "{:.2} lux", self.lux)
+        } else if self.lux > 0.99e-3 {
+            write!(f, "{:.2} mlux", self.lux * 1_000.)
+        } else if self.lux > 0.99e-6 {
+            write!(f, "{:.2} µlux", self.lux * 1_000_000.)
+        } else {
+            write!(f, "{:.2} nlux", self.lux * 1_000_000_000.)
+        }
     }
 }
 
