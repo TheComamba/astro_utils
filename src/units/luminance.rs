@@ -1,4 +1,4 @@
-use super::{angle::Angle, illuminance::Illuminance};
+use super::illuminance::Illuminance;
 use crate::Float;
 
 pub struct Luminance {
@@ -14,8 +14,8 @@ impl Luminance {
         self.nit
     }
 
-    pub fn to_illuminance(&self, solid_angle: &Angle) -> Illuminance {
-        let lux = self.nit * solid_angle.as_radians();
+    pub fn to_illuminance(&self, solid_angle: Float) -> Illuminance {
+        let lux = self.nit * solid_angle;
         Illuminance::from_lux(lux)
     }
 }

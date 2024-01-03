@@ -50,6 +50,8 @@ mod tests {
     use super::*;
     use crate::tests::TEST_ACCURACY;
 
+    const REAL_DATA_TEST_ACCURACY: Float = 0.05;
+
     #[test]
     fn test_apparent_magnitudes() {
         for magnitude in -10..10 {
@@ -59,5 +61,16 @@ mod tests {
             println!("input: {}, output: {}", input, output);
             assert!((input - output).abs() < TEST_ACCURACY);
         }
+    }
+
+    #[test]
+    fn test_sunlight() {
+        let luminosity = Luminosity::from_solar_luminosities(1.);
+        let distance = Length::from_astronomical_units(1.);
+        let illuminance = luminosity.to_illuminance(&distance);
+        let actual = illuminance.get_lux();
+        let expected = 107_527.;
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY * expected);
     }
 }

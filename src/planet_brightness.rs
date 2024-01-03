@@ -1,9 +1,6 @@
 use crate::{
     coordinates::cartesian::CartesianCoordinates,
-    units::{
-        angle::Angle, illuminance::Illuminance, length::Length,
-        luminosity::Luminosity,
-    },
+    units::{angle::Angle, illuminance::Illuminance, length::Length, luminosity::Luminosity},
     Float, PI,
 };
 
@@ -13,11 +10,11 @@ use crate::{
  */
 const LUMINATING_AREA_PER_ILLUMINATED_AREA: Float = 0.5;
 
-fn solid_angle(radius: &Length, distance: &Length, reflection_angle: &Angle) -> Angle {
-    let apparent_radius = radius / distance;
-    let apparent_area = PI * apparent_radius * apparent_radius * reflection_angle.cos();
-    let solid_angle = apparent_area / (4. * PI);
-    Angle::from_radians(solid_angle)
+fn solid_angle(radius: &Length, distance: &Length, reflection_angle: &Angle) -> Float {
+    let radius = radius.as_meters();
+    let distance = distance.as_meters();
+    let area = PI * radius.powi(2) * reflection_angle.as_radians().cos();
+    area / distance.powi(2)
 }
 
 pub fn planet_brightness(
@@ -39,17 +36,43 @@ pub fn planet_brightness(
         &planet_to_observer.length(),
         &reflection_angle,
     );
-    planet_luminance.to_illuminance(&solid_angle_at_obsverver)
+    planet_luminance.to_illuminance(solid_angle_at_obsverver)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::{
-        coordinates::cartesian::CartesianCoordinates, data::planets::*, units::length::Length,
+        coordinates::cartesian::CartesianCoordinates,
+        data::{planets::*, SUN_RADIUS},
+        units::length::Length,
     };
 
     const REAL_DATA_TEST_ACCURACY: f32 = 0.05;
+
+    #[test]
+    fn solid_angle_of_sun() {
+        let expected = 7e-5;
+        let actual = solid_angle(
+            &SUN_RADIUS,
+            &EARTH_SEMI_MAJOR_AXIS,
+            &Angle::from_degrees(0.),
+        );
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY * expected);
+    }
+
+    #[test]
+    fn solid_angle_of_moon() {
+        let expected = 6.4e-5;
+        let actual = solid_angle(
+            &MOON_RADIUS,
+            &MOON_SEMI_MAJOR_AXIS,
+            &Angle::from_degrees(0.),
+        );
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY * expected);
+    }
 
     #[test]
     fn jupiter_at_opposition() {
