@@ -15,14 +15,12 @@ pub mod units;
 #[cfg(test)]
 pub(crate) mod tests {
     use crate::{
-        units::{angle::Angle, illuminance::Illuminance, length::Length, mass::Mass, time::Time},
+        units::{angle::Angle, length::Length, mass::Mass, time::Time},
         Float,
     };
 
     pub(crate) const TEST_ACCURACY: Float = 1e-5;
     pub(crate) const TEST_ANGLE_ACCURACY: Angle = Angle::from_radians(TEST_ACCURACY);
-    pub(crate) const TEST_ILLUMINANCE_ACCURACY: Illuminance =
-        Illuminance::from_lux(1e-6 * TEST_ACCURACY);
     pub(crate) const TEST_LENGTH_ACCURACY: Length = Length::from_meters(TEST_ACCURACY);
     pub(crate) const TEST_MASS_ACCURACY: Mass = Mass::from_kilograms(TEST_ACCURACY);
     pub(crate) const TEST_TIME_ACCURACY: Time = Time::from_seconds(TEST_ACCURACY);
