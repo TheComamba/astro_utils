@@ -30,7 +30,7 @@ impl EarthEquatorialCoordinates {
     pub fn to_ecliptic(&self) -> EclipticCoordinates {
         let dir = self.to_direction();
         let vec = dir.to_cartesian(Length::from_meters(1.));
-        EclipticCoordinates::from_cartesian(&vec)
+        vec.to_ecliptic()
     }
 }
 

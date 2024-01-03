@@ -1,4 +1,7 @@
-use super::{direction::Direction, rotations::rotated_tuple};
+use super::{
+    direction::Direction, ecliptic::EclipticCoordinates, rotations::rotated_tuple,
+    spherical::SphericalCoordinates,
+};
 use crate::{
     units::{angle::Angle, length::Length},
     Float,
@@ -74,6 +77,12 @@ impl CartesianCoordinates {
             x: self.x() / length,
             y: self.y() / length,
             z: self.z() / length,
+        }
+    }
+
+    pub fn to_ecliptic(&self) -> EclipticCoordinates {
+        EclipticCoordinates {
+            spherical: SphericalCoordinates::from_cartesian(self),
         }
     }
 }

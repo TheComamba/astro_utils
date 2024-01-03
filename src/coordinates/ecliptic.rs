@@ -1,4 +1,3 @@
-use super::cartesian::CartesianCoordinates;
 use super::spherical::SphericalCoordinates;
 use crate::units::angle::Angle;
 use serde::{Deserialize, Serialize};
@@ -12,7 +11,7 @@ use std::ops::Neg;
  */
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct EclipticCoordinates {
-    spherical: SphericalCoordinates,
+    pub(super) spherical: SphericalCoordinates,
 }
 
 impl EclipticCoordinates {
@@ -30,12 +29,6 @@ impl EclipticCoordinates {
 
     pub const fn new(spherical: SphericalCoordinates) -> EclipticCoordinates {
         EclipticCoordinates { spherical }
-    }
-
-    pub fn from_cartesian(cart: &CartesianCoordinates) -> EclipticCoordinates {
-        EclipticCoordinates {
-            spherical: SphericalCoordinates::from_cartesian(cart),
-        }
     }
 
     pub fn normalize(&mut self) {
