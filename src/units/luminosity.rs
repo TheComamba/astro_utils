@@ -76,9 +76,7 @@ mod tests {
                 let distance = Length::from_light_years(dist as Float);
                 let luminosity =
                     Illuminance::from_apparent_magnitude(input).to_luminosity(&distance);
-                let output = luminosity
-                    .to_illuminance(&distance)
-                    .get_apparent_magnitude();
+                let output = luminosity.to_illuminance(&distance).as_apparent_magnitude();
                 println!("distance: {}", distance);
                 println!("input: {}, output: {}", input, output);
                 assert!((input - output).abs() < TEST_ACCURACY);
@@ -114,9 +112,7 @@ mod tests {
             let input = i as Float;
             let luminosity = Luminosity::from_absolute_magnitude(input);
             let distance = Length::from_parsecs(10.);
-            let apparent_magnitude = luminosity
-                .to_illuminance(&distance)
-                .get_apparent_magnitude();
+            let apparent_magnitude = luminosity.to_illuminance(&distance).as_apparent_magnitude();
             let absolute_magnitude = luminosity.get_absolute_magnitude();
             println!("input: {}", input);
             println!("apparent magnitude: {}", apparent_magnitude);
@@ -131,7 +127,7 @@ mod tests {
 
         let sun_apparent_magnitude = sun
             .to_illuminance(&Length::from_astronomical_units(1.))
-            .get_apparent_magnitude();
+            .as_apparent_magnitude();
         let expected_apparent_magnitude = -26.74;
         println!(
             "Apparnet Magnitude:\nexpected: {},\nactual: {}",
@@ -169,7 +165,7 @@ mod tests {
 
         let sirius_apparent_magnitude = sirius
             .to_illuminance(&&Length::from_light_years(8.6))
-            .get_apparent_magnitude();
+            .as_apparent_magnitude();
         let expected_apparent_magnitude = -1.46;
         println!(
             "Apparnet Magnitude:\nexpected: {},\nactual: {}",

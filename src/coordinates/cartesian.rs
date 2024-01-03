@@ -61,6 +61,10 @@ impl CartesianCoordinates {
         let (x, y, z) = rotated_tuple((self.x, self.y, self.z), angle, axis);
         CartesianCoordinates { x, y, z }
     }
+
+    pub fn angle_to(&self, other: &CartesianCoordinates) -> Angle {
+        Direction::from_cartesian(&self).angle_to(&Direction::from_cartesian(other))
+    }
 }
 
 impl Add for &CartesianCoordinates {
