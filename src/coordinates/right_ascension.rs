@@ -1,4 +1,4 @@
-use crate::Float;
+use crate::{units::angle::Angle, Float};
 
 pub struct RightAscension {
     pub(super) hours: i8,
@@ -13,5 +13,13 @@ impl RightAscension {
             minutes,
             seconds,
         }
+    }
+
+    pub fn to_angle(&self) -> Angle {
+        let hours = self.hours as Float;
+        let minutes = self.minutes as Float;
+        let seconds = self.seconds as Float;
+
+        Angle::from_degrees((hours + minutes / 60. + seconds / 3600.) * 15.)
     }
 }
