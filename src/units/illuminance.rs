@@ -104,6 +104,20 @@ mod tests {
     }
 
     #[test]
+    fn test_negative_display() {
+        let nlux = Illuminance::from_lux(-1.23e-9);
+        assert_eq!(format!("{}", nlux), "-1.23 nlux");
+        let ulux = Illuminance::from_lux(-1.23e-6);
+        assert_eq!(format!("{}", ulux), "-1.23 µlux");
+        let mlux = Illuminance::from_lux(-1.23e-3);
+        assert_eq!(format!("{}", mlux), "-1.23 mlux");
+        let lux = Illuminance::from_lux(-1.23);
+        assert_eq!(format!("{}", lux), "-1.23 lux");
+        let klux = Illuminance::from_lux(-1.23e3);
+        assert_eq!(format!("{}", klux), "-1.23 klux");
+    }
+
+    #[test]
     fn test_display_thresholds() {
         let nlux = Illuminance::from_lux(1e-9);
         assert_eq!(format!("{}", nlux), "1.00 nlux");

@@ -171,4 +171,18 @@ mod tests {
         let time = Time::from_years(1.);
         assert_eq!(format!("{}", time), "1.00 yrs");
     }
+
+    #[test]
+    fn test_negative_display() {
+        let time = Time::from_seconds(-1.);
+        assert_eq!(format!("{}", time), "-1.00 sec");
+        let time = Time::from_minutes(-1.);
+        assert_eq!(format!("{}", time), "-1.00 min");
+        let time = Time::from_hours(-1.);
+        assert_eq!(format!("{}", time), "-1.00 hrs");
+        let time = Time::from_days(-1.);
+        assert_eq!(format!("{}", time), "-1.00 days");
+        let time = Time::from_years(-1.);
+        assert_eq!(format!("{}", time), "-1.00 yrs");
+    }
 }

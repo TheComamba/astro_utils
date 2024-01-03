@@ -199,6 +199,8 @@ mod tests {
     fn test_display() {
         let angle = Angle::from_degrees(100.);
         assert_eq!(format!("{}", angle), "100.00 deg");
+        let angle = Angle::from_degrees(-100.);
+        assert_eq!(format!("{}", angle), "-100.00 deg");
     }
 
     #[test]
