@@ -1,13 +1,13 @@
 use crate::Float;
 
 pub struct Declination {
-    pub(super) degrees: Float,
-    pub(super) minutes: Float,
-    pub(super) seconds: Float,
+    pub(super) degrees: i8,
+    pub(super) minutes: i8,
+    pub(super) seconds: i8,
 }
 
 impl Declination {
-    pub const fn new(degrees: Float, minutes: Float, seconds: Float) -> Self {
+    pub const fn new(degrees: i8, minutes: i8, seconds: i8) -> Self {
         Self {
             degrees,
             minutes,
