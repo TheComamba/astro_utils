@@ -25,7 +25,7 @@ impl Luminosity {
         Self::from_solar_luminosities(watts * SOLAR_LUMINOSITY_PER_WATT)
     }
 
-    pub const fn get_absolute_magnitude(&self) -> Float {
+    pub const fn as_absolute_magnitude(&self) -> Float {
         self.absolute_magnitude
     }
 
@@ -62,7 +62,7 @@ mod tests {
         for i in -10..10 {
             let input = i as Float;
             let luminosity = Luminosity::from_absolute_magnitude(input);
-            let output = luminosity.get_absolute_magnitude();
+            let output = luminosity.as_absolute_magnitude();
             println!("input: {}, output: {}", input, output);
             assert!((input - output).abs() < TEST_ACCURACY);
         }
@@ -113,7 +113,7 @@ mod tests {
             let luminosity = Luminosity::from_absolute_magnitude(input);
             let distance = Length::from_parsecs(10.);
             let apparent_magnitude = luminosity.to_illuminance(&distance).as_apparent_magnitude();
-            let absolute_magnitude = luminosity.get_absolute_magnitude();
+            let absolute_magnitude = luminosity.as_absolute_magnitude();
             println!("input: {}", input);
             println!("apparent magnitude: {}", apparent_magnitude);
             println!("absolute magnitude: {}", absolute_magnitude);

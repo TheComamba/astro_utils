@@ -1,4 +1,7 @@
-use super::{direction::Direction, rotations::rotated_tuple};
+use super::{
+    direction::Direction, ecliptic::EclipticCoordinates, rotations::rotated_tuple,
+    spherical::SphericalCoordinates,
+};
 use crate::{
     units::{angle::Angle, length::Length},
     Float,
@@ -18,9 +21,9 @@ pub struct CartesianCoordinates {
 
 impl CartesianCoordinates {
     pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
-        x: Length::from_meters(0.),
-        y: Length::from_meters(0.),
-        z: Length::from_meters(0.),
+        x: Length::ZERO,
+        y: Length::ZERO,
+        z: Length::ZERO,
     };
 
     pub const fn new(x: Length, y: Length, z: Length) -> CartesianCoordinates {
@@ -36,10 +39,10 @@ impl CartesianCoordinates {
     }
 
     pub fn length(&self) -> Length {
-        let x = self.x.as_meters();
-        let y = self.y.as_meters();
-        let z = self.z.as_meters();
-        Length::from_meters((x * x + y * y + z * z).sqrt())
+        let x = self.x.au;
+        let y = self.y.au;
+        let z = self.z.au;
+        Length::from_astronomical_units((x * x + y * y + z * z).sqrt())
     }
 
     pub fn distance(&self, other: &CartesianCoordinates) -> Length {
@@ -65,7 +68,26 @@ impl CartesianCoordinates {
     }
 
     pub fn angle_to(&self, other: &CartesianCoordinates) -> Angle {
-        Direction::from_cartesian(&self).angle_to(&Direction::from_cartesian(other))
+        self.to_direction().angle_to(&other.to_direction())
+    }
+
+    pub fn to_direction(&self) -> Direction {
+        let length = self.length();
+        Direction {
+            x: self.x() / length,
+            y: self.y() / length,
+            z: self.z() / length,
+        }
+    }
+
+    pub fn to_ecliptic(&self) -> EclipticCoordinates {
+        EclipticCoordinates {
+            spherical: self.to_spherical(),
+        }
+    }
+
+    pub fn to_spherical(&self) -> SphericalCoordinates {
+        SphericalCoordinates::cartesian_to_spherical((self.x.au, self.y.au, self.z.au))
     }
 }
 

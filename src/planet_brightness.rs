@@ -21,8 +21,8 @@ fn illuminated_fraction(reflection_angle: &Angle) -> Float {
 }
 
 fn solid_angle(radius: &Length, distance: &Length, reflection_angle: &Angle) -> Float {
-    let radius = radius.as_meters();
-    let distance = distance.as_meters();
+    let radius = radius.as_astronomical_units();
+    let distance = distance.as_astronomical_units();
     let area = PI * radius.powi(2) * illuminated_fraction(reflection_angle);
     area / distance.powi(2)
 }
@@ -63,11 +63,7 @@ mod tests {
     #[test]
     fn solid_angle_of_sun() {
         let expected = 7e-5;
-        let actual = solid_angle(
-            &SUN_RADIUS,
-            &EARTH_SEMI_MAJOR_AXIS,
-            &Angle::from_degrees(0.),
-        );
+        let actual = solid_angle(&SUN_RADIUS, &EARTH_SEMI_MAJOR_AXIS, &Angle::ZERO);
         println!("expected: {}, actual: {}", expected, actual);
         println!(
             "diff: {}, accuracy: {}",
@@ -80,11 +76,7 @@ mod tests {
     #[test]
     fn solid_angle_of_full_moon() {
         let expected = 6.4e-5;
-        let actual = solid_angle(
-            &MOON_RADIUS,
-            &MOON_SEMI_MAJOR_AXIS,
-            &Angle::from_degrees(0.),
-        );
+        let actual = solid_angle(&MOON_RADIUS, &MOON_SEMI_MAJOR_AXIS, &Angle::ZERO);
         println!("expected: {}, actual: {}", expected, actual);
         println!(
             "diff: {}, accuracy: {}",
@@ -130,7 +122,7 @@ mod tests {
             VENUS_GEOMETRIC_ALBEDO,
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -154,7 +146,7 @@ mod tests {
             MARS_GEOMETRIC_ALBEDO * 2., //For some reason obscure to me, mars is brighter than expected
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -178,7 +170,7 @@ mod tests {
             JUPITER_GEOMETRIC_ALBEDO,
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -202,7 +194,7 @@ mod tests {
             SATURN_GEOMETRIC_ALBEDO * 2., //Saturn's rings break the whole model
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -226,7 +218,7 @@ mod tests {
             URANUS_GEOMETRIC_ALBEDO,
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -250,7 +242,7 @@ mod tests {
             NEPTUNE_GEOMETRIC_ALBEDO,
         );
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.get_lux() / expected.get_lux());
+        println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }

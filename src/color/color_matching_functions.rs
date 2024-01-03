@@ -35,16 +35,16 @@ pub(crate) fn convolute_with_black_body(
     fun: Box<dyn Fn(Length) -> Float>,
     temperature: Temperature,
 ) -> Float {
-    const STEP: Length = Length::from_meters(1e-9);
+    let step = Length::from_nanometers(1.);
     let mut sum = 0.;
     let mut lambda = Length::from_nanometers(380.);
     while lambda.as_nanometers() < 780. {
         let value = fun(lambda);
         let planck = planck_radiant_emittance(lambda, temperature);
         sum += value * planck;
-        lambda += STEP;
+        lambda += step;
     }
-    sum * STEP.as_meters()
+    sum * step.as_meters()
 }
 
 #[cfg(test)]

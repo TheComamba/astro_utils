@@ -12,9 +12,9 @@ pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-10;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Direction {
-    x: Float,
-    y: Float,
-    z: Float,
+    pub(super) x: Float,
+    pub(super) y: Float,
+    pub(super) z: Float,
 }
 
 impl Direction {
@@ -47,24 +47,12 @@ impl Direction {
         }
     }
 
-    pub fn from_cartesian(cartesian: &CartesianCoordinates) -> Self {
-        let length = cartesian.length();
-        Direction {
-            x: cartesian.x() / length,
-            y: cartesian.y() / length,
-            z: cartesian.z() / length,
-        }
-    }
-
-    pub fn from_spherical(spherical: &SphericalCoordinates) -> Self {
-        let x = spherical.get_longitude().cos() * spherical.get_latitude().cos();
-        let y = spherical.get_longitude().sin() * spherical.get_latitude().cos();
-        let z = spherical.get_latitude().sin();
-        Direction { x, y, z }
-    }
-
     pub fn to_cartesian(&self, length: Length) -> CartesianCoordinates {
         CartesianCoordinates::new(self.x * length, self.y * length, self.z * length)
+    }
+
+    pub fn to_spherical(&self) -> SphericalCoordinates {
+        SphericalCoordinates::cartesian_to_spherical((self.x, self.y, self.z))
     }
 
     pub fn x(&self) -> Float {
@@ -98,7 +86,7 @@ impl Direction {
         let cosine_argument = ax * bx + ay * by + az * bz; //Directions have unit length
         if cosine_argument > 1. {
             //Saving acos from being called with an argument > 1 due to numerical instability
-            return Angle::from_radians(0.);
+            return Angle::ZERO;
         } else if cosine_argument < -1. {
             return Angle::from_radians(PI);
         }
@@ -214,9 +202,7 @@ mod tests {
                     let expected_x = x / length;
                     let expected_y = y / length;
                     let expected_z = z / length;
-
-                    let spherical = SphericalCoordinates::from_cartesian(&cartesian);
-                    let direction = Direction::from_spherical(&spherical);
+                    let direction = cartesian.to_spherical().to_direction();
 
                     assert!((direction.x() - expected_x).abs() < TEST_ACCURACY);
                     assert!((direction.y() - expected_y).abs() < TEST_ACCURACY);
@@ -292,7 +278,7 @@ mod tests {
 
     #[test]
     fn angle_between_is_zero() {
-        const EXPECTED: Angle = Angle::from_radians(0.);
+        const EXPECTED: Angle = Angle::ZERO;
 
         let angle = Direction::X.angle_to(&Direction::X);
         println!("expected: {}, actual: {}", EXPECTED, angle);
@@ -484,5 +470,17 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn direction_from_large_vector_is_ok() {
+        let x = Length::from_light_years(2000.);
+        let y = Length::from_light_years(1e-10);
+        let z = Length::from_light_years(-2000.);
+        let cartesian = CartesianCoordinates::new(x, y, z);
+        let expected = Direction::new(1., 0., -1.);
+        let actual = cartesian.to_direction();
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
     }
 }
