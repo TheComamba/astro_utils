@@ -84,7 +84,8 @@ impl Direction {
         Direction { x, y, z }
     }
 
-    pub fn eq_within(&self, other: &Direction, accuracy: Float) -> bool {
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: &Direction, accuracy: Float) -> bool {
         (self.x - other.x).abs() < accuracy
             && (self.y - other.y).abs() < accuracy
             && (self.z - other.z).abs() < accuracy

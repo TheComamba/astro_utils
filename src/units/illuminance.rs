@@ -38,7 +38,8 @@ impl Illuminance {
         Luminance::from_nit(nit)
     }
 
-    pub fn eq_within(&self, other: Illuminance, accuracy: Illuminance) -> bool {
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: Illuminance, accuracy: Illuminance) -> bool {
         (self.lux - other.lux).abs() <= accuracy.lux
     }
 }

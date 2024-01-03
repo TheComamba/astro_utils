@@ -65,7 +65,8 @@ impl Mass {
         self.kilograms * SOLAR_MASSES_PER_KILOGRAM
     }
 
-    pub fn eq_within(&self, other: Mass, accuracy: Mass) -> bool {
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: Mass, accuracy: Mass) -> bool {
         let diff = self.kilograms - other.kilograms;
         diff.abs() <= accuracy.kilograms
     }

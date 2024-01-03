@@ -43,7 +43,8 @@ impl Angle {
         self.radian * ARCSECS_PER_RADIAN
     }
 
-    pub fn eq_within(&self, other: Angle, accuracy: Angle) -> bool {
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: Angle, accuracy: Angle) -> bool {
         let diff = self.radian - other.radian;
         let diff = diff % TWO_PI;
         let diff = if diff > PI {

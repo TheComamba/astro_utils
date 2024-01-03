@@ -27,7 +27,9 @@ impl CartesianCoordinates {
         CartesianCoordinates { x, y, z }
     }
 
-    pub fn eq_within(&self, other: &CartesianCoordinates, accuracy: Length) -> bool {
+    #[cfg(test)]
+    #[allow(dead_code)]
+    pub(crate) fn eq_within(&self, other: &CartesianCoordinates, accuracy: Length) -> bool {
         self.x.eq_within(&other.x, accuracy)
             && self.y.eq_within(&other.y, accuracy)
             && self.z.eq_within(&other.z, accuracy)
