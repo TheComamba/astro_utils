@@ -25,6 +25,8 @@ pub struct Length {
 }
 
 impl Length {
+    pub const ZERO: Length = Length { meters: 0. };
+
     pub fn from_nanometers(nanometers: Float) -> Length {
         Length {
             meters: nanometers * METERS_PER_NANOMETER,

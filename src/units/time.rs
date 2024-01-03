@@ -17,6 +17,8 @@ pub struct Time {
 }
 
 impl Time {
+    pub const ZERO: Time = Time { seconds: 0. };
+
     pub const fn from_seconds(seconds: Float) -> Time {
         Time { seconds }
     }

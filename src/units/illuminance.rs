@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use super::{length::Length, luminosity::Luminosity};
 use crate::Float;
 
@@ -17,5 +19,11 @@ impl Illuminance {
     pub fn to_luminosity(&self, distance: &Length) -> Luminosity {
         let absolute_magnitude = self.apparent_magnitude - 5. * distance.as_parsecs().log10() + 5.;
         Luminosity::from_absolute_magnitude(absolute_magnitude)
+    }
+}
+
+impl Display for Illuminance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:.2} app. mag.", self.apparent_magnitude)
     }
 }

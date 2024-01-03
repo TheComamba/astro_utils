@@ -13,6 +13,8 @@ pub struct Angle {
 }
 
 impl Angle {
+    pub const ZERO: Angle = Angle { radian: 0. };
+
     pub const fn from_radians(radian: Float) -> Angle {
         Angle { radian }
     }
