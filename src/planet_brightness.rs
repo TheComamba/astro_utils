@@ -63,11 +63,7 @@ mod tests {
     #[test]
     fn solid_angle_of_sun() {
         let expected = 7e-5;
-        let actual = solid_angle(
-            &SUN_RADIUS,
-            &EARTH_SEMI_MAJOR_AXIS,
-            &Angle::from_degrees(0.),
-        );
+        let actual = solid_angle(&SUN_RADIUS, &EARTH_SEMI_MAJOR_AXIS, &Angle::ZERO);
         println!("expected: {}, actual: {}", expected, actual);
         println!(
             "diff: {}, accuracy: {}",
@@ -80,11 +76,7 @@ mod tests {
     #[test]
     fn solid_angle_of_full_moon() {
         let expected = 6.4e-5;
-        let actual = solid_angle(
-            &MOON_RADIUS,
-            &MOON_SEMI_MAJOR_AXIS,
-            &Angle::from_degrees(0.),
-        );
+        let actual = solid_angle(&MOON_RADIUS, &MOON_SEMI_MAJOR_AXIS, &Angle::ZERO);
         println!("expected: {}, actual: {}", expected, actual);
         println!(
             "diff: {}, accuracy: {}",

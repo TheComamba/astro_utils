@@ -86,7 +86,7 @@ impl Direction {
         let cosine_argument = ax * bx + ay * by + az * bz; //Directions have unit length
         if cosine_argument > 1. {
             //Saving acos from being called with an argument > 1 due to numerical instability
-            return Angle::from_radians(0.);
+            return Angle::ZERO;
         } else if cosine_argument < -1. {
             return Angle::from_radians(PI);
         }
@@ -278,7 +278,7 @@ mod tests {
 
     #[test]
     fn angle_between_is_zero() {
-        const EXPECTED: Angle = Angle::from_radians(0.);
+        const EXPECTED: Angle = Angle::ZERO;
 
         let angle = Direction::X.angle_to(&Direction::X);
         println!("expected: {}, actual: {}", EXPECTED, angle);

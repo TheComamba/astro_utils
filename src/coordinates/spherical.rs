@@ -16,17 +16,17 @@ pub struct SphericalCoordinates {
 
 impl SphericalCoordinates {
     pub const X_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-        longitude: Angle::from_radians(0.),
-        latitude: Angle::from_radians(0.),
+        longitude: Angle::ZERO,
+        latitude: Angle::ZERO,
     };
 
     pub const Y_DIRECTION: SphericalCoordinates = SphericalCoordinates {
         longitude: Angle::from_radians(PI / 2.),
-        latitude: Angle::from_radians(0.),
+        latitude: Angle::ZERO,
     };
 
     pub const Z_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-        longitude: Angle::from_radians(0.),
+        longitude: Angle::ZERO,
         latitude: Angle::from_radians(PI / 2.),
     };
 
@@ -257,14 +257,14 @@ mod tests {
         };
         let expected_minus_x = SphericalCoordinates {
             longitude: Angle::from_radians(PI),
-            latitude: Angle::from_radians(0.),
+            latitude: Angle::ZERO,
         };
         let expected_minus_y = SphericalCoordinates {
             longitude: Angle::from_radians(-PI_HALF),
-            latitude: Angle::from_radians(0.),
+            latitude: Angle::ZERO,
         };
         let expected_minus_z = SphericalCoordinates {
-            longitude: Angle::from_radians(0.),
+            longitude: Angle::ZERO,
             latitude: Angle::from_radians(-PI_HALF),
         };
         let expected_minus_xyz = SphericalCoordinates {
@@ -298,7 +298,7 @@ mod tests {
 
         let small_offsets = vec![
             -local_test_angle_accuracy / 100.,
-            Angle::from_radians(0.),
+            Angle::ZERO,
             local_test_angle_accuracy / 100.,
         ];
         let large_offsets = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
@@ -396,7 +396,7 @@ mod tests {
     #[test]
     fn test_normalization_crossing_poles() {
         let mut coord = SphericalCoordinates {
-            longitude: Angle::from_radians(0.),
+            longitude: Angle::ZERO,
             latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
@@ -408,7 +408,7 @@ mod tests {
         assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let mut coord = SphericalCoordinates {
-            longitude: Angle::from_radians(0.),
+            longitude: Angle::ZERO,
             latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
@@ -424,7 +424,7 @@ mod tests {
             latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
-            longitude: Angle::from_radians(0.),
+            longitude: Angle::ZERO,
             latitude: Angle::from_radians(PI / 4.),
         };
         coord.normalize();
@@ -436,7 +436,7 @@ mod tests {
             latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
-            longitude: Angle::from_radians(0.),
+            longitude: Angle::ZERO,
             latitude: Angle::from_radians(-PI / 4.),
         };
         coord.normalize();

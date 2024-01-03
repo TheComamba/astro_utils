@@ -21,9 +21,9 @@ pub struct CartesianCoordinates {
 
 impl CartesianCoordinates {
     pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
-        x: Length::from_astronomical_units(0.),
-        y: Length::from_astronomical_units(0.),
-        z: Length::from_astronomical_units(0.),
+        x: Length::ZERO,
+        y: Length::ZERO,
+        z: Length::ZERO,
     };
 
     pub const fn new(x: Length, y: Length, z: Length) -> CartesianCoordinates {

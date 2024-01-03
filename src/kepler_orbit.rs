@@ -92,7 +92,7 @@ pub fn position_relative_to_central_body(
     true_anomaly: Angle,
     orientation: &OrbitOrientation,
 ) -> CartesianCoordinates {
-    let ecliptic_from_focus = SphericalCoordinates::new(true_anomaly, Angle::from_radians(0.));
+    let ecliptic_from_focus = SphericalCoordinates::new(true_anomaly, Angle::ZERO);
     let direction = ecliptic_from_focus.to_direction();
     let distance_from_focus = distance_from_focus(semi_major_axis, true_anomaly, eccentricity);
     let position = direction.to_cartesian(distance_from_focus);
@@ -286,19 +286,12 @@ mod tests {
         let semi_minor_axis = Length::from_meters(1.);
         let eccentricity = (1. - (semi_minor_axis / semi_major_axis).powi(2)).sqrt();
         let linear_eccentricity = semi_major_axis * eccentricity;
-        let focal_point = CartesianCoordinates::new(
-            linear_eccentricity,
-            Length::from_meters(0.),
-            Length::from_meters(0.),
-        );
+        let focal_point =
+            CartesianCoordinates::new(linear_eccentricity, Length::ZERO, Length::ZERO);
 
-        let eccentric_anom = Angle::from_radians(0.);
+        let eccentric_anom = Angle::ZERO;
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(
-            semi_major_axis,
-            Length::from_meters(0.),
-            Length::from_meters(0.),
-        );
+        let point = CartesianCoordinates::new(semi_major_axis, Length::ZERO, Length::ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
@@ -307,11 +300,7 @@ mod tests {
 
         let eccentric_anom = Angle::from_radians(TWO_PI / 4.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(
-            Length::from_meters(0.),
-            semi_minor_axis,
-            Length::from_meters(0.),
-        );
+        let point = CartesianCoordinates::new(Length::ZERO, semi_minor_axis, Length::ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
@@ -320,11 +309,7 @@ mod tests {
 
         let eccentric_anom = Angle::from_radians(TWO_PI / 2.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(
-            -semi_major_axis,
-            Length::from_meters(0.),
-            Length::from_meters(0.),
-        );
+        let point = CartesianCoordinates::new(-semi_major_axis, Length::ZERO, Length::ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
@@ -333,11 +318,7 @@ mod tests {
 
         let eccentric_anom = Angle::from_radians(TWO_PI * 3. / 4.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(
-            Length::from_meters(0.),
-            -semi_minor_axis,
-            Length::from_meters(0.),
-        );
+        let point = CartesianCoordinates::new(Length::ZERO, -semi_minor_axis, Length::ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);

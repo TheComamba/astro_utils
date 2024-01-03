@@ -230,7 +230,7 @@ mod tests {
 
     #[test]
     fn test_sub() {
-        let expected = Length::from_meters(0.);
+        let expected = Length::ZERO;
         let length = Length::from_kilometers(1.);
         assert!((length - length).eq_within(&expected, TEST_LENGTH_ACCURACY));
     }
