@@ -17,6 +17,8 @@ pub struct Time {
 }
 
 impl Time {
+    pub const ZERO: Time = Time { seconds: 0. };
+
     pub const fn from_seconds(seconds: Float) -> Time {
         Time { seconds }
     }
@@ -65,7 +67,8 @@ impl Time {
         self.seconds * YEARS_PER_SECOND
     }
 
-    pub fn eq_within(&self, other: Time, accuracy: Time) -> bool {
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: Time, accuracy: Time) -> bool {
         let diff = self.seconds - other.seconds;
         diff.abs() <= accuracy.seconds
     }

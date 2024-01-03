@@ -27,7 +27,9 @@ impl CartesianCoordinates {
         CartesianCoordinates { x, y, z }
     }
 
-    pub fn eq_within(&self, other: &CartesianCoordinates, accuracy: Length) -> bool {
+    #[cfg(test)]
+    #[allow(dead_code)]
+    pub(crate) fn eq_within(&self, other: &CartesianCoordinates, accuracy: Length) -> bool {
         self.x.eq_within(&other.x, accuracy)
             && self.y.eq_within(&other.y, accuracy)
             && self.z.eq_within(&other.z, accuracy)
@@ -60,6 +62,10 @@ impl CartesianCoordinates {
     pub fn rotated(&self, angle: Angle, axis: &Direction) -> CartesianCoordinates {
         let (x, y, z) = rotated_tuple((self.x, self.y, self.z), angle, axis);
         CartesianCoordinates { x, y, z }
+    }
+
+    pub fn angle_to(&self, other: &CartesianCoordinates) -> Angle {
+        Direction::from_cartesian(&self).angle_to(&Direction::from_cartesian(other))
     }
 }
 

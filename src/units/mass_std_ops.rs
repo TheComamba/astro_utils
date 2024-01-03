@@ -1,7 +1,7 @@
 use super::mass::Mass;
 use crate::Float;
-use forward_ref_generic::{forward_ref_binop, forward_ref_op_assign, forward_ref_unop};
-use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
+use forward_ref_generic::{forward_ref_binop, forward_ref_op_assign};
+use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
 
 impl Add for Mass {
     type Output = Mass;
@@ -91,23 +91,13 @@ impl Div<Mass> for Mass {
     }
 }
 
-impl Neg for Mass {
-    type Output = Mass;
-
-    fn neg(self) -> Mass {
-        Mass {
-            kilograms: -self.kilograms,
-        }
-    }
-}
-
 forward_ref_binop!(impl Add, add for Mass, Mass);
 forward_ref_binop!(impl Sub, sub for Mass, Mass);
 forward_ref_binop!(impl Mul, mul for Mass, Float);
 forward_ref_binop!(impl Mul, mul for Float, Mass);
 forward_ref_binop!(impl Div, div for Mass, Float);
+forward_ref_binop!(impl Div, div for Mass, Mass);
 forward_ref_op_assign!(impl AddAssign, add_assign for Mass, Mass);
 forward_ref_op_assign!(impl SubAssign, sub_assign for Mass, Mass);
 forward_ref_op_assign!(impl MulAssign, mul_assign for Mass, Float);
 forward_ref_op_assign!(impl DivAssign, div_assign for Mass, Float);
-forward_ref_unop!(impl Neg, neg for Mass);

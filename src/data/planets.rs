@@ -17,6 +17,7 @@ pub const MERCURY_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(29.124279 * RADIANS_PER_DEGREE),
 );
 pub const MERCURY_BOND_ALBEDO: Float = 0.088;
+pub const MERCURY_GEOMETRIC_ALBEDO: Float = 0.142;
 pub const MERCURY_COLOR: sRGBColor = sRGBColor::from_sRGB(0.6, 0.58, 0.58);
 
 pub const MERCURY_RADIUS: Length = Length::from_meters(2_439_700.);
@@ -36,6 +37,7 @@ pub const VENUS_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(54.85229 * RADIANS_PER_DEGREE),
 );
 pub const VENUS_BOND_ALBEDO: Float = 0.76;
+pub const VENUS_GEOMETRIC_ALBEDO: Float = 0.689;
 pub const VENUS_COLOR: sRGBColor = sRGBColor::from_sRGB(0.75, 0.74, 0.71);
 
 pub const VENUS_RADIUS: Length = Length::from_meters(6_051_800.);
@@ -55,6 +57,7 @@ pub const EARTH_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(114.20783 * RADIANS_PER_DEGREE),
 );
 pub const EARTH_BOND_ALBEDO: Float = 0.306;
+pub const EARTH_GEOMETRIC_ALBEDO: Float = 0.367;
 pub const EARTH_COLOR: sRGBColor = sRGBColor::from_sRGB(0.38, 0.39, 0.48);
 
 pub const EARTH_RADIUS: Length = Length::from_meters(METERS_PER_EARTH_RADIUS);
@@ -74,6 +77,7 @@ pub const MARS_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(286.4623 * RADIANS_PER_DEGREE),
 );
 pub const MARS_BOND_ALBEDO: Float = 0.25;
+pub const MARS_GEOMETRIC_ALBEDO: Float = 0.17;
 pub const MARS_COLOR: sRGBColor = sRGBColor::from_sRGB(0.59, 0.38, 0.19);
 
 pub const MARS_RADIUS: Length = Length::from_meters(3_389_500.);
@@ -92,7 +96,7 @@ pub const CERES_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(80.393 * RADIANS_PER_DEGREE),
     Angle::from_radians(73.597 * RADIANS_PER_DEGREE),
 );
-pub const CERES_BOND_ALBEDO: Float = 0.09; //Bond albedo is apparentyl unknown, taking geometric albedo
+pub const CERES_GEOMETRIC_ALBEDO: Float = 0.09;
 pub const CERES_COLOR: sRGBColor = sRGBColor::from_sRGB(1., 1., 1.); //Color unknown, taking grey
 
 pub const CERES_RADIUS: Length = Length::from_meters(476_200.);
@@ -112,6 +116,7 @@ pub const JUPITER_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(273.865 * RADIANS_PER_DEGREE),
 );
 pub const JUPITER_BOND_ALBEDO: Float = 0.503;
+pub const JUPITER_GEOMETRIC_ALBEDO: Float = 0.538;
 pub const JUPITER_COLOR: sRGBColor = sRGBColor::from_sRGB(0.76, 0.7, 0.67);
 
 pub const JUPITER_RADIUS: Length = Length::from_meters(METERS_PER_JUPITER_RADIUS);
@@ -131,6 +136,7 @@ pub const SATURN_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(339.39153 * RADIANS_PER_DEGREE),
 );
 pub const SATURN_BOND_ALBEDO: Float = 0.342;
+pub const SATURN_GEOMETRIC_ALBEDO: Float = 0.499;
 pub const SATURN_COLOR: sRGBColor = sRGBColor::from_sRGB(0.77, 0.7, 0.56);
 
 pub const SATURN_RADIUS: Length = Length::from_meters(58_232_000.);
@@ -149,7 +155,8 @@ pub const URANUS_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(74.22988 * RADIANS_PER_DEGREE),
     Angle::from_radians(96.734 * RADIANS_PER_DEGREE),
 );
-pub const URANUS_BOND_ALBEDO: Float = 0.3;
+pub const URANUS_BOND_ALBEDO: Float = 0.300;
+pub const URANUS_GEOMETRIC_ALBEDO: Float = 0.488;
 pub const URANUS_COLOR: sRGBColor = sRGBColor::from_sRGB(0.57, 0.75, 0.83);
 
 pub const URANUS_RADIUS: Length = Length::from_meters(25_362_000.);
@@ -168,7 +175,8 @@ pub const NEPTUNE_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(131.72169 * RADIANS_PER_DEGREE),
     Angle::from_radians(265.64685 * RADIANS_PER_DEGREE),
 );
-pub const NEPTUNE_BOND_ALBEDO: Float = 0.29;
+pub const NEPTUNE_BOND_ALBEDO: Float = 0.290;
+pub const NEPTUNE_GEOMETRIC_ALBEDO: Float = 0.442;
 pub const NEPTUNE_COLOR: sRGBColor = sRGBColor::from_sRGB(0.56, 0.75, 0.88);
 
 pub const NEPTUNE_RADIUS: Length = Length::from_meters(24_622_000.);
@@ -188,12 +196,13 @@ pub const PLUTO_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(113.76329 * RADIANS_PER_DEGREE),
 );
 pub const PLUTO_BOND_ALBEDO: Float = 0.72;
+pub const PLUTO_GEOMETRIC_ALBEDO: Float = 0.52;
 pub const PLUTO_COLOR: sRGBColor = sRGBColor::from_sRGB(0.63, 0.48, 0.37);
 
 pub const PLUTO_RADIUS: Length = Length::from_meters(1_188_300.);
 pub const PLUTO_MASS: Mass = Mass::from_kilograms(1.303e22);
 pub const PLUTO_SIDERIAL_ROTATION_PERIOD: Time = Time::from_seconds(-6.387_230 * SECONDS_PER_DAY);
-pub const PLUTO_AXIS_TILT: Angle = Angle::from_radians(122.53 * RADIANS_PER_DEGREE);
+pub const PLUTO_AXIS_TILT: Angle = Angle::from_radians(119.51 * RADIANS_PER_DEGREE);
 pub const PLUTO_NORTH: EarthEquatorialCoordinates = EarthEquatorialCoordinates::new(
     Angle::from_radians(132.99 * RADIANS_PER_DEGREE),
     Angle::from_radians(-6.16 * RADIANS_PER_DEGREE),
@@ -206,7 +215,9 @@ pub const MOON_ORBIT_ORIENTATION: OrbitOrientation = OrbitOrientation::new(
     Angle::from_radians(125.08 * RADIANS_PER_DEGREE),
     Angle::from_radians(318.15 * RADIANS_PER_DEGREE),
 );
-pub const MOON_BOND_ALBEDO: Float = 0.11;
+pub const MOON_BOND_ALBEDO: Float = 0.110;
+pub const MOON_GEOMETRIC_ALBEDO: Float = 0.120;
+
 pub const MOON_COLOR: sRGBColor = sRGBColor::from_sRGB(0.59, 0.53, 0.52);
 
 pub const MOON_RADIUS: Length = Length::from_meters(1_737_400.);

@@ -25,6 +25,8 @@ pub struct Length {
 }
 
 impl Length {
+    pub const ZERO: Length = Length { meters: 0. };
+
     pub fn from_nanometers(nanometers: Float) -> Length {
         Length {
             meters: nanometers * METERS_PER_NANOMETER,
@@ -113,7 +115,8 @@ impl Length {
         self.meters * PARSECS_PER_METER
     }
 
-    pub fn eq_within(&self, other: &Length, accuracy: Length) -> bool {
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: &Length, accuracy: Length) -> bool {
         let diff = self.meters - other.meters;
         diff.abs() <= accuracy.meters
     }

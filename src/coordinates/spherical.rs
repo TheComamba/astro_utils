@@ -50,7 +50,8 @@ impl SphericalCoordinates {
         }
     }
 
-    pub fn eq_within(&self, other: &Self, accuracy: Angle) -> bool {
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle) -> bool {
         const NORTHPOLE_LATITUDE: Angle = Angle::from_radians(PI_HALF);
         const SOUTHPOLE_LATITUDE: Angle = Angle::from_radians(-PI_HALF);
         let mut clone = self.clone();
