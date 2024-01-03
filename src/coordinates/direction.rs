@@ -485,4 +485,16 @@ mod tests {
             }
         }
     }
+
+    #[test]
+    fn direction_from_large_vector_is_ok() {
+        let x = Length::from_light_years(2000.);
+        let y = Length::from_light_years(1e-10);
+        let z = Length::from_light_years(-2000.);
+        let cartesian = CartesianCoordinates::new(x, y, z);
+        let expected = Direction::new(1., 0., -1.);
+        let actual = Direction::from_cartesian(&cartesian);
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
+    }
 }
