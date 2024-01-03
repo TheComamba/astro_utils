@@ -18,9 +18,9 @@ pub struct CartesianCoordinates {
 
 impl CartesianCoordinates {
     pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
-        x: Length::from_meters(0.),
-        y: Length::from_meters(0.),
-        z: Length::from_meters(0.),
+        x: Length::from_astronomical_units(0.),
+        y: Length::from_astronomical_units(0.),
+        z: Length::from_astronomical_units(0.),
     };
 
     pub const fn new(x: Length, y: Length, z: Length) -> CartesianCoordinates {
@@ -36,10 +36,10 @@ impl CartesianCoordinates {
     }
 
     pub fn length(&self) -> Length {
-        let x = self.x.as_meters();
-        let y = self.y.as_meters();
-        let z = self.z.as_meters();
-        Length::from_meters((x * x + y * y + z * z).sqrt())
+        let x = self.x.au;
+        let y = self.y.au;
+        let z = self.z.au;
+        Length::from_astronomical_units((x * x + y * y + z * z).sqrt())
     }
 
     pub fn distance(&self, other: &CartesianCoordinates) -> Length {

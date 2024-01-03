@@ -86,11 +86,7 @@ impl SphericalCoordinates {
     }
 
     pub fn from_cartesian(cart: &CartesianCoordinates) -> Self {
-        Self::cartesian_to_spherical((
-            cart.x().as_meters(),
-            cart.y().as_meters(),
-            cart.z().as_meters(),
-        ))
+        Self::cartesian_to_spherical((cart.x().au, cart.y().au, cart.z().au))
     }
 
     pub fn from_direction(dir: &Direction) -> Self {

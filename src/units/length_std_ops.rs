@@ -10,14 +10,14 @@ impl Add for Length {
 
     fn add(self, other: Length) -> Length {
         Length {
-            meters: self.meters + other.meters,
+            au: self.au + other.au,
         }
     }
 }
 
 impl AddAssign for Length {
     fn add_assign(&mut self, other: Length) {
-        self.meters += other.meters;
+        self.au += other.au;
     }
 }
 
@@ -26,14 +26,14 @@ impl Sub for Length {
 
     fn sub(self, other: Length) -> Length {
         Length {
-            meters: self.meters - other.meters,
+            au: self.au - other.au,
         }
     }
 }
 
 impl SubAssign for Length {
     fn sub_assign(&mut self, other: Length) {
-        self.meters -= other.meters;
+        self.au -= other.au;
     }
 }
 
@@ -41,15 +41,13 @@ impl Mul<Float> for Length {
     type Output = Length;
 
     fn mul(self, f: Float) -> Length {
-        Length {
-            meters: self.meters * f,
-        }
+        Length { au: self.au * f }
     }
 }
 
 impl MulAssign<Float> for Length {
     fn mul_assign(&mut self, f: Float) {
-        self.meters *= f;
+        self.au *= f;
     }
 }
 
@@ -58,14 +56,14 @@ impl Mul<Length> for Float {
 
     fn mul(self, length: Length) -> Length {
         Length {
-            meters: self * length.meters,
+            au: self * length.au,
         }
     }
 }
 
 impl MulAssign<Length> for Float {
     fn mul_assign(&mut self, length: Length) {
-        *self *= length.meters;
+        *self *= length.au;
     }
 }
 
@@ -73,15 +71,13 @@ impl Div<Float> for Length {
     type Output = Length;
 
     fn div(self, f: Float) -> Length {
-        Length {
-            meters: self.meters / f,
-        }
+        Length { au: self.au / f }
     }
 }
 
 impl DivAssign<Float> for Length {
     fn div_assign(&mut self, f: Float) {
-        self.meters /= f;
+        self.au /= f;
     }
 }
 
@@ -89,13 +85,13 @@ impl Div<Length> for Length {
     type Output = Float;
 
     fn div(self, other: Length) -> Float {
-        self.meters / other.meters
+        self.au / other.au
     }
 }
 
 impl DivAssign<Length> for Length {
     fn div_assign(&mut self, other: Length) {
-        self.meters /= other.meters;
+        self.au /= other.au;
     }
 }
 
@@ -103,9 +99,7 @@ impl Neg for Length {
     type Output = Length;
 
     fn neg(self) -> Length {
-        Length {
-            meters: -self.meters,
-        }
+        Length { au: -self.au }
     }
 }
 
@@ -114,14 +108,14 @@ impl Rem for Length {
 
     fn rem(self, other: Length) -> Length {
         Length {
-            meters: self.meters % other.meters,
+            au: self.au % other.au,
         }
     }
 }
 
 impl RemAssign for Length {
     fn rem_assign(&mut self, other: Length) {
-        self.meters %= other.meters;
+        self.au %= other.au;
     }
 }
 

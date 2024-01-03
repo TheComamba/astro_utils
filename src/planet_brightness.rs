@@ -21,8 +21,8 @@ fn illuminated_fraction(reflection_angle: &Angle) -> Float {
 }
 
 fn solid_angle(radius: &Length, distance: &Length, reflection_angle: &Angle) -> Float {
-    let radius = radius.as_meters();
-    let distance = distance.as_meters();
+    let radius = radius.as_astronomical_units();
+    let distance = distance.as_astronomical_units();
     let area = PI * radius.powi(2) * illuminated_fraction(reflection_angle);
     area / distance.powi(2)
 }

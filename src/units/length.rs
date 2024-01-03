@@ -2,139 +2,148 @@ use crate::Float;
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-const METERS_PER_NANOMETER: Float = 1e-9;
-const NANOMETERS_PER_METER: Float = 1. / METERS_PER_NANOMETER;
-const METERS_PER_KILOMETER: Float = 1000.;
-const KILOMETERS_PER_METER: Float = 1. / METERS_PER_KILOMETER;
-pub(crate) const METERS_PER_EARTH_RADIUS: Float = 6_371_000.;
-const EARTH_RADII_PER_METER: Float = 1. / METERS_PER_EARTH_RADIUS;
-pub(crate) const METERS_PER_JUPITER_RADIUS: Float = 69_911_000.;
-const JUPITER_RADII_PER_METER: Float = 1. / METERS_PER_JUPITER_RADIUS;
-pub(crate) const METERS_PER_SUN_RADIUS: Float = 695_700_000.;
-const SUN_RADII_PER_METER: Float = 1. / METERS_PER_SUN_RADIUS;
-const METERS_PER_ASTRONOMICAL_UNIT: Float = 149_597_870_700.;
-const ASTRONOMICAL_UNITS_PER_METER: Float = 1. / METERS_PER_ASTRONOMICAL_UNIT;
-pub(crate) const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
-const LIGHT_YEARS_PER_METER: Float = 1. / METERS_PER_LIGHT_YEAR;
-pub(crate) const METERS_PER_PARSEC: Float = 30_856_775_814_671_900.;
-const PARSECS_PER_METER: Float = 1. / METERS_PER_PARSEC;
+const METERS_PER_NANOMETERS: Float = 1e-9;
+const METERS_PER_KILOMETERS: Float = 1000.;
+const METERS_PER_EARTH_RADII: Float = 6_371_000.;
+const METERS_PER_JUPITER_RADIUS: Float = 69_911_000.;
+const METERS_PER_SUN_RADII: Float = 695_700_000.;
+const METERS_PER_AU: Float = 149_597_870_700.;
+const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
+const METERS_PER_PARSEC: Float = 30_856_775_814_671_900.;
+pub(crate) const AU_PER_NANOMETERS: Float = AU_PER_METER * METERS_PER_NANOMETERS;
+pub(crate) const AU_PER_METER: Float = 1. / METERS_PER_AU;
+pub(crate) const AU_PER_KILOMETERS: Float = AU_PER_METER * METERS_PER_KILOMETERS;
+pub(crate) const AU_PER_EARTH_RADII: Float = AU_PER_METER * METERS_PER_EARTH_RADII;
+pub(crate) const AU_PER_JUPITER_RADII: Float = AU_PER_METER * METERS_PER_JUPITER_RADIUS;
+pub(crate) const AU_PER_SUN_RADII: Float = AU_PER_METER * METERS_PER_SUN_RADII;
+pub(crate) const AU_PER_LIGHT_YEARS: Float = AU_PER_METER * METERS_PER_LIGHT_YEAR;
+pub(crate) const AU_PER_PARSECS: Float = AU_PER_METER * METERS_PER_PARSEC;
+const NANOMETERS_PER_AU: Float = 1. / AU_PER_NANOMETERS;
+const KILOMETERS_PER_AU: Float = 1. / AU_PER_KILOMETERS;
+const EARTH_RADII_PER_AU: Float = 1. / AU_PER_EARTH_RADII;
+const JUPITER_RADII_PER_AU: Float = 1. / AU_PER_JUPITER_RADII;
+const SUN_RADII_PER_AU: Float = 1. / AU_PER_SUN_RADII;
+const LIGHT_YEARS_PER_AU: Float = 1. / AU_PER_LIGHT_YEARS;
+const PARSECS_PER_AU: Float = 1. / AU_PER_PARSECS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Length {
-    pub(super) meters: Float,
+    pub(crate) au: Float,
 }
 
 impl Length {
-    pub const ZERO: Length = Length { meters: 0. };
+    pub const ZERO: Length = Length { au: 0. };
 
     pub fn from_nanometers(nanometers: Float) -> Length {
         Length {
-            meters: nanometers * METERS_PER_NANOMETER,
+            au: nanometers * AU_PER_NANOMETERS,
         }
     }
 
-    pub const fn from_meters(meters: Float) -> Length {
-        Length { meters }
+    pub fn from_meters(meters: Float) -> Length {
+        Length {
+            au: meters * AU_PER_METER,
+        }
     }
 
     pub fn from_kilometers(kilometers: Float) -> Length {
         Length {
-            meters: kilometers * METERS_PER_KILOMETER,
+            au: kilometers * AU_PER_KILOMETERS,
         }
     }
 
     pub fn from_earth_radii(earth_radii: Float) -> Length {
         Length {
-            meters: earth_radii * METERS_PER_EARTH_RADIUS,
+            au: earth_radii * AU_PER_EARTH_RADII,
         }
     }
 
     pub fn from_jupiter_radii(jupiter_radii: Float) -> Length {
         Length {
-            meters: jupiter_radii * METERS_PER_JUPITER_RADIUS,
+            au: jupiter_radii * AU_PER_JUPITER_RADII,
         }
     }
 
     pub fn from_sun_radii(sun_radii: Float) -> Length {
         Length {
-            meters: sun_radii * METERS_PER_SUN_RADIUS,
+            au: sun_radii * AU_PER_SUN_RADII,
         }
     }
 
-    pub fn from_astronomical_units(astronomical_units: Float) -> Length {
+    pub const fn from_astronomical_units(astronomical_units: Float) -> Length {
         Length {
-            meters: astronomical_units * METERS_PER_ASTRONOMICAL_UNIT,
+            au: astronomical_units,
         }
     }
 
     pub fn from_light_years(light_years: Float) -> Length {
         Length {
-            meters: light_years * METERS_PER_LIGHT_YEAR,
+            au: light_years * AU_PER_LIGHT_YEARS,
         }
     }
 
     pub fn from_parsecs(parsecs: Float) -> Length {
         Length {
-            meters: parsecs * METERS_PER_PARSEC,
+            au: parsecs * AU_PER_PARSECS,
         }
     }
 
     pub fn as_nanometers(&self) -> Float {
-        self.meters * NANOMETERS_PER_METER
+        self.au * NANOMETERS_PER_AU
     }
 
-    pub const fn as_meters(&self) -> Float {
-        self.meters
+    pub fn as_meters(&self) -> Float {
+        self.au * METERS_PER_AU
     }
 
     pub fn as_kilometers(&self) -> Float {
-        self.meters * KILOMETERS_PER_METER
+        self.au * KILOMETERS_PER_AU
     }
 
     pub fn as_earth_radii(&self) -> Float {
-        self.meters * EARTH_RADII_PER_METER
+        self.au * EARTH_RADII_PER_AU
     }
 
     pub fn as_jupiter_radii(&self) -> Float {
-        self.meters * JUPITER_RADII_PER_METER
+        self.au * JUPITER_RADII_PER_AU
     }
 
     pub fn as_sun_radii(&self) -> Float {
-        self.meters * SUN_RADII_PER_METER
+        self.au * SUN_RADII_PER_AU
     }
 
     pub fn as_astronomical_units(&self) -> Float {
-        self.meters * ASTRONOMICAL_UNITS_PER_METER
+        self.au
     }
 
     pub fn as_light_years(&self) -> Float {
-        self.meters * LIGHT_YEARS_PER_METER
+        self.au * LIGHT_YEARS_PER_AU
     }
 
     pub fn as_parsecs(&self) -> Float {
-        self.meters * PARSECS_PER_METER
+        self.au * PARSECS_PER_AU
     }
 
     #[cfg(test)]
     pub(crate) fn eq_within(&self, other: &Length, accuracy: Length) -> bool {
-        let diff = self.meters - other.meters;
-        diff.abs() <= accuracy.meters
+        let diff = self.au - other.au;
+        diff.abs() <= accuracy.au
     }
 }
 
 impl Display for Length {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.meters.abs() > 0.0099 * METERS_PER_LIGHT_YEAR {
+        if self.au.abs() > 0.0099 * AU_PER_LIGHT_YEARS {
             write!(f, "{:.2} ly", self.as_light_years())
-        } else if self.meters.abs() > 0.0099 * METERS_PER_ASTRONOMICAL_UNIT {
+        } else if self.au.abs() > 0.0099 {
             write!(f, "{:.2} AU", self.as_astronomical_units())
-        } else if self.meters.abs() > 0.099 * METERS_PER_SUN_RADIUS {
+        } else if self.au.abs() > 0.099 * AU_PER_SUN_RADII {
             write!(f, "{:.2} R☉", self.as_sun_radii())
-        } else if self.meters.abs() > 0.99 * METERS_PER_EARTH_RADIUS {
+        } else if self.au.abs() > 0.99 * AU_PER_EARTH_RADII {
             write!(f, "{:.2} R🜨", self.as_earth_radii())
-        } else if self.meters.abs() > 0.99 * METERS_PER_KILOMETER {
+        } else if self.au.abs() > 0.99 * AU_PER_KILOMETERS {
             write!(f, "{:.2} km", self.as_kilometers())
-        } else if self.meters.abs() > 1001. * METERS_PER_NANOMETER {
+        } else if self.au.abs() > 1001. * AU_PER_NANOMETERS {
             write!(f, "{:.2} m", self.as_meters())
         } else {
             write!(f, "{:.2} nm", self.as_nanometers())
@@ -150,13 +159,15 @@ mod tests {
 
     #[test]
     fn test_meters() {
+        let expected = Length::from_meters(1.);
         let length = Length::from_meters(1.);
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_meters() - 1.).abs() < TEST_ACCURACY);
     }
 
     #[test]
     fn test_kilometer() {
-        let expected = Length::from_meters(METERS_PER_KILOMETER);
+        let expected = Length::from_meters(METERS_PER_KILOMETERS);
         let length = Length::from_kilometers(1.);
         assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_kilometers() - 1.).abs() < TEST_ACCURACY);
@@ -164,7 +175,7 @@ mod tests {
 
     #[test]
     fn test_earth_radii() {
-        let expected = Length::from_meters(METERS_PER_EARTH_RADIUS);
+        let expected = Length::from_meters(METERS_PER_EARTH_RADII);
         let length = Length::from_earth_radii(1.);
         assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_earth_radii() - 1.).abs() < TEST_ACCURACY);
@@ -180,7 +191,7 @@ mod tests {
 
     #[test]
     fn test_sun_radii() {
-        let expected = Length::from_meters(METERS_PER_SUN_RADIUS);
+        let expected = Length::from_meters(METERS_PER_SUN_RADII);
         let length = Length::from_sun_radii(1.);
         assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_sun_radii() - 1.).abs() < TEST_ACCURACY);
@@ -188,7 +199,7 @@ mod tests {
 
     #[test]
     fn test_astronomical_units() {
-        let expected = Length::from_meters(METERS_PER_ASTRONOMICAL_UNIT);
+        let expected = Length::from_meters(METERS_PER_AU);
         let length = Length::from_astronomical_units(1.);
         assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
         assert!((length.as_astronomical_units() - 1.).abs() < TEST_ACCURACY);
@@ -212,7 +223,7 @@ mod tests {
 
     #[test]
     fn test_add() {
-        let expected = Length::from_meters(2. * METERS_PER_KILOMETER);
+        let expected = Length::from_meters(2. * METERS_PER_KILOMETERS);
         let length = Length::from_kilometers(1.);
         assert!((length + length).eq_within(&expected, TEST_LENGTH_ACCURACY));
     }
