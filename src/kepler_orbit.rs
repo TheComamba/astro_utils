@@ -1,7 +1,5 @@
 use crate::{
-    coordinates::{
-        cartesian::CartesianCoordinates, direction::Direction, spherical::SphericalCoordinates,
-    },
+    coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates},
     orbit_orientation::OrbitOrientation,
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float, TWO_PI,
@@ -95,7 +93,7 @@ pub fn position_relative_to_central_body(
     orientation: &OrbitOrientation,
 ) -> CartesianCoordinates {
     let ecliptic_from_focus = SphericalCoordinates::new(true_anomaly, Angle::from_radians(0.));
-    let direction = Direction::from_spherical(&ecliptic_from_focus);
+    let direction = ecliptic_from_focus.to_direction();
     let distance_from_focus = distance_from_focus(semi_major_axis, true_anomaly, eccentricity);
     let position = direction.to_cartesian(distance_from_focus);
     orientation.apply_to(position)

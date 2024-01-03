@@ -18,10 +18,8 @@ impl EarthEquatorialCoordinates {
     }
 
     pub fn to_direction(&self) -> Direction {
-        let direction_in_equatorial = Direction::from_spherical(&SphericalCoordinates::new(
-            self.right_ascension,
-            self.declination,
-        ));
+        let direction_in_equatorial =
+            SphericalCoordinates::new(self.right_ascension, self.declination).to_direction();
         let direction_in_ecliptic =
             direction_in_equatorial.rotated(-EARTH_AXIS_TILT, &Direction::X);
         direction_in_ecliptic

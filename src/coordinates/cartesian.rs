@@ -82,8 +82,12 @@ impl CartesianCoordinates {
 
     pub fn to_ecliptic(&self) -> EclipticCoordinates {
         EclipticCoordinates {
-            spherical: SphericalCoordinates::from_cartesian(self),
+            spherical: self.to_spherical(),
         }
+    }
+
+    pub fn to_spherical(&self) -> SphericalCoordinates {
+        SphericalCoordinates::cartesian_to_spherical((self.x.au, self.y.au, self.z.au))
     }
 }
 

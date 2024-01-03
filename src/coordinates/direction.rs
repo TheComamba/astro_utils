@@ -47,15 +47,12 @@ impl Direction {
         }
     }
 
-    pub fn from_spherical(spherical: &SphericalCoordinates) -> Self {
-        let x = spherical.get_longitude().cos() * spherical.get_latitude().cos();
-        let y = spherical.get_longitude().sin() * spherical.get_latitude().cos();
-        let z = spherical.get_latitude().sin();
-        Direction { x, y, z }
-    }
-
     pub fn to_cartesian(&self, length: Length) -> CartesianCoordinates {
         CartesianCoordinates::new(self.x * length, self.y * length, self.z * length)
+    }
+
+    pub fn to_spherical(&self) -> SphericalCoordinates {
+        SphericalCoordinates::cartesian_to_spherical((self.x, self.y, self.z))
     }
 
     pub fn x(&self) -> Float {
@@ -205,9 +202,7 @@ mod tests {
                     let expected_x = x / length;
                     let expected_y = y / length;
                     let expected_z = z / length;
-
-                    let spherical = SphericalCoordinates::from_cartesian(&cartesian);
-                    let direction = Direction::from_spherical(&spherical);
+                    let direction = cartesian.to_spherical().to_direction();
 
                     assert!((direction.x() - expected_x).abs() < TEST_ACCURACY);
                     assert!((direction.y() - expected_y).abs() < TEST_ACCURACY);

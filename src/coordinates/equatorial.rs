@@ -41,8 +41,9 @@ impl EquatorialCoordinates {
     }
 
     pub(crate) fn to_direction(&self) -> Direction {
-        let dir = Direction::from_spherical(&self.spherical);
-        dir.active_rotation_to_new_z_axis(&self.rotation_axis)
+        self.spherical
+            .to_direction()
+            .active_rotation_to_new_z_axis(&self.rotation_axis)
     }
 }
 
@@ -157,8 +158,9 @@ mod tests {
     #[test]
     fn behaves_like_earth_equatorial() {
         let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
-        let earth_north =
-            Direction::from_spherical(&EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES.get_spherical());
+        let earth_north = EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES
+            .get_spherical()
+            .to_direction();
 
         for long in ordinates.clone() {
             for lat in ordinates.clone() {
