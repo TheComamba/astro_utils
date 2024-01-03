@@ -6,6 +6,7 @@ pub mod illuminance;
 pub mod illuminance_std_ops;
 pub mod length;
 pub mod length_std_ops;
+pub mod luminance;
 pub mod luminosity;
 pub mod mass;
 pub mod mass_std_ops;

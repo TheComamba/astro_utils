@@ -1,8 +1,24 @@
 use crate::{
     coordinates::cartesian::CartesianCoordinates,
-    units::{illuminance::Illuminance, length::Length, luminosity::Luminosity},
-    Float,
+    units::{
+        angle::Angle, illuminance::Illuminance, length::Length,
+        luminosity::Luminosity,
+    },
+    Float, PI,
 };
+
+/*
+ * illuminated_area = area of circle = PI * planet_radius^2;
+ * luminating_area = half area of sphere = 4 * PI * planet_radius^2 / 2;
+ */
+const LUMINATING_AREA_PER_ILLUMINATED_AREA: Float = 0.5;
+
+fn solid_angle(radius: &Length, distance: &Length, reflection_angle: &Angle) -> Angle {
+    let apparent_radius = radius / distance;
+    let apparent_area = PI * apparent_radius * apparent_radius * reflection_angle.cos();
+    let solid_angle = apparent_area / (4. * PI);
+    Angle::from_radians(solid_angle)
+}
 
 pub fn planet_brightness(
     star_luminosity: Luminosity,
@@ -15,8 +31,15 @@ pub fn planet_brightness(
     let planet_to_star = star_position - planet_position;
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer);
-    let illuminance_of_planet = star_luminosity.to_illuminance(&planet_to_star.length());
-    todo!()
+    let planet_illuminance = star_luminosity.to_illuminance(&planet_to_star.length());
+    let planet_luminance =
+        (planet_illuminance * LUMINATING_AREA_PER_ILLUMINATED_AREA * planet_albedo).to_luminance();
+    let solid_angle_at_obsverver = solid_angle(
+        &planet_radius,
+        &planet_to_observer.length(),
+        &reflection_angle,
+    );
+    planet_luminance.to_illuminance(&solid_angle_at_obsverver)
 }
 
 #[cfg(test)]

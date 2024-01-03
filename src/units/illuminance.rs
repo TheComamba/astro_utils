@@ -1,5 +1,5 @@
-use super::{length::Length, luminosity::Luminosity};
-use crate::Float;
+use super::{length::Length, luminance::Luminance, luminosity::Luminosity};
+use crate::{Float, PI};
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
@@ -31,6 +31,11 @@ impl Illuminance {
         let absolute_magnitude =
             self.as_apparent_magnitude() - 5. * distance.as_parsecs().log10() + 5.;
         Luminosity::from_absolute_magnitude(absolute_magnitude)
+    }
+
+    pub fn to_luminance(&self) -> Luminance {
+        let nit = self.lux / PI;
+        Luminance::from_nit(nit)
     }
 }
 
