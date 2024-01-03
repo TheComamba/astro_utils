@@ -65,7 +65,16 @@ impl CartesianCoordinates {
     }
 
     pub fn angle_to(&self, other: &CartesianCoordinates) -> Angle {
-        Direction::from_cartesian(&self).angle_to(&Direction::from_cartesian(other))
+        self.to_direction().angle_to(&other.to_direction())
+    }
+
+    pub fn to_direction(&self) -> Direction {
+        let length = self.length();
+        Direction {
+            x: self.x() / length,
+            y: self.y() / length,
+            z: self.z() / length,
+        }
     }
 }
 

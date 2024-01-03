@@ -12,9 +12,9 @@ pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-10;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Direction {
-    x: Float,
-    y: Float,
-    z: Float,
+    pub(super) x: Float,
+    pub(super) y: Float,
+    pub(super) z: Float,
 }
 
 impl Direction {
@@ -44,15 +44,6 @@ impl Direction {
                 y: y / length,
                 z: z / length,
             }
-        }
-    }
-
-    pub fn from_cartesian(cartesian: &CartesianCoordinates) -> Self {
-        let length = cartesian.length();
-        Direction {
-            x: cartesian.x() / length,
-            y: cartesian.y() / length,
-            z: cartesian.z() / length,
         }
     }
 
@@ -493,7 +484,7 @@ mod tests {
         let z = Length::from_light_years(-2000.);
         let cartesian = CartesianCoordinates::new(x, y, z);
         let expected = Direction::new(1., 0., -1.);
-        let actual = Direction::from_cartesian(&cartesian);
+        let actual = cartesian.to_direction();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
     }

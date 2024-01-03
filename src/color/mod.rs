@@ -67,6 +67,17 @@ impl sRGBColor {
         let sum = self.R + self.G + self.B;
         (self.R / sum, self.G / sum, self.B / sum)
     }
+
+    #[allow(non_snake_case)]
+    pub fn to_XYZ(&self) -> XYZColor {
+        let X =
+            sRGB_TO_XYZ[0][0] * self.R + sRGB_TO_XYZ[0][1] * self.G + sRGB_TO_XYZ[0][2] * self.B;
+        let Y =
+            sRGB_TO_XYZ[1][0] * self.R + sRGB_TO_XYZ[1][1] * self.G + sRGB_TO_XYZ[1][2] * self.B;
+        let Z =
+            sRGB_TO_XYZ[2][0] * self.R + sRGB_TO_XYZ[2][1] * self.G + sRGB_TO_XYZ[2][2] * self.B;
+        XYZColor { X, Y, Z }
+    }
 }
 
 impl XYZColor {
@@ -84,14 +95,6 @@ impl XYZColor {
         let Y = convolute_with_black_body(y_fun, temperature);
         let Z = convolute_with_black_body(z_fun, temperature);
         XYZColor::from_XYZ(X, Y, Z)
-    }
-
-    #[allow(non_snake_case)]
-    pub fn from_sRGB(R: Float, G: Float, B: Float) -> XYZColor {
-        let X = sRGB_TO_XYZ[0][0] * R + sRGB_TO_XYZ[0][1] * G + sRGB_TO_XYZ[0][2] * B;
-        let Y = sRGB_TO_XYZ[1][0] * R + sRGB_TO_XYZ[1][1] * G + sRGB_TO_XYZ[1][2] * B;
-        let Z = sRGB_TO_XYZ[2][0] * R + sRGB_TO_XYZ[2][1] * G + sRGB_TO_XYZ[2][2] * B;
-        XYZColor { X, Y, Z }
     }
 
     #[allow(non_snake_case)]
