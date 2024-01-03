@@ -15,6 +15,7 @@ pub fn planet_brightness(
     let planet_to_star = star_position - planet_position;
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer);
+    let illuminance_of_planet = star_luminosity.to_illuminance(&planet_to_star.length());
     todo!()
 }
 

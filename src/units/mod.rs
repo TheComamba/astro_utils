@@ -3,6 +3,7 @@
 pub mod angle;
 pub mod angle_std_ops;
 pub mod illuminance;
+pub mod illuminance_std_ops;
 pub mod length;
 pub mod length_std_ops;
 pub mod luminosity;

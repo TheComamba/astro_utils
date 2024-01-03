@@ -1,8 +1,9 @@
-use std::fmt::Display;
-
 use super::{length::Length, luminosity::Luminosity};
 use crate::Float;
+use serde::{Deserialize, Serialize};
+use std::fmt::Display;
 
+#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Illuminance {
     pub(crate) lux: Float,
 }
