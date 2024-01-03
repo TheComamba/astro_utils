@@ -7,6 +7,7 @@ pub mod coordinates;
 pub mod data;
 pub mod kepler_orbit;
 pub mod orbit_orientation;
+pub mod planet_brightness;
 pub mod stellar_properties;
 pub mod surface_normal;
 pub mod units;
