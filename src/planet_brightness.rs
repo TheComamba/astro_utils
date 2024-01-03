@@ -10,10 +10,19 @@ use crate::{
  */
 const LUMINATING_AREA_PER_ILLUMINATED_AREA: Float = 0.5;
 
+/*
+ * https://www.physicsforums.com/threads/illuminated-fraction-of-the-moon.515983/
+ */
+fn illuminated_fraction(reflection_angle: &Angle) -> Float {
+    let reflection_angle = reflection_angle.as_radians();
+    let illuminated_fraction = (1. + reflection_angle.cos()) / 2.;
+    illuminated_fraction
+}
+
 fn solid_angle(radius: &Length, distance: &Length, reflection_angle: &Angle) -> Float {
     let radius = radius.as_meters();
     let distance = distance.as_meters();
-    let area = PI * radius.powi(2) * reflection_angle.as_radians().cos();
+    let area = PI * radius.powi(2) * illuminated_fraction(reflection_angle);
     area / distance.powi(2)
 }
 
@@ -64,12 +73,24 @@ mod tests {
     }
 
     #[test]
-    fn solid_angle_of_moon() {
+    fn solid_angle_of_full_moon() {
         let expected = 6.4e-5;
         let actual = solid_angle(
             &MOON_RADIUS,
             &MOON_SEMI_MAJOR_AXIS,
             &Angle::from_degrees(0.),
+        );
+        println!("expected: {}, actual: {}", expected, actual);
+        assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY * expected);
+    }
+
+    #[test]
+    fn solid_angle_of_half_moon() {
+        let expected = 6.4e-5 / 2.;
+        let actual = solid_angle(
+            &MOON_RADIUS,
+            &MOON_SEMI_MAJOR_AXIS,
+            &Angle::from_degrees(90.),
         );
         println!("expected: {}, actual: {}", expected, actual);
         assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY * expected);
@@ -119,7 +140,7 @@ mod tests {
 
     #[test]
     fn venus_at_occultation() {
-        let expected = Illuminance::from_apparent_magnitude(0.);
+        let expected = Illuminance::from_lux(0.);
         let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position =
