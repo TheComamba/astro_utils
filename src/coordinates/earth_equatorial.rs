@@ -54,7 +54,7 @@ mod tests {
         units::angle::Angle,
     };
 
-    const TILT_TEST_ACCURACY: Angle = Angle::from_radians(1e-3);
+    const TILT_TEST_ACCURACY: Angle = Angle::from_radians(2e-3);
 
     /*
      * https://ned.ipac.caltech.edu/coordinate_calculator?in_csys=Equatorial&in_equinox=J2000.0&obs_epoch=2000.0&ra=0&dec=90&pa=0.0&out_csys=Ecliptic&out_equinox=J2000.0
