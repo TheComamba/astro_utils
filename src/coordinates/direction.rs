@@ -2,6 +2,7 @@ use super::{
     cartesian::CartesianCoordinates, rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
 use crate::{
+    error::AstroUtilError,
     units::{angle::Angle, length::Length},
     Float, PI,
 };
@@ -34,16 +35,16 @@ impl Direction {
         z: 1.,
     };
 
-    pub fn new(x: Float, y: Float, z: Float) -> Self {
+    pub fn new(x: Float, y: Float, z: Float) -> Result<Self, AstroUtilError> {
         let length = (x * x + y * y + z * z).sqrt();
         if length < NORMALIZATION_THRESHOLD {
-            Self::Z //return default axis
+            Err(AstroUtilError::NormalizingZeroVector)
         } else {
-            Direction {
+            Ok(Direction {
                 x: x / length,
                 y: y / length,
                 z: z / length,
-            }
+            })
         }
     }
 
@@ -93,20 +94,17 @@ impl Direction {
         Angle::from_radians(cosine_argument.acos())
     }
 
-    fn some_orthogonal_vector(&self) -> Direction {
+    pub(super) fn some_orthogonal_vector(&self) -> Direction {
         if self.x().abs() > NORMALIZATION_THRESHOLD {
-            self.cross_product(&Self::Y)
+            self.cross_product(&Self::Y).unwrap()
         } else if self.y().abs() > NORMALIZATION_THRESHOLD {
-            self.cross_product(&Self::Z)
-        } else if self.z().abs() > NORMALIZATION_THRESHOLD {
-            self.cross_product(&Self::X)
+            self.cross_product(&Self::Z).unwrap()
         } else {
-            //vector is (0,0,0)
-            Self::Z
+            self.cross_product(&Self::X).unwrap()
         }
     }
 
-    pub(super) fn cross_product(&self, other: &Direction) -> Direction {
+    pub(super) fn cross_product(&self, other: &Direction) -> Result<Direction, AstroUtilError> {
         let (ax, ay, az) = (self.x, self.y, self.z);
         let (bx, by, bz) = (other.x(), other.y(), other.z());
 
@@ -114,12 +112,7 @@ impl Direction {
         let cy = az * bx - ax * bz;
         let cz = ax * by - ay * bx;
 
-        let cross_product_length = (cx * cx + cy * cy + cz * cz).sqrt();
-        if cross_product_length < NORMALIZATION_THRESHOLD {
-            self.some_orthogonal_vector()
-        } else {
-            Direction::new(cx, cy, cz)
-        }
+        Direction::new(cx, cy, cz)
     }
 
     #[cfg(test)]
@@ -131,16 +124,19 @@ impl Direction {
      * This method is for example used to convert from equatorial coordinates to ecliptic coordinates.
      * It operates the following way:
      * 1. The vector is rotated around the X axis by the angle between new and old Z axis.
-     * 2. The vector is rotated around old Z by the angle between new and old X, projected on the old X-Y plane.
+     * 2. The vector is rotated around old Z by the angle between new Z and old Y, projected on the old X-Y plane.
      * The result is the coordinates. The new X-axis still lies in the old X-Y plane.
      */
     pub fn active_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
         let angle_to_old_z = new_z.angle_to(&Self::Z);
 
         let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Self::Y);
-        if axis_projected_onto_xy_plane.x() < 0. {
-            polar_rotation_angle = -polar_rotation_angle;
+        let mut polar_rotation_angle = Angle::ZERO;
+        if let Ok(axis_projected_onto_xy_plane) = axis_projected_onto_xy_plane {
+            polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Self::Y);
+            if axis_projected_onto_xy_plane.x() < 0. {
+                polar_rotation_angle = -polar_rotation_angle;
+            }
         }
 
         let mut dir = self.rotated(-angle_to_old_z, &Self::X);
@@ -150,9 +146,12 @@ impl Direction {
 
     pub fn passive_rotation_to_new_z_axis(&self, new_z: &Direction) -> Direction {
         let axis_projected_onto_xy_plane = Direction::new(new_z.x(), new_z.y(), 0.);
-        let mut polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Self::Y);
-        if axis_projected_onto_xy_plane.x() < 0. {
-            polar_rotation_angle = -polar_rotation_angle;
+        let mut polar_rotation_angle = Angle::ZERO;
+        if let Ok(axis_projected_onto_xy_plane) = axis_projected_onto_xy_plane {
+            polar_rotation_angle = axis_projected_onto_xy_plane.angle_to(&Self::Y);
+            if axis_projected_onto_xy_plane.x() < 0. {
+                polar_rotation_angle = -polar_rotation_angle;
+            }
         }
 
         let angle_to_old_z = new_z.angle_to(&Self::Z);
@@ -228,20 +227,20 @@ mod tests {
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle1 = Direction::new(1., 1., 0.);
-        let angle2 = Direction::new(-1., -1., 0.);
+        let angle1 = Direction::new(1., 1., 0.).unwrap();
+        let angle2 = Direction::new(-1., -1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle1 = Direction::new(1., 0., 1.);
-        let angle2 = Direction::new(-1., 0., -1.);
+        let angle1 = Direction::new(1., 0., 1.).unwrap();
+        let angle2 = Direction::new(-1., 0., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle1 = Direction::new(0., 1., 1.);
-        let angle2 = Direction::new(0., -1., -1.);
+        let angle1 = Direction::new(0., 1., 1.).unwrap();
+        let angle2 = Direction::new(0., -1., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
@@ -263,14 +262,14 @@ mod tests {
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let angle1 = Direction::new(1., 1., 0.);
-        let angle2 = Direction::new(1., -1., 0.);
+        let angle1 = Direction::new(1., 1., 0.).unwrap();
+        let angle2 = Direction::new(1., -1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
 
-        let angle1 = Direction::new(1., 0., 1.);
-        let angle2 = Direction::new(1., 0., -1.);
+        let angle1 = Direction::new(1., 0., 1.).unwrap();
+        let angle2 = Direction::new(1., 0., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", expected, angle);
         assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
@@ -292,8 +291,8 @@ mod tests {
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle1 = Direction::new(1., 1., 0.);
-        let angle2 = Direction::new(1., 1., 0.);
+        let angle1 = Direction::new(1., 1., 0.).unwrap();
+        let angle2 = Direction::new(1., 1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", EXPECTED, angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
@@ -301,52 +300,51 @@ mod tests {
 
     #[test]
     fn test_cross_product() {
-        let angle1 = Direction::new(1., 0., 0.);
-        let angle2 = Direction::new(0., 1., 0.);
-        let expected = Direction::new(0., 0., 1.);
-        let actual = angle1.cross_product(&angle2);
+        let angle1 = Direction::new(1., 0., 0.).unwrap();
+        let angle2 = Direction::new(0., 1., 0.).unwrap();
+        let expected = Direction::new(0., 0., 1.).unwrap();
+        let actual = angle1.cross_product(&angle2).unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let angle1 = Direction::new(1., 0., 0.);
-        let angle2 = Direction::new(0., 0., 1.);
-        let expected = Direction::new(0., -1., 0.);
-        let actual = angle1.cross_product(&angle2);
+        let angle1 = Direction::new(1., 0., 0.).unwrap();
+        let angle2 = Direction::new(0., 0., 1.).unwrap();
+        let expected = Direction::new(0., -1., 0.).unwrap();
+        let actual = angle1.cross_product(&angle2).unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let angle1 = Direction::new(0., 1., 0.);
-        let angle2 = Direction::new(0., 0., 1.);
-        let expected = Direction::new(1., 0., 0.);
-        let actual = angle1.cross_product(&angle2);
+        let angle1 = Direction::new(0., 1., 0.).unwrap();
+        let angle2 = Direction::new(0., 0., 1.).unwrap();
+        let expected = Direction::new(1., 0., 0.).unwrap();
+        let actual = angle1.cross_product(&angle2).unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let angle1 = Direction::new(0., 1., 0.);
-        let angle2 = Direction::new(0., 0., -1.);
-        let expected = Direction::new(-1., 0., 0.);
-        let actual = angle1.cross_product(&angle2);
+        let angle1 = Direction::new(0., 1., 0.).unwrap();
+        let angle2 = Direction::new(0., 0., -1.).unwrap();
+        let expected = Direction::new(-1., 0., 0.).unwrap();
+        let actual = angle1.cross_product(&angle2).unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let angle1 = Direction::new(0., 0., 1.);
-        let angle2 = Direction::new(0., 1., 0.);
-        let expected = Direction::new(-1., 0., 0.);
-        let actual = angle1.cross_product(&angle2);
+        let angle1 = Direction::new(0., 0., 1.).unwrap();
+        let angle2 = Direction::new(0., 1., 0.).unwrap();
+        let expected = Direction::new(-1., 0., 0.).unwrap();
+        let actual = angle1.cross_product(&angle2).unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
-        let angle1 = Direction::new(0., 0., 1.);
-        let angle2 = Direction::new(1., 0., 0.);
-        let expected = Direction::new(0., 1., 0.);
-        let actual = angle1.cross_product(&angle2);
+        let angle1 = Direction::new(0., 0., 1.).unwrap();
+        let angle2 = Direction::new(1., 0., 0.).unwrap();
+        let expected = Direction::new(0., 1., 0.).unwrap();
+        let actual = angle1.cross_product(&angle2).unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
     }
 
     #[test]
     fn cross_product_is_always_orthogonal() {
-        let problematic = Direction::new(0., 0., 0.);
         let ordinates = vec![-1., 0., 1., 10.];
         for x in ordinates.clone().iter() {
             for y in ordinates.clone().iter() {
@@ -356,21 +354,24 @@ mod tests {
                             for w in ordinates.clone().iter() {
                                 let a = Direction::new(*x, *y, *z);
                                 let b = Direction::new(*u, *v, *w);
-                                println!("a: {}, b: {}", a, b);
-                                if a.eq_within(&problematic, TEST_ACCURACY)
-                                    || b.eq_within(&problematic, TEST_ACCURACY)
-                                {
+                                if a.is_err() || b.is_err() {
                                     continue;
                                 }
+                                let a = a.unwrap();
+                                let b = b.unwrap();
+                                println!("a: {}, b: {}", a, b);
                                 let cross = a.cross_product(&b);
-                                let overlap_with_a = cross.dot_product(&a);
-                                let overlap_with_b = cross.dot_product(&b);
-                                println!(
-                                    "cross: {}, overlap_with_a: {}, overlap_with_b: {}",
-                                    cross, overlap_with_a, overlap_with_b
-                                );
-                                assert!(overlap_with_a.abs() < TEST_ACCURACY);
-                                assert!(overlap_with_b.abs() < TEST_ACCURACY);
+                                if a.eq_within(&b, TEST_ACCURACY)
+                                    || a.eq_within(&-b.clone(), TEST_ACCURACY)
+                                {
+                                    assert!(cross.is_err());
+                                } else {
+                                    let cross = cross.unwrap();
+                                    let overlap_with_a = cross.dot_product(&a);
+                                    let overlap_with_b = cross.dot_product(&b);
+                                    assert!(overlap_with_a.abs() < TEST_ACCURACY);
+                                    assert!(overlap_with_b.abs() < TEST_ACCURACY);
+                                }
                             }
                         }
                     }
@@ -388,21 +389,13 @@ mod tests {
                     for x2 in ordinates.clone() {
                         for y2 in ordinates.clone() {
                             for z2 in ordinates.clone() {
-                                if x1.abs() < TEST_ACCURACY
-                                    && y1.abs() < TEST_ACCURACY
-                                    && z1.abs() < TEST_ACCURACY
-                                {
-                                    continue;
-                                }
-                                if x2.abs() < TEST_ACCURACY
-                                    && y2.abs() < TEST_ACCURACY
-                                    && z2.abs() < TEST_ACCURACY
-                                {
-                                    continue;
-                                }
-
                                 let original_dir = Direction::new(x1, y1, z1);
                                 let new_z_axis = Direction::new(x2, y2, z2);
+                                if original_dir.is_err() || new_z_axis.is_err() {
+                                    continue;
+                                }
+                                let original_dir = original_dir.unwrap();
+                                let new_z_axis = new_z_axis.unwrap();
 
                                 let after_active_rotation =
                                     original_dir.active_rotation_to_new_z_axis(&new_z_axis);
@@ -428,12 +421,11 @@ mod tests {
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
-                    if x.abs() < TEST_ACCURACY && y.abs() < TEST_ACCURACY && z.abs() < TEST_ACCURACY
-                    {
+                    let new_z_axis = Direction::new(x, y, z);
+                    if new_z_axis.is_err() {
                         continue;
                     }
-
-                    let new_z_axis = Direction::new(x, y, z);
+                    let new_z_axis = new_z_axis.unwrap();
 
                     let expected = new_z_axis.clone();
                     let actual = Direction::Z.active_rotation_to_new_z_axis(&new_z_axis);
@@ -448,17 +440,39 @@ mod tests {
     }
 
     #[test]
+    fn active_rotation_to_z_changes_nothing() {
+        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        for x in ordinates.clone() {
+            for y in ordinates.clone() {
+                for z in ordinates.clone() {
+                    let dir = Direction::new(x, y, z);
+                    if dir.is_err() {
+                        continue;
+                    }
+                    let dir = dir.unwrap();
+
+                    let expected = dir.clone();
+                    let actual = dir.active_rotation_to_new_z_axis(&Direction::Z);
+
+                    println!("expected: {}", expected);
+                    println!("actual: {}", actual);
+                    assert!(expected.eq_within(&actual, TEST_ACCURACY));
+                }
+            }
+        }
+    }
+
+    #[test]
     fn test_north_after_passive_rotation() {
         let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
-                    if x.abs() < TEST_ACCURACY && y.abs() < TEST_ACCURACY && z.abs() < TEST_ACCURACY
-                    {
+                    let new_z_axis = Direction::new(x, y, z);
+                    if new_z_axis.is_err() {
                         continue;
                     }
-
-                    let new_z_axis = Direction::new(x, y, z);
+                    let new_z_axis = new_z_axis.unwrap();
 
                     let expected = Direction::Z;
                     let actual = new_z_axis.passive_rotation_to_new_z_axis(&new_z_axis);
@@ -478,7 +492,7 @@ mod tests {
         let y = Length::from_light_years(1e-10);
         let z = Length::from_light_years(-2000.);
         let cartesian = CartesianCoordinates::new(x, y, z);
-        let expected = Direction::new(1., 0., -1.);
+        let expected = Direction::new(1., 0., -1.).unwrap();
         let actual = cartesian.to_direction();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));

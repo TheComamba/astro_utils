@@ -5,6 +5,7 @@ pub(crate) const TWO_PI: Float = 2. * PI;
 pub mod color;
 pub mod coordinates;
 pub mod data;
+pub mod error;
 pub mod kepler_orbit;
 pub mod orbit_orientation;
 pub mod planet_brightness;
