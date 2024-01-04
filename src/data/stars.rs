@@ -11,8 +11,8 @@ use crate::{
 
 pub const SUN_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Sun",
-    Length::from_astronomical_units(6.957e8),
-    Mass::from_kilograms(1.98847e30),
+    Length::from_astronomical_units(AU_PER_SUN_RADII),
+    Mass::from_kilograms(KILOGRAMS_PER_SOLAR_MASS),
     Luminosity::from_absolute_magnitude(4.83),
     Temperature::from_kelvin(5778.0),
 );
