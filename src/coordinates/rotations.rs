@@ -36,7 +36,13 @@ where
 pub fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle, Direction) {
     let angle = start.angle_to(end);
     let axis = start.cross_product(end);
-    (angle, axis)
+    if let Ok(axis) = axis {
+        (angle, axis)
+    } else {
+        // start and and end are (anti) parallel
+        let axis = start.some_orthogonal_vector();
+        (angle, axis)
+    }
 }
 
 #[cfg(test)]
@@ -307,7 +313,7 @@ mod tests {
 
     #[test]
     fn test_rotating_around_diagonal_axis() {
-        let axis = Direction::new(1., 1., 1.);
+        let axis = Direction::new(1., 1., 1.).unwrap();
 
         let rotated = rotated_tuple(X_VECTOR, ONE_THIRD_TURN, &axis);
         let expected = Y_VECTOR;
@@ -358,7 +364,6 @@ mod tests {
     #[test]
     fn get_rotation_parameters_test() {
         const ROTATION_DIRECTION_ACCURACY: Float = 1e-3;
-        let problematic = Direction::new(0., 0., 0.);
         let ordinates = vec![-1., 0., 1., 10.];
         for start_x in ordinates.clone().iter() {
             for start_y in ordinates.clone().iter() {
@@ -368,12 +373,12 @@ mod tests {
                             for end_z in ordinates.clone().iter() {
                                 let start = Direction::new(*start_x, *start_y, *start_z);
                                 let end = Direction::new(*end_x, *end_y, *end_z);
-                                println!("start: {}, end: {}", start, end);
-                                if start.eq_within(&problematic, TEST_ACCURACY)
-                                    || end.eq_within(&problematic, TEST_ACCURACY)
-                                {
+                                if start.is_err() || end.is_err() {
                                     continue;
                                 }
+                                let start = start.unwrap();
+                                let end = end.unwrap();
+                                println!("start: {}, end: {}", start, end);
                                 let (angle, axis) = get_rotation_parameters(&start, &end);
                                 println!("angle: {}, axis: {}", angle, axis);
                                 let rotated = start.rotated(angle, &axis);

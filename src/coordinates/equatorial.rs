@@ -79,10 +79,12 @@ mod tests {
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
-                    if (x * x + y * y + z * z).abs() < 1e-5 {
+                    let axis = Direction::new(x, y, z);
+                    if axis.is_err() {
                         continue;
                     }
-                    let axis = Direction::new(x, y, z);
+                    let axis = axis.unwrap();
+
                     let coordinates =
                         EquatorialCoordinates::new(SphericalCoordinates::Z_DIRECTION, axis.clone());
                     let expected = axis;
@@ -100,11 +102,13 @@ mod tests {
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
-                    if (x * x + y * y + z * z).abs() < 1e-5 {
+                    let axis = Direction::new(x, y, z);
+                    if axis.is_err() {
                         continue;
                     }
-                    let axis = Direction::new(x, y, z);
-                    let coordinates = super::EquatorialCoordinates::new(
+                    let axis = axis.unwrap();
+
+                    let coordinates = EquatorialCoordinates::new(
                         -SphericalCoordinates::Z_DIRECTION,
                         axis.clone(),
                     );
@@ -123,12 +127,14 @@ mod tests {
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
-                    if (x * x + y * y + z * z).abs() < 1e-5 {
+                    let axis = Direction::new(x, y, z);
+                    if axis.is_err() {
                         continue;
                     }
-                    let axis = Direction::new(x, y, z);
+                    let axis = axis.unwrap();
+
                     let coordinates =
-                        super::EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, axis);
+                        EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, axis);
                     let direction = coordinates.to_direction();
                     assert!(direction.z().abs() < TEST_ACCURACY);
                 }
@@ -142,12 +148,14 @@ mod tests {
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
-                    if (x * x + y * y + z * z).abs() < 1e-5 {
+                    let axis = Direction::new(x, y, z);
+                    if axis.is_err() {
                         continue;
                     }
-                    let axis = Direction::new(x, y, z);
+                    let axis = axis.unwrap();
+
                     let coordinates =
-                        super::EquatorialCoordinates::new(-SphericalCoordinates::X_DIRECTION, axis);
+                        EquatorialCoordinates::new(-SphericalCoordinates::X_DIRECTION, axis);
                     let direction = coordinates.to_direction();
                     assert!(direction.z().abs() < TEST_ACCURACY);
                 }
@@ -169,7 +177,7 @@ mod tests {
                 let spherical = SphericalCoordinates::new(long, lat);
 
                 let equatorial_coordinates =
-                    super::EquatorialCoordinates::new(spherical, earth_north.clone());
+                    EquatorialCoordinates::new(spherical, earth_north.clone());
                 let earth_equatorial_coordinates = EarthEquatorialCoordinates::new(long, lat);
 
                 let expected = earth_equatorial_coordinates.to_direction();
@@ -178,5 +186,43 @@ mod tests {
                 assert!(actual.eq_within(&expected, TEST_ACCURACY));
             }
         }
+    }
+
+    #[test]
+    fn axis_tilted_to_y() {
+        let axis = Direction::Y;
+
+        let equatorial_x =
+            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, axis.clone());
+        let expected = Direction::X;
+        let actual = equatorial_x.to_direction();
+        println!("expected: {},\n actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
+
+        let equatorial_y =
+            EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, axis.clone());
+        let expected = -Direction::Z;
+        let actual = equatorial_y.to_direction();
+        println!("expected: {},\n actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn axis_tilted_to_x() {
+        let axis = Direction::X;
+
+        let equatorial_x =
+            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, axis.clone());
+        let expected = -Direction::Y;
+        let actual = equatorial_x.to_direction();
+        println!("expected: {},\n actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
+
+        let equatorial_y =
+            EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, axis.clone());
+        let expected = -Direction::Z;
+        let actual = equatorial_y.to_direction();
+        println!("expected: {},\n actual: {}", expected, actual);
+        assert!(actual.eq_within(&expected, TEST_ACCURACY));
     }
 }
