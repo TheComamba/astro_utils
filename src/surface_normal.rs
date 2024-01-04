@@ -143,7 +143,7 @@ mod tests {
         let siderial_day = Time::from_years(1.);
 
         let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.25);
+        let time_since_epoch = Time::from_years(0.5);
 
         let expected = -Direction::X;
         let actual =
