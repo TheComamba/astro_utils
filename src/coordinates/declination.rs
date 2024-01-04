@@ -16,10 +16,11 @@ impl Declination {
     }
 
     pub fn to_angle(&self) -> Angle {
-        let degrees = self.degrees as Float;
+        let degrees = self.degrees.abs() as Float;
         let minutes = self.minutes as Float;
         let seconds = self.seconds as Float;
 
         Angle::from_degrees(degrees + minutes / 60. + seconds / 3600.)
+            * self.degrees.signum() as Float
     }
 }
