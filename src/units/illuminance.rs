@@ -46,17 +46,7 @@ impl Illuminance {
 
 impl Display for Illuminance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.lux.abs() > 990. {
-            write!(f, "{:.2} klux", self.lux / 1_000.)
-        } else if self.lux.abs() > 0.99 {
-            write!(f, "{:.2} lux", self.lux)
-        } else if self.lux.abs() > 0.99e-3 {
-            write!(f, "{:.2} mlux", self.lux * 1_000.)
-        } else if self.lux.abs() > 0.99e-6 {
-            write!(f, "{:.2} µlux", self.lux * 1_000_000.)
-        } else {
-            write!(f, "{:.2} nlux", self.lux * 1_000_000_000.)
-        }
+        write!(f, "{:.2} mag", self.as_apparent_magnitude())
     }
 }
 
@@ -87,47 +77,5 @@ mod tests {
         let expected = 107_527.;
         println!("expected: {}, actual: {}", expected, actual);
         assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY * expected);
-    }
-
-    #[test]
-    fn test_display() {
-        let nlux = Illuminance::from_lux(1.23e-9);
-        assert_eq!(format!("{}", nlux), "1.23 nlux");
-        let ulux = Illuminance::from_lux(1.23e-6);
-        assert_eq!(format!("{}", ulux), "1.23 µlux");
-        let mlux = Illuminance::from_lux(1.23e-3);
-        assert_eq!(format!("{}", mlux), "1.23 mlux");
-        let lux = Illuminance::from_lux(1.23);
-        assert_eq!(format!("{}", lux), "1.23 lux");
-        let klux = Illuminance::from_lux(1.23e3);
-        assert_eq!(format!("{}", klux), "1.23 klux");
-    }
-
-    #[test]
-    fn test_negative_display() {
-        let nlux = Illuminance::from_lux(-1.23e-9);
-        assert_eq!(format!("{}", nlux), "-1.23 nlux");
-        let ulux = Illuminance::from_lux(-1.23e-6);
-        assert_eq!(format!("{}", ulux), "-1.23 µlux");
-        let mlux = Illuminance::from_lux(-1.23e-3);
-        assert_eq!(format!("{}", mlux), "-1.23 mlux");
-        let lux = Illuminance::from_lux(-1.23);
-        assert_eq!(format!("{}", lux), "-1.23 lux");
-        let klux = Illuminance::from_lux(-1.23e3);
-        assert_eq!(format!("{}", klux), "-1.23 klux");
-    }
-
-    #[test]
-    fn test_display_thresholds() {
-        let nlux = Illuminance::from_lux(1e-9);
-        assert_eq!(format!("{}", nlux), "1.00 nlux");
-        let ulux = Illuminance::from_lux(1e-6);
-        assert_eq!(format!("{}", ulux), "1.00 µlux");
-        let mlux = Illuminance::from_lux(1e-3);
-        assert_eq!(format!("{}", mlux), "1.00 mlux");
-        let lux = Illuminance::from_lux(1.);
-        assert_eq!(format!("{}", lux), "1.00 lux");
-        let klux = Illuminance::from_lux(1e3);
-        assert_eq!(format!("{}", klux), "1.00 klux");
     }
 }

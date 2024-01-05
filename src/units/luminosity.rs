@@ -46,7 +46,7 @@ impl Luminosity {
 
 impl Display for Luminosity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:.2} L☉", self.as_solar_luminosities())
+        write!(f, "{:.2} mag", self.as_absolute_magnitude())
     }
 }
 
