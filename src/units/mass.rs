@@ -76,7 +76,7 @@ impl Display for Mass {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if self.kilograms.abs() > 0.099 * KILOGRAMS_PER_SOLAR_MASS {
             write!(f, "{:.2} M☉", self.as_solar_masses())
-        } else if self.kilograms.abs() > 0.099 * KILOGRAMS_PER_EARTH_MASS {
+        } else if self.kilograms.abs() > 0.0099 * KILOGRAMS_PER_EARTH_MASS {
             write!(f, "{:.2} M🜨", self.as_earth_masses())
         } else {
             write!(f, "{:.2} kg", self.kilograms)
@@ -168,8 +168,8 @@ mod tests {
     fn test_display_thresholds() {
         let mass = Mass::from_kilograms(1.);
         assert_eq!(mass.to_string(), "1.00 kg");
-        let mass = Mass::from_earth_masses(0.1);
-        assert_eq!(mass.to_string(), "0.10 M🜨");
+        let mass = Mass::from_earth_masses(0.01);
+        assert_eq!(mass.to_string(), "0.01 M🜨");
         let mass = Mass::from_solar_masses(0.1);
         assert_eq!(mass.to_string(), "0.10 M☉");
     }
