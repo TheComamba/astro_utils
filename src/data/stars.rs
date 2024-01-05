@@ -375,7 +375,7 @@ const GAMMA_VELORUM_PROPERTIES: StellarProperties = StellarProperties::new_const
 
 const GAMMA_VELORUM_RA: RightAscension = RightAscension::new(8, 9, 32);
 const GAMMA_VELORUM_DEC: Declination = Declination::new(-47, 20, 12);
-const GAMMA_VELORUM_DISTANCE: Length = Length::from_astronomical_units(1236. * AU_PER_LIGHT_YEARS);
+const GAMMA_VELORUM_DISTANCE: Length = Length::from_astronomical_units(1000. * AU_PER_LIGHT_YEARS);
 
 const ALNAIR_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Alnair",
@@ -478,7 +478,7 @@ const AVIOR_PROPERTIES: StellarProperties = StellarProperties::new_const(
     Length::from_astronomical_units(0. * AU_PER_SUN_RADII), //Unknown
     Mass::from_kilograms(10.5 * KILOGRAMS_PER_SOLAR_MASS),
     Luminosity::from_absolute_magnitude(-4.47),
-    Temperature::from_kelvin(3.523),
+    Temperature::from_kelvin(3523.),
 );
 
 const AVIOR_RA: RightAscension = RightAscension::new(8, 22, 31);
@@ -591,7 +591,7 @@ const POLARIS_PROPERTIES: StellarProperties = StellarProperties::new_const(
 
 const POLARIS_RA: RightAscension = RightAscension::new(2, 31, 49);
 const POLARIS_DEC: Declination = Declination::new(89, 15, 51);
-const POLARIS_DISTANCE: Length = Length::from_astronomical_units(380. * AU_PER_LIGHT_YEARS);
+const POLARIS_DISTANCE: Length = Length::from_astronomical_units(447.6 * AU_PER_LIGHT_YEARS);
 
 const HAMAL_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Hamal",
@@ -663,7 +663,7 @@ const MENKENT_PROPERTIES: StellarProperties = StellarProperties::new_const(
 
 const MENKENT_RA: RightAscension = RightAscension::new(14, 6, 41);
 const MENKENT_DEC: Declination = Declination::new(-36, 22, 11);
-const MENKENT_DISTANCE: Length = Length::from_astronomical_units(28.8 * AU_PER_LIGHT_YEARS);
+const MENKENT_DISTANCE: Length = Length::from_astronomical_units(58.8 * AU_PER_LIGHT_YEARS);
 
 const MIRACH_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Mirach",
@@ -831,7 +831,7 @@ const SADR_PROPERTIES: StellarProperties = StellarProperties::new_const(
 
 const SADR_RA: RightAscension = RightAscension::new(20, 22, 14);
 const SADR_DEC: Declination = Declination::new(40, 15, 24);
-const SADR_DISTANCE: Length = Length::from_astronomical_units(1800. * AU_PER_LIGHT_YEARS);
+const SADR_DISTANCE: Length = Length::from_astronomical_units(1500. * AU_PER_LIGHT_YEARS);
 
 const ELTANIN_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Eltanin",
@@ -940,7 +940,7 @@ const DSCHUBBA_PROPERTIES: StellarProperties = StellarProperties::new_const(
 
 const DSCHUBBA_RA: RightAscension = RightAscension::new(16, 0, 20);
 const DSCHUBBA_DEC: Declination = Declination::new(-22, 37, 18);
-const DSCHUBBA_DISTANCE: Length = Length::from_astronomical_units(136. * AU_PER_LIGHT_YEARS);
+const DSCHUBBA_DISTANCE: Length = Length::from_astronomical_units(444. * AU_PER_LIGHT_YEARS);
 
 const LARAWAG_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Larawag",
@@ -964,7 +964,7 @@ const ETA_CENTAURI_PROPERTIES: StellarProperties = StellarProperties::new_const(
 
 const ETA_CENTAURI_RA: RightAscension = RightAscension::new(14, 35, 30);
 const ETA_CENTAURI_DEC: Declination = Declination::new(-42, 9, 28);
-const ETA_CENTAURI_DISTANCE: Length = Length::from_astronomical_units(206. * AU_PER_LIGHT_YEARS);
+const ETA_CENTAURI_DISTANCE: Length = Length::from_astronomical_units(308. * AU_PER_LIGHT_YEARS);
 
 const MERAK_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Merak",

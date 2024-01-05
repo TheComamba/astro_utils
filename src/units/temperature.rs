@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use crate::Float;
 use serde::{Deserialize, Serialize};
 
@@ -13,5 +15,11 @@ impl Temperature {
 
     pub const fn as_kelvin(&self) -> Float {
         self.kelvin
+    }
+}
+
+impl Display for Temperature {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:.0} K", self.kelvin)
     }
 }
