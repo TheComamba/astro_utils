@@ -663,9 +663,7 @@ const MENKENT_PROPERTIES: StellarProperties = StellarProperties::new_const(
 
 const MENKENT_RA: RightAscension = RightAscension::new(14, 6, 41);
 const MENKENT_DEC: Declination = Declination::new(-36, 22, 11);
-const MENKENT_DISTANCE: Length = Length::from_astronomical_units(
-    5aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa8.8 * AU_PER_LIGHT_YEARS,
-);
+const MENKENT_DISTANCE: Length = Length::from_astronomical_units(8.8 * AU_PER_LIGHT_YEARS);
 
 const MIRACH_PROPERTIES: StellarProperties = StellarProperties::new_const(
     "Mirach",
