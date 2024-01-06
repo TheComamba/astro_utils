@@ -21,18 +21,18 @@ pub struct RealData {
 }
 
 impl RealData {
-    pub fn to_star(data: RealData) -> Star {
-        let ra = data.right_ascension.to_angle();
-        let dec = data.declination.to_angle();
+    pub fn to_star(&self) -> Star {
+        let ra = self.right_ascension.to_angle();
+        let dec = self.declination.to_angle();
         let dir = EarthEquatorialCoordinates::new(ra, dec).to_direction();
         Star {
-            name: data.name.to_string(),
-            mass: data.mass,
-            radius: data.radius,
-            luminosity: data.luminosity,
-            temperature: data.temperature,
-            color: sRGBColor::from_temperature(data.temperature),
-            distance: data.distance,
+            name: self.name.to_string(),
+            mass: self.mass,
+            radius: self.radius,
+            luminosity: self.luminosity,
+            temperature: self.temperature,
+            color: sRGBColor::from_temperature(self.temperature),
+            distance: self.distance,
             direction_in_ecliptic: dir,
         }
     }

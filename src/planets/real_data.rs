@@ -20,16 +20,16 @@ pub struct RealData {
 }
 
 impl RealData {
-    pub fn to_planet(real_data: &RealData) -> Planet {
+    pub fn to_planet(&self) -> Planet {
         Planet {
-            name: real_data.name.to_string(),
-            mass: real_data.mass,
-            orbital_parameters: real_data.orbit.clone(),
-            radius: real_data.radius,
-            geometric_albedo: real_data.geometric_albedo,
-            color: real_data.color.clone(),
-            sideral_rotation_period: real_data.siderial_rotation_period,
-            rotation_axis: real_data.rotation_axis.to_direction(),
+            name: self.name.to_string(),
+            mass: self.mass,
+            orbital_parameters: self.orbit.clone(),
+            radius: self.radius,
+            geometric_albedo: self.geometric_albedo,
+            color: self.color.clone(),
+            sideral_rotation_period: self.siderial_rotation_period,
+            rotation_axis: self.rotation_axis.to_direction(),
         }
     }
 }
