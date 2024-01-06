@@ -66,6 +66,10 @@ impl Star {
         self.distance
     }
 
+    pub const fn get_direction_in_ecliptic(&self) -> &Direction {
+        &self.direction_in_ecliptic
+    }
+
     pub fn calculate_position(&self) -> CartesianCoordinates {
         self.direction_in_ecliptic.to_cartesian(self.distance)
     }
