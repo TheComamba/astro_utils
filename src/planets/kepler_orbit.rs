@@ -1,6 +1,6 @@
+use super::orbit_parameters::OrbitParameters;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates},
-    orbit_orientation::OrbitOrientation,
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float, TWO_PI,
 };
@@ -90,26 +90,20 @@ pub fn position_relative_to_central_body(
     semi_major_axis: Length,
     eccentricity: Float,
     true_anomaly: Angle,
-    orientation: &OrbitOrientation,
+    orientation: &OrbitParameters,
 ) -> CartesianCoordinates {
     let ecliptic_from_focus = SphericalCoordinates::new(true_anomaly, Angle::ZERO);
     let direction = ecliptic_from_focus.to_direction();
     let distance_from_focus = distance_from_focus(semi_major_axis, true_anomaly, eccentricity);
     let position = direction.to_cartesian(distance_from_focus);
-    orientation.apply_to(position)
+    orientation.apply_orientation_to(position)
 }
 
 #[cfg(test)]
 mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
-        data::{
-            planets::{
-                EARTH_MASS, EARTH_SEMI_MAJOR_AXIS, JUPITER_MASS, JUPITER_SEMI_MAJOR_AXIS,
-                MOON_MASS, MOON_SEMI_MAJOR_AXIS,
-            },
-            SUN_MASS,
-        },
+        data::{planets::*, SUN_MASS},
         tests::{TEST_ANGLE_ACCURACY, TEST_LENGTH_ACCURACY},
     };
 
@@ -118,7 +112,8 @@ mod tests {
     #[test]
     fn orbital_period_of_earth() {
         let expected_orbital_period = Time::from_days(365.256);
-        let orbital_period = orbital_period(EARTH_SEMI_MAJOR_AXIS, EARTH_MASS, SUN_MASS);
+        let earth_semi_major_axis = EARTH.orbit.get_semi_major_axis();
+        let orbital_period = orbital_period(earth_semi_major_axis, EARTH.mass, SUN_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
         assert!(orbital_period.eq_within(expected_orbital_period, 1e-3 * expected_orbital_period));
@@ -127,7 +122,8 @@ mod tests {
     #[test]
     fn orbital_period_of_jupiter() {
         let expected_orbital_period = Time::from_days(4332.59);
-        let orbital_period = orbital_period(JUPITER_SEMI_MAJOR_AXIS, JUPITER_MASS, SUN_MASS);
+        let jupiter_semi_major_axis = JUPITER.orbit.get_semi_major_axis();
+        let orbital_period = orbital_period(jupiter_semi_major_axis, JUPITER.mass, SUN_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
         assert!(orbital_period.eq_within(expected_orbital_period, 1e-3 * expected_orbital_period));
@@ -136,7 +132,8 @@ mod tests {
     #[test]
     fn orbital_period_of_moon() {
         let expected_orbital_period = Time::from_days(27.321);
-        let orbital_period = orbital_period(MOON_SEMI_MAJOR_AXIS, MOON_MASS, EARTH_MASS);
+        let moon_semi_major_axis = MOON.orbit.get_semi_major_axis();
+        let orbital_period = orbital_period(moon_semi_major_axis, MOON.mass, EARTH.mass);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
         assert!(orbital_period.eq_within(expected_orbital_period, 9e-3 * expected_orbital_period));

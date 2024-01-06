@@ -6,12 +6,8 @@ pub mod color;
 pub mod coordinates;
 pub mod data;
 pub mod error;
-pub mod kepler_orbit;
-pub mod orbit_orientation;
-pub mod planet_brightness;
-pub mod random_stars;
-pub mod stellar_properties;
-pub mod surface_normal;
+pub mod planets;
+pub mod stars;
 pub mod units;
 
 #[cfg(test)]
