@@ -1,4 +1,4 @@
-use super::{orbit_parameters::OrbitParameters, real_data::RealData};
+use super::orbit_parameters::OrbitParameters;
 use crate::{
     color::sRGBColor,
     coordinates::direction::Direction,
@@ -9,14 +9,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Planet {
-    name: String,
-    mass: Mass,
-    radius: Length,
-    geometric_albedo: Float,
-    color: sRGBColor,
-    orbital_parameters: OrbitParameters,
-    sideral_rotation_period: Time,
-    rotation_axis: Direction,
+    pub(super) name: String,
+    pub(super) mass: Mass,
+    pub(super) radius: Length,
+    pub(super) geometric_albedo: Float,
+    pub(super) color: sRGBColor,
+    pub(super) orbital_parameters: OrbitParameters,
+    pub(super) sideral_rotation_period: Time,
+    pub(super) rotation_axis: Direction,
 }
 
 impl PartialEq for Planet {
@@ -45,19 +45,6 @@ impl Planet {
             color,
             sideral_rotation_period,
             rotation_axis,
-        }
-    }
-
-    pub fn from_real_data(real_data: &RealData) -> Self {
-        Planet {
-            name: real_data.name.to_string(),
-            mass: real_data.mass,
-            orbital_parameters: real_data.orbit.clone(),
-            radius: real_data.radius,
-            geometric_albedo: real_data.geometric_albedo,
-            color: real_data.color.clone(),
-            sideral_rotation_period: real_data.siderial_rotation_period,
-            rotation_axis: real_data.rotation_axis.to_direction(),
         }
     }
 
