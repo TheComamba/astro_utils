@@ -105,8 +105,7 @@ mod tests {
         coordinates::cartesian::CartesianCoordinates,
         data::{
             planets::{
-                EARTH_MASS, EARTH_SEMI_MAJOR_AXIS, JUPITER_MASS, JUPITER_SEMI_MAJOR_AXIS,
-                MOON_MASS, MOON_SEMI_MAJOR_AXIS,
+                EARTH_MASS, EARTH_ORBIT, JUPITER_MASS, JUPITER_ORBIT, MOON_MASS, MOON_ORBIT,
             },
             SUN_MASS,
         },
@@ -118,7 +117,8 @@ mod tests {
     #[test]
     fn orbital_period_of_earth() {
         let expected_orbital_period = Time::from_days(365.256);
-        let orbital_period = orbital_period(EARTH_SEMI_MAJOR_AXIS, EARTH_MASS, SUN_MASS);
+        let earth_semi_major_axis = EARTH_ORBIT.get_semi_major_axis();
+        let orbital_period = orbital_period(earth_semi_major_axis, EARTH_MASS, SUN_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
         assert!(orbital_period.eq_within(expected_orbital_period, 1e-3 * expected_orbital_period));
@@ -127,7 +127,8 @@ mod tests {
     #[test]
     fn orbital_period_of_jupiter() {
         let expected_orbital_period = Time::from_days(4332.59);
-        let orbital_period = orbital_period(JUPITER_SEMI_MAJOR_AXIS, JUPITER_MASS, SUN_MASS);
+        let jupiter_semi_major_axis = JUPITER_ORBIT.get_semi_major_axis();
+        let orbital_period = orbital_period(jupiter_semi_major_axis, JUPITER_MASS, SUN_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
         assert!(orbital_period.eq_within(expected_orbital_period, 1e-3 * expected_orbital_period));
@@ -136,7 +137,8 @@ mod tests {
     #[test]
     fn orbital_period_of_moon() {
         let expected_orbital_period = Time::from_days(27.321);
-        let orbital_period = orbital_period(MOON_SEMI_MAJOR_AXIS, MOON_MASS, EARTH_MASS);
+        let moon_semi_major_axis = MOON_ORBIT.get_semi_major_axis();
+        let orbital_period = orbital_period(moon_semi_major_axis, MOON_MASS, EARTH_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
         assert!(orbital_period.eq_within(expected_orbital_period, 9e-3 * expected_orbital_period));

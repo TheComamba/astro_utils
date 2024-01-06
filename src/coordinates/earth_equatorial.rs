@@ -168,7 +168,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_mercury() {
-        let orbit_normal = MERCURY_ORBIT_ORIENTATION.normal();
+        let orbit_normal = MERCURY_ORBIT.normal();
         let north = MERCURY_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -180,7 +180,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_venus() {
-        let orbit_normal = VENUS_ORBIT_ORIENTATION.normal();
+        let orbit_normal = VENUS_ORBIT.normal();
         let north = VENUS_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -192,7 +192,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_earth() {
-        let orbit_normal = EARTH_ORBIT_ORIENTATION.normal();
+        let orbit_normal = EARTH_ORBIT.normal();
         let north = EARTH_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -204,7 +204,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_mars() {
-        let orbit_normal = MARS_ORBIT_ORIENTATION.normal();
+        let orbit_normal = MARS_ORBIT.normal();
         let north = MARS_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -216,7 +216,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_ceres() {
-        let orbit_normal = CERES_ORBIT_ORIENTATION.normal();
+        let orbit_normal = CERES_ORBIT.normal();
         let north = CERES_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -228,7 +228,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_jupiter() {
-        let orbit_normal = JUPITER_ORBIT_ORIENTATION.normal();
+        let orbit_normal = JUPITER_ORBIT.normal();
         let north = JUPITER_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -240,7 +240,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_saturn() {
-        let orbit_normal = SATURN_ORBIT_ORIENTATION.normal();
+        let orbit_normal = SATURN_ORBIT.normal();
         let north = SATURN_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -252,7 +252,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_uranus() {
-        let orbit_normal = URANUS_ORBIT_ORIENTATION.normal();
+        let orbit_normal = URANUS_ORBIT.normal();
         let north = URANUS_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -264,7 +264,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_neptune() {
-        let orbit_normal = NEPTUNE_ORBIT_ORIENTATION.normal();
+        let orbit_normal = NEPTUNE_ORBIT.normal();
         let north = NEPTUNE_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
@@ -276,7 +276,7 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_pluto() {
-        let orbit_normal = PLUTO_ORBIT_ORIENTATION.normal();
+        let orbit_normal = PLUTO_ORBIT.normal();
         let north = PLUTO_NORTH.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
