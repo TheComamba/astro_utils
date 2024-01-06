@@ -1,4 +1,4 @@
-use super::orbit_orientation::OrbitOrientation;
+use super::orbit_parameters::OrbitParameters;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates},
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
@@ -90,13 +90,13 @@ pub fn position_relative_to_central_body(
     semi_major_axis: Length,
     eccentricity: Float,
     true_anomaly: Angle,
-    orientation: &OrbitOrientation,
+    orientation: &OrbitParameters,
 ) -> CartesianCoordinates {
     let ecliptic_from_focus = SphericalCoordinates::new(true_anomaly, Angle::ZERO);
     let direction = ecliptic_from_focus.to_direction();
     let distance_from_focus = distance_from_focus(semi_major_axis, true_anomaly, eccentricity);
     let position = direction.to_cartesian(distance_from_focus);
-    orientation.apply_to(position)
+    orientation.apply_orientation_to(position)
 }
 
 #[cfg(test)]
