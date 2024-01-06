@@ -1,6 +1,6 @@
+use super::orbit_orientation::OrbitOrientation;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates},
-    orbit_orientation::OrbitOrientation,
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float, TWO_PI,
 };

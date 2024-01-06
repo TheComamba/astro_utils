@@ -1,6 +1,6 @@
 use crate::color::sRGBColor;
 use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
-use crate::orbit_orientation::OrbitOrientation;
+use crate::planets::orbit_orientation::OrbitOrientation;
 use crate::units::angle::{Angle, RADIANS_PER_DEGREE};
 use crate::units::length::{Length, AU_PER_EARTH_RADII, AU_PER_JUPITER_RADII, AU_PER_KILOMETERS};
 use crate::units::mass::{
