@@ -9,7 +9,7 @@ pub mod error;
 pub mod kepler_orbit;
 pub mod orbit_orientation;
 pub mod planet_brightness;
-pub mod stellar_properties;
+pub mod stars;
 pub mod surface_normal;
 pub mod units;
 
