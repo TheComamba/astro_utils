@@ -1,7 +1,10 @@
 use super::real_data::RealData;
 use crate::{
     color::sRGBColor,
-    coordinates::{direction::Direction, earth_equatorial::EarthEquatorialCoordinates},
+    coordinates::{
+        cartesian::CartesianCoordinates, direction::Direction,
+        earth_equatorial::EarthEquatorialCoordinates,
+    },
     units::{length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature},
 };
 use serde::{Deserialize, Serialize};
@@ -53,5 +56,17 @@ impl Star {
 
     pub const fn get_temperature(&self) -> Temperature {
         self.temperature
+    }
+
+    pub const fn get_color(&self) -> &sRGBColor {
+        &self.color
+    }
+
+    pub const fn get_distance(&self) -> Length {
+        self.distance
+    }
+
+    pub fn calculate_position(&self) -> CartesianCoordinates {
+        self.direction_in_ecliptic.to_cartesian(self.distance)
     }
 }
