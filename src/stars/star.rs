@@ -22,7 +22,7 @@ pub struct Star {
 }
 
 impl Star {
-    pub fn from_data(data: RealData) -> Star {
+    pub fn from_real_data(data: RealData) -> Star {
         let ra = data.right_ascension.to_angle();
         let dec = data.declination.to_angle();
         let dir = EarthEquatorialCoordinates::new(ra, dec).to_direction();

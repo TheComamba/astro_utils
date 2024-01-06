@@ -1,4 +1,4 @@
-use super::orbit_parameters::OrbitParameters;
+use super::{orbit_parameters::OrbitParameters, real_data::RealData};
 use crate::{
     color::sRGBColor,
     coordinates::direction::Direction,
@@ -45,6 +45,19 @@ impl Planet {
             color,
             sideral_rotation_period,
             rotation_axis,
+        }
+    }
+
+    pub fn from_real_data(real_data: &RealData) -> Self {
+        Planet {
+            name: real_data.name.to_string(),
+            mass: real_data.mass,
+            orbital_parameters: real_data.orbit.clone(),
+            radius: real_data.radius,
+            geometric_albedo: real_data.geometric_albedo,
+            color: real_data.color.clone(),
+            sideral_rotation_period: real_data.siderial_rotation_period,
+            rotation_axis: real_data.rotation_axis.to_direction(),
         }
     }
 

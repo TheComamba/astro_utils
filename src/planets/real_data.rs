@@ -7,14 +7,14 @@ use crate::{
 };
 
 pub struct RealData {
-    pub(crate) name: &'static str,
-    pub(crate) orbit: OrbitParameters,
-    pub(crate) geometric_albedo: Float,
-    pub(crate) bond_albedo: Option<Float>,
-    pub(crate) color: sRGBColor,
-    pub(crate) radius: Length,
-    pub(crate) mass: Mass,
-    pub(crate) siderial_rotation_period: Time,
-    pub(crate) axis_tilt: Angle,
-    pub(crate) rotation_axis: EarthEquatorialCoordinates,
+    pub name: &'static str,
+    pub orbit: OrbitParameters,
+    pub geometric_albedo: Float,
+    pub bond_albedo: Option<Float>,
+    pub color: sRGBColor,
+    pub radius: Length,
+    pub mass: Mass,
+    pub siderial_rotation_period: Time,
+    pub axis_tilt: Angle,
+    pub rotation_axis: EarthEquatorialCoordinates,
 }
