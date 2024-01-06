@@ -1,43 +1,23 @@
-use super::real_data::RealData;
 use crate::{
     color::sRGBColor,
-    coordinates::{
-        cartesian::CartesianCoordinates, direction::Direction,
-        earth_equatorial::EarthEquatorialCoordinates,
-    },
+    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     units::{length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature},
 };
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Star {
-    name: String,
-    mass: Mass,
-    radius: Length,
-    luminosity: Luminosity,
-    temperature: Temperature,
-    color: sRGBColor,
-    distance: Length,
-    direction_in_ecliptic: Direction,
+    pub(super) name: String,
+    pub(super) mass: Mass,
+    pub(super) radius: Length,
+    pub(super) luminosity: Luminosity,
+    pub(super) temperature: Temperature,
+    pub(super) color: sRGBColor,
+    pub(super) distance: Length,
+    pub(super) direction_in_ecliptic: Direction,
 }
 
 impl Star {
-    pub fn from_data(data: RealData) -> Star {
-        let ra = data.right_ascension.to_angle();
-        let dec = data.declination.to_angle();
-        let dir = EarthEquatorialCoordinates::new(ra, dec).to_direction();
-        Star {
-            name: data.name.to_string(),
-            mass: data.mass,
-            radius: data.radius,
-            luminosity: data.luminosity,
-            temperature: data.temperature,
-            color: sRGBColor::from_temperature(data.temperature),
-            distance: data.distance,
-            direction_in_ecliptic: dir,
-        }
-    }
-
     pub fn get_name(&self) -> &str {
         &self.name
     }
