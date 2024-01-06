@@ -1,12 +1,7 @@
 use super::star::Star;
 use crate::{
     coordinates::cartesian::CartesianCoordinates,
-    units::{
-        length::Length,
-        luminosity::{self, Luminosity},
-        mass::Mass,
-        time::Time,
-    },
+    units::{length::Length, luminosity::Luminosity, mass::Mass, time::Time},
     Float,
 };
 

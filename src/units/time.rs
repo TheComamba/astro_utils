@@ -2,14 +2,20 @@ use crate::Float;
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-const SECONDS_PER_MINUTE: Float = 60.;
+pub(crate) const SECONDS_PER_MINUTE: Float = 60.;
 const MINUTES_PER_SECOND: Float = 1. / SECONDS_PER_MINUTE;
 pub(crate) const SECONDS_PER_HOUR: Float = 3600.;
 const HOURS_PER_SECOND: Float = 1. / SECONDS_PER_HOUR;
 pub(crate) const SECONDS_PER_DAY: Float = 86400.;
 const DAYS_PER_SECOND: Float = 1. / SECONDS_PER_DAY;
-const SECONDS_PER_YEAR: Float = 31557600.;
+pub(crate) const SECONDS_PER_YEAR: Float = 31_557_600.;
 const YEARS_PER_SECOND: Float = 1. / SECONDS_PER_YEAR;
+pub(crate) const SECONDS_PER_MILLENIUM: Float = 3_155_760e3;
+const KILOYEARS_PER_SECOND: Float = 1. / SECONDS_PER_MILLENIUM;
+pub(crate) const SECONDS_PER_MILLION_YEARS: Float = 3_155_760e6;
+const MILLION_YEARS_PER_SECOND: Float = 1. / SECONDS_PER_MILLION_YEARS;
+pub(crate) const SECONDS_PER_BILLION_YEARS: Float = 3_155_760e9;
+const BILLION_YEARS_PER_SECOND: Float = 1. / SECONDS_PER_BILLION_YEARS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Time {
@@ -47,6 +53,24 @@ impl Time {
         }
     }
 
+    pub fn from_thousand_years(kiloyears: Float) -> Time {
+        Time {
+            seconds: kiloyears * SECONDS_PER_MILLENIUM,
+        }
+    }
+
+    pub fn from_million_years(million_years: Float) -> Time {
+        Time {
+            seconds: million_years * SECONDS_PER_MILLION_YEARS,
+        }
+    }
+
+    pub fn from_billion_years(billion_years: Float) -> Time {
+        Time {
+            seconds: billion_years * SECONDS_PER_BILLION_YEARS,
+        }
+    }
+
     pub const fn as_seconds(&self) -> Float {
         self.seconds
     }
@@ -67,6 +91,18 @@ impl Time {
         self.seconds * YEARS_PER_SECOND
     }
 
+    pub fn as_thousand_years(&self) -> Float {
+        self.seconds * KILOYEARS_PER_SECOND
+    }
+
+    pub fn as_million_years(&self) -> Float {
+        self.seconds * MILLION_YEARS_PER_SECOND
+    }
+
+    pub fn as_billion_years(&self) -> Float {
+        self.seconds * BILLION_YEARS_PER_SECOND
+    }
+
     #[cfg(test)]
     pub(crate) fn eq_within(&self, other: Time, accuracy: Time) -> bool {
         let diff = self.seconds - other.seconds;
@@ -76,7 +112,13 @@ impl Time {
 
 impl Display for Time {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.seconds.abs() > 0.99 * SECONDS_PER_YEAR {
+        if self.seconds.abs() > 0.99 * SECONDS_PER_BILLION_YEARS {
+            write!(f, "{:.2} byrs", self.as_billion_years())
+        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLION_YEARS {
+            write!(f, "{:.2} myrs", self.as_million_years())
+        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLENIUM {
+            write!(f, "{:.2} kyr", self.as_thousand_years())
+        } else if self.seconds.abs() > 0.99 * SECONDS_PER_YEAR {
             write!(f, "{:.2} yrs", self.as_years())
         } else if self.seconds.abs() > 0.99 * SECONDS_PER_DAY {
             write!(f, "{:.2} days", self.as_days())
@@ -170,6 +212,12 @@ mod tests {
         assert_eq!(format!("{}", time), "1.00 days");
         let time = Time::from_years(1.);
         assert_eq!(format!("{}", time), "1.00 yrs");
+        let time = Time::from_thousand_years(1.);
+        assert_eq!(format!("{}", time), "1.00 kyr");
+        let time = Time::from_million_years(1.);
+        assert_eq!(format!("{}", time), "1.00 myrs");
+        let time = Time::from_billion_years(1.);
+        assert_eq!(format!("{}", time), "1.00 byrs");
     }
 
     #[test]
@@ -184,5 +232,11 @@ mod tests {
         assert_eq!(format!("{}", time), "-1.00 days");
         let time = Time::from_years(-1.);
         assert_eq!(format!("{}", time), "-1.00 yrs");
+        let time = Time::from_thousand_years(-1.);
+        assert_eq!(format!("{}", time), "-1.00 kyr");
+        let time = Time::from_million_years(-1.);
+        assert_eq!(format!("{}", time), "-1.00 myrs");
+        let time = Time::from_billion_years(-1.);
+        assert_eq!(format!("{}", time), "-1.00 byrs");
     }
 }
