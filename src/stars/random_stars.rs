@@ -1,8 +1,11 @@
+use super::star::Star;
 use crate::{
     coordinates::cartesian::CartesianCoordinates,
-    stellar_properties::StellarProperties,
     units::{
-        illuminance::Illuminance, length::Length, luminosity::Luminosity, mass::Mass, time::Time,
+        length::Length,
+        luminosity::{self, Luminosity},
+        mass::Mass,
+        time::Time,
     },
     Float,
 };
@@ -11,7 +14,7 @@ use crate::{
 const STARS_PER_LY_CUBED: Float = 0.004;
 const DIMMEST_VISIBLE_MAGNITUDE: Float = 6.5;
 
-pub fn generate_random_starts(max_distance: Length) -> Vec<StellarProperties> {
+pub fn generate_random_starts(max_distance: Length) -> Vec<Star> {
     let number_of_stars_in_cube = STARS_PER_LY_CUBED * (max_distance * 2.).as_light_years().powi(3);
     let number_of_stars_in_cube = number_of_stars_in_cube as usize;
     let mut stars = Vec::new();
@@ -23,26 +26,28 @@ pub fn generate_random_starts(max_distance: Length) -> Vec<StellarProperties> {
     stars
 }
 
-fn generate_visible_random_star(max_distance: Length) -> Option<StellarProperties> {
+fn generate_visible_random_star(max_distance: Length) -> Option<Star> {
     let pos = generate_random_3d_position(max_distance);
-    if pos.length() > max_distance {
+    let distance = pos.length();
+    if distance > max_distance {
         return None;
     }
-    let star = generate_random_star(max_distance);
-    let apparent_magnitude = star.get_absolute_magnitude().to_illuminance(&pos.length());
-    if apparent_magnitude.as_apparent_magnitude() > DIMMEST_VISIBLE_MAGNITUDE {
+    let (mass, luminosity) = generate_random_star_ting_point();
+    if luminosity.to_illuminance(&distance).as_apparent_magnitude() > DIMMEST_VISIBLE_MAGNITUDE {
         return None;
     }
-    // star.pos = pos;
+    let age_expectancy = calculate_age_axpectancy(mass, luminosity);
+    let age = generate_random_age(age_expectancy);
+    let mut star = calulate_star_at_origin(mass, luminosity, age);
+    star.distance = distance;
+    star.direction_in_ecliptic = pos.to_direction();
     Some(star)
 }
 
-fn generate_random_star(max_distance: Length) -> StellarProperties {
+fn generate_random_star_ting_point() -> (Mass, Luminosity) {
     let mass = generate_random_mass();
     let luminosity = calulate_luminosity(mass);
-    let age_expectancy = calculate_age_axpectancy(mass, luminosity);
-    let age = generate_random_age(age_expectancy);
-    todo!("Implement generate_random_star")
+    (mass, luminosity)
 }
 
 fn generate_random_3d_position(max_distance: Length) -> CartesianCoordinates {
@@ -67,4 +72,8 @@ fn calculate_age_axpectancy(mass: Mass, luminosity: Luminosity) -> Time {
 fn generate_random_age(age_expectancy: Time) -> Time {
     // const MAX_AGE: Time = Time::from_years(10e9);
     todo!("Implement generate_random_age")
+}
+
+fn calulate_star_at_origin(mass: Mass, luminosity: Luminosity, age: Time) -> Star {
+    todo!("Implement calulate_other_star_properties")
 }
