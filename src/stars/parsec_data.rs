@@ -1,11 +1,11 @@
 use crate::{error::AstroUtilError, Float};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
-use std::{collections::HashMap, path::PathBuf};
-use tar::Archive;
 use std::fs;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+use std::{collections::HashMap, path::PathBuf};
+use tar::Archive;
 
 enum Metallicity {
     Z0_01,
@@ -90,9 +90,7 @@ fn download_parsec_data(metallicity: Metallicity) -> Result<(), AstroUtilError> 
     let mut response = reqwest::blocking::get(target).map_err(AstroUtilError::Connection)?;
     let gz_decoder = GzDecoder::new(&mut response);
     let mut archive = Archive::new(gz_decoder);
-    archive
-        .unpack(data_dir)
-        .map_err(AstroUtilError::Io)?;
+    archive.unpack(data_dir).map_err(AstroUtilError::Io)?;
     Ok(())
 }
 
@@ -134,16 +132,26 @@ fn read_parsec_data() -> Result<ParsecData, AstroUtilError> {
             let line = line.map_err(AstroUtilError::Io)?;
             let entries: Vec<&str> = line.split_whitespace().collect();
             if mass.is_none() {
-                let mass_entry = entries.get(MASS_INDEX).ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                let mass_entry = entries
+                    .get(MASS_INDEX)
+                    .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
                 if let Ok(mass_value) = mass_entry.parse::<Float>() {
                     mass = Some(format_mass_like_parsec(mass_value));
                 }
             }
-            if let Some(mass_value) = mass {
-                let age_entry = entries.get(AGE_INDEX).ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                let log_l_entry = entries.get(LOG_L_INDEX).ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                let log_te_entry = entries.get(LOG_TE_INDEX).ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                let log_r_entry = entries.get(LOG_R_INDEX).ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+            if let Some(mass_value) = &mass {
+                let age_entry = entries
+                    .get(AGE_INDEX)
+                    .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                let log_l_entry = entries
+                    .get(LOG_L_INDEX)
+                    .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                let log_te_entry = entries
+                    .get(LOG_TE_INDEX)
+                    .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                let log_r_entry = entries
+                    .get(LOG_R_INDEX)
+                    .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
                 if let (Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
                     age_entry.parse::<Float>(),
                     log_l_entry.parse::<Float>(),
@@ -156,11 +164,13 @@ fn read_parsec_data() -> Result<ParsecData, AstroUtilError> {
                         log_te,
                         log_r,
                     };
-                    let data = parsec_data.mass_to_data.entry(mass_value).or_insert(Vec::new());
+                    let data = parsec_data
+                        .mass_to_data
+                        .entry(mass_value.clone())
+                        .or_insert(Vec::new());
                     data.push(parsec_line);
                 }
             }
-        
         }
     }
 
