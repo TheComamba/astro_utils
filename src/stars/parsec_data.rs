@@ -1,4 +1,4 @@
-use std::{collections::HashMap, fs::File, io::{copy, Bytes}, path::PathBuf};
+use std::{collections::HashMap, fs::File, io::{copy, Bytes, Read}, path::PathBuf};
 
 use crate::{error::AstroUtilError, Float};
 
@@ -14,14 +14,11 @@ pub struct ParsecData {
 }
 
 fn download_parsec_data() -> Result<(), AstroUtilError> {
-    let filepath = PathBuf::from("/tmp/astrofile.tag.gz");
+    let filepath = PathBuf::from("/tmp/Z0.01.tag.gz");
     let target = "https://people.sissa.it/~sbressan/CAF09_V1.2S_M36_LT/no_phase/Z0.01.tar.gz";
-    let response = reqwest::blocking::get(target).map_err(AstroUtilError::Connection)?;
-
+    let mut response = reqwest::blocking::get(target).map_err(AstroUtilError::Connection)?;
     let mut file = File::create(filepath).map_err(AstroUtilError::FileSystem)?;
-    let mut content = response.text().map_err(AstroUtilError::Connection)?;
-    let mut content = content.as_bytes();
-    copy(&mut content, &mut file).map_err(AstroUtilError::FileSystem)?;
+    copy(&mut response, &mut file).map_err(AstroUtilError::FileSystem)?;
     Ok(())
 }
 
