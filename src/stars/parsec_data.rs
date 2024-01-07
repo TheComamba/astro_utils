@@ -40,7 +40,7 @@ fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
 pub(super) fn format_mass_like_parsec(mass: Float) -> String {
     if mass > 350. {
         "350.0".to_string()
-    } else if mass > 165. {
+    } else if mass > 176. {
         let mass = (mass / 50.).round() * 50.;
         format!("{:.1}", mass)
     } else if mass > 125. {
@@ -52,7 +52,7 @@ pub(super) fn format_mass_like_parsec(mass: Float) -> String {
         format!("{:.1}", mass)
     } else if mass > 26. {
         "28.0".to_string()
-    } else if mass > 22. {
+    } else if mass > 21. {
         "24.0".to_string()
     } else if mass > 9.5 {
         let mass = (mass / 2.).round() * 2.;
@@ -184,5 +184,24 @@ mod tests {
     #[test]
     fn test_download_parsec_data() {
         ensure_parsec_data(Metallicity::Z0_01).unwrap();
+    }
+
+    #[test]
+    fn test_read_parsec_data() {
+        let parsec_data = read_parsec_data().unwrap();
+        assert!(parsec_data.mass_to_data.len() > 0);
+    }
+
+    #[test]
+    fn any_mass_is_mapped_to_date() {
+        let parsec_data = read_parsec_data().unwrap();
+        let mut mass = 0.001;
+        while mass < 400. {
+            let mass_string = format_mass_like_parsec(mass);
+            println!("mass: {}", mass);
+            println!("mass_string: {}", mass_string);
+            assert!(parsec_data.mass_to_data.contains_key(&mass_string));
+            mass *= 1.1;
+        }
     }
 }
