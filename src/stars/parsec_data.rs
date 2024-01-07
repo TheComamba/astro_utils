@@ -1,13 +1,21 @@
 use crate::{error::AstroUtilError, Float};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
-use std::{
-    collections::HashMap,
-    fs::File,
-    io::{copy, Bytes, Read},
-    path::PathBuf,
-};
+use std::{collections::HashMap, path::PathBuf};
 use tar::Archive;
+
+enum Metallicity {
+    Z0_01,
+}
+
+impl ToString for Metallicity {
+    fn to_string(&self) -> String {
+        match self {
+            Metallicity::Z0_01 => "Z0.01",
+        }
+        .to_string()
+    }
+}
 
 struct ParsecLine {
     age: Float,
@@ -21,13 +29,12 @@ pub struct ParsecData {
 }
 
 fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
-    ProjectDirs::from("", "the_comamba", "astro_utils").ok_or(AstroUtilError::FileSystem(std::io::Error::new(
-        std::io::ErrorKind::Other,
-        "Could not get project dirs",
-    )))
+    ProjectDirs::from("", "the_comamba", "astro_utils").ok_or(AstroUtilError::FileSystem(
+        std::io::Error::new(std::io::ErrorKind::Other, "Could not get project dirs"),
+    ))
 }
 
-fn download_parsec_data() -> Result<(), AstroUtilError> {
+fn download_parsec_data(metallicity: Metallicity) -> Result<(), AstroUtilError> {
     let project_dirs = get_project_dirs()?;
     let data_dir = project_dirs.data_dir();
     let data_dir = data_dir
@@ -37,7 +44,9 @@ fn download_parsec_data() -> Result<(), AstroUtilError> {
             "Could not convert data dir to string",
         )))?;
     println!("Downloading PARSEC data to {}", data_dir);
-    let target = "https://people.sissa.it/~sbressan/CAF09_V1.2S_M36_LT/no_phase/Z0.01.tar.gz";
+    let target = "https://people.sissa.it/~sbressan/CAF09_V1.2S_M36_LT/no_phase/".to_string()
+        + &metallicity.to_string()
+        + ".tar.gz";
     let mut response = reqwest::blocking::get(target).map_err(AstroUtilError::Connection)?;
     let gz_decoder = GzDecoder::new(&mut response);
     let mut archive = Archive::new(gz_decoder);
@@ -47,12 +56,12 @@ fn download_parsec_data() -> Result<(), AstroUtilError> {
     Ok(())
 }
 
-fn ensure_parsec_data() -> Result<(), AstroUtilError> {
+fn ensure_parsec_data(metallicity: Metallicity) -> Result<(), AstroUtilError> {
     let project_dirs = get_project_dirs()?;
     let data_dir = project_dirs.data_dir();
-    let filepath = data_dir.join(PathBuf::from("Z0.01"));
+    let filepath = data_dir.join(PathBuf::from(metallicity.to_string()));
     if !filepath.exists() {
-        download_parsec_data()?;
+        download_parsec_data(metallicity)?;
     }
     Ok(())
 }
@@ -63,6 +72,6 @@ mod tests {
 
     #[test]
     fn test_download_parsec_data() {
-        ensure_parsec_data().unwrap();
+        ensure_parsec_data(Metallicity::Z0_01).unwrap();
     }
 }
