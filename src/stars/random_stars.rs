@@ -31,9 +31,9 @@ fn generate_visible_random_star(max_distance: Length) -> Option<Star> {
     if luminosity.to_illuminance(&distance).as_apparent_magnitude() > DIMMEST_VISIBLE_MAGNITUDE {
         return None;
     }
-    let age_expectancy = calculate_age_axpectancy(mass, luminosity);
+    let age_expectancy = calculate_age_axpectancy(mass);
     let age = generate_random_age(age_expectancy);
-    let mut star = calulate_star_at_origin(mass,  age);
+    let mut star = calulate_star_at_origin(mass, age);
     star.distance = distance;
     star.direction_in_ecliptic = pos.to_direction();
     Some(star)
@@ -83,7 +83,7 @@ mod tests {
         for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
             if let Some(age) = data.age {
                 let mass = data.mass;
-                let calculated_star = calulate_star_at_origin(mass,  age);
+                let calculated_star = calulate_star_at_origin(mass, age);
                 let real_star = data.to_star();
                 println!("calculated_star: {:?}", calculated_star);
                 println!("real_star: {:?}", real_star);
