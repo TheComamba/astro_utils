@@ -263,8 +263,8 @@ impl ParsecLine {
     }
 
     pub(super) fn get_radius(&self) -> Length {
-        let radius = 10f32.powf(self.log_r);
-        Length::from_sun_radii(radius)
+        let radius = 10f32.powf(self.log_r) / 100.;
+        Length::from_meters(radius)
     }
 }
 
