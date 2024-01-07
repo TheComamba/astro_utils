@@ -289,11 +289,13 @@ mod tests {
                 let current_params = parsec_data.get_params_for_current_mass_and_age(mass, age);
                 let calculated_star = current_params.to_star_at_origin(mass);
                 let real_star = data.to_star();
-                println!("calculated_star: {:?}", calculated_star);
-                println!("real_star: {:?}", real_star);
-                assert!(calculated_star.similar_within_order_of_magnitude(&real_star));
+                // println!("calculated_star: {:?}", calculated_star);
+                // println!("real_star: {:?}", real_star);
+                calculated_star.similar_within_order_of_magnitude(&real_star);
+                // assert!(calculated_star.similar_within_order_of_magnitude(&real_star));
             }
         }
+        assert!(false)
     }
 
     #[test]
