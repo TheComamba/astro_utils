@@ -72,3 +72,6 @@ fn generate_random_age(age_expectancy: Time) -> Time {
 fn calulate_star_at_origin(mass: Mass, luminosity: Luminosity, age: Time) -> Star {
     todo!("Implement calulate_other_star_properties")
 }
+
+#[cfg(test)]
+mod tests {}

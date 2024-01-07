@@ -35,6 +35,7 @@ impl RealData {
             luminosity: self.luminosity,
             temperature: self.temperature,
             color: sRGBColor::from_temperature(self.temperature),
+            age: self.age,
             distance: self.distance,
             direction_in_ecliptic: dir,
         }

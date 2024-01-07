@@ -1,7 +1,9 @@
 use crate::{
     color::sRGBColor,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
-    units::{length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature},
+    units::{
+        length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature, time::Time,
+    },
 };
 use serde::{Deserialize, Serialize};
 
@@ -13,6 +15,7 @@ pub struct Star {
     pub(super) luminosity: Luminosity,
     pub(super) temperature: Temperature,
     pub(super) color: sRGBColor,
+    pub(super) age: Option<Time>,
     pub(super) distance: Length,
     pub(super) direction_in_ecliptic: Direction,
 }
@@ -42,6 +45,10 @@ impl Star {
         &self.color
     }
 
+    pub const fn get_age(&self) -> &Option<Time> {
+        &self.age
+    }
+
     pub const fn get_distance(&self) -> Length {
         self.distance
     }
@@ -52,5 +59,28 @@ impl Star {
 
     pub fn calculate_position(&self) -> CartesianCoordinates {
         self.direction_in_ecliptic.to_cartesian(self.distance)
+    }
+
+    #[cfg(test)]
+    pub(crate) fn similar_within_order_of_magnitude(&self, other: &Self) -> bool {
+        let mass_ratio = self.mass / other.mass;
+        let radius_ratio = self.radius / other.radius;
+        let luminosity_difference = (self.luminosity.as_absolute_magnitude()
+            - other.luminosity.as_absolute_magnitude())
+        .abs();
+        let temperature_ratio = self.temperature / other.temperature;
+        let age_ratio = match (self.age, other.age) {
+            (Some(self_age), Some(other_age)) => self_age / other_age,
+            _ => 1.0,
+        };
+        mass_ratio > 0.1
+            && mass_ratio < 10.0
+            && radius_ratio > 0.1
+            && radius_ratio < 10.0
+            && luminosity_difference < 1.0
+            && temperature_ratio > 0.1
+            && temperature_ratio < 10.0
+            && age_ratio > 0.1
+            && age_ratio < 10.0
     }
 }

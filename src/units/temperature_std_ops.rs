@@ -83,13 +83,11 @@ impl DivAssign<Float> for Temperature {
     }
 }
 
-impl Div<Temperature> for Float {
-    type Output = Temperature;
+impl Div<Temperature> for Temperature {
+    type Output = Float;
 
-    fn div(self, temperature: Temperature) -> Temperature {
-        Temperature {
-            kelvin: self / temperature.kelvin,
-        }
+    fn div(self, temperature: Temperature) -> Float {
+        self.kelvin / temperature.kelvin
     }
 }
 
@@ -108,6 +106,7 @@ forward_ref_binop!(impl Sub, sub for Temperature, Temperature);
 forward_ref_binop!(impl Mul, mul for Temperature, Float);
 forward_ref_binop!(impl Mul, mul for Float, Temperature);
 forward_ref_binop!(impl Div, div for Temperature, Float);
+forward_ref_binop!(impl Div, div for Temperature, Temperature);
 forward_ref_op_assign!(impl AddAssign, add_assign for Temperature, Temperature);
 forward_ref_op_assign!(impl SubAssign, sub_assign for Temperature, Temperature);
 forward_ref_op_assign!(impl MulAssign, mul_assign for Temperature, Float);
