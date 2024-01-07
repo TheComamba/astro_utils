@@ -17,7 +17,7 @@ pub struct RealData {
     pub radius: Length,
     pub luminosity: Luminosity,
     pub temperature: Temperature,
-    pub age: Time,
+    pub age: Option<Time>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
     pub distance: Length,
