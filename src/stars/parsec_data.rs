@@ -1,5 +1,10 @@
 use super::star::Star;
+use crate::color::sRGBColor;
+use crate::coordinates::direction::Direction;
+use crate::units::length::Length;
+use crate::units::luminosity::Luminosity;
 use crate::units::mass::Mass;
+use crate::units::temperature::Temperature;
 use crate::units::time::Time;
 use crate::{error::AstroUtilError, Float};
 use directories::ProjectDirs;
@@ -195,6 +200,7 @@ impl ParsecData {
         trajectory.last().unwrap().age as u32
     }
 
+    #[cfg(test)]
     pub(super) fn get_params_for_current_mass_and_age(
         &self,
         mass: Mass,
@@ -224,7 +230,41 @@ impl ParsecData {
 
 impl ParsecLine {
     pub(super) fn to_star_at_origin(&self, mass: Mass) -> Star {
-        todo!("Implement ParsecLine::to_star_at_origin");
+        let age = self.get_age();
+        let luminosity = self.get_luminosity();
+        let temperature = self.get_temperature();
+        let radius = self.get_radius();
+        let color = sRGBColor::from_temperature(temperature);
+        Star {
+            name: "".to_string(),
+            mass,
+            age: Some(age),
+            luminosity,
+            temperature,
+            color,
+            radius,
+            distance: Length::ZERO,
+            direction_in_ecliptic: Direction::Z,
+        }
+    }
+
+    pub(super) fn get_age(&self) -> Time {
+        Time::from_years(self.age)
+    }
+
+    pub(super) fn get_luminosity(&self) -> Luminosity {
+        let lum = 10f32.powf(self.log_l);
+        Luminosity::from_solar_luminosities(lum)
+    }
+
+    pub(super) fn get_temperature(&self) -> Temperature {
+        let temp = 10f32.powf(self.log_te);
+        Temperature::from_kelvin(temp)
+    }
+
+    pub(super) fn get_radius(&self) -> Length {
+        let radius = 10f32.powf(self.log_r);
+        Length::from_sun_radii(radius)
     }
 }
 
@@ -240,7 +280,7 @@ mod tests {
     use crate::data::stars::STARS_TO_TWO_POINT_FIVE_APPARENT_MAG;
 
     #[test]
-    fn test_calulate_star() {
+    fn test_calculate_star() {
         let parsec_data = ParsecData::new().unwrap();
         for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
             if let Some(age) = data.age {

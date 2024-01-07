@@ -66,23 +66,3 @@ fn generate_random_3d_position(max_distance: Length) -> CartesianCoordinates {
 fn generate_random_mass() -> Mass {
     todo!("Implement generate_random_mass")
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::data::stars::STARS_TO_TWO_POINT_FIVE_APPARENT_MAG;
-
-    // #[test]
-    // fn test_calulate_star() {
-    //     for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
-    //         if let Some(age) = data.age {
-    //             let mass = data.mass;
-    //             let calculated_star = calulate_star_at_origin(mass, age);
-    //             let real_star = data.to_star();
-    //             println!("calculated_star: {:?}", calculated_star);
-    //             println!("real_star: {:?}", real_star);
-    //             assert!(calculated_star.similar_within_order_of_magnitude(&real_star));
-    //         }
-    //     }
-    // }
-}
