@@ -28,17 +28,17 @@ ensure_prerequisite curl
 ensure_prerequisite tar
 ensure_prerequisite gnuplot
 
-ensure_data_exists "Z0.0001"
+ensure_data_exists "Z0.01"
 
-filename="Z0.0001/all.dat"
+filename="Z0.01/all.dat"
 if [ ! -f $filename ]
 then
 	append_small_star() {
-		cat "Z0.0001/Z0.0001Y0.249OUTA1.77_F7_M${1}.DAT" >> $2
+		cat "Z0.01/Z0.01Y0.267OUTA1.77_F7_M${1}.DAT" >> $2
 	}
 
 	append_star() {
-		cat "Z0.0001/Z0.0001Y0.249OUTA1.74_F7_M${1}.DAT" >> $2
+		cat "Z0.01/Z0.01Y0.267OUTA1.74_F7_M${1}.DAT" >> $2
 	}
 
 	append_small_star ".10" $filename
@@ -93,42 +93,42 @@ set logscale y
 """ >> gnuplot.gp
 
 echo """
-set output 'Absolute_Magnitude.png'
 set zlabel 'Absolute Magnitude (?)'
 
-abs_mag(x,y) = 1.0
+abs_mag(m,t) = 1.0
 
-splot 'Z0.0001/all.dat' using 2:3:4 notitle, \
+set output 'Absolute_Magnitude.png'
+splot 'Z0.01/all.dat' using 2:3:4 notitle, \
 	abs_mag(x,y) notitle
 
 set output 'Absolute_Magnitude_minus_fit.png'
-splot 'Z0.0001/all.dat' using 2:3:(column(4)-abs_mag(column(2),column(3))) notitle
+splot 'Z0.01/all.dat' using 2:3:(column(4)-abs_mag(column(2),column(3))) notitle
 """ >> gnuplot.gp
 
 echo """
 set output 'Effective_Temperature.png'
 set zlabel 'Logarithmic Effective Temperature [log(K) (?)]'
 
-temp(x,y) = 1.0
+temp(m,t) = 1.0
 
-splot 'Z0.0001/all.dat' using 2:3:5 notitle, \
+splot 'Z0.01/all.dat' using 2:3:5 notitle, \
 	temp(x,y) notitle
 
 set output 'Effective_Temperature_minus_fit.png'
-splot 'Z0.0001/all.dat' using 2:3:(column(5)-temp(column(2),column(3))) notitle
+splot 'Z0.01/all.dat' using 2:3:(column(5)-temp(column(2),column(3))) notitle
 """ >> gnuplot.gp
 
 echo """
 set output 'Radius.png'
 set zlabel 'Radius [???]'
 
-radius(x,y) = 1.0
+radius(m,t) = 1.0
 
-splot 'Z0.0001/all.dat' using 2:3:6 notitle, \
+splot 'Z0.01/all.dat' using 2:3:6 notitle, \
 	radius(x,y) notitle
 
 set output 'Radius_minus_fit.png'
-splot 'Z0.0001/all.dat' using 2:3:(column(6)-radius(column(2),column(3))) notitle
+splot 'Z0.01/all.dat' using 2:3:(column(6)-radius(column(2),column(3))) notitle
 """ >> gnuplot.gp
 
 gnuplot -p gnuplot.gp
