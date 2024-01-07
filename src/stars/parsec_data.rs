@@ -1,3 +1,5 @@
+use super::star::Star;
+use crate::units::mass::Mass;
 use crate::{error::AstroUtilError, Float};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
@@ -20,14 +22,14 @@ impl ToString for Metallicity {
     }
 }
 
-struct ParsecLine {
+pub(super) struct ParsecLine {
     age: Float,
     log_l: Float,
     log_te: Float,
     log_r: Float,
 }
 
-pub struct ParsecData {
+pub(super) struct ParsecData {
     data: Vec<Vec<ParsecLine>>,
 }
 
@@ -169,9 +171,15 @@ impl ParsecData {
         Ok(())
     }
 
-    fn get_trajectory(&self, mass: Float) -> &Vec<ParsecLine> {
+    pub(super) fn get_trajectory(&self, mass: Float) -> &Vec<ParsecLine> {
         let mass_index = Self::get_closest_mass_index(mass);
         &self.data[mass_index]
+    }
+}
+
+impl ParsecLine {
+    pub(super) fn to_star_at_origin(&self, mass: Mass) -> Star {
+        todo!("Implement ParsecLine::to_star_at_origin");
     }
 }
 
