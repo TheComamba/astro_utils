@@ -1,5 +1,6 @@
 use super::star::Star;
 use crate::units::mass::Mass;
+use crate::units::time::Time;
 use crate::{error::AstroUtilError, Float};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
@@ -43,14 +44,14 @@ impl ParsecData {
         16.0, 18.0, 20.0, 24.0, 28.0, 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 65.0, 70.0, 75.0,
         80.0, 90.0, 95.0, 100.0, 120.0, 130.0, 200.0, 250.0, 300.0, 350.0,
     ];
+    const MASS_INDEX: usize = 1;
+    const AGE_INDEX: usize = 2;
+    const LOG_L_INDEX: usize = 3;
+    const LOG_TE_INDEX: usize = 4;
+    const LOG_R_INDEX: usize = 5;
 
     pub(super) fn new() -> Result<ParsecData, AstroUtilError> {
         const METALLICITY: Metallicity = Metallicity::Z0_01;
-        const MASS_INDEX: usize = 1;
-        const AGE_INDEX: usize = 2;
-        const LOG_L_INDEX: usize = 3;
-        const LOG_TE_INDEX: usize = 4;
-        const LOG_R_INDEX: usize = 5;
 
         Self::ensure_files(METALLICITY)?;
 
@@ -66,55 +67,7 @@ impl ParsecData {
         let folder_path = data_dir.join(PathBuf::from(METALLICITY.to_string()));
         let filepaths = fs::read_dir(folder_path).map_err(AstroUtilError::Io)?;
         for entry in filepaths {
-            let file_path = entry.map_err(AstroUtilError::Io)?.path();
-            let file = File::open(&file_path).map_err(AstroUtilError::Io)?;
-            let reader = BufReader::new(file);
-            let mut mass_position = None;
-
-            for line in reader.lines() {
-                let line = line.map_err(AstroUtilError::Io)?;
-                let entries: Vec<&str> = line.split_whitespace().collect();
-                if mass_position.is_none() {
-                    let mass_entry = entries
-                        .get(MASS_INDEX)
-                        .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                    if let Ok(mass_value) = mass_entry.parse::<Float>() {
-                        mass_position = Some(Self::get_closest_mass_index(mass_value));
-                    }
-                }
-                if let Some(mass_position) = &mass_position {
-                    let age_entry = entries
-                        .get(AGE_INDEX)
-                        .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                    let log_l_entry = entries
-                        .get(LOG_L_INDEX)
-                        .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                    let log_te_entry = entries
-                        .get(LOG_TE_INDEX)
-                        .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                    let log_r_entry = entries
-                        .get(LOG_R_INDEX)
-                        .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                    if let (Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
-                        age_entry.parse::<Float>(),
-                        log_l_entry.parse::<Float>(),
-                        log_te_entry.parse::<Float>(),
-                        log_r_entry.parse::<Float>(),
-                    ) {
-                        let parsec_line = ParsecLine {
-                            age,
-                            log_l,
-                            log_te,
-                            log_r,
-                        };
-                        let data = parsec_data
-                            .data
-                            .get_mut(*mass_position)
-                            .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-                        data.push(parsec_line);
-                    }
-                }
-            }
+            Self::read_file(entry, &mut parsec_data)?;
         }
 
         Ok(parsec_data)
@@ -175,6 +128,98 @@ impl ParsecData {
         let mass_index = Self::get_closest_mass_index(mass);
         &self.data[mass_index]
     }
+
+    fn read_file(
+        entry: Result<fs::DirEntry, std::io::Error>,
+        parsec_data: &mut ParsecData,
+    ) -> Result<(), AstroUtilError> {
+        let file_path = entry.map_err(AstroUtilError::Io)?.path();
+        let file = File::open(&file_path).map_err(AstroUtilError::Io)?;
+        let reader = BufReader::new(file);
+        let mut mass_position = None;
+        Ok(for line in reader.lines() {
+            Self::read_line(line, &mut mass_position, parsec_data)?;
+        })
+    }
+
+    fn read_line(
+        line: Result<String, std::io::Error>,
+        mass_position: &mut Option<usize>,
+        parsec_data: &mut ParsecData,
+    ) -> Result<(), AstroUtilError> {
+        let line = line.map_err(AstroUtilError::Io)?;
+        let entries: Vec<&str> = line.split_whitespace().collect();
+        if mass_position.is_none() {
+            let mass_entry = entries
+                .get(Self::MASS_INDEX)
+                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+            if let Ok(mass_value) = mass_entry.parse::<Float>() {
+                *mass_position = Some(Self::get_closest_mass_index(mass_value));
+            }
+        }
+        Ok(if let Some(mass_position) = &*mass_position {
+            let age_entry = entries
+                .get(Self::AGE_INDEX)
+                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+            let log_l_entry = entries
+                .get(Self::LOG_L_INDEX)
+                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+            let log_te_entry = entries
+                .get(Self::LOG_TE_INDEX)
+                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+            let log_r_entry = entries
+                .get(Self::LOG_R_INDEX)
+                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+            if let (Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
+                age_entry.parse::<Float>(),
+                log_l_entry.parse::<Float>(),
+                log_te_entry.parse::<Float>(),
+                log_r_entry.parse::<Float>(),
+            ) {
+                let parsec_line = ParsecLine {
+                    age,
+                    log_l,
+                    log_te,
+                    log_r,
+                };
+                let data = parsec_data
+                    .data
+                    .get_mut(*mass_position)
+                    .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                data.push(parsec_line);
+            }
+        })
+    }
+
+    pub(super) fn get_life_expectancy_in_years(trajectory: &Vec<ParsecLine>) -> u32 {
+        trajectory.last().unwrap().age as u32
+    }
+
+    pub(super) fn get_params_for_current_mass_and_age(
+        &self,
+        mass: Mass,
+        age_in_years: Float,
+    ) -> &ParsecLine {
+        let mass_index = Self::get_closest_mass_index(mass.as_solar_masses());
+        let trajectory = &self.data[mass_index];
+        Self::get_closest_params(trajectory, age_in_years)
+    }
+
+    pub(super) fn get_closest_params(
+        trajectory: &Vec<ParsecLine>,
+        actual_age_in_years: Float,
+    ) -> &ParsecLine {
+        let mut closest_age = Float::MAX;
+        let mut age_index = 0;
+        for (i, line) in trajectory.iter().enumerate() {
+            let age_difference = (line.age - actual_age_in_years).abs();
+            if age_difference < closest_age {
+                closest_age = age_difference;
+                age_index = i;
+            }
+        }
+        &trajectory[age_index]
+    }
 }
 
 impl ParsecLine {
@@ -192,20 +237,27 @@ fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::data::stars::STARS_TO_TWO_POINT_FIVE_APPARENT_MAG;
 
     #[test]
-    fn test_download_parsec_data() {
-        ParsecData::ensure_files(Metallicity::Z0_01).unwrap();
-    }
-
-    #[test]
-    fn test_read_parsec_data() {
+    fn test_calulate_star() {
         let parsec_data = ParsecData::new().unwrap();
-        assert!(parsec_data.data.len() > 0);
+        for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
+            if let Some(age) = data.age {
+                let mass = data.mass;
+                let age = age.as_years();
+                let current_params = parsec_data.get_params_for_current_mass_and_age(mass, age);
+                let calculated_star = current_params.to_star_at_origin(mass);
+                let real_star = data.to_star();
+                println!("calculated_star: {:?}", calculated_star);
+                println!("real_star: {:?}", real_star);
+                assert!(calculated_star.similar_within_order_of_magnitude(&real_star));
+            }
+        }
     }
 
     #[test]
-    fn map_masses_are_mapped_to_themselves() {
+    fn masses_are_mapped_to_themselves() {
         const SMALL_OFFSET: Float = 1e-4;
         for expected_mass in ParsecData::SORTED_MASSES.iter() {
             let mass = *expected_mass;

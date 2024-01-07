@@ -53,9 +53,9 @@ fn generate_visible_random_star(parsec_data: &ParsecData, max_distance: Length) 
 
 fn pick_random_age(trajectory: &Vec<ParsecLine>) -> &ParsecLine {
     let mut rng: ThreadRng = rand::thread_rng();
-    let max_number = trajectory.len() - 1;
-    let i = rng.gen_range(0..=max_number);
-    &trajectory[i]
+    let life_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
+    let age_in_years = rng.gen_range(0..=life_expectancy);
+    ParsecData::get_closest_params(trajectory, age_in_years as Float)
 }
 
 fn generate_random_3d_position(max_distance: Length) -> CartesianCoordinates {
