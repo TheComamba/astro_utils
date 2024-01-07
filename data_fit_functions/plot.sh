@@ -75,14 +75,12 @@ fi
 
 echo """
 set terminal png size 1900,1000 enhanced font "Helvetica" 10
-set logscale x
-set xlabel 'Age [yr]'
 """ > gnuplot.gp
 
 echo """
 set xlabel 'Mass [M_Sun]'
 set xrange [0:310]
-set logscale x
+#set logscale x
 set ylabel 'Time [yr]'
 set yrange [0:1e10]
 set logscale y
@@ -95,7 +93,7 @@ set logscale y
 echo """
 set zlabel 'Absolute Magnitude (?)'
 
-abs_mag(m,t) = 1.0
+abs_mag(m,t) = 2.5 + (5.9 - 2.5) / 2 * log10(m) - m**(-2) / 100
 
 set output 'Absolute_Magnitude.png'
 splot 'Z0.01/all.dat' using 2:3:4 notitle, \
