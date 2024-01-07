@@ -8,5 +8,6 @@ name         = "astro_utils"
 crate-type   = ["rlib"]
 
 [dependencies]
-serde = { version = "1.0", features = ["derive"] }
-forward_ref_generic = "0.2.0"
+forward_ref_generic = "0.2.0" # Auto-generating std operations on structs
+serde = { version = "1.0", features = ["derive"] } # (De)Serialization
+reqwest = { version = "0.11", features = ["blocking"] } # Downloading files
