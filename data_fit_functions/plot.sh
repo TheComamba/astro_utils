@@ -30,46 +30,48 @@ ensure_prerequisite gnuplot
 
 ensure_data_exists "Z0.0001"
 
-plot_small_star() {
-	echo "'Z0.0001/Z0.0001Y0.249OUTA1.77_F7_M${1}.DAT' using 3:${2} title 'M${1}' with lines,\\" >> gnuplot.gp
-}
+filename="Z0.0001/all.dat"
+if [ ! -f $filename ]
+then
+	append_small_star() {
+		cat "Z0.0001/Z0.0001Y0.249OUTA1.77_F7_M${1}.DAT" >> $2
+	}
 
-plot_star() {
-	echo "'Z0.0001/Z0.0001Y0.249OUTA1.74_F7_M${1}.DAT' using 3:${2} title 'M${1}' with lines,\\" >> gnuplot.gp
-}
+	append_star() {
+		cat "Z0.0001/Z0.0001Y0.249OUTA1.74_F7_M${1}.DAT" >> $2
+	}
 
-plot_stars() {
-	plot_small_star ".10" $1
-	plot_small_star ".20" $1
-	plot_small_star ".30" $1
-	plot_small_star ".40" $1
-	plot_small_star ".50" $1
-	plot_small_star ".60" $1
-	plot_small_star ".70" $1
-	plot_star ".80" $1
-	plot_star ".90" $1
-	plot_star "1.00" $1
-	plot_star "2.00" $1
-	plot_star "3.00" $1
-	plot_star "4.00" $1
-	plot_star "5.00" $1
-	plot_star "6.00" $1
-	plot_star "7.00" $1
-	plot_star "8.00" $1
-	plot_star "9.00" $1
-	plot_star "10.0" $1
-	plot_star "20.0" $1
-	plot_star "30.0" $1
-	plot_star "40.0" $1
-	plot_star "50.0" $1
-	plot_star "60.0" $1
-	plot_star "70.0" $1
-	plot_star "80.0" $1
-	plot_star "90.0" $1
-	plot_star "100.0" $1
-	plot_star "200.0" $1
-	plot_star "300.0" $1
-}
+	append_small_star ".10" $filename
+	append_small_star ".20" $filename
+	append_small_star ".30" $filename
+	append_small_star ".40" $filename
+	append_small_star ".50" $filename
+	append_small_star ".60" $filename
+	append_small_star ".70" $filename
+	append_star ".80" $filename
+	append_star ".90" $filename
+	append_star "1.00" $filename
+	append_star "2.00" $filename
+	append_star "3.00" $filename
+	append_star "4.00" $filename
+	append_star "5.00" $filename
+	append_star "6.00" $filename
+	append_star "7.00" $filename
+	append_star "8.00" $filename
+	append_star "9.00" $filename
+	append_star "10.0" $filename
+	append_star "20.0" $filename
+	append_star "30.0" $filename
+	append_star "40.0" $filename
+	append_star "50.0" $filename
+	append_star "60.0" $filename
+	append_star "70.0" $filename
+	append_star "80.0" $filename
+	append_star "90.0" $filename
+	append_star "100.0" $filename
+	append_star "200.0" $filename
+	append_star "300.0" $filename
+fi
 
 echo """
 set terminal png size 1900,1000 enhanced font "Helvetica" 10
@@ -78,27 +80,55 @@ set xlabel 'Age [yr]'
 """ > gnuplot.gp
 
 echo """
-set output 'Mass.png'
-set ylabel 'Mass [M_Sun]'
-plot \\""" >> gnuplot.gp
-plot_stars 2
+set xlabel 'Mass [M_Sun]'
+set xrange [0:310]
+set logscale x
+set ylabel 'Time [yr]'
+set yrange [0:1e10]
+set logscale y
+#set view map
+#set pm3d at b map
+#set dgrid3d 50,50
+#set hidden3d
+""" >> gnuplot.gp
 
 echo """
 set output 'Absolute_Magnitude.png'
-set ylabel 'Absolute Magnitude (?)'
-plot \\""" >> gnuplot.gp
-plot_stars 4
+set zlabel 'Absolute Magnitude (?)'
+
+abs_mag(x,y) = 1.0
+
+splot 'Z0.0001/all.dat' using 2:3:4 notitle, \
+	abs_mag(x,y) notitle
+
+set output 'Absolute_Magnitude_minus_fit.png'
+splot 'Z0.0001/all.dat' using 2:3:(column(4)-abs_mag(column(2),column(3))) notitle
+""" >> gnuplot.gp
 
 echo """
 set output 'Effective_Temperature.png'
-set ylabel 'Logarithmic Effective Temperature [log(K) (?)]'
-plot \\""" >> gnuplot.gp
-plot_stars 5
+set zlabel 'Logarithmic Effective Temperature [log(K) (?)]'
+
+temp(x,y) = 1.0
+
+splot 'Z0.0001/all.dat' using 2:3:5 notitle, \
+	temp(x,y) notitle
+
+set output 'Effective_Temperature_minus_fit.png'
+splot 'Z0.0001/all.dat' using 2:3:(column(5)-temp(column(2),column(3))) notitle
+""" >> gnuplot.gp
 
 echo """
 set output 'Radius.png'
-set ylabel 'Radius [???]'
-plot \\""" >> gnuplot.gp
-plot_stars 6
+set zlabel 'Radius [???]'
+
+radius(x,y) = 1.0
+
+splot 'Z0.0001/all.dat' using 2:3:6 notitle, \
+	radius(x,y) notitle
+
+set output 'Radius_minus_fit.png'
+splot 'Z0.0001/all.dat' using 2:3:(column(6)-radius(column(2),column(3))) notitle
+""" >> gnuplot.gp
 
 gnuplot -p gnuplot.gp
