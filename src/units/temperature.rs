@@ -16,6 +16,11 @@ impl Temperature {
     pub const fn as_kelvin(&self) -> Float {
         self.kelvin
     }
+
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: &Self, accuracy: Self) -> bool {
+        (self.kelvin - other.kelvin).abs() < accuracy.kelvin
+    }
 }
 
 impl Display for Temperature {

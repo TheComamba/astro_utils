@@ -277,8 +277,8 @@ impl ParsecLine {
     }
 
     pub(super) fn get_radius(&self) -> Length {
-        let radius = 10f32.powf(self.log_r) / 100.;
-        Length::from_meters(radius)
+        let radius = 10f32.powf(self.log_r);
+        Length::from_centimeters(radius)
     }
 }
 
@@ -291,11 +291,62 @@ fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::data::stars::STARS_TO_TWO_POINT_FIVE_APPARENT_MAG;
+    use crate::{
+        data::stars::{STARS_TO_TWO_POINT_FIVE_APPARENT_MAG, SUN_DATA},
+        units::{length::AU_PER_SUN_RADII, mass::KILOGRAMS_PER_SOLAR_MASS},
+    };
+
+    #[test]
+    fn test_caluclate_sun() {
+        const MASS_ACCURACY: Mass = Mass::from_kilograms(1e-2 * KILOGRAMS_PER_SOLAR_MASS);
+        const RADIUS_ACCURACY: Length = Length::from_astronomical_units(0.1 * AU_PER_SUN_RADII);
+        const LUMINOSITY_ACCURACY: Luminosity = Luminosity::from_absolute_magnitude(0.05);
+        const TEMPERATURE_ACCURACY: Temperature = Temperature::from_kelvin(500.);
+        let parsec_data = ParsecData::new().unwrap();
+        let mass = SUN_DATA.mass;
+        let age = SUN_DATA.age.unwrap();
+        let current_params = parsec_data.get_params_for_current_mass_and_age(mass, age.as_years());
+        let calculated_sun = current_params.to_star_at_origin();
+        let real_sun = SUN_DATA.to_star();
+        println!(
+            "calculated mass: {}, real mass: {}",
+            calculated_sun.get_mass(),
+            real_sun.get_mass()
+        );
+        println!(
+            "calculated radius: {}, real radius: {}",
+            calculated_sun.get_radius(),
+            real_sun.get_radius()
+        );
+        println!(
+            "calculated luminosity: {}, real luminosity: {}",
+            calculated_sun.get_absolute_magnitude(),
+            real_sun.get_absolute_magnitude()
+        );
+        println!(
+            "calculated temperature: {}, real temperature: {}",
+            calculated_sun.get_temperature(),
+            real_sun.get_temperature()
+        );
+        assert!(calculated_sun
+            .get_mass()
+            .eq_within(real_sun.get_mass(), MASS_ACCURACY));
+        assert!(calculated_sun
+            .get_radius()
+            .eq_within(&real_sun.get_radius(), RADIUS_ACCURACY));
+        assert!(calculated_sun
+            .get_absolute_magnitude()
+            .eq_within(&real_sun.get_absolute_magnitude(), LUMINOSITY_ACCURACY));
+        assert!(calculated_sun
+            .get_temperature()
+            .eq_within(&real_sun.get_temperature(), TEMPERATURE_ACCURACY));
+    }
 
     #[test]
     fn test_calculate_star() {
         let parsec_data = ParsecData::new().unwrap();
+        let mut num_success = 0;
+        let mut num_fail = 0;
         for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
             if let Some(age) = data.age {
                 println!("Comparing data for {}", data.name);
@@ -306,10 +357,16 @@ mod tests {
                 let real_star = data.to_star();
                 // println!("calculated_star: {:?}", calculated_star);
                 // println!("real_star: {:?}", real_star);
-                calculated_star.similar_within_order_of_magnitude(&real_star);
+                if calculated_star.similar_within_order_of_magnitude(&real_star) {
+                    num_success += 1;
+                } else {
+                    num_fail += 1;
+                }
                 // assert!(calculated_star.similar_within_order_of_magnitude(&real_star));
             }
         }
+        println!("\nnum_success: {}", num_success);
+        println!("num_fail: {}", num_fail);
         assert!(false)
     }
 
