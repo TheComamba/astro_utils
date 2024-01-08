@@ -73,23 +73,27 @@ impl Star {
             (Some(self_age), Some(other_age)) => self_age / other_age,
             _ => 1.0,
         };
+        let mut result = true;
         if mass_ratio < 0.1 || mass_ratio > 10.0 {
             println!("mass_ratio: {}", mass_ratio);
-            false
-        } else if radius_ratio < 0.1 || radius_ratio > 10.0 {
-            println!("radius_ratio: {}", radius_ratio);
-            false
-        } else if luminosity_difference > 1.0 {
-            println!("luminosity_difference: {}", luminosity_difference);
-            false
-        } else if temperature_ratio < 0.1 || temperature_ratio > 10.0 {
-            println!("temperature_ratio: {}", temperature_ratio);
-            false
-        } else if age_ratio < 0.1 || age_ratio > 10.0 {
-            println!("age_ratio: {}", age_ratio);
-            false
-        } else {
-            true
+            result = false;
         }
+        if radius_ratio < 0.1 || radius_ratio > 10.0 {
+            println!("radius_ratio: {}", radius_ratio);
+            result = false;
+        }
+        if luminosity_difference > 1.0 {
+            println!("luminosity_difference: {}", luminosity_difference);
+            result = false;
+        }
+        if temperature_ratio < 0.1 || temperature_ratio > 10.0 {
+            println!("temperature_ratio: {}", temperature_ratio);
+            result = false;
+        }
+        if age_ratio < 0.1 || age_ratio > 10.0 {
+            println!("age_ratio: {}", age_ratio);
+            result = false;
+        }
+        result
     }
 }

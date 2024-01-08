@@ -213,7 +213,6 @@ impl ParsecData {
         let mut trajectory = &self.data[mass_index];
         let mut params = Self::get_closest_params(trajectory, age_in_years);
         while params.get_mass() < mass && mass_index < Self::SORTED_MASSES.len() - 1 {
-            println!("Increasing mass index");
             mass_index += 1;
             trajectory = &self.data[mass_index];
             params = Self::get_closest_params(trajectory, age_in_years);
@@ -299,6 +298,7 @@ mod tests {
         let parsec_data = ParsecData::new().unwrap();
         for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
             if let Some(age) = data.age {
+                println!("Comparing data for {}", data.name);
                 let mass = data.mass;
                 let age = age.as_years();
                 let current_params = parsec_data.get_params_for_current_mass_and_age(mass, age);
