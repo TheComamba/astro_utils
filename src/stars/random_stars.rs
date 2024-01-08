@@ -8,7 +8,7 @@ use crate::{
     units::{length::Length, mass::Mass},
     Float,
 };
-use rand::{rngs::ThreadRng, Rng};
+use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 
 // https://en.wikipedia.org/wiki/Stellar_density
 const STARS_PER_LY_CUBED: Float = 0.004;
@@ -18,17 +18,29 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<Star>, AstroUti
     let parsec_data = ParsecData::new()?;
     let number_of_stars_in_cube = STARS_PER_LY_CUBED * (max_distance * 2.).as_light_years().powi(3);
     let number_of_stars_in_cube = number_of_stars_in_cube as usize;
+    let mut rng = rand::thread_rng();
+    let distr = Uniform::new(
+        -max_distance.as_astronomical_units(),
+        max_distance.as_astronomical_units(),
+    );
     let mut stars = Vec::new();
     for _ in 0..number_of_stars_in_cube {
-        if let Some(star) = generate_visible_random_star(&parsec_data, max_distance) {
+        if let Some(star) =
+            generate_visible_random_star(&parsec_data, max_distance, &mut rng, &distr)
+        {
             stars.push(star);
         }
     }
     Ok(stars)
 }
 
-fn generate_visible_random_star(parsec_data: &ParsecData, max_distance: Length) -> Option<Star> {
-    let pos = generate_random_3d_position(max_distance);
+fn generate_visible_random_star(
+    parsec_data: &ParsecData,
+    max_distance: Length,
+    rng: &mut ThreadRng,
+    distr: &Uniform<Float>,
+) -> Option<Star> {
+    let pos = generate_random_3d_position(rng, distr);
     let distance = pos.length();
     if distance > max_distance {
         return None;
@@ -58,8 +70,14 @@ fn pick_random_age(trajectory: &Vec<ParsecLine>) -> &ParsecLine {
     ParsecData::get_closest_params(trajectory, age_in_years as Float)
 }
 
-fn generate_random_3d_position(max_distance: Length) -> CartesianCoordinates {
-    todo!("Implement generate_random_3d_position")
+fn generate_random_3d_position(
+    rng: &mut ThreadRng,
+    distr: &Uniform<Float>,
+) -> CartesianCoordinates {
+    let x = Length::from_astronomical_units(rng.sample(distr));
+    let y = Length::from_astronomical_units(rng.sample(distr));
+    let z = Length::from_astronomical_units(rng.sample(distr));
+    CartesianCoordinates::new(x, y, z)
 }
 
 // Selpeter Law
