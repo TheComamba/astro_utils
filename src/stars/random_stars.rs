@@ -128,8 +128,19 @@ mod tests {
 
     #[test]
     fn generate_random_stars_stress_test() {
-        let max_distance = Length::from_light_years(100.);
-        let _ = generate_random_stars(max_distance).unwrap();
-        assert!(false)
+        // Generating 70_000 stars within 1000 ly takes round about 17 seconds in release mode.
+        // But this should not take too long and also work in debug mode.
+        // Furthermore, the parsec data needs to be loaded and parsed which takes some seconds.
+        let max_distance = Length::from_light_years(200.);
+        let max_seconds = 30;
+
+        // Downloading files should not count against the time.
+        ParsecData::ensure_files().unwrap();
+        let start = Instant::now();
+        let stars = generate_random_stars(max_distance).unwrap();
+        let duration = start.elapsed();
+        println!("duration: {:?}", duration);
+        assert!(stars.len() > 1000);
+        assert!(duration.as_secs() < max_seconds);
     }
 }

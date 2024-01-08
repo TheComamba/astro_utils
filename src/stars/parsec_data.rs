@@ -15,19 +15,6 @@ use std::io::{BufRead, BufReader};
 use std::path::PathBuf;
 use tar::Archive;
 
-enum Metallicity {
-    Z0_01,
-}
-
-impl ToString for Metallicity {
-    fn to_string(&self) -> String {
-        match self {
-            Metallicity::Z0_01 => "Z0.01",
-        }
-        .to_string()
-    }
-}
-
 pub(super) struct ParsecLine {
     mass: Float,
     age: Float,
@@ -41,6 +28,7 @@ pub(super) struct ParsecData {
 }
 
 impl ParsecData {
+    const METALLICITY: &'static str = "Z0.01";
     pub(super) const SORTED_MASSES: [Float; 100] = [
         0.09, 0.10, 0.12, 0.14, 0.16, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65,
         0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.40,
@@ -57,9 +45,7 @@ impl ParsecData {
     const LOG_R_INDEX: usize = 5;
 
     pub(super) fn new() -> Result<ParsecData, AstroUtilError> {
-        const METALLICITY: Metallicity = Metallicity::Z0_01;
-
-        Self::ensure_files(METALLICITY)?;
+        Self::ensure_files()?;
 
         let mut parsec_data = ParsecData {
             data: Vec::with_capacity(Self::SORTED_MASSES.len()),
@@ -70,7 +56,7 @@ impl ParsecData {
 
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
-        let folder_path = data_dir.join(PathBuf::from(METALLICITY.to_string()));
+        let folder_path = data_dir.join(PathBuf::from(Self::METALLICITY));
         let filepaths = fs::read_dir(folder_path).map_err(AstroUtilError::Io)?;
         for entry in filepaths {
             Self::read_file(entry, &mut parsec_data)?;
@@ -100,7 +86,7 @@ impl ParsecData {
         }
     }
 
-    fn download(metallicity: Metallicity) -> Result<(), AstroUtilError> {
+    fn download() -> Result<(), AstroUtilError> {
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let data_dir = data_dir
@@ -111,7 +97,7 @@ impl ParsecData {
             )))?;
         println!("Downloading PARSEC data to {}", data_dir);
         let target = "https://people.sissa.it/~sbressan/CAF09_V1.2S_M36_LT/no_phase/".to_string()
-            + &metallicity.to_string()
+            + Self::METALLICITY
             + ".tar.gz";
         let mut response = reqwest::blocking::get(target).map_err(AstroUtilError::Connection)?;
         let gz_decoder = GzDecoder::new(&mut response);
@@ -120,12 +106,12 @@ impl ParsecData {
         Ok(())
     }
 
-    fn ensure_files(metallicity: Metallicity) -> Result<(), AstroUtilError> {
+    pub(super) fn ensure_files() -> Result<(), AstroUtilError> {
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
-        let path = data_dir.join(PathBuf::from(metallicity.to_string()));
+        let path = data_dir.join(PathBuf::from(Self::METALLICITY));
         if !path.exists() {
-            Self::download(metallicity)?;
+            Self::download()?;
         }
         Ok(())
     }
