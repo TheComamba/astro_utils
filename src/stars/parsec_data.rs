@@ -270,6 +270,12 @@ impl ParsecLine {
         Luminosity::from_solar_luminosities(lum)
     }
 
+    pub(super) fn get_apparent_magnitude(&self, distance: &Length) -> Float {
+        let lum = self.get_luminosity();
+        let ill = lum.to_illuminance(&distance);
+        ill.as_apparent_magnitude()
+    }
+
     pub(super) fn get_temperature(&self) -> Temperature {
         let temp = 10f32.powf(self.log_te);
         Temperature::from_kelvin(temp)

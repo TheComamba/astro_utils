@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 use super::{
     parsec_data::{ParsecData, ParsecLine},
     star::Star,
@@ -24,6 +26,8 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<Star>, AstroUti
     let pos_distr = get_pos_distribution(max_distance);
     let mass_distr = get_mass_distribution();
     let mut stars = Vec::new();
+
+    let start = Instant::now();
     for _ in 0..number_of_stars_in_cube {
         if let Some(star) = generate_visible_random_star(
             &parsec_data,
@@ -35,6 +39,14 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<Star>, AstroUti
             stars.push(star);
         }
     }
+    let duration = start.elapsed();
+    println!(
+        "\nGenerated {} stars within {} in {:?}\n",
+        stars.len(),
+        max_distance,
+        duration
+    );
+
     Ok(stars)
 }
 
@@ -82,19 +94,15 @@ fn generate_visible_random_star(
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
     let current_params = pick_random_age(&trajectory);
-    let mut star = current_params.to_star_at_origin();
-
-    let apparent_magnitude = star
-        .luminosity
-        .to_illuminance(&distance)
-        .as_apparent_magnitude();
+    let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
     if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
-        None
-    } else {
-        star.distance = distance;
-        star.direction_in_ecliptic = pos.to_direction();
-        Some(star)
+        return None;
     }
+
+    let mut star = current_params.to_star_at_origin();
+    star.distance = distance;
+    star.direction_in_ecliptic = pos.to_direction();
+    Some(star)
 }
 
 fn pick_random_age(trajectory: &Vec<ParsecLine>) -> &ParsecLine {
@@ -117,15 +125,11 @@ fn generate_random_3d_position(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::time::Instant;
 
     #[test]
     fn generate_random_stars_stress_test() {
-        let max_distance = Length::from_light_years(1.);
-        let start = Instant::now();
+        let max_distance = Length::from_light_years(100.);
         let _ = generate_random_stars(max_distance).unwrap();
-        let duration = start.elapsed();
-        println!("Time elapsed in generate_random_stars() is: {:?}", duration);
         assert!(false)
     }
 }
