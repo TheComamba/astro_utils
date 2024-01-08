@@ -41,7 +41,7 @@ pub(super) struct ParsecData {
 }
 
 impl ParsecData {
-    const SORTED_MASSES: [Float; 100] = [
+    pub(super) const SORTED_MASSES: [Float; 100] = [
         0.09, 0.10, 0.12, 0.14, 0.16, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65,
         0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.40,
         1.45, 1.50, 1.55, 1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90, 1.95, 2.00, 2.05, 2.10, 2.15,
@@ -130,9 +130,8 @@ impl ParsecData {
         Ok(())
     }
 
-    pub(super) fn get_trajectory(&self, mass: Float) -> &Vec<ParsecLine> {
-        let mass_index = Self::get_closest_mass_index(mass);
-        &self.data[mass_index]
+    pub(super) fn get_trajectory_via_index(&self, i: usize) -> &Vec<ParsecLine> {
+        &self.data[i]
     }
 
     fn read_file(
@@ -350,11 +349,11 @@ mod tests {
         let mut num_fail = 0;
         for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
             if let Some(age) = data.age {
-                let mass = data.mass;
                 let age = age.as_years();
-                let age_expectancy = ParsecData::get_life_expectancy_in_years(
-                    &parsec_data.get_trajectory(mass.as_solar_masses()),
-                );
+                let mass = data.mass;
+                let mass_index = ParsecData::get_closest_mass_index(mass.as_solar_masses());
+                let trajectory = parsec_data.get_trajectory_via_index(mass_index);
+                let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
                 let age_expectancy = Time::from_years(age_expectancy as Float);
                 if age_expectancy < Time::from_billion_years(0.3) {
                     // Numerics get really unstable for stars with short life expectancies.
