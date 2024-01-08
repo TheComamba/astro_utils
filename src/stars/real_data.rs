@@ -14,7 +14,7 @@ use super::star::Star;
 pub struct RealData {
     pub name: &'static str,
     pub mass: Mass,
-    pub radius: Length,
+    pub radius: Option<Length>,
     pub luminosity: Luminosity,
     pub temperature: Temperature,
     pub age: Option<Time>,

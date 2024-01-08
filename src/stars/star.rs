@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 pub struct Star {
     pub(super) name: String,
     pub(super) mass: Mass,
-    pub(super) radius: Length,
+    pub(super) radius: Option<Length>,
     pub(super) luminosity: Luminosity,
     pub(super) temperature: Temperature,
     pub(super) color: sRGBColor,
@@ -25,7 +25,7 @@ impl Star {
         &self.name
     }
 
-    pub const fn get_radius(&self) -> Length {
+    pub const fn get_radius(&self) -> Option<Length> {
         self.radius
     }
 
@@ -64,7 +64,10 @@ impl Star {
     #[cfg(test)]
     pub(crate) fn similar_within_order_of_magnitude(&self, other: &Self) -> bool {
         let mass_ratio = self.mass / other.mass;
-        let radius_ratio = self.radius / other.radius;
+        let radius_ratio = match (self.radius, other.radius) {
+            (Some(self_radius), Some(other_radius)) => self_radius / other_radius,
+            _ => 1.0,
+        };
         let luminosity_difference = (self.luminosity.as_absolute_magnitude()
             - other.luminosity.as_absolute_magnitude())
         .abs();
@@ -75,23 +78,42 @@ impl Star {
         };
         let mut result = true;
         if mass_ratio < 0.1 || mass_ratio > 10.0 {
-            println!("mass_ratio: {}", mass_ratio);
+            println!(
+                "mass1: {}, mass2: {}, ratio: {}",
+                self.mass, other.mass, mass_ratio
+            );
             result = false;
         }
         if radius_ratio < 0.1 || radius_ratio > 10.0 {
-            println!("radius_ratio: {}", radius_ratio);
+            println!(
+                "radius1: {}, radius2: {}, ratio: {}",
+                self.radius.unwrap(),
+                other.radius.unwrap(),
+                radius_ratio
+            );
             result = false;
         }
         if luminosity_difference > 1.0 {
-            println!("luminosity_difference: {}", luminosity_difference);
+            println!(
+                "luminosity1: {}, luminosity2: {}, difference: {}",
+                self.luminosity, other.luminosity, luminosity_difference
+            );
             result = false;
         }
         if temperature_ratio < 0.1 || temperature_ratio > 10.0 {
-            println!("temperature_ratio: {}", temperature_ratio);
+            println!(
+                "temperature1: {}, temperature2: {}, ratio: {}",
+                self.temperature, other.temperature, temperature_ratio
+            );
             result = false;
         }
         if age_ratio < 0.1 || age_ratio > 10.0 {
-            println!("age_ratio: {}", age_ratio);
+            println!(
+                "age1: {}, age2: {}, ratio: {}",
+                self.age.unwrap(),
+                other.age.unwrap(),
+                age_ratio
+            );
             result = false;
         }
         result
