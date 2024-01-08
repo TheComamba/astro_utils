@@ -29,6 +29,7 @@ impl ToString for Metallicity {
 }
 
 pub(super) struct ParsecLine {
+    mass: Float,
     age: Float,
     log_l: Float,
     log_te: Float,
@@ -154,10 +155,10 @@ impl ParsecData {
     ) -> Result<(), AstroUtilError> {
         let line = line.map_err(AstroUtilError::Io)?;
         let entries: Vec<&str> = line.split_whitespace().collect();
+        let mass_entry = entries
+            .get(Self::MASS_INDEX)
+            .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
         if mass_position.is_none() {
-            let mass_entry = entries
-                .get(Self::MASS_INDEX)
-                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
             if let Ok(mass_value) = mass_entry.parse::<Float>() {
                 *mass_position = Some(Self::get_closest_mass_index(mass_value));
             }
@@ -175,13 +176,15 @@ impl ParsecData {
             let log_r_entry = entries
                 .get(Self::LOG_R_INDEX)
                 .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
-            if let (Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
+            if let (Ok(mass), Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
+                mass_entry.parse::<Float>(),
                 age_entry.parse::<Float>(),
                 log_l_entry.parse::<Float>(),
                 log_te_entry.parse::<Float>(),
                 log_r_entry.parse::<Float>(),
             ) {
                 let parsec_line = ParsecLine {
+                    mass,
                     age,
                     log_l,
                     log_te,
@@ -206,9 +209,16 @@ impl ParsecData {
         mass: Mass,
         age_in_years: Float,
     ) -> &ParsecLine {
-        let mass_index = Self::get_closest_mass_index(mass.as_solar_masses());
-        let trajectory = &self.data[mass_index];
-        Self::get_closest_params(trajectory, age_in_years)
+        let mut mass_index = Self::get_closest_mass_index(mass.as_solar_masses());
+        let mut trajectory = &self.data[mass_index];
+        let mut params = Self::get_closest_params(trajectory, age_in_years);
+        while params.get_mass() < mass && mass_index < Self::SORTED_MASSES.len() - 1 {
+            println!("Increasing mass index");
+            mass_index += 1;
+            trajectory = &self.data[mass_index];
+            params = Self::get_closest_params(trajectory, age_in_years);
+        }
+        params
     }
 
     pub(super) fn get_closest_params(
@@ -229,7 +239,8 @@ impl ParsecData {
 }
 
 impl ParsecLine {
-    pub(super) fn to_star_at_origin(&self, mass: Mass) -> Star {
+    pub(super) fn to_star_at_origin(&self) -> Star {
+        let mass = self.get_mass();
         let age = self.get_age();
         let luminosity = self.get_luminosity();
         let temperature = self.get_temperature();
@@ -246,6 +257,10 @@ impl ParsecLine {
             distance: Length::ZERO,
             direction_in_ecliptic: Direction::Z,
         }
+    }
+
+    pub(super) fn get_mass(&self) -> Mass {
+        Mass::from_solar_masses(self.mass)
     }
 
     pub(super) fn get_age(&self) -> Time {
@@ -287,7 +302,7 @@ mod tests {
                 let mass = data.mass;
                 let age = age.as_years();
                 let current_params = parsec_data.get_params_for_current_mass_and_age(mass, age);
-                let calculated_star = current_params.to_star_at_origin(mass);
+                let calculated_star = current_params.to_star_at_origin();
                 let real_star = data.to_star();
                 // println!("calculated_star: {:?}", calculated_star);
                 // println!("real_star: {:?}", real_star);

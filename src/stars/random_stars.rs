@@ -36,7 +36,7 @@ fn generate_visible_random_star(parsec_data: &ParsecData, max_distance: Length) 
     let mass = generate_random_mass();
     let trajectory = parsec_data.get_trajectory(mass.as_solar_masses());
     let current_params = pick_random_age(&trajectory);
-    let mut star = current_params.to_star_at_origin(mass);
+    let mut star = current_params.to_star_at_origin();
 
     let apparent_magnitude = star
         .luminosity
