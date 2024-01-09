@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
 const METERS_PER_NANOMETERS: Float = 1e-9;
+const METERS_PER_CENTIMETERS: Float = 0.01;
 const METERS_PER_KILOMETERS: Float = 1000.;
 const METERS_PER_EARTH_RADII: Float = 6_371_000.;
 const METERS_PER_JUPITER_RADIUS: Float = 69_911_000.;
@@ -11,6 +12,7 @@ const METERS_PER_AU: Float = 149_597_870_700.;
 const METERS_PER_LIGHT_YEAR: Float = 9_460_730_472_580_800.;
 const METERS_PER_PARSEC: Float = 30_856_775_814_671_900.;
 pub(crate) const AU_PER_NANOMETERS: Float = AU_PER_METER * METERS_PER_NANOMETERS;
+pub(crate) const AU_PER_CENTIMETERS: Float = AU_PER_METER * METERS_PER_CENTIMETERS;
 pub(crate) const AU_PER_METER: Float = 1. / METERS_PER_AU;
 pub(crate) const AU_PER_KILOMETERS: Float = AU_PER_METER * METERS_PER_KILOMETERS;
 pub(crate) const AU_PER_EARTH_RADII: Float = AU_PER_METER * METERS_PER_EARTH_RADII;
@@ -19,6 +21,7 @@ pub(crate) const AU_PER_SUN_RADII: Float = AU_PER_METER * METERS_PER_SUN_RADII;
 pub(crate) const AU_PER_LIGHT_YEARS: Float = AU_PER_METER * METERS_PER_LIGHT_YEAR;
 pub(crate) const AU_PER_PARSECS: Float = AU_PER_METER * METERS_PER_PARSEC;
 const NANOMETERS_PER_AU: Float = 1. / AU_PER_NANOMETERS;
+const CENTIMETERS_PER_AU: Float = 1. / AU_PER_CENTIMETERS;
 const KILOMETERS_PER_AU: Float = 1. / AU_PER_KILOMETERS;
 const EARTH_RADII_PER_AU: Float = 1. / AU_PER_EARTH_RADII;
 const JUPITER_RADII_PER_AU: Float = 1. / AU_PER_JUPITER_RADII;
@@ -37,6 +40,12 @@ impl Length {
     pub fn from_nanometers(nanometers: Float) -> Length {
         Length {
             au: nanometers * AU_PER_NANOMETERS,
+        }
+    }
+
+    pub fn from_centimeters(centimeters: Float) -> Length {
+        Length {
+            au: centimeters * AU_PER_CENTIMETERS,
         }
     }
 
@@ -90,6 +99,10 @@ impl Length {
 
     pub fn as_nanometers(&self) -> Float {
         self.au * NANOMETERS_PER_AU
+    }
+
+    pub fn as_centimeters(&self) -> Float {
+        self.au * CENTIMETERS_PER_AU
     }
 
     pub fn as_meters(&self) -> Float {
@@ -156,6 +169,22 @@ mod tests {
     use crate::tests::{TEST_ACCURACY, TEST_LENGTH_ACCURACY};
 
     use super::*;
+
+    #[test]
+    fn test_nanometers() {
+        let expected = Length::from_meters(METERS_PER_NANOMETERS);
+        let length = Length::from_nanometers(1.);
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!((length.as_nanometers() - 1.).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
+    fn test_centimeters() {
+        let expected = Length::from_meters(METERS_PER_CENTIMETERS);
+        let length = Length::from_centimeters(1.);
+        assert!(length.eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!((length.as_centimeters() - 1.).abs() < TEST_ACCURACY);
+    }
 
     #[test]
     fn test_meters() {

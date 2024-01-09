@@ -8,5 +8,10 @@ name         = "astro_utils"
 crate-type   = ["rlib"]
 
 [dependencies]
-serde = { version = "1.0", features = ["derive"] }
-forward_ref_generic = "0.2.0"
+directories = "5.0.0" # Standard locations on file system
+flate2 = "1.0.0" # Decompression
+forward_ref_generic = "0.2.0" # Auto-generating std operations on structs
+rand = "0.8.0" # Random number generation
+reqwest = { version = "0.11", features = ["blocking"] } # Downloading files
+serde = { version = "1.0", features = ["derive"] } # (De)Serialization
+tar = "0.4.0" # Decompression

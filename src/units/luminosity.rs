@@ -42,6 +42,11 @@ impl Luminosity {
         let apparent_magnitude = self.absolute_magnitude + 5. * distance.as_parsecs().log10() - 5.;
         Illuminance::from_apparent_magnitude(apparent_magnitude)
     }
+
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: &Self, accuracy: Self) -> bool {
+        (self.absolute_magnitude - other.absolute_magnitude).abs() < accuracy.absolute_magnitude
+    }
 }
 
 impl Display for Luminosity {

@@ -4,7 +4,9 @@ use crate::{
         declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
         right_ascension::RightAscension,
     },
-    units::{length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature},
+    units::{
+        length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature, time::Time,
+    },
 };
 
 use super::star::Star;
@@ -12,9 +14,10 @@ use super::star::Star;
 pub struct RealData {
     pub name: &'static str,
     pub mass: Mass,
-    pub radius: Length,
+    pub radius: Option<Length>,
     pub luminosity: Luminosity,
     pub temperature: Temperature,
+    pub age: Option<Time>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
     pub distance: Length,
@@ -32,6 +35,7 @@ impl RealData {
             luminosity: self.luminosity,
             temperature: self.temperature,
             color: sRGBColor::from_temperature(self.temperature),
+            age: self.age,
             distance: self.distance,
             direction_in_ecliptic: dir,
         }

@@ -1,7 +1,9 @@
 use crate::{
     color::sRGBColor,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
-    units::{length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature},
+    units::{
+        length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature, time::Time,
+    },
 };
 use serde::{Deserialize, Serialize};
 
@@ -9,10 +11,11 @@ use serde::{Deserialize, Serialize};
 pub struct Star {
     pub(super) name: String,
     pub(super) mass: Mass,
-    pub(super) radius: Length,
+    pub(super) radius: Option<Length>,
     pub(super) luminosity: Luminosity,
     pub(super) temperature: Temperature,
     pub(super) color: sRGBColor,
+    pub(super) age: Option<Time>,
     pub(super) distance: Length,
     pub(super) direction_in_ecliptic: Direction,
 }
@@ -22,7 +25,7 @@ impl Star {
         &self.name
     }
 
-    pub const fn get_radius(&self) -> Length {
+    pub const fn get_radius(&self) -> Option<Length> {
         self.radius
     }
 
@@ -42,6 +45,10 @@ impl Star {
         &self.color
     }
 
+    pub const fn get_age(&self) -> &Option<Time> {
+        &self.age
+    }
+
     pub const fn get_distance(&self) -> Length {
         self.distance
     }
@@ -52,5 +59,63 @@ impl Star {
 
     pub fn calculate_position(&self) -> CartesianCoordinates {
         self.direction_in_ecliptic.to_cartesian(self.distance)
+    }
+
+    #[cfg(test)]
+    pub(crate) fn similar_within_order_of_magnitude(&self, other: &Self) -> bool {
+        let mass_ratio = self.mass / other.mass;
+        let radius_ratio = match (self.radius, other.radius) {
+            (Some(self_radius), Some(other_radius)) => self_radius / other_radius,
+            _ => 1.0,
+        };
+        let luminosity_difference = (self.luminosity.as_absolute_magnitude()
+            - other.luminosity.as_absolute_magnitude())
+        .abs();
+        let temperature_ratio = self.temperature / other.temperature;
+        let age_ratio = match (self.age, other.age) {
+            (Some(self_age), Some(other_age)) => self_age / other_age,
+            _ => 1.0,
+        };
+        let mut result = true;
+        if mass_ratio < 0.1 || mass_ratio > 10.0 {
+            println!(
+                "mass1: {}, mass2: {}, ratio: {}",
+                self.mass, other.mass, mass_ratio
+            );
+            result = false;
+        }
+        if radius_ratio < 0.1 || radius_ratio > 10.0 {
+            println!(
+                "radius1: {}, radius2: {}, ratio: {}",
+                self.radius.unwrap(),
+                other.radius.unwrap(),
+                radius_ratio
+            );
+            result = false;
+        }
+        if luminosity_difference > 1.0 {
+            println!(
+                "luminosity1: {}, luminosity2: {}, difference: {}",
+                self.luminosity, other.luminosity, luminosity_difference
+            );
+            result = false;
+        }
+        if temperature_ratio < 0.1 || temperature_ratio > 10.0 {
+            println!(
+                "temperature1: {}, temperature2: {}, ratio: {}",
+                self.temperature, other.temperature, temperature_ratio
+            );
+            result = false;
+        }
+        if age_ratio < 0.1 || age_ratio > 10.0 {
+            println!(
+                "age1: {}, age2: {}, ratio: {}",
+                self.age.unwrap(),
+                other.age.unwrap(),
+                age_ratio
+            );
+            result = false;
+        }
+        result
     }
 }
