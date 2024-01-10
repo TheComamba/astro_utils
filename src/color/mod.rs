@@ -53,6 +53,8 @@ pub struct XYZColor {
 }
 
 impl sRGBColor {
+    pub(crate) const DEFAULT: Self = sRGBColor::from_sRGB(1., 1., 1.);
+
     #[allow(non_snake_case)]
     pub const fn from_sRGB(R: Float, G: Float, B: Float) -> sRGBColor {
         sRGBColor { R, G, B }

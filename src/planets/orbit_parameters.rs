@@ -64,8 +64,11 @@ impl OrbitParameters {
     ) -> CartesianCoordinates {
         let central_body_position = central_body.calculate_position();
 
-        let orbital_period =
-            orbital_period(self.semi_major_axis, body_mass, central_body.get_mass());
+        let orbital_period = orbital_period(
+            self.semi_major_axis,
+            body_mass,
+            central_body.get_mass().unwrap(),
+        );
         let mean_anomaly = mean_anomaly(orbital_period, time);
         let eccentric_anomaly = eccentric_anomaly(mean_anomaly, self.eccentricity);
         let true_anomaly = true_anomaly(eccentric_anomaly, self.eccentricity);

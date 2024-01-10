@@ -3,5 +3,6 @@ pub enum AstroUtilError {
     NormalizingZeroVector,
     Connection(reqwest::Error),
     Io(std::io::Error),
-    ParsecDataNotAvailable,
+    Json(serde_json::Error),
+    DataNotAvailable,
 }
