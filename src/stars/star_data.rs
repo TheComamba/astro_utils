@@ -1,10 +1,14 @@
 use crate::{
+    color::sRGBColor,
     coordinates::direction::Direction,
     units::{
-        length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature, time::Time,
+        illuminance::Illuminance, length::Length, luminosity::Luminosity, mass::Mass,
+        temperature::Temperature, time::Time,
     },
 };
 use serde::{Deserialize, Serialize};
+
+use super::star_appearance::StarAppearance;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
@@ -41,6 +45,27 @@ impl StarData {
 
     pub const fn get_distance(&self) -> &Option<Length> {
         &self.distance
+    }
+
+    pub const fn get_direction_in_ecliptic(&self) -> &Direction {
+        &self.direction_in_ecliptic
+    }
+
+    pub fn to_star_appearance(&self) -> StarAppearance {
+        let illuminance = match (self.luminosity, self.distance) {
+            (Some(luminosity), Some(distance)) => luminosity.to_illuminance(&distance),
+            _ => Illuminance::ZERO,
+        };
+        let color = match self.temperature {
+            Some(temperature) => sRGBColor::from_temperature(temperature),
+            None => sRGBColor::DEFAULT,
+        };
+        StarAppearance {
+            name: self.name.clone(),
+            illuminance,
+            color,
+            direction_in_ecliptic: self.direction_in_ecliptic.clone(),
+        }
     }
 
     #[cfg(test)]

@@ -9,6 +9,8 @@ pub struct Illuminance {
 }
 
 impl Illuminance {
+    pub const ZERO: Illuminance = Illuminance { lux: 0. };
+
     pub const fn from_lux(lux: Float) -> Illuminance {
         Illuminance { lux }
     }
