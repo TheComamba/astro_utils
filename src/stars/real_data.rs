@@ -9,7 +9,7 @@ use crate::{
     },
 };
 
-use super::star::Star;
+use super::star::StarData;
 
 pub struct RealData {
     pub name: &'static str,
@@ -24,7 +24,7 @@ pub struct RealData {
 }
 
 impl RealData {
-    pub fn to_star(&self) -> Star {
+    pub fn to_star(&self) -> StarData {
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let dir = EarthEquatorialCoordinates::new(ra, dec).to_direction();
@@ -32,7 +32,7 @@ impl RealData {
             Some(temperature) => sRGBColor::from_temperature(temperature),
             None => sRGBColor::DEFAULT,
         };
-        Star {
+        StarData {
             name: self.name.to_string(),
             mass: self.mass,
             radius: self.radius,

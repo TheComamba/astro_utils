@@ -1,4 +1,4 @@
-use super::star::Star;
+use super::star::StarData;
 use crate::color::sRGBColor;
 use crate::coordinates::direction::Direction;
 use crate::units::length::Length;
@@ -241,14 +241,14 @@ impl ParsecData {
 }
 
 impl ParsecLine {
-    pub(super) fn to_star_at_origin(&self) -> Star {
+    pub(super) fn to_star_at_origin(&self) -> StarData {
         let mass = self.get_mass();
         let age = self.get_age();
         let luminosity = self.get_luminosity();
         let temperature = self.get_temperature();
         let radius = self.get_radius();
         let color = sRGBColor::from_temperature(temperature);
-        Star {
+        StarData {
             name: "".to_string(),
             mass: Some(mass),
             age: Some(age),

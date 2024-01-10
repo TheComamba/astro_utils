@@ -9,7 +9,7 @@ use crate::{
 };
 use serde::{Deserialize, Serialize};
 
-use super::star::Star;
+use super::star::StarData;
 
 #[derive(Serialize, Deserialize)]
 struct GaiaMetadataLine {
@@ -49,7 +49,7 @@ impl GaiaResponse {
         illuminance.to_luminosity(distance)
     }
 
-    fn to_stars(&self) -> Result<Vec<Star>, AstroUtilError> {
+    fn to_stars(&self) -> Result<Vec<StarData>, AstroUtilError> {
         const ECL_LON_INDEX: usize = 0;
         const ECL_LAT_INDEX: usize = 1;
         const MAG_INDEX: usize = 2;
@@ -85,7 +85,7 @@ impl GaiaResponse {
                 None => sRGBColor::DEFAULT,
             };
 
-            let star = Star {
+            let star = StarData {
                 name: "".to_string(),
                 mass: None,
                 radius: None,
@@ -118,13 +118,13 @@ fn query_brightest_stars(brightest: Illuminance) -> Result<GaiaResponse, AstroUt
     serde_json::from_str(&resp).map_err(AstroUtilError::Json)
 }
 
-pub fn star_is_already_known(new_star: &Star, known_stars: &Vec<&Star>) -> bool {
+pub fn star_is_already_known(new_star: &StarData, known_stars: &Vec<&StarData>) -> bool {
     known_stars
         .iter()
         .any(|known_star| known_star.apparently_the_same(new_star))
 }
 
-pub fn fetch_brightest_stars() -> Result<Vec<Star>, AstroUtilError> {
+pub fn fetch_brightest_stars() -> Result<Vec<StarData>, AstroUtilError> {
     let brightest = Illuminance::from_apparent_magnitude(6.5);
     let resp = query_brightest_stars(brightest)?;
     let gaia_stars = resp.to_stars()?;
