@@ -1,4 +1,4 @@
-use super::star::{StarAppearance, StarData};
+use super::{star_appearance::StarAppearance, star_data::StarData};
 use crate::{
     color::sRGBColor,
     coordinates::{

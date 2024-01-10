@@ -1,4 +1,4 @@
-use super::star::StarData;
+use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
 use crate::units::length::Length;
 use crate::units::luminosity::Luminosity;

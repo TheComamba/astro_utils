@@ -4,7 +4,7 @@ use crate::{
         eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,
         true_anomaly,
     },
-    stars::star::StarData,
+    stars::star_data::StarData,
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float,
 };

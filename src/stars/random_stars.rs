@@ -2,7 +2,7 @@ use std::time::Instant;
 
 use super::{
     parsec_data::{ParsecData, ParsecLine},
-    star::StarData,
+    star_data::StarData,
 };
 use crate::{
     coordinates::cartesian::CartesianCoordinates, error::AstroUtilError, units::length::Length,

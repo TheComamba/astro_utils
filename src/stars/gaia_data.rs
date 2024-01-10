@@ -1,3 +1,4 @@
+use super::star_appearance::StarAppearance;
 use crate::{
     color::sRGBColor,
     coordinates::spherical::SphericalCoordinates,
@@ -6,8 +7,6 @@ use crate::{
     Float,
 };
 use serde::{Deserialize, Serialize};
-
-use super::star::StarAppearance;
 
 #[derive(Serialize, Deserialize)]
 struct GaiaMetadataLine {
