@@ -100,7 +100,7 @@ fn generate_visible_random_star(
     }
 
     let mut star = current_params.to_star_at_origin();
-    star.distance = distance;
+    star.distance = Some(distance);
     star.direction_in_ecliptic = pos.to_direction();
     Some(star)
 }
