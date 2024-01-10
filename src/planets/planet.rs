@@ -1,8 +1,9 @@
 use super::orbit_parameters::OrbitParameters;
 use crate::{
     color::sRGBColor,
-    coordinates::direction::Direction,
-    units::{length::Length, mass::Mass, time::Time},
+    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
+    stars::star_appearance::StarAppearance,
+    units::{length::Length, luminosity::Luminosity, mass::Mass, time::Time},
     Float,
 };
 use serde::{Deserialize, Serialize};
@@ -78,5 +79,14 @@ impl Planet {
 
     pub fn get_rotation_axis(&self) -> &Direction {
         &self.rotation_axis
+    }
+
+    pub fn to_star_appearance(
+        &self,
+        central_body_luminosity: &Luminosity,
+        time_since_epoch: &Time,
+        observer_position: CartesianCoordinates,
+    ) -> StarAppearance {
+        todo!("Implement to_star_appearance for Planet")
     }
 }

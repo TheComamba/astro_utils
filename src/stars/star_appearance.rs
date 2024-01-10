@@ -5,10 +5,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
-    pub(super) name: String,
-    pub(super) illuminance: Illuminance,
-    pub(super) color: sRGBColor,
-    pub(super) direction_in_ecliptic: Direction,
+    pub(crate) name: String,
+    pub(crate) illuminance: Illuminance,
+    pub(crate) color: sRGBColor,
+    pub(crate) direction_in_ecliptic: Direction,
 }
 
 impl StarAppearance {
