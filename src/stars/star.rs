@@ -4,6 +4,7 @@ use crate::{
     units::{
         length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature, time::Time,
     },
+    Float,
 };
 use serde::{Deserialize, Serialize};
 
@@ -59,6 +60,28 @@ impl Star {
 
     pub fn calculate_position(&self) -> CartesianCoordinates {
         self.direction_in_ecliptic.to_cartesian(self.distance)
+    }
+
+    pub(super) fn apparently_the_same(&self, other: &Self) -> bool {
+        const LUMINOSITY_ACCURACY: Float = 1.;
+        const DIRECTION_ACCURACY: Float = 1e-5;
+
+        let luminosity_difference = (self.luminosity.as_absolute_magnitude()
+            - other.luminosity.as_absolute_magnitude())
+        .abs();
+        if luminosity_difference < LUMINOSITY_ACCURACY
+            || self
+                .direction_in_ecliptic
+                .eq_within(&other.direction_in_ecliptic, DIRECTION_ACCURACY)
+        {
+            println!(
+                "These two stars were deemed to appear the same: \n{:?}\n{:?}",
+                self, other
+            );
+            true
+        } else {
+            false
+        }
     }
 
     #[cfg(test)]

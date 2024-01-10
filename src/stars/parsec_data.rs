@@ -142,7 +142,7 @@ impl ParsecData {
         let entries: Vec<&str> = line.split_whitespace().collect();
         let mass_entry = entries
             .get(Self::MASS_INDEX)
-            .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+            .ok_or(AstroUtilError::DataNotAvailable)?;
         if mass_position.is_none() {
             if let Ok(mass_value) = mass_entry.parse::<Float>() {
                 *mass_position = Some(Self::get_closest_mass_index(mass_value));
@@ -151,16 +151,16 @@ impl ParsecData {
         Ok(if let Some(mass_position) = &*mass_position {
             let age_entry = entries
                 .get(Self::AGE_INDEX)
-                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                .ok_or(AstroUtilError::DataNotAvailable)?;
             let log_l_entry = entries
                 .get(Self::LOG_L_INDEX)
-                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                .ok_or(AstroUtilError::DataNotAvailable)?;
             let log_te_entry = entries
                 .get(Self::LOG_TE_INDEX)
-                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                .ok_or(AstroUtilError::DataNotAvailable)?;
             let log_r_entry = entries
                 .get(Self::LOG_R_INDEX)
-                .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                .ok_or(AstroUtilError::DataNotAvailable)?;
             if let (Ok(mass), Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
                 mass_entry.parse::<Float>(),
                 age_entry.parse::<Float>(),
@@ -178,7 +178,7 @@ impl ParsecData {
                 let data = parsec_data
                     .data
                     .get_mut(*mass_position)
-                    .ok_or(AstroUtilError::ParsecDataNotAvailable)?;
+                    .ok_or(AstroUtilError::DataNotAvailable)?;
                 data.push(parsec_line);
             }
         })
