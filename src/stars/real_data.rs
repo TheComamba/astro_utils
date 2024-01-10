@@ -24,6 +24,9 @@ pub struct RealData {
 
 impl RealData {
     pub fn to_star_data(&self) -> StarData {
+        let ra = self.right_ascension.to_angle();
+        let dec = self.declination.to_angle();
+        let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
         StarData {
             name: self.name.to_string(),
             mass: self.mass,
@@ -32,6 +35,7 @@ impl RealData {
             temperature: self.temperature,
             age: self.age,
             distance: Some(self.distance),
+            direction_in_ecliptic,
         }
     }
 

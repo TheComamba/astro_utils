@@ -9,6 +9,7 @@ use crate::{
 };
 use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
     pub(super) name: String,
     pub(super) illuminance: Illuminance,
@@ -25,6 +26,7 @@ pub struct StarData {
     pub(super) temperature: Option<Temperature>,
     pub(super) age: Option<Time>,
     pub(super) distance: Option<Length>,
+    pub(super) direction_in_ecliptic: Direction,
 }
 
 impl StarAppearance {
