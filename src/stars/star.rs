@@ -18,6 +18,7 @@ pub struct StarAppearance {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
+    pub(super) name: String,
     pub(super) mass: Option<Mass>,
     pub(super) radius: Option<Length>,
     pub(super) luminosity: Option<Luminosity>,
