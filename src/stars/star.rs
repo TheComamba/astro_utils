@@ -63,20 +63,30 @@ impl Star {
     }
 
     pub(super) fn apparently_the_same(&self, other: &Self) -> bool {
-        const LUMINOSITY_ACCURACY: Float = 1.;
+        const ILLUMINANCE_ACCURACY: Float = 1.;
         const DIRECTION_ACCURACY: Float = 1e-5;
 
-        let luminosity_difference = (self.luminosity.as_absolute_magnitude()
-            - other.luminosity.as_absolute_magnitude())
+        let self_illuminance = self.luminosity.to_illuminance(&self.distance);
+        let other_illuminance = other.luminosity.to_illuminance(&other.distance);
+        let illuminance_difference = (self_illuminance.as_apparent_magnitude()
+            - other_illuminance.as_apparent_magnitude())
         .abs();
-        if luminosity_difference < LUMINOSITY_ACCURACY
-            || self
+        if illuminance_difference < ILLUMINANCE_ACCURACY
+            && self
                 .direction_in_ecliptic
                 .eq_within(&other.direction_in_ecliptic, DIRECTION_ACCURACY)
         {
             println!(
                 "These two stars were deemed to appear the same: \n{:?}\n{:?}",
                 self, other
+            );
+            println!(
+                "Illuminance 1: {}\nIlluminance 2: {}",
+                self_illuminance, other_illuminance
+            );
+            println!(
+                "Direction 1:{}\nDirection 2:{}",
+                self.direction_in_ecliptic, other.direction_in_ecliptic
             );
             true
         } else {

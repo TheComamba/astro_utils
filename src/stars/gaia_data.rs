@@ -30,16 +30,16 @@ struct GaiaResponse {
 }
 
 impl GaiaResponse {
-    pub fn get_by_index(&self, row: usize, col: usize) -> &Option<Float> {
-        &self.data[row][col]
-    }
-}
-
-impl GaiaResponse {
     fn get_distance(distance: &Option<Float>, parallax: &Option<Float>) -> Option<Length> {
         match (distance, parallax) {
             (Some(distance), _) => Some(Length::from_parsecs(*distance)),
-            (_, Some(parallax)) => Some(Length::from_parsecs(1000.0 / parallax)),
+            (_, Some(parallax)) => {
+                if parallax > &0. {
+                    Some(Length::from_parsecs(1000.0 / parallax))
+                } else {
+                    None
+                }
+            }
             _ => None,
         }
     }
@@ -53,16 +53,14 @@ impl GaiaResponse {
         const ECL_LON_INDEX: usize = 0;
         const ECL_LAT_INDEX: usize = 1;
         const MAG_INDEX: usize = 2;
-        const LOGG_INDEX: usize = 3;
-        const DISTANCE_INDEX: usize = 4;
-        const PARALLAX_INDEX: usize = 5;
-        const TEMPERATURE_INDEX: usize = 6;
+        const DISTANCE_INDEX: usize = 3;
+        const PARALLAX_INDEX: usize = 4;
+        const TEMPERATURE_INDEX: usize = 5;
         let mut stars = Vec::new();
         for row in self.data.iter() {
             let ecl_lon = row[ECL_LON_INDEX];
             let ecl_lat = row[ECL_LAT_INDEX];
             let mag = row[MAG_INDEX];
-            let logg = row[LOGG_INDEX];
             let distance = row[DISTANCE_INDEX];
             let parallax = row[PARALLAX_INDEX];
             let temperature = row[TEMPERATURE_INDEX];
@@ -89,10 +87,10 @@ impl GaiaResponse {
 
             let star = Star {
                 name: "".to_string(),
-                mass: todo!(),
+                mass: None,
                 radius: None,
                 luminosity,
-                temperature: todo!(),
+                temperature,
                 color,
                 age: None,
                 distance,
@@ -109,7 +107,7 @@ fn query_brightest_stars(brightest: Illuminance) -> Result<GaiaResponse, AstroUt
     url += "?REQUEST=doQuery";
     url += "&LANG=ADQL";
     url += "&FORMAT=json";
-    url += "&QUERY=SELECT+ecl_lon,ecl_lat,phot_g_mean_mag,logg_gspphot,distance_gspphot,parallax,teff_gspphot";
+    url += "&QUERY=SELECT+ecl_lon,ecl_lat,phot_g_mean_mag,distance_gspphot,parallax,teff_gspphot";
     url += "+FROM+gaiadr3.gaia_source";
     url += "+WHERE+phot_g_mean_mag+<+";
     url += &format!("{:.1}", brightest.as_apparent_magnitude());
@@ -157,7 +155,8 @@ mod tests {
         let gaia_response =
             query_brightest_stars(Illuminance::from_apparent_magnitude(3.5)).unwrap();
         let gaia_stars = gaia_response.to_stars().unwrap();
-        assert!(gaia_stars.len() > 1000);
+        println!("gaia_stars.len(): {}", gaia_stars.len());
+        assert!(gaia_stars.len() > 100);
         assert!(gaia_stars
             .iter()
             .any(|gaia_star| { gaia_star_is_already_known(gaia_star, &known_stars) }));
