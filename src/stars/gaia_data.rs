@@ -118,7 +118,7 @@ fn query_brightest_stars(brightest: Illuminance) -> Result<GaiaResponse, AstroUt
     serde_json::from_str(&resp).map_err(AstroUtilError::Json)
 }
 
-pub fn star_is_already_known(new_star: &Star, known_stars: &[Star]) -> bool {
+pub fn star_is_already_known(new_star: &Star, known_stars: &Vec<&Star>) -> bool {
     known_stars
         .iter()
         .any(|known_star| known_star.apparently_the_same(new_star))
@@ -149,13 +149,13 @@ mod tests {
         let gaia_stars = gaia_response.to_stars().unwrap();
         println!("gaia_stars.len(): {}", gaia_stars.len());
         for gaia_star in gaia_stars.iter() {
-            if star_is_already_known(gaia_star, &known_stars) {
+            if star_is_already_known(gaia_star, &known_stars.iter().collect()) {
                 println!("This star is already known: {:?}", gaia_star);
             }
         }
         assert!(gaia_stars.len() > 100);
         assert!(gaia_stars
             .iter()
-            .any(|gaia_star| { star_is_already_known(gaia_star, &known_stars) }));
+            .any(|gaia_star| { star_is_already_known(gaia_star, &known_stars.iter().collect()) }));
     }
 }
