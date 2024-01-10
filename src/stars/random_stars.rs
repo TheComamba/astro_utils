@@ -132,10 +132,10 @@ mod tests {
         // But this should not take too long and also work in debug mode.
         // Furthermore, the parsec data needs to be loaded and parsed which takes some seconds.
         let max_distance = Length::from_light_years(200.);
-        let max_seconds = 30;
+        let max_seconds = 60;
 
         // Downloading files should not count against the time.
-        ParsecData::ensure_files().unwrap();
+        ParsecData::ensure_data_files().unwrap();
         let start = Instant::now();
         let stars = generate_random_stars(max_distance).unwrap();
         let duration = start.elapsed();

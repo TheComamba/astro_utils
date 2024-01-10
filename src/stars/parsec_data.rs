@@ -9,12 +9,15 @@ use crate::units::time::Time;
 use crate::{error::AstroUtilError, Float};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
+use rmp_serde;
+use serde::{Deserialize, Serialize};
 use std::fs;
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::path::PathBuf;
 use tar::Archive;
 
+#[derive(Deserialize, Serialize)]
 pub(super) struct ParsecLine {
     mass: Float,
     age: Float,
@@ -23,12 +26,14 @@ pub(super) struct ParsecLine {
     log_r: Float,
 }
 
+#[derive(Deserialize, Serialize)]
 pub(super) struct ParsecData {
     data: Vec<Vec<ParsecLine>>,
 }
 
 impl ParsecData {
     const METALLICITY: &'static str = "Z0.01";
+    const FILENAME: &'static str = "Z0.01.rmp";
     pub(super) const SORTED_MASSES: [Float; 100] = [
         0.09, 0.10, 0.12, 0.14, 0.16, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65,
         0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.40,
@@ -45,24 +50,37 @@ impl ParsecData {
     const LOG_R_INDEX: usize = 5;
 
     pub(super) fn new() -> Result<ParsecData, AstroUtilError> {
-        Self::ensure_files()?;
-
-        let mut parsec_data = ParsecData {
-            data: Vec::with_capacity(Self::SORTED_MASSES.len()),
-        };
-        for _ in Self::SORTED_MASSES.iter() {
-            parsec_data.data.push(Vec::new());
-        }
-
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
-        let folder_path = data_dir.join(PathBuf::from(Self::METALLICITY));
-        let filepaths = fs::read_dir(folder_path).map_err(AstroUtilError::Io)?;
-        for entry in filepaths {
-            Self::read_file(entry, &mut parsec_data)?;
-        }
+        let file_path = data_dir.join(Self::FILENAME);
 
-        Ok(parsec_data)
+        if file_path.exists() {
+            println!("Reading PARSEC data from {}", file_path.display());
+            let file = File::open(&file_path).map_err(AstroUtilError::Io)?;
+            let parsec_data: ParsecData =
+                rmp_serde::from_read(file).map_err(AstroUtilError::RmpDeserialization)?;
+            Ok(parsec_data)
+        } else {
+            Self::ensure_data_files()?;
+            let mut parsec_data = ParsecData {
+                data: Vec::with_capacity(Self::SORTED_MASSES.len()),
+            };
+            for _ in Self::SORTED_MASSES.iter() {
+                parsec_data.data.push(Vec::new());
+            }
+            let folder_path = data_dir.join(PathBuf::from(Self::METALLICITY));
+            let filepaths = fs::read_dir(folder_path).map_err(AstroUtilError::Io)?;
+            for entry in filepaths {
+                Self::read_file(entry, &mut parsec_data)?;
+            }
+            println!("Writing PARSEC data to {}", file_path.display());
+            let file = File::create(&file_path).map_err(AstroUtilError::Io)?;
+            let buffer =
+                rmp_serde::to_vec(&parsec_data).map_err(AstroUtilError::RmpSerialization)?;
+            let mut writer = BufWriter::new(file);
+            writer.write_all(&buffer).map_err(AstroUtilError::Io)?;
+            Ok(parsec_data)
+        }
     }
 
     fn get_closest_mass_index(mass: Float) -> usize {
@@ -106,7 +124,7 @@ impl ParsecData {
         Ok(())
     }
 
-    pub(super) fn ensure_files() -> Result<(), AstroUtilError> {
+    pub(super) fn ensure_data_files() -> Result<(), AstroUtilError> {
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let path = data_dir.join(PathBuf::from(Self::METALLICITY));
