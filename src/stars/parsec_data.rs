@@ -232,10 +232,10 @@ impl ParsecLine {
         let color = sRGBColor::from_temperature(temperature);
         Star {
             name: "".to_string(),
-            mass,
+            mass: Some(mass),
             age: Some(age),
             luminosity,
-            temperature,
+            temperature: Some(temperature),
             color,
             radius: Some(radius),
             distance: Length::ZERO,
@@ -296,13 +296,14 @@ mod tests {
         let parsec_data = ParsecData::new().unwrap();
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
-        let current_params = parsec_data.get_params_for_current_mass_and_age(mass, age.as_years());
+        let current_params =
+            parsec_data.get_params_for_current_mass_and_age(mass.unwrap(), age.as_years());
         let calculated_sun = current_params.to_star_at_origin();
         let real_sun = SUN_DATA.to_star();
         println!(
             "calculated mass: {}, real mass: {}",
-            calculated_sun.get_mass(),
-            real_sun.get_mass()
+            calculated_sun.get_mass().unwrap(),
+            real_sun.get_mass().unwrap()
         );
         println!(
             "calculated radius: {}, real radius: {}",
@@ -316,12 +317,13 @@ mod tests {
         );
         println!(
             "calculated temperature: {}, real temperature: {}",
-            calculated_sun.get_temperature(),
-            real_sun.get_temperature()
+            calculated_sun.get_temperature().unwrap(),
+            real_sun.get_temperature().unwrap()
         );
         assert!(calculated_sun
             .get_mass()
-            .eq_within(real_sun.get_mass(), MASS_ACCURACY));
+            .unwrap()
+            .eq_within(real_sun.get_mass().unwrap(), MASS_ACCURACY));
         assert!(calculated_sun
             .get_radius()
             .unwrap()
@@ -331,7 +333,8 @@ mod tests {
             .eq_within(&real_sun.get_absolute_magnitude(), LUMINOSITY_ACCURACY));
         assert!(calculated_sun
             .get_temperature()
-            .eq_within(&real_sun.get_temperature(), TEMPERATURE_ACCURACY));
+            .unwrap()
+            .eq_within(&real_sun.get_temperature().unwrap(), TEMPERATURE_ACCURACY));
     }
 
     #[test]
@@ -340,9 +343,8 @@ mod tests {
         let mut num_success = 0;
         let mut num_fail = 0;
         for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
-            if let Some(age) = data.age {
+            if let (Some(age), Some(mass)) = (data.age, data.mass) {
                 let age = age.as_years();
-                let mass = data.mass;
                 let mass_index = ParsecData::get_closest_mass_index(mass.as_solar_masses());
                 let trajectory = parsec_data.get_trajectory_via_index(mass_index);
                 let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);

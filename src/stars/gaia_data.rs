@@ -50,8 +50,6 @@ impl GaiaResponse {
     }
 
     fn to_stars(&self) -> Result<Vec<Star>, AstroUtilError> {
-        const DEFAULT_COLOR: sRGBColor = sRGBColor::from_sRGB(1., 1., 1.);
-
         const ECL_LON_INDEX: usize = 0;
         const ECL_LAT_INDEX: usize = 1;
         const MAG_INDEX: usize = 2;
@@ -86,7 +84,7 @@ impl GaiaResponse {
                 temperature.map(|temperature| temperature::Temperature::from_kelvin(temperature));
             let color = match temperature {
                 Some(temperature) => sRGBColor::from_temperature(temperature),
-                None => DEFAULT_COLOR,
+                None => sRGBColor::DEFAULT,
             };
 
             let star = Star {
