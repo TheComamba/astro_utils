@@ -9,10 +9,11 @@ use crate::units::time::Time;
 use crate::{error::AstroUtilError, Float};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
+use rmp_serde;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::path::PathBuf;
 use tar::Archive;
 
@@ -32,7 +33,7 @@ pub(super) struct ParsecData {
 
 impl ParsecData {
     const METALLICITY: &'static str = "Z0.01";
-    const FILENAME: &'static str = "Z0.01.json";
+    const FILENAME: &'static str = "Z0.01.rmp";
     pub(super) const SORTED_MASSES: [Float; 100] = [
         0.09, 0.10, 0.12, 0.14, 0.16, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65,
         0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.40,
@@ -57,7 +58,7 @@ impl ParsecData {
             println!("Reading PARSEC data from {}", file_path.display());
             let file = File::open(&file_path).map_err(AstroUtilError::Io)?;
             let parsec_data: ParsecData =
-                serde_json::from_reader(file).map_err(AstroUtilError::Json)?;
+                rmp_serde::from_read(file).map_err(AstroUtilError::RmpDeserialization)?;
             Ok(parsec_data)
         } else {
             Self::ensure_data_files()?;
@@ -74,7 +75,10 @@ impl ParsecData {
             }
             println!("Writing PARSEC data to {}", file_path.display());
             let file = File::create(&file_path).map_err(AstroUtilError::Io)?;
-            serde_json::to_writer(file, &parsec_data).map_err(AstroUtilError::Json)?;
+            let buffer =
+                rmp_serde::to_vec(&parsec_data).map_err(AstroUtilError::RmpSerialization)?;
+            let mut writer = BufWriter::new(file);
+            writer.write_all(&buffer).map_err(AstroUtilError::Io)?;
             Ok(parsec_data)
         }
     }
