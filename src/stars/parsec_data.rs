@@ -1,5 +1,4 @@
 use super::star::StarData;
-use crate::color::sRGBColor;
 use crate::coordinates::direction::Direction;
 use crate::units::length::Length;
 use crate::units::luminosity::Luminosity;
@@ -247,7 +246,6 @@ impl ParsecLine {
         let luminosity = self.get_luminosity();
         let temperature = self.get_temperature();
         let radius = self.get_radius();
-        let color = sRGBColor::from_temperature(temperature);
         StarData {
             name: "".to_string(),
             mass: Some(mass),

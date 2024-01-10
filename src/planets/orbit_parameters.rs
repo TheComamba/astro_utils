@@ -62,8 +62,6 @@ impl OrbitParameters {
         central_body: &StarData,
         time: Time,
     ) -> CartesianCoordinates {
-        let central_body_position = central_body.calculate_position();
-
         let orbital_period = orbital_period(
             self.semi_major_axis,
             body_mass,
@@ -78,7 +76,7 @@ impl OrbitParameters {
             true_anomaly,
             &self,
         );
-        central_body_position + position
+        position
     }
 
     pub(crate) fn apply_orientation_to(
