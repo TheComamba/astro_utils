@@ -156,10 +156,14 @@ mod tests {
             query_brightest_stars(Illuminance::from_apparent_magnitude(3.5)).unwrap();
         let gaia_stars = gaia_response.to_stars().unwrap();
         println!("gaia_stars.len(): {}", gaia_stars.len());
+        for gaia_star in gaia_stars.iter() {
+            if gaia_star_is_already_known(gaia_star, &known_stars) {
+                println!("This star is already known: {:?}", gaia_star);
+            }
+        }
         assert!(gaia_stars.len() > 100);
         assert!(gaia_stars
             .iter()
             .any(|gaia_star| { gaia_star_is_already_known(gaia_star, &known_stars) }));
-        assert!(false)
     }
 }

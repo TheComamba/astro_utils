@@ -71,27 +71,10 @@ impl Star {
         let illuminance_difference = (self_illuminance.as_apparent_magnitude()
             - other_illuminance.as_apparent_magnitude())
         .abs();
-        if illuminance_difference < ILLUMINANCE_ACCURACY
+        illuminance_difference < ILLUMINANCE_ACCURACY
             && self
                 .direction_in_ecliptic
                 .eq_within(&other.direction_in_ecliptic, DIRECTION_ACCURACY)
-        {
-            println!(
-                "These two stars were deemed to appear the same: \n{:?}\n{:?}",
-                self, other
-            );
-            println!(
-                "Illuminance 1: {}\nIlluminance 2: {}",
-                self_illuminance, other_illuminance
-            );
-            println!(
-                "Direction 1:{}\nDirection 2:{}",
-                self.direction_in_ecliptic, other.direction_in_ecliptic
-            );
-            true
-        } else {
-            false
-        }
     }
 
     #[cfg(test)]
