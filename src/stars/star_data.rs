@@ -1,3 +1,4 @@
+use super::star_appearance::StarAppearance;
 use crate::{
     color::sRGBColor,
     coordinates::direction::Direction,
@@ -7,7 +8,6 @@ use crate::{
     },
 };
 use serde::{Deserialize, Serialize};
-use super::star_appearance::StarAppearance;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
@@ -22,6 +22,10 @@ pub struct StarData {
 }
 
 impl StarData {
+    pub fn get_name(&self) -> &String {
+        &self.name
+    }
+
     pub const fn get_radius(&self) -> Option<Length> {
         self.radius
     }
@@ -30,7 +34,7 @@ impl StarData {
         &self.mass
     }
 
-    pub const fn get_absolute_magnitude(&self) -> &Option<Luminosity> {
+    pub const fn get_luminosity(&self) -> &Option<Luminosity> {
         &self.luminosity
     }
 

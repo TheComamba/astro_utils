@@ -327,8 +327,8 @@ mod tests {
         );
         println!(
             "calculated luminosity: {}, real luminosity: {}",
-            calculated_sun.get_absolute_magnitude().unwrap(),
-            real_sun.get_absolute_magnitude().unwrap()
+            calculated_sun.get_luminosity().unwrap(),
+            real_sun.get_luminosity().unwrap()
         );
         println!(
             "calculated temperature: {}, real temperature: {}",
@@ -343,10 +343,10 @@ mod tests {
             .get_radius()
             .unwrap()
             .eq_within(&real_sun.get_radius().unwrap(), RADIUS_ACCURACY));
-        assert!(calculated_sun.get_absolute_magnitude().unwrap().eq_within(
-            &real_sun.get_absolute_magnitude().unwrap(),
-            LUMINOSITY_ACCURACY
-        ));
+        assert!(calculated_sun
+            .get_luminosity()
+            .unwrap()
+            .eq_within(&real_sun.get_luminosity().unwrap(), LUMINOSITY_ACCURACY));
         assert!(calculated_sun
             .get_temperature()
             .unwrap()
