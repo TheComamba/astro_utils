@@ -16,6 +16,10 @@ impl StarAppearance {
         &self.name
     }
 
+    pub const fn get_illuminance(&self) -> &Illuminance {
+        &self.illuminance
+    }
+
     pub const fn get_color(&self) -> &sRGBColor {
         &self.color
     }
