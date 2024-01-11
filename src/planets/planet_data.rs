@@ -9,7 +9,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Planet {
+pub struct PlanetData {
     pub(super) name: String,
     pub(super) mass: Mass,
     pub(super) radius: Length,
@@ -20,13 +20,13 @@ pub struct Planet {
     pub(super) rotation_axis: Direction,
 }
 
-impl PartialEq for Planet {
+impl PartialEq for PlanetData {
     fn eq(&self, other: &Self) -> bool {
         self.name == other.name
     }
 }
 
-impl Planet {
+impl PlanetData {
     pub fn new(
         name: String,
         mass: Mass,
@@ -37,7 +37,7 @@ impl Planet {
         sideral_rotation_period: Time,
         rotation_axis: Direction,
     ) -> Self {
-        Planet {
+        PlanetData {
             name,
             mass,
             orbital_parameters,

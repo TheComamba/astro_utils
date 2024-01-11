@@ -7,7 +7,6 @@ use crate::{
     },
 };
 use serde::{Deserialize, Serialize};
-
 use super::star_appearance::StarAppearance;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

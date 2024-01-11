@@ -1,4 +1,4 @@
-use super::{orbit_parameters::OrbitParameters, planet::Planet};
+use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
 use crate::{
     color::sRGBColor,
     coordinates::earth_equatorial::EarthEquatorialCoordinates,
@@ -20,8 +20,8 @@ pub struct RealData {
 }
 
 impl RealData {
-    pub fn to_planet(&self) -> Planet {
-        Planet {
+    pub fn to_planet_data(&self) -> PlanetData {
+        PlanetData {
             name: self.name.to_string(),
             mass: self.mass,
             orbital_parameters: self.orbit.clone(),
