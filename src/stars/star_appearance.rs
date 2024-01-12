@@ -28,6 +28,10 @@ impl StarAppearance {
         &self.direction_in_ecliptic
     }
 
+    pub fn set_direction_in_ecliptic(&mut self, direction: Direction) {
+        self.direction_in_ecliptic = direction;
+    }
+
     pub(super) fn apparently_the_same(&self, other: &Self) -> bool {
         const DIRECTION_ACCURACY: Float = 1e-5;
 
