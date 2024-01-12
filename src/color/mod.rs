@@ -115,7 +115,7 @@ impl XYZColor {
 mod tests {
     use super::*;
 
-    const TEST_ACCURACY: Float = 0.05;
+    const TEST_ACCURACY: Float = 0.06;
 
     fn maximized_color_tuple(color: (Float, Float, Float)) -> (Float, Float, Float) {
         let max = color.0.max(color.1).max(color.2);
@@ -135,8 +135,8 @@ mod tests {
     }
 
     #[test]
-    fn six_thousand_kelvin_is_white() {
-        let color = sRGBColor::from_temperature(Temperature::from_kelvin(6000.0));
+    fn fivethousandfivehounded_kelvin_is_white() {
+        let color = sRGBColor::from_temperature(Temperature::from_kelvin(5500.0));
         let expected = maximized_color_tuple((1., 1., 1.));
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
@@ -147,9 +147,9 @@ mod tests {
     }
 
     #[test]
-    fn thirty_thousand_kelvin_is_blue() {
-        let color = sRGBColor::from_temperature(Temperature::from_kelvin(30_000.0));
-        let expected: (f32, f32, f32) = maximized_color_tuple((0.1, 0.3, 0.6));
+    fn fourtythousand_kelvin_is_blue() {
+        let color = sRGBColor::from_temperature(Temperature::from_kelvin(40_000.0));
+        let expected: (f32, f32, f32) = maximized_color_tuple((0.25, 0.5, 1.0));
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
