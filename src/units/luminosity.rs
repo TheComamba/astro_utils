@@ -12,6 +12,10 @@ pub struct Luminosity {
 }
 
 impl Luminosity {
+    pub(crate) const PRACICALLY_ZERO: Self = Self {
+        absolute_magnitude: -100.,
+    };
+
     pub const fn from_absolute_magnitude(absolute_magnitude: Float) -> Luminosity {
         Luminosity { absolute_magnitude }
     }

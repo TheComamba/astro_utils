@@ -2,7 +2,8 @@ use super::orbit_parameters::OrbitParameters;
 use crate::{
     color::sRGBColor,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
-    stars::star_appearance::StarAppearance,
+    planets::planet_brightness::planet_brightness,
+    stars::{star_appearance::StarAppearance, star_data::StarData},
     units::{length::Length, luminosity::Luminosity, mass::Mass, time::Time},
     Float,
 };
@@ -83,10 +84,30 @@ impl PlanetData {
 
     pub fn to_star_appearance(
         &self,
-        central_body_luminosity: &Luminosity,
+        central_body: &StarData,
         time_since_epoch: &Time,
-        observer_position: CartesianCoordinates,
+        observer_position: &CartesianCoordinates,
     ) -> StarAppearance {
-        todo!("Implement to_star_appearance for Planet")
+        let central_body_luminosity = central_body
+            .get_luminosity()
+            .unwrap_or(Luminosity::PRACICALLY_ZERO);
+        let planet_position =
+            self.orbital_parameters
+                .calculate_position(self.mass, central_body, *time_since_epoch);
+        let brightness = planet_brightness(
+            central_body_luminosity,
+            &CartesianCoordinates::ORIGIN,
+            &planet_position,
+            observer_position,
+            self.radius,
+            self.geometric_albedo,
+        );
+        let relative_position = observer_position - &planet_position;
+        StarAppearance {
+            name: self.name.clone(),
+            illuminance: brightness,
+            color: self.color.clone(),
+            direction_in_ecliptic: relative_position.to_direction(),
+        }
     }
 }
