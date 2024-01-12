@@ -85,24 +85,21 @@ impl PlanetData {
     pub fn to_star_appearance(
         &self,
         central_body: &StarData,
-        time_since_epoch: &Time,
+        planet_pos: &CartesianCoordinates,
         observer_position: &CartesianCoordinates,
     ) -> StarAppearance {
         let central_body_luminosity = central_body
             .get_luminosity()
             .unwrap_or(Luminosity::PRACICALLY_ZERO);
-        let planet_position =
-            self.orbital_parameters
-                .calculate_position(self.mass, central_body, *time_since_epoch);
         let brightness = planet_brightness(
             central_body_luminosity,
             &CartesianCoordinates::ORIGIN,
-            &planet_position,
+            planet_pos,
             observer_position,
             self.radius,
             self.geometric_albedo,
         );
-        let relative_position = observer_position - &planet_position;
+        let relative_position = observer_position - planet_pos;
         StarAppearance {
             name: self.name.clone(),
             illuminance: brightness,
