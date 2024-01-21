@@ -93,7 +93,7 @@ impl Direction {
         Angle::from_radians(cosine_argument.acos())
     }
 
-    pub(super) fn some_orthogonal_vector(&self) -> Direction {
+    pub fn some_orthogonal_vector(&self) -> Direction {
         if self.x().abs() > NORMALIZATION_THRESHOLD {
             self.cross_product(&Self::Y).unwrap()
         } else if self.y().abs() > NORMALIZATION_THRESHOLD {
