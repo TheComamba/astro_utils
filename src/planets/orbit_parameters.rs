@@ -4,7 +4,7 @@ use crate::{
         eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,
         true_anomaly,
     },
-    stars::star::Star,
+    stars::star_data::StarData,
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float,
 };
@@ -59,11 +59,9 @@ impl OrbitParameters {
     pub fn calculate_position(
         &self,
         body_mass: Mass,
-        central_body: &Star,
+        central_body: &StarData,
         time: Time,
     ) -> CartesianCoordinates {
-        let central_body_position = central_body.calculate_position();
-
         let orbital_period = orbital_period(
             self.semi_major_axis,
             body_mass,
@@ -78,7 +76,7 @@ impl OrbitParameters {
             true_anomaly,
             &self,
         );
-        central_body_position + position
+        position
     }
 
     pub(crate) fn apply_orientation_to(

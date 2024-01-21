@@ -1,3 +1,4 @@
+use super::{star_appearance::StarAppearance, star_data::StarData};
 use crate::{
     color::sRGBColor,
     coordinates::{
@@ -8,8 +9,6 @@ use crate::{
         length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature, time::Time,
     },
 };
-
-use super::star::Star;
 
 pub struct RealData {
     pub name: &'static str,
@@ -24,24 +23,36 @@ pub struct RealData {
 }
 
 impl RealData {
-    pub fn to_star(&self) -> Star {
+    pub fn to_star_data(&self) -> StarData {
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
-        let dir = EarthEquatorialCoordinates::new(ra, dec).to_direction();
+        let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
+        StarData {
+            name: self.name.to_string(),
+            mass: self.mass,
+            radius: self.radius,
+            luminosity: Some(self.luminosity),
+            temperature: self.temperature,
+            age: self.age,
+            distance: Some(self.distance),
+            direction_in_ecliptic,
+        }
+    }
+
+    pub fn to_star_appearance(&self) -> StarAppearance {
+        let ra = self.right_ascension.to_angle();
+        let dec = self.declination.to_angle();
+        let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
+        let illuminance = self.luminosity.to_illuminance(&self.distance);
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
             None => sRGBColor::DEFAULT,
         };
-        Star {
+        StarAppearance {
             name: self.name.to_string(),
-            mass: self.mass,
-            radius: self.radius,
-            luminosity: self.luminosity,
-            temperature: self.temperature,
+            illuminance,
             color,
-            age: self.age,
-            distance: self.distance,
-            direction_in_ecliptic: dir,
+            direction_in_ecliptic,
         }
     }
 }

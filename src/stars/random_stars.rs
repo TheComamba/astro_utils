@@ -2,7 +2,7 @@ use std::time::Instant;
 
 use super::{
     parsec_data::{ParsecData, ParsecLine},
-    star::Star,
+    star_data::StarData,
 };
 use crate::{
     coordinates::cartesian::CartesianCoordinates, error::AstroUtilError, units::length::Length,
@@ -18,7 +18,7 @@ use rand::{
 const STARS_PER_LY_CUBED: Float = 0.004;
 const DIMMEST_VISIBLE_MAGNITUDE: Float = 6.5;
 
-pub fn generate_random_stars(max_distance: Length) -> Result<Vec<Star>, AstroUtilError> {
+pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
     let number_of_stars_in_cube = STARS_PER_LY_CUBED * (max_distance * 2.).as_light_years().powi(3);
     let number_of_stars_in_cube = number_of_stars_in_cube as usize;
@@ -85,7 +85,7 @@ fn generate_visible_random_star(
     rng: &mut ThreadRng,
     pos_distr: &Uniform<Float>,
     mass_index_distr: &WeightedIndex<Float>,
-) -> Option<Star> {
+) -> Option<StarData> {
     let pos = generate_random_3d_position(rng, pos_distr);
     let distance = pos.length();
     if distance > max_distance {
@@ -100,7 +100,7 @@ fn generate_visible_random_star(
     }
 
     let mut star = current_params.to_star_at_origin();
-    star.distance = distance;
+    star.distance = Some(distance);
     star.direction_in_ecliptic = pos.to_direction();
     Some(star)
 }

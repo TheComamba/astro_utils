@@ -1,28 +1,28 @@
+use super::star_appearance::StarAppearance;
 use crate::{
     color::sRGBColor,
-    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
+    coordinates::direction::Direction,
     units::{
-        length::Length, luminosity::Luminosity, mass::Mass, temperature::Temperature, time::Time,
+        illuminance::Illuminance, length::Length, luminosity::Luminosity, mass::Mass,
+        temperature::Temperature, time::Time,
     },
-    Float,
 };
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Star {
+pub struct StarData {
     pub(super) name: String,
     pub(super) mass: Option<Mass>,
     pub(super) radius: Option<Length>,
-    pub(super) luminosity: Luminosity,
+    pub(super) luminosity: Option<Luminosity>,
     pub(super) temperature: Option<Temperature>,
-    pub(super) color: sRGBColor,
     pub(super) age: Option<Time>,
-    pub(super) distance: Length,
+    pub(super) distance: Option<Length>,
     pub(super) direction_in_ecliptic: Direction,
 }
 
-impl Star {
-    pub fn get_name(&self) -> &str {
+impl StarData {
+    pub fn get_name(&self) -> &String {
         &self.name
     }
 
@@ -34,47 +34,41 @@ impl Star {
         &self.mass
     }
 
-    pub const fn get_absolute_magnitude(&self) -> Luminosity {
-        self.luminosity
+    pub const fn get_luminosity(&self) -> &Option<Luminosity> {
+        &self.luminosity
     }
 
     pub const fn get_temperature(&self) -> &Option<Temperature> {
         &self.temperature
     }
 
-    pub const fn get_color(&self) -> &sRGBColor {
-        &self.color
-    }
-
     pub const fn get_age(&self) -> &Option<Time> {
         &self.age
     }
 
-    pub const fn get_distance(&self) -> Length {
-        self.distance
+    pub const fn get_distance(&self) -> &Option<Length> {
+        &self.distance
     }
 
     pub const fn get_direction_in_ecliptic(&self) -> &Direction {
         &self.direction_in_ecliptic
     }
 
-    pub fn calculate_position(&self) -> CartesianCoordinates {
-        self.direction_in_ecliptic.to_cartesian(self.distance)
-    }
-
-    pub(super) fn apparently_the_same(&self, other: &Self) -> bool {
-        const ILLUMINANCE_ACCURACY: Float = 1.;
-        const DIRECTION_ACCURACY: Float = 1e-5;
-
-        let self_illuminance = self.luminosity.to_illuminance(&self.distance);
-        let other_illuminance = other.luminosity.to_illuminance(&other.distance);
-        let illuminance_difference = (self_illuminance.as_apparent_magnitude()
-            - other_illuminance.as_apparent_magnitude())
-        .abs();
-        illuminance_difference < ILLUMINANCE_ACCURACY
-            && self
-                .direction_in_ecliptic
-                .eq_within(&other.direction_in_ecliptic, DIRECTION_ACCURACY)
+    pub fn to_star_appearance(&self) -> StarAppearance {
+        let illuminance = match (self.luminosity, self.distance) {
+            (Some(luminosity), Some(distance)) => luminosity.to_illuminance(&distance),
+            _ => Illuminance::ZERO,
+        };
+        let color = match self.temperature {
+            Some(temperature) => sRGBColor::from_temperature(temperature),
+            None => sRGBColor::DEFAULT,
+        };
+        StarAppearance {
+            name: self.name.clone(),
+            illuminance,
+            color,
+            direction_in_ecliptic: self.direction_in_ecliptic.clone(),
+        }
     }
 
     #[cfg(test)]
@@ -87,9 +81,13 @@ impl Star {
             (Some(self_radius), Some(other_radius)) => self_radius / other_radius,
             _ => 1.0,
         };
-        let luminosity_difference = (self.luminosity.as_absolute_magnitude()
-            - other.luminosity.as_absolute_magnitude())
-        .abs();
+        let luminosity_difference = match (self.luminosity, other.luminosity) {
+            (Some(self_luminosity), Some(other_luminosity)) => {
+                (self_luminosity.as_absolute_magnitude() - other_luminosity.as_absolute_magnitude())
+                    .abs()
+            }
+            _ => 0.0,
+        };
         let temperature_ratio = match (self.temperature, other.temperature) {
             (Some(self_temperature), Some(other_temperature)) => {
                 self_temperature / other_temperature
@@ -122,7 +120,9 @@ impl Star {
         if luminosity_difference > 1.0 {
             println!(
                 "luminosity1: {}, luminosity2: {}, difference: {}",
-                self.luminosity, other.luminosity, luminosity_difference
+                self.luminosity.unwrap(),
+                other.luminosity.unwrap(),
+                luminosity_difference
             );
             result = false;
         }

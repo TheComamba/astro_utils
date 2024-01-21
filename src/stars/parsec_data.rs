@@ -1,5 +1,4 @@
-use super::star::Star;
-use crate::color::sRGBColor;
+use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
 use crate::units::length::Length;
 use crate::units::luminosity::Luminosity;
@@ -241,22 +240,20 @@ impl ParsecData {
 }
 
 impl ParsecLine {
-    pub(super) fn to_star_at_origin(&self) -> Star {
+    pub(super) fn to_star_at_origin(&self) -> StarData {
         let mass = self.get_mass();
         let age = self.get_age();
         let luminosity = self.get_luminosity();
         let temperature = self.get_temperature();
         let radius = self.get_radius();
-        let color = sRGBColor::from_temperature(temperature);
-        Star {
+        StarData {
             name: "".to_string(),
             mass: Some(mass),
             age: Some(age),
-            luminosity,
+            luminosity: Some(luminosity),
             temperature: Some(temperature),
-            color,
             radius: Some(radius),
-            distance: Length::ZERO,
+            distance: None,
             direction_in_ecliptic: Direction::Z,
         }
     }
@@ -317,7 +314,7 @@ mod tests {
         let current_params =
             parsec_data.get_params_for_current_mass_and_age(mass.unwrap(), age.as_years());
         let calculated_sun = current_params.to_star_at_origin();
-        let real_sun = SUN_DATA.to_star();
+        let real_sun = SUN_DATA.to_star_data();
         println!(
             "calculated mass: {}, real mass: {}",
             calculated_sun.get_mass().unwrap(),
@@ -330,8 +327,8 @@ mod tests {
         );
         println!(
             "calculated luminosity: {}, real luminosity: {}",
-            calculated_sun.get_absolute_magnitude(),
-            real_sun.get_absolute_magnitude()
+            calculated_sun.get_luminosity().unwrap(),
+            real_sun.get_luminosity().unwrap()
         );
         println!(
             "calculated temperature: {}, real temperature: {}",
@@ -347,8 +344,9 @@ mod tests {
             .unwrap()
             .eq_within(&real_sun.get_radius().unwrap(), RADIUS_ACCURACY));
         assert!(calculated_sun
-            .get_absolute_magnitude()
-            .eq_within(&real_sun.get_absolute_magnitude(), LUMINOSITY_ACCURACY));
+            .get_luminosity()
+            .unwrap()
+            .eq_within(&real_sun.get_luminosity().unwrap(), LUMINOSITY_ACCURACY));
         assert!(calculated_sun
             .get_temperature()
             .unwrap()
@@ -374,7 +372,7 @@ mod tests {
 
                 let current_params = parsec_data.get_params_for_current_mass_and_age(mass, age);
                 let calculated_star = current_params.to_star_at_origin();
-                let real_star = data.to_star();
+                let real_star = data.to_star_data();
                 if calculated_star.similar_within_order_of_magnitude(&real_star) {
                     num_success += 1;
                 } else {

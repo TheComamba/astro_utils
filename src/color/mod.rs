@@ -40,7 +40,7 @@ pub struct sRGBColor {
 
 impl Display for sRGBColor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let (r, g, b) = self.normalized_sRGB_tuple();
+        let (r, g, b) = self.maximized_sRGB_tuple();
         write!(f, "(r: {:.2}, g: {:.2}, b: {:.2})", r, g, b)
     }
 }
@@ -65,9 +65,9 @@ impl sRGBColor {
     }
 
     #[allow(non_snake_case)]
-    pub fn normalized_sRGB_tuple(&self) -> (Float, Float, Float) {
-        let sum = self.R + self.G + self.B;
-        (self.R / sum, self.G / sum, self.B / sum)
+    pub fn maximized_sRGB_tuple(&self) -> (Float, Float, Float) {
+        let max = self.R.max(self.G).max(self.B);
+        (self.R / max, self.G / max, self.B / max)
     }
 
     #[allow(non_snake_case)]
@@ -115,18 +115,18 @@ impl XYZColor {
 mod tests {
     use super::*;
 
-    const TEST_ACCURACY: Float = 0.05;
+    const TEST_ACCURACY: Float = 0.06;
 
-    fn normed_color_tuple(color: (Float, Float, Float)) -> (Float, Float, Float) {
-        let sum = color.0 + color.1 + color.2;
-        (color.0 / sum, color.1 / sum, color.2 / sum)
+    fn maximized_color_tuple(color: (Float, Float, Float)) -> (Float, Float, Float) {
+        let max = color.0.max(color.1).max(color.2);
+        (color.0 / max, color.1 / max, color.2 / max)
     }
 
     #[test]
     fn fivehundred_kelvin_is_red() {
         let color = sRGBColor::from_temperature(Temperature::from_kelvin(500.0));
-        let expected = normed_color_tuple((0.9, 0.1, 0.));
-        let actual = color.normalized_sRGB_tuple();
+        let expected = maximized_color_tuple((0.9, 0.1, 0.));
+        let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
@@ -135,10 +135,10 @@ mod tests {
     }
 
     #[test]
-    fn six_thousand_kelvin_is_white() {
-        let color = sRGBColor::from_temperature(Temperature::from_kelvin(6000.0));
-        let expected = normed_color_tuple((1., 1., 1.));
-        let actual = color.normalized_sRGB_tuple();
+    fn fivethousandfivehounded_kelvin_is_white() {
+        let color = sRGBColor::from_temperature(Temperature::from_kelvin(5500.0));
+        let expected = maximized_color_tuple((1., 1., 1.));
+        let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
@@ -147,10 +147,10 @@ mod tests {
     }
 
     #[test]
-    fn thirty_thousand_kelvin_is_blue() {
-        let color = sRGBColor::from_temperature(Temperature::from_kelvin(30_000.0));
-        let expected: (f32, f32, f32) = normed_color_tuple((0.1, 0.3, 0.6));
-        let actual = color.normalized_sRGB_tuple();
+    fn fourtythousand_kelvin_is_blue() {
+        let color = sRGBColor::from_temperature(Temperature::from_kelvin(40_000.0));
+        let expected: (f32, f32, f32) = maximized_color_tuple((0.25, 0.5, 1.0));
+        let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
         assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);

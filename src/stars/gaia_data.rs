@@ -1,15 +1,12 @@
+use super::star_appearance::StarAppearance;
 use crate::{
     color::sRGBColor,
     coordinates::spherical::SphericalCoordinates,
     error::AstroUtilError,
-    units::{
-        angle::Angle, illuminance::Illuminance, length::Length, luminosity::Luminosity, temperature,
-    },
+    units::{angle::Angle, illuminance::Illuminance, temperature},
     Float,
 };
 use serde::{Deserialize, Serialize};
-
-use super::star::Star;
 
 #[derive(Serialize, Deserialize)]
 struct GaiaMetadataLine {
@@ -30,50 +27,20 @@ struct GaiaResponse {
 }
 
 impl GaiaResponse {
-    fn get_distance(distance: &Option<Float>, parallax: &Option<Float>) -> Option<Length> {
-        match (distance, parallax) {
-            (Some(distance), _) => Some(Length::from_parsecs(*distance)),
-            (_, Some(parallax)) => {
-                if parallax > &0. {
-                    Some(Length::from_parsecs(1000.0 / parallax))
-                } else {
-                    None
-                }
-            }
-            _ => None,
-        }
-    }
-
-    fn get_luminosity(mag: Float, distance: &Length) -> Luminosity {
-        let illuminance = Illuminance::from_apparent_magnitude(mag);
-        illuminance.to_luminosity(distance)
-    }
-
-    fn to_stars(&self) -> Result<Vec<Star>, AstroUtilError> {
+    fn to_star_appearances(&self) -> Result<Vec<StarAppearance>, AstroUtilError> {
         const ECL_LON_INDEX: usize = 0;
         const ECL_LAT_INDEX: usize = 1;
         const MAG_INDEX: usize = 2;
-        const DISTANCE_INDEX: usize = 3;
-        const PARALLAX_INDEX: usize = 4;
-        const TEMPERATURE_INDEX: usize = 5;
+        const TEMPERATURE_INDEX: usize = 3;
         let mut stars = Vec::new();
         for row in self.data.iter() {
             let ecl_lon = row[ECL_LON_INDEX];
             let ecl_lat = row[ECL_LAT_INDEX];
             let mag = row[MAG_INDEX];
-            let distance = row[DISTANCE_INDEX];
-            let parallax = row[PARALLAX_INDEX];
             let temperature = row[TEMPERATURE_INDEX];
 
-            let distance = Self::get_distance(&distance, &parallax);
             let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
-            let (distance, luminosity) = match distance {
-                Some(distance) => (distance, Self::get_luminosity(mag, &distance)),
-                None => (
-                    Length::from_parsecs(10.),
-                    Luminosity::from_absolute_magnitude(mag),
-                ),
-            };
+            let illuminance = Illuminance::from_apparent_magnitude(mag);
             let ecl_lon = Angle::from_degrees(ecl_lon.ok_or(AstroUtilError::DataNotAvailable)?);
             let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
             let direction_in_ecliptic = SphericalCoordinates::new(ecl_lon, ecl_lat).to_direction();
@@ -85,15 +52,10 @@ impl GaiaResponse {
                 None => sRGBColor::DEFAULT,
             };
 
-            let star = Star {
+            let star = StarAppearance {
                 name: "".to_string(),
-                mass: None,
-                radius: None,
-                luminosity,
-                temperature,
+                illuminance,
                 color,
-                age: None,
-                distance,
                 direction_in_ecliptic,
             };
             stars.push(star);
@@ -107,7 +69,7 @@ fn query_brightest_stars(brightest: Illuminance) -> Result<GaiaResponse, AstroUt
     url += "?REQUEST=doQuery";
     url += "&LANG=ADQL";
     url += "&FORMAT=json";
-    url += "&QUERY=SELECT+ecl_lon,ecl_lat,phot_g_mean_mag,distance_gspphot,parallax,teff_gspphot";
+    url += "&QUERY=SELECT+ecl_lon,ecl_lat,phot_g_mean_mag,teff_gspphot";
     url += "+FROM+gaiadr3.gaia_source";
     url += "+WHERE+phot_g_mean_mag+<+";
     url += &format!("{:.1}", brightest.as_apparent_magnitude());
@@ -118,16 +80,19 @@ fn query_brightest_stars(brightest: Illuminance) -> Result<GaiaResponse, AstroUt
     serde_json::from_str(&resp).map_err(AstroUtilError::Json)
 }
 
-pub fn star_is_already_known(new_star: &Star, known_stars: &Vec<&Star>) -> bool {
+pub fn star_is_already_known(
+    new_star: &StarAppearance,
+    known_stars: &Vec<&StarAppearance>,
+) -> bool {
     known_stars
         .iter()
         .any(|known_star| known_star.apparently_the_same(new_star))
 }
 
-pub fn fetch_brightest_stars() -> Result<Vec<Star>, AstroUtilError> {
+pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
     let brightest = Illuminance::from_apparent_magnitude(6.5);
     let resp = query_brightest_stars(brightest)?;
-    let gaia_stars = resp.to_stars()?;
+    let gaia_stars = resp.to_star_appearances()?;
     Ok(gaia_stars)
 }
 
@@ -141,12 +106,12 @@ mod tests {
     fn some_bright_stars_are_already_known() {
         let mut known_stars = vec![];
         for star_data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG {
-            known_stars.push(star_data.to_star());
+            known_stars.push(star_data.to_star_appearance());
         }
 
         let gaia_response =
             query_brightest_stars(Illuminance::from_apparent_magnitude(3.5)).unwrap();
-        let gaia_stars = gaia_response.to_stars().unwrap();
+        let gaia_stars = gaia_response.to_star_appearances().unwrap();
         println!("gaia_stars.len(): {}", gaia_stars.len());
         for gaia_star in gaia_stars.iter() {
             if star_is_already_known(gaia_star, &known_stars.iter().collect()) {

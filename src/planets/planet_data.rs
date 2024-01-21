@@ -1,14 +1,16 @@
 use super::orbit_parameters::OrbitParameters;
 use crate::{
     color::sRGBColor,
-    coordinates::direction::Direction,
-    units::{length::Length, mass::Mass, time::Time},
+    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
+    planets::planet_brightness::planet_brightness,
+    stars::{star_appearance::StarAppearance, star_data::StarData},
+    units::{length::Length, luminosity::Luminosity, mass::Mass, time::Time},
     Float,
 };
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Planet {
+pub struct PlanetData {
     pub(super) name: String,
     pub(super) mass: Mass,
     pub(super) radius: Length,
@@ -19,13 +21,13 @@ pub struct Planet {
     pub(super) rotation_axis: Direction,
 }
 
-impl PartialEq for Planet {
+impl PartialEq for PlanetData {
     fn eq(&self, other: &Self) -> bool {
         self.name == other.name
     }
 }
 
-impl Planet {
+impl PlanetData {
     pub fn new(
         name: String,
         mass: Mass,
@@ -36,7 +38,7 @@ impl Planet {
         sideral_rotation_period: Time,
         rotation_axis: Direction,
     ) -> Self {
-        Planet {
+        PlanetData {
             name,
             mass,
             orbital_parameters,
@@ -78,5 +80,31 @@ impl Planet {
 
     pub fn get_rotation_axis(&self) -> &Direction {
         &self.rotation_axis
+    }
+
+    pub fn to_star_appearance(
+        &self,
+        central_body: &StarData,
+        planet_pos: &CartesianCoordinates,
+        observer_position: &CartesianCoordinates,
+    ) -> StarAppearance {
+        let central_body_luminosity = central_body
+            .get_luminosity()
+            .unwrap_or(Luminosity::PRACICALLY_ZERO);
+        let brightness = planet_brightness(
+            central_body_luminosity,
+            &CartesianCoordinates::ORIGIN,
+            planet_pos,
+            observer_position,
+            self.radius,
+            self.geometric_albedo,
+        );
+        let relative_position = observer_position - planet_pos;
+        StarAppearance {
+            name: self.name.clone(),
+            illuminance: brightness,
+            color: self.color.clone(),
+            direction_in_ecliptic: relative_position.to_direction(),
+        }
     }
 }
