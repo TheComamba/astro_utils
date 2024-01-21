@@ -103,7 +103,7 @@ impl Direction {
         }
     }
 
-    pub(super) fn cross_product(&self, other: &Direction) -> Result<Direction, AstroUtilError> {
+    pub fn cross_product(&self, other: &Direction) -> Result<Direction, AstroUtilError> {
         let (ax, ay, az) = (self.x, self.y, self.z);
         let (bx, by, bz) = (other.x(), other.y(), other.z());
 
@@ -114,8 +114,7 @@ impl Direction {
         Direction::new(cx, cy, cz)
     }
 
-    #[cfg(test)]
-    fn dot_product(&self, other: &Direction) -> Float {
+    pub fn dot_product(&self, other: &Direction) -> Float {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
 
