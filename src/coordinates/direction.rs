@@ -161,7 +161,7 @@ impl Direction {
     }
 }
 
-impl Neg for Direction {
+impl Neg for &Direction {
     type Output = Direction;
 
     fn neg(self) -> Self::Output {
@@ -214,15 +214,15 @@ mod tests {
     fn angle_between_is_half_turn() {
         const EXPECTED: Angle = Angle::from_radians(PI);
 
-        let angle = Direction::X.angle_to(&(-Direction::X));
+        let angle = Direction::X.angle_to(&(-&Direction::X));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Direction::Y.angle_to(&(-Direction::Y));
+        let angle = Direction::Y.angle_to(&(-&Direction::Y));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Direction::Z.angle_to(&(-Direction::Z));
+        let angle = Direction::Z.angle_to(&(-&Direction::Z));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
@@ -361,7 +361,7 @@ mod tests {
                                 println!("a: {}, b: {}", a, b);
                                 let cross = a.cross_product(&b);
                                 if a.eq_within(&b, TEST_ACCURACY)
-                                    || a.eq_within(&-b.clone(), TEST_ACCURACY)
+                                    || a.eq_within(&-&b, TEST_ACCURACY)
                                 {
                                     assert!(cross.is_err());
                                 } else {

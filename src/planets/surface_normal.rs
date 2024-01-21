@@ -111,7 +111,7 @@ mod tests {
         let angle_at_epoch = Angle::ZERO;
         let time_since_epoch = Time::from_years(0.25);
 
-        let expected = -Direction::X;
+        let expected = -&Direction::X;
         let actual =
             surface_normal_at_time(observer, angle_at_epoch, time_since_epoch, siderial_day);
         println!("expected: {},\n actual: {}", expected, actual);
@@ -145,7 +145,7 @@ mod tests {
         let angle_at_epoch = Angle::ZERO;
         let time_since_epoch = Time::from_years(0.5);
 
-        let expected = -Direction::X;
+        let expected = -&Direction::X;
         let actual =
             surface_normal_at_time(observer, angle_at_epoch, time_since_epoch, siderial_day);
         println!("expected: {},\n actual: {}", expected, actual);
@@ -162,7 +162,7 @@ mod tests {
         let angle_at_epoch = Angle::ZERO;
         let time_since_epoch = Time::from_years(0.25);
 
-        let expected = -Direction::Y;
+        let expected = -&Direction::Y;
         let actual =
             surface_normal_at_time(observer, angle_at_epoch, time_since_epoch, siderial_day);
         println!("expected: {},\n actual: {}", expected, actual);
@@ -196,7 +196,7 @@ mod tests {
         let angle_at_epoch = Angle::ZERO;
         let time_since_epoch = Time::from_years(0.25);
 
-        let expected = -Direction::Z;
+        let expected = -&Direction::Z;
         let actual =
             surface_normal_at_time(observer, angle_at_epoch, time_since_epoch, siderial_day);
         println!("expected: {},\n actual: {}", expected, actual);
@@ -230,7 +230,7 @@ mod tests {
         let angle_at_epoch = Angle::ZERO;
         let time_since_epoch = Time::ZERO;
 
-        let expected = -Direction::Z;
+        let expected = -&Direction::Z;
         let actual =
             surface_normal_at_time(observer, angle_at_epoch, time_since_epoch, siderial_day);
         println!("expected: {},\n actual: {}", expected, actual);

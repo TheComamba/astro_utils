@@ -112,7 +112,7 @@ mod tests {
                         -SphericalCoordinates::Z_DIRECTION,
                         axis.clone(),
                     );
-                    let expected = -axis;
+                    let expected = -&axis;
                     let actual = coordinates.to_direction();
                     println!("expected: {},\n actual: {}", expected, actual);
                     assert!(actual.eq_within(&expected, TEST_ACCURACY));
@@ -201,7 +201,7 @@ mod tests {
 
         let equatorial_y =
             EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, axis.clone());
-        let expected = -Direction::Z;
+        let expected = -&Direction::Z;
         let actual = equatorial_y.to_direction();
         println!("expected: {},\n actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
@@ -213,14 +213,14 @@ mod tests {
 
         let equatorial_x =
             EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, axis.clone());
-        let expected = -Direction::Y;
+        let expected = -&Direction::Y;
         let actual = equatorial_x.to_direction();
         println!("expected: {},\n actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
 
         let equatorial_y =
             EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, axis.clone());
-        let expected = -Direction::Z;
+        let expected = -&Direction::Z;
         let actual = equatorial_y.to_direction();
         println!("expected: {},\n actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
