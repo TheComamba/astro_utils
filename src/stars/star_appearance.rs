@@ -12,6 +12,20 @@ pub struct StarAppearance {
 }
 
 impl StarAppearance {
+    pub fn new(
+        name: String,
+        illuminance: Illuminance,
+        color: sRGBColor,
+        direction_in_ecliptic: Direction,
+    ) -> Self {
+        Self {
+            name,
+            illuminance,
+            color,
+            direction_in_ecliptic,
+        }
+    }
+
     pub fn get_name(&self) -> &str {
         &self.name
     }
