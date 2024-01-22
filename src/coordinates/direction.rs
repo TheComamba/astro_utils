@@ -9,7 +9,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use std::{fmt::Display, ops::Neg};
 
-pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-10;
+pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-5;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Direction {
@@ -73,7 +73,7 @@ impl Direction {
         Direction { x, y, z }
     }
 
-    pub(crate) fn eq_within(&self, other: &Direction, accuracy: Float) -> bool {
+    pub fn eq_within(&self, other: &Direction, accuracy: Float) -> bool {
         (self.x - other.x).abs() < accuracy
             && (self.y - other.y).abs() < accuracy
             && (self.z - other.z).abs() < accuracy
@@ -93,7 +93,7 @@ impl Direction {
         Angle::from_radians(cosine_argument.acos())
     }
 
-    pub(super) fn some_orthogonal_vector(&self) -> Direction {
+    pub fn some_orthogonal_vector(&self) -> Direction {
         if self.x().abs() > NORMALIZATION_THRESHOLD {
             self.cross_product(&Self::Y).unwrap()
         } else if self.y().abs() > NORMALIZATION_THRESHOLD {
@@ -103,7 +103,7 @@ impl Direction {
         }
     }
 
-    pub(super) fn cross_product(&self, other: &Direction) -> Result<Direction, AstroUtilError> {
+    pub fn cross_product(&self, other: &Direction) -> Result<Direction, AstroUtilError> {
         let (ax, ay, az) = (self.x, self.y, self.z);
         let (bx, by, bz) = (other.x(), other.y(), other.z());
 
@@ -114,8 +114,7 @@ impl Direction {
         Direction::new(cx, cy, cz)
     }
 
-    #[cfg(test)]
-    fn dot_product(&self, other: &Direction) -> Float {
+    pub fn dot_product(&self, other: &Direction) -> Float {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
 
@@ -161,7 +160,7 @@ impl Direction {
     }
 }
 
-impl Neg for Direction {
+impl Neg for &Direction {
     type Output = Direction;
 
     fn neg(self) -> Self::Output {
@@ -214,15 +213,15 @@ mod tests {
     fn angle_between_is_half_turn() {
         const EXPECTED: Angle = Angle::from_radians(PI);
 
-        let angle = Direction::X.angle_to(&(-Direction::X));
+        let angle = Direction::X.angle_to(&(-&Direction::X));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Direction::Y.angle_to(&(-Direction::Y));
+        let angle = Direction::Y.angle_to(&(-&Direction::Y));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
-        let angle = Direction::Z.angle_to(&(-Direction::Z));
+        let angle = Direction::Z.angle_to(&(-&Direction::Z));
         println!("angle: {}", angle);
         assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
 
@@ -361,7 +360,7 @@ mod tests {
                                 println!("a: {}, b: {}", a, b);
                                 let cross = a.cross_product(&b);
                                 if a.eq_within(&b, TEST_ACCURACY)
-                                    || a.eq_within(&-b.clone(), TEST_ACCURACY)
+                                    || a.eq_within(&-&b, TEST_ACCURACY)
                                 {
                                     assert!(cross.is_err());
                                 } else {
