@@ -40,8 +40,6 @@ pub fn direction_relative_to_surface_normal(
     if new_x.y() > 0. {
         rotation_angle = -rotation_angle;
     }
-    println!("new_x: {}", new_x);
-    println!("rotation_angle: {}", rotation_angle);
     object_direction.rotated(rotation_angle, &Direction::Z)
 }
 
