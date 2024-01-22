@@ -9,7 +9,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use std::{fmt::Display, ops::Neg};
 
-pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-10;
+pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-5;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Direction {
