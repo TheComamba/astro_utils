@@ -10,6 +10,8 @@ use crate::{
     },
 };
 
+//https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html
+
 pub const SUN_DATA: RealData = RealData {
     name: "Sun",
     mass: Some(Mass::from_kilograms(KILOGRAMS_PER_SOLAR_MASS)),
@@ -22,47 +24,38 @@ pub const SUN_DATA: RealData = RealData {
     distance: Length::from_astronomical_units(0.0),
 };
 
+//1
 const SIRIUS_DATA: RealData = RealData {
     name: "Sirius",
     radius: Some(Length::from_astronomical_units(1.711 * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(2.063 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(1.43),
+    luminosity: Luminosity::from_absolute_magnitude(1.45),
     temperature: Some(Temperature::from_kelvin(9940.)),
     age: Some(Time::from_seconds(0.242 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(6, 45, 9),
     declination: Declination::new(-16, 42, 58),
-    distance: Length::from_astronomical_units(8.6 * AU_PER_LIGHT_YEARS),
+    distance: Length::from_astronomical_units(9. * AU_PER_LIGHT_YEARS),
 };
 
+//2
 const CANOPUS_DATA: RealData = RealData {
     name: "Canopus",
     radius: Some(Length::from_astronomical_units(72. * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(9. * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(-5.71),
+    luminosity: Luminosity::from_absolute_magnitude(-5.53),
     temperature: Some(Temperature::from_kelvin(7400.)),
     age: Some(Time::from_seconds(0.0251 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(6, 23, 57),
     declination: Declination::new(-52, 41, 44),
-    distance: Length::from_astronomical_units(310. * AU_PER_LIGHT_YEARS),
+    distance: Length::from_astronomical_units(313. * AU_PER_LIGHT_YEARS),
 };
 
-const ALPHA_CENTAURI_DATA: RealData = RealData {
-    name: "Alpha Centauri",
-    radius: Some(Length::from_astronomical_units(1.2175 * AU_PER_SUN_RADII)),
-    mass: Some(Mass::from_kilograms(1.0788 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(4.34),
-    temperature: Some(Temperature::from_kelvin(5790.)),
-    age: Some(Time::from_seconds(4.85 * SECONDS_PER_BILLION_YEARS)),
-    right_ascension: RightAscension::new(14, 39, 36),
-    declination: Declination::new(-60, 50, 2),
-    distance: Length::from_astronomical_units(4.34 * AU_PER_LIGHT_YEARS),
-};
-
+//3
 const ARCTURUS_DATA: RealData = RealData {
     name: "Arcturus",
     radius: Some(Length::from_astronomical_units(25.4 * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(1.08 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(-0.3),
+    luminosity: Luminosity::from_absolute_magnitude(-0.31),
     temperature: Some(Temperature::from_kelvin(4286.)),
     age: Some(Time::from_seconds(7.1 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(14, 15, 40),
@@ -70,11 +63,25 @@ const ARCTURUS_DATA: RealData = RealData {
     distance: Length::from_astronomical_units(37. * AU_PER_LIGHT_YEARS),
 };
 
+//4
+const RIGEL_KENTAURUS_DATA: RealData = RealData {
+    name: "Rigel Kentaurus",
+    radius: Some(Length::from_astronomical_units(1.2175 * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(1.0788 * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(4.34),
+    temperature: Some(Temperature::from_kelvin(5790.)),
+    age: Some(Time::from_seconds(4.85 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(14, 39, 36),
+    declination: Declination::new(-60, 50, 2),
+    distance: Length::from_astronomical_units(4. * AU_PER_LIGHT_YEARS),
+};
+
+//5
 const VEGA_DATA: RealData = RealData {
     name: "Vega",
     radius: Some(Length::from_astronomical_units(2.362 * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(2.135 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(0.582),
+    luminosity: Luminosity::from_absolute_magnitude(0.58),
     temperature: Some(Temperature::from_kelvin(9602.)),
     age: Some(Time::from_seconds(0.455 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(18, 36, 56),
@@ -82,88 +89,95 @@ const VEGA_DATA: RealData = RealData {
     distance: Length::from_astronomical_units(25. * AU_PER_LIGHT_YEARS),
 };
 
+//6
 const CAPELLA_DATA: RealData = RealData {
     name: "Capella",
     radius: Some(Length::from_astronomical_units(11.98 * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(2.5687 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(0.296),
+    luminosity: Luminosity::from_absolute_magnitude(-0.48),
     temperature: Some(Temperature::from_kelvin(4970.)),
     age: Some(Time::from_seconds(0.620 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 16, 41),
     declination: Declination::new(45, 59, 53),
-    distance: Length::from_astronomical_units(43.38 * AU_PER_LIGHT_YEARS),
+    distance: Length::from_astronomical_units(42. * AU_PER_LIGHT_YEARS),
 };
 
+//7
 const RIGEL_DATA: RealData = RealData {
     name: "Rigel",
     radius: Some(Length::from_astronomical_units(78.9 * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(21. * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(-7.84),
+    luminosity: Luminosity::from_absolute_magnitude(-6.69),
     temperature: Some(Temperature::from_kelvin(12_100.)),
     age: Some(Time::from_seconds(0.008 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 14, 32),
     declination: Declination::new(-8, 12, 6),
-    distance: Length::from_astronomical_units(860. * AU_PER_LIGHT_YEARS),
+    distance: Length::from_astronomical_units(773. * AU_PER_LIGHT_YEARS),
 };
 
+//8
 const PROCYON_DATA: RealData = RealData {
     name: "Procyon",
     radius: Some(Length::from_astronomical_units(2.048 * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(1.499 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(2.66),
+    luminosity: Luminosity::from_absolute_magnitude(2.68),
     temperature: Some(Temperature::from_kelvin(6530.)),
     age: Some(Time::from_seconds(1.37 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(7, 39, 18),
     declination: Declination::new(5, 13, 30),
-    distance: Length::from_astronomical_units(11.46 * AU_PER_LIGHT_YEARS),
+    distance: Length::from_astronomical_units(11 * AU_PER_LIGHT_YEARS),
 };
 
-const ACHERNAR_DATA: RealData = RealData {
-    name: "Achernar",
-    radius: Some(Length::from_astronomical_units(6.78 * AU_PER_SUN_RADII)),
-    mass: Some(Mass::from_kilograms(6.0 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(-1.46),
-    temperature: Some(Temperature::from_kelvin(14_000.)),
-    age: Some(Time::from_seconds(0.063 * SECONDS_PER_BILLION_YEARS)),
-    right_ascension: RightAscension::new(1, 37, 43),
-    declination: Declination::new(-57, 14, 12),
-    distance: Length::from_astronomical_units(139. * AU_PER_LIGHT_YEARS),
-};
-
+//9
 const BETELGEUSE_DATA: RealData = RealData {
     name: "Betelgeuse",
     radius: Some(Length::from_astronomical_units(887. * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(16.5 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(-5.85),
+    luminosity: Luminosity::from_absolute_magnitude(-5.14),
     temperature: Some(Temperature::from_kelvin(3600.)),
     age: Some(Time::from_seconds(0.008 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 55, 10),
     declination: Declination::new(7, 24, 25),
-    distance: Length::from_astronomical_units(548. * AU_PER_LIGHT_YEARS),
+    distance: Length::from_astronomical_units(522. * AU_PER_LIGHT_YEARS),
 };
 
+//10
+const ACHERNAR_DATA: RealData = RealData {
+    name: "Achernar",
+    radius: Some(Length::from_astronomical_units(6.78 * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(6.0 * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(-2.77),
+    temperature: Some(Temperature::from_kelvin(14_000.)),
+    age: Some(Time::from_seconds(0.063 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(1, 37, 43),
+    declination: Declination::new(-57, 14, 12),
+    distance: Length::from_astronomical_units(144. * AU_PER_LIGHT_YEARS),
+};
+
+//11
 const HADAR_DATA: RealData = RealData {
     name: "Hadar",
     radius: Some(Length::from_astronomical_units(9. * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(12.02 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(-4.9),
+    luminosity: Luminosity::from_absolute_magnitude(-5.42),
     temperature: Some(Temperature::from_kelvin(25_000.)),
     age: Some(Time::from_seconds(0.0141 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(14, 3, 49),
     declination: Declination::new(-60, 22, 23),
-    distance: Length::from_astronomical_units(390. * AU_PER_LIGHT_YEARS),
+    distance: Length::from_astronomical_units(526. * AU_PER_LIGHT_YEARS),
 };
 
+//12
 const ALTAIR_DATA: RealData = RealData {
     name: "Altair",
     radius: Some(Length::from_astronomical_units(1.63 * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(1.86 * KILOGRAMS_PER_SOLAR_MASS)),
-    luminosity: Luminosity::from_absolute_magnitude(2.22),
+    luminosity: Luminosity::from_absolute_magnitude(2.20),
     temperature: Some(Temperature::from_kelvin(7670.)),
     age: Some(Time::from_seconds(0.100 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(19, 50, 47),
     declination: Declination::new(8, 52, 6),
-    distance: Length::from_astronomical_units(16.73 * AU_PER_LIGHT_YEARS),
+    distance: Length::from_astronomical_units(17. * AU_PER_LIGHT_YEARS),
 };
 
 const ACRUX_DATA: RealData = RealData {
@@ -1129,7 +1143,7 @@ const ACRAB_DATA: RealData = RealData {
 pub const STARS_TO_TWO_POINT_FIVE_APPARENT_MAG: [RealData; 92] = [
     SIRIUS_DATA,
     CANOPUS_DATA,
-    ALPHA_CENTAURI_DATA,
+    RIGEL_KENTAURUS_DATA,
     ARCTURUS_DATA,
     VEGA_DATA,
     CAPELLA_DATA,

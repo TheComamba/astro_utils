@@ -143,14 +143,25 @@ mod tests {
                 println!("closest_star: \n{:?}", closest);
                 println!(
                     "gaia_star position: \n{:?}",
-                    gaia_star.direction_in_ecliptic
+                    gaia_star.direction_in_ecliptic.to_spherical()
                 );
                 println!(
                     "closest_star position: \n{:?}",
-                    closest.direction_in_ecliptic
+                    closest.direction_in_ecliptic.to_spherical()
+                );
+                println!(
+                    "Angle difference: \n{} arcsecs",
+                    gaia_star
+                        .direction_in_ecliptic
+                        .angle_to(&closest.direction_in_ecliptic)
+                        .as_arcsecs()
                 );
                 println!("gaia_star_illuminance: \n{}", gaia_star.illuminance);
                 println!("closest_star_illuminance: \n{}", closest.illuminance);
+                println!(
+                    "Illuminance difference: \n{} lx",
+                    (gaia_star.illuminance - closest.illuminance).as_lux()
+                );
                 failure_count += 1;
             }
         }
