@@ -102,8 +102,63 @@ mod tests {
 
     use super::*;
 
+    fn find_closest_star(
+        gaia_star: &StarAppearance,
+        known_stars: &Vec<&StarAppearance>,
+    ) -> Option<StarAppearance> {
+        let mut closest_star = None;
+        let mut closest_distance = Angle::from_degrees(90.);
+        for known_star in known_stars.iter() {
+            let distance = gaia_star
+                .direction_in_ecliptic
+                .angle_to(&known_star.direction_in_ecliptic);
+            if distance < closest_distance {
+                closest_star = Some(known_star);
+                closest_distance = distance;
+            }
+        }
+        closest_star.cloned().cloned()
+    }
+
     #[test]
-    fn some_bright_stars_are_already_known() {
+    fn all_bright_stars_are_already_known() {
+        let mut known_stars = vec![];
+        for star_data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG {
+            known_stars.push(star_data.to_star_appearance());
+        }
+
+        let gaia_response =
+            query_brightest_stars(Illuminance::from_apparent_magnitude(2.49)).unwrap();
+        let gaia_stars = gaia_response.to_star_appearances().unwrap();
+
+        println!("gaia_stars.len(): {}", gaia_stars.len());
+        assert!(gaia_stars.len() > 10);
+        let mut all_is_fine = true;
+        for gaia_star in gaia_stars.iter() {
+            let is_known = star_is_already_known(gaia_star, &known_stars.iter().collect());
+            if !is_known {
+                println!("gaia_star is not known");
+                let closest = find_closest_star(gaia_star, &known_stars.iter().collect()).unwrap();
+                println!("gaia_star: \n{:?}", gaia_star);
+                println!("closest_star: \n{:?}", closest);
+                println!(
+                    "gaia_star position: \n{:?}",
+                    gaia_star.direction_in_ecliptic
+                );
+                println!(
+                    "closest_star position: \n{:?}",
+                    closest.direction_in_ecliptic
+                );
+                println!("gaia_star_illuminance: \n{}", gaia_star.illuminance);
+                println!("closest_star_illuminance: \n{}", closest.illuminance);
+                all_is_fine = false;
+            }
+        }
+        assert!(all_is_fine);
+    }
+
+    #[test]
+    fn known_stars_brightness_is_the_same() {
         let mut known_stars = vec![];
         for star_data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG {
             known_stars.push(star_data.to_star_appearance());
@@ -112,15 +167,33 @@ mod tests {
         let gaia_response =
             query_brightest_stars(Illuminance::from_apparent_magnitude(3.5)).unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
-        println!("gaia_stars.len(): {}", gaia_stars.len());
+        let mut star_pairs = vec![];
         for gaia_star in gaia_stars.iter() {
-            if star_is_already_known(gaia_star, &known_stars.iter().collect()) {
-                println!("This star is already known: {:?}", gaia_star);
+            for known_star in known_stars.iter() {
+                if gaia_star.apparently_the_same(known_star) {
+                    star_pairs.push((gaia_star, known_star));
+                }
             }
         }
-        assert!(gaia_stars.len() > 100);
-        assert!(gaia_stars
-            .iter()
-            .any(|gaia_star| { star_is_already_known(gaia_star, &known_stars.iter().collect()) }));
+        let mut mean_brightness_difference = Illuminance::ZERO;
+        for (gaia_star, known_star) in star_pairs.iter() {
+            let brightness_difference = known_star.illuminance - gaia_star.illuminance;
+            mean_brightness_difference += brightness_difference;
+        }
+        mean_brightness_difference /= star_pairs.len() as Float;
+        let acceptable_difference = 0.15 * Illuminance::from_apparent_magnitude(2.5);
+        println!(
+            "mean_brightness_difference: {} lx",
+            mean_brightness_difference.as_lux()
+        );
+        println!(
+            "acceptable_difference: {} lx",
+            acceptable_difference.as_lux()
+        );
+        println!(
+            "ratio: {}",
+            mean_brightness_difference / acceptable_difference
+        );
+        assert!(mean_brightness_difference.as_lux().abs() < acceptable_difference.as_lux());
     }
 }
