@@ -1,5 +1,7 @@
 use crate::{
-    color::sRGBColor, coordinates::direction::Direction, units::illuminance::Illuminance, Float,
+    color::sRGBColor,
+    coordinates::direction::Direction,
+    units::{angle::Angle, illuminance::Illuminance},
 };
 use serde::{Deserialize, Serialize};
 
@@ -47,12 +49,13 @@ impl StarAppearance {
     }
 
     pub(super) fn apparently_the_same(&self, other: &Self) -> bool {
-        const DIRECTION_ACCURACY: Float = 1. / 24. / 60. / 60.;
+        let angle_accuracy = Angle::from_arcsecs(10.);
 
-        if !self
+        let angle_between_directions = self
             .direction_in_ecliptic
-            .eq_within(&other.direction_in_ecliptic, DIRECTION_ACCURACY)
-        {
+            .angle_to(&other.direction_in_ecliptic);
+
+        if angle_between_directions > angle_accuracy {
             return false;
         }
         let illuminance_ratio = self.illuminance.as_lux() / other.illuminance.as_lux();

@@ -128,12 +128,12 @@ mod tests {
         }
 
         let gaia_response =
-            query_brightest_stars(Illuminance::from_apparent_magnitude(2.49)).unwrap();
+            query_brightest_stars(Illuminance::from_apparent_magnitude(2.5)).unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
 
         println!("gaia_stars.len(): {}", gaia_stars.len());
         assert!(gaia_stars.len() > 10);
-        let mut all_is_fine = true;
+        let mut failure_count = 0;
         for gaia_star in gaia_stars.iter() {
             let is_known = star_is_already_known(gaia_star, &known_stars.iter().collect());
             if !is_known {
@@ -151,10 +151,11 @@ mod tests {
                 );
                 println!("gaia_star_illuminance: \n{}", gaia_star.illuminance);
                 println!("closest_star_illuminance: \n{}", closest.illuminance);
-                all_is_fine = false;
+                failure_count += 1;
             }
         }
-        assert!(all_is_fine);
+        println!("failure_count: {} of {}", failure_count, gaia_stars.len());
+        assert!(failure_count == 0);
     }
 
     #[test]
@@ -175,6 +176,8 @@ mod tests {
                 }
             }
         }
+        println!("star_pairs.len(): {}", star_pairs.len());
+        assert!(star_pairs.len() > 15);
         let mut mean_brightness_difference = Illuminance::ZERO;
         for (gaia_star, known_star) in star_pairs.iter() {
             let brightness_difference = known_star.illuminance - gaia_star.illuminance;
