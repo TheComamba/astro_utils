@@ -98,7 +98,7 @@ pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
 
 #[cfg(test)]
 mod tests {
-    use crate::data::stars::STARS_TO_TWO_POINT_FIVE_APPARENT_MAG;
+    use crate::data::stars::BRIGHTEST_STARS;
 
     use super::*;
 
@@ -123,7 +123,7 @@ mod tests {
     #[test]
     fn all_bright_stars_are_already_known() {
         let mut known_stars = vec![];
-        for star_data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG {
+        for star_data in BRIGHTEST_STARS {
             known_stars.push(star_data.to_star_appearance());
         }
 
@@ -172,7 +172,7 @@ mod tests {
     #[test]
     fn known_stars_brightness_is_the_same() {
         let mut known_stars = vec![];
-        for star_data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG {
+        for star_data in BRIGHTEST_STARS {
             known_stars.push(star_data.to_star_appearance());
         }
 
