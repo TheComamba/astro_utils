@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use crate::{units::angle::Angle, Float};
 
 pub struct Declination {
@@ -22,5 +24,15 @@ impl Declination {
 
         Angle::from_degrees(degrees + minutes / 60. + seconds / 3600.)
             * self.degrees.signum() as Float
+    }
+}
+
+impl Display for Declination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{:02}°{:02}'{:02}\"",
+            self.degrees, self.minutes, self.seconds
+        )
     }
 }

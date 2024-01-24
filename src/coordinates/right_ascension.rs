@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use crate::{units::angle::Angle, Float};
 
 pub struct RightAscension {
@@ -21,5 +23,15 @@ impl RightAscension {
         let seconds = self.seconds as Float;
 
         Angle::from_degrees((hours + minutes / 60. + seconds / 3600.) * 15.)
+    }
+}
+
+impl Display for RightAscension {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{:02}h{:02}m{:02}s",
+            self.hours, self.minutes, self.seconds
+        )
     }
 }

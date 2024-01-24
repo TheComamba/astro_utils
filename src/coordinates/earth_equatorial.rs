@@ -33,6 +33,10 @@ impl EarthEquatorialCoordinates {
         vec.to_ecliptic()
     }
 
+    pub fn to_spherical(&self) -> SphericalCoordinates {
+        SphericalCoordinates::new(self.right_ascension, self.declination)
+    }
+
     #[cfg(test)]
     pub(crate) fn eq_within(&self, other: &EarthEquatorialCoordinates, accuracy: Angle) -> bool {
         let mut self_spherical = SphericalCoordinates::new(self.right_ascension, self.declination);
@@ -190,7 +194,7 @@ mod tests {
 
     #[test]
     fn roundtrip() {
-        const STEPS: usize = 10;
+        const STEPS: usize = 100;
         for i in 0..STEPS {
             for j in 0..STEPS {
                 let ra = Angle::from_degrees(360. * i as f32 / STEPS as f32);

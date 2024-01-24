@@ -141,14 +141,18 @@ mod tests {
                 let closest = find_closest_star(gaia_star, &known_stars.iter().collect()).unwrap();
                 println!("gaia_star: \n{:?}", gaia_star);
                 println!("closest_star: \n{:?}", closest);
-                println!(
-                    "gaia_star position: \n{:?}",
-                    gaia_star.direction_in_ecliptic.to_spherical()
-                );
-                println!(
-                    "closest_star position: \n{:?}",
-                    closest.direction_in_ecliptic.to_spherical()
-                );
+                let (gaia_ra, gaia_dec) = gaia_star
+                    .direction_in_ecliptic
+                    .to_earth_equatorial()
+                    .to_spherical()
+                    .to_ra_and_dec();
+                let (closest_ra, closest_dec) = closest
+                    .direction_in_ecliptic
+                    .to_earth_equatorial()
+                    .to_spherical()
+                    .to_ra_and_dec();
+                println!("gaia_star position: \n{}, {}", gaia_ra, gaia_dec);
+                println!("closest_star position: \n{}, {}", closest_ra, closest_dec);
                 println!(
                     "Angle difference: \n{} arcsecs",
                     gaia_star
