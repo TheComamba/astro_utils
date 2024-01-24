@@ -1,7 +1,9 @@
 use super::{
-    cartesian::CartesianCoordinates, rotations::rotated_tuple, spherical::SphericalCoordinates,
+    cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
+    rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
 use crate::{
+    data::planets::EARTH,
     error::AstroUtilError,
     units::{angle::Angle, length::Length},
     Float, PI,
@@ -157,6 +159,12 @@ impl Direction {
         let mut dir = self.rotated(polar_rotation_angle, &Self::Z);
         dir = dir.rotated(angle_to_old_z, &Self::X);
         dir
+    }
+
+    pub fn to_earth_equatorial(&self) -> EarthEquatorialCoordinates {
+        let dir_in_equatorial = self.rotated(EARTH.axis_tilt, &Direction::X);
+        let spherical = dir_in_equatorial.to_spherical();
+        EarthEquatorialCoordinates::new(spherical.get_longitude(), spherical.get_latitude())
     }
 }
 

@@ -195,7 +195,7 @@ mod tests {
             mean_brightness_difference += brightness_difference;
         }
         mean_brightness_difference /= star_pairs.len() as Float;
-        let acceptable_difference = 0.15 * Illuminance::from_apparent_magnitude(2.5);
+        let acceptable_difference = 0.1 * Illuminance::from_apparent_magnitude(2.5);
         println!(
             "mean_brightness_difference: {} lx",
             mean_brightness_difference.as_lux()
