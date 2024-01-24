@@ -13,31 +13,56 @@ struct GaiaMetadataLine {
     name: String,
     datatype: String,
     xtype: Option<String>,
-    arraysize: Option<u32>,
+    arraysize: Option<String>,
     description: String,
-    unit: String,
+    unit: Option<String>,
     ucd: String,
     utype: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
+#[serde(untagged)]
+enum GaiaCellData {
+    String(String),
+    Float(Float),
+    Null,
+}
+
+fn get_string(data: &GaiaCellData) -> Option<String> {
+    match data {
+        GaiaCellData::String(string) => Some(string.clone()),
+        _ => None,
+    }
+}
+
+fn get_float(data: &GaiaCellData) -> Option<Float> {
+    match data {
+        GaiaCellData::Float(float) => Some(*float),
+        _ => None,
+    }
+}
+
+#[derive(Serialize, Deserialize)]
 struct GaiaResponse {
     metadata: Vec<GaiaMetadataLine>,
-    data: Vec<Vec<Option<Float>>>,
+    data: Vec<Vec<GaiaCellData>>,
 }
 
 impl GaiaResponse {
     fn to_star_appearances(&self) -> Result<Vec<StarAppearance>, AstroUtilError> {
-        const ECL_LON_INDEX: usize = 0;
-        const ECL_LAT_INDEX: usize = 1;
-        const MAG_INDEX: usize = 2;
-        const TEMPERATURE_INDEX: usize = 3;
+        const DESIGNATION_INDEX: usize = 0;
+        const ECL_LON_INDEX: usize = 1;
+        const ECL_LAT_INDEX: usize = 2;
+        const MAG_INDEX: usize = 3;
+        const TEMPERATURE_INDEX: usize = 4;
         let mut stars = Vec::new();
         for row in self.data.iter() {
-            let ecl_lon = row[ECL_LON_INDEX];
-            let ecl_lat = row[ECL_LAT_INDEX];
-            let mag = row[MAG_INDEX];
-            let temperature = row[TEMPERATURE_INDEX];
+            let designation =
+                get_string(&row[DESIGNATION_INDEX]).ok_or(AstroUtilError::DataNotAvailable)?;
+            let ecl_lon = get_float(&row[ECL_LON_INDEX]);
+            let ecl_lat = get_float(&row[ECL_LAT_INDEX]);
+            let mag = get_float(&row[MAG_INDEX]);
+            let temperature = get_float(&row[TEMPERATURE_INDEX]);
 
             let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
             let illuminance = Illuminance::from_apparent_magnitude(mag);
@@ -53,7 +78,7 @@ impl GaiaResponse {
             };
 
             let star = StarAppearance {
-                name: "".to_string(),
+                name: designation,
                 illuminance,
                 color,
                 direction_in_ecliptic,
@@ -69,7 +94,7 @@ fn query_brightest_stars(brightest: Illuminance) -> Result<GaiaResponse, AstroUt
     url += "?REQUEST=doQuery";
     url += "&LANG=ADQL";
     url += "&FORMAT=json";
-    url += "&QUERY=SELECT+ecl_lon,ecl_lat,phot_g_mean_mag,teff_gspphot";
+    url += "&QUERY=SELECT+designation,ecl_lon,ecl_lat,phot_g_mean_mag,teff_gspphot";
     url += "+FROM+gaiadr3.gaia_source";
     url += "+WHERE+phot_g_mean_mag+<+";
     url += &format!("{:.1}", brightest.as_apparent_magnitude());
@@ -118,6 +143,30 @@ mod tests {
             }
         }
         closest_star.cloned().cloned()
+    }
+
+    #[test]
+    fn gaia_serialization_roundtrip() {
+        let input = r#"
+{"metadata":
+[
+{"name": "designation", "datatype": "char", "xtype": null, "arraysize": "*", "description": "Unique source designation (unique across all Data Releases)", "unit": null, "ucd": "meta.id;meta.main", "utype": null},
+{"name": "ecl_lon", "datatype": "double", "xtype": null, "arraysize": null, "description": "Ecliptic longitude", "unit": "deg", "ucd": "pos.ecliptic.lon", "utype": "stc:AstroCoords.Position2D.Value2.C1"},
+{"name": "ecl_lat", "datatype": "double", "xtype": null, "arraysize": null, "description": "Ecliptic latitude", "unit": "deg", "ucd": "pos.ecliptic.lat", "utype": "stc:AstroCoords.Position2D.Value2.C2"},
+{"name": "phot_g_mean_mag", "datatype": "float", "xtype": null, "arraysize": null, "description": "G-band mean magnitude", "unit": "mag", "ucd": "phot.mag;em.opt", "utype": null},
+{"name": "teff_gspphot", "datatype": "float", "xtype": null, "arraysize": null, "description": "Effective temperature from GSP-Phot Aeneas best library using BP\/RP spectra", "unit": "K", "ucd": "phys.temperature.effective", "utype": null}
+],
+"data":
+[
+["Gaia DR3 1576683529448755328",158.93417999773797,54.319104622247664,1.731607,null],
+["Gaia DR3 6560604777055249536",315.907271103737,-32.914074316251266,1.7732803,null]
+]
+}"#;
+        println!("Input:\n{}", input);
+        let deserialized: GaiaResponse = serde_json::from_str(&input).unwrap();
+        let serialized = serde_json::to_string(&deserialized).unwrap();
+        println!("After roundtrip:\n{}", serialized);
+        assert_eq!(input, serialized);
     }
 
     #[test]
