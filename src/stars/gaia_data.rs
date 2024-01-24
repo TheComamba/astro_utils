@@ -89,6 +89,7 @@ impl GaiaResponse {
     }
 }
 
+// Designations can be checked under http://simbad.cds.unistra.fr/simbad/sim-fid
 fn query_brightest_stars(brightest: Illuminance) -> Result<GaiaResponse, AstroUtilError> {
     let mut url = "https://gea.esac.esa.int/tap-server/tap/sync".to_string();
     url += "?REQUEST=doQuery";
@@ -220,6 +221,11 @@ mod tests {
         }
         println!("failure_count: {} of {}", failure_count, gaia_stars.len());
         assert!(failure_count == 0);
+    }
+
+    #[test]
+    fn all_not_too_bright_stars_are_in_gaia(){
+        todo!("Implement this test")
     }
 
     #[test]
