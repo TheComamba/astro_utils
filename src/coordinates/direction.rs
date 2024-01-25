@@ -503,4 +503,23 @@ mod tests {
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
     }
+
+    #[test]
+    fn angle_between_two_close_directions() {
+        // The maths is correct, but this is really unstable due to accos.
+        let test_accuracy = Angle::from_degrees(0.03);
+        let a = Direction {
+            x: -0.085366555,
+            y: -0.8412673,
+            z: -0.5338369,
+        };
+        let b = Direction {
+            x: -0.08536589,
+            y: -0.84126735,
+            z: -0.5338369,
+        };
+        let angle = a.angle_to(&b);
+        println!("angle: {}", angle);
+        assert!(angle.eq_within(Angle::ZERO, test_accuracy));
+    }
 }
