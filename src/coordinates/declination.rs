@@ -36,3 +36,14 @@ impl Display for Declination {
         )
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_second() {
+        let dec = Declination::new(0, 0, 1);
+        assert!((dec.to_angle().as_arcsecs() - 1.) < 1e-5);
+    }
+}

@@ -6,6 +6,8 @@ pub(crate) const RADIANS_PER_DEGREE: Float = PI / 180.;
 const DEGREES_PER_RADIAN: Float = 1. / RADIANS_PER_DEGREE;
 const ARCSECS_PER_RADIAN: Float = 3600. * DEGREES_PER_RADIAN;
 const RADIAN_PER_ARCSEC: Float = 1. / ARCSECS_PER_RADIAN;
+const SECOND_ANGLE_PER_RADIAN: Float = 24. * 60. * 60. / 2. / PI;
+const RADIANS_PER_SECOND_ANGLE: Float = 1. / SECOND_ANGLE_PER_RADIAN;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Angle {
@@ -31,6 +33,12 @@ impl Angle {
         }
     }
 
+    pub fn from_second_angle(second_angle: Float) -> Angle {
+        Angle {
+            radian: second_angle * RADIANS_PER_SECOND_ANGLE,
+        }
+    }
+
     pub const fn as_radians(&self) -> Float {
         self.radian
     }
@@ -41,6 +49,10 @@ impl Angle {
 
     pub fn as_arcsecs(&self) -> Float {
         self.radian * ARCSECS_PER_RADIAN
+    }
+
+    pub fn as_second_angle(&self) -> Float {
+        self.radian * SECOND_ANGLE_PER_RADIAN
     }
 
     #[cfg(test)]
@@ -116,6 +128,29 @@ mod tests {
         let angle = Angle::from_arcsecs(1.);
         assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
         assert!((angle.as_arcsecs() - 1.).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
+    fn test_second_angle() {
+        let expected = Angle::from_radians(RADIANS_PER_SECOND_ANGLE);
+        let angle = Angle::from_second_angle(1.);
+        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
+        assert!((angle.as_second_angle() - 1.).abs() < TEST_ACCURACY);
+    }
+
+    #[test]
+    fn some_unit_conversions() {
+        let one_degree = Angle::from_degrees(1.);
+        let one_degree_in_arcsecs = Angle::from_arcsecs(3600.);
+        assert!(one_degree.eq_within(one_degree_in_arcsecs, TEST_ANGLE_ACCURACY));
+
+        let one_radiant = Angle::from_radians(1.);
+        let one_radiant_in_arcsecs = Angle::from_arcsecs(206264.8);
+        assert!(one_radiant.eq_within(one_radiant_in_arcsecs, TEST_ANGLE_ACCURACY));
+
+        let one_second_angle = Angle::from_second_angle(1.);
+        let one_second_angle_in_arcsecs = Angle::from_arcsecs(15.);
+        assert!(one_second_angle.eq_within(one_second_angle_in_arcsecs, TEST_ANGLE_ACCURACY));
     }
 
     #[test]

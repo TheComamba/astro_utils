@@ -35,3 +35,15 @@ impl Display for RightAscension {
         )
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_second() {
+        let dec = RightAscension::new(0, 0, 1);
+        println!("{}", dec.to_angle().as_arcsecs());
+        assert!((dec.to_angle().as_arcsecs() - 1.) < 1e-5);
+    }
+}
