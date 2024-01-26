@@ -49,6 +49,11 @@ impl RealData {
     }
 
     pub fn to_star_appearance(&self) -> StarAppearance {
+        let name = if self.common_name.is_empty() {
+            self.astronomical_name
+        } else {
+            self.common_name
+        };
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
@@ -58,7 +63,7 @@ impl RealData {
             None => sRGBColor::DEFAULT,
         };
         StarAppearance {
-            name: self.common_name.to_string(),
+            name: name.to_string(),
             illuminance,
             color,
             direction_in_ecliptic,
@@ -72,6 +77,7 @@ mod tests {
 
     #[test]
     fn calculate_apparent_magnitude() {
+        let mut failed = false;
         for star_data in BRIGHTEST_STARS {
             let star = star_data.to_star_data();
             let apparent_magnitude = star
@@ -80,11 +86,24 @@ mod tests {
                 .to_illuminance(&star.distance.unwrap())
                 .as_apparent_magnitude();
             let difference = star_data.apparent_magnitude - apparent_magnitude;
-            println!(
-                "{}: {} - {} = {}",
-                star.name, star_data.apparent_magnitude, apparent_magnitude, difference
-            );
-            assert!(difference.abs() < 0.1);
+            if difference.abs() > 0.1 {
+                println!(
+                    "{}:\nexpected: {}, actual: {}, difference: {}",
+                    star.name, star_data.apparent_magnitude, apparent_magnitude, difference
+                );
+                failed = true;
+            }
+        }
+        assert!(!failed);
+    }
+
+    #[test]
+    fn every_star_has_a_name() {
+        for star_data in BRIGHTEST_STARS {
+            let star_data = star_data.to_star_data();
+            assert!(!star_data.name.is_empty());
+            let star_appearance = star_data.to_star_appearance();
+            assert!(!star_appearance.name.is_empty());
         }
     }
 }

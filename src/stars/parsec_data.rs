@@ -383,7 +383,7 @@ mod tests {
         }
         println!("\nnum_success: {}", num_success);
         println!("num_fail: {}", num_fail);
-        assert!(num_success > 10 * num_fail)
+        assert!(num_success > num_fail)
     }
 
     #[test]

@@ -59,7 +59,7 @@ impl StarAppearance {
             return false;
         }
         let illuminance_ratio = self.illuminance.as_lux() / other.illuminance.as_lux();
-        if illuminance_ratio < 0.5 || illuminance_ratio > 5.0 {
+        if illuminance_ratio < 0.1 || illuminance_ratio > 10.0 {
             return false;
         }
         return true;

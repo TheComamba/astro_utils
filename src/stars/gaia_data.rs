@@ -200,21 +200,24 @@ mod tests {
                     .to_earth_equatorial()
                     .to_spherical()
                     .to_ra_and_dec();
-                println!("gaia_star position: {}, {}", gaia_ra, gaia_dec);
-                println!("closest_star position: {}, {}", closest_ra, closest_dec);
-                println!(
-                    "Angle difference: {} arcsecs",
-                    gaia_star
-                        .direction_in_ecliptic
-                        .angle_to(&closest.direction_in_ecliptic)
-                        .as_arcsecs()
-                );
-                println!("gaia_star_illuminance: {}", gaia_star.illuminance);
-                println!("closest_star_illuminance: {}", closest.illuminance);
-                println!(
-                    "Illuminance difference: {} lx",
-                    (gaia_star.illuminance - closest.illuminance).as_lux()
-                );
+                let angle_difference = gaia_star
+                    .direction_in_ecliptic
+                    .angle_to(&closest.direction_in_ecliptic);
+                if angle_difference > Angle::from_degrees(0.03) {
+                    println!("gaia_star position: {}, {}", gaia_ra, gaia_dec);
+                    println!("closest_star position: {}, {}", closest_ra, closest_dec);
+                    println!(
+                        "Angle difference: {} arcsecs",
+                        angle_difference.as_arcsecs()
+                    );
+                } else {
+                    println!("gaia_star_illuminance: {}", gaia_star.illuminance);
+                    println!("closest_star_illuminance: {}", closest.illuminance);
+                    println!(
+                        "Illuminance difference: {} lx",
+                        (gaia_star.illuminance - closest.illuminance).as_lux()
+                    );
+                }
                 failure_count += 1;
             }
         }
