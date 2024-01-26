@@ -376,7 +376,7 @@ mod tests {
                 if calculated_star.similar_within_order_of_magnitude(&real_star) {
                     num_success += 1;
                 } else {
-                    println!("Comparing data for {} failed.\n\n", data.name);
+                    println!("Comparing data for {} failed.\n\n", data.common_name);
                     num_fail += 1;
                 }
             }
