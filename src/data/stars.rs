@@ -1519,6 +1519,78 @@ const MINELAUVA_DATA: RealData = RealData {
     distance: Length::from_astronomical_units(198. * AU_PER_LIGHT_YEARS),
 };
 
+const CEBALRAI_DATA: RealData = RealData {
+    name: "Cebalrai",
+    radius: Some(Length::from_astronomical_units(12.42 * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(1.13 * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(0.77),
+    temperature: Some(Temperature::from_kelvin(4467.)),
+    age: Some(Time::from_seconds(3.82 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(17, 43, 28),
+    declination: Declination::new(4, 34, 2),
+    distance: Length::from_astronomical_units(81.8 * AU_PER_LIGHT_YEARS),
+};
+
+const KRAZ_DATA: RealData = RealData {
+    name: "Kraz",
+    radius: Some(Length::from_astronomical_units(16. * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(3.7 * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(-0.61),
+    temperature: Some(Temperature::from_kelvin(5100.)),
+    age: Some(Time::from_seconds(0.206 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(12, 34, 23),
+    declination: Declination::new(-23, 23, 48),
+    distance: Length::from_astronomical_units(146. * AU_PER_LIGHT_YEARS),
+};
+
+const ERAKIS_DATA: RealData = RealData {
+    name: "Erakis",
+    radius: Some(Length::from_astronomical_units(972. * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(19.2 * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(-7.63),
+    temperature: Some(Temperature::from_kelvin(3551.)),
+    age: Some(Time::from_seconds(0.01 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(21, 43, 30),
+    declination: Declination::new(58, 46, 48),
+    distance: Length::from_astronomical_units(3060. * AU_PER_LIGHT_YEARS),
+};
+
+const GAMMA_HYDRI_DATA: RealData = RealData {
+    name: "Gamma Hydri",
+    radius: Some(Length::from_astronomical_units(62. * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(1. * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(-0.83),
+    temperature: Some(Temperature::from_kelvin(3499.)),
+    age: None,
+    right_ascension: RightAscension::new(3, 47, 14),
+    declination: Declination::new(-74, 14, 20),
+    distance: Length::from_astronomical_units(214. * AU_PER_LIGHT_YEARS),
+};
+
+const ALPHA_LYNCIS_DATA: RealData = RealData {
+    name: "Alpha Lyncis",
+    radius: Some(Length::from_astronomical_units(54.5 * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(2. * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(-2.32),
+    temperature: Some(Temperature::from_kelvin(3882.)),
+    age: Some(Time::from_seconds(1.4 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(9, 21, 3),
+    declination: Declination::new(34, 23, 33),
+    distance: Length::from_astronomical_units(203. * AU_PER_LIGHT_YEARS),
+};
+
+const ATHEBYNE_DATA: RealData = RealData {
+    name: "Athebyne",
+    radius: Some(Length::from_astronomical_units(11. * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(2.55 * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(0.58),
+    temperature: Some(Temperature::from_kelvin(5055.)),
+    age: Some(Time::from_seconds(0.55 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(16, 23, 59),
+    declination: Declination::new(61, 30, 51),
+    distance: Length::from_astronomical_units(92.1 * AU_PER_LIGHT_YEARS),
+};
+
 // RealData = RealData {
 //     name: "",
 //     radius: Some(Length::from_astronomical_units(. * AU_PER_SUN_RADII)),
@@ -1531,7 +1603,7 @@ const MINELAUVA_DATA: RealData = RealData {
 //     distance: Length::from_astronomical_units(. * AU_PER_LIGHT_YEARS),
 // };
 
-pub const BRIGHTEST_STARS: [RealData; 116] = [
+pub const BRIGHTEST_STARS: [RealData; 122] = [
     SIRIUS_DATA,
     CANOPUS_DATA,
     ARCTURUS_DATA,
@@ -1648,4 +1720,10 @@ pub const BRIGHTEST_STARS: [RealData; 116] = [
     BETA_ARAE_DATA,
     APLHA_TUCANAE_DATA,
     MINELAUVA_DATA,
+    CEBALRAI_DATA,
+    KRAZ_DATA,
+    ERAKIS_DATA,
+    GAMMA_HYDRI_DATA,
+    ALPHA_LYNCIS_DATA,
+    ATHEBYNE_DATA,
 ];

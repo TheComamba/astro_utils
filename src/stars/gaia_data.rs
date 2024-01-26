@@ -166,7 +166,7 @@ mod tests {
         let deserialized: GaiaResponse = serde_json::from_str(&input).unwrap();
         let serialized = serde_json::to_string(&deserialized).unwrap();
         println!("After roundtrip:\n{}", serialized);
-        assert_eq!(input, serialized);
+        assert_eq!(input.replace("\n", ""), serialized);
     }
 
     #[test]
@@ -186,10 +186,10 @@ mod tests {
         for gaia_star in gaia_stars.iter() {
             let is_known = star_is_already_known(gaia_star, &known_stars.iter().collect());
             if !is_known {
-                println!("gaia_star is not known");
+                println!("\ngaia_star is not known");
                 let closest = find_closest_star(gaia_star, &known_stars.iter().collect()).unwrap();
-                println!("gaia_star: \n{:?}", gaia_star);
-                println!("closest_star: \n{:?}", closest);
+                println!("gaia_star: {:?}", gaia_star.name);
+                println!("closest_star: {:?}", closest.name);
                 let (gaia_ra, gaia_dec) = gaia_star
                     .direction_in_ecliptic
                     .to_earth_equatorial()
@@ -200,19 +200,19 @@ mod tests {
                     .to_earth_equatorial()
                     .to_spherical()
                     .to_ra_and_dec();
-                println!("gaia_star position: \n{}, {}", gaia_ra, gaia_dec);
-                println!("closest_star position: \n{}, {}", closest_ra, closest_dec);
+                println!("gaia_star position: {}, {}", gaia_ra, gaia_dec);
+                println!("closest_star position: {}, {}", closest_ra, closest_dec);
                 println!(
-                    "Angle difference: \n{} arcsecs",
+                    "Angle difference: {} arcsecs",
                     gaia_star
                         .direction_in_ecliptic
                         .angle_to(&closest.direction_in_ecliptic)
                         .as_arcsecs()
                 );
-                println!("gaia_star_illuminance: \n{}", gaia_star.illuminance);
-                println!("closest_star_illuminance: \n{}", closest.illuminance);
+                println!("gaia_star_illuminance: {}", gaia_star.illuminance);
+                println!("closest_star_illuminance: {}", closest.illuminance);
                 println!(
-                    "Illuminance difference: \n{} lx",
+                    "Illuminance difference: {} lx",
                     (gaia_star.illuminance - closest.illuminance).as_lux()
                 );
                 failure_count += 1;
