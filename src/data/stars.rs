@@ -1837,11 +1837,43 @@ const ATHEBYNE_DATA: RealData = RealData {
     distance: Length::from_astronomical_units(87.68 * AU_PER_LIGHT_YEARS),
 };
 
+// http://www.avastronomyclub.org/skymap/d/skymap.php
+
+const AHADI_DATA: RealData = RealData {
+    common_name: "Ahadi",
+    astronomical_name: "Pi Puppis",
+    radius: Some(Length::from_astronomical_units(235. * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(11.7 * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(-4.92),
+    apparent_magnitude: 2.71,
+    temperature: Some(Temperature::from_kelvin(4000.)),
+    age: Some(Time::from_seconds(0.02 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(7, 17, 9),
+    declination: Declination::new(-37, 5, 51),
+    distance: Length::from_astronomical_units(1094. * AU_PER_LIGHT_YEARS),
+};
+
+const TARAZED_DATA: RealData = RealData {
+    common_name: "Tarazed",
+    astronomical_name: "Gamma Aquilae",
+    radius: Some(Length::from_astronomical_units(91.82 * AU_PER_SUN_RADII)),
+    mass: Some(Mass::from_kilograms(3.51 * KILOGRAMS_PER_SOLAR_MASS)),
+    luminosity: Luminosity::from_absolute_magnitude(-3.03),
+    apparent_magnitude: 2.72,
+    temperature: Some(Temperature::from_kelvin(4098.)),
+    age: Some(Time::from_seconds(0.270 * SECONDS_PER_BILLION_YEARS)),
+    right_ascension: RightAscension::new(19, 46, 16),
+    declination: Declination::new(10, 36, 48),
+    distance: Length::from_astronomical_units(460.5 * AU_PER_LIGHT_YEARS),
+};
+
 // RealData = RealData {
-//     name: "",
+//     common_name: "",
+//     astronomical_name: "",
 //     radius: Some(Length::from_astronomical_units(. * AU_PER_SUN_RADII)),
 //     mass: Some(Mass::from_kilograms( * KILOGRAMS_PER_SOLAR_MASS)),
 //     luminosity: Luminosity::from_absolute_magnitude(),
+//     apparent_magnitude: ,
 //     temperature: Some(Temperature::from_kelvin()),
 //     age: Some(Time::from_seconds(* SECONDS_PER_BILLION_YEARS)),
 //     right_ascension: RightAscension::new(),
@@ -1849,7 +1881,7 @@ const ATHEBYNE_DATA: RealData = RealData {
 //     distance: Length::from_astronomical_units(. * AU_PER_LIGHT_YEARS),
 // };
 
-pub const BRIGHTEST_STARS: [RealData; 122] = [
+pub const BRIGHTEST_STARS: [RealData; 124] = [
     SIRIUS_DATA,
     CANOPUS_DATA,
     ARCTURUS_DATA,
@@ -1972,4 +2004,6 @@ pub const BRIGHTEST_STARS: [RealData; 122] = [
     GAMMA_HYDRI_DATA,
     ALPHA_LYNCIS_DATA,
     ATHEBYNE_DATA,
+    AHADI_DATA,
+    TARAZED_DATA,
 ];

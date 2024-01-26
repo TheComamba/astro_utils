@@ -46,4 +46,21 @@ mod tests {
         let dec = Declination::new(0, 0, 1);
         assert!((dec.to_angle().as_arcsecs() - 1.) < 1e-5);
     }
+
+    #[test]
+    fn small_angle_roundtrips() {
+        const STEPS: i8 = 10;
+        for sec in 0..STEPS {
+            for min in 0..STEPS {
+                for sign in [-1, 1] {
+                    let angle = Angle::from_arcsecs((sign * (min * 60 + sec)) as Float);
+                    let dec = Declination::new(sign * 0, min, sec);
+                    println!("{} sign {} min {} sec", sign, min, sec);
+                    println!("expected: \n{} sec", angle.as_arcsecs());
+                    println!("actual: \n{} sec", dec.to_angle().as_arcsecs());
+                    assert!((dec.to_angle().as_arcsecs() - angle.as_arcsecs()).abs() < 1e-5);
+                }
+            }
+        }
+    }
 }
