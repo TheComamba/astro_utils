@@ -1441,7 +1441,7 @@ const MENKAR_DATA: RealData = RealData {
 
 //95
 const ZETA_CENTAURI_DATA: RealData = RealData {
-    common_name: "Alnair",
+    common_name: "",
     astronomical_name: "Zeta Centauri",
     radius: Some(Length::from_astronomical_units(5.8 * AU_PER_SUN_RADII)),
     mass: Some(Mass::from_kilograms(7.8 * KILOGRAMS_PER_SOLAR_MASS)),

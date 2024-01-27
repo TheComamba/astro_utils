@@ -239,7 +239,7 @@ mod tests {
 
     #[test]
     fn all_not_too_bright_stars_are_in_gaia() {
-        const PROBLEMATIC_STARS: [&str; 8] = [
+        const PROBLEMATIC_STARS: [&str; 11] = [
             "R Doradus", // Gaia finds R Doradus to be much brighter than all other literature.
             "Scheat",
             "Suhail",
@@ -248,6 +248,9 @@ mod tests {
             "Epsilon Centauri",
             "Menkar",
             "Ghurab",
+            "Zeta Centauri",
+            "Eta Centauri", // Only in Gaia DR2
+            "Enif",         // Only in Gaia DR2
         ];
 
         const BRIGHTNESS_THRESHOLD: Float = 2.2;
@@ -290,6 +293,9 @@ mod tests {
                     "known_star_illuminance: {} mag",
                     known_star.illuminance.as_apparent_magnitude()
                 );
+                let closest_gaia_star =
+                    find_closest_star(known_star, &gaia_stars.iter().collect()).unwrap();
+                println!("closest_gaia_star: {:?}", closest_gaia_star);
                 failure_count += 1;
             }
         }
