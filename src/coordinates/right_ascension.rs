@@ -38,12 +38,16 @@ impl Display for RightAscension {
 
 #[cfg(test)]
 mod tests {
+    use crate::tests::TEST_ANGLE_ACCURACY;
+
     use super::*;
 
     #[test]
     fn one_second() {
         let dec = RightAscension::new(0, 0, 1);
+        let expected = Angle::from_second_angle(1.);
         println!("{}", dec.to_angle().as_arcsecs());
-        assert!((dec.to_angle().as_arcsecs() - 1.) < 1e-5);
+        println!("{}", expected.as_arcsecs());
+        assert!(dec.to_angle().eq_within(expected, TEST_ANGLE_ACCURACY));
     }
 }
