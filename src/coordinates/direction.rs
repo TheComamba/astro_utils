@@ -1,7 +1,9 @@
 use super::{
-    cartesian::CartesianCoordinates, rotations::rotated_tuple, spherical::SphericalCoordinates,
+    cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
+    rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
 use crate::{
+    data::planets::EARTH,
     error::AstroUtilError,
     units::{angle::Angle, length::Length},
     Float, PI,
@@ -157,6 +159,12 @@ impl Direction {
         let mut dir = self.rotated(polar_rotation_angle, &Self::Z);
         dir = dir.rotated(angle_to_old_z, &Self::X);
         dir
+    }
+
+    pub fn to_earth_equatorial(&self) -> EarthEquatorialCoordinates {
+        let dir_in_equatorial = self.rotated(EARTH.axis_tilt, &Direction::X);
+        let spherical = dir_in_equatorial.to_spherical();
+        EarthEquatorialCoordinates::new(spherical.get_longitude(), spherical.get_latitude())
     }
 }
 
@@ -494,5 +502,24 @@ mod tests {
         let actual = cartesian.to_direction();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
+    }
+
+    #[test]
+    fn angle_between_two_close_directions() {
+        // The maths is correct, but this is really unstable due to accos.
+        let test_accuracy = Angle::from_degrees(0.03);
+        let a = Direction {
+            x: -0.085366555,
+            y: -0.8412673,
+            z: -0.5338369,
+        };
+        let b = Direction {
+            x: -0.08536589,
+            y: -0.84126735,
+            z: -0.5338369,
+        };
+        let angle = a.angle_to(&b);
+        println!("angle: {}", angle);
+        assert!(angle.eq_within(Angle::ZERO, test_accuracy));
     }
 }

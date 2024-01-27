@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
 use crate::{
     data::planets::EARTH,
@@ -29,6 +31,30 @@ impl EarthEquatorialCoordinates {
         let dir = self.to_direction();
         let vec = dir.to_cartesian(Length::from_meters(1.));
         vec.to_ecliptic()
+    }
+
+    pub fn to_spherical(&self) -> SphericalCoordinates {
+        SphericalCoordinates::new(self.right_ascension, self.declination)
+    }
+
+    #[cfg(test)]
+    pub(crate) fn eq_within(&self, other: &EarthEquatorialCoordinates, accuracy: Angle) -> bool {
+        let mut self_spherical = SphericalCoordinates::new(self.right_ascension, self.declination);
+        self_spherical.normalize();
+        let mut other_spherical =
+            SphericalCoordinates::new(other.right_ascension, other.declination);
+        other_spherical.normalize();
+        self_spherical.eq_within(&other_spherical, accuracy)
+    }
+}
+
+impl Display for EarthEquatorialCoordinates {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "(ra: {}, dec: {})",
+            self.right_ascension, self.declination
+        )
     }
 }
 
@@ -164,6 +190,22 @@ mod tests {
         let actual = equatorial.to_ecliptic();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+    }
+
+    #[test]
+    fn roundtrip() {
+        const STEPS: usize = 100;
+        for i in 0..STEPS {
+            for j in 0..STEPS {
+                let ra = Angle::from_degrees(360. * i as f32 / STEPS as f32);
+                let dec = Angle::from_degrees(180. * j as f32 / STEPS as f32 - 90.);
+                let equatorial = EarthEquatorialCoordinates::new(ra, dec);
+                let ecliptic_dir = equatorial.to_direction();
+                let actual = ecliptic_dir.to_earth_equatorial();
+                println!("expected: {}, actual: {}", equatorial, actual);
+                assert!(actual.eq_within(&equatorial, TEST_ANGLE_ACCURACY));
+            }
+        }
     }
 
     #[test]

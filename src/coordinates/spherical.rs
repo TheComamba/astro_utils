@@ -1,4 +1,8 @@
-use super::direction::Direction;
+use super::{
+    declination::{Declination, Sgn},
+    direction::Direction,
+    right_ascension::RightAscension,
+};
 use crate::{units::angle::Angle, Float, PI};
 use serde::{Deserialize, Serialize};
 use std::{
@@ -100,6 +104,32 @@ impl SphericalCoordinates {
         let y = self.get_longitude().sin() * self.get_latitude().cos();
         let z = self.get_latitude().sin();
         Direction { x, y, z }
+    }
+
+    pub fn to_ra_and_dec(&self) -> (RightAscension, Declination) {
+        let mut ra_remainder = self.longitude.as_degrees();
+        let ra_hours = (ra_remainder / 15.).floor() as i8;
+        ra_remainder -= ra_hours as Float * 15.;
+        let ra_minutes = (ra_remainder / 15. * 60.).floor() as i8;
+        ra_remainder -= ra_minutes as Float / 60. * 15.;
+        let ra_seconds = (ra_remainder / 15. * 3600.).floor() as i8;
+        let ra = RightAscension::new(ra_hours, ra_minutes, ra_seconds);
+
+        let mut dec_remainder = self.latitude.as_degrees();
+        let sign = if dec_remainder < 0. {
+            dec_remainder = dec_remainder.abs();
+            Sgn::Neg
+        } else {
+            Sgn::Pos
+        };
+        let dec_degrees = dec_remainder.floor() as u8;
+        dec_remainder -= dec_degrees as Float;
+        let dec_minutes = (dec_remainder * 60.).floor() as u8;
+        dec_remainder -= dec_minutes as Float / 60.;
+        let dec_seconds = (dec_remainder * 3600.).floor() as u8;
+        let dec = Declination::new(sign, dec_degrees, dec_minutes, dec_seconds);
+
+        (ra, dec)
     }
 }
 
@@ -478,5 +508,24 @@ mod tests {
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
         assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+    }
+
+    #[test]
+    fn roundtrips_to_ra_and_dec() {
+        const STEP: usize = 100;
+        for i in 0..STEP {
+            for j in 0..STEP {
+                let ra_angle = Angle::from_radians(2. * PI * i as Float / STEP as Float);
+                let dec_angle = Angle::from_radians(PI * j as Float / STEP as Float - PI_HALF);
+                let spherical = SphericalCoordinates {
+                    longitude: ra_angle,
+                    latitude: dec_angle,
+                };
+                let (ra, dec) = spherical.to_ra_and_dec();
+                let spherical2 = SphericalCoordinates::new(ra.to_angle(), dec.to_angle());
+                println!("spherical: {}, spherical2: {}", spherical, spherical2);
+                assert!(spherical.eq_within(&spherical2, 10. * TEST_ANGLE_ACCURACY));
+            }
+        }
     }
 }

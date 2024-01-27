@@ -298,7 +298,7 @@ fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
 mod tests {
     use super::*;
     use crate::{
-        data::stars::{STARS_TO_TWO_POINT_FIVE_APPARENT_MAG, SUN_DATA},
+        data::stars::{BRIGHTEST_STARS, SUN_DATA},
         units::{length::AU_PER_SUN_RADII, mass::KILOGRAMS_PER_SOLAR_MASS},
     };
 
@@ -358,7 +358,7 @@ mod tests {
         let parsec_data = ParsecData::new().unwrap();
         let mut num_success = 0;
         let mut num_fail = 0;
-        for data in STARS_TO_TWO_POINT_FIVE_APPARENT_MAG.iter() {
+        for data in BRIGHTEST_STARS.iter() {
             if let (Some(age), Some(mass)) = (data.age, data.mass) {
                 let age = age.as_years();
                 let mass_index = ParsecData::get_closest_mass_index(mass.as_solar_masses());
@@ -376,7 +376,7 @@ mod tests {
                 if calculated_star.similar_within_order_of_magnitude(&real_star) {
                     num_success += 1;
                 } else {
-                    println!("Comparing data for {} failed.\n\n", data.name);
+                    println!("Comparing data for {} failed.\n\n", data.common_name);
                     num_fail += 1;
                 }
             }
