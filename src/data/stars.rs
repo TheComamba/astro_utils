@@ -1,5 +1,8 @@
 use crate::{
-    coordinates::{declination::Declination, right_ascension::RightAscension},
+    coordinates::{
+        declination::{Declination, Sgn},
+        right_ascension::RightAscension,
+    },
     stars::real_data::RealData,
     units::{
         length::{Length, AU_PER_LIGHT_YEARS, AU_PER_SUN_RADII},
@@ -22,7 +25,7 @@ pub const SUN_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(5778.0)),
     age: Some(Time::from_seconds(4.6 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(0, 0, 0),
-    declination: Declination::new(0, 0, 0),
+    declination: Declination::new(Sgn::Pos, 0, 0, 0),
     distance: Length::from_astronomical_units(0.0),
 };
 
@@ -37,7 +40,7 @@ const SIRIUS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9940.)),
     age: Some(Time::from_seconds(0.242 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(6, 45, 9),
-    declination: Declination::new(-16, 42, 58),
+    declination: Declination::new(Sgn::Neg, 16, 42, 58),
     distance: Length::from_astronomical_units(9. * AU_PER_LIGHT_YEARS),
 };
 
@@ -52,7 +55,7 @@ const CANOPUS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(7400.)),
     age: Some(Time::from_seconds(0.0251 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(6, 23, 57),
-    declination: Declination::new(-52, 41, 44),
+    declination: Declination::new(Sgn::Neg, 52, 41, 44),
     distance: Length::from_astronomical_units(313. * AU_PER_LIGHT_YEARS),
 };
 
@@ -67,7 +70,7 @@ const ARCTURUS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4286.)),
     age: Some(Time::from_seconds(7.1 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(14, 15, 40),
-    declination: Declination::new(19, 10, 56),
+    declination: Declination::new(Sgn::Pos, 19, 10, 56),
     distance: Length::from_astronomical_units(37. * AU_PER_LIGHT_YEARS),
 };
 
@@ -82,7 +85,7 @@ const RIGEL_KENTAURUS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(5790.)),
     age: Some(Time::from_seconds(4.85 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(14, 39, 36),
-    declination: Declination::new(-60, 50, 2),
+    declination: Declination::new(Sgn::Neg, 60, 50, 2),
     distance: Length::from_astronomical_units(4. * AU_PER_LIGHT_YEARS),
 };
 
@@ -97,7 +100,7 @@ const VEGA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9602.)),
     age: Some(Time::from_seconds(0.455 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(18, 36, 56),
-    declination: Declination::new(38, 47, 1),
+    declination: Declination::new(Sgn::Pos, 38, 47, 1),
     distance: Length::from_astronomical_units(25. * AU_PER_LIGHT_YEARS),
 };
 
@@ -112,7 +115,7 @@ const CAPELLA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4970.)),
     age: Some(Time::from_seconds(0.620 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 16, 41),
-    declination: Declination::new(45, 59, 53),
+    declination: Declination::new(Sgn::Pos, 45, 59, 53),
     distance: Length::from_astronomical_units(42. * AU_PER_LIGHT_YEARS),
 };
 
@@ -127,7 +130,7 @@ const RIGEL_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(12_100.)),
     age: Some(Time::from_seconds(0.008 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 14, 32),
-    declination: Declination::new(-8, 12, 6),
+    declination: Declination::new(Sgn::Neg, 8, 12, 6),
     distance: Length::from_astronomical_units(773. * AU_PER_LIGHT_YEARS),
 };
 
@@ -142,7 +145,7 @@ const PROCYON_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(6530.)),
     age: Some(Time::from_seconds(1.37 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(7, 39, 18),
-    declination: Declination::new(5, 13, 30),
+    declination: Declination::new(Sgn::Pos, 5, 13, 30),
     distance: Length::from_astronomical_units(11. * AU_PER_LIGHT_YEARS),
 };
 
@@ -157,7 +160,7 @@ const BETELGEUSE_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3600.)),
     age: Some(Time::from_seconds(0.008 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 55, 10),
-    declination: Declination::new(7, 24, 25),
+    declination: Declination::new(Sgn::Pos, 7, 24, 25),
     distance: Length::from_astronomical_units(522. * AU_PER_LIGHT_YEARS),
 };
 
@@ -172,7 +175,7 @@ const ACHERNAR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(14_000.)),
     age: Some(Time::from_seconds(0.063 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(1, 37, 43),
-    declination: Declination::new(-57, 14, 12),
+    declination: Declination::new(Sgn::Neg, 57, 14, 12),
     distance: Length::from_astronomical_units(144. * AU_PER_LIGHT_YEARS),
 };
 
@@ -187,7 +190,7 @@ const HADAR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(25_000.)),
     age: Some(Time::from_seconds(0.0141 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(14, 3, 49),
-    declination: Declination::new(-60, 22, 23),
+    declination: Declination::new(Sgn::Neg, 60, 22, 23),
     distance: Length::from_astronomical_units(526. * AU_PER_LIGHT_YEARS),
 };
 
@@ -202,7 +205,7 @@ const ALTAIR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(7670.)),
     age: Some(Time::from_seconds(0.100 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(19, 50, 47),
-    declination: Declination::new(8, 52, 6),
+    declination: Declination::new(Sgn::Pos, 8, 52, 6),
     distance: Length::from_astronomical_units(17. * AU_PER_LIGHT_YEARS),
 };
 
@@ -217,7 +220,7 @@ const ACRUX_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(24_000.)),
     age: Some(Time::from_seconds(0.0108 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(12, 26, 36),
-    declination: Declination::new(-63, 5, 57),
+    declination: Declination::new(Sgn::Neg, 63, 5, 57),
     distance: Length::from_astronomical_units(321. * AU_PER_LIGHT_YEARS),
 };
 
@@ -232,7 +235,7 @@ const ALDEBARAN_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3900.)),
     age: Some(Time::from_seconds(6.4 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(4, 35, 55),
-    declination: Declination::new(16, 30, 33),
+    declination: Declination::new(Sgn::Pos, 16, 30, 33),
     distance: Length::from_astronomical_units(65. * AU_PER_LIGHT_YEARS),
 };
 
@@ -247,7 +250,7 @@ const SPICA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(22_300.)),
     age: Some(Time::from_seconds(0.0125 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(13, 25, 12),
-    declination: Declination::new(-11, 9, 41),
+    declination: Declination::new(Sgn::Neg, 11, 9, 41),
     distance: Length::from_astronomical_units(262. * AU_PER_LIGHT_YEARS),
 };
 
@@ -262,7 +265,7 @@ const ANTARES_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3660.)),
     age: Some(Time::from_seconds(0.015 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(16, 29, 24),
-    declination: Declination::new(-26, 25, 55),
+    declination: Declination::new(Sgn::Neg, 26, 25, 55),
     distance: Length::from_astronomical_units(604. * AU_PER_LIGHT_YEARS),
 };
 
@@ -277,7 +280,7 @@ const POLLUX_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4586.)),
     age: Some(Time::from_seconds(0.724 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(7, 45, 19),
-    declination: Declination::new(28, 1, 34),
+    declination: Declination::new(Sgn::Pos, 28, 1, 34),
     distance: Length::from_astronomical_units(34. * AU_PER_LIGHT_YEARS),
 };
 
@@ -292,7 +295,7 @@ const FORMALHAUT_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(8590.)),
     age: Some(Time::from_seconds(0.44 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(22, 57, 39),
-    declination: Declination::new(-29, 37, 20),
+    declination: Declination::new(Sgn::Neg, 29, 37, 20),
     distance: Length::from_astronomical_units(25. * AU_PER_LIGHT_YEARS),
 };
 
@@ -307,7 +310,7 @@ const DENEB_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(8515.)),
     age: None,
     right_ascension: RightAscension::new(20, 41, 26),
-    declination: Declination::new(45, 16, 49),
+    declination: Declination::new(Sgn::Pos, 45, 16, 49),
     distance: Length::from_astronomical_units(1548. * AU_PER_LIGHT_YEARS),
 };
 
@@ -322,7 +325,7 @@ const MIMOSA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(27_000.)),
     age: Some(Time::from_seconds(0.010 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(12, 47, 43),
-    declination: Declination::new(-59, 41, 20),
+    declination: Declination::new(Sgn::Neg, 59, 41, 20),
     distance: Length::from_astronomical_units(352. * AU_PER_LIGHT_YEARS),
 };
 
@@ -337,7 +340,7 @@ const REGULUS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(11_668.)),
     age: Some(Time::from_seconds(1. * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(10, 8, 22),
-    declination: Declination::new(11, 58, 2),
+    declination: Declination::new(Sgn::Pos, 11, 58, 2),
     distance: Length::from_astronomical_units(77. * AU_PER_LIGHT_YEARS),
 };
 
@@ -352,7 +355,7 @@ const ADHARA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(22_900.)),
     age: Some(Time::from_seconds(0.0225 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(6, 58, 38),
-    declination: Declination::new(-28, 58, 19),
+    declination: Declination::new(Sgn::Neg, 28, 58, 19),
     distance: Length::from_astronomical_units(431. * AU_PER_LIGHT_YEARS),
 };
 
@@ -367,7 +370,7 @@ const CASTOR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(10_286.)),
     age: Some(Time::from_seconds(0.290 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(7, 34, 36),
-    declination: Declination::new(31, 53, 18),
+    declination: Declination::new(Sgn::Pos, 31, 53, 18),
     distance: Length::from_astronomical_units(52. * AU_PER_LIGHT_YEARS),
 };
 
@@ -382,7 +385,7 @@ const GACRUX_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3689.)),
     age: None,
     right_ascension: RightAscension::new(12, 31, 10),
-    declination: Declination::new(-57, 6, 48),
+    declination: Declination::new(Sgn::Neg, 57, 6, 48),
     distance: Length::from_astronomical_units(88. * AU_PER_LIGHT_YEARS),
 };
 
@@ -397,7 +400,7 @@ const SHAULA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(25_000.)),
     age: None,
     right_ascension: RightAscension::new(17, 33, 37),
-    declination: Declination::new(-37, 6, 14),
+    declination: Declination::new(Sgn::Neg, 37, 6, 14),
     distance: Length::from_astronomical_units(600. * AU_PER_LIGHT_YEARS),
 };
 
@@ -412,7 +415,7 @@ const BELLATRIX_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(21_800.)),
     age: Some(Time::from_seconds(0.0252 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 25, 8),
-    declination: Declination::new(6, 20, 59),
+    declination: Declination::new(Sgn::Pos, 6, 20, 59),
     distance: Length::from_astronomical_units(243. * AU_PER_LIGHT_YEARS),
 };
 
@@ -427,7 +430,7 @@ const ALNATH_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(13_824.)),
     age: Some(Time::from_seconds(0.1 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 26, 18),
-    declination: Declination::new(28, 36, 27),
+    declination: Declination::new(Sgn::Pos, 28, 36, 27),
     distance: Length::from_astronomical_units(131. * AU_PER_LIGHT_YEARS),
 };
 
@@ -442,7 +445,7 @@ const MIAPLACIDUS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(8866.)),
     age: Some(Time::from_seconds(0.260 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(9, 13, 12),
-    declination: Declination::new(-69, 43, 2),
+    declination: Declination::new(Sgn::Neg, 69, 43, 2),
     distance: Length::from_astronomical_units(111. * AU_PER_LIGHT_YEARS),
 };
 
@@ -457,7 +460,7 @@ const ALNILAM_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(27_000.)),
     age: Some(Time::from_seconds(0.0057 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 36, 13),
-    declination: Declination::new(-1, 12, 7),
+    declination: Declination::new(Sgn::Neg, 1, 12, 7),
     distance: Length::from_astronomical_units(1342. * AU_PER_LIGHT_YEARS),
 };
 
@@ -472,7 +475,7 @@ const ALNAIR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(13_920.)),
     age: Some(Time::from_seconds(0.1 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(22, 8, 14),
-    declination: Declination::new(-46, 57, 40),
+    declination: Declination::new(Sgn::Neg, 46, 57, 40),
     distance: Length::from_astronomical_units(101. * AU_PER_LIGHT_YEARS),
 };
 
@@ -487,7 +490,7 @@ const ALNITAK_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(29_500.)),
     age: Some(Time::from_seconds(0.0064 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 40, 46),
-    declination: Declination::new(-1, 56, 34),
+    declination: Declination::new(Sgn::Neg, 1, 56, 34),
     distance: Length::from_astronomical_units(817. * AU_PER_LIGHT_YEARS),
 };
 
@@ -502,7 +505,7 @@ const REGOR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(35_000.)),
     age: Some(Time::from_seconds(0.0045 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(8, 9, 32),
-    declination: Declination::new(-47, 20, 12),
+    declination: Declination::new(Sgn::Neg, 47, 20, 12),
     distance: Length::from_astronomical_units(840. * AU_PER_LIGHT_YEARS),
 };
 
@@ -517,7 +520,7 @@ const ALIOTH_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9_020.)),
     age: Some(Time::from_seconds(0.3 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(12, 54, 2),
-    declination: Declination::new(55, 57, 36),
+    declination: Declination::new(Sgn::Pos, 55, 57, 36),
     distance: Length::from_astronomical_units(81. * AU_PER_LIGHT_YEARS),
 };
 
@@ -532,7 +535,7 @@ const KAUS_AUSTRALIS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9960.)),
     age: Some(Time::from_seconds(0.232 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(18, 24, 10),
-    declination: Declination::new(-34, 23, 5),
+    declination: Declination::new(Sgn::Neg, 34, 23, 5),
     distance: Length::from_astronomical_units(145. * AU_PER_LIGHT_YEARS),
 };
 
@@ -547,7 +550,7 @@ const MIRPHAK_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(6350.)),
     age: Some(Time::from_seconds(0.041 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(3, 24, 19),
-    declination: Declination::new(49, 51, 40),
+    declination: Declination::new(Sgn::Pos, 49, 51, 40),
     distance: Length::from_astronomical_units(592. * AU_PER_LIGHT_YEARS),
 };
 
@@ -562,7 +565,7 @@ const DUBHE_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(5012.)),
     age: Some(Time::from_seconds(0.28 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(11, 3, 44),
-    declination: Declination::new(61, 45, 4),
+    declination: Declination::new(Sgn::Pos, 61, 45, 4),
     distance: Length::from_astronomical_units(124. * AU_PER_LIGHT_YEARS),
 };
 
@@ -577,7 +580,7 @@ const WEZEN_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(6390.)),
     age: Some(Time::from_seconds(0.012 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(7, 8, 23),
-    declination: Declination::new(-26, 23, 36),
+    declination: Declination::new(Sgn::Neg, 26, 23, 36),
     distance: Length::from_astronomical_units(1791. * AU_PER_LIGHT_YEARS),
 };
 
@@ -592,7 +595,7 @@ const ALKAID_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(15_540.)),
     age: Some(Time::from_seconds(0.01 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(13, 47, 32),
-    declination: Declination::new(49, 18, 48),
+    declination: Declination::new(Sgn::Pos, 49, 18, 48),
     distance: Length::from_astronomical_units(101. * AU_PER_LIGHT_YEARS),
 };
 
@@ -607,7 +610,7 @@ const SARGAS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(6294.)),
     age: None,
     right_ascension: RightAscension::new(17, 37, 19),
-    declination: Declination::new(-42, 59, 52),
+    declination: Declination::new(Sgn::Neg, 42, 59, 52),
     distance: Length::from_astronomical_units(272. * AU_PER_LIGHT_YEARS),
 };
 
@@ -622,7 +625,7 @@ const AVIOR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3523.)),
     age: Some(Time::from_seconds(0.020 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(8, 22, 31),
-    declination: Declination::new(-59, 30, 34),
+    declination: Declination::new(Sgn::Neg, 59, 30, 34),
     distance: Length::from_astronomical_units(632. * AU_PER_LIGHT_YEARS),
 };
 
@@ -637,7 +640,7 @@ const MENKALINAN_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9350.)),
     age: Some(Time::from_seconds(0.570 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 59, 32),
-    declination: Declination::new(44, 56, 51),
+    declination: Declination::new(Sgn::Pos, 44, 56, 51),
     distance: Length::from_astronomical_units(82. * AU_PER_LIGHT_YEARS),
 };
 
@@ -652,7 +655,7 @@ const ATRIA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4150.)),
     age: Some(Time::from_seconds(0.048 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(16, 48, 40),
-    declination: Declination::new(-69, 1, 40),
+    declination: Declination::new(Sgn::Neg, 69, 1, 40),
     distance: Length::from_astronomical_units(415. * AU_PER_LIGHT_YEARS),
 };
 
@@ -667,7 +670,7 @@ const ALSEPHINA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9440.)),
     age: Some(Time::from_seconds(0.4 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(8, 44, 42),
-    declination: Declination::new(-54, 42, 32),
+    declination: Declination::new(Sgn::Neg, 54, 42, 32),
     distance: Length::from_astronomical_units(80. * AU_PER_LIGHT_YEARS),
 };
 
@@ -682,7 +685,7 @@ const ALHENA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9260.)),
     age: None,
     right_ascension: RightAscension::new(6, 37, 43),
-    declination: Declination::new(16, 23, 57),
+    declination: Declination::new(Sgn::Pos, 16, 23, 57),
     distance: Length::from_astronomical_units(105. * AU_PER_LIGHT_YEARS),
 };
 
@@ -697,7 +700,7 @@ const PEACOCK_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(17_711.)),
     age: Some(Time::from_seconds(0.048 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(20, 25, 39),
-    declination: Declination::new(-56, 44, 6),
+    declination: Declination::new(Sgn::Neg, 56, 44, 6),
     distance: Length::from_astronomical_units(183. * AU_PER_LIGHT_YEARS),
 };
 
@@ -712,7 +715,7 @@ const POLARIS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(6015.)),
     age: Some(Time::from_seconds(0.05 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(2, 31, 49),
-    declination: Declination::new(89, 15, 51),
+    declination: Declination::new(Sgn::Pos, 89, 15, 51),
     distance: Length::from_astronomical_units(431. * AU_PER_LIGHT_YEARS),
 };
 
@@ -727,7 +730,7 @@ const MIRZAM_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(25_000.)),
     age: Some(Time::from_seconds(0.0124 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(6, 22, 42),
-    declination: Declination::new(-17, 57, 21),
+    declination: Declination::new(Sgn::Neg, 17, 57, 21),
     distance: Length::from_astronomical_units(499. * AU_PER_LIGHT_YEARS),
 };
 
@@ -742,7 +745,7 @@ const ALPHARD_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4120.)),
     age: Some(Time::from_seconds(0.42 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(9, 27, 35),
-    declination: Declination::new(-8, 39, 30),
+    declination: Declination::new(Sgn::Neg, 8, 39, 30),
     distance: Length::from_astronomical_units(177. * AU_PER_LIGHT_YEARS),
 };
 
@@ -757,7 +760,7 @@ const ALGIEBA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4470.)),
     age: None,
     right_ascension: RightAscension::new(10, 19, 58),
-    declination: Declination::new(19, 50, 29),
+    declination: Declination::new(Sgn::Pos, 19, 50, 29),
     distance: Length::from_astronomical_units(126. * AU_PER_LIGHT_YEARS),
 };
 
@@ -772,7 +775,7 @@ const HAMAL_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4480.)),
     age: Some(Time::from_seconds(3.4 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(2, 7, 10),
-    declination: Declination::new(23, 27, 45),
+    declination: Declination::new(Sgn::Pos, 23, 27, 45),
     distance: Length::from_astronomical_units(66. * AU_PER_LIGHT_YEARS),
 };
 
@@ -787,7 +790,7 @@ const DIPHDA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4797.)),
     age: Some(Time::from_seconds(1. * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(0, 43, 35),
-    declination: Declination::new(-17, 59, 12),
+    declination: Declination::new(Sgn::Neg, 17, 59, 12),
     distance: Length::from_astronomical_units(96. * AU_PER_LIGHT_YEARS),
 };
 
@@ -802,7 +805,7 @@ const NUNKI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(18_890.)),
     age: Some(Time::from_seconds(0.0314 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(18, 55, 16),
-    declination: Declination::new(-26, 17, 49),
+    declination: Declination::new(Sgn::Neg, 26, 17, 49),
     distance: Length::from_astronomical_units(224. * AU_PER_LIGHT_YEARS),
 };
 
@@ -817,7 +820,7 @@ const MENKENT_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4980.)),
     age: None,
     right_ascension: RightAscension::new(14, 6, 41),
-    declination: Declination::new(-36, 22, 11),
+    declination: Declination::new(Sgn::Neg, 36, 22, 11),
     distance: Length::from_astronomical_units(61. * AU_PER_LIGHT_YEARS),
 };
 
@@ -832,7 +835,7 @@ const SAIPH_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(26_500.)),
     age: Some(Time::from_seconds(0.0111 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 47, 45),
-    declination: Declination::new(-9, 40, 11),
+    declination: Declination::new(Sgn::Neg, 9, 40, 11),
     distance: Length::from_astronomical_units(721.2 * AU_PER_LIGHT_YEARS),
 };
 
@@ -847,7 +850,7 @@ const ALPHERATZ_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(13_800.)),
     age: Some(Time::from_seconds(0.06 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(0, 8, 23),
-    declination: Declination::new(29, 5, 26),
+    declination: Declination::new(Sgn::Pos, 29, 5, 26),
     distance: Length::from_astronomical_units(97.0 * AU_PER_LIGHT_YEARS),
 };
 
@@ -862,7 +865,7 @@ const TIAKI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3480.)),
     age: None,
     right_ascension: RightAscension::new(22, 42, 40),
-    declination: Declination::new(-46, 53, 4),
+    declination: Declination::new(Sgn::Neg, 46, 53, 4),
     distance: Length::from_astronomical_units(170. * AU_PER_LIGHT_YEARS),
 };
 
@@ -877,7 +880,7 @@ const MIRACH_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3842.)),
     age: None,
     right_ascension: RightAscension::new(1, 9, 44),
-    declination: Declination::new(35, 37, 14),
+    declination: Declination::new(Sgn::Pos, 35, 37, 14),
     distance: Length::from_astronomical_units(199. * AU_PER_LIGHT_YEARS),
 };
 
@@ -892,7 +895,7 @@ const KOCHAB_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4030.)),
     age: None,
     right_ascension: RightAscension::new(14, 50, 42),
-    declination: Declination::new(74, 9, 20),
+    declination: Declination::new(Sgn::Pos, 74, 9, 20),
     distance: Length::from_astronomical_units(126. * AU_PER_LIGHT_YEARS),
 };
 
@@ -907,7 +910,7 @@ const RASALHAGUE_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(8000.)),
     age: Some(Time::from_seconds(0.77 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(17, 34, 56),
-    declination: Declination::new(12, 33, 37),
+    declination: Declination::new(Sgn::Pos, 12, 33, 37),
     distance: Length::from_astronomical_units(47. * AU_PER_LIGHT_YEARS),
 };
 
@@ -922,7 +925,7 @@ const ALGOL_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(13_000.)),
     age: Some(Time::from_seconds(0.57 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(3, 8, 10),
-    declination: Declination::new(40, 57, 20),
+    declination: Declination::new(Sgn::Pos, 40, 57, 20),
     distance: Length::from_astronomical_units(93. * AU_PER_LIGHT_YEARS),
 };
 
@@ -937,7 +940,7 @@ const ALMACH_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4250.)),
     age: Some(Time::from_seconds(0.0065 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(2, 3, 54),
-    declination: Declination::new(42, 19, 47),
+    declination: Declination::new(Sgn::Pos, 42, 19, 47),
     distance: Length::from_astronomical_units(355. * AU_PER_LIGHT_YEARS),
 };
 
@@ -952,7 +955,7 @@ const DENEBOLA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(8500.)),
     age: Some(Time::from_seconds(0.25 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(11, 49, 3),
-    declination: Declination::new(14, 34, 19),
+    declination: Declination::new(Sgn::Pos, 14, 34, 19),
     distance: Length::from_astronomical_units(36. * AU_PER_LIGHT_YEARS),
 };
 
@@ -967,7 +970,7 @@ const NAVI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(25_000.)),
     age: Some(Time::from_seconds(0.008 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(0, 56, 43),
-    declination: Declination::new(60, 43, 0),
+    declination: Declination::new(Sgn::Pos, 60, 43, 0),
     distance: Length::from_astronomical_units(613. * AU_PER_LIGHT_YEARS),
 };
 
@@ -982,7 +985,7 @@ const MUHLIFAIN_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9082.)),
     age: None,
     right_ascension: RightAscension::new(12, 41, 31),
-    declination: Declination::new(-48, 57, 35),
+    declination: Declination::new(Sgn::Neg, 48, 57, 35),
     distance: Length::from_astronomical_units(130. * AU_PER_LIGHT_YEARS),
 };
 
@@ -997,7 +1000,7 @@ const NAOS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(40_000.)),
     age: Some(Time::from_seconds(0.0032 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(8, 3, 35),
-    declination: Declination::new(-40, 0, 12),
+    declination: Declination::new(Sgn::Neg, 40, 0, 12),
     distance: Length::from_astronomical_units(1399. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1012,7 +1015,7 @@ const ASPIDISKE_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(7500.)),
     age: Some(Time::from_seconds(0.0374 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(9, 17, 5),
-    declination: Declination::new(-59, 16, 30),
+    declination: Declination::new(Sgn::Neg, 59, 16, 30),
     distance: Length::from_astronomical_units(694. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1027,7 +1030,7 @@ const ALPHECCA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9700.)),
     age: Some(Time::from_seconds(0.314 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(15, 34, 41),
-    declination: Declination::new(26, 42, 53),
+    declination: Declination::new(Sgn::Pos, 26, 42, 53),
     distance: Length::from_astronomical_units(75. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1042,7 +1045,7 @@ const SUHAIL_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3900.)),
     age: Some(Time::from_seconds(0.0316 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(9, 7, 60),
-    declination: Declination::new(-43, 25, 57),
+    declination: Declination::new(Sgn::Neg, 43, 25, 57),
     distance: Length::from_astronomical_units(573. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1057,7 +1060,7 @@ const SADIR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(5790.)),
     age: Some(Time::from_seconds(0.012 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(20, 22, 14),
-    declination: Declination::new(40, 15, 24),
+    declination: Declination::new(Sgn::Pos, 40, 15, 24),
     distance: Length::from_astronomical_units(1522. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1072,7 +1075,7 @@ const MIZAR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9000.)),
     age: Some(Time::from_seconds(0.37 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(13, 23, 56),
-    declination: Declination::new(54, 55, 31),
+    declination: Declination::new(Sgn::Pos, 54, 55, 31),
     distance: Length::from_astronomical_units(78. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1087,7 +1090,7 @@ const SCHEDAR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4552.)),
     age: Some(Time::from_seconds(0.22 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(0, 40, 30),
-    declination: Declination::new(56, 32, 14),
+    declination: Declination::new(Sgn::Pos, 56, 32, 14),
     distance: Length::from_astronomical_units(228. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1102,7 +1105,7 @@ const ELTANIN_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3930.)),
     age: None,
     right_ascension: RightAscension::new(17, 56, 36),
-    declination: Declination::new(51, 29, 20),
+    declination: Declination::new(Sgn::Pos, 51, 29, 20),
     distance: Length::from_astronomical_units(148. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1117,7 +1120,7 @@ const MINTAKA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(29_500.)),
     age: None,
     right_ascension: RightAscension::new(5, 32, 0),
-    declination: Declination::new(-0, 17, 57),
+    declination: Declination::new(Sgn::Neg, 0, 17, 57),
     distance: Length::from_astronomical_units(916. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1132,7 +1135,7 @@ const CAPH_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(7079.)),
     age: Some(Time::from_seconds(1.1 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(0, 9, 11),
-    declination: Declination::new(59, 8, 59),
+    declination: Declination::new(Sgn::Pos, 59, 8, 59),
     distance: Length::from_astronomical_units(54. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1147,7 +1150,7 @@ const DSCHUBBA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(27_400.)),
     age: Some(Time::from_seconds(0.0095 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(16, 0, 20),
-    declination: Declination::new(-22, 37, 18),
+    declination: Declination::new(Sgn::Neg, 22, 37, 18),
     distance: Length::from_astronomical_units(401.5 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1162,7 +1165,7 @@ const LARAWAG_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4560.)),
     age: None,
     right_ascension: RightAscension::new(16, 50, 10),
-    declination: Declination::new(-34, 17, 36),
+    declination: Declination::new(Sgn::Neg, 34, 17, 36),
     distance: Length::from_astronomical_units(65. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1177,7 +1180,7 @@ const EPSILON_CENTAURI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(24_000.)),
     age: Some(Time::from_seconds(0.0158 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(13, 39, 53),
-    declination: Declination::new(-53, 27, 59),
+    declination: Declination::new(Sgn::Neg, 53, 27, 59),
     distance: Length::from_astronomical_units(376. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1192,7 +1195,7 @@ const ALPHA_LUPI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(21_820.)),
     age: Some(Time::from_seconds(0.018 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(14, 41, 56),
-    declination: Declination::new(-47, 23, 18),
+    declination: Declination::new(Sgn::Neg, 47, 23, 18),
     distance: Length::from_astronomical_units(548. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1207,7 +1210,7 @@ const ETA_CENTAURI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(25_700.)),
     age: Some(Time::from_seconds(0.0056 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(14, 35, 30),
-    declination: Declination::new(-42, 9, 28),
+    declination: Declination::new(Sgn::Neg, 42, 9, 28),
     distance: Length::from_astronomical_units(308. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1222,7 +1225,7 @@ const MERAK_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9377.)),
     age: Some(Time::from_seconds(0.5 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(11, 1, 50),
-    declination: Declination::new(56, 22, 57),
+    declination: Declination::new(Sgn::Pos, 56, 22, 57),
     distance: Length::from_astronomical_units(79. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1237,7 +1240,7 @@ const IZAR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4550.)),
     age: Some(Time::from_seconds(0.0374 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(14, 44, 59),
-    declination: Declination::new(27, 4, 27),
+    declination: Declination::new(Sgn::Pos, 27, 4, 27),
     distance: Length::from_astronomical_units(210. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1252,7 +1255,7 @@ const ENIF_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3963.)),
     age: Some(Time::from_seconds(0.020 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(21, 44, 11),
-    declination: Declination::new(9, 52, 30),
+    declination: Declination::new(Sgn::Pos, 9, 52, 30),
     distance: Length::from_astronomical_units(672. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1267,7 +1270,7 @@ const GIRTAB_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(23_400.)),
     age: Some(Time::from_seconds(0.0251 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(17, 42, 29),
-    declination: Declination::new(-39, 1, 48),
+    declination: Declination::new(Sgn::Neg, 39, 1, 48),
     distance: Length::from_astronomical_units(464. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1282,7 +1285,7 @@ const ANKAA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4436.)),
     age: None,
     right_ascension: RightAscension::new(0, 26, 17),
-    declination: Declination::new(-42, 18, 21),
+    declination: Declination::new(Sgn::Neg, 42, 18, 21),
     distance: Length::from_astronomical_units(77. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1297,7 +1300,7 @@ const PHECDA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(9355.)),
     age: Some(Time::from_seconds(0.3 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(11, 53, 50),
-    declination: Declination::new(53, 41, 41),
+    declination: Declination::new(Sgn::Pos, 53, 41, 41),
     distance: Length::from_astronomical_units(84. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1312,7 +1315,7 @@ const SABIK_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(8900.)),
     age: None,
     right_ascension: RightAscension::new(17, 10, 23),
-    declination: Declination::new(-15, 43, 30),
+    declination: Declination::new(Sgn::Neg, 15, 43, 30),
     distance: Length::from_astronomical_units(84. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1327,7 +1330,7 @@ const SCHEAT_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3689.)),
     age: None,
     right_ascension: RightAscension::new(23, 3, 46),
-    declination: Declination::new(28, 4, 58),
+    declination: Declination::new(Sgn::Pos, 28, 4, 58),
     distance: Length::from_astronomical_units(199. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1342,7 +1345,7 @@ const ALDERAMIN_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(7700.)),
     age: Some(Time::from_seconds(0.82 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(21, 18, 35),
-    declination: Declination::new(62, 35, 8),
+    declination: Declination::new(Sgn::Pos, 62, 35, 8),
     distance: Length::from_astronomical_units(49. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1357,7 +1360,7 @@ const ALUDRA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(15_500.)),
     age: Some(Time::from_seconds(0.0083 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(7, 24, 6),
-    declination: Declination::new(-29, 18, 11),
+    declination: Declination::new(Sgn::Neg, 29, 18, 11),
     distance: Length::from_astronomical_units(3196. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1372,7 +1375,7 @@ const MARKEB_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(23_000.)),
     age: Some(Time::from_seconds(0.018 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(9, 22, 7),
-    declination: Declination::new(-55, 0, 38),
+    declination: Declination::new(Sgn::Neg, 55, 0, 38),
     distance: Length::from_astronomical_units(539. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1387,7 +1390,7 @@ const ALJANAH_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4710.)),
     age: Some(Time::from_seconds(1.5 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(20, 46, 13),
-    declination: Declination::new(33, 58, 13),
+    declination: Declination::new(Sgn::Pos, 33, 58, 13),
     distance: Length::from_astronomical_units(72. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1402,7 +1405,7 @@ const MARKAB_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(10_100.)),
     age: Some(Time::from_seconds(0.2 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(23, 4, 46),
-    declination: Declination::new(15, 12, 19),
+    declination: Declination::new(Sgn::Pos, 15, 12, 19),
     distance: Length::from_astronomical_units(140. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1417,7 +1420,7 @@ const HAN_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(34_300.)),
     age: Some(Time::from_seconds(3. * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(16, 37, 10),
-    declination: Declination::new(-10, 34, 2),
+    declination: Declination::new(Sgn::Neg, 10, 34, 2),
     distance: Length::from_astronomical_units(458. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1432,7 +1435,7 @@ const MENKAR_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3795.)),
     age: None,
     right_ascension: RightAscension::new(3, 2, 17),
-    declination: Declination::new(4, 5, 23),
+    declination: Declination::new(Sgn::Pos, 4, 5, 23),
     distance: Length::from_astronomical_units(220. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1447,7 +1450,7 @@ const ZETA_CENTAURI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(23_561.)),
     age: Some(Time::from_seconds(0.04 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(13, 55, 33),
-    declination: Declination::new(-47, 17, 18),
+    declination: Declination::new(Sgn::Neg, 47, 17, 18),
     distance: Length::from_astronomical_units(384. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1462,7 +1465,7 @@ const ACRAB_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(28_000.)),
     age: None,
     right_ascension: RightAscension::new(16, 5, 26),
-    declination: Declination::new(-19, 48, 20),
+    declination: Declination::new(Sgn::Neg, 19, 48, 20),
     distance: Length::from_astronomical_units(530. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1477,7 +1480,7 @@ const ZOSMA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(8_296.)),
     age: Some(Time::from_seconds(0.65 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(11, 14, 7),
-    declination: Declination::new(20, 31, 25),
+    declination: Declination::new(Sgn::Pos, 20, 31, 25),
     distance: Length::from_astronomical_units(58. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1492,7 +1495,7 @@ const MA_WEI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(22_360.)),
     age: Some(Time::from_seconds(0.02 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(12, 8, 21),
-    declination: Declination::new(-50, 43, 21),
+    declination: Declination::new(Sgn::Neg, 50, 43, 21),
     distance: Length::from_astronomical_units(395. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1507,7 +1510,7 @@ const ARNEB_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(6_850.)),
     age: Some(Time::from_seconds(0.013 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(5, 32, 44),
-    declination: Declination::new(-17, 49, 20),
+    declination: Declination::new(Sgn::Neg, 17, 49, 20),
     distance: Length::from_astronomical_units(1283. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1522,7 +1525,7 @@ const GHURAB_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(12_000.)),
     age: Some(Time::from_seconds(0.160 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(12, 15, 48),
-    declination: Declination::new(-17, 32, 31),
+    declination: Declination::new(Sgn::Neg, 17, 32, 31),
     distance: Length::from_astronomical_units(165. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1539,7 +1542,7 @@ const TEJAT_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3460.)),
     age: None,
     right_ascension: RightAscension::new(6, 22, 58),
-    declination: Declination::new(22, 30, 49),
+    declination: Declination::new(Sgn::Pos, 22, 30, 49),
     distance: Length::from_astronomical_units(230. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1553,7 +1556,7 @@ const R_DORADUS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(2710.)),
     age: Some(Time::from_seconds(10. * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(4, 36, 46),
-    declination: Declination::new(-62, 4, 38),
+    declination: Declination::new(Sgn::Neg, 62, 4, 38),
     distance: Length::from_astronomical_units(203.5 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1567,7 +1570,7 @@ const YED_PRIOR: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3679.)),
     age: None,
     right_ascension: RightAscension::new(16, 14, 21),
-    declination: Declination::new(-3, 41, 40),
+    declination: Declination::new(Sgn::Neg, 3, 41, 40),
     distance: Length::from_astronomical_units(171. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1581,7 +1584,7 @@ const GORGONEA_TERTIA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3479.)),
     age: Some(Time::from_seconds(0.440 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(3, 5, 11),
-    declination: Declination::new(38, 50, 25),
+    declination: Declination::new(Sgn::Pos, 38, 50, 25),
     distance: Length::from_astronomical_units(325. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1595,7 +1598,7 @@ const NAMALWARID: RealData = RealData {
     temperature: None,
     age: None,
     right_ascension: RightAscension::new(18, 17, 38),
-    declination: Declination::new(-36, 45, 42),
+    declination: Declination::new(Sgn::Neg, 36, 45, 42),
     distance: Length::from_astronomical_units(149.1 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1609,7 +1612,7 @@ const HASSALEH: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4160.)),
     age: Some(Time::from_seconds(0.04 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(4, 56, 60),
-    declination: Declination::new(33, 9, 58),
+    declination: Declination::new(Sgn::Pos, 33, 9, 58),
     distance: Length::from_astronomical_units(490. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1623,7 +1626,7 @@ const PROPUS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3502.)),
     age: Some(Time::from_seconds(0.81 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(6, 14, 53),
-    declination: Declination::new(22, 30, 24),
+    declination: Declination::new(Sgn::Pos, 22, 30, 24),
     distance: Length::from_astronomical_units(349. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1637,7 +1640,7 @@ const ZAURAK_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3811.)),
     age: None,
     right_ascension: RightAscension::new(3, 58, 2),
-    declination: Declination::new(-13, 30, 31),
+    declination: Declination::new(Sgn::Neg, 13, 30, 31),
     distance: Length::from_astronomical_units(221. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1651,7 +1654,7 @@ const KAUS_MEDIA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4203.)),
     age: Some(Time::from_seconds(0.26 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(18, 20, 60),
-    declination: Declination::new(-29, 49, 41),
+    declination: Declination::new(Sgn::Neg, 29, 49, 41),
     distance: Length::from_astronomical_units(305.5 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1665,7 +1668,7 @@ const BRACHIUM_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3596.)),
     age: None,
     right_ascension: RightAscension::new(15, 4, 4),
-    declination: Declination::new(-25, 16, 55),
+    declination: Declination::new(Sgn::Neg, 25, 16, 55),
     distance: Length::from_astronomical_units(288. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1679,7 +1682,7 @@ const TANIA_AUSTRALIS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3899.)),
     age: None,
     right_ascension: RightAscension::new(10, 22, 20),
-    declination: Declination::new(41, 29, 58),
+    declination: Declination::new(Sgn::Pos, 41, 29, 58),
     distance: Length::from_astronomical_units(230.0 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1693,7 +1696,7 @@ const UNUKALHAI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4498.)),
     age: None,
     right_ascension: RightAscension::new(15, 44, 16),
-    declination: Declination::new(6, 25, 32),
+    declination: Declination::new(Sgn::Pos, 6, 25, 32),
     distance: Length::from_astronomical_units(74. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1707,7 +1710,7 @@ const R_LYRAE_DATE: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3313.)),
     age: None,
     right_ascension: RightAscension::new(18, 55, 20),
-    declination: Declination::new(43, 56, 46),
+    declination: Declination::new(Sgn::Pos, 43, 56, 46),
     distance: Length::from_astronomical_units(349.4 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1721,7 +1724,7 @@ const BETA_ARAE_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4197.)),
     age: Some(Time::from_seconds(0.05 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(17, 25, 18),
-    declination: Declination::new(-55, 31, 48),
+    declination: Declination::new(Sgn::Neg, 55, 31, 48),
     distance: Length::from_astronomical_units(602.6 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1735,7 +1738,7 @@ const APLHA_TUCANAE_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4300.)),
     age: None,
     right_ascension: RightAscension::new(22, 18, 30),
-    declination: Declination::new(-60, 15, 35),
+    declination: Declination::new(Sgn::Neg, 60, 15, 35),
     distance: Length::from_astronomical_units(198.5 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1749,7 +1752,7 @@ const MINELAUVA_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3999.)),
     age: None,
     right_ascension: RightAscension::new(12, 55, 36),
-    declination: Declination::new(3, 23, 51),
+    declination: Declination::new(Sgn::Pos, 3, 23, 51),
     distance: Length::from_astronomical_units(202.4 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1763,7 +1766,7 @@ const CEBALRAI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4467.)),
     age: Some(Time::from_seconds(3.82 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(17, 43, 28),
-    declination: Declination::new(4, 34, 2),
+    declination: Declination::new(Sgn::Pos, 4, 34, 2),
     distance: Length::from_astronomical_units(81.8 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1777,7 +1780,7 @@ const KRAZ_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(5100.)),
     age: Some(Time::from_seconds(0.206 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(12, 34, 23),
-    declination: Declination::new(-23, 23, 48),
+    declination: Declination::new(Sgn::Neg, 23, 23, 48),
     distance: Length::from_astronomical_units(146. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1791,7 +1794,7 @@ const ERAKIS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3551.)),
     age: Some(Time::from_seconds(0.01 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(21, 43, 30),
-    declination: Declination::new(58, 46, 48),
+    declination: Declination::new(Sgn::Pos, 58, 46, 48),
     distance: Length::from_astronomical_units(3066. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1805,7 +1808,7 @@ const GAMMA_HYDRI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3499.)),
     age: None,
     right_ascension: RightAscension::new(3, 47, 14),
-    declination: Declination::new(-74, 14, 20),
+    declination: Declination::new(Sgn::Neg, 74, 14, 20),
     distance: Length::from_astronomical_units(214. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1819,7 +1822,7 @@ const ALPHA_LYNCIS_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(3882.)),
     age: Some(Time::from_seconds(1.4 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(9, 21, 3),
-    declination: Declination::new(34, 23, 33),
+    declination: Declination::new(Sgn::Pos, 34, 23, 33),
     distance: Length::from_astronomical_units(221.9 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1833,7 +1836,7 @@ const ATHEBYNE_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(5055.)),
     age: Some(Time::from_seconds(0.55 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(16, 23, 59),
-    declination: Declination::new(61, 30, 51),
+    declination: Declination::new(Sgn::Pos, 61, 30, 51),
     distance: Length::from_astronomical_units(87.68 * AU_PER_LIGHT_YEARS),
 };
 
@@ -1849,7 +1852,7 @@ const AHADI_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4000.)),
     age: Some(Time::from_seconds(0.02 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(7, 17, 9),
-    declination: Declination::new(-37, 5, 51),
+    declination: Declination::new(Sgn::Neg, 37, 5, 51),
     distance: Length::from_astronomical_units(1094. * AU_PER_LIGHT_YEARS),
 };
 
@@ -1863,7 +1866,7 @@ const TARAZED_DATA: RealData = RealData {
     temperature: Some(Temperature::from_kelvin(4098.)),
     age: Some(Time::from_seconds(0.270 * SECONDS_PER_BILLION_YEARS)),
     right_ascension: RightAscension::new(19, 46, 16),
-    declination: Declination::new(10, 36, 48),
+    declination: Declination::new(Sgn::Pos, 10, 36, 48),
     distance: Length::from_astronomical_units(460.5 * AU_PER_LIGHT_YEARS),
 };
 

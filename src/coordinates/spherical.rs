@@ -1,4 +1,8 @@
-use super::{declination::Declination, direction::Direction, right_ascension::RightAscension};
+use super::{
+    declination::{Declination, Sgn},
+    direction::Direction,
+    right_ascension::RightAscension,
+};
 use crate::{units::angle::Angle, Float, PI};
 use serde::{Deserialize, Serialize};
 use std::{
@@ -112,14 +116,18 @@ impl SphericalCoordinates {
         let ra = RightAscension::new(ra_hours, ra_minutes, ra_seconds);
 
         let mut dec_remainder = self.latitude.as_degrees();
-        let sign = dec_remainder.signum() as i8;
-        dec_remainder = dec_remainder.abs();
-        let dec_degrees = sign * dec_remainder.floor() as i8;
-        dec_remainder -= dec_degrees.abs() as Float;
-        let dec_minutes = (dec_remainder * 60.).floor() as i8;
+        let sign = if dec_remainder < 0. {
+            dec_remainder = dec_remainder.abs();
+            Sgn::Neg
+        } else {
+            Sgn::Pos
+        };
+        let dec_degrees = dec_remainder.floor() as u8;
+        dec_remainder -= dec_degrees as Float;
+        let dec_minutes = (dec_remainder * 60.).floor() as u8;
         dec_remainder -= dec_minutes as Float / 60.;
-        let dec_seconds = (dec_remainder * 3600.).floor() as i8;
-        let dec = Declination::new(dec_degrees, dec_minutes, dec_seconds);
+        let dec_seconds = (dec_remainder * 3600.).floor() as u8;
+        let dec = Declination::new(sign, dec_degrees, dec_minutes, dec_seconds);
 
         (ra, dec)
     }
