@@ -127,9 +127,6 @@ mod tests {
 
     use super::*;
 
-    // Gaia finds R Doradus to be much brighter than all other literature.
-    const PROBLEMATIC_STAR: &str = "Gaia DR3 4677205714465503104";
-
     fn find_closest_star(
         gaia_star: &StarAppearance,
         known_stars: &Vec<&StarAppearance>,
@@ -177,7 +174,10 @@ mod tests {
     }
 
     #[test]
-    fn all_bright_stars_are_already_known() {
+    fn all_bright_gaia_stars_are_already_known() {
+        // Gaia finds R Doradus to be much brighter than all other literature.
+        const PROBLEMATIC_STAR: &str = "Gaia DR3 4677205714465503104";
+
         let mut known_stars = vec![];
         for star_data in BRIGHTEST_STARS {
             known_stars.push(star_data.to_star_appearance());
@@ -187,8 +187,10 @@ mod tests {
             query_brightest_stars(Illuminance::from_apparent_magnitude(2.5)).unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
 
+        println!("known_stars.len(): {}", known_stars.len());
+        assert!(known_stars.len() > 30);
         println!("gaia_stars.len(): {}", gaia_stars.len());
-        assert!(gaia_stars.len() > 10);
+        assert!(gaia_stars.len() > 30);
         let mut failure_count = 0;
         for gaia_star in gaia_stars.iter() {
             if gaia_star.name == PROBLEMATIC_STAR {
@@ -237,7 +239,62 @@ mod tests {
 
     #[test]
     fn all_not_too_bright_stars_are_in_gaia() {
-        todo!("Implement this test")
+        const PROBLEMATIC_STARS: [&str; 8] = [
+            "R Doradus", // Gaia finds R Doradus to be much brighter than all other literature.
+            "Scheat",
+            "Suhail",
+            "Eltanin",
+            "Dschubba",
+            "Epsilon Centauri",
+            "Menkar",
+            "Ghurab",
+        ];
+
+        const BRIGHTNESS_THRESHOLD: Float = 2.2;
+
+        let mut known_stars = vec![];
+        for star_data in BRIGHTEST_STARS {
+            if star_data.apparent_magnitude > BRIGHTNESS_THRESHOLD
+                && !PROBLEMATIC_STARS.contains(&star_data.common_name)
+                && !PROBLEMATIC_STARS.contains(&star_data.astronomical_name)
+            {
+                known_stars.push(star_data.to_star_appearance());
+            }
+        }
+
+        let gaia_response =
+            query_brightest_stars(Illuminance::from_apparent_magnitude(4.)).unwrap();
+        let gaia_stars = gaia_response.to_star_appearances().unwrap();
+
+        println!("known_stars.len(): {}", known_stars.len());
+        assert!(known_stars.len() > 30);
+        println!("gaia_stars.len(): {}", gaia_stars.len());
+        assert!(gaia_stars.len() > 30);
+
+        let brightest_gaia_star = gaia_stars
+            .iter()
+            .min_by_key(|star| (star.illuminance.as_lux() * 1e5) as u32)
+            .unwrap();
+        println!(
+            "Brightest gaia star illuminance: {} mag",
+            brightest_gaia_star.illuminance.as_apparent_magnitude()
+        );
+        assert!(brightest_gaia_star.illuminance.as_apparent_magnitude() < BRIGHTNESS_THRESHOLD);
+
+        let mut failure_count = 0;
+        for known_star in known_stars.iter() {
+            let is_known = star_is_already_known(known_star, &gaia_stars.iter().collect());
+            if !is_known {
+                println!("\nknown_star is not in gaia:\n{}", known_star.name);
+                println!(
+                    "known_star_illuminance: {} mag",
+                    known_star.illuminance.as_apparent_magnitude()
+                );
+                failure_count += 1;
+            }
+        }
+        println!("failure_count: {} of {}", failure_count, known_stars.len());
+        assert!(failure_count == 0);
     }
 
     #[test]
