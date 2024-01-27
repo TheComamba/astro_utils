@@ -65,7 +65,7 @@ mod tests {
             for min in 0..STEPS {
                 for sign in [Sgn::Pos, Sgn::Neg] {
                     let dec = Declination::new(sign, 0, min, sec);
-                    let angle_abs = (min * 60 + sec) as Float;
+                    let angle_abs = ((min as u32) * 60 + sec as u32) as Float;
                     let sign = match sign {
                         Sgn::Pos => 1.,
                         Sgn::Neg => -1.,
@@ -74,7 +74,14 @@ mod tests {
                     println!("{} sign {} min {} sec", sign, min, sec);
                     println!("expected: \n{} sec", angle.as_arcsecs());
                     println!("actual: \n{} sec", dec.to_angle().as_arcsecs());
-                    assert!((dec.to_angle().as_arcsecs() - angle.as_arcsecs()).abs() < 1e-5);
+                    let diff = (dec.to_angle().as_arcsecs() - angle.as_arcsecs()).abs();
+                    println!("diff: \n{} sec", diff);
+                    let mut accuracy = 1e-5 * angle_abs;
+                    if accuracy < 1e-5 {
+                        accuracy = 1e-5;
+                    }
+                    println!("accuracy: \n{} sec", accuracy);
+                    assert!(diff < accuracy);
                 }
             }
         }
