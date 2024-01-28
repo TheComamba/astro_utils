@@ -17,6 +17,8 @@ pub struct Mass {
 }
 
 impl Mass {
+    pub const ZERO: Mass = Mass { kilograms: 0. };
+
     pub const fn from_kilograms(kilograms: Float) -> Mass {
         Mass { kilograms }
     }
