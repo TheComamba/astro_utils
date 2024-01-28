@@ -4,7 +4,7 @@ use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     planets::planet_brightness::planet_brightness,
     stars::{star_appearance::StarAppearance, star_data::StarData},
-    units::{length::Length, luminosity::Luminosity, mass::Mass, time::Time},
+    units::{angle::Angle, length::Length, luminosity::Luminosity, mass::Mass, time::Time},
     Float,
 };
 use serde::{Deserialize, Serialize};
@@ -80,6 +80,54 @@ impl PlanetData {
 
     pub fn get_rotation_axis(&self) -> &Direction {
         &self.rotation_axis
+    }
+
+    pub fn set_name(&mut self, name: String) {
+        self.name = name;
+    }
+
+    pub fn set_mass(&mut self, mass: Mass) {
+        self.mass = mass;
+    }
+
+    pub fn set_radius(&mut self, radius: Length) {
+        self.radius = radius;
+    }
+
+    pub fn set_geometric_albedo(&mut self, geometric_albedo: Float) {
+        self.geometric_albedo = geometric_albedo;
+    }
+
+    pub fn set_color(&mut self, color: sRGBColor) {
+        self.color = color;
+    }
+
+    pub fn set_semi_major_axis(&mut self, semi_major_axis: Length) {
+        self.orbital_parameters.semi_major_axis = semi_major_axis;
+    }
+
+    pub fn set_eccentricity(&mut self, eccentricity: Float) {
+        self.orbital_parameters.eccentricity = eccentricity;
+    }
+
+    pub fn set_inclination(&mut self, inclination: Angle) {
+        self.orbital_parameters.inclination = inclination;
+    }
+
+    pub fn set_longitude_of_ascending_node(&mut self, longitude_of_ascending_node: Angle) {
+        self.orbital_parameters.longitude_of_ascending_node = longitude_of_ascending_node;
+    }
+
+    pub fn set_argument_of_periapsis(&mut self, argument_of_periapsis: Angle) {
+        self.orbital_parameters.argument_of_periapsis = argument_of_periapsis;
+    }
+
+    pub fn set_sideral_rotation_period(&mut self, sideral_rotation_period: Time) {
+        self.sideral_rotation_period = sideral_rotation_period;
+    }
+
+    pub fn set_rotation_axis(&mut self, rotation_axis: Direction) {
+        self.rotation_axis = rotation_axis;
     }
 
     pub fn to_star_appearance(
