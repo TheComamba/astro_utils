@@ -13,11 +13,34 @@ use std::{fmt::Display, ops::Neg};
 
 pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-5;
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Direction {
     pub(super) x: Float,
     pub(super) y: Float,
     pub(super) z: Float,
+}
+
+impl Direction {
+    pub fn to_array(&self) -> [Float; 3] {
+        [self.x, self.y, self.z]
+    }
+
+    pub fn from_array(array: [Float; 3]) -> Result<Self, AstroUtilError> {
+        Direction::new(array[0], array[1], array[2])
+    }
+}
+
+impl Serialize for Direction {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        self.to_array().serialize(serializer)
+    }
+}
+
+impl<'de> Deserialize<'de> for Direction {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let array = <[Float; 3]>::deserialize(deserializer)?;
+        Direction::from_array(array).map_err(serde::de::Error::custom)
+    }
 }
 
 impl Direction {
