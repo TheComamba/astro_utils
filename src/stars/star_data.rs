@@ -22,6 +22,28 @@ pub struct StarData {
 }
 
 impl StarData {
+    pub fn new(
+        name: String,
+        mass: Option<Mass>,
+        radius: Option<Length>,
+        luminosity: Option<Luminosity>,
+        temperature: Option<Temperature>,
+        age: Option<Time>,
+        distance: Option<Length>,
+        direction_in_ecliptic: Direction,
+    ) -> Self {
+        Self {
+            name,
+            mass,
+            radius,
+            luminosity,
+            temperature,
+            age,
+            distance,
+            direction_in_ecliptic,
+        }
+    }
+
     pub fn get_name(&self) -> &String {
         &self.name
     }
