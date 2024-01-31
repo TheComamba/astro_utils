@@ -5,7 +5,9 @@ use super::{
     star_data::StarData,
 };
 use crate::{
-    coordinates::cartesian::CartesianCoordinates, error::AstroUtilError, units::length::Length,
+    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
+    error::AstroUtilError,
+    units::length::Length,
     Float,
 };
 use rand::{
@@ -103,6 +105,29 @@ fn generate_visible_random_star(
     star.distance = Some(distance);
     star.direction_in_ecliptic = pos.to_direction();
     Some(star)
+}
+
+pub fn generate_random_star() -> Result<StarData, AstroUtilError> {
+    let parsec_data = ParsecData::new()?;
+    let mut rng = rand::thread_rng();
+    let mass_distr = get_mass_distribution();
+    let mass_index = rng.sample(mass_distr);
+    let trajectory = parsec_data.get_trajectory_via_index(mass_index);
+    let current_params = pick_random_age(&trajectory);
+    let mut star = current_params.to_star_at_origin();
+    star.direction_in_ecliptic = random_direction(&mut rng);
+    Ok(star)
+}
+
+fn random_direction(rng: &mut ThreadRng) -> Direction {
+    let x = rng.gen_range(-1.0..=1.0);
+    let y = rng.gen_range(-1.0..=1.0);
+    let z = rng.gen_range(-1.0..=1.0);
+    let dir = Direction::new(x, y, z);
+    match dir {
+        Ok(dir) => dir,
+        Err(_) => random_direction(rng),
+    }
 }
 
 fn pick_random_age(trajectory: &Vec<ParsecLine>) -> &ParsecLine {
