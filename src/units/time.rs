@@ -1,6 +1,5 @@
 use crate::Float;
 use serde::{Deserialize, Serialize};
-use std::fmt::Display;
 
 pub(crate) const SECONDS_PER_MINUTE: Float = 60.;
 const MINUTES_PER_SECOND: Float = 1. / SECONDS_PER_MINUTE;
@@ -19,7 +18,7 @@ const BILLION_YEARS_PER_SECOND: Float = 1. / SECONDS_PER_BILLION_YEARS;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Time {
-    pub(super) seconds: Float,
+    pub(crate) seconds: Float,
 }
 
 impl Time {
@@ -110,28 +109,6 @@ impl Time {
     }
 }
 
-impl Display for Time {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.seconds.abs() > 0.99 * SECONDS_PER_BILLION_YEARS {
-            write!(f, "{:.2} Gyrs", self.as_billion_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLION_YEARS {
-            write!(f, "{:.2} Myrs", self.as_million_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLENIUM {
-            write!(f, "{:.2} kyr", self.as_thousand_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_YEAR {
-            write!(f, "{:.2} yrs", self.as_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_DAY {
-            write!(f, "{:.2} days", self.as_days())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_HOUR {
-            write!(f, "{:.2} hrs", self.as_hours())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MINUTE {
-            write!(f, "{:.2} min", self.as_minutes())
-        } else {
-            write!(f, "{:.2} sec", self.as_seconds())
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -198,45 +175,5 @@ mod tests {
         let expected = 0.5 as Float;
         let actual = time1 / time2;
         assert!((expected - actual).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_display() {
-        let time = Time::from_seconds(1.);
-        assert_eq!(format!("{}", time), "1.00 sec");
-        let time = Time::from_minutes(1.);
-        assert_eq!(format!("{}", time), "1.00 min");
-        let time = Time::from_hours(1.);
-        assert_eq!(format!("{}", time), "1.00 hrs");
-        let time = Time::from_days(1.);
-        assert_eq!(format!("{}", time), "1.00 days");
-        let time = Time::from_years(1.);
-        assert_eq!(format!("{}", time), "1.00 yrs");
-        let time = Time::from_thousand_years(1.);
-        assert_eq!(format!("{}", time), "1.00 kyr");
-        let time = Time::from_million_years(1.);
-        assert_eq!(format!("{}", time), "1.00 Myrs");
-        let time = Time::from_billion_years(1.);
-        assert_eq!(format!("{}", time), "1.00 Gyrs");
-    }
-
-    #[test]
-    fn test_negative_display() {
-        let time = Time::from_seconds(-1.);
-        assert_eq!(format!("{}", time), "-1.00 sec");
-        let time = Time::from_minutes(-1.);
-        assert_eq!(format!("{}", time), "-1.00 min");
-        let time = Time::from_hours(-1.);
-        assert_eq!(format!("{}", time), "-1.00 hrs");
-        let time = Time::from_days(-1.);
-        assert_eq!(format!("{}", time), "-1.00 days");
-        let time = Time::from_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 yrs");
-        let time = Time::from_thousand_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 kyr");
-        let time = Time::from_million_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 Myrs");
-        let time = Time::from_billion_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 Gyrs");
     }
 }

@@ -1,7 +1,6 @@
 use super::{length::Length, luminance::Luminance, luminosity::Luminosity};
 use crate::{Float, PI};
 use serde::{Deserialize, Serialize};
-use std::fmt::Display;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Illuminance {
@@ -43,12 +42,6 @@ impl Illuminance {
     #[cfg(test)]
     pub(crate) fn eq_within(&self, other: Illuminance, accuracy: Illuminance) -> bool {
         (self.lux - other.lux).abs() <= accuracy.lux
-    }
-}
-
-impl Display for Illuminance {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:.2} mag", self.as_apparent_magnitude())
     }
 }
 
