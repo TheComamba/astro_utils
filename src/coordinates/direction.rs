@@ -2,12 +2,7 @@ use super::{
     cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
     rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
-use crate::{
-    error::AstroUtilError,
-    real_data::planets::EARTH,
-    units::{angle::Angle, length::Length},
-    Float, PI,
-};
+use crate::{error::AstroUtilError, real_data::planets::EARTH, Float, PI};
 use serde::{Deserialize, Serialize};
 use std::{fmt::Display, ops::Neg};
 

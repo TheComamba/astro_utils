@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::{units::angle::Angle, Float};
+use crate::Float;
 
 pub struct Declination {
     pub(super) sign: Sgn,

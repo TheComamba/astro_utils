@@ -1,10 +1,5 @@
 use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
-use crate::units::length::Length;
-use crate::units::luminosity::Luminosity;
-use crate::units::mass::Mass;
-use crate::units::temperature::Temperature;
-use crate::units::time::Time;
 use crate::{error::AstroUtilError, Float};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;

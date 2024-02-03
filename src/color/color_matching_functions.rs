@@ -1,8 +1,4 @@
-use crate::{
-    color::black_body::planck_radiant_emittance,
-    units::{length::Length, temperature::Temperature},
-    Float,
-};
+use crate::{color::black_body::planck_radiant_emittance, Float};
 
 fn tilted_gaussian(lambda: Float, mean: Float, sigma1: Float, sigma2: Float) -> Float {
     let nominator = -0.5 * (lambda - mean).powi(2);

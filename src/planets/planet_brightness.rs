@@ -1,9 +1,4 @@
-use crate::{
-    coordinates::cartesian::CartesianCoordinates,
-    error::AstroUtilError,
-    units::{angle::Angle, illuminance::Illuminance, length::Length, luminosity::Luminosity},
-    Float, PI,
-};
+use crate::{coordinates::cartesian::CartesianCoordinates, error::AstroUtilError, Float, PI};
 
 /*
  * Refraction is awfully complicated:

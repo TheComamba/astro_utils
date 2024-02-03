@@ -1,10 +1,6 @@
 use super::star_appearance::StarAppearance;
 use crate::{
-    color::sRGBColor,
-    coordinates::spherical::SphericalCoordinates,
-    error::AstroUtilError,
-    units::{angle::Angle, illuminance::Illuminance, temperature},
-    Float,
+    color::sRGBColor, coordinates::spherical::SphericalCoordinates, error::AstroUtilError, Float,
 };
 use serde::{Deserialize, Serialize};
 

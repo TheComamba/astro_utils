@@ -5,7 +5,6 @@ use crate::{
         true_anomaly,
     },
     stars::star_data::StarData,
-    units::{angle::Angle, length::Length, mass::Mass, time::Time},
     Float,
 };
 use serde::{Deserialize, Serialize};

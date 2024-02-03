@@ -7,7 +7,6 @@ use super::{
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
-    units::length::Length,
     Float, PI,
 };
 use rand::{

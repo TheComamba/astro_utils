@@ -1,7 +1,6 @@
 use std::fmt::Display;
 
 use super::{direction::Direction, spherical::SphericalCoordinates};
-use crate::units::angle::Angle;
 
 pub struct EquatorialCoordinates {
     spherical: SphericalCoordinates,
@@ -69,7 +68,6 @@ mod tests {
             spherical::SphericalCoordinates,
         },
         tests::TEST_ACCURACY,
-        units::angle::Angle,
         Float,
     };
 

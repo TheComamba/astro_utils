@@ -1,10 +1,7 @@
 use std::fmt::Display;
 
 use self::color_matching_functions::*;
-use crate::{
-    units::{length::Length, temperature::Temperature},
-    Float,
-};
+use crate::Float;
 use serde::{Deserialize, Serialize};
 
 pub mod black_body;

@@ -1,7 +1,5 @@
 use std::fmt::Display;
 
-use crate::{units::angle::Angle, Float};
-
 pub struct RightAscension {
     pub(super) hours: i8,
     pub(super) minutes: i8,

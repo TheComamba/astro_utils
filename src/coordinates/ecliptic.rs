@@ -1,5 +1,4 @@
 use super::spherical::SphericalCoordinates;
-use crate::units::angle::Angle;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 use std::ops::Neg;

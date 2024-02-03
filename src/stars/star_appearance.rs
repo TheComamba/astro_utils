@@ -1,8 +1,4 @@
-use crate::{
-    color::sRGBColor,
-    coordinates::direction::Direction,
-    units::{angle::Angle, illuminance::Illuminance},
-};
+use crate::{color::sRGBColor, coordinates::direction::Direction};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -1,10 +1,5 @@
 use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
-use crate::{
-    color::sRGBColor,
-    coordinates::earth_equatorial::EarthEquatorialCoordinates,
-    units::{angle::Angle, length::Length, mass::Mass, time::Time},
-    Float,
-};
+use crate::{color::sRGBColor, coordinates::earth_equatorial::EarthEquatorialCoordinates, Float};
 
 pub struct RealData {
     pub name: &'static str,

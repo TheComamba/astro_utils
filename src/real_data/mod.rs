@@ -1,8 +1,3 @@
-use crate::units::{
-    length::{Length, AU_PER_SUN_RADII},
-    mass::{Mass, KILOGRAMS_PER_SOLAR_MASS},
-};
-
 pub mod planets;
 pub mod stars;
 

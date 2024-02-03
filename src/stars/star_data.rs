@@ -1,12 +1,5 @@
 use super::star_appearance::StarAppearance;
-use crate::{
-    color::sRGBColor,
-    coordinates::direction::Direction,
-    units::{
-        illuminance::Illuminance, length::Length, luminosity::Luminosity, mass::Mass,
-        temperature::Temperature, time::Time,
-    },
-};
+use crate::{color::sRGBColor, coordinates::direction::Direction};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

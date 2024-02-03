@@ -4,13 +4,6 @@ use crate::{
         right_ascension::RightAscension,
     },
     stars::real_data::RealData,
-    units::{
-        length::{Length, AU_PER_LIGHT_YEARS, AU_PER_SUN_RADII},
-        luminosity::Luminosity,
-        mass::{Mass, KILOGRAMS_PER_SOLAR_MASS},
-        temperature::Temperature,
-        time::{Time, SECONDS_PER_BILLION_YEARS},
-    },
 };
 
 //https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html

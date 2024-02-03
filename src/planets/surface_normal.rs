@@ -1,6 +1,5 @@
 use crate::{
     coordinates::{direction::Direction, equatorial::EquatorialCoordinates},
-    units::{angle::Angle, time::Time},
     TWO_PI,
 };
 

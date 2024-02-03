@@ -3,7 +3,7 @@ use super::{
     direction::Direction,
     right_ascension::RightAscension,
 };
-use crate::{units::angle::Angle, Float, PI};
+use crate::{Float, PI};
 use serde::{Deserialize, Serialize};
 use std::{
     fmt::{Display, Formatter},

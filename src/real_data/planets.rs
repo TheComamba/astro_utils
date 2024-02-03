@@ -2,12 +2,6 @@ use crate::color::sRGBColor;
 use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
 use crate::planets::orbit_parameters::OrbitParameters;
 use crate::planets::real_data::RealData;
-use crate::units::angle::{Angle, RADIANS_PER_DEGREE};
-use crate::units::length::{Length, AU_PER_EARTH_RADII, AU_PER_JUPITER_RADII, AU_PER_KILOMETERS};
-use crate::units::mass::{
-    Mass, KILOGRAMS_PER_EARTH_MASS, KILOGRAMS_PER_JUPITER_MASS, KILOGRAMS_PER_MOON_MASS,
-};
-use crate::units::time::{Time, SECONDS_PER_DAY, SECONDS_PER_HOUR};
 
 pub const MERCURY: RealData = RealData {
     name: "Mercury",

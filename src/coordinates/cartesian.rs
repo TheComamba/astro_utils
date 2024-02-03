@@ -2,11 +2,7 @@ use super::{
     direction::Direction, ecliptic::EclipticCoordinates, rotations::rotated_tuple,
     spherical::SphericalCoordinates,
 };
-use crate::{
-    error::AstroUtilError,
-    units::{angle::Angle, length::Length},
-    Float,
-};
+use crate::{error::AstroUtilError, Float};
 use serde::{Deserialize, Serialize};
 use std::{
     fmt::{Display, Formatter},

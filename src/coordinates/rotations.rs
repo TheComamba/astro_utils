@@ -1,5 +1,5 @@
 use super::direction::Direction;
-use crate::{units::angle::Angle, Float};
+use crate::Float;
 use std::ops::{Add, Mul};
 
 pub(super) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle, axis: &Direction) -> (T, T, T)

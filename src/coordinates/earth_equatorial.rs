@@ -1,10 +1,7 @@
 use std::fmt::Display;
 
 use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
-use crate::{
-    real_data::planets::EARTH,
-    units::{angle::Angle, length::Length},
-};
+use crate::real_data::planets::EARTH;
 
 pub struct EarthEquatorialCoordinates {
     right_ascension: Angle,

@@ -1,7 +1,4 @@
-use crate::{
-    units::{length::Length, temperature::Temperature},
-    Float,
-};
+use crate::Float;
 
 pub(crate) fn planck_radiant_emittance(wavelength: Length, temperature: Temperature) -> Float {
     const H: Float = 6.62607015e-34;

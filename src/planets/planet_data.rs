@@ -5,7 +5,6 @@ use crate::{
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
     stars::{star_appearance::StarAppearance, star_data::StarData},
-    units::{angle::Angle, length::Length, luminosity::Luminosity, mass::Mass, time::Time},
     Float,
 };
 use serde::{Deserialize, Serialize};
