@@ -29,7 +29,7 @@ const XYZ_TO_sRGB: [[Float; 3]; 3] = [
     [0.0052, -0.0144, 1.0092],
 ];
 
-#[derive(Debug, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, PartialOrd)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
 pub struct sRGBColor {
@@ -41,7 +41,7 @@ pub struct sRGBColor {
 impl Display for sRGBColor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let (r, g, b) = self.maximized_sRGB_tuple();
-        write!(f, "(r: {:.2}, g: {:.2}, b: {:.2})", r, g, b)
+        write!(f, "({:.2}, {:.2}, {:.2})", r, g, b)
     }
 }
 
@@ -54,6 +54,16 @@ pub struct XYZColor {
 
 impl sRGBColor {
     pub(crate) const DEFAULT: Self = sRGBColor::from_sRGB(1., 1., 1.);
+
+    fn to_array(&self) -> [Float; 3] {
+        [self.R, self.G, self.B]
+    }
+
+    fn from_array(array: [Float; 3]) -> Result<Self, String> {
+        #[allow(non_snake_case)]
+        let [R, G, B] = array;
+        Ok(sRGBColor { R, G, B })
+    }
 
     #[allow(non_snake_case)]
     pub const fn from_sRGB(R: Float, G: Float, B: Float) -> sRGBColor {
@@ -79,6 +89,19 @@ impl sRGBColor {
         let Z =
             sRGB_TO_XYZ[2][0] * self.R + sRGB_TO_XYZ[2][1] * self.G + sRGB_TO_XYZ[2][2] * self.B;
         XYZColor { X, Y, Z }
+    }
+}
+
+impl Serialize for sRGBColor {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        self.to_array().serialize(serializer)
+    }
+}
+
+impl<'de> Deserialize<'de> for sRGBColor {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let array = <[Float; 3]>::deserialize(deserializer)?;
+        sRGBColor::from_array(array).map_err(serde::de::Error::custom)
     }
 }
 
