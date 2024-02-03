@@ -2,6 +2,7 @@ use super::orbit_parameters::OrbitParameters;
 use crate::{
     color::sRGBColor,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
+    error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
     stars::{star_appearance::StarAppearance, star_data::StarData},
     units::{angle::Angle, length::Length, luminosity::Luminosity, mass::Mass, time::Time},
@@ -135,7 +136,7 @@ impl PlanetData {
         central_body: &StarData,
         planet_pos: &CartesianCoordinates,
         observer_position: &CartesianCoordinates,
-    ) -> StarAppearance {
+    ) -> Result<StarAppearance, AstroUtilError> {
         let central_body_luminosity = central_body
             .get_luminosity()
             .unwrap_or(Luminosity::PRACICALLY_ZERO);
@@ -146,13 +147,13 @@ impl PlanetData {
             observer_position,
             self.radius,
             self.geometric_albedo,
-        );
+        )?;
         let relative_position = observer_position - planet_pos;
-        StarAppearance {
+        Ok(StarAppearance {
             name: self.name.clone(),
             illuminance: brightness,
             color: self.color.clone(),
-            direction_in_ecliptic: relative_position.to_direction(),
-        }
+            direction_in_ecliptic: relative_position.to_direction()?,
+        })
     }
 }

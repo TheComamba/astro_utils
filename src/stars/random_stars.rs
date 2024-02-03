@@ -8,7 +8,7 @@ use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     units::length::Length,
-    Float,
+    Float, PI,
 };
 use rand::{
     distributions::{Uniform, WeightedIndex},
@@ -22,18 +22,20 @@ const DIMMEST_VISIBLE_MAGNITUDE: Float = 6.5;
 
 pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
-    let number_of_stars_in_cube = STARS_PER_LY_CUBED * (max_distance * 2.).as_light_years().powi(3);
-    let number_of_stars_in_cube = number_of_stars_in_cube as usize;
+
+    let start = Instant::now();
+    let number_of_stars_in_sphere =
+        STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.as_light_years().powi(3);
+    let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
+    let max_distance_in_au_squared = max_distance.as_astronomical_units().powi(2);
     let mut rng = rand::thread_rng();
     let pos_distr = get_pos_distribution(max_distance);
     let mass_distr = get_mass_distribution();
     let mut stars = Vec::new();
-
-    let start = Instant::now();
-    for _ in 0..number_of_stars_in_cube {
+    for _ in 0..number_of_stars_in_sphere {
         if let Some(star) = generate_visible_random_star(
             &parsec_data,
-            max_distance,
+            max_distance_in_au_squared,
             &mut rng,
             &pos_distr,
             &mass_distr,
@@ -41,6 +43,7 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
             stars.push(star);
         }
     }
+
     let duration = start.elapsed();
     println!(
         "\nGenerated {} stars within {} in {:?}\n",
@@ -83,27 +86,23 @@ fn kroupa_mass_distribution(m_in_sun_masses: Float) -> Float {
 
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
-    max_distance: Length,
+    max_distance_in_au_squared: Float,
     rng: &mut ThreadRng,
     pos_distr: &Uniform<Float>,
     mass_index_distr: &WeightedIndex<Float>,
 ) -> Option<StarData> {
-    let pos = generate_random_3d_position(rng, pos_distr);
-    let distance = pos.length();
-    if distance > max_distance {
-        return None;
-    }
+    let pos = random_point_in_sphere(rng, pos_distr, max_distance_in_au_squared);
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
     let current_params = pick_random_age(&trajectory);
+    let distance = pos.length();
     let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
     if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
         return None;
     }
-
     let mut star = current_params.to_star_at_origin();
     star.distance = Some(distance);
-    star.direction_in_ecliptic = pos.to_direction();
+    star.direction_in_ecliptic = pos.to_direction().unwrap_or(random_direction(rng));
     Some(star)
 }
 
@@ -120,14 +119,28 @@ pub fn generate_random_star() -> Result<StarData, AstroUtilError> {
 }
 
 fn random_direction(rng: &mut ThreadRng) -> Direction {
-    let x = rng.gen_range(-1.0..=1.0);
-    let y = rng.gen_range(-1.0..=1.0);
-    let z = rng.gen_range(-1.0..=1.0);
-    let dir = Direction::new(x, y, z);
+    let point = random_point_in_sphere(rng, &Uniform::new(-1., 1.), 1.);
+    let dir = point.to_direction();
     match dir {
         Ok(dir) => dir,
         Err(_) => random_direction(rng),
     }
+}
+
+fn random_point_in_sphere(
+    rng: &mut ThreadRng,
+    distr: &Uniform<Float>,
+    max_distance_in_au_squared: Float,
+) -> CartesianCoordinates {
+    let (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
+    let distance_squared = x * x + y * y + z * z;
+    if distance_squared > max_distance_in_au_squared {
+        return random_point_in_sphere(rng, distr, max_distance_in_au_squared);
+    }
+    let x = Length::from_astronomical_units(rng.sample(distr));
+    let y = Length::from_astronomical_units(rng.sample(distr));
+    let z = Length::from_astronomical_units(rng.sample(distr));
+    CartesianCoordinates::new(x, y, z)
 }
 
 fn pick_random_age(trajectory: &Vec<ParsecLine>) -> &ParsecLine {
@@ -135,16 +148,6 @@ fn pick_random_age(trajectory: &Vec<ParsecLine>) -> &ParsecLine {
     let life_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
     let age_in_years = rng.gen_range(0..=life_expectancy);
     ParsecData::get_closest_params(trajectory, age_in_years as Float)
-}
-
-fn generate_random_3d_position(
-    rng: &mut ThreadRng,
-    distr: &Uniform<Float>,
-) -> CartesianCoordinates {
-    let x = Length::from_astronomical_units(rng.sample(distr));
-    let y = Length::from_astronomical_units(rng.sample(distr));
-    let z = Length::from_astronomical_units(rng.sample(distr));
-    CartesianCoordinates::new(x, y, z)
 }
 
 #[cfg(test)]

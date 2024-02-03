@@ -522,7 +522,7 @@ mod tests {
         let z = Length::from_light_years(-2000.);
         let cartesian = CartesianCoordinates::new(x, y, z);
         let expected = Direction::new(1., 0., -1.).unwrap();
-        let actual = cartesian.to_direction();
+        let actual = cartesian.to_direction().unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, TEST_ACCURACY));
     }

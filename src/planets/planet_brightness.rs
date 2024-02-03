@@ -1,5 +1,6 @@
 use crate::{
     coordinates::cartesian::CartesianCoordinates,
+    error::AstroUtilError,
     units::{angle::Angle, illuminance::Illuminance, length::Length, luminosity::Luminosity},
     Float, PI,
 };
@@ -34,10 +35,10 @@ pub fn planet_brightness(
     observer_position: &CartesianCoordinates,
     planet_radius: Length,
     geometric_albedo: Float,
-) -> Illuminance {
+) -> Result<Illuminance, AstroUtilError> {
     let planet_to_star = star_position - planet_position;
     let planet_to_observer = observer_position - planet_position;
-    let reflection_angle = planet_to_star.angle_to(&planet_to_observer);
+    let reflection_angle = planet_to_star.angle_to(&planet_to_observer)?;
     let planet_illuminance = star_luminosity.to_illuminance(&planet_to_star.length());
     let planet_luminance = (planet_illuminance * geometric_albedo).to_luminance_flat_surface();
     let solid_angle_at_obsverver = solid_angle(
@@ -45,7 +46,7 @@ pub fn planet_brightness(
         &planet_to_observer.length(),
         &reflection_angle,
     );
-    planet_luminance.to_illuminance(solid_angle_at_obsverver)
+    Ok(planet_luminance.to_illuminance(solid_angle_at_obsverver))
 }
 
 #[cfg(test)]
@@ -134,7 +135,8 @@ mod tests {
             &observer_position,
             VENUS.radius,
             VENUS.geometric_albedo,
-        );
+        )
+        .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
@@ -161,7 +163,8 @@ mod tests {
             &observer_position,
             MARS.radius,
             MARS.geometric_albedo * 2., //For some reason obscure to me, mars is brighter than expected
-        );
+        )
+        .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
@@ -191,7 +194,8 @@ mod tests {
             &observer_position,
             JUPITER.radius,
             JUPITER.geometric_albedo,
-        );
+        )
+        .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
@@ -221,7 +225,8 @@ mod tests {
             &observer_position,
             SATURN.radius,
             SATURN.geometric_albedo * 2., //Saturn's rings break the whole model
-        );
+        )
+        .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
@@ -251,7 +256,8 @@ mod tests {
             &observer_position,
             URANUS.radius,
             URANUS.geometric_albedo,
-        );
+        )
+        .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
@@ -281,7 +287,8 @@ mod tests {
             &observer_position,
             NEPTUNE.radius,
             NEPTUNE.geometric_albedo,
-        );
+        )
+        .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
         println!("ratio: {}", actual.as_lux() / expected.as_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
