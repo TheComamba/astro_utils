@@ -30,7 +30,7 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
     let max_distance_in_au_squared = max_distance.as_astronomical_units().powi(2);
     let mut rng = rand::thread_rng();
     let pos_distr = get_pos_distribution(max_distance);
-    let mass_distr = get_mass_distribution();
+    let mass_index_distr = get_mass_distribution();
     let mut stars = Vec::new();
     for _ in 0..number_of_stars_in_sphere {
         if let Some(star) = generate_visible_random_star(
@@ -38,7 +38,7 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
             max_distance_in_au_squared,
             &mut rng,
             &pos_distr,
-            &mass_distr,
+            &mass_index_distr,
         ) {
             stars.push(star);
         }
@@ -53,6 +53,56 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
     );
 
     Ok(stars)
+}
+
+pub fn generate_random_star() -> Result<StarData, AstroUtilError> {
+    let parsec_data = ParsecData::new()?;
+    let mut rng = rand::thread_rng();
+    let max_distance_in_au_squared = 1.;
+    let pos_distr =
+        get_pos_distribution(Length::from_astronomical_units(max_distance_in_au_squared));
+    let mass_index_distr = get_mass_distribution();
+    let mut star = generate_visible_random_star(
+        &parsec_data,
+        max_distance_in_au_squared,
+        &mut rng,
+        &pos_distr,
+        &mass_index_distr,
+    );
+    while star.is_none() {
+        star = generate_visible_random_star(
+            &parsec_data,
+            max_distance_in_au_squared,
+            &mut rng,
+            &pos_distr,
+            &mass_index_distr,
+        );
+    }
+    let mut star = star.unwrap();
+    star.distance = None;
+    Ok(star)
+}
+
+fn generate_visible_random_star(
+    parsec_data: &ParsecData,
+    max_distance_in_au_squared: Float,
+    rng: &mut ThreadRng,
+    pos_distr: &Uniform<Float>,
+    mass_index_distr: &WeightedIndex<Float>,
+) -> Option<StarData> {
+    let pos = random_point_in_sphere(rng, pos_distr, max_distance_in_au_squared);
+    let mass_index = rng.sample(mass_index_distr);
+    let trajectory = parsec_data.get_trajectory_via_index(mass_index);
+    let current_params = pick_random_age(&trajectory);
+    let distance = pos.length();
+    let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
+    if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
+        return None;
+    }
+    let mut star = current_params.to_star_at_origin();
+    star.distance = Some(distance);
+    star.direction_in_ecliptic = pos.to_direction().unwrap_or(random_direction(rng));
+    Some(star)
 }
 
 fn get_pos_distribution(max_distance: Length) -> Uniform<f32> {
@@ -82,40 +132,6 @@ fn kroupa_mass_distribution(m_in_sun_masses: Float) -> Float {
         2.7
     };
     m_in_sun_masses.powf(-alpha)
-}
-
-fn generate_visible_random_star(
-    parsec_data: &ParsecData,
-    max_distance_in_au_squared: Float,
-    rng: &mut ThreadRng,
-    pos_distr: &Uniform<Float>,
-    mass_index_distr: &WeightedIndex<Float>,
-) -> Option<StarData> {
-    let pos = random_point_in_sphere(rng, pos_distr, max_distance_in_au_squared);
-    let mass_index = rng.sample(mass_index_distr);
-    let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-    let current_params = pick_random_age(&trajectory);
-    let distance = pos.length();
-    let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
-    if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
-        return None;
-    }
-    let mut star = current_params.to_star_at_origin();
-    star.distance = Some(distance);
-    star.direction_in_ecliptic = pos.to_direction().unwrap_or(random_direction(rng));
-    Some(star)
-}
-
-pub fn generate_random_star() -> Result<StarData, AstroUtilError> {
-    let parsec_data = ParsecData::new()?;
-    let mut rng = rand::thread_rng();
-    let mass_distr = get_mass_distribution();
-    let mass_index = rng.sample(mass_distr);
-    let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-    let current_params = pick_random_age(&trajectory);
-    let mut star = current_params.to_star_at_origin();
-    star.direction_in_ecliptic = random_direction(&mut rng);
-    Ok(star)
 }
 
 fn random_direction(rng: &mut ThreadRng) -> Direction {
