@@ -17,8 +17,8 @@ pub struct PlanetData {
     pub(super) radius: Length,
     pub(super) geometric_albedo: Float,
     pub(super) color: sRGBColor,
-    pub(super) orbital_parameters: OrbitParameters,
     pub(super) sideral_rotation_period: Time,
+    pub(super) orbital_parameters: OrbitParameters,
     pub(super) rotation_axis: Direction,
 }
 
@@ -32,21 +32,21 @@ impl PlanetData {
     pub fn new(
         name: String,
         mass: Mass,
-        orbital_parameters: OrbitParameters,
         radius: Length,
         geometric_albedo: Float,
         color: sRGBColor,
         sideral_rotation_period: Time,
+        orbital_parameters: OrbitParameters,
         rotation_axis: Direction,
     ) -> Self {
         PlanetData {
             name,
             mass,
-            orbital_parameters,
             radius,
             geometric_albedo,
             color,
             sideral_rotation_period,
+            orbital_parameters,
             rotation_axis,
         }
     }

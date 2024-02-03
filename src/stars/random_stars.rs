@@ -134,7 +134,7 @@ fn kroupa_mass_distribution(m_in_sun_masses: Float) -> Float {
     m_in_sun_masses.powf(-alpha)
 }
 
-fn random_direction(rng: &mut ThreadRng) -> Direction {
+pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
     let point = random_point_in_sphere(rng, &Uniform::new(-1., 1.), 1.);
     let dir = point.to_direction();
     match dir {
