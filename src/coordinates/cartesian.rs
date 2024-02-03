@@ -2,7 +2,7 @@ use super::{
     direction::Direction, ecliptic::EclipticCoordinates, rotations::rotated_tuple,
     spherical::SphericalCoordinates,
 };
-use crate::{error::AstroUtilError, Float};
+use crate::{error::AstroUtilError, units::DISTANCE_ZERO, Float};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::{
@@ -19,9 +19,9 @@ pub struct CartesianCoordinates {
 
 impl CartesianCoordinates {
     pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
-        x: Distance::ZERO,
-        y: Distance::ZERO,
-        z: Distance::ZERO,
+        x: DISTANCE_ZERO,
+        y: DISTANCE_ZERO,
+        z: DISTANCE_ZERO,
     };
 
     pub const fn new(

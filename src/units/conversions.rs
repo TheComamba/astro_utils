@@ -1,4 +1,11 @@
-impl Angle {
+use crate::{Float, PI};
+use simple_si_units::{base::Distance, geometry::Angle};
+
+pub const RADIANS_PER_DEGREE: Float = PI / 180.;
+pub const SECONDS_PER_HOUR: Float = 60. * 60.;
+pub const SECONDS_PER_DAY: Float = 24. * SECONDS_PER_HOUR;
+
+impl Angle<Float> {
     pub fn from_arcsecs(arcsec: Float) -> Angle {
         Angle {
             radian: arcsec * RADIAN_PER_ARCSEC,

@@ -8,23 +8,27 @@ use crate::{
     Float,
 };
 use serde::{Deserialize, Serialize};
+use simple_si_units::{
+    base::{Distance, Mass, Time},
+    geometry::Angle,
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OrbitParameters {
-    pub(crate) semi_major_axis: Distance,
+    pub(crate) semi_major_axis: Distance<Float>,
     pub(crate) eccentricity: Float,
-    pub(crate) inclination: Angle, // The angle between the orbital plane and the reference plane
-    pub(crate) longitude_of_ascending_node: Angle, // The angle between the reference plane and the ascending node
-    pub(crate) argument_of_periapsis: Angle, // The angle between the ascending node and the periapsis
+    pub(crate) inclination: Angle<Float>, // The angle between the orbital plane and the reference plane
+    pub(crate) longitude_of_ascending_node: Angle<Float>, // The angle between the reference plane and the ascending node
+    pub(crate) argument_of_periapsis: Angle<Float>, // The angle between the ascending node and the periapsis
 }
 
 impl OrbitParameters {
     pub fn new(
-        semi_major_axis: Distance,
+        semi_major_axis: Distance<Float>,
         eccentricity: Float,
-        inclination: Angle, // The angle between the orbital plane and the reference plane
-        longitude_of_ascending_node: Angle, // The angle between the reference plane and the ascending node
-        argument_of_periapsis: Angle, // The angle between the ascending node and the periapsis
+        inclination: Angle<Float>, // The angle between the orbital plane and the reference plane
+        longitude_of_ascending_node: Angle<Float>, // The angle between the reference plane and the ascending node
+        argument_of_periapsis: Angle<Float>, // The angle between the ascending node and the periapsis
     ) -> Self {
         OrbitParameters {
             semi_major_axis,
@@ -35,7 +39,7 @@ impl OrbitParameters {
         }
     }
 
-    pub fn get_semi_major_axis(&self) -> Distance {
+    pub fn get_semi_major_axis(&self) -> Distance<Float> {
         self.semi_major_axis
     }
 
@@ -43,23 +47,23 @@ impl OrbitParameters {
         self.eccentricity
     }
 
-    pub fn get_inclination(&self) -> Angle {
+    pub fn get_inclination(&self) -> Angle<Float> {
         self.inclination
     }
 
-    pub fn get_longitude_of_ascending_node(&self) -> Angle {
+    pub fn get_longitude_of_ascending_node(&self) -> Angle<Float> {
         self.longitude_of_ascending_node
     }
 
-    pub fn get_argument_of_periapsis(&self) -> Angle {
+    pub fn get_argument_of_periapsis(&self) -> Angle<Float> {
         self.argument_of_periapsis
     }
 
     pub fn calculate_position(
         &self,
-        body_mass: Mass,
+        body_mass: Mass<Float>,
         central_body: &StarData,
-        time: Time,
+        time: Time<Float>,
     ) -> CartesianCoordinates {
         let orbital_period = orbital_period(
             self.semi_major_axis,

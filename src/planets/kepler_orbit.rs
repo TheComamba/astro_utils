@@ -1,19 +1,28 @@
 use super::orbit_parameters::OrbitParameters;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates},
+    units::ANGLE_ZERO,
     Float, TWO_PI,
+};
+use simple_si_units::{
+    base::{Distance, Mass, Time},
+    geometry::Angle,
 };
 
 /*
  * The orbital period is the time it takes for a given object to make one full orbit around another object.
  * https://en.wikipedia.org/wiki/Orbital_period
  */
-pub fn orbital_period(semi_major_axis: Distance, mass1: Mass, mass2: Mass) -> Time {
+pub fn orbital_period(
+    semi_major_axis: Distance<Float>,
+    mass1: Mass<Float>,
+    mass2: Mass<Float>,
+) -> Time<Float> {
     const G: Float = 6.67430e-11;
 
-    let semi_major_axis_cubed = semi_major_axis.as_meters().powi(3);
-    let total_mass = (mass1 + mass2).as_kilograms();
-    let orbital_period = TWO_PI * (semi_major_axis_cubed / total_mass / G).sqrt();
+    let semi_major_axis_cubed = semi_major_axis * semi_major_axis * semi_major_axis;
+    let total_mass = mass1 + mass2;
+    let orbital_period = TWO_PI * ((semi_major_axis_cubed / total_mass).m3_per_kg / G).sqrt();
     Time::from_seconds(orbital_period)
 }
 
@@ -24,10 +33,9 @@ pub fn orbital_period(semi_major_axis: Distance, mass1: Mass, mass2: Mass) -> Ti
  *
  * Output is normalised to the range [-π, π].
  */
-pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
-    let mean_motion = TWO_PI / orbital_period.as_seconds();
-    let mean_anomaly = mean_motion * (time.as_seconds() % orbital_period.as_seconds());
-    let mut mean_anomaly = Angle::from_radians(mean_anomaly);
+pub fn mean_anomaly(orbital_period: Time<Float>, time: Time<Float>) -> Angle<Float> {
+    let mean_motion = TWO_PI / orbital_period;
+    let mean_anomaly = mean_motion * (time % orbital_period);
     mean_anomaly.normalize();
     mean_anomaly
 }
@@ -37,9 +45,9 @@ pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
  * as seen from the center of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/Eccentric_anomaly
  */
-pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
+pub fn eccentric_anomaly(mean_anomaly: Angle<Float>, eccentricity: Float) -> Angle<Float> {
     const ACCURACY: Float = 1e-6;
-    let mean_anomaly = mean_anomaly.as_radians();
+    let mean_anomaly = mean_anomaly.to_radians();
     let mut eccentric_anomaly = mean_anomaly;
     let mut error = 10. * ACCURACY;
     while error > ACCURACY {
@@ -59,7 +67,7 @@ pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: Float) -> Angle {
  * as seen from the main focus of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/True_anomaly
  */
-pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
+pub fn true_anomaly(eccentric_anomaly: Angle<Float>, eccentricity: Float) -> Angle<Float> {
     let sqrt_arg = (1. + eccentricity) / (1. - eccentricity);
     let artan_arg = (eccentric_anomaly.as_radians() / 2.).tan() * sqrt_arg.sqrt();
     let true_anomaly = 2. * artan_arg.atan();
@@ -72,10 +80,10 @@ pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
  * https://en.wikipedia.org/wiki/Ellipse#Distance_from_focus
  */
 fn distance_from_focus(
-    semi_major_axis: Distance,
-    true_anomaly: Angle,
+    semi_major_axis: Distance<Float>,
+    true_anomaly: Angle<Float>,
     eccentricity: Float,
-) -> Distance {
+) -> Distance<Float> {
     let numerator = 1. - eccentricity * eccentricity;
     let denominator = 1. + eccentricity * true_anomaly.cos();
     semi_major_axis * numerator / denominator
@@ -86,12 +94,12 @@ fn distance_from_focus(
  * https://en.wikipedia.org/wiki/Orbital_elements#Position_relative_to_the_central_body
  */
 pub fn position_relative_to_central_body(
-    semi_major_axis: Distance,
+    semi_major_axis: Distance<Float>,
     eccentricity: Float,
-    true_anomaly: Angle,
+    true_anomaly: Angle<Float>,
     orientation: &OrbitParameters,
 ) -> CartesianCoordinates {
-    let ecliptic_from_focus = SphericalCoordinates::new(true_anomaly, Angle::ZERO);
+    let ecliptic_from_focus = SphericalCoordinates::new(true_anomaly, ANGLE_ZERO);
     let direction = ecliptic_from_focus.to_direction();
     let distance_from_focus = distance_from_focus(semi_major_axis, true_anomaly, eccentricity);
     let position = direction.to_cartesian(distance_from_focus);
@@ -103,7 +111,8 @@ mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
         real_data::{planets::*, SUN_MASS},
-        tests::{TEST_ANGLE_ACCURACY, TEST_LENGTH_ACCURACY},
+        tests::{eq, eq_within},
+        units::DISTANCE_ZERO,
     };
 
     use super::*;
@@ -144,7 +153,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_years(4.), Time::from_years(1.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(mean_anomaly, expected_mean_anomaly));
     }
 
     #[test]
@@ -153,7 +162,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_years(4.), Time::from_years(2.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(mean_anomaly, expected_mean_anomaly));
     }
 
     #[test]
@@ -162,19 +171,23 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_years(4.), Time::from_years(-1.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(mean_anomaly, expected_mean_anomaly));
     }
 
     #[test]
     fn mean_anomaly_is_stable_after_loads_of_revolutions() {
-        const LOCAL_TEST_ANGLE_ACCURACY: Angle = Angle::from_radians(5e-3 * TWO_PI);
+        const LOCAL_TEST_ANGLE_ACCURACY: Angle<Float> = Angle { rad: 5e-3 * TWO_PI };
 
         let expected_mean_anomaly = Angle::from_radians(TWO_PI / 4.);
         let passed_time = Time::from_years(1e5 + 0.25);
         let mean_anomaly = mean_anomaly(Time::from_years(1.), passed_time);
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(mean_anomaly.eq_within(expected_mean_anomaly, LOCAL_TEST_ANGLE_ACCURACY));
+        assert!(eq_within(
+            mean_anomaly,
+            expected_mean_anomaly,
+            LOCAL_TEST_ANGLE_ACCURACY
+        ));
     }
 
     #[test]
@@ -183,7 +196,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 4.), 0.);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -192,7 +205,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 2.), 0.);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -201,7 +214,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI * 3. / 4.), 0.);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -210,7 +223,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(-TWO_PI / 4.), 0.);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -219,7 +232,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 4.), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -228,7 +241,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI / 2.), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -237,7 +250,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(TWO_PI * 3. / 4.), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -246,7 +259,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(Angle::from_radians(-TWO_PI / 4.), 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eccentric_anomaly.eq_within(expected_eccentric_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -255,7 +268,7 @@ mod tests {
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI / 4.), 0.);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(true_anomaly, expected_true_anomaly));
     }
 
     #[test]
@@ -264,7 +277,7 @@ mod tests {
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI / 2.), 0.);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(true_anomaly, expected_true_anomaly));
     }
 
     #[test]
@@ -273,7 +286,7 @@ mod tests {
         let true_anomaly = true_anomaly(Angle::from_radians(TWO_PI * 3. / 4.), 0.);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(true_anomaly.eq_within(expected_true_anomaly, TEST_ANGLE_ACCURACY));
+        assert!(eq(true_anomaly, expected_true_anomaly));
     }
 
     #[test]
@@ -283,41 +296,42 @@ mod tests {
         let eccentricity = (1. - (semi_minor_axis / semi_major_axis).powi(2)).sqrt();
         let linear_eccentricity = semi_major_axis * eccentricity;
         let focal_point =
-            CartesianCoordinates::new(linear_eccentricity, Distance::ZERO, Distance::ZERO);
+            CartesianCoordinates::new(linear_eccentricity, DISTANCE_ZERO, DISTANCE_ZERO);
 
-        let eccentric_anom = Angle::ZERO;
+        let eccentric_anom = ANGLE_ZERO;
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(semi_major_axis, Distance::ZERO, Distance::ZERO);
+        let point = CartesianCoordinates::new(semi_major_axis, DISTANCE_ZERO, DISTANCE_ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
         println!("Calculated distance from focus: {}", actual);
-        assert!(actual.eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let eccentric_anom = Angle::from_radians(TWO_PI / 4.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(Distance::ZERO, semi_minor_axis, Distance::ZERO);
+        let point = CartesianCoordinates::new(DISTANCE_ZERO, semi_minor_axis, DISTANCE_ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
         println!("Calculated distance from focus: {}", actual);
-        assert!(actual.eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let eccentric_anom = Angle::from_radians(TWO_PI / 2.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(-semi_major_axis, Distance::ZERO, Distance::ZERO);
+        let point = CartesianCoordinates::new(-semi_major_axis, DISTANCE_ZERO, DISTANCE_ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
         println!("Calculated distance from focus: {}", actual);
-        assert!(actual.eq_within(&expected, TEST_LENGTH_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let eccentric_anom = Angle::from_radians(TWO_PI * 3. / 4.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(Distance::ZERO, -semi_minor_axis, Distance::ZERO);
+        let point = CartesianCoordinates::new(DISTANCE_ZERO, -semi_minor_axis, DISTANCE_ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
         println!("Calculated distance from focus: {}", actual);
+        assert!(eq(actual, &expected));
     }
 }

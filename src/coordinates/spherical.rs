@@ -3,7 +3,7 @@ use super::{
     direction::Direction,
     right_ascension::RightAscension,
 };
-use crate::{Float, PI};
+use crate::{units::ANGLE_ZERO, Float, PI};
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::{
@@ -21,17 +21,17 @@ pub struct SphericalCoordinates {
 
 impl SphericalCoordinates {
     pub const X_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-        longitude: Angle::ZERO,
-        latitude: Angle::ZERO,
+        longitude: ANGLE_ZERO,
+        latitude: ANGLE_ZERO,
     };
 
     pub const Y_DIRECTION: SphericalCoordinates = SphericalCoordinates {
         longitude: Angle::from_radians(PI / 2.),
-        latitude: Angle::ZERO,
+        latitude: ANGLE_ZERO,
     };
 
     pub const Z_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-        longitude: Angle::ZERO,
+        longitude: ANGLE_ZERO,
         latitude: Angle::from_radians(PI / 2.),
     };
 
@@ -57,8 +57,8 @@ impl SphericalCoordinates {
 
     #[cfg(test)]
     pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<Float>) -> bool {
-        let NORTHPOLE_LATITUDE = Angle::from_radians(PI_HALF);
-        let SOUTHPOLE_LATITUDE = Angle::from_radians(-PI_HALF);
+        const NORTHPOLE_LATITUDE: Angle<Float> = Angle { rad: PI_HALF };
+        const SOUTHPOLE_LATITUDE: Angle<Float> = Angle { rad: -PI_HALF };
         let mut clone = self.clone();
         let mut other_clone = other.clone();
         clone.normalize();
@@ -290,14 +290,14 @@ mod tests {
         };
         let expected_minus_x = SphericalCoordinates {
             longitude: Angle::from_radians(PI),
-            latitude: Angle::ZERO,
+            latitude: ANGLE_ZERO,
         };
         let expected_minus_y = SphericalCoordinates {
             longitude: Angle::from_radians(-PI_HALF),
-            latitude: Angle::ZERO,
+            latitude: ANGLE_ZERO,
         };
         let expected_minus_z = SphericalCoordinates {
-            longitude: Angle::ZERO,
+            longitude: ANGLE_ZERO,
             latitude: Angle::from_radians(-PI_HALF),
         };
         let expected_minus_xyz = SphericalCoordinates {
@@ -327,12 +327,12 @@ mod tests {
 
     #[test]
     fn test_eq_within() {
-        let local_test_angle_accuracy = 10. * TEST_ACCURACY;
+        const LOCAL_TEST_ANGLE_ACCURACY: Float = 10. * TEST_ACCURACY;
 
         let small_offsets = vec![
-            -local_test_angle_accuracy / 100.,
-            Angle::ZERO,
-            local_test_angle_accuracy / 100.,
+            -LOCAL_TEST_ANGLE_ACCURACY / 100.,
+            ANGLE_ZERO,
+            LOCAL_TEST_ANGLE_ACCURACY / 100.,
         ];
         let large_offsets = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
         let directions = vec![
@@ -363,11 +363,11 @@ mod tests {
                         latitude: latitude2,
                     };
                     println!("Expecting {} == {}", direction, coords1);
-                    assert![eq_within(direction, &coords1, local_test_angle_accuracy)];
+                    assert![eq_within(direction, &coords1, LOCAL_TEST_ANGLE_ACCURACY)];
                     println!("Expecting {} == {}", direction, coords2);
-                    assert![eq_within(direction, &coords2, local_test_angle_accuracy)];
+                    assert![eq_within(direction, &coords2, LOCAL_TEST_ANGLE_ACCURACY)];
                     println!("Expecting {} == {}", direction, coords3);
-                    assert![eq_within(direction, &coords3, local_test_angle_accuracy)];
+                    assert![eq_within(direction, &coords3, LOCAL_TEST_ANGLE_ACCURACY)];
                 }
             }
         }
@@ -375,7 +375,7 @@ mod tests {
 
     #[test]
     fn test_normalization_two_pi_offsets() {
-        let local_test_angle_accuracy = 10. * TEST_ACCURACY;
+        const LOCAL_TEST_ANGLE_ACCURACY: Float = 10. * TEST_ACCURACY;
 
         let longitudes = vec![
             -0.75 * PI,
@@ -420,9 +420,9 @@ mod tests {
                     coords2.normalize();
                     coords3.normalize();
                     coords4.normalize();
-                    assert!(coords1.eq_within(&coords2, local_test_angle_accuracy));
-                    assert!(coords1.eq_within(&coords3, local_test_angle_accuracy));
-                    assert!(coords1.eq_within(&coords4, local_test_angle_accuracy));
+                    assert!(coords1.eq_within(&coords2, LOCAL_TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords3, LOCAL_TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords4, LOCAL_TEST_ANGLE_ACCURACY));
                 }
             }
         }
@@ -431,7 +431,7 @@ mod tests {
     #[test]
     fn test_normalization_crossing_poles() {
         let mut coord = SphericalCoordinates {
-            longitude: Angle::ZERO,
+            longitude: ANGLE_ZERO,
             latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
@@ -443,7 +443,7 @@ mod tests {
         assert!(eq(coord, &expected));
 
         let mut coord = SphericalCoordinates {
-            longitude: Angle::ZERO,
+            longitude: ANGLE_ZERO,
             latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
@@ -459,7 +459,7 @@ mod tests {
             latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
-            longitude: Angle::ZERO,
+            longitude: ANGLE_ZERO,
             latitude: Angle::from_radians(PI / 4.),
         };
         coord.normalize();
@@ -471,7 +471,7 @@ mod tests {
             latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
-            longitude: Angle::ZERO,
+            longitude: ANGLE_ZERO,
             latitude: Angle::from_radians(-PI / 4.),
         };
         coord.normalize();
@@ -512,7 +512,7 @@ mod tests {
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(coord.eq_within(&expected, TEST_ACCURACY));
     }
 
     #[test]
@@ -529,7 +529,7 @@ mod tests {
                 let (ra, dec) = spherical.to_ra_and_dec();
                 let spherical2 = SphericalCoordinates::new(ra.to_angle(), dec.to_angle());
                 println!("spherical: {}, spherical2: {}", spherical, spherical2);
-                assert!(spherical.eq_within(&spherical2, 10. * TEST_ANGLE_ACCURACY));
+                assert!(spherical.eq_within(&spherical2, 10. * TEST_ACCURACY));
             }
         }
     }

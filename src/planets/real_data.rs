@@ -1,3 +1,8 @@
+use simple_si_units::{
+    base::{Distance, Mass, Time},
+    geometry::Angle,
+};
+
 use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
 use crate::{color::sRGBColor, coordinates::earth_equatorial::EarthEquatorialCoordinates, Float};
 
@@ -7,10 +12,10 @@ pub struct RealData {
     pub geometric_albedo: Float,
     pub bond_albedo: Option<Float>,
     pub color: sRGBColor,
-    pub radius: Distance,
-    pub mass: Mass,
-    pub siderial_rotation_period: Time,
-    pub axis_tilt: Angle,
+    pub radius: Distance<Float>,
+    pub mass: Mass<Float>,
+    pub siderial_rotation_period: Time<Float>,
+    pub axis_tilt: Angle<Float>,
     pub rotation_axis: EarthEquatorialCoordinates,
 }
 

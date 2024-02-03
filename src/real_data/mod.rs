@@ -1,5 +1,8 @@
+use crate::Float;
+use simple_si_units::base::{Distance, Mass};
+
 pub mod planets;
 pub mod stars;
 
-pub const SUN_MASS: Mass = Mass::from_kilograms(KILOGRAMS_PER_SOLAR_MASS);
-pub const SUN_RADIUS: Distance = Distance::from_astronomical_units(AU_PER_SUN_RADII);
+pub const SUN_MASS: Mass<Float> = Mass { kg: 1.988e30 };
+pub const SUN_RADIUS: Distance<Float> = Distance { m: 6.957e8 };
