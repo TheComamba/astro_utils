@@ -1,9 +1,18 @@
 use crate::{Float, PI};
 use simple_si_units::{base::Distance, geometry::Angle};
 
+// Angle
 pub const RADIANS_PER_DEGREE: Float = PI / 180.;
+
+// Mass
+pub const KILOGRAMS_PER_SOLAR_MASS: Float = 1.988e30;
+
+// Time
 pub const SECONDS_PER_HOUR: Float = 60. * 60.;
 pub const SECONDS_PER_DAY: Float = 24. * SECONDS_PER_HOUR;
+pub const SECONDS_PER_YEAR: Float = 365.25 * SECONDS_PER_DAY;
+pub const SECONDS_PER_MILLION_YEARS: Float = 1e6 * SECONDS_PER_YEAR;
+pub const SECONDS_PER_BILLION_YEARS: Float = 1e9 * SECONDS_PER_YEAR;
 
 impl Angle<Float> {
     pub fn from_arcsecs(arcsec: Float) -> Angle {

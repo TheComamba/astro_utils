@@ -13,7 +13,7 @@ pub struct RealData {
     pub astronomical_name: &'static str,
     pub mass: Option<Mass>,
     pub radius: Option<Length>,
-    pub luminosity: Luminosity,
+    pub absolute_magnitude: Float,
     pub apparent_magnitude: Float,
     pub temperature: Option<Temperature>,
     pub age: Option<Time>,
