@@ -165,7 +165,11 @@ impl Display for SphericalCoordinates {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{coordinates::cartesian::CartesianCoordinates, TWO_PI};
+    use crate::{
+        coordinates::cartesian::CartesianCoordinates,
+        tests::{eq, eq_within, TEST_ACCURACY},
+        TWO_PI,
+    };
     use simple_si_units::base::Distance;
 
     #[test]
@@ -181,7 +185,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let cartesian = CartesianCoordinates::new(
             Distance::from_meters(1.),
@@ -194,7 +198,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let cartesian = CartesianCoordinates::new(
             Distance::from_meters(1.),
@@ -207,7 +211,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let cartesian = CartesianCoordinates::new(
             Distance::from_meters(1.),
@@ -220,7 +224,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let cartesian = CartesianCoordinates::new(
             Distance::from_meters(-1.),
@@ -233,7 +237,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let cartesian = CartesianCoordinates::new(
             Distance::from_meters(-1.),
@@ -246,7 +250,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let cartesian = CartesianCoordinates::new(
             Distance::from_meters(-1.),
@@ -259,7 +263,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
 
         let cartesian = CartesianCoordinates::new(
             Distance::from_meters(-1.),
@@ -272,7 +276,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
     }
 
     #[test]
@@ -303,27 +307,27 @@ mod tests {
 
         let minus_x = -x;
         println!("-x, expected: {}, actual: {}", expected_minus_x, minus_x);
-        assert!(minus_x.eq_within(&expected_minus_x, TEST_ANGLE_ACCURACY));
+        assert!(eq(minus_x, &expected_minus_x));
 
         let minus_y = -y;
         println!("-y, expected: {}, actual: {}", expected_minus_y, minus_y);
-        assert!(minus_y.eq_within(&expected_minus_y, TEST_ANGLE_ACCURACY));
+        assert!(eq(minus_y, &expected_minus_y));
 
         let minus_z = -z;
         println!("-z, expected: {}, actual: {}", expected_minus_z, minus_z);
-        assert!(minus_z.eq_within(&expected_minus_z, TEST_ANGLE_ACCURACY));
+        assert!(eq(minus_z, &expected_minus_z));
 
         let minus_xyz = -xyz;
         println!(
             "-xyz, expected: {}, actual: {}",
             expected_minus_xyz, minus_xyz
         );
-        assert!(minus_xyz.eq_within(&expected_minus_xyz, TEST_ANGLE_ACCURACY));
+        assert!(eq(minus_xyz, &expected_minus_xyz));
     }
 
     #[test]
     fn test_eq_within() {
-        let local_test_angle_accuracy: Angle = 10. * TEST_ANGLE_ACCURACY;
+        let local_test_angle_accuracy = 10. * TEST_ACCURACY;
 
         let small_offsets = vec![
             -local_test_angle_accuracy / 100.,
@@ -359,11 +363,11 @@ mod tests {
                         latitude: latitude2,
                     };
                     println!("Expecting {} == {}", direction, coords1);
-                    assert![direction.eq_within(&coords1, local_test_angle_accuracy)];
+                    assert![eq_within(direction, &coords1, local_test_angle_accuracy)];
                     println!("Expecting {} == {}", direction, coords2);
-                    assert![direction.eq_within(&coords2, local_test_angle_accuracy)];
+                    assert![eq_within(direction, &coords2, local_test_angle_accuracy)];
                     println!("Expecting {} == {}", direction, coords3);
-                    assert![direction.eq_within(&coords3, local_test_angle_accuracy)];
+                    assert![eq_within(direction, &coords3, local_test_angle_accuracy)];
                 }
             }
         }
@@ -371,6 +375,8 @@ mod tests {
 
     #[test]
     fn test_normalization_two_pi_offsets() {
+        let local_test_angle_accuracy = 10. * TEST_ACCURACY;
+
         let longitudes = vec![
             -0.75 * PI,
             -0.5 * PI,
@@ -414,9 +420,9 @@ mod tests {
                     coords2.normalize();
                     coords3.normalize();
                     coords4.normalize();
-                    assert!(coords1.eq_within(&coords2, 10. * TEST_ANGLE_ACCURACY));
-                    assert!(coords1.eq_within(&coords3, 10. * TEST_ANGLE_ACCURACY));
-                    assert!(coords1.eq_within(&coords4, 10. * TEST_ANGLE_ACCURACY));
+                    assert!(coords1.eq_within(&coords2, local_test_angle_accuracy));
+                    assert!(coords1.eq_within(&coords3, local_test_angle_accuracy));
+                    assert!(coords1.eq_within(&coords4, local_test_angle_accuracy));
                 }
             }
         }
@@ -434,7 +440,7 @@ mod tests {
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(coord, &expected));
 
         let mut coord = SphericalCoordinates {
             longitude: Angle::ZERO,
@@ -446,7 +452,7 @@ mod tests {
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(coord, &expected));
 
         let mut coord = SphericalCoordinates {
             longitude: Angle::from_radians(PI),
@@ -458,7 +464,7 @@ mod tests {
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(coord, &expected));
 
         let mut coord = SphericalCoordinates {
             longitude: Angle::from_radians(PI),
@@ -470,7 +476,7 @@ mod tests {
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(coord, &expected));
 
         let mut coord = SphericalCoordinates {
             longitude: Angle::from_radians(PI / 2.),
@@ -482,7 +488,7 @@ mod tests {
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(coord, &expected));
 
         let mut coord = SphericalCoordinates {
             longitude: Angle::from_radians(PI / 2.),
@@ -494,7 +500,7 @@ mod tests {
         };
         coord.normalize();
         println!("expected: {}, actual: {}", expected, coord);
-        assert!(coord.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(coord, &expected));
 
         let mut coord = SphericalCoordinates {
             longitude: Angle::from_radians(3. / 2. * PI),
