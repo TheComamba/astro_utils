@@ -73,7 +73,7 @@ impl RealData {
 
 #[cfg(test)]
 mod tests {
-    use crate::data::stars::BRIGHTEST_STARS;
+    use crate::real_data::stars::BRIGHTEST_STARS;
 
     #[test]
     fn calculate_apparent_magnitude() {

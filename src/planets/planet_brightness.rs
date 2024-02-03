@@ -54,7 +54,7 @@ mod tests {
     use super::*;
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
-        data::{planets::*, SUN_RADIUS},
+        real_data::{planets::*, SUN_RADIUS},
         units::length::Length,
     };
 

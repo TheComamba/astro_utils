@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
 use crate::{
-    data::planets::EARTH,
+    real_data::planets::EARTH,
     units::{angle::Angle, length::Length},
 };
 
@@ -73,7 +73,7 @@ mod tests {
             earth_equatorial::EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
             ecliptic::EclipticCoordinates, spherical::SphericalCoordinates,
         },
-        data::planets::*,
+        real_data::planets::*,
         tests::TEST_ANGLE_ACCURACY,
         units::angle::Angle,
     };

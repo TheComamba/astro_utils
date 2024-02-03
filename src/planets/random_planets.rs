@@ -1,7 +1,7 @@
 use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
 use crate::{
     color::sRGBColor,
-    data::planets::*,
+    real_data::planets::*,
     stars::random_stars::random_direction,
     units::{angle::Angle, length::Length, mass::Mass, time::Time},
 };

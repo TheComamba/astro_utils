@@ -3,8 +3,8 @@ use super::{
     rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
 use crate::{
-    data::planets::EARTH,
     error::AstroUtilError,
+    real_data::planets::EARTH,
     units::{angle::Angle, length::Length},
     Float, PI,
 };

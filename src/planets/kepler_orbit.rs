@@ -103,7 +103,7 @@ pub fn position_relative_to_central_body(
 mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
-        data::{planets::*, SUN_MASS},
+        real_data::{planets::*, SUN_MASS},
         tests::{TEST_ANGLE_ACCURACY, TEST_LENGTH_ACCURACY},
     };
 

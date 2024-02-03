@@ -123,7 +123,7 @@ pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
 
 #[cfg(test)]
 mod tests {
-    use crate::data::stars::BRIGHTEST_STARS;
+    use crate::real_data::stars::BRIGHTEST_STARS;
 
     use super::*;
 
