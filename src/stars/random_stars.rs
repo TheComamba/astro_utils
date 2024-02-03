@@ -55,10 +55,12 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
     Ok(stars)
 }
 
-pub fn generate_random_star() -> Result<StarData, AstroUtilError> {
+pub fn generate_random_star(max_distance: Option<Length>) -> Result<StarData, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
     let mut rng = rand::thread_rng();
-    let max_distance_in_au_squared = 1.;
+    let max_distance_in_au_squared = max_distance
+        .map(|d| d.as_astronomical_units().powi(2))
+        .unwrap_or(1.);
     let pos_distr =
         get_pos_distribution(Length::from_astronomical_units(max_distance_in_au_squared));
     let mass_index_distr = get_mass_distribution();
@@ -79,7 +81,9 @@ pub fn generate_random_star() -> Result<StarData, AstroUtilError> {
         );
     }
     let mut star = star.unwrap();
-    star.distance = None;
+    if max_distance.is_none() {
+        star.distance = None;
+    }
     Ok(star)
 }
 
