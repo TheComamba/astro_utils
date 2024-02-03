@@ -298,7 +298,7 @@ fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
 mod tests {
     use super::*;
     use crate::{
-        data::stars::{BRIGHTEST_STARS, SUN_DATA},
+        real_data::stars::{BRIGHTEST_STARS, SUN_DATA},
         units::{length::AU_PER_SUN_RADII, mass::KILOGRAMS_PER_SOLAR_MASS},
     };
 

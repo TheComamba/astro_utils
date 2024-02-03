@@ -113,9 +113,9 @@ impl Time {
 impl Display for Time {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         if self.seconds.abs() > 0.99 * SECONDS_PER_BILLION_YEARS {
-            write!(f, "{:.2} byrs", self.as_billion_years())
+            write!(f, "{:.2} Gyrs", self.as_billion_years())
         } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLION_YEARS {
-            write!(f, "{:.2} myrs", self.as_million_years())
+            write!(f, "{:.2} Myrs", self.as_million_years())
         } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLENIUM {
             write!(f, "{:.2} kyr", self.as_thousand_years())
         } else if self.seconds.abs() > 0.99 * SECONDS_PER_YEAR {
@@ -215,9 +215,9 @@ mod tests {
         let time = Time::from_thousand_years(1.);
         assert_eq!(format!("{}", time), "1.00 kyr");
         let time = Time::from_million_years(1.);
-        assert_eq!(format!("{}", time), "1.00 myrs");
+        assert_eq!(format!("{}", time), "1.00 Myrs");
         let time = Time::from_billion_years(1.);
-        assert_eq!(format!("{}", time), "1.00 byrs");
+        assert_eq!(format!("{}", time), "1.00 Gyrs");
     }
 
     #[test]
@@ -235,8 +235,8 @@ mod tests {
         let time = Time::from_thousand_years(-1.);
         assert_eq!(format!("{}", time), "-1.00 kyr");
         let time = Time::from_million_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 myrs");
+        assert_eq!(format!("{}", time), "-1.00 Myrs");
         let time = Time::from_billion_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 byrs");
+        assert_eq!(format!("{}", time), "-1.00 Gyrs");
     }
 }

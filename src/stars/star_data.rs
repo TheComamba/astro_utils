@@ -22,12 +22,34 @@ pub struct StarData {
 }
 
 impl StarData {
+    pub fn new(
+        name: String,
+        mass: Option<Mass>,
+        radius: Option<Length>,
+        luminosity: Option<Luminosity>,
+        temperature: Option<Temperature>,
+        age: Option<Time>,
+        distance: Option<Length>,
+        direction_in_ecliptic: Direction,
+    ) -> Self {
+        Self {
+            name,
+            mass,
+            radius,
+            luminosity,
+            temperature,
+            age,
+            distance,
+            direction_in_ecliptic,
+        }
+    }
+
     pub fn get_name(&self) -> &String {
         &self.name
     }
 
-    pub const fn get_radius(&self) -> Option<Length> {
-        self.radius
+    pub const fn get_radius(&self) -> &Option<Length> {
+        &self.radius
     }
 
     pub const fn get_mass(&self) -> &Option<Mass> {
@@ -52,6 +74,38 @@ impl StarData {
 
     pub const fn get_direction_in_ecliptic(&self) -> &Direction {
         &self.direction_in_ecliptic
+    }
+
+    pub fn set_name(&mut self, name: String) {
+        self.name = name;
+    }
+
+    pub fn set_mass(&mut self, mass: Option<Mass>) {
+        self.mass = mass;
+    }
+
+    pub fn set_radius(&mut self, radius: Option<Length>) {
+        self.radius = radius;
+    }
+
+    pub fn set_luminosity(&mut self, luminosity: Option<Luminosity>) {
+        self.luminosity = luminosity;
+    }
+
+    pub fn set_temperature(&mut self, temperature: Option<Temperature>) {
+        self.temperature = temperature;
+    }
+
+    pub fn set_age(&mut self, age: Option<Time>) {
+        self.age = age;
+    }
+
+    pub fn set_distance(&mut self, distance: Option<Length>) {
+        self.distance = distance;
+    }
+
+    pub fn set_direction_in_ecliptic(&mut self, direction_in_ecliptic: Direction) {
+        self.direction_in_ecliptic = direction_in_ecliptic;
     }
 
     pub fn to_star_appearance(&self) -> StarAppearance {

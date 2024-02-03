@@ -3,6 +3,7 @@ use super::{
     spherical::SphericalCoordinates,
 };
 use crate::{
+    error::AstroUtilError,
     units::{angle::Angle, length::Length},
     Float,
 };
@@ -67,17 +68,12 @@ impl CartesianCoordinates {
         CartesianCoordinates { x, y, z }
     }
 
-    pub fn angle_to(&self, other: &CartesianCoordinates) -> Angle {
-        self.to_direction().angle_to(&other.to_direction())
+    pub fn angle_to(&self, other: &CartesianCoordinates) -> Result<Angle, AstroUtilError> {
+        Ok(self.to_direction()?.angle_to(&other.to_direction()?))
     }
 
-    pub fn to_direction(&self) -> Direction {
-        let length = self.length();
-        Direction {
-            x: self.x() / length,
-            y: self.y() / length,
-            z: self.z() / length,
-        }
+    pub fn to_direction(&self) -> Result<Direction, AstroUtilError> {
+        Direction::new(self.x.au, self.y.au, self.z.au)
     }
 
     pub fn to_ecliptic(&self) -> EclipticCoordinates {
