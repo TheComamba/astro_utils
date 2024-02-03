@@ -1,17 +1,10 @@
 use std::fmt::Display;
 
 use crate::units::{
-    illuminance::Illuminance,
     length::{Length, *},
     mass::{Mass, *},
     time::{Time, *},
 };
-
-impl Display for Illuminance {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:.2} mag", self.as_apparent_magnitude())
-    }
-}
 
 impl Display for Length {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {

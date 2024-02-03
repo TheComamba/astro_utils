@@ -8,7 +8,6 @@ pub mod error;
 pub mod planets;
 pub mod real_data;
 pub mod stars;
-pub mod unit_formatting;
 pub mod units;
 
 #[cfg(test)]

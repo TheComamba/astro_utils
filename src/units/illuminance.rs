@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use super::{length::Length, luminance::Luminance, luminosity::Luminosity};
 use crate::{Float, PI};
 use serde::{Deserialize, Serialize};
@@ -5,6 +7,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
 pub struct Illuminance {
     pub(crate) lux: Float,
+}
+
+impl Display for Illuminance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:.2} mag", self.as_apparent_magnitude())
+    }
 }
 
 impl Illuminance {
