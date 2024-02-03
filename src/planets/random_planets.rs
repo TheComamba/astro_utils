@@ -67,3 +67,13 @@ pub fn generate_random_planet() -> PlanetData {
         rotation_axis,
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn generate_random_planet_does_not_crash() {
+        let _ = generate_random_planet();
+    }
+}
