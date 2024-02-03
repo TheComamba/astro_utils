@@ -1,8 +1,8 @@
-use std::fmt::Display;
-
 use self::color_matching_functions::*;
 use crate::Float;
 use serde::{Deserialize, Serialize};
+use simple_si_units::base::{Distance, Temperature};
+use std::fmt::Display;
 
 pub mod black_body;
 pub(crate) mod color_matching_functions;
@@ -67,7 +67,7 @@ impl sRGBColor {
         sRGBColor { R, G, B }
     }
 
-    pub fn from_temperature(temperature: Temperature) -> sRGBColor {
+    pub fn from_temperature(temperature: Temperature<Float>) -> sRGBColor {
         XYZColor::from_temperature(temperature).to_sRGB()
     }
 
@@ -109,10 +109,10 @@ impl XYZColor {
     }
 
     #[allow(non_snake_case)]
-    pub(super) fn from_temperature(temperature: Temperature) -> Self {
-        let x_fun = Box::new(|lambda: Length| x_color_matching(lambda));
-        let y_fun = Box::new(|lambda: Length| y_color_matching(lambda));
-        let z_fun = Box::new(|lambda: Length| z_color_matching(lambda));
+    pub(super) fn from_temperature(temperature: Temperature<Float>) -> Self {
+        let x_fun = Box::new(|lambda: Distance<Float>| x_color_matching(lambda));
+        let y_fun = Box::new(|lambda: Distance<Float>| y_color_matching(lambda));
+        let z_fun = Box::new(|lambda: Distance<Float>| z_color_matching(lambda));
         let X = convolute_with_black_body(x_fun, temperature);
         let Y = convolute_with_black_body(y_fun, temperature);
         let Z = convolute_with_black_body(z_fun, temperature);

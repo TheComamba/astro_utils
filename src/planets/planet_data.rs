@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 pub struct PlanetData {
     pub(super) name: String,
     pub(super) mass: Mass,
-    pub(super) radius: Length,
+    pub(super) radius: Distance,
     pub(super) geometric_albedo: Float,
     pub(super) color: sRGBColor,
     pub(super) sideral_rotation_period: Time,
@@ -31,7 +31,7 @@ impl PlanetData {
     pub fn new(
         name: String,
         mass: Mass,
-        radius: Length,
+        radius: Distance,
         geometric_albedo: Float,
         color: sRGBColor,
         sideral_rotation_period: Time,
@@ -58,7 +58,7 @@ impl PlanetData {
         self.mass
     }
 
-    pub fn get_radius(&self) -> Length {
+    pub fn get_radius(&self) -> Distance {
         self.radius
     }
 
@@ -90,7 +90,7 @@ impl PlanetData {
         self.mass = mass;
     }
 
-    pub fn set_radius(&mut self, radius: Length) {
+    pub fn set_radius(&mut self, radius: Distance) {
         self.radius = radius;
     }
 
@@ -102,7 +102,7 @@ impl PlanetData {
         self.color = color;
     }
 
-    pub fn set_semi_major_axis(&mut self, semi_major_axis: Length) {
+    pub fn set_semi_major_axis(&mut self, semi_major_axis: Distance) {
         self.orbital_parameters.semi_major_axis = semi_major_axis;
     }
 

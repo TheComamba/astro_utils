@@ -1,8 +1,9 @@
 use super::direction::Direction;
 use crate::Float;
+use simple_si_units::geometry::Angle;
 use std::ops::{Add, Mul};
 
-pub(super) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle, axis: &Direction) -> (T, T, T)
+pub(super) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle<Float>, axis: &Direction) -> (T, T, T)
 where
     T: Mul<Float, Output = T> + Add<Output = T> + Copy,
 {
@@ -33,7 +34,7 @@ where
     (x_out, y_out, z_out)
 }
 
-pub fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle, Direction) {
+pub fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle<Float>, Direction) {
     let angle = start.angle_to(end);
     let axis = start.cross_product(end);
     if let Ok(axis) = axis {
@@ -47,13 +48,13 @@ pub fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle, Di
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     use crate::{
         coordinates::{
             direction::Direction,
             rotations::{get_rotation_parameters, rotated_tuple},
         },
         tests::TEST_ACCURACY,
-        units::angle::Angle,
         Float, TWO_PI,
     };
 
@@ -64,12 +65,24 @@ mod tests {
     const Z_VECTOR: (Float, Float, Float) = (0., 0., 1.);
     const MINUS_Z_VECTOR: (Float, Float, Float) = (0., 0., -1.);
 
-    const QUARTER_TURN: Angle = Angle::from_radians(TWO_PI / 4.);
-    const HALF_TURN: Angle = Angle::from_radians(TWO_PI / 2.);
-    const THREE_QUARTER_TURN: Angle = Angle::from_radians(3. / 4. * TWO_PI);
-    const FULL_TURN: Angle = Angle::from_radians(TWO_PI);
-    const ONE_THIRD_TURN: Angle = Angle::from_radians(TWO_PI / 3.);
-    const TWO_THIRDS_TURN: Angle = Angle::from_radians(2. / 3. * TWO_PI);
+    fn quarter_turn() -> Angle<Float> {
+        Angle::from_radians(TWO_PI / 4.)
+    }
+    fn half_turn() -> Angle<Float> {
+        Angle::from_radians(TWO_PI / 2.)
+    }
+    fn three_quarter_turn() -> Angle<Float> {
+        Angle::from_radians(3. / 4. * TWO_PI)
+    }
+    fn full_turn() -> Angle<Float> {
+        Angle::from_radians(TWO_PI)
+    }
+    fn one_third_turn() -> Angle<Float> {
+        Angle::from_radians(TWO_PI / 3.)
+    }
+    fn two_thirds_turn() -> Angle<Float> {
+        Angle::from_radians(2. / 3. * TWO_PI)
+    }
 
     fn kinda_equal(a: (Float, Float, Float), b: (Float, Float, Float)) -> bool {
         let (ax, ay, az) = a;
@@ -90,22 +103,22 @@ mod tests {
     fn test_rotating_x_around_z() {
         let start = X_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::Z);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, half_turn, &Direction::Z);
         let expected = MINUS_X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::Z);
         let expected = MINUS_Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, full_turn, &Direction::Z);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -115,22 +128,22 @@ mod tests {
     fn test_rotating_y_around_z() {
         let start = Y_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::Z);
         let expected = MINUS_X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, half_turn, &Direction::Z);
         let expected = MINUS_Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::Z);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, full_turn, &Direction::Z);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -140,22 +153,22 @@ mod tests {
     fn test_rotating_z_around_z() {
         let start = Z_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::Z);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, half_turn, &Direction::Z);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::Z);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::Z);
+        let rotated = rotated_tuple(start, full_turn, &Direction::Z);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -165,22 +178,22 @@ mod tests {
     fn test_rotating_x_around_x() {
         let start = X_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::X);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, half_turn, &Direction::X);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::X);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, full_turn, &Direction::X);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -190,22 +203,22 @@ mod tests {
     fn test_rotating_y_around_x() {
         let start = Y_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::X);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, half_turn, &Direction::X);
         let expected = MINUS_Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::X);
         let expected = MINUS_Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, full_turn, &Direction::X);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -215,22 +228,22 @@ mod tests {
     fn test_rotating_z_around_x() {
         let start = Z_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::X);
         let expected = MINUS_Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, half_turn, &Direction::X);
         let expected = MINUS_Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::X);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::X);
+        let rotated = rotated_tuple(start, full_turn, &Direction::X);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -240,22 +253,22 @@ mod tests {
     fn test_rotating_x_around_y() {
         let start = X_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::Y);
         let expected = MINUS_Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, half_turn, &Direction::Y);
         let expected = MINUS_X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::Y);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, full_turn, &Direction::Y);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -265,22 +278,22 @@ mod tests {
     fn test_rotating_y_around_y() {
         let start = Y_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::Y);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, half_turn, &Direction::Y);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::Y);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, full_turn, &Direction::Y);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -290,22 +303,22 @@ mod tests {
     fn test_rotating_z_around_y() {
         let start = Z_VECTOR;
 
-        let rotated = rotated_tuple(start, QUARTER_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, quarter_turn, &Direction::Y);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, HALF_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, half_turn, &Direction::Y);
         let expected = MINUS_Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, THREE_QUARTER_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, three_quarter_turn, &Direction::Y);
         let expected = MINUS_X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(start, FULL_TURN, &Direction::Y);
+        let rotated = rotated_tuple(start, full_turn, &Direction::Y);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
@@ -315,47 +328,47 @@ mod tests {
     fn test_rotating_around_diagonal_axis() {
         let axis = Direction::new(1., 1., 1.).unwrap();
 
-        let rotated = rotated_tuple(X_VECTOR, ONE_THIRD_TURN, &axis);
+        let rotated = rotated_tuple(X_VECTOR, one_third_turn, &axis);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(Y_VECTOR, ONE_THIRD_TURN, &axis);
+        let rotated = rotated_tuple(Y_VECTOR, one_third_turn, &axis);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(Z_VECTOR, ONE_THIRD_TURN, &axis);
+        let rotated = rotated_tuple(Z_VECTOR, one_third_turn, &axis);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(X_VECTOR, TWO_THIRDS_TURN, &axis);
+        let rotated = rotated_tuple(X_VECTOR, two_thirds_turn, &axis);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(Y_VECTOR, TWO_THIRDS_TURN, &axis);
+        let rotated = rotated_tuple(Y_VECTOR, two_thirds_turn, &axis);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(Z_VECTOR, TWO_THIRDS_TURN, &axis);
+        let rotated = rotated_tuple(Z_VECTOR, two_thirds_turn, &axis);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(X_VECTOR, -ONE_THIRD_TURN, &axis);
+        let rotated = rotated_tuple(X_VECTOR, -one_third_turn, &axis);
         let expected = Z_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(Y_VECTOR, -ONE_THIRD_TURN, &axis);
+        let rotated = rotated_tuple(Y_VECTOR, -one_third_turn, &axis);
         let expected = X_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));
 
-        let rotated = rotated_tuple(Z_VECTOR, -ONE_THIRD_TURN, &axis);
+        let rotated = rotated_tuple(Z_VECTOR, -one_third_turn, &axis);
         let expected = Y_VECTOR;
         print_expectations(expected, rotated);
         assert!(kinda_equal(rotated, expected));

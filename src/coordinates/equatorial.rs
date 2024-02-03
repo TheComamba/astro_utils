@@ -1,6 +1,7 @@
-use std::fmt::Display;
-
 use super::{direction::Direction, spherical::SphericalCoordinates};
+use crate::Float;
+use simple_si_units::geometry::Angle;
+use std::fmt::Display;
 
 pub struct EquatorialCoordinates {
     spherical: SphericalCoordinates,
@@ -15,19 +16,19 @@ impl EquatorialCoordinates {
         }
     }
 
-    pub fn get_longitude(&self) -> Angle {
+    pub fn get_longitude(&self) -> Angle<Float> {
         self.spherical.get_longitude()
     }
 
-    pub fn get_latitude(&self) -> Angle {
+    pub fn get_latitude(&self) -> Angle<Float> {
         self.spherical.get_latitude()
     }
 
-    pub fn set_longitude(&mut self, longitude: Angle) {
+    pub fn set_longitude(&mut self, longitude: Angle<Float>) {
         self.spherical.set_longitude(longitude);
     }
 
-    pub fn set_latitude(&mut self, latitude: Angle) {
+    pub fn set_latitude(&mut self, latitude: Angle<Float>) {
         self.spherical.set_latitude(latitude);
     }
 
@@ -58,6 +59,7 @@ impl Display for EquatorialCoordinates {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     use crate::{
         coordinates::{
             direction::Direction,

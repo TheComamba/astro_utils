@@ -9,7 +9,7 @@ pub fn generate_random_planet() -> PlanetData {
 
     let min = MERCURY.radius.as_kilometers() * 0.5;
     let max = JUPITER.radius.as_kilometers() * 2.0;
-    let radius = Length::from_kilometers(rng.gen_range(min..max));
+    let radius = Distance::from_kilometers(rng.gen_range(min..max));
 
     let min = SATURN.mass.as_jupiter_masses() / SATURN.radius.as_jupiter_radii().powi(3) * 0.9;
     let max = EARTH.mass.as_jupiter_masses() / EARTH.radius.as_jupiter_radii().powi(3) * 1.1;
@@ -29,7 +29,7 @@ pub fn generate_random_planet() -> PlanetData {
 
     let min = MERCURY.orbit.semi_major_axis.as_astronomical_units() * 0.5;
     let max = NEPTUNE.orbit.semi_major_axis.as_astronomical_units() * 2.0;
-    let semi_major_axis = Length::from_astronomical_units(rng.gen_range(min..max));
+    let semi_major_axis = Distance::from_astronomical_units(rng.gen_range(min..max));
 
     let min = 0.;
     let max = PLUTO.orbit.eccentricity * 2.0;

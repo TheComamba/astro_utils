@@ -19,7 +19,7 @@ use rand::{
 const STARS_PER_LY_CUBED: Float = 0.004;
 const DIMMEST_VISIBLE_MAGNITUDE: Float = 6.5;
 
-pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, AstroUtilError> {
+pub fn generate_random_stars(max_distance: Distance) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
 
     let start = Instant::now();
@@ -61,7 +61,7 @@ pub fn generate_random_star(max_distance: Option<Length>) -> Result<StarData, As
         .map(|d| d.as_astronomical_units().powi(2))
         .unwrap_or(1.);
     let pos_distr =
-        get_pos_distribution(max_distance.unwrap_or(Length::from_astronomical_units(1.)));
+        get_pos_distribution(max_distance.unwrap_or(Distance::from_astronomical_units(1.)));
     let mass_index_distr = get_mass_distribution();
     let mut star = generate_visible_random_star(
         &parsec_data,
@@ -108,7 +108,7 @@ fn generate_visible_random_star(
     Some(star)
 }
 
-fn get_pos_distribution(max_distance: Length) -> Uniform<f32> {
+fn get_pos_distribution(max_distance: Distance) -> Uniform<f32> {
     Uniform::new(
         -max_distance.as_astronomical_units(),
         max_distance.as_astronomical_units(),
@@ -155,9 +155,9 @@ fn random_point_in_sphere(
     while x * x + y * y + z * z > max_distance_in_au_squared {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     }
-    let x = Length::from_astronomical_units(rng.sample(distr));
-    let y = Length::from_astronomical_units(rng.sample(distr));
-    let z = Length::from_astronomical_units(rng.sample(distr));
+    let x = Distance::from_astronomical_units(rng.sample(distr));
+    let y = Distance::from_astronomical_units(rng.sample(distr));
+    let z = Distance::from_astronomical_units(rng.sample(distr));
     CartesianCoordinates::new(x, y, z)
 }
 
@@ -177,7 +177,7 @@ mod tests {
         // Generating 70_000 stars within 1000 ly takes round about 17 seconds in release mode.
         // But this should not take too long and also work in debug mode.
         // Furthermore, the parsec data needs to be loaded and parsed which takes some seconds.
-        let max_distance = Length::from_light_years(200.);
+        let max_distance = Distance::from_light_years(200.);
         let max_seconds = 60;
 
         // Downloading files should not count against the time.
@@ -192,7 +192,7 @@ mod tests {
 
     #[test]
     fn generating_a_distant_random_star() {
-        let max_distance = Length::from_light_years(1000.);
+        let max_distance = Distance::from_light_years(1000.);
         let star = generate_random_star(Some(max_distance));
         assert!(star.is_ok());
     }

@@ -1,5 +1,7 @@
 use super::spherical::SphericalCoordinates;
+use crate::Float;
 use serde::{Deserialize, Serialize};
+use simple_si_units::geometry::Angle;
 use std::fmt::{Display, Formatter};
 use std::ops::Neg;
 
@@ -35,15 +37,15 @@ impl EclipticCoordinates {
     }
 
     #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: &EclipticCoordinates, accuracy: Angle) -> bool {
+    pub(crate) fn eq_within(&self, other: &EclipticCoordinates, accuracy: Angle<Float>) -> bool {
         self.spherical.eq_within(&other.spherical, accuracy)
     }
 
-    pub fn get_longitude(&self) -> Angle {
+    pub fn get_longitude(&self) -> Angle<Float> {
         self.spherical.get_longitude()
     }
 
-    pub fn get_latitude(&self) -> Angle {
+    pub fn get_latitude(&self) -> Angle<Float> {
         self.spherical.get_latitude()
     }
 
@@ -51,11 +53,11 @@ impl EclipticCoordinates {
         &self.spherical
     }
 
-    pub fn set_longitude(&mut self, longitude: Angle) {
+    pub fn set_longitude(&mut self, longitude: Angle<Float>) {
         self.spherical.set_longitude(longitude);
     }
 
-    pub fn set_latitude(&mut self, latitude: Angle) {
+    pub fn set_latitude(&mut self, latitude: Angle<Float>) {
         self.spherical.set_latitude(latitude);
     }
 }

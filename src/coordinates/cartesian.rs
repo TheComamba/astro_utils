@@ -4,6 +4,7 @@ use super::{
 };
 use crate::{error::AstroUtilError, Float};
 use serde::{Deserialize, Serialize};
+use simple_si_units::{base::Distance, geometry::Angle};
 use std::{
     fmt::{Display, Formatter},
     ops::{Add, Div, Mul, Neg, Sub},
@@ -11,60 +12,68 @@ use std::{
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CartesianCoordinates {
-    x: Length,
-    y: Length,
-    z: Length,
+    x: Distance<Float>,
+    y: Distance<Float>,
+    z: Distance<Float>,
 }
 
 impl CartesianCoordinates {
     pub const ORIGIN: CartesianCoordinates = CartesianCoordinates {
-        x: Length::ZERO,
-        y: Length::ZERO,
-        z: Length::ZERO,
+        x: Distance::ZERO,
+        y: Distance::ZERO,
+        z: Distance::ZERO,
     };
 
-    pub const fn new(x: Length, y: Length, z: Length) -> CartesianCoordinates {
+    pub const fn new(
+        x: Distance<Float>,
+        y: Distance<Float>,
+        z: Distance<Float>,
+    ) -> CartesianCoordinates {
         CartesianCoordinates { x, y, z }
     }
 
     #[cfg(test)]
     #[allow(dead_code)]
-    pub(crate) fn eq_within(&self, other: &CartesianCoordinates, accuracy: Length) -> bool {
+    pub(crate) fn eq_within(
+        &self,
+        other: &CartesianCoordinates,
+        accuracy: Distance<Float>,
+    ) -> bool {
         self.x.eq_within(&other.x, accuracy)
             && self.y.eq_within(&other.y, accuracy)
             && self.z.eq_within(&other.z, accuracy)
     }
 
-    pub fn length(&self) -> Length {
+    pub fn length(&self) -> Distance<Float> {
         let x = self.x.au;
         let y = self.y.au;
         let z = self.z.au;
-        Length::from_astronomical_units((x * x + y * y + z * z).sqrt())
+        Distance::from_astronomical_units((x * x + y * y + z * z).sqrt())
     }
 
-    pub fn distance(&self, other: &CartesianCoordinates) -> Length {
+    pub fn distance(&self, other: &CartesianCoordinates) -> Distance<Float> {
         let diff = self - other;
         diff.length()
     }
 
-    pub fn x(&self) -> Length {
+    pub fn x(&self) -> Distance<Float> {
         self.x
     }
 
-    pub fn y(&self) -> Length {
+    pub fn y(&self) -> Distance<Float> {
         self.y
     }
 
-    pub fn z(&self) -> Length {
+    pub fn z(&self) -> Distance<Float> {
         self.z
     }
 
-    pub fn rotated(&self, angle: Angle, axis: &Direction) -> CartesianCoordinates {
+    pub fn rotated(&self, angle: Angle<Float>, axis: &Direction) -> CartesianCoordinates {
         let (x, y, z) = rotated_tuple((self.x, self.y, self.z), angle, axis);
         CartesianCoordinates { x, y, z }
     }
 
-    pub fn angle_to(&self, other: &CartesianCoordinates) -> Result<Angle, AstroUtilError> {
+    pub fn angle_to(&self, other: &CartesianCoordinates) -> Result<Angle<Float>, AstroUtilError> {
         Ok(self.to_direction()?.angle_to(&other.to_direction()?))
     }
 
@@ -211,20 +220,18 @@ impl Display for CartesianCoordinates {
 
 #[cfg(test)]
 mod tests {
-    use super::CartesianCoordinates;
-    use crate::{tests::TEST_LENGTH_ACCURACY, units::length::Length};
+    use crate::tests::eq;
+
+    use super::*;
 
     #[test]
     fn test_length() {
         let coordinates = CartesianCoordinates {
-            x: Length::from_meters(3.),
-            y: Length::from_meters(4.),
-            z: Length::from_meters(5.),
+            x: Distance::from_meters(3.),
+            y: Distance::from_meters(4.),
+            z: Distance::from_meters(5.),
         };
 
-        assert!(coordinates.length().eq_within(
-            &Length::from_meters(7.0710678118654755),
-            TEST_LENGTH_ACCURACY
-        ));
+        assert!(eq(coordinates.length().to_m(), 7.0710678118654755));
     }
 }

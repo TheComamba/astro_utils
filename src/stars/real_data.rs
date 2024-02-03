@@ -19,7 +19,7 @@ pub struct RealData {
     pub age: Option<Time>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
-    pub distance: Length,
+    pub distance: Distance,
 }
 
 impl RealData {

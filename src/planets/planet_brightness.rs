@@ -16,7 +16,7 @@ fn illuminated_fraction(reflection_angle: &Angle) -> Float {
     illuminated_fraction
 }
 
-fn solid_angle(radius: &Length, distance: &Length, reflection_angle: &Angle) -> Float {
+fn solid_angle(radius: &Distance, distance: &Distance, reflection_angle: &Angle) -> Float {
     let radius = radius.as_astronomical_units();
     let distance = distance.as_astronomical_units();
     let area = PI * radius.powi(2) * illuminated_fraction(reflection_angle);
@@ -28,7 +28,7 @@ pub fn planet_brightness(
     star_position: &CartesianCoordinates,
     planet_position: &CartesianCoordinates,
     observer_position: &CartesianCoordinates,
-    planet_radius: Length,
+    planet_radius: Distance,
     geometric_albedo: Float,
 ) -> Result<Illuminance, AstroUtilError> {
     let planet_to_star = star_position - planet_position;
@@ -115,13 +115,13 @@ mod tests {
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             VENUS.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let actual = planet_brightness(
             sun_luminosity,
@@ -144,12 +144,15 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
-        let planet_position =
-            CartesianCoordinates::new(MARS.orbit.get_semi_major_axis(), Length::ZERO, Length::ZERO);
+        let planet_position = CartesianCoordinates::new(
+            MARS.orbit.get_semi_major_axis(),
+            Distance::ZERO,
+            Distance::ZERO,
+        );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let actual = planet_brightness(
             sun_luminosity,
@@ -174,13 +177,13 @@ mod tests {
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             JUPITER.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let actual = planet_brightness(
             sun_luminosity,
@@ -205,13 +208,13 @@ mod tests {
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             SATURN.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let actual = planet_brightness(
             sun_luminosity,
@@ -236,13 +239,13 @@ mod tests {
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             URANUS.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let actual = planet_brightness(
             sun_luminosity,
@@ -267,13 +270,13 @@ mod tests {
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             NEPTUNE.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            Distance::ZERO,
+            Distance::ZERO,
         );
         let actual = planet_brightness(
             sun_luminosity,

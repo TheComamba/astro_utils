@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OrbitParameters {
-    pub(crate) semi_major_axis: Length,
+    pub(crate) semi_major_axis: Distance,
     pub(crate) eccentricity: Float,
     pub(crate) inclination: Angle, // The angle between the orbital plane and the reference plane
     pub(crate) longitude_of_ascending_node: Angle, // The angle between the reference plane and the ascending node
@@ -20,7 +20,7 @@ pub struct OrbitParameters {
 
 impl OrbitParameters {
     pub fn new(
-        semi_major_axis: Length,
+        semi_major_axis: Distance,
         eccentricity: Float,
         inclination: Angle, // The angle between the orbital plane and the reference plane
         longitude_of_ascending_node: Angle, // The angle between the reference plane and the ascending node
@@ -35,7 +35,7 @@ impl OrbitParameters {
         }
     }
 
-    pub fn get_semi_major_axis(&self) -> Length {
+    pub fn get_semi_major_axis(&self) -> Distance {
         self.semi_major_axis
     }
 

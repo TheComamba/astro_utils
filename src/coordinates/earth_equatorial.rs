@@ -1,15 +1,18 @@
+use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
+use crate::{real_data::planets::EARTH, Float};
+use simple_si_units::{base::Distance, geometry::Angle};
 use std::fmt::Display;
 
-use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
-use crate::real_data::planets::EARTH;
-
 pub struct EarthEquatorialCoordinates {
-    right_ascension: Angle,
-    declination: Angle,
+    right_ascension: Angle<Float>,
+    declination: Angle<Float>,
 }
 
 impl EarthEquatorialCoordinates {
-    pub const fn new(right_ascension: Angle, declination: Angle) -> EarthEquatorialCoordinates {
+    pub const fn new(
+        right_ascension: Angle<Float>,
+        declination: Angle<Float>,
+    ) -> EarthEquatorialCoordinates {
         EarthEquatorialCoordinates {
             right_ascension,
             declination,
@@ -26,7 +29,7 @@ impl EarthEquatorialCoordinates {
 
     pub fn to_ecliptic(&self) -> EclipticCoordinates {
         let dir = self.to_direction();
-        let vec = dir.to_cartesian(Length::from_meters(1.));
+        let vec = dir.to_cartesian(Distance::from_meters(1.));
         vec.to_ecliptic()
     }
 
@@ -35,7 +38,11 @@ impl EarthEquatorialCoordinates {
     }
 
     #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: &EarthEquatorialCoordinates, accuracy: Angle) -> bool {
+    pub(crate) fn eq_within(
+        &self,
+        other: &EarthEquatorialCoordinates,
+        accuracy: Angle<Float>,
+    ) -> bool {
         let mut self_spherical = SphericalCoordinates::new(self.right_ascension, self.declination);
         self_spherical.normalize();
         let mut other_spherical =
@@ -64,6 +71,8 @@ pub(super) const EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES: EclipticCoordinates =
 
 #[cfg(test)]
 mod tests {
+    use simple_si_units::geometry::Angle;
+
     use super::EarthEquatorialCoordinates;
     use crate::{
         coordinates::{
@@ -71,25 +80,25 @@ mod tests {
             ecliptic::EclipticCoordinates, spherical::SphericalCoordinates,
         },
         real_data::planets::*,
-        tests::TEST_ANGLE_ACCURACY,
-        units::angle::Angle,
+        tests::{eq, eq_within},
+        Float,
     };
 
-    const TILT_TEST_ACCURACY: Angle = Angle::from_radians(2e-3);
+    fn tilt_test_accuracy_degrees() -> Float {
+        2e-3
+    }
 
     /*
      * https://ned.ipac.caltech.edu/coordinate_calculator?in_csys=Equatorial&in_equinox=J2000.0&obs_epoch=2000.0&ra=0&dec=90&pa=0.0&out_csys=Ecliptic&out_equinox=J2000.0
      */
     #[test]
     fn ra_zero_dec_ninty_is_north_pole() {
-        let equatorial = EarthEquatorialCoordinates::new(Angle::ZERO, Angle::from_degrees(90.));
+        let equatorial =
+            EarthEquatorialCoordinates::new(Angle::from_degrees(0.), Angle::from_degrees(90.));
         let expected = EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES;
         let actual = equatorial.to_ecliptic();
         println!("expected: {},\n  actual: {}", expected, actual);
-        assert!(actual.eq_within(
-            &EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
-            TEST_ANGLE_ACCURACY
-        ));
+        assert!(eq(actual, &EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES));
     }
 
     /*
@@ -101,7 +110,7 @@ mod tests {
         let expected = EclipticCoordinates::X_DIRECTION;
         let actual = equatorial.to_ecliptic();
         println!("expected: {},\n  actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
     }
 
     /*
@@ -116,7 +125,7 @@ mod tests {
         ));
         let actual = equatorial.to_ecliptic();
         println!("expected: {},\n  actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
     }
 
     /*
@@ -128,7 +137,7 @@ mod tests {
         let expected = -EclipticCoordinates::X_DIRECTION;
         let actual = equatorial.to_ecliptic();
         println!("expected: {},\n  actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
     }
 
     /*
@@ -143,7 +152,7 @@ mod tests {
         ));
         let actual = equatorial.to_ecliptic();
         println!("expected: {},\n  actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
     }
 
     /*
@@ -155,7 +164,7 @@ mod tests {
         let expected = EclipticCoordinates::Y_DIRECTION;
         let actual = equatorial.to_ecliptic();
         println!("expected: {},\n  actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
     }
 
     /*
@@ -170,7 +179,7 @@ mod tests {
         let expected = EclipticCoordinates::Z_DIRECTION;
         let actual = equatorial.to_ecliptic();
         println!("expected: {},\n  actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
     }
 
     /*
@@ -186,7 +195,7 @@ mod tests {
         ));
         let actual = equatorial.to_ecliptic();
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(actual, &expected));
     }
 
     #[test]
@@ -200,7 +209,7 @@ mod tests {
                 let ecliptic_dir = equatorial.to_direction();
                 let actual = ecliptic_dir.to_earth_equatorial();
                 println!("expected: {}, actual: {}", equatorial, actual);
-                assert!(actual.eq_within(&equatorial, TEST_ANGLE_ACCURACY));
+                assert!(eq(actual, &equatorial));
             }
         }
     }
@@ -214,7 +223,7 @@ mod tests {
         let expected = MERCURY.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -226,7 +235,7 @@ mod tests {
         let expected = VENUS.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -238,7 +247,7 @@ mod tests {
         let expected = EARTH.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -250,7 +259,7 @@ mod tests {
         let expected = MARS.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -262,7 +271,7 @@ mod tests {
         let expected = CERES.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -274,7 +283,7 @@ mod tests {
         let expected = JUPITER.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -286,7 +295,7 @@ mod tests {
         let expected = SATURN.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -298,7 +307,7 @@ mod tests {
         let expected = URANUS.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -310,7 +319,7 @@ mod tests {
         let expected = NEPTUNE.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 
     #[test]
@@ -322,6 +331,6 @@ mod tests {
         let expected = PLUTO.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!("expected: {}, actual: {}", expected, actual);
-        assert!(actual.eq_within(expected, TILT_TEST_ACCURACY));
+        assert!(eq_within(actual, expected, tilt_test_accuracy_degrees()));
     }
 }

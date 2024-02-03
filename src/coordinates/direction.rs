@@ -4,6 +4,7 @@ use super::{
 };
 use crate::{error::AstroUtilError, real_data::planets::EARTH, Float, PI};
 use serde::{Deserialize, Serialize};
+use simple_si_units::{base::Distance, geometry::Angle};
 use std::{fmt::Display, ops::Neg};
 
 pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-5;
@@ -68,7 +69,7 @@ impl Direction {
         }
     }
 
-    pub fn to_cartesian(&self, length: Length) -> CartesianCoordinates {
+    pub fn to_cartesian(&self, length: Distance<Float>) -> CartesianCoordinates {
         CartesianCoordinates::new(self.x * length, self.y * length, self.z * length)
     }
 
@@ -88,7 +89,7 @@ impl Direction {
         self.z
     }
 
-    pub fn rotated(&self, angle: Angle, axis: &Direction) -> Direction {
+    pub fn rotated(&self, angle: Angle<Float>, axis: &Direction) -> Direction {
         let (x, y, z) = rotated_tuple((self.x, self.y, self.z), angle, axis);
         Direction { x, y, z }
     }
@@ -99,11 +100,11 @@ impl Direction {
             && (self.z - other.z).abs() < accuracy
     }
 
-    pub fn angle_to(&self, other: &Direction) -> Angle {
+    pub fn angle_to(&self, other: &Direction) -> Angle<Float> {
         let (ax, ay, az) = (self.x(), self.y(), self.z());
         let (bx, by, bz) = (other.x(), other.y(), other.z());
 
-        let cosine_argument = ax * bx + ay * by + az * bz; //Directions have unit length
+        let cosine_argument = ax * bx + ay * by + az * bz; //Directions have unit Distance
         if cosine_argument > 1. {
             //Saving acos from being called with an argument > 1 due to numerical instability
             return Angle::ZERO;
@@ -206,10 +207,13 @@ impl Display for Direction {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::tests::TEST_ACCURACY;
+    use crate::tests::{eq, TEST_ACCURACY};
 
-    const ROTATION_ANGLE_ACCURACY: Angle = Angle::from_radians(1e-3); //Accos is a bit unstable
+    use super::*;
+
+    fn rotation_angle_accuracy() -> Angle<Float> {
+        Angle::from_radians(1e-3); //Accos is a bit unstable
+    }
 
     #[test]
     fn from_spherical() {
@@ -217,9 +221,9 @@ mod tests {
         for x in values.iter() {
             for y in values.iter() {
                 for z in values.iter() {
-                    let x = Length::from_meters(*x);
-                    let y = Length::from_meters(*y);
-                    let z = Length::from_meters(*z);
+                    let x = Distance::from_meters(*x);
+                    let y = Distance::from_meters(*y);
+                    let z = Distance::from_meters(*z);
                     let cartesian = CartesianCoordinates::new(x, y, z);
                     let length = cartesian.length();
                     let expected_x = x / length;
@@ -227,9 +231,9 @@ mod tests {
                     let expected_z = z / length;
                     let direction = cartesian.to_spherical().to_direction();
 
-                    assert!((direction.x() - expected_x).abs() < TEST_ACCURACY);
-                    assert!((direction.y() - expected_y).abs() < TEST_ACCURACY);
-                    assert!((direction.z() - expected_z).abs() < TEST_ACCURACY);
+                    assert!(eq(direction.x(), expected_x));
+                    assert!(eq(direction.y(), expected_y));
+                    assert!(eq(direction.z(), expected_z));
                 }
             }
         }
@@ -237,37 +241,37 @@ mod tests {
 
     #[test]
     fn angle_between_is_half_turn() {
-        const EXPECTED: Angle = Angle::from_radians(PI);
+        const EXPECTED: Angle<Float> = Angle::from_radians(PI);
 
         let angle = Direction::X.angle_to(&(-&Direction::X));
         println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
 
         let angle = Direction::Y.angle_to(&(-&Direction::Y));
         println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
 
         let angle = Direction::Z.angle_to(&(-&Direction::Z));
         println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
 
         let angle1 = Direction::new(1., 1., 0.).unwrap();
         let angle2 = Direction::new(-1., -1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
 
         let angle1 = Direction::new(1., 0., 1.).unwrap();
         let angle2 = Direction::new(-1., 0., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
 
         let angle1 = Direction::new(0., 1., 1.).unwrap();
         let angle2 = Direction::new(0., -1., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
     }
 
     #[test]
@@ -276,50 +280,50 @@ mod tests {
 
         let angle = Direction::X.angle_to(&Direction::Y);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(expected, rotation_angle_accuracy()));
 
         let angle = Direction::X.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(expected, rotation_angle_accuracy()));
 
         let angle = Direction::Y.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(expected, rotation_angle_accuracy()));
 
         let angle1 = Direction::new(1., 1., 0.).unwrap();
         let angle2 = Direction::new(1., -1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(expected, rotation_angle_accuracy()));
 
         let angle1 = Direction::new(1., 0., 1.).unwrap();
         let angle2 = Direction::new(1., 0., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(expected, rotation_angle_accuracy()));
     }
 
     #[test]
     fn angle_between_is_zero() {
-        const EXPECTED: Angle = Angle::ZERO;
+        const EXPECTED: Angle<Float> = Angle::from_rad(0.);
 
         let angle = Direction::X.angle_to(&Direction::X);
         println!("expected: {}, actual: {}", EXPECTED, angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
 
         let angle = Direction::Y.angle_to(&Direction::Y);
         println!("expected: {}, actual: {}", EXPECTED, angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
 
         let angle = Direction::Z.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", EXPECTED, angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
 
         let angle1 = Direction::new(1., 1., 0.).unwrap();
         let angle2 = Direction::new(1., 1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", EXPECTED, angle);
-        assert!(angle.eq_within(EXPECTED, ROTATION_ANGLE_ACCURACY));
+        assert!(angle.eq_within(EXPECTED, rotation_angle_accuracy()));
     }
 
     #[test]
@@ -512,9 +516,9 @@ mod tests {
 
     #[test]
     fn direction_from_large_vector_is_ok() {
-        let x = Length::from_light_years(2000.);
-        let y = Length::from_light_years(1e-10);
-        let z = Length::from_light_years(-2000.);
+        let x = Distance::from_light_years(2000.);
+        let y = Distance::from_light_years(1e-10);
+        let z = Distance::from_light_years(-2000.);
         let cartesian = CartesianCoordinates::new(x, y, z);
         let expected = Direction::new(1., 0., -1.).unwrap();
         let actual = cartesian.to_direction().unwrap();

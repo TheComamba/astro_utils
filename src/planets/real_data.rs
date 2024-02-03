@@ -7,7 +7,7 @@ pub struct RealData {
     pub geometric_albedo: Float,
     pub bond_albedo: Option<Float>,
     pub color: sRGBColor,
-    pub radius: Length,
+    pub radius: Distance,
     pub mass: Mass,
     pub siderial_rotation_period: Time,
     pub axis_tilt: Angle,

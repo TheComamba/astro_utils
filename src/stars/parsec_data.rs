@@ -266,7 +266,7 @@ impl ParsecLine {
         Luminosity::from_solar_luminosities(lum)
     }
 
-    pub(super) fn get_apparent_magnitude(&self, distance: &Length) -> Float {
+    pub(super) fn get_apparent_magnitude(&self, distance: &Distance) -> Float {
         let lum = self.get_luminosity();
         let ill = lum.to_illuminance(&distance);
         ill.as_apparent_magnitude()
@@ -277,9 +277,9 @@ impl ParsecLine {
         Temperature::from_kelvin(temp)
     }
 
-    pub(super) fn get_radius(&self) -> Length {
+    pub(super) fn get_radius(&self) -> Distance {
         let radius = 10f32.powf(self.log_r);
-        Length::from_centimeters(radius)
+        Distance::from_centimeters(radius)
     }
 }
 
@@ -300,7 +300,7 @@ mod tests {
     #[test]
     fn test_caluclate_sun() {
         const MASS_ACCURACY: Mass = Mass::from_kilograms(1e-2 * KILOGRAMS_PER_SOLAR_MASS);
-        const RADIUS_ACCURACY: Length = Length::from_astronomical_units(0.1 * AU_PER_SUN_RADII);
+        const RADIUS_ACCURACY: Distance = Distance::from_astronomical_units(0.1 * AU_PER_SUN_RADII);
         const LUMINOSITY_ACCURACY: Luminosity = Luminosity::from_absolute_magnitude(0.05);
         const TEMPERATURE_ACCURACY: Temperature = Temperature::from_kelvin(500.);
         let parsec_data = ParsecData::new().unwrap();

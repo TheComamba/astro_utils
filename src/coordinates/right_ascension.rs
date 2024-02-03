@@ -1,3 +1,5 @@
+use crate::Float;
+use simple_si_units::geometry::Angle;
 use std::fmt::Display;
 
 pub struct RightAscension {
@@ -15,7 +17,7 @@ impl RightAscension {
         }
     }
 
-    pub fn to_angle(&self) -> Angle {
+    pub fn to_angle(&self) -> Angle<Float> {
         let hours = self.hours as Float;
         let minutes = self.minutes as Float;
         let seconds = self.seconds as Float;
@@ -36,9 +38,8 @@ impl Display for RightAscension {
 
 #[cfg(test)]
 mod tests {
-    use crate::tests::TEST_ANGLE_ACCURACY;
-
     use super::*;
+    use crate::tests::eq;
 
     #[test]
     fn one_second() {
@@ -46,6 +47,6 @@ mod tests {
         let expected = Angle::from_second_angle(1.);
         println!("{}", dec.to_angle().as_arcsecs());
         println!("{}", expected.as_arcsecs());
-        assert!(dec.to_angle().eq_within(expected, TEST_ANGLE_ACCURACY));
+        assert!(eq(dec.to_angle(), expected));
     }
 }

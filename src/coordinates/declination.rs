@@ -1,6 +1,6 @@
-use std::fmt::Display;
-
 use crate::Float;
+use simple_si_units::geometry::Angle;
+use std::fmt::Display;
 
 pub struct Declination {
     pub(super) sign: Sgn,
@@ -25,7 +25,7 @@ impl Declination {
         }
     }
 
-    pub fn to_angle(&self) -> Angle {
+    pub fn to_angle(&self) -> Angle<Float> {
         let sign = match self.sign {
             Sgn::Pos => 1.,
             Sgn::Neg => -1.,

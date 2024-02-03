@@ -1,6 +1,10 @@
 use crate::Float;
+use simple_si_units::base::{Distance, Temperature};
 
-pub(crate) fn planck_radiant_emittance(wavelength: Length, temperature: Temperature) -> Float {
+pub(crate) fn planck_radiant_emittance(
+    wavelength: Distance<Float>,
+    temperature: Temperature<Float>,
+) -> Float {
     const H: Float = 6.62607015e-34;
     const C: Float = 299792458.0;
     const K: Float = 1.380649e-23;
@@ -18,8 +22,8 @@ mod tests {
     use super::*;
 
     struct TestExpectance {
-        wavelength: Length,
-        temperature: Temperature,
+        wavelength: Distance<Float>,
+        temperature: Temperature<Float>,
         expected: Float,
     }
 
@@ -27,32 +31,32 @@ mod tests {
     fn test_planck_radiant_emittance() {
         let expectations = vec![
             TestExpectance {
-                wavelength: Length::from_nanometers(100.),
+                wavelength: Distance::from_nanometers(100.),
                 temperature: Temperature::from_kelvin(5000.0),
                 expected: 3.792e6,
             },
             TestExpectance {
-                wavelength: Length::from_nanometers(500.),
+                wavelength: Distance::from_nanometers(500.),
                 temperature: Temperature::from_kelvin(5000.0),
                 expected: 1.211e13,
             },
             TestExpectance {
-                wavelength: Length::from_nanometers(1_000.),
+                wavelength: Distance::from_nanometers(1_000.),
                 temperature: Temperature::from_kelvin(5000.0),
                 expected: 7.102e12,
             },
             TestExpectance {
-                wavelength: Length::from_nanometers(100.),
+                wavelength: Distance::from_nanometers(100.),
                 temperature: Temperature::from_kelvin(6000.0),
                 expected: 4.589e8,
             },
             TestExpectance {
-                wavelength: Length::from_nanometers(500.),
+                wavelength: Distance::from_nanometers(500.),
                 temperature: Temperature::from_kelvin(6000.0),
                 expected: 3.176e13,
             },
             TestExpectance {
-                wavelength: Length::from_nanometers(1000.),
+                wavelength: Distance::from_nanometers(1000.),
                 temperature: Temperature::from_kelvin(6000.0),
                 expected: 1.191e13,
             },

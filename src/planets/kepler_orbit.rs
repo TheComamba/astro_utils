@@ -8,7 +8,7 @@ use crate::{
  * The orbital period is the time it takes for a given object to make one full orbit around another object.
  * https://en.wikipedia.org/wiki/Orbital_period
  */
-pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time {
+pub fn orbital_period(semi_major_axis: Distance, mass1: Mass, mass2: Mass) -> Time {
     const G: Float = 6.67430e-11;
 
     let semi_major_axis_cubed = semi_major_axis.as_meters().powi(3);
@@ -72,10 +72,10 @@ pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: Float) -> Angle {
  * https://en.wikipedia.org/wiki/Ellipse#Distance_from_focus
  */
 fn distance_from_focus(
-    semi_major_axis: Length,
+    semi_major_axis: Distance,
     true_anomaly: Angle,
     eccentricity: Float,
-) -> Length {
+) -> Distance {
     let numerator = 1. - eccentricity * eccentricity;
     let denominator = 1. + eccentricity * true_anomaly.cos();
     semi_major_axis * numerator / denominator
@@ -86,7 +86,7 @@ fn distance_from_focus(
  * https://en.wikipedia.org/wiki/Orbital_elements#Position_relative_to_the_central_body
  */
 pub fn position_relative_to_central_body(
-    semi_major_axis: Length,
+    semi_major_axis: Distance,
     eccentricity: Float,
     true_anomaly: Angle,
     orientation: &OrbitParameters,
@@ -278,16 +278,16 @@ mod tests {
 
     #[test]
     fn distance_from_focus_for_eccentric_ellipse() {
-        let semi_major_axis = Length::from_meters(2.);
-        let semi_minor_axis = Length::from_meters(1.);
+        let semi_major_axis = Distance::from_meters(2.);
+        let semi_minor_axis = Distance::from_meters(1.);
         let eccentricity = (1. - (semi_minor_axis / semi_major_axis).powi(2)).sqrt();
         let linear_eccentricity = semi_major_axis * eccentricity;
         let focal_point =
-            CartesianCoordinates::new(linear_eccentricity, Length::ZERO, Length::ZERO);
+            CartesianCoordinates::new(linear_eccentricity, Distance::ZERO, Distance::ZERO);
 
         let eccentric_anom = Angle::ZERO;
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(semi_major_axis, Length::ZERO, Length::ZERO);
+        let point = CartesianCoordinates::new(semi_major_axis, Distance::ZERO, Distance::ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
@@ -296,7 +296,7 @@ mod tests {
 
         let eccentric_anom = Angle::from_radians(TWO_PI / 4.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(Length::ZERO, semi_minor_axis, Length::ZERO);
+        let point = CartesianCoordinates::new(Distance::ZERO, semi_minor_axis, Distance::ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
@@ -305,7 +305,7 @@ mod tests {
 
         let eccentric_anom = Angle::from_radians(TWO_PI / 2.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(-semi_major_axis, Length::ZERO, Length::ZERO);
+        let point = CartesianCoordinates::new(-semi_major_axis, Distance::ZERO, Distance::ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);
@@ -314,7 +314,7 @@ mod tests {
 
         let eccentric_anom = Angle::from_radians(TWO_PI * 3. / 4.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
-        let point = CartesianCoordinates::new(Length::ZERO, -semi_minor_axis, Length::ZERO);
+        let point = CartesianCoordinates::new(Distance::ZERO, -semi_minor_axis, Distance::ZERO);
         let expected = focal_point.distance(&point);
         let actual = distance_from_focus(semi_major_axis, true_anom, eccentricity);
         println!("Expected distance from focus: {}", expected);

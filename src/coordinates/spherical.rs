@@ -5,6 +5,7 @@ use super::{
 };
 use crate::{Float, PI};
 use serde::{Deserialize, Serialize};
+use simple_si_units::geometry::Angle;
 use std::{
     fmt::{Display, Formatter},
     ops::Neg,
@@ -14,8 +15,8 @@ const PI_HALF: Float = PI / 2.;
 
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SphericalCoordinates {
-    longitude: Angle,
-    latitude: Angle,
+    longitude: Angle<Float>,
+    latitude: Angle<Float>,
 }
 
 impl SphericalCoordinates {
@@ -34,7 +35,7 @@ impl SphericalCoordinates {
         latitude: Angle::from_radians(PI / 2.),
     };
 
-    pub const fn new(longitude: Angle, latitude: Angle) -> Self {
+    pub const fn new(longitude: Angle<Float>, latitude: Angle<Float>) -> Self {
         Self {
             longitude,
             latitude,
@@ -55,9 +56,9 @@ impl SphericalCoordinates {
     }
 
     #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle) -> bool {
-        const NORTHPOLE_LATITUDE: Angle = Angle::from_radians(PI_HALF);
-        const SOUTHPOLE_LATITUDE: Angle = Angle::from_radians(-PI_HALF);
+    pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<Float>) -> bool {
+        let NORTHPOLE_LATITUDE = Angle::from_radians(PI_HALF);
+        let SOUTHPOLE_LATITUDE = Angle::from_radians(-PI_HALF);
         let mut clone = self.clone();
         let mut other_clone = other.clone();
         clone.normalize();
@@ -73,19 +74,19 @@ impl SphericalCoordinates {
         latitudes_equal && longitudes_equal
     }
 
-    pub fn get_longitude(&self) -> Angle {
+    pub fn get_longitude(&self) -> Angle<Float> {
         self.longitude
     }
 
-    pub fn get_latitude(&self) -> Angle {
+    pub fn get_latitude(&self) -> Angle<Float> {
         self.latitude
     }
 
-    pub fn set_longitude(&mut self, longitude: Angle) {
+    pub fn set_longitude(&mut self, longitude: Angle<Float>) {
         self.longitude = longitude;
     }
 
-    pub fn set_latitude(&mut self, latitude: Angle) {
+    pub fn set_latitude(&mut self, latitude: Angle<Float>) {
         self.latitude = latitude;
     }
 
@@ -164,17 +165,15 @@ impl Display for SphericalCoordinates {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{
-        coordinates::cartesian::CartesianCoordinates, tests::TEST_ANGLE_ACCURACY,
-        units::length::Length, TWO_PI,
-    };
+    use crate::{coordinates::cartesian::CartesianCoordinates, TWO_PI};
+    use simple_si_units::base::Distance;
 
     #[test]
     fn test_from_cartesian() {
         let cartesian = CartesianCoordinates::new(
-            Length::from_meters(1.),
-            Length::from_meters(1.),
-            Length::from_meters(1.),
+            Distance::from_meters(1.),
+            Distance::from_meters(1.),
+            Distance::from_meters(1.),
         );
         let expected: SphericalCoordinates = SphericalCoordinates {
             longitude: Angle::from_degrees(45.),
@@ -185,9 +184,9 @@ mod tests {
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
-            Length::from_meters(1.),
-            Length::from_meters(1.),
-            Length::from_meters(-1.),
+            Distance::from_meters(1.),
+            Distance::from_meters(1.),
+            Distance::from_meters(-1.),
         );
         let expected = SphericalCoordinates {
             longitude: Angle::from_degrees(45.),
@@ -198,9 +197,9 @@ mod tests {
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
-            Length::from_meters(1.),
-            Length::from_meters(-1.),
-            Length::from_meters(1.),
+            Distance::from_meters(1.),
+            Distance::from_meters(-1.),
+            Distance::from_meters(1.),
         );
         let expected = SphericalCoordinates {
             longitude: Angle::from_degrees(-45.),
@@ -211,9 +210,9 @@ mod tests {
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
-            Length::from_meters(1.),
-            Length::from_meters(-1.),
-            Length::from_meters(-1.),
+            Distance::from_meters(1.),
+            Distance::from_meters(-1.),
+            Distance::from_meters(-1.),
         );
         let expected = SphericalCoordinates {
             longitude: Angle::from_degrees(-45.),
@@ -224,9 +223,9 @@ mod tests {
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
-            Length::from_meters(-1.),
-            Length::from_meters(1.),
-            Length::from_meters(1.),
+            Distance::from_meters(-1.),
+            Distance::from_meters(1.),
+            Distance::from_meters(1.),
         );
         let expected = SphericalCoordinates {
             longitude: Angle::from_degrees(135.),
@@ -237,9 +236,9 @@ mod tests {
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
-            Length::from_meters(-1.),
-            Length::from_meters(1.),
-            Length::from_meters(-1.),
+            Distance::from_meters(-1.),
+            Distance::from_meters(1.),
+            Distance::from_meters(-1.),
         );
         let expected = SphericalCoordinates {
             longitude: Angle::from_degrees(135.),
@@ -250,9 +249,9 @@ mod tests {
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
-            Length::from_meters(-1.),
-            Length::from_meters(-1.),
-            Length::from_meters(1.),
+            Distance::from_meters(-1.),
+            Distance::from_meters(-1.),
+            Distance::from_meters(1.),
         );
         let expected = SphericalCoordinates {
             longitude: Angle::from_degrees(-135.),
@@ -263,9 +262,9 @@ mod tests {
         assert!(actual.eq_within(&expected, TEST_ANGLE_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
-            Length::from_meters(-1.),
-            Length::from_meters(-1.),
-            Length::from_meters(-1.),
+            Distance::from_meters(-1.),
+            Distance::from_meters(-1.),
+            Distance::from_meters(-1.),
         );
         let expected = SphericalCoordinates {
             longitude: Angle::from_degrees(-135.),

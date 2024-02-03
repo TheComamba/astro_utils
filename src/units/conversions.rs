@@ -64,7 +64,7 @@ impl Illuminance {
         -14.18 - 2.5 * self.lux.log10()
     }
 
-    pub fn to_luminosity(&self, distance: &Length) -> Luminosity {
+    pub fn to_luminosity(&self, distance: &Distance) -> Luminosity {
         let absolute_magnitude =
             self.as_apparent_magnitude() - 5. * distance.as_parsecs().log10() + 5.;
         Luminosity::from_absolute_magnitude(absolute_magnitude)
@@ -112,7 +112,7 @@ impl Luminosity {
         self.as_solar_luminosities() * WATTS_PER_SOLAR_LUMINOSITY
     }
 
-    pub fn to_illuminance(&self, distance: &Length) -> Illuminance {
+    pub fn to_illuminance(&self, distance: &Distance) -> Illuminance {
         let apparent_magnitude = self.absolute_magnitude + 5. * distance.as_parsecs().log10() - 5.;
         Illuminance::from_apparent_magnitude(apparent_magnitude)
     }
@@ -144,7 +144,7 @@ mod tests {
     #[test]
     fn test_sunlight() {
         let luminosity = Luminosity::from_solar_luminosities(1.);
-        let distance = Length::from_astronomical_units(1.);
+        let distance = Distance::from_astronomical_units(1.);
         let illuminance = luminosity.to_illuminance(&distance);
         let actual = illuminance.as_lux();
         let expected = 107_527.;
@@ -173,7 +173,7 @@ mod tests {
         for lum in -10..10 {
             for dist in 1..10 {
                 let input = lum as Float;
-                let distance = Length::from_light_years(dist as Float);
+                let distance = Distance::from_light_years(dist as Float);
                 let luminosity =
                     Illuminance::from_apparent_magnitude(input).to_luminosity(&distance);
                 let output = luminosity.to_illuminance(&distance).as_apparent_magnitude();
@@ -211,7 +211,7 @@ mod tests {
         for i in -10..10 {
             let input = i as Float;
             let luminosity = Luminosity::from_absolute_magnitude(input);
-            let distance = Length::from_parsecs(10.);
+            let distance = Distance::from_parsecs(10.);
             let apparent_magnitude = luminosity.to_illuminance(&distance).as_apparent_magnitude();
             let absolute_magnitude = luminosity.as_absolute_magnitude();
             println!("input: {}", input);
@@ -226,7 +226,7 @@ mod tests {
         let sun = Luminosity::from_absolute_magnitude(4.83);
 
         let sun_apparent_magnitude = sun
-            .to_illuminance(&Length::from_astronomical_units(1.))
+            .to_illuminance(&Distance::from_astronomical_units(1.))
             .as_apparent_magnitude();
         let expected_apparent_magnitude = -26.74;
         println!(
@@ -264,7 +264,7 @@ mod tests {
         let sirius = Luminosity::from_absolute_magnitude(1.43);
 
         let sirius_apparent_magnitude = sirius
-            .to_illuminance(&&Length::from_light_years(8.6))
+            .to_illuminance(&&Distance::from_light_years(8.6))
             .as_apparent_magnitude();
         let expected_apparent_magnitude = -1.46;
         println!(

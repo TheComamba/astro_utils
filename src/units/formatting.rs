@@ -1,12 +1,12 @@
 use std::fmt::Display;
 
 use crate::units::{
-    length::{Length, *},
     mass::{Mass, *},
     time::{Time, *},
+    Distance::{Length, *},
 };
 
-impl Display for Length {
+impl Display for Distance {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         if self.au.abs() > 0.0099 * AU_PER_LIGHT_YEARS {
             write!(f, "{:.2} ly", self.as_light_years())
@@ -68,55 +68,55 @@ mod tests {
 
     #[test]
     fn test_length_display() {
-        let nm = Length::from_nanometers(1.23);
+        let nm = Distance::from_nanometers(1.23);
         assert_eq!(format!("{}", nm), "1.23 nm");
-        let m = Length::from_meters(1.23);
+        let m = Distance::from_meters(1.23);
         assert_eq!(format!("{}", m), "1.23 m");
-        let km = Length::from_kilometers(1.23);
+        let km = Distance::from_kilometers(1.23);
         assert_eq!(format!("{}", km), "1.23 km");
-        let earth_radii = Length::from_earth_radii(1.23);
+        let earth_radii = Distance::from_earth_radii(1.23);
         assert_eq!(format!("{}", earth_radii), "1.23 R🜨");
-        let sun_radii = Length::from_sun_radii(1.23);
+        let sun_radii = Distance::from_sun_radii(1.23);
         assert_eq!(format!("{}", sun_radii), "1.23 R☉");
-        let astronomical_units = Length::from_astronomical_units(1.23);
+        let astronomical_units = Distance::from_astronomical_units(1.23);
         assert_eq!(format!("{}", astronomical_units), "1.23 AU");
-        let light_years = Length::from_light_years(1.23);
+        let light_years = Distance::from_light_years(1.23);
         assert_eq!(format!("{}", light_years), "1.23 ly");
     }
 
     #[test]
     fn test_length_negative_display() {
-        let nm = Length::from_nanometers(-1.23);
+        let nm = Distance::from_nanometers(-1.23);
         assert_eq!(format!("{}", nm), "-1.23 nm");
-        let m = Length::from_meters(-1.23);
+        let m = Distance::from_meters(-1.23);
         assert_eq!(format!("{}", m), "-1.23 m");
-        let km = Length::from_kilometers(-1.23);
+        let km = Distance::from_kilometers(-1.23);
         assert_eq!(format!("{}", km), "-1.23 km");
-        let earth_radii = Length::from_earth_radii(-1.23);
+        let earth_radii = Distance::from_earth_radii(-1.23);
         assert_eq!(format!("{}", earth_radii), "-1.23 R🜨");
-        let sun_radii = Length::from_sun_radii(-1.23);
+        let sun_radii = Distance::from_sun_radii(-1.23);
         assert_eq!(format!("{}", sun_radii), "-1.23 R☉");
-        let astronomical_units = Length::from_astronomical_units(-1.23);
+        let astronomical_units = Distance::from_astronomical_units(-1.23);
         assert_eq!(format!("{}", astronomical_units), "-1.23 AU");
-        let light_years = Length::from_light_years(-1.23);
+        let light_years = Distance::from_light_years(-1.23);
         assert_eq!(format!("{}", light_years), "-1.23 ly");
     }
 
     #[test]
     fn test_length_display_thresholds() {
-        let nm = Length::from_nanometers(1000.);
+        let nm = Distance::from_nanometers(1000.);
         assert_eq!(format!("{}", nm), "1000.00 nm");
-        let m = Length::from_meters(1.);
+        let m = Distance::from_meters(1.);
         assert_eq!(format!("{}", m), "1.00 m");
-        let km = Length::from_kilometers(1.);
+        let km = Distance::from_kilometers(1.);
         assert_eq!(format!("{}", km), "1.00 km");
-        let earth_radii = Length::from_earth_radii(1.);
+        let earth_radii = Distance::from_earth_radii(1.);
         assert_eq!(format!("{}", earth_radii), "1.00 R🜨");
-        let sun_radii = Length::from_sun_radii(0.1);
+        let sun_radii = Distance::from_sun_radii(0.1);
         assert_eq!(format!("{}", sun_radii), "0.10 R☉");
-        let astronomical_units = Length::from_astronomical_units(0.01);
+        let astronomical_units = Distance::from_astronomical_units(0.01);
         assert_eq!(format!("{}", astronomical_units), "0.01 AU");
-        let light_years = Length::from_light_years(0.01);
+        let light_years = Distance::from_light_years(0.01);
         assert_eq!(format!("{}", light_years), "0.01 ly");
     }
 
