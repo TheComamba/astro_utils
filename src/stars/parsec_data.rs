@@ -1,6 +1,9 @@
 use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
 use crate::error::AstroUtilError;
+use crate::units::illuminance::illuminance_to_apparent_magnitude;
+use crate::units::luminosity::{luminosity_to_illuminance, SOLAR_LUMINOSITY};
+use crate::units::mass::SOLAR_MASS;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
 use rmp_serde;
@@ -207,7 +210,9 @@ impl ParsecData {
         mass: Mass<f64>,
         age_in_years: f64,
     ) -> &ParsecLine {
-        let mut mass_index = Self::get_closest_mass_index(mass.to_solar_masses());
+        use crate::units::mass::mass_to_solar_masses;
+
+        let mut mass_index = Self::get_closest_mass_index(mass_to_solar_masses(mass));
         let mut trajectory = &self.data[mass_index];
         let mut params = Self::get_closest_params(trajectory, age_in_years);
         while params.get_mass() < mass && mass_index < Self::SORTED_MASSES.len() - 1 {
@@ -255,7 +260,7 @@ impl ParsecLine {
     }
 
     pub(super) fn get_mass(&self) -> Mass<f64> {
-        Mass::from_solar_masses(self.mass)
+        self.mass * SOLAR_MASS
     }
 
     pub(super) fn get_age(&self) -> Time<f64> {
@@ -263,24 +268,24 @@ impl ParsecLine {
     }
 
     pub(super) fn get_luminosity(&self) -> Luminosity<f64> {
-        let lum = 10f32.powf(self.log_l);
-        Luminosity::from_solar_luminosities(lum)
+        let lum = 10f64.powf(self.log_l);
+        lum * SOLAR_LUMINOSITY
     }
 
     pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
         let lum = self.get_luminosity();
-        let ill = lum.to_illuminance(&distance);
-        ill.to_apparent_magnitude()
+        let ill = luminosity_to_illuminance(&lum, &distance);
+        illuminance_to_apparent_magnitude(&ill)
     }
 
     pub(super) fn get_temperature(&self) -> Temperature<f64> {
-        let temp = 10f32.powf(self.log_te);
+        let temp = 10f64.powf(self.log_te);
         Temperature::from_K(temp)
     }
 
     pub(super) fn get_radius(&self) -> Distance<f64> {
-        let radius = 10f32.powf(self.log_r);
-        Distance::from_centimeters(radius)
+        let radius = 10f64.powf(self.log_r);
+        Distance::from_cm(radius)
     }
 }
 
@@ -296,6 +301,7 @@ mod tests {
     use crate::{
         real_data::stars::{BRIGHTEST_STARS, SUN_DATA},
         tests::eq_within,
+        units::{distance::SOLAR_RADIUS, mass::mass_to_solar_masses, time::BILLION_YEARS},
     };
 
     #[test]
@@ -304,7 +310,7 @@ mod tests {
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
         let current_params =
-            parsec_data.get_params_for_current_mass_and_age(mass.unwrap(), age.to_years());
+            parsec_data.get_params_for_current_mass_and_age(mass.unwrap(), age.to_yr());
         let calculated_sun = current_params.to_star_at_origin();
         let real_sun = SUN_DATA.to_star_data();
         println!(
@@ -328,23 +334,23 @@ mod tests {
             real_sun.get_temperature().unwrap()
         );
         assert!(eq_within(
-            calculated_sun.get_mass().unwrap().to_solar_masses(),
-            real_sun.get_mass().unwrap(),
-            1e-2
+            calculated_sun.get_mass().unwrap().kg,
+            real_sun.get_mass().unwrap().kg,
+            1e-2 * SOLAR_MASS.kg
         ));
         assert!(eq_within(
-            calculated_sun.get_radius().unwrap().to_solar_radii(),
-            &real_sun.get_radius().unwrap(),
-            1e-1
+            calculated_sun.get_radius().unwrap().m,
+            real_sun.get_radius().unwrap().m,
+            1e-1 * SOLAR_RADIUS.m
         ));
         assert!(eq_within(
-            calculated_sun.get_luminosity().unwrap(),
-            &real_sun.get_luminosity().unwrap(),
-            0.
+            calculated_sun.get_luminosity().unwrap().cd,
+            real_sun.get_luminosity().unwrap().cd,
+            1e-5 * SOLAR_LUMINOSITY.cd
         ));
         assert!(eq_within(
-            calculated_sun.get_temperature().unwrap(),
-            &real_sun.get_temperature().unwrap(),
+            calculated_sun.get_temperature().unwrap().K,
+            real_sun.get_temperature().unwrap().K,
             500.
         ));
     }
@@ -356,12 +362,12 @@ mod tests {
         let mut num_fail = 0;
         for data in BRIGHTEST_STARS.iter() {
             if let (Some(age), Some(mass)) = (data.age, data.mass) {
-                let age = age.to_years();
-                let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_masses());
+                let age = age.to_yr();
+                let mass_index = ParsecData::get_closest_mass_index(mass_to_solar_masses(mass));
                 let trajectory = parsec_data.get_trajectory_via_index(mass_index);
                 let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
                 let age_expectancy = Time::from_yr(age_expectancy as f64);
-                if age_expectancy < Time::from_billion_years(0.3) {
+                if age_expectancy < 0.3 * BILLION_YEARS {
                     // Numerics get really unstable for stars with short life expectancies.
                     continue;
                 }

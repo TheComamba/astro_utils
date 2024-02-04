@@ -5,11 +5,12 @@ use crate::{
         declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
         right_ascension::RightAscension,
     },
+    units::{
+        illuminance::apparent_magnitude_to_illuminance,
+        luminosity::absolute_magnitude_to_luminosity,
+    },
 };
-use simple_si_units::{
-    base::{Distance, Mass, Temperature, Time},
-    electromagnetic::Illuminance,
-};
+use simple_si_units::base::{Distance, Mass, Temperature, Time};
 use std::fmt::Display;
 
 pub struct RealData {
@@ -39,6 +40,7 @@ impl RealData {
         } else {
             self.common_name
         };
+        let luminosity = absolute_magnitude_to_luminosity(self.absolute_magnitude);
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
@@ -46,7 +48,7 @@ impl RealData {
             name: name.to_string(),
             mass: self.mass,
             radius: self.radius,
-            luminosity: Some(self.luminosity),
+            luminosity: Some(luminosity),
             temperature: self.temperature,
             age: self.age,
             distance: Some(self.distance),
@@ -79,18 +81,21 @@ impl RealData {
 
 #[cfg(test)]
 mod tests {
-    use crate::real_data::stars::BRIGHTEST_STARS;
+    use crate::{
+        real_data::stars::BRIGHTEST_STARS,
+        units::{
+            illuminance::illuminance_to_apparent_magnitude, luminosity::luminosity_to_illuminance,
+        },
+    };
 
     #[test]
     fn calculate_apparent_magnitude() {
         let mut failed = false;
         for star_data in BRIGHTEST_STARS {
             let star = star_data.to_star_data();
-            let apparent_magnitude = star
-                .get_luminosity()
-                .unwrap()
-                .to_illuminance(&star.distance.unwrap())
-                .to_apparent_magnitude();
+            let luminosity = star.get_luminosity().unwrap();
+            let illuminance = luminosity_to_illuminance(&luminosity, &star.distance.unwrap());
+            let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             if difference.abs() > 0.1 {
                 println!(

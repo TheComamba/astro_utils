@@ -122,7 +122,10 @@ pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
 
 #[cfg(test)]
 mod tests {
-    use crate::{real_data::stars::BRIGHTEST_STARS, units::illuminance::ILLUMINANCE_ZERO};
+    use crate::{
+        real_data::stars::BRIGHTEST_STARS,
+        units::{angle::angle_to_arcsecs, illuminance::ILLUMINANCE_ZERO},
+    };
 
     use super::*;
 
@@ -218,7 +221,7 @@ mod tests {
                     println!("closest_star position: {}, {}", closest_ra, closest_dec);
                     println!(
                         "Angle difference: {} arcsecs",
-                        angle_difference.to_arcsecs()
+                        angle_to_arcsecs(&angle_difference)
                     );
                 } else {
                     println!("gaia_star_illuminance: {}", gaia_star.illuminance);

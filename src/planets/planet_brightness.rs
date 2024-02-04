@@ -60,11 +60,13 @@ mod tests {
     use super::*;
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
-        real_data::{planets::*, SOLAR_LUMINOSITY, SOLAR_RADIUS},
+        real_data::planets::*,
         tests::eq_within,
         units::{
-            angle::ANGLE_ZERO, distance::DISTANCE_ZERO,
+            angle::ANGLE_ZERO,
+            distance::{DISTANCE_ZERO, SOLAR_RADIUS},
             illuminance::apparent_magnitude_to_illuminance,
+            luminosity::SOLAR_LUMINOSITY,
         },
     };
 

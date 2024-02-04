@@ -23,9 +23,9 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
 
     let start = Instant::now();
     let number_of_stars_in_sphere =
-        STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_light_years().powi(3);
+        STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
     let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
-    let max_distance_in_au_squared = max_distance.to_astronomical_units().powi(2);
+    let max_distance_in_au_squared = max_distance.to_au().powi(2);
     let mut rng = rand::thread_rng();
     let pos_distr = get_pos_distribution(max_distance);
     let mass_index_distr = get_mass_distribution();
@@ -58,11 +58,8 @@ pub fn generate_random_star(
 ) -> Result<StarData, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
     let mut rng = rand::thread_rng();
-    let max_distance_in_au_squared = max_distance
-        .map(|d| d.to_astronomical_units().powi(2))
-        .unwrap_or(1.);
-    let pos_distr =
-        get_pos_distribution(max_distance.unwrap_or(Distance::from_astronomical_units(1.)));
+    let max_distance_in_au_squared = max_distance.map(|d| d.to_au().powi(2)).unwrap_or(1.);
+    let pos_distr = get_pos_distribution(max_distance.unwrap_or(Distance::from_au(1.)));
     let mass_index_distr = get_mass_distribution();
     let mut star = generate_visible_random_star(
         &parsec_data,
@@ -109,11 +106,8 @@ fn generate_visible_random_star(
     Some(star)
 }
 
-fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f32> {
-    Uniform::new(
-        -max_distance.to_astronomical_units(),
-        max_distance.to_astronomical_units(),
-    )
+fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f64> {
+    Uniform::new(-max_distance.to_au(), max_distance.to_au())
 }
 
 fn get_mass_distribution() -> WeightedIndex<f64> {
@@ -125,17 +119,17 @@ fn get_mass_distribution() -> WeightedIndex<f64> {
     WeightedIndex::new(weights).unwrap()
 }
 
-fn kroupa_mass_distribution(m_in_SOLAR_MASSes: f64) -> f64 {
-    let alpha = if m_in_SOLAR_MASSes <= 0.08 {
+fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
+    let alpha = if m_in_solar_masses <= 0.08 {
         0.3
-    } else if m_in_SOLAR_MASSes <= 0.5 {
+    } else if m_in_solar_masses <= 0.5 {
         1.3
-    } else if m_in_SOLAR_MASSes <= 1. {
+    } else if m_in_solar_masses <= 1. {
         2.3
     } else {
         2.7
     };
-    m_in_SOLAR_MASSes.powf(-alpha)
+    m_in_solar_masses.powf(-alpha)
 }
 
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
@@ -156,9 +150,9 @@ fn random_point_in_sphere(
     while x * x + y * y + z * z > max_distance_in_au_squared {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     }
-    let x = Distance::from_astronomical_units(rng.sample(distr));
-    let y = Distance::from_astronomical_units(rng.sample(distr));
-    let z = Distance::from_astronomical_units(rng.sample(distr));
+    let x = Distance::from_au(rng.sample(distr));
+    let y = Distance::from_au(rng.sample(distr));
+    let z = Distance::from_au(rng.sample(distr));
     CartesianCoordinates::new(x, y, z)
 }
 
@@ -188,7 +182,7 @@ mod tests {
         let duration = start.elapsed();
         println!("duration: {:?}", duration);
         assert!(stars.len() > 1000);
-        assert!(duration.to_secs() < max_seconds);
+        assert!(duration.as_secs() < max_seconds);
     }
 
     #[test]

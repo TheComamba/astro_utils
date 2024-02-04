@@ -2,7 +2,6 @@ use crate::color::sRGBColor;
 use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
 use crate::planets::orbit_parameters::OrbitParameters;
 use crate::planets::real_data::RealData;
-use crate::units::angle::RADIANS_PER_DEGREE;
 use crate::units::time::{SECONDS_PER_DAY, SECONDS_PER_HOUR};
 use simple_si_units::base::{Distance, Mass, Time};
 use simple_si_units::geometry::Angle;
