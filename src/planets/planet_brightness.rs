@@ -1,10 +1,12 @@
+use std::f64::consts::PI;
+
 use simple_si_units::{
     base::{Distance, Luminosity},
     electromagnetic::Illuminance,
     geometry::Angle,
 };
 
-use crate::{coordinates::cartesian::CartesianCoordinates, error::AstroUtilError, f64, PI};
+use crate::{coordinates::cartesian::CartesianCoordinates, error::AstroUtilError};
 
 /*
  * Refraction is awfully complicated:
@@ -60,7 +62,7 @@ mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
         real_data::{planets::*, SUN_RADIUS},
-        units::{ANGLE_ZERO, DISTANCE_ZERO},
+        units::{angle::ANGLE_ZERO, distance::DISTANCE_ZERO},
     };
 
     const SOLID_ANGLE_TEST_ACCURACY: f64 = 3e-6;

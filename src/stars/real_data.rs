@@ -5,7 +5,6 @@ use crate::{
         declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
         right_ascension::RightAscension,
     },
-    f64,
 };
 use simple_si_units::{
     base::{Distance, Mass, Temperature, Time},

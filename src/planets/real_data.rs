@@ -4,7 +4,7 @@ use simple_si_units::{
 };
 
 use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
-use crate::{color::sRGBColor, coordinates::earth_equatorial::EarthEquatorialCoordinates, f64};
+use crate::{color::sRGBColor, coordinates::earth_equatorial::EarthEquatorialCoordinates};
 
 pub struct RealData {
     pub name: &'static str,

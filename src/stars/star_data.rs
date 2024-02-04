@@ -1,5 +1,7 @@
 use super::star_appearance::StarAppearance;
-use crate::{color::sRGBColor, coordinates::direction::Direction, f64, units::ILLUMINANCE_ZERO};
+use crate::{
+    color::sRGBColor, coordinates::direction::Direction, units::illuminance::ILLUMINANCE_ZERO,
+};
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 

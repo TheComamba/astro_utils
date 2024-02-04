@@ -2,7 +2,7 @@ use super::{
     direction::Direction, ecliptic::EclipticCoordinates, rotations::rotated_tuple,
     spherical::SphericalCoordinates,
 };
-use crate::{error::AstroUtilError, f64, units::DISTANCE_ZERO};
+use crate::{error::AstroUtilError, units::distance::DISTANCE_ZERO};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::{

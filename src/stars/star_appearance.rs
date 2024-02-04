@@ -1,4 +1,4 @@
-use crate::{color::sRGBColor, coordinates::direction::Direction, f64};
+use crate::{color::sRGBColor, coordinates::direction::Direction};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
 

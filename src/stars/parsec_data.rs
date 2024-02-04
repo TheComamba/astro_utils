@@ -1,6 +1,6 @@
 use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
-use crate::{error::AstroUtilError, f64};
+use crate::error::AstroUtilError;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
 use rmp_serde;

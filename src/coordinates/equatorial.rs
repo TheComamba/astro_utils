@@ -1,5 +1,4 @@
 use super::{direction::Direction, spherical::SphericalCoordinates};
-use crate::f64;
 use simple_si_units::geometry::Angle;
 use std::fmt::Display;
 
@@ -69,7 +68,6 @@ mod tests {
             equatorial::EquatorialCoordinates,
             spherical::SphericalCoordinates,
         },
-        f64,
         tests::TEST_ACCURACY,
     };
 

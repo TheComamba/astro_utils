@@ -1,6 +1,5 @@
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
-    f64,
     planets::kepler_orbit::{
         eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,
         true_anomaly,

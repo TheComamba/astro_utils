@@ -1,7 +1,4 @@
-use crate::{
-    f64,
-    units::conversions::{KG_PER_SOLAR_MASSES, METERS_PER_SUN_RADII},
-};
+use crate::units::{distance::METERS_PER_SUN_RADII, mass::KG_PER_SOLAR_MASSES};
 use simple_si_units::base::{Distance, Mass};
 
 pub mod planets;

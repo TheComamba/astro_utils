@@ -5,7 +5,6 @@ use super::{
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
-    f64, PI,
 };
 use rand::{
     distributions::{Uniform, WeightedIndex},
@@ -13,7 +12,7 @@ use rand::{
     Rng,
 };
 use simple_si_units::base::Distance;
-use std::time::Instant;
+use std::{f64::consts::PI, time::Instant};
 
 // https://en.wikipedia.org/wiki/Stellar_density
 const STARS_PER_LY_CUBED: f64 = 0.004;

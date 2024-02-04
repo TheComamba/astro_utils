@@ -1,6 +1,6 @@
 use super::star_appearance::StarAppearance;
 use crate::{
-    color::sRGBColor, coordinates::spherical::SphericalCoordinates, error::AstroUtilError, f64,
+    color::sRGBColor, coordinates::spherical::SphericalCoordinates, error::AstroUtilError,
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Temperature, electromagnetic::Illuminance, geometry::Angle};

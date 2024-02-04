@@ -1,5 +1,4 @@
 use super::direction::Direction;
-use crate::f64;
 use simple_si_units::geometry::Angle;
 use std::ops::{Add, Mul};
 
@@ -54,9 +53,8 @@ mod tests {
             direction::Direction,
             rotations::{get_rotation_parameters, rotated_tuple},
         },
-        f64,
         tests::TEST_ACCURACY,
-        TWO_PI,
+        units::angle::TWO_PI,
     };
 
     const X_VECTOR: (f64, f64, f64) = (1., 0., 0.);

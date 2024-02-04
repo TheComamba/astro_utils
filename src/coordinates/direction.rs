@@ -2,7 +2,7 @@ use super::{
     cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
     rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
-use crate::{error::AstroUtilError, f64, real_data::planets::EARTH, units::ANGLE_ZERO, PI};
+use crate::{error::AstroUtilError, real_data::planets::EARTH, units::angle::ANGLE_ZERO, PI};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::{fmt::Display, ops::Neg};

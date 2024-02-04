@@ -1,6 +1,7 @@
-pub const ILLUMINANCE_ZERO: Illuminance<f64> = Illuminance { lux: 0. };
+use simple_si_units::electromagnetic::Illuminance;
+use std::f64::consts::PI;
 
-pub const ZERO: Illuminance = Illuminance { lux: 0. };
+pub const ILLUMINANCE_ZERO: Illuminance<f64> = Illuminance { lux: 0. };
 
 pub const fn from_lux(lux: f64) -> Illuminance {
     Illuminance { lux }

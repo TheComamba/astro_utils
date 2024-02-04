@@ -1,6 +1,6 @@
 use crate::{
     coordinates::{direction::Direction, equatorial::EquatorialCoordinates},
-    f64, TWO_PI,
+    units::angle::TWO_PI,
 };
 use simple_si_units::{base::Time, geometry::Angle};
 
@@ -47,7 +47,8 @@ pub fn direction_relative_to_surface_normal(
 mod tests {
     use super::*;
     use crate::{
-        coordinates::spherical::SphericalCoordinates, tests::TEST_ACCURACY, units::ANGLE_ZERO,
+        coordinates::spherical::SphericalCoordinates, tests::TEST_ACCURACY,
+        units::angle::ANGLE_ZERO,
     };
 
     #[test]

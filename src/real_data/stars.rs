@@ -5,11 +5,9 @@ use crate::{
     },
     stars::real_data::RealData,
     units::{
-        conversions::{
-            KILOGRAMS_PER_SOLAR_MASS, METERS_PER_LIGHT_YEAR, METERS_PER_SUN_RADII,
-            SECONDS_PER_BILLION_YEARS,
-        },
-        DISTANCE_ZERO,
+        distance::{DISTANCE_ZERO, METERS_PER_LIGHT_YEAR, METERS_PER_SUN_RADII},
+        mass::KILOGRAMS_PER_SOLAR_MASS,
+        time::SECONDS_PER_BILLION_YEARS,
     },
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};

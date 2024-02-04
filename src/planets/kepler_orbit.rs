@@ -1,9 +1,7 @@
 use super::orbit_parameters::OrbitParameters;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates},
-    f64,
-    units::ANGLE_ZERO,
-    TWO_PI,
+    units::angle::{ANGLE_ZERO, TWO_PI},
 };
 use simple_si_units::{
     base::{Distance, Mass, Time},
@@ -113,7 +111,7 @@ mod tests {
         coordinates::cartesian::CartesianCoordinates,
         real_data::{planets::*, SUN_MASS},
         tests::{eq, eq_within},
-        units::DISTANCE_ZERO,
+        units::distance::DISTANCE_ZERO,
     };
 
     use super::*;

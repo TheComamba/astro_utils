@@ -1,5 +1,4 @@
 use self::color_matching_functions::*;
-use crate::f64;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Temperature};
 use std::fmt::Display;

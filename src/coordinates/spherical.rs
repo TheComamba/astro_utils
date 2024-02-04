@@ -3,10 +3,11 @@ use super::{
     direction::Direction,
     right_ascension::RightAscension,
 };
-use crate::{f64, units::ANGLE_ZERO, PI};
+use crate::units::angle::ANGLE_ZERO;
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::{
+    f64::consts::PI,
     fmt::{Display, Formatter},
     ops::Neg,
 };
@@ -168,7 +169,7 @@ mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
         tests::{eq, eq_within, TEST_ACCURACY},
-        TWO_PI,
+        units::angle::TWO_PI,
     };
     use simple_si_units::base::Distance;
 

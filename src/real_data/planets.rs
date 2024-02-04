@@ -2,7 +2,8 @@ use crate::color::sRGBColor;
 use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
 use crate::planets::orbit_parameters::OrbitParameters;
 use crate::planets::real_data::RealData;
-use crate::units::conversions::{RADIANS_PER_DEGREE, SECONDS_PER_DAY, SECONDS_PER_HOUR};
+use crate::units::angle::RADIANS_PER_DEGREE;
+use crate::units::time::{SECONDS_PER_DAY, SECONDS_PER_HOUR};
 use simple_si_units::base::{Distance, Mass, Time};
 use simple_si_units::geometry::Angle;
 
@@ -83,7 +84,9 @@ pub const VENUS: RealData = RealData {
 pub const EARTH: RealData = RealData {
     name: "Earth",
     orbit: OrbitParameters {
-        semi_major_axis: Distance { m: 149_598_023_000 },
+        semi_major_axis: Distance {
+            m: 149_598_023_000.,
+        },
         eccentricity: 0.016_708_6,
         inclination: Angle {
             rad: 0.00005 * RADIANS_PER_DEGREE,
@@ -98,7 +101,7 @@ pub const EARTH: RealData = RealData {
     geometric_albedo: 0.367,
     bond_albedo: Some(0.306),
     color: sRGBColor::from_sRGB(0.38, 0.39, 0.48),
-    radius: Distance { m: 6_371_009 },
+    radius: Distance { m: 6_371_009. },
     mass: Mass { kg: 5.97e24 },
     siderial_rotation_period: Time {
         s: 0.997_269_68 * SECONDS_PER_DAY,
@@ -157,7 +160,9 @@ pub const MARS: RealData = RealData {
 pub const CERES: RealData = RealData {
     name: "Ceres",
     orbit: OrbitParameters {
-        semi_major_axis: Distance { m: 413_690_250_000 },
+        semi_major_axis: Distance {
+            m: 413_690_250_000.,
+        },
         eccentricity: 0.075_823_9,
         inclination: Angle {
             rad: 10.593 * RADIANS_PER_DEGREE,
@@ -248,7 +253,7 @@ pub const SATURN: RealData = RealData {
     geometric_albedo: 0.499,
     bond_albedo: Some(0.342),
     color: sRGBColor::from_sRGB(0.77, 0.7, 0.56),
-    radius: Distance { m: 58_232_000 },
+    radius: Distance { m: 58_232_000. },
     mass: Mass { kg: 5.6834e26 },
     siderial_rotation_period: Time {
         s: 10.656 * SECONDS_PER_HOUR,

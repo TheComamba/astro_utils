@@ -1,4 +1,3 @@
-use crate::f64;
 use simple_si_units::geometry::Angle;
 use std::fmt::Display;
 

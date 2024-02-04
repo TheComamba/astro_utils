@@ -1,4 +1,3 @@
-use crate::f64;
 use simple_si_units::base::Distance;
 
 pub const DISTANCE_ZERO: Distance<f64> = Distance { m: 0. };

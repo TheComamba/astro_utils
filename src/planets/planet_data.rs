@@ -3,10 +3,9 @@ use crate::{
     color::sRGBColor,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
-    f64,
     planets::planet_brightness::planet_brightness,
     stars::{star_appearance::StarAppearance, star_data::StarData},
-    units::LUMINOSITY_ZERO,
+    units::luminosity::LUMINOSITY_ZERO,
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::{

@@ -1,5 +1,5 @@
 use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
-use crate::{f64, real_data::planets::EARTH};
+use crate::real_data::planets::EARTH;
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::fmt::Display;
 
@@ -66,24 +66,22 @@ impl Display for EarthEquatorialCoordinates {
 pub(super) const EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES: EclipticCoordinates =
     EclipticCoordinates::new(SphericalCoordinates::new(
         Angle::from_radians(crate::PI / 2.),
-        Angle::from_radians(crate::PI / 2. - EARTH.axis_tilt.as_radians()),
+        Angle::from_radians(crate::PI / 2. - EARTH.axis_tilt.to_radians()),
     ));
 
 #[cfg(test)]
 mod tests {
-    use simple_si_units::geometry::Angle;
-
     use super::EarthEquatorialCoordinates;
     use crate::{
         coordinates::{
             earth_equatorial::EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
             ecliptic::EclipticCoordinates, spherical::SphericalCoordinates,
         },
-        f64,
         real_data::planets::*,
         tests::{eq, eq_within},
-        units::ANGLE_ZERO,
+        units::angle::ANGLE_ZERO,
     };
+    use simple_si_units::geometry::Angle;
 
     const TILT_TEST_ACCURACY_DEGREES: f64 = 2e-3;
 
