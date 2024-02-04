@@ -7,9 +7,9 @@ pub(crate) const SECONDS_PER_YEAR: f64 = 365.25 * SECONDS_PER_DAY;
 pub(crate) const SECONDS_PER_MILLION_YEARS: f64 = 1e6 * SECONDS_PER_YEAR;
 pub(crate) const SECONDS_PER_BILLION_YEARS: f64 = 1e9 * SECONDS_PER_YEAR;
 
-pub const YEAR: Time<f64> = Time {
-    s: 365.25 * 24. * 60. * 60.,
-};
+pub const HOUR: Time<f64> = Time { s: 60. * 60. };
+pub const DAY: Time<f64> = 24. * HOUR;
+pub const YEAR: Time<f64> = 365.25 * DAY;
 pub const BILLION_YEARS: Time<f64> = 1e9 * YEAR;
 
 pub enum TimeUnit {

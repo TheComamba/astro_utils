@@ -1,6 +1,8 @@
 use super::star_appearance::StarAppearance;
 use crate::{
-    color::sRGBColor, coordinates::direction::Direction, units::illuminance::ILLUMINANCE_ZERO,
+    color::sRGBColor,
+    coordinates::direction::Direction,
+    units::{illuminance::ILLUMINANCE_ZERO, luminosity::luminosity_to_illuminance},
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
@@ -106,7 +108,7 @@ impl StarData {
 
     pub fn to_star_appearance(&self) -> StarAppearance {
         let illuminance = match (self.luminosity, self.distance) {
-            (Some(luminosity), Some(distance)) => luminosity.to_illuminance(&distance),
+            (Some(luminosity), Some(distance)) => luminosity_to_illuminance(&luminosity, &distance),
             _ => ILLUMINANCE_ZERO,
         };
         let color = match self.temperature {
@@ -123,6 +125,8 @@ impl StarData {
 
     #[cfg(test)]
     pub(crate) fn similar_within_order_of_magnitude(&self, other: &Self) -> bool {
+        use crate::units::luminosity::luminosity_to_absolute_magnitude;
+
         let mass_ratio = match (self.mass, other.mass) {
             (Some(self_mass), Some(other_mass)) => self_mass / other_mass,
             _ => 1.0,
@@ -133,8 +137,9 @@ impl StarData {
         };
         let luminosity_difference = match (self.luminosity, other.luminosity) {
             (Some(self_luminosity), Some(other_luminosity)) => {
-                (self_luminosity.to_absolute_magnitude() - other_luminosity.to_absolute_magnitude())
-                    .abs()
+                (luminosity_to_absolute_magnitude(self_luminosity)
+                    - luminosity_to_absolute_magnitude(other_luminosity))
+                .abs()
             }
             _ => 0.0,
         };

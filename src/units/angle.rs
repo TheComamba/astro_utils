@@ -13,6 +13,9 @@ pub(crate) const TWO_THIRDS_CIRC: Angle<f64> = Angle {
     rad: 2. * PI * 2. / 3.,
 };
 
+pub const DEGREE: Angle<f64> = Angle {
+    rad: 2. * PI / 360.,
+};
 pub const ARCSEC: Angle<f64> = Angle {
     rad: 2. * PI / (360. * 60. * 60.),
 };
