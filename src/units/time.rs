@@ -1,12 +1,6 @@
 use simple_si_units::base::Time;
 
 pub const TIME_ZERO: Time<f64> = Time { s: 0. };
-pub(crate) const SECONDS_PER_HOUR: f64 = 60. * 60.;
-pub(crate) const SECONDS_PER_DAY: f64 = 24. * SECONDS_PER_HOUR;
-pub(crate) const SECONDS_PER_YEAR: f64 = 365.25 * SECONDS_PER_DAY;
-pub(crate) const SECONDS_PER_MILLION_YEARS: f64 = 1e6 * SECONDS_PER_YEAR;
-pub(crate) const SECONDS_PER_BILLION_YEARS: f64 = 1e9 * SECONDS_PER_YEAR;
-
 pub const HOUR: Time<f64> = Time { s: 60. * 60. };
 pub const DAY: Time<f64> = Time { s: 24. * HOUR.s };
 pub const YEAR: Time<f64> = Time { s: 365.25 * DAY.s };
