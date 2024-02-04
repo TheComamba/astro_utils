@@ -125,17 +125,17 @@ fn get_mass_distribution() -> WeightedIndex<f64> {
     WeightedIndex::new(weights).unwrap()
 }
 
-fn kroupa_mass_distribution(m_in_sun_masses: f64) -> f64 {
-    let alpha = if m_in_sun_masses <= 0.08 {
+fn kroupa_mass_distribution(m_in_SOLAR_MASSes: f64) -> f64 {
+    let alpha = if m_in_SOLAR_MASSes <= 0.08 {
         0.3
-    } else if m_in_sun_masses <= 0.5 {
+    } else if m_in_SOLAR_MASSes <= 0.5 {
         1.3
-    } else if m_in_sun_masses <= 1. {
+    } else if m_in_SOLAR_MASSes <= 1. {
         2.3
     } else {
         2.7
     };
-    m_in_sun_masses.powf(-alpha)
+    m_in_SOLAR_MASSes.powf(-alpha)
 }
 
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {

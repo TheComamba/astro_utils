@@ -6,8 +6,8 @@ use simple_si_units::{
 use std::f64::consts::PI;
 
 pub const LUMINOSITY_ZERO: Luminosity<f64> = Luminosity { cd: 0. };
-pub(crate) const WATTS_PER_SOLAR_LUMINOSITY: f64 = 3.828e26;
-pub(crate) const CANDELA_PER_SOLAR_LUMINOUS_INTENSITY: f64 = 2.98e27;
+
+pub const SOLAR_LUMINOSITY: Luminosity<f64> = Luminosity { cd: 3.828e26 };
 
 pub const fn absolute_magnitude_to_luminosity(absolute_magnitude: f64) -> Luminosity<f64> {
     let ten_pc = Distance::from_parsec(10.);

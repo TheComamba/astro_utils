@@ -110,9 +110,9 @@ pub fn position_relative_to_central_body(
 mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
-        real_data::{planets::*, SUN_MASS},
+        real_data::planets::*,
         tests::{eq, eq_within},
-        units::{angle::*, distance::DISTANCE_ZERO},
+        units::{angle::*, distance::DISTANCE_ZERO, mass::SOLAR_MASS},
     };
 
     use super::*;
@@ -121,7 +121,7 @@ mod tests {
     fn orbital_period_of_earth() {
         let expected_orbital_period = Time::from_days(365.256);
         let earth_semi_major_axis = EARTH.orbit.get_semi_major_axis();
-        let orbital_period = orbital_period(earth_semi_major_axis, EARTH.mass, SUN_MASS);
+        let orbital_period = orbital_period(earth_semi_major_axis, EARTH.mass, SOLAR_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
         assert!(eq(orbital_period.to_yr(), expected_orbital_period.to_yr()));
@@ -131,7 +131,7 @@ mod tests {
     fn orbital_period_of_jupiter() {
         let expected_orbital_period = Time::from_days(4332.59);
         let jupiter_semi_major_axis = JUPITER.orbit.get_semi_major_axis();
-        let orbital_period = orbital_period(jupiter_semi_major_axis, JUPITER.mass, SUN_MASS);
+        let orbital_period = orbital_period(jupiter_semi_major_axis, JUPITER.mass, SOLAR_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
         assert!(eq(orbital_period.to_yr(), expected_orbital_period.to_yr()));

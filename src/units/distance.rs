@@ -1,14 +1,11 @@
 use simple_si_units::base::Distance;
 
 pub const DISTANCE_ZERO: Distance<f64> = Distance { m: 0. };
-pub(crate) const METERS_PER_NANOMETER: f64 = 1e-9;
-pub(crate) const METERS_PER_MICROMETER: f64 = 1e-6;
-pub(crate) const METERS_PER_MILLIMETER: f64 = 1e-3;
-pub(crate) const METERS_PER_KILOMETER: f64 = 1e3;
-pub(crate) const METERS_PER_EARTH_RADII: f64 = 6.371e6;
-pub(crate) const METERS_PER_SUN_RADII: f64 = 6.957e8;
-pub(crate) const METERS_PER_ASTRONOMICAL_UNIT: f64 = 1.496e11;
-pub(crate) const METERS_PER_LIGHT_YEAR: f64 = 9.461e15;
+
+pub const EARTH_RADIUS: Distance<f64> = Distance { m: 6.371e6 };
+pub const SOLAR_RADIUS: Distance<f64> = Distance { m: 6.957e8 };
+pub const ASTRONOMICAL_UNIT: Distance<f64> = Distance { m: 1.496e11 };
+pub const LIGHT_YEAR: Distance<f64> = Distance { m: 9.461e15 };
 
 pub enum DistanceUnit {
     Nanometers,
@@ -22,19 +19,25 @@ pub enum DistanceUnit {
     LightYears,
 }
 
+pub(crate) fn distance_to_earth_radii(distance: Distance<f64>) -> f64 {
+    distance / EARTH_RADIUS
+}
+
+pub(crate) fn distance_to_sun_radii(distance: Distance<f64>) -> f64 {
+    distance / SOLAR_RADIUS
+}
+
 pub fn display_distance_in_units(distance: Distance<f64>, units: DistanceUnit) -> String {
     match units {
-        DistanceUnit::Nanometers => format!("{:2} nm", distance.m / METERS_PER_NANOMETER),
-        DistanceUnit::Micrometers => format!("{:2} μm", distance.m / METERS_PER_MICROMETER),
-        DistanceUnit::Millimeters => format!("{:2} mm", distance.m / METERS_PER_MILLIMETER),
+        DistanceUnit::Nanometers => format!("{:2} nm", distance.to_nm()),
+        DistanceUnit::Micrometers => format!("{:2} μm", distance.to_um()),
+        DistanceUnit::Millimeters => format!("{:2} mm", distance.to_mm()),
         DistanceUnit::Meters => format!("{:2} m", distance.m),
-        DistanceUnit::Kilometers => format!("{:2} km", distance.m / METERS_PER_KILOMETER),
-        DistanceUnit::EarthRadii => format!("{:2} R🜨", distance.m / METERS_PER_EARTH_RADII),
-        DistanceUnit::SunRadii => format!("{:2} R☉", distance.m / METERS_PER_SUN_RADII),
-        DistanceUnit::AstronomicalUnits => {
-            format!("{:2} AU", distance.m / METERS_PER_ASTRONOMICAL_UNIT)
-        }
-        DistanceUnit::LightYears => format!("{:2} ly", distance.m / METERS_PER_LIGHT_YEAR),
+        DistanceUnit::Kilometers => format!("{:2} km", distance.to_km()),
+        DistanceUnit::EarthRadii => format!("{:2} R🜨", distance / EARTH_RADIUS),
+        DistanceUnit::SunRadii => format!("{:2} R☉", distance / SOLAR_RADIUS),
+        DistanceUnit::AstronomicalUnits => format!("{:2} AU", distance.to_au()),
+        DistanceUnit::LightYears => format!("{:2} lyr", distance.to_lyr()),
     }
 }
 
@@ -43,17 +46,17 @@ pub fn diplay_distance(distance: Distance<f64>) -> String {
         DistanceUnit::LightYears
     } else if distance.to_au().abs() > 0.099 {
         DistanceUnit::AstronomicalUnits
-    } else if distance.to_sun_radii().abs() > 0.099 {
+    } else if distance_to_sun_radii(distance).abs() > 0.099 {
         DistanceUnit::SunRadii
-    } else if distance.to_earth_radii().abs() > 0.099 {
+    } else if distance_to_earth_radii(distance).abs() > 0.099 {
         DistanceUnit::EarthRadii
     } else if distance.to_km().abs() > 0.099 {
         DistanceUnit::Kilometers
     } else if distance.to_meters().abs() > 0.099 {
         DistanceUnit::Meters
-    } else if distance.to_millimeters().abs() > 0.099 {
+    } else if distance.to_mm().abs() > 0.099 {
         DistanceUnit::Millimeters
-    } else if distance.to_micrometers().abs() > 0.099 {
+    } else if distance.to_um().abs() > 0.099 {
         DistanceUnit::Micrometers
     } else {
         DistanceUnit::Nanometers
@@ -73,11 +76,11 @@ mod tests {
         assert_eq!(format!("{}", m), "1.23 m");
         let km = Distance::from_km(1.23);
         assert_eq!(format!("{}", km), "1.23 km");
-        let earth_radii = Distance::from_earth_radii(1.23);
+        let earth_radii = 1.23 * EARTH_RADIUS;
         assert_eq!(format!("{}", earth_radii), "1.23 R🜨");
-        let sun_radii = Distance::from_sun_radii(1.23);
+        let sun_radii = 1.23 * SOLAR_RADIUS;
         assert_eq!(format!("{}", sun_radii), "1.23 R☉");
-        let astronomical_units = Distance::from_astronomical_units(1.23);
+        let astronomical_units = Distance::from_au(1.23);
         assert_eq!(format!("{}", astronomical_units), "1.23 AU");
         let light_years = Distance::from_lyr(1.23);
         assert_eq!(format!("{}", light_years), "1.23 ly");
@@ -91,11 +94,11 @@ mod tests {
         assert_eq!(format!("{}", m), "-1.23 m");
         let km = Distance::from_km(-1.23);
         assert_eq!(format!("{}", km), "-1.23 km");
-        let earth_radii = Distance::from_earth_radii(-1.23);
+        let earth_radii = -1.23 * EARTH_RADIUS;
         assert_eq!(format!("{}", earth_radii), "-1.23 R🜨");
-        let sun_radii = Distance::from_sun_radii(-1.23);
+        let sun_radii = -1.23 * SOLAR_RADIUS;
         assert_eq!(format!("{}", sun_radii), "-1.23 R☉");
-        let astronomical_units = Distance::from_astronomical_units(-1.23);
+        let astronomical_units = Distance::from_au(-1.23);
         assert_eq!(format!("{}", astronomical_units), "-1.23 AU");
         let light_years = Distance::from_lyr(-1.23);
         assert_eq!(format!("{}", light_years), "-1.23 ly");
@@ -109,11 +112,11 @@ mod tests {
         assert_eq!(format!("{}", m), "1.00 m");
         let km = Distance::from_km(1.);
         assert_eq!(format!("{}", km), "1.00 km");
-        let earth_radii = Distance::from_earth_radii(1.);
+        let earth_radii = EARTH_RADIUS;
         assert_eq!(format!("{}", earth_radii), "1.00 R🜨");
-        let sun_radii = Distance::from_sun_radii(0.1);
+        let sun_radii = 0.1 * SOLAR_RADIUS;
         assert_eq!(format!("{}", sun_radii), "0.10 R☉");
-        let astronomical_units = Distance::from_astronomical_units(0.01);
+        let astronomical_units = Distance::from_au(0.01);
         assert_eq!(format!("{}", astronomical_units), "0.01 AU");
         let light_years = Distance::from_lyr(0.01);
         assert_eq!(format!("{}", light_years), "0.01 ly");

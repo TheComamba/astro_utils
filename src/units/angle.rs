@@ -13,31 +13,27 @@ pub(crate) const TWO_THIRDS_CIRC: Angle<f64> = Angle {
     rad: 2. * PI * 2. / 3.,
 };
 
-pub(crate) const RADIANS_PER_DEGREE: f64 = PI / 180.;
-pub(crate) const DEGREES_PER_RADIAN: f64 = 1. / RADIANS_PER_DEGREE;
-pub(crate) const ARCSECS_PER_RADIAN: f64 = 3600. * DEGREES_PER_RADIAN;
-pub(crate) const RADIAN_PER_ARCSEC: f64 = 1. / ARCSECS_PER_RADIAN;
-pub(crate) const SECOND_ANGLE_PER_RADIAN: f64 = 24. * 60. * 60. / 2. / PI;
-pub(crate) const RADIANS_PER_SECOND_ANGLE: f64 = 1. / SECOND_ANGLE_PER_RADIAN;
+pub const ARCSEC: Angle<f64> = Angle {
+    rad: 2. * PI / (360. * 60. * 60.),
+};
+pub const SECOND_ANGLE: Angle<f64> = Angle {
+    rad: 2. * PI / (24. * 60. * 60.),
+};
 
 pub fn angle_from_arcsecs(arcsec: f64) -> Angle<f64> {
-    Angle {
-        rad: arcsec * RADIAN_PER_ARCSEC,
-    }
+    arcsec * ARCSEC
 }
 
 pub fn angle_to_arcsecs(angle: &Angle<f64>) -> f64 {
-    angle.rad * ARCSECS_PER_RADIAN
+    angle / &ARCSEC
 }
 
 pub fn angle_from_second_angle(second_angle: f64) -> Angle<f64> {
-    Angle {
-        rad: second_angle * RADIANS_PER_SECOND_ANGLE,
-    }
+    second_angle * SECOND_ANGLE
 }
 
 pub fn angle_to_second_angle(angle: &Angle<f64>) -> f64 {
-    angle.rad * SECOND_ANGLE_PER_RADIAN
+    angle / &SECOND_ANGLE
 }
 
 /*

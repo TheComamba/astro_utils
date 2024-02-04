@@ -10,7 +10,7 @@ pub enum MassUnit {
     SolarMasses,
 }
 
-pub fn mass_to_earth_masses(mass: Mass<f64>) -> f64 {
+pub(crate) fn mass_to_earth_masses(mass: Mass<f64>) -> f64 {
     mass / EARTH_MASS
 }
 

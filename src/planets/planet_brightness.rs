@@ -60,7 +60,7 @@ mod tests {
     use super::*;
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
-        real_data::{planets::*, SUN_LUMINOSITY, SUN_RADIUS},
+        real_data::{planets::*, SOLAR_LUMINOSITY, SOLAR_RADIUS},
         tests::eq_within,
         units::{
             angle::ANGLE_ZERO, distance::DISTANCE_ZERO,
@@ -74,7 +74,11 @@ mod tests {
     #[test]
     fn solid_angle_of_sun() {
         let expected = 7e-5;
-        let actual = solid_angle(&SUN_RADIUS, &EARTH.orbit.get_semi_major_axis(), &ANGLE_ZERO);
+        let actual = solid_angle(
+            &SOLAR_RADIUS,
+            &EARTH.orbit.get_semi_major_axis(),
+            &ANGLE_ZERO,
+        );
         println!("expected: {}, actual: {}", expected, actual);
         println!(
             "diff: {}, accuracy: {}",
@@ -130,7 +134,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SUN_LUMINOSITY,
+            SOLAR_LUMINOSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -160,7 +164,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SUN_LUMINOSITY,
+            SOLAR_LUMINOSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -190,7 +194,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SUN_LUMINOSITY,
+            SOLAR_LUMINOSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -220,7 +224,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SUN_LUMINOSITY,
+            SOLAR_LUMINOSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -250,7 +254,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SUN_LUMINOSITY,
+            SOLAR_LUMINOSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -280,7 +284,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SUN_LUMINOSITY,
+            SOLAR_LUMINOSITY,
             &star_position,
             &planet_position,
             &observer_position,

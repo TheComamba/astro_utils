@@ -21,30 +21,30 @@ pub enum TimeUnit {
 pub fn display_time_in_units(time: Time<f64>, units: TimeUnit) -> String {
     match units {
         TimeUnit::Seconds => format!("{:2} sec", time.to_seconds()),
-        TimeUnit::Minutes => format!("{:2} min", time.to_minutes()),
-        TimeUnit::Hours => format!("{:2} hrs", time.to_hours()),
+        TimeUnit::Minutes => format!("{:2} min", time.to_min()),
+        TimeUnit::Hours => format!("{:2} hrs", time.to_hr()),
         TimeUnit::Days => format!("{:2} days", time.to_days()),
-        TimeUnit::Years => format!("{:2} yrs", time.to_years()),
-        TimeUnit::ThousandYears => format!("{:2} kyr", time.to_thousand_years()),
-        TimeUnit::MillionYears => format!("{:2} Myrs", time.to_million_years()),
-        TimeUnit::BillionYears => format!("{:2} Gyrs", time.to_billion_years()),
+        TimeUnit::Years => format!("{:2} yrs", time.to_yr()),
+        TimeUnit::ThousandYears => format!("{:2} kyr", time.to_kyr()),
+        TimeUnit::MillionYears => format!("{:2} Myrs", time.to_Myr()),
+        TimeUnit::BillionYears => format!("{:2} Gyrs", time.to_Gyr()),
     }
 }
 
 pub fn display_time(time: Time<f64>) -> String {
-    let units = if time.to_billion_years().abs() > 0.099 {
+    let units = if time.to_Gyr().abs() > 0.099 {
         TimeUnit::BillionYears
-    } else if time.to_million_years().abs() > 0.099 {
+    } else if time.to_Myr().abs() > 0.099 {
         TimeUnit::MillionYears
-    } else if time.to_thousand_years().abs() > 0.099 {
+    } else if time.to_kyr().abs() > 0.099 {
         TimeUnit::ThousandYears
-    } else if time.to_years().abs() > 0.099 {
+    } else if time.to_yr().abs() > 0.099 {
         TimeUnit::Years
     } else if time.to_days().abs() > 0.099 {
         TimeUnit::Days
-    } else if time.to_hours().abs() > 0.099 {
+    } else if time.to_hr().abs() > 0.099 {
         TimeUnit::Hours
-    } else if time.to_minutes().abs() > 0.099 {
+    } else if time.to_min().abs() > 0.099 {
         TimeUnit::Minutes
     } else {
         TimeUnit::Seconds
@@ -60,7 +60,7 @@ mod tests {
     fn test_time_display() {
         let time = Time::from_seconds(1.);
         assert_eq!(format!("{}", time), "1.00 sec");
-        let time = Time::from_minutes(1.);
+        let time = Time::from_min(1.);
         assert_eq!(format!("{}", time), "1.00 min");
         let time = Time::from_hr(1.);
         assert_eq!(format!("{}", time), "1.00 hrs");
@@ -68,11 +68,11 @@ mod tests {
         assert_eq!(format!("{}", time), "1.00 days");
         let time = Time::from_yr(1.);
         assert_eq!(format!("{}", time), "1.00 yrs");
-        let time = Time::from_thousand_years(1.);
+        let time = Time::from_kyr(1.);
         assert_eq!(format!("{}", time), "1.00 kyr");
-        let time = Time::from_million_years(1.);
+        let time = Time::from_Myr(1.);
         assert_eq!(format!("{}", time), "1.00 Myrs");
-        let time = Time::from_billion_years(1.);
+        let time = Time::from_Gyr(1.);
         assert_eq!(format!("{}", time), "1.00 Gyrs");
     }
 
@@ -80,7 +80,7 @@ mod tests {
     fn test_time_negative_display() {
         let time = Time::from_seconds(-1.);
         assert_eq!(format!("{}", time), "-1.00 sec");
-        let time = Time::from_minutes(-1.);
+        let time = Time::from_min(-1.);
         assert_eq!(format!("{}", time), "-1.00 min");
         let time = Time::from_hr(-1.);
         assert_eq!(format!("{}", time), "-1.00 hrs");
@@ -88,11 +88,11 @@ mod tests {
         assert_eq!(format!("{}", time), "-1.00 days");
         let time = Time::from_yr(-1.);
         assert_eq!(format!("{}", time), "-1.00 yrs");
-        let time = Time::from_thousand_years(-1.);
+        let time = Time::from_kyr(-1.);
         assert_eq!(format!("{}", time), "-1.00 kyr");
-        let time = Time::from_million_years(-1.);
+        let time = Time::from_Myr(-1.);
         assert_eq!(format!("{}", time), "-1.00 Myrs");
-        let time = Time::from_billion_years(-1.);
+        let time = Time::from_Gyr(-1.);
         assert_eq!(format!("{}", time), "-1.00 Gyrs");
     }
 }

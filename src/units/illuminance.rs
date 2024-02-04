@@ -34,7 +34,7 @@ mod tests {
     use super::*;
     use crate::{
         tests::eq,
-        units::luminosity::{luminosity_to_illuminance, WATTS_PER_SOLAR_LUMINOSITY},
+        units::luminosity::{luminosity_to_illuminance, SOLAR_LUMINOSITY},
     };
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
@@ -52,7 +52,7 @@ mod tests {
 
     #[test]
     fn test_sunlight() {
-        let luminosity = Luminosity::from_cd(WATTS_PER_SOLAR_LUMINOSITY);
+        let luminosity = SOLAR_LUMINOSITY;
         let distance = Distance::from_au(1.);
         let illuminance = luminosity_to_illuminance(&luminosity, &distance);
         let actual = illuminance.to_lux();

@@ -6,7 +6,6 @@ use crate::{
     stars::real_data::RealData,
     units::{
         distance::{DISTANCE_ZERO, METERS_PER_LIGHT_YEAR, METERS_PER_SUN_RADII},
-        mass::KILOGRAMS_PER_SOLAR_MASS,
         time::SECONDS_PER_BILLION_YEARS,
     },
 };
