@@ -59,40 +59,40 @@ mod tests {
     #[test]
     fn test_time_display() {
         let time = Time::from_seconds(1.);
-        assert_eq!(format!("{}", time), "1.00 sec");
+        assert_eq!(display_time(time), "1.00 sec");
         let time = Time::from_min(1.);
-        assert_eq!(format!("{}", time), "1.00 min");
+        assert_eq!(display_time(time), "1.00 min");
         let time = Time::from_hr(1.);
-        assert_eq!(format!("{}", time), "1.00 hrs");
+        assert_eq!(display_time(time), "1.00 hrs");
         let time = Time::from_days(1.);
-        assert_eq!(format!("{}", time), "1.00 days");
+        assert_eq!(display_time(time), "1.00 days");
         let time = Time::from_yr(1.);
-        assert_eq!(format!("{}", time), "1.00 yrs");
+        assert_eq!(display_time(time), "1.00 yrs");
         let time = Time::from_kyr(1.);
-        assert_eq!(format!("{}", time), "1.00 kyr");
+        assert_eq!(display_time(time), "1.00 kyr");
         let time = Time::from_Myr(1.);
-        assert_eq!(format!("{}", time), "1.00 Myrs");
+        assert_eq!(display_time(time), "1.00 Myrs");
         let time = Time::from_Gyr(1.);
-        assert_eq!(format!("{}", time), "1.00 Gyrs");
+        assert_eq!(display_time(time), "1.00 Gyrs");
     }
 
     #[test]
     fn test_time_negative_display() {
         let time = Time::from_seconds(-1.);
-        assert_eq!(format!("{}", time), "-1.00 sec");
+        assert_eq!(display_time(time), "-1.00 sec");
         let time = Time::from_min(-1.);
-        assert_eq!(format!("{}", time), "-1.00 min");
+        assert_eq!(display_time(time), "-1.00 min");
         let time = Time::from_hr(-1.);
-        assert_eq!(format!("{}", time), "-1.00 hrs");
+        assert_eq!(display_time(time), "-1.00 hrs");
         let time = Time::from_days(-1.);
-        assert_eq!(format!("{}", time), "-1.00 days");
+        assert_eq!(display_time(time), "-1.00 days");
         let time = Time::from_yr(-1.);
-        assert_eq!(format!("{}", time), "-1.00 yrs");
+        assert_eq!(display_time(time), "-1.00 yrs");
         let time = Time::from_kyr(-1.);
-        assert_eq!(format!("{}", time), "-1.00 kyr");
+        assert_eq!(display_time(time), "-1.00 kyr");
         let time = Time::from_Myr(-1.);
-        assert_eq!(format!("{}", time), "-1.00 Myrs");
+        assert_eq!(display_time(time), "-1.00 Myrs");
         let time = Time::from_Gyr(-1.);
-        assert_eq!(format!("{}", time), "-1.00 Gyrs");
+        assert_eq!(display_time(time), "-1.00 Gyrs");
     }
 }
