@@ -1,65 +1,123 @@
-use std::fmt::Display;
+use crate::Float;
+use simple_si_units::base::{Distance, Mass, Time};
 
-use crate::units::{
-    mass::{Mass, *},
-    time::{Time, *},
-    Distance::{Length, *},
-};
+pub enum DistanceUnit {
+    Nanometers,
+    Micrometers,
+    Millimeters,
+    Meters,
+    Kilometers,
+    EarthRadii,
+    SunRadii,
+    AstronomicalUnits,
+    LightYears,
+}
 
-impl Display for Distance {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.au.abs() > 0.0099 * AU_PER_LIGHT_YEARS {
-            write!(f, "{:.2} ly", self.as_light_years())
-        } else if self.au.abs() > 0.0099 {
-            write!(f, "{:.2} AU", self.as_astronomical_units())
-        } else if self.au.abs() > 0.099 * AU_PER_SUN_RADII {
-            write!(f, "{:.2} R☉", self.as_sun_radii())
-        } else if self.au.abs() > 0.99 * AU_PER_EARTH_RADII {
-            write!(f, "{:.2} R🜨", self.as_earth_radii())
-        } else if self.au.abs() > 0.99 * AU_PER_KILOMETERS {
-            write!(f, "{:.2} km", self.as_kilometers())
-        } else if self.au.abs() > 1001. * AU_PER_NANOMETERS {
-            write!(f, "{:.2} m", self.as_meters())
-        } else {
-            write!(f, "{:.2} nm", self.as_nanometers())
-        }
+pub fn display_distance_in_units(distance: Distance<Float>, units: DistanceUnit) -> String {
+    match units {
+        DistanceUnit::Nanometers => format!("{:2} nm", distance.to_nanometers()),
+        DistanceUnit::Micrometers => format!("{:2} μm", distance.to_micrometers()),
+        DistanceUnit::Millimeters => format!("{:2} mm", distance.to_millimeters()),
+        DistanceUnit::Meters => format!("{:2} m", distance.to_meters()),
+        DistanceUnit::Kilometers => format!("{:2} km", distance.to_kilometers()),
+        DistanceUnit::EarthRadii => format!("{:2} R🜨", distance.to_earth_radii()),
+        DistanceUnit::SunRadii => format!("{:2} R☉", distance.to_sun_radii()),
+        DistanceUnit::AstronomicalUnits => format!("{:2} AU", distance.to_astronomical_units()),
+        DistanceUnit::LightYears => format!("{:2} ly", distance.to_light_years()),
     }
 }
 
-impl Display for Mass {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.kilograms.abs() > 0.099 * KILOGRAMS_PER_SOLAR_MASS {
-            write!(f, "{:.2} M☉", self.as_solar_masses())
-        } else if self.kilograms.abs() > 0.0099 * KILOGRAMS_PER_EARTH_MASS {
-            write!(f, "{:.2} M🜨", self.as_earth_masses())
-        } else if self.kilograms.abs() > 0.99e-5 * KILOGRAMS_PER_EARTH_MASS {
-            write!(f, "{:.5} M🜨", self.as_earth_masses())
-        } else {
-            write!(f, "{:.2} kg", self.kilograms)
-        }
+pub fn diplay_distance(distance: Distance<Float>) -> String {
+    let units = if distance.as_light_years().abs() > 0.099 {
+        DistanceUnit::LightYears
+    } else if distance.as_astronomical_units().abs() > 0.099 {
+        DistanceUnit::AstronomicalUnits
+    } else if distance.as_sun_radii().abs() > 0.099 {
+        DistanceUnit::SunRadii
+    } else if distance.as_earth_radii().abs() > 0.099 {
+        DistanceUnit::EarthRadii
+    } else if distance.as_kilometers().abs() > 0.099 {
+        DistanceUnit::Kilometers
+    } else if distance.as_meters().abs() > 0.099 {
+        DistanceUnit::Meters
+    } else if distance.as_millimeters().abs() > 0.099 {
+        DistanceUnit::Millimeters
+    } else if distance.as_micrometers().abs() > 0.099 {
+        DistanceUnit::Micrometers
+    } else {
+        DistanceUnit::Nanometers
+    };
+    display_distance_in_units(distance, units)
+}
+
+pub enum MassUnit {
+    Kilograms,
+    EarthMasses,
+    SolarMasses,
+}
+
+pub fn display_mass_in_units(mass: Mass<Float>, units: MassUnit) -> String {
+    match units {
+        MassUnit::Kilograms => format!("{:2} kg", mass.to_kilograms()),
+        MassUnit::EarthMasses => format!("{:2} M🜨", mass.to_earth_masses()),
+        MassUnit::SolarMasses => format!("{:2} M☉", mass.to_solar_masses()),
     }
 }
 
-impl Display for Time {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.seconds.abs() > 0.99 * SECONDS_PER_BILLION_YEARS {
-            write!(f, "{:.2} Gyrs", self.as_billion_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLION_YEARS {
-            write!(f, "{:.2} Myrs", self.as_million_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLENIUM {
-            write!(f, "{:.2} kyr", self.as_thousand_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_YEAR {
-            write!(f, "{:.2} yrs", self.as_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_DAY {
-            write!(f, "{:.2} days", self.as_days())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_HOUR {
-            write!(f, "{:.2} hrs", self.as_hours())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MINUTE {
-            write!(f, "{:.2} min", self.as_minutes())
-        } else {
-            write!(f, "{:.2} sec", self.as_seconds())
-        }
+pub fn display_mass(mass: Mass<Float>) -> String {
+    let units = if mass.as_solar_masses().abs() > 0.099 {
+        MassUnit::SolarMasses
+    } else if mass.as_earth_masses().abs() > 0.099 {
+        MassUnit::EarthMasses
+    } else {
+        MassUnit::Kilograms
+    };
+    display_mass_in_units(mass, units)
+}
+
+pub enum TimeUnit {
+    Seconds,
+    Minutes,
+    Hours,
+    Days,
+    Years,
+    ThousandYears,
+    MillionYears,
+    BillionYears,
+}
+
+pub fn display_time_in_units(time: Time<Float>, units: TimeUnit) -> String {
+    match units {
+        TimeUnit::Seconds => format!("{:2} sec", time.to_seconds()),
+        TimeUnit::Minutes => format!("{:2} min", time.to_minutes()),
+        TimeUnit::Hours => format!("{:2} hrs", time.to_hours()),
+        TimeUnit::Days => format!("{:2} days", time.to_days()),
+        TimeUnit::Years => format!("{:2} yrs", time.to_years()),
+        TimeUnit::ThousandYears => format!("{:2} kyr", time.to_thousand_years()),
+        TimeUnit::MillionYears => format!("{:2} Myrs", time.to_million_years()),
+        TimeUnit::BillionYears => format!("{:2} Gyrs", time.to_billion_years()),
     }
+}
+
+pub fn display_time(time: Time<Float>) -> String {
+    let units = if time.as_billion_years().abs() > 0.099 {
+        TimeUnit::BillionYears
+    } else if time.as_million_years().abs() > 0.099 {
+        TimeUnit::MillionYears
+    } else if time.as_thousand_years().abs() > 0.099 {
+        TimeUnit::ThousandYears
+    } else if time.as_years().abs() > 0.099 {
+        TimeUnit::Years
+    } else if time.as_days().abs() > 0.099 {
+        TimeUnit::Days
+    } else if time.as_hours().abs() > 0.099 {
+        TimeUnit::Hours
+    } else if time.as_minutes().abs() > 0.099 {
+        TimeUnit::Minutes
+    } else {
+        TimeUnit::Seconds
+    };
+    display_time_in_units(time, units)
 }
 
 #[cfg(test)]
