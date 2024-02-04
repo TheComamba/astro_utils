@@ -181,6 +181,7 @@ mod tests {
         let stars = generate_random_stars(max_distance).unwrap();
         let duration = start.elapsed();
         println!("duration: {:?}", duration);
+        println!("stars: {}", stars.len());
         assert!(stars.len() > 1000);
         assert!(duration.as_secs() < max_seconds);
     }

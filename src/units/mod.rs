@@ -7,6 +7,8 @@ pub mod luminosity;
 pub mod mass;
 pub mod time;
 
+pub(super) const DISPLAY_THRESHOLD: f64 = 0.099;
+
 #[cfg(test)]
 pub(crate) mod tests {
     use crate::tests::TEST_ACCURACY;
