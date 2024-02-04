@@ -47,13 +47,13 @@ pub fn planet_brightness(
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer)?;
     let planet_illuminance = star_luminosity.to_illuminance(&planet_to_star.length());
-    let planet_luminance = (planet_illuminance * geometric_albedo).to_luminance_flat_surface();
+    let planet_flat_surface_luminance = (planet_illuminance * geometric_albedo) / PI;
     let solid_angle_at_obsverver = solid_angle(
         &planet_radius,
         &planet_to_observer.length(),
         &reflection_angle,
     );
-    Ok(planet_luminance.to_illuminance(solid_angle_at_obsverver))
+    Ok(planet_flat_surface_luminance.to_illuminance(solid_angle_at_obsverver))
 }
 
 #[cfg(test)]
