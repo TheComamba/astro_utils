@@ -16,9 +16,9 @@ pub fn display_mass_in_units(mass: Mass<f64>, units: MassUnit) -> String {
 }
 
 pub fn display_mass(mass: Mass<f64>) -> String {
-    let units = if mass.as_solar_masses().abs() > 0.099 {
+    let units = if mass.to_solar_masses().abs() > 0.099 {
         MassUnit::SolarMasses
-    } else if mass.as_earth_masses().abs() > 0.099 {
+    } else if mass.to_earth_masses().abs() > 0.099 {
         MassUnit::EarthMasses
     } else {
         MassUnit::Kilograms

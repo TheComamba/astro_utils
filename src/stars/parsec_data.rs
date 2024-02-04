@@ -207,7 +207,7 @@ impl ParsecData {
         mass: Mass<f64>,
         age_in_years: f64,
     ) -> &ParsecLine {
-        let mut mass_index = Self::get_closest_mass_index(mass.as_solar_masses());
+        let mut mass_index = Self::get_closest_mass_index(mass.to_solar_masses());
         let mut trajectory = &self.data[mass_index];
         let mut params = Self::get_closest_params(trajectory, age_in_years);
         while params.get_mass() < mass && mass_index < Self::SORTED_MASSES.len() - 1 {
@@ -270,12 +270,12 @@ impl ParsecLine {
     pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
         let lum = self.get_luminosity();
         let ill = lum.to_illuminance(&distance);
-        ill.as_apparent_magnitude()
+        ill.to_apparent_magnitude()
     }
 
     pub(super) fn get_temperature(&self) -> Temperature<f64> {
         let temp = 10f32.powf(self.log_te);
-        Temperature::from_kelvin(temp)
+        Temperature::from_K(temp)
     }
 
     pub(super) fn get_radius(&self) -> Distance<f64> {
@@ -304,7 +304,7 @@ mod tests {
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
         let current_params =
-            parsec_data.get_params_for_current_mass_and_age(mass.unwrap(), age.as_years());
+            parsec_data.get_params_for_current_mass_and_age(mass.unwrap(), age.to_years());
         let calculated_sun = current_params.to_star_at_origin();
         let real_sun = SUN_DATA.to_star_data();
         println!(
@@ -356,8 +356,8 @@ mod tests {
         let mut num_fail = 0;
         for data in BRIGHTEST_STARS.iter() {
             if let (Some(age), Some(mass)) = (data.age, data.mass) {
-                let age = age.as_years();
-                let mass_index = ParsecData::get_closest_mass_index(mass.as_solar_masses());
+                let age = age.to_years();
+                let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_masses());
                 let trajectory = parsec_data.get_trajectory_via_index(mass_index);
                 let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
                 let age_expectancy = Time::from_years(age_expectancy as f64);

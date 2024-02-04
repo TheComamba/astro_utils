@@ -16,7 +16,7 @@ pub fn angle_from_arcsecs(arcsec: f64) -> Angle<f64> {
     }
 }
 
-pub fn angle_as_arcsecs(angle: &Angle<f64>) -> f64 {
+pub fn angle_to_arcsecs(angle: &Angle<f64>) -> f64 {
     angle.rad * ARCSECS_PER_RADIAN
 }
 
@@ -26,14 +26,14 @@ pub fn angle_from_second_angle(second_angle: f64) -> Angle<f64> {
     }
 }
 
-pub fn angle_as_second_angle(angle: &Angle<f64>) -> f64 {
+pub fn angle_to_second_angle(angle: &Angle<f64>) -> f64 {
     angle.rad * SECOND_ANGLE_PER_RADIAN
 }
 
 /*
 * Normalize the angle to a range of −π to +π radians, -180° to 180°.
 */
-pub fn normalize_angle(mut angle: Angle<f64>) -> Angle<f64> {
+pub fn normalized_angle(mut angle: Angle<f64>) -> Angle<f64> {
     angle.rad = angle.rad % TWO_PI;
     if angle.rad > PI {
         angle.rad -= TWO_PI;

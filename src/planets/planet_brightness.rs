@@ -19,7 +19,7 @@ use crate::{coordinates::cartesian::CartesianCoordinates, error::AstroUtilError}
  * https://www.physicsforums.com/threads/illuminated-fraction-of-the-moon.515983/
  */
 fn illuminated_fraction(reflection_angle: &Angle<f64>) -> f64 {
-    let reflection_angle = reflection_angle.as_radians();
+    let reflection_angle = reflection_angle.to_radians();
     let illuminated_fraction = (1. + reflection_angle.cos()) / 2.;
     illuminated_fraction
 }
@@ -29,8 +29,8 @@ fn solid_angle(
     distance: &Distance<f64>,
     reflection_angle: &Angle<f64>,
 ) -> f64 {
-    let radius = radius.as_astronomical_units();
-    let distance = distance.as_astronomical_units();
+    let radius = radius.to_astronomical_units();
+    let distance = distance.to_astronomical_units();
     let area = PI * radius.powi(2) * illuminated_fraction(reflection_angle);
     area / distance.powi(2)
 }
@@ -137,7 +137,7 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -168,7 +168,7 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -199,7 +199,7 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -230,7 +230,7 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -261,7 +261,7 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }
@@ -292,7 +292,7 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
         assert!(actual.eq_within(expected, accuracy));
     }

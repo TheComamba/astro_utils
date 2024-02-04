@@ -31,16 +31,20 @@ impl CartesianCoordinates {
     #[cfg(test)]
     #[allow(dead_code)]
     pub(crate) fn eq_within(&self, other: &CartesianCoordinates, accuracy: Distance<f64>) -> bool {
-        self.x.eq_within(&other.x, accuracy)
-            && self.y.eq_within(&other.y, accuracy)
-            && self.z.eq_within(&other.z, accuracy)
+        use crate::tests::eq_within;
+
+        eq_within(self.x.m, other.x.m, accuracy.m)
+            && eq_within(self.y.m, other.y.m, accuracy.m)
+            && eq_within(self.z.m, other.z.m, accuracy.m)
     }
 
     pub fn length(&self) -> Distance<f64> {
-        let x = self.x.au;
-        let y = self.y.au;
-        let z = self.z.au;
-        Distance::from_astronomical_units((x * x + y * y + z * z).sqrt())
+        let x = self.x.m;
+        let y = self.y.m;
+        let z = self.z.m;
+        Distance {
+            m: (x * x + y * y + z * z).sqrt(),
+        }
     }
 
     pub fn distance(&self, other: &CartesianCoordinates) -> Distance<f64> {
@@ -70,7 +74,7 @@ impl CartesianCoordinates {
     }
 
     pub fn to_direction(&self) -> Result<Direction, AstroUtilError> {
-        Direction::new(self.x.au, self.y.au, self.z.au)
+        Direction::new(self.x.m, self.y.m, self.z.m)
     }
 
     pub fn to_ecliptic(&self) -> EclipticCoordinates {
@@ -80,7 +84,7 @@ impl CartesianCoordinates {
     }
 
     pub fn to_spherical(&self) -> SphericalCoordinates {
-        SphericalCoordinates::cartesian_to_spherical((self.x.au, self.y.au, self.z.au))
+        SphericalCoordinates::cartesian_to_spherical((self.x.m, self.y.m, self.z.m))
     }
 }
 

@@ -133,7 +133,7 @@ impl StarData {
         };
         let luminosity_difference = match (self.luminosity, other.luminosity) {
             (Some(self_luminosity), Some(other_luminosity)) => {
-                (self_luminosity.as_absolute_magnitude() - other_luminosity.as_absolute_magnitude())
+                (self_luminosity.to_absolute_magnitude() - other_luminosity.to_absolute_magnitude())
                     .abs()
             }
             _ => 0.0,

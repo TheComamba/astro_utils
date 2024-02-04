@@ -90,7 +90,7 @@ mod tests {
                 .get_luminosity()
                 .unwrap()
                 .to_illuminance(&star.distance.unwrap())
-                .as_apparent_magnitude();
+                .to_apparent_magnitude();
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             if difference.abs() > 0.1 {
                 println!(
@@ -104,7 +104,7 @@ mod tests {
     }
 
     #[test]
-    fn every_star_has_a_name() {
+    fn every_star_hto_a_name() {
         for star_data in BRIGHTEST_STARS {
             let star_data = star_data.to_star_data();
             assert!(!star_data.name.is_empty());

@@ -10,7 +10,6 @@ pub mod units;
 
 #[cfg(test)]
 pub(crate) mod tests {
-
     pub(crate) const TEST_ACCURACY: f64 = 1e-5;
 
     pub(crate) fn eq_within(a: f64, b: f64, accuracy: f64) -> bool {

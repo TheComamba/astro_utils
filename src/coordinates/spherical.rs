@@ -3,7 +3,7 @@ use super::{
     direction::Direction,
     right_ascension::RightAscension,
 };
-use crate::units::angle::ANGLE_ZERO;
+use crate::units::angle::{normalized_angle, ANGLE_ZERO};
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::{
@@ -43,34 +43,36 @@ impl SphericalCoordinates {
         }
     }
     pub fn normalize(&mut self) {
-        self.longitude.normalize();
-        self.latitude.normalize();
-        if self.latitude.as_radians() > PI_HALF {
+        self.longitude = normalized_angle(self.longitude);
+        self.latitude = normalized_angle(self.latitude);
+        if self.latitude.to_radians() > PI_HALF {
             self.longitude = self.longitude + Angle::from_radians(PI);
-            self.longitude.normalize();
+            self.longitude = normalized_angle(self.longitude);
             self.latitude = Angle::from_radians(PI) - self.latitude;
-        } else if self.latitude.as_radians() < -PI_HALF {
+        } else if self.latitude.to_radians() < -PI_HALF {
             self.longitude = self.longitude + Angle::from_radians(PI);
-            self.longitude.normalize();
+            self.longitude = normalized_angle(self.longitude);
             self.latitude = Angle::from_radians(-PI) - self.latitude;
         }
     }
 
     #[cfg(test)]
     pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<f64>) -> bool {
+        use crate::tests::eq_within;
+
         const NORTHPOLE_LATITUDE: Angle<f64> = Angle { rad: PI_HALF };
         const SOUTHPOLE_LATITUDE: Angle<f64> = Angle { rad: -PI_HALF };
         let mut clone = self.clone();
         let mut other_clone = other.clone();
         clone.normalize();
         other_clone.normalize();
-        let latitudes_equal = clone.latitude.eq_within(other_clone.latitude, accuracy);
-        let is_pole = clone.latitude.eq_within(NORTHPOLE_LATITUDE, accuracy)
-            || clone.latitude.eq_within(SOUTHPOLE_LATITUDE, accuracy);
+        let latitudes_equal = eq_within(clone.latitude.rad, other_clone.latitude.rad, accuracy.rad);
+        let is_pole = eq_within(clone.latitude.rad, NORTHPOLE_LATITUDE.rad, accuracy.rad)
+            || eq_within(clone.latitude.rad, SOUTHPOLE_LATITUDE.rad, accuracy.rad);
         let longitudes_equal = if is_pole {
             true
         } else {
-            clone.longitude.eq_within(other_clone.longitude, accuracy)
+            eq_within(clone.longitude.rad, other_clone.longitude.rad, accuracy.rad)
         };
         latitudes_equal && longitudes_equal
     }
@@ -102,14 +104,14 @@ impl SphericalCoordinates {
     }
 
     pub fn to_direction(&self) -> Direction {
-        let x = self.get_longitude().cos() * self.get_latitude().cos();
-        let y = self.get_longitude().sin() * self.get_latitude().cos();
-        let z = self.get_latitude().sin();
+        let x = self.get_longitude().rad.cos() * self.get_latitude().rad.cos();
+        let y = self.get_longitude().rad.sin() * self.get_latitude().rad.cos();
+        let z = self.get_latitude().rad.sin();
         Direction { x, y, z }
     }
 
     pub fn to_ra_and_dec(&self) -> (RightAscension, Declination) {
-        let mut ra_remainder = self.longitude.as_degrees();
+        let mut ra_remainder = self.longitude.to_degrees();
         let ra_hours = (ra_remainder / 15.).floor() as i8;
         ra_remainder -= ra_hours as f64 * 15.;
         let ra_minutes = (ra_remainder / 15. * 60.).floor() as i8;
@@ -117,7 +119,7 @@ impl SphericalCoordinates {
         let ra_seconds = (ra_remainder / 15. * 3600.).floor() as i8;
         let ra = RightAscension::new(ra_hours, ra_minutes, ra_seconds);
 
-        let mut dec_remainder = self.latitude.as_degrees();
+        let mut dec_remainder = self.latitude.to_degrees();
         let sign = if dec_remainder < 0. {
             dec_remainder = dec_remainder.abs();
             Sgn::Neg
@@ -140,7 +142,7 @@ impl Neg for &SphericalCoordinates {
 
     fn neg(self) -> SphericalCoordinates {
         let mut longitude = self.longitude + Angle::from_radians(PI);
-        longitude.normalize();
+        longitude = normalized_angle(longitude);
         let latitude = -self.latitude;
         SphericalCoordinates {
             longitude,
@@ -186,7 +188,7 @@ mod tests {
         };
         let actual = cartesian.to_spherical();
         println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
-        assert!(eq(actual, &expected));
+        assert!(actual.eq_within(&expected));
 
         let cartesian = CartesianCoordinates::new(
             Distance::from_meters(1.),

@@ -29,19 +29,19 @@ pub fn display_time_in_units(time: Time<f64>, units: TimeUnit) -> String {
 }
 
 pub fn display_time(time: Time<f64>) -> String {
-    let units = if time.as_billion_years().abs() > 0.099 {
+    let units = if time.to_billion_years().abs() > 0.099 {
         TimeUnit::BillionYears
-    } else if time.as_million_years().abs() > 0.099 {
+    } else if time.to_million_years().abs() > 0.099 {
         TimeUnit::MillionYears
-    } else if time.as_thousand_years().abs() > 0.099 {
+    } else if time.to_thousand_years().abs() > 0.099 {
         TimeUnit::ThousandYears
-    } else if time.as_years().abs() > 0.099 {
+    } else if time.to_years().abs() > 0.099 {
         TimeUnit::Years
-    } else if time.as_days().abs() > 0.099 {
+    } else if time.to_days().abs() > 0.099 {
         TimeUnit::Days
-    } else if time.as_hours().abs() > 0.099 {
+    } else if time.to_hours().abs() > 0.099 {
         TimeUnit::Hours
-    } else if time.as_minutes().abs() > 0.099 {
+    } else if time.to_minutes().abs() > 0.099 {
         TimeUnit::Minutes
     } else {
         TimeUnit::Seconds

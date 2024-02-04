@@ -1,28 +1,28 @@
-use simple_si_units::electromagnetic::Illuminance;
+use simple_si_units::{base::Distance, electromagnetic::Illuminance};
 use std::f64::consts::PI;
 
 pub const ILLUMINANCE_ZERO: Illuminance<f64> = Illuminance { lux: 0. };
 
-pub const fn from_lux(lux: f64) -> Illuminance {
+pub const fn from_lux(lux: f64) -> Illuminance<f64> {
     Illuminance { lux }
 }
 
-pub fn from_apparent_magnitude(apparent_magnitude: f64) -> Illuminance {
+pub fn illuminance_from_apparent_magnitude(apparent_magnitude: f64) -> Illuminance<f64> {
     let exponent = (-14.18 - apparent_magnitude) / 2.5;
     let lux = (10. as f64).powf(exponent);
     Illuminance { lux }
 }
 
-pub const fn as_lux(&self) -> f64 {
-    self.lux
+pub fn illuminance_to_apparent_magnitude(illuminance: &Illuminance<f64>) -> f64 {
+    -14.18 - 2.5 * illuminance.lux.log10()
 }
 
-pub fn as_apparent_magnitude(&self) -> f64 {
-    -14.18 - 2.5 * self.lux.log10()
-}
-
-pub fn to_luminosity(&self, distance: &Distance) -> Luminosity {
-    let absolute_magnitude = self.as_apparent_magnitude() - 5. * distance.as_parsecs().log10() + 5.;
+pub fn illuminance_to_luminosity(
+    illuminance: &Illuminance<f64>,
+    distance: &Distance<f64>,
+) -> Luminosity<f64> {
+    let absolute_magnitude =
+        illuminance_to_apparent_magnitude(illuminance) - 5. * distance.to_parsec().log10() + 5.;
     Luminosity::from_absolute_magnitude(absolute_magnitude)
 }
 
@@ -32,12 +32,10 @@ pub fn to_luminance_flat_surface(&self) -> Luminance {
 }
 
 #[cfg(test)]
-pub(crate) fn eq_within(&self, other: Illuminance, accuracy: Illuminance) -> bool {
-    (self.lux - other.lux).abs() <= accuracy.lux
-}
-
-#[cfg(test)]
 mod tests {
+
+    use crate::tests::eq;
+
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
 
     #[test]
@@ -45,9 +43,9 @@ mod tests {
         for magnitude in -10..10 {
             let input = magnitude as f64;
             let illuminance = Illuminance::from_apparent_magnitude(input);
-            let output = illuminance.as_apparent_magnitude();
+            let output = illuminance.to_apparent_magnitude();
             println!("input: {}, output: {}", input, output);
-            assert!((input - output).abs() < TEST_ACCURACY);
+            assert!(eq(input, output));
         }
     }
 
@@ -56,7 +54,7 @@ mod tests {
         let luminosity = Luminosity::from_solar_luminosities(1.);
         let distance = Distance::from_astronomical_units(1.);
         let illuminance = luminosity.to_illuminance(&distance);
-        let actual = illuminance.as_lux();
+        let actual = illuminance.to_lux();
         let expected = 107_527.;
         println!("expected: {}, actual: {}", expected, actual);
         assert!((actual - expected).abs() < REAL_DATA_TEST_ACCURACY * expected);

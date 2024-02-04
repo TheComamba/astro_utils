@@ -25,7 +25,7 @@ pub const SUN_DATA: RealData = RealData {
     }),
     absolute_magnitude: 4.83,
     apparent_magnitude: -26.74, //seen from earth
-    temperature: Some(Temperature::from_kelvin(5778.0)),
+    temperature: Some(Temperature::from_K(5778.0)),
     age: Some(Time {
         s: 4.6 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -46,7 +46,7 @@ const SIRIUS_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.45,
     apparent_magnitude: -1.44,
-    temperature: Some(Temperature::from_kelvin(9940.)),
+    temperature: Some(Temperature::from_K(9940.)),
     age: Some(Time {
         s: 0.242 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -69,7 +69,7 @@ const CANOPUS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -5.53,
     apparent_magnitude: -0.62,
-    temperature: Some(Temperature::from_kelvin(7400.)),
+    temperature: Some(Temperature::from_K(7400.)),
     age: Some(Time {
         s: 0.0251 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -92,7 +92,7 @@ const ARCTURUS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.31,
     apparent_magnitude: -0.05,
-    temperature: Some(Temperature::from_kelvin(4286.)),
+    temperature: Some(Temperature::from_K(4286.)),
     age: Some(Time {
         s: 7.1 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -115,7 +115,7 @@ const RIGEL_KENTAURUS_DATA: RealData = RealData {
     }),
     absolute_magnitude: 4.34,
     apparent_magnitude: -0.27,
-    temperature: Some(Temperature::from_kelvin(5790.)),
+    temperature: Some(Temperature::from_K(5790.)),
     age: Some(Time {
         s: 4.85 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -138,7 +138,7 @@ const VEGA_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.58,
     apparent_magnitude: 0.03,
-    temperature: Some(Temperature::from_kelvin(9602.)),
+    temperature: Some(Temperature::from_K(9602.)),
     age: Some(Time {
         s: 0.455 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -161,7 +161,7 @@ const CAPELLA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.48,
     apparent_magnitude: 0.08,
-    temperature: Some(Temperature::from_kelvin(4970.)),
+    temperature: Some(Temperature::from_K(4970.)),
     age: Some(Time {
         s: 0.620 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -184,7 +184,7 @@ const RIGEL_DATA: RealData = RealData {
     }),
     absolute_magnitude: -6.69,
     apparent_magnitude: 0.18,
-    temperature: Some(Temperature::from_kelvin(12_100.)),
+    temperature: Some(Temperature::from_K(12_100.)),
     age: Some(Time {
         s: 0.008 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -207,7 +207,7 @@ const PROCYON_DATA: RealData = RealData {
     }),
     absolute_magnitude: 2.68,
     apparent_magnitude: 0.40,
-    temperature: Some(Temperature::from_kelvin(6530.)),
+    temperature: Some(Temperature::from_K(6530.)),
     age: Some(Time {
         s: 1.37 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -230,7 +230,7 @@ const BETELGEUSE_DATA: RealData = RealData {
     }),
     absolute_magnitude: -5.14,
     apparent_magnitude: 0.9,
-    temperature: Some(Temperature::from_kelvin(3600.)),
+    temperature: Some(Temperature::from_K(3600.)),
     age: Some(Time {
         s: 0.008 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -253,7 +253,7 @@ const ACHERNAR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -2.77,
     apparent_magnitude: 0.45,
-    temperature: Some(Temperature::from_kelvin(14_000.)),
+    temperature: Some(Temperature::from_K(14_000.)),
     age: Some(Time {
         s: 0.063 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -276,7 +276,7 @@ const HADAR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -5.42,
     apparent_magnitude: 0.61,
-    temperature: Some(Temperature::from_kelvin(25_000.)),
+    temperature: Some(Temperature::from_K(25_000.)),
     age: Some(Time {
         s: 0.0141 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -299,7 +299,7 @@ const ALTAIR_DATA: RealData = RealData {
     }),
     absolute_magnitude: 2.20,
     apparent_magnitude: 0.76,
-    temperature: Some(Temperature::from_kelvin(7670.)),
+    temperature: Some(Temperature::from_K(7670.)),
     age: Some(Time {
         s: 0.100 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -322,7 +322,7 @@ const ACRUX_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.19,
     apparent_magnitude: 0.77,
-    temperature: Some(Temperature::from_kelvin(24_000.)),
+    temperature: Some(Temperature::from_K(24_000.)),
     age: Some(Time {
         s: 0.0108 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -345,7 +345,7 @@ const ALDEBARAN_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.63,
     apparent_magnitude: 0.87,
-    temperature: Some(Temperature::from_kelvin(3900.)),
+    temperature: Some(Temperature::from_K(3900.)),
     age: Some(Time {
         s: 6.4 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -368,7 +368,7 @@ const SPICA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.55,
     apparent_magnitude: 0.98,
-    temperature: Some(Temperature::from_kelvin(22_300.)),
+    temperature: Some(Temperature::from_K(22_300.)),
     age: Some(Time {
         s: 0.0125 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -391,7 +391,7 @@ const ANTARES_DATA: RealData = RealData {
     }),
     absolute_magnitude: -5.28,
     apparent_magnitude: 1.06,
-    temperature: Some(Temperature::from_kelvin(3660.)),
+    temperature: Some(Temperature::from_K(3660.)),
     age: Some(Time {
         s: 0.015 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -414,7 +414,7 @@ const POLLUX_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.09,
     apparent_magnitude: 1.16,
-    temperature: Some(Temperature::from_kelvin(4586.)),
+    temperature: Some(Temperature::from_K(4586.)),
     age: Some(Time {
         s: 0.724 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -437,7 +437,7 @@ const FORMALHAUT_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.74,
     apparent_magnitude: 1.17,
-    temperature: Some(Temperature::from_kelvin(8590.)),
+    temperature: Some(Temperature::from_K(8590.)),
     age: Some(Time {
         s: 0.44 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -460,7 +460,7 @@ const DENEB_DATA: RealData = RealData {
     }),
     absolute_magnitude: -7.13,
     apparent_magnitude: 1.25,
-    temperature: Some(Temperature::from_kelvin(8515.)),
+    temperature: Some(Temperature::from_K(8515.)),
     age: None,
     right_ascension: RightAscension::new(20, 41, 26),
     declination: Declination::new(Sgn::Pos, 45, 16, 49),
@@ -481,7 +481,7 @@ const MIMOSA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.92,
     apparent_magnitude: 1.25,
-    temperature: Some(Temperature::from_kelvin(27_000.)),
+    temperature: Some(Temperature::from_K(27_000.)),
     age: Some(Time {
         s: 0.010 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -504,7 +504,7 @@ const REGULUS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.52,
     apparent_magnitude: 1.36,
-    temperature: Some(Temperature::from_kelvin(11_668.)),
+    temperature: Some(Temperature::from_K(11_668.)),
     age: Some(Time {
         s: 1. * SECONDS_PER_BILLION_YEARS,
     }),
@@ -527,7 +527,7 @@ const ADHARA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.10,
     apparent_magnitude: 1.5,
-    temperature: Some(Temperature::from_kelvin(22_900.)),
+    temperature: Some(Temperature::from_K(22_900.)),
     age: Some(Time {
         s: 0.0225 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -550,7 +550,7 @@ const CASTOR_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.59,
     apparent_magnitude: 1.58,
-    temperature: Some(Temperature::from_kelvin(10_286.)),
+    temperature: Some(Temperature::from_K(10_286.)),
     age: Some(Time {
         s: 0.290 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -573,7 +573,7 @@ const GACRUX_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.56,
     apparent_magnitude: 1.59,
-    temperature: Some(Temperature::from_kelvin(3689.)),
+    temperature: Some(Temperature::from_K(3689.)),
     age: None,
     right_ascension: RightAscension::new(12, 31, 10),
     declination: Declination::new(Sgn::Neg, 57, 6, 48),
@@ -594,7 +594,7 @@ const SHAULA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.8,
     apparent_magnitude: 1.62,
-    temperature: Some(Temperature::from_kelvin(25_000.)),
+    temperature: Some(Temperature::from_K(25_000.)),
     age: None,
     right_ascension: RightAscension::new(17, 33, 37),
     declination: Declination::new(Sgn::Neg, 37, 6, 14),
@@ -615,7 +615,7 @@ const BELLATRIX_DATA: RealData = RealData {
     }),
     absolute_magnitude: -2.72,
     apparent_magnitude: 1.64,
-    temperature: Some(Temperature::from_kelvin(21_800.)),
+    temperature: Some(Temperature::from_K(21_800.)),
     age: Some(Time {
         s: 0.0252 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -638,7 +638,7 @@ const ALNATH_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.37,
     apparent_magnitude: 1.65,
-    temperature: Some(Temperature::from_kelvin(13_824.)),
+    temperature: Some(Temperature::from_K(13_824.)),
     age: Some(Time {
         s: 0.1 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -661,7 +661,7 @@ const MIAPLACIDUS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.99,
     apparent_magnitude: 1.67,
-    temperature: Some(Temperature::from_kelvin(8866.)),
+    temperature: Some(Temperature::from_K(8866.)),
     age: Some(Time {
         s: 0.260 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -684,7 +684,7 @@ const ALNILAM_DATA: RealData = RealData {
     }),
     absolute_magnitude: -6.38,
     apparent_magnitude: 1.69,
-    temperature: Some(Temperature::from_kelvin(27_000.)),
+    temperature: Some(Temperature::from_K(27_000.)),
     age: Some(Time {
         s: 0.0057 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -707,7 +707,7 @@ const ALNAIR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.73,
     apparent_magnitude: 1.73,
-    temperature: Some(Temperature::from_kelvin(13_920.)),
+    temperature: Some(Temperature::from_K(13_920.)),
     age: Some(Time {
         s: 0.1 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -730,7 +730,7 @@ const ALNITAK_DATA: RealData = RealData {
     }),
     absolute_magnitude: -5.26,
     apparent_magnitude: 1.74,
-    temperature: Some(Temperature::from_kelvin(29_500.)),
+    temperature: Some(Temperature::from_K(29_500.)),
     age: Some(Time {
         s: 0.0064 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -753,7 +753,7 @@ const REGOR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -5.31,
     apparent_magnitude: 1.75,
-    temperature: Some(Temperature::from_kelvin(35_000.)),
+    temperature: Some(Temperature::from_K(35_000.)),
     age: Some(Time {
         s: 0.0045 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -776,7 +776,7 @@ const ALIOTH_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.21,
     apparent_magnitude: 1.76,
-    temperature: Some(Temperature::from_kelvin(9_020.)),
+    temperature: Some(Temperature::from_K(9_020.)),
     age: Some(Time {
         s: 0.3 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -799,7 +799,7 @@ const KAUS_AUSTRALIS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.44,
     apparent_magnitude: 1.79,
-    temperature: Some(Temperature::from_kelvin(9960.)),
+    temperature: Some(Temperature::from_K(9960.)),
     age: Some(Time {
         s: 0.232 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -822,7 +822,7 @@ const MIRPHAK_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.50,
     apparent_magnitude: 1.79,
-    temperature: Some(Temperature::from_kelvin(6350.)),
+    temperature: Some(Temperature::from_K(6350.)),
     age: Some(Time {
         s: 0.041 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -845,7 +845,7 @@ const DUBHE_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.08,
     apparent_magnitude: 1.81,
-    temperature: Some(Temperature::from_kelvin(5012.)),
+    temperature: Some(Temperature::from_K(5012.)),
     age: Some(Time {
         s: 0.28 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -868,7 +868,7 @@ const WEZEN_DATA: RealData = RealData {
     }),
     absolute_magnitude: -6.87,
     apparent_magnitude: 1.83,
-    temperature: Some(Temperature::from_kelvin(6390.)),
+    temperature: Some(Temperature::from_K(6390.)),
     age: Some(Time {
         s: 0.012 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -891,7 +891,7 @@ const ALKAID_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.60,
     apparent_magnitude: 1.85,
-    temperature: Some(Temperature::from_kelvin(15_540.)),
+    temperature: Some(Temperature::from_K(15_540.)),
     age: Some(Time {
         s: 0.01 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -903,7 +903,7 @@ const ALKAID_DATA: RealData = RealData {
 };
 
 //39
-const SARGAS_DATA: RealData = RealData {
+const SARGto_DATA: RealData = RealData {
     common_name: "Sargas",
     astronomical_name: "Theta Scorpii",
     radius: Some(Distance {
@@ -914,7 +914,7 @@ const SARGAS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -2.75,
     apparent_magnitude: 1.86,
-    temperature: Some(Temperature::from_kelvin(6294.)),
+    temperature: Some(Temperature::from_K(6294.)),
     age: None,
     right_ascension: RightAscension::new(17, 37, 19),
     declination: Declination::new(Sgn::Neg, 42, 59, 52),
@@ -933,7 +933,7 @@ const AVIOR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.58,
     apparent_magnitude: 1.86,
-    temperature: Some(Temperature::from_kelvin(3523.)),
+    temperature: Some(Temperature::from_K(3523.)),
     age: Some(Time {
         s: 0.020 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -956,7 +956,7 @@ const MENKALINAN_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.10,
     apparent_magnitude: 1.9,
-    temperature: Some(Temperature::from_kelvin(9350.)),
+    temperature: Some(Temperature::from_K(9350.)),
     age: Some(Time {
         s: 0.570 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -979,7 +979,7 @@ const ATRIA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.62,
     apparent_magnitude: 1.91,
-    temperature: Some(Temperature::from_kelvin(4150.)),
+    temperature: Some(Temperature::from_K(4150.)),
     age: Some(Time {
         s: 0.048 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1002,7 +1002,7 @@ const ALSEPHINA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.01,
     apparent_magnitude: 1.93,
-    temperature: Some(Temperature::from_kelvin(9440.)),
+    temperature: Some(Temperature::from_K(9440.)),
     age: Some(Time {
         s: 0.4 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1025,7 +1025,7 @@ const ALHENA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.60,
     apparent_magnitude: 1.93,
-    temperature: Some(Temperature::from_kelvin(9260.)),
+    temperature: Some(Temperature::from_K(9260.)),
     age: None,
     right_ascension: RightAscension::new(6, 37, 43),
     declination: Declination::new(Sgn::Pos, 16, 23, 57),
@@ -1046,7 +1046,7 @@ const PEACOCK_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.81,
     apparent_magnitude: 1.94,
-    temperature: Some(Temperature::from_kelvin(17_711.)),
+    temperature: Some(Temperature::from_K(17_711.)),
     age: Some(Time {
         s: 0.048 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1069,7 +1069,7 @@ const POLARIS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.64,
     apparent_magnitude: 1.97,
-    temperature: Some(Temperature::from_kelvin(6015.)),
+    temperature: Some(Temperature::from_K(6015.)),
     age: Some(Time {
         s: 0.05 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1092,7 +1092,7 @@ const MIRZAM_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.95,
     apparent_magnitude: 1.98,
-    temperature: Some(Temperature::from_kelvin(25_000.)),
+    temperature: Some(Temperature::from_K(25_000.)),
     age: Some(Time {
         s: 0.0124 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1115,7 +1115,7 @@ const ALPHARD_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.69,
     apparent_magnitude: 1.99,
-    temperature: Some(Temperature::from_kelvin(4120.)),
+    temperature: Some(Temperature::from_K(4120.)),
     age: Some(Time {
         s: 0.42 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1138,7 +1138,7 @@ const ALGIEBA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.92,
     apparent_magnitude: 2.01,
-    temperature: Some(Temperature::from_kelvin(4470.)),
+    temperature: Some(Temperature::from_K(4470.)),
     age: None,
     right_ascension: RightAscension::new(10, 19, 58),
     declination: Declination::new(Sgn::Pos, 19, 50, 29),
@@ -1159,7 +1159,7 @@ const HAMAL_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.48,
     apparent_magnitude: 2.01,
-    temperature: Some(Temperature::from_kelvin(4480.)),
+    temperature: Some(Temperature::from_K(4480.)),
     age: Some(Time {
         s: 3.4 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1182,7 +1182,7 @@ const DIPHDA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.04,
-    temperature: Some(Temperature::from_kelvin(4797.)),
+    temperature: Some(Temperature::from_K(4797.)),
     age: Some(Time {
         s: 1. * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1205,7 +1205,7 @@ const NUNKI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -2.14,
     apparent_magnitude: 2.05,
-    temperature: Some(Temperature::from_kelvin(18_890.)),
+    temperature: Some(Temperature::from_K(18_890.)),
     age: Some(Time {
         s: 0.0314 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1228,7 +1228,7 @@ const MENKENT_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.70,
     apparent_magnitude: 2.06,
-    temperature: Some(Temperature::from_kelvin(4980.)),
+    temperature: Some(Temperature::from_K(4980.)),
     age: None,
     right_ascension: RightAscension::new(14, 6, 41),
     declination: Declination::new(Sgn::Neg, 36, 22, 11),
@@ -1249,7 +1249,7 @@ const SAIPH_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.65,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature::from_kelvin(26_500.)),
+    temperature: Some(Temperature::from_K(26_500.)),
     age: Some(Time {
         s: 0.0111 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1272,7 +1272,7 @@ const ALPHERATZ_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature::from_kelvin(13_800.)),
+    temperature: Some(Temperature::from_K(13_800.)),
     age: Some(Time {
         s: 0.06 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1295,7 +1295,7 @@ const TIAKI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.52,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature::from_kelvin(3480.)),
+    temperature: Some(Temperature::from_K(3480.)),
     age: None,
     right_ascension: RightAscension::new(22, 42, 40),
     declination: Declination::new(Sgn::Neg, 46, 53, 4),
@@ -1316,7 +1316,7 @@ const MIRACH_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.86,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature::from_kelvin(3842.)),
+    temperature: Some(Temperature::from_K(3842.)),
     age: None,
     right_ascension: RightAscension::new(1, 9, 44),
     declination: Declination::new(Sgn::Pos, 35, 37, 14),
@@ -1337,7 +1337,7 @@ const KOCHAB_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.87,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature::from_kelvin(4030.)),
+    temperature: Some(Temperature::from_K(4030.)),
     age: None,
     right_ascension: RightAscension::new(14, 50, 42),
     declination: Declination::new(Sgn::Pos, 74, 9, 20),
@@ -1358,7 +1358,7 @@ const RASALHAGUE_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.30,
     apparent_magnitude: 2.08,
-    temperature: Some(Temperature::from_kelvin(8000.)),
+    temperature: Some(Temperature::from_K(8000.)),
     age: Some(Time {
         s: 0.77 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1381,7 +1381,7 @@ const ALGOL_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.18,
     apparent_magnitude: 2.09,
-    temperature: Some(Temperature::from_kelvin(13_000.)),
+    temperature: Some(Temperature::from_K(13_000.)),
     age: Some(Time {
         s: 0.57 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1404,7 +1404,7 @@ const ALMACH_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.08,
     apparent_magnitude: 2.1,
-    temperature: Some(Temperature::from_kelvin(4250.)),
+    temperature: Some(Temperature::from_K(4250.)),
     age: Some(Time {
         s: 0.0065 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1427,7 +1427,7 @@ const DENEBOLA_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.92,
     apparent_magnitude: 2.14,
-    temperature: Some(Temperature::from_kelvin(8500.)),
+    temperature: Some(Temperature::from_K(8500.)),
     age: Some(Time {
         s: 0.25 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1450,7 +1450,7 @@ const NAVI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.22,
     apparent_magnitude: 2.20,
-    temperature: Some(Temperature::from_kelvin(25_000.)),
+    temperature: Some(Temperature::from_K(25_000.)),
     age: Some(Time {
         s: 0.008 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1471,7 +1471,7 @@ const MUHLIFAIN_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.81,
     apparent_magnitude: 2.20,
-    temperature: Some(Temperature::from_kelvin(9082.)),
+    temperature: Some(Temperature::from_K(9082.)),
     age: None,
     right_ascension: RightAscension::new(12, 41, 31),
     declination: Declination::new(Sgn::Neg, 48, 57, 35),
@@ -1492,7 +1492,7 @@ const NAOS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -5.95,
     apparent_magnitude: 2.21,
-    temperature: Some(Temperature::from_kelvin(40_000.)),
+    temperature: Some(Temperature::from_K(40_000.)),
     age: Some(Time {
         s: 0.0032 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1515,7 +1515,7 @@ const ASPIDISKE_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.42,
     apparent_magnitude: 2.21,
-    temperature: Some(Temperature::from_kelvin(7500.)),
+    temperature: Some(Temperature::from_K(7500.)),
     age: Some(Time {
         s: 0.0374 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1538,7 +1538,7 @@ const ALPHECCA_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.42,
     apparent_magnitude: 2.22,
-    temperature: Some(Temperature::from_kelvin(9700.)),
+    temperature: Some(Temperature::from_K(9700.)),
     age: Some(Time {
         s: 0.314 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1561,7 +1561,7 @@ const SUHAIL_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.99,
     apparent_magnitude: 2.23,
-    temperature: Some(Temperature::from_kelvin(3900.)),
+    temperature: Some(Temperature::from_K(3900.)),
     age: Some(Time {
         s: 0.0316 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1584,7 +1584,7 @@ const SADIR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -6.12,
     apparent_magnitude: 2.23,
-    temperature: Some(Temperature::from_kelvin(5790.)),
+    temperature: Some(Temperature::from_K(5790.)),
     age: Some(Time {
         s: 0.012 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1607,7 +1607,7 @@ const MIZAR_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.33,
     apparent_magnitude: 2.23,
-    temperature: Some(Temperature::from_kelvin(9000.)),
+    temperature: Some(Temperature::from_K(9000.)),
     age: Some(Time {
         s: 0.37 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1630,7 +1630,7 @@ const SCHEDAR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.99,
     apparent_magnitude: 2.24,
-    temperature: Some(Temperature::from_kelvin(4552.)),
+    temperature: Some(Temperature::from_K(4552.)),
     age: Some(Time {
         s: 0.22 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1653,7 +1653,7 @@ const ELTANIN_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.04,
     apparent_magnitude: 2.24,
-    temperature: Some(Temperature::from_kelvin(3930.)),
+    temperature: Some(Temperature::from_K(3930.)),
     age: None,
     right_ascension: RightAscension::new(17, 56, 36),
     declination: Declination::new(Sgn::Pos, 51, 29, 20),
@@ -1674,7 +1674,7 @@ const MINTAKA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.99,
     apparent_magnitude: 2.25,
-    temperature: Some(Temperature::from_kelvin(29_500.)),
+    temperature: Some(Temperature::from_K(29_500.)),
     age: None,
     right_ascension: RightAscension::new(5, 32, 0),
     declination: Declination::new(Sgn::Neg, 0, 17, 57),
@@ -1695,7 +1695,7 @@ const CAPH_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.17,
     apparent_magnitude: 2.28,
-    temperature: Some(Temperature::from_kelvin(7079.)),
+    temperature: Some(Temperature::from_K(7079.)),
     age: Some(Time {
         s: 1.1 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1718,7 +1718,7 @@ const DSCHUBBA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.16,
     apparent_magnitude: 2.29,
-    temperature: Some(Temperature::from_kelvin(27_400.)),
+    temperature: Some(Temperature::from_K(27_400.)),
     age: Some(Time {
         s: 0.0095 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1741,7 +1741,7 @@ const LARAWAG_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.78,
     apparent_magnitude: 2.29,
-    temperature: Some(Temperature::from_kelvin(4560.)),
+    temperature: Some(Temperature::from_K(4560.)),
     age: None,
     right_ascension: RightAscension::new(16, 50, 10),
     declination: Declination::new(Sgn::Neg, 34, 17, 36),
@@ -1760,7 +1760,7 @@ const EPSILON_CENTAURI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.02,
     apparent_magnitude: 2.29,
-    temperature: Some(Temperature::from_kelvin(24_000.)),
+    temperature: Some(Temperature::from_K(24_000.)),
     age: Some(Time {
         s: 0.0158 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1781,7 +1781,7 @@ const ALPHA_LUPI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.83,
     apparent_magnitude: 2.30,
-    temperature: Some(Temperature::from_kelvin(21_820.)),
+    temperature: Some(Temperature::from_K(21_820.)),
     age: Some(Time {
         s: 0.018 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1804,7 +1804,7 @@ const ETA_CENTAURI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -2.55,
     apparent_magnitude: 2.29,
-    temperature: Some(Temperature::from_kelvin(25_700.)),
+    temperature: Some(Temperature::from_K(25_700.)),
     age: Some(Time {
         s: 0.0056 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1827,7 +1827,7 @@ const MERAK_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.41,
     apparent_magnitude: 2.34,
-    temperature: Some(Temperature::from_kelvin(9377.)),
+    temperature: Some(Temperature::from_K(9377.)),
     age: Some(Time {
         s: 0.5 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1850,7 +1850,7 @@ const IZAR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.69,
     apparent_magnitude: 2.35,
-    temperature: Some(Temperature::from_kelvin(4550.)),
+    temperature: Some(Temperature::from_K(4550.)),
     age: Some(Time {
         s: 0.0374 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1873,7 +1873,7 @@ const ENIF_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.19,
     apparent_magnitude: 2.38,
-    temperature: Some(Temperature::from_kelvin(3963.)),
+    temperature: Some(Temperature::from_K(3963.)),
     age: Some(Time {
         s: 0.020 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1896,7 +1896,7 @@ const GIRTAB_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.38,
     apparent_magnitude: 2.39,
-    temperature: Some(Temperature::from_kelvin(23_400.)),
+    temperature: Some(Temperature::from_K(23_400.)),
     age: Some(Time {
         s: 0.0251 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1919,7 +1919,7 @@ const ANKAA_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.52,
     apparent_magnitude: 2.4,
-    temperature: Some(Temperature::from_kelvin(4436.)),
+    temperature: Some(Temperature::from_K(4436.)),
     age: None,
     right_ascension: RightAscension::new(0, 26, 17),
     declination: Declination::new(Sgn::Neg, 42, 18, 21),
@@ -1940,7 +1940,7 @@ const PHECDA_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.36,
     apparent_magnitude: 2.41,
-    temperature: Some(Temperature::from_kelvin(9355.)),
+    temperature: Some(Temperature::from_K(9355.)),
     age: Some(Time {
         s: 0.3 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -1961,7 +1961,7 @@ const SABIK_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.37,
     apparent_magnitude: 2.43,
-    temperature: Some(Temperature::from_kelvin(8900.)),
+    temperature: Some(Temperature::from_K(8900.)),
     age: None,
     right_ascension: RightAscension::new(17, 10, 23),
     declination: Declination::new(Sgn::Neg, 15, 43, 30),
@@ -1982,7 +1982,7 @@ const SCHEAT_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.49,
     apparent_magnitude: 2.44,
-    temperature: Some(Temperature::from_kelvin(3689.)),
+    temperature: Some(Temperature::from_K(3689.)),
     age: None,
     right_ascension: RightAscension::new(23, 3, 46),
     declination: Declination::new(Sgn::Pos, 28, 4, 58),
@@ -2003,7 +2003,7 @@ const ALDERAMIN_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.58,
     apparent_magnitude: 2.45,
-    temperature: Some(Temperature::from_kelvin(7700.)),
+    temperature: Some(Temperature::from_K(7700.)),
     age: Some(Time {
         s: 0.82 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2026,7 +2026,7 @@ const ALUDRA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -7.51,
     apparent_magnitude: 2.45,
-    temperature: Some(Temperature::from_kelvin(15_500.)),
+    temperature: Some(Temperature::from_K(15_500.)),
     age: Some(Time {
         s: 0.0083 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2049,7 +2049,7 @@ const MARKEB_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.62,
     apparent_magnitude: 2.47,
-    temperature: Some(Temperature::from_kelvin(23_000.)),
+    temperature: Some(Temperature::from_K(23_000.)),
     age: Some(Time {
         s: 0.018 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2072,7 +2072,7 @@ const ALJANAH_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.76,
     apparent_magnitude: 2.48,
-    temperature: Some(Temperature::from_kelvin(4710.)),
+    temperature: Some(Temperature::from_K(4710.)),
     age: Some(Time {
         s: 1.5 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2095,7 +2095,7 @@ const MARKAB_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.67,
     apparent_magnitude: 2.49,
-    temperature: Some(Temperature::from_kelvin(10_100.)),
+    temperature: Some(Temperature::from_K(10_100.)),
     age: Some(Time {
         s: 0.2 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2118,7 +2118,7 @@ const HAN_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.20,
     apparent_magnitude: 2.54,
-    temperature: Some(Temperature::from_kelvin(34_300.)),
+    temperature: Some(Temperature::from_K(34_300.)),
     age: Some(Time {
         s: 3. * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2141,7 +2141,7 @@ const MENKAR_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.61,
     apparent_magnitude: 2.54,
-    temperature: Some(Temperature::from_kelvin(3795.)),
+    temperature: Some(Temperature::from_K(3795.)),
     age: None,
     right_ascension: RightAscension::new(3, 2, 17),
     declination: Declination::new(Sgn::Pos, 4, 5, 23),
@@ -2162,7 +2162,7 @@ const ZETA_CENTAURI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -2.81,
     apparent_magnitude: 2.55,
-    temperature: Some(Temperature::from_kelvin(23_561.)),
+    temperature: Some(Temperature::from_K(23_561.)),
     age: Some(Time {
         s: 0.04 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2185,7 +2185,7 @@ const ACRAB_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.50,
     apparent_magnitude: 2.56,
-    temperature: Some(Temperature::from_kelvin(28_000.)),
+    temperature: Some(Temperature::from_K(28_000.)),
     age: None,
     right_ascension: RightAscension::new(16, 5, 26),
     declination: Declination::new(Sgn::Neg, 19, 48, 20),
@@ -2206,7 +2206,7 @@ const ZOSMA_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.32,
     apparent_magnitude: 2.56,
-    temperature: Some(Temperature::from_kelvin(8_296.)),
+    temperature: Some(Temperature::from_K(8_296.)),
     age: Some(Time {
         s: 0.65 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2229,7 +2229,7 @@ const MA_WEI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -2.84,
     apparent_magnitude: 2.58,
-    temperature: Some(Temperature::from_kelvin(22_360.)),
+    temperature: Some(Temperature::from_K(22_360.)),
     age: Some(Time {
         s: 0.02 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2252,7 +2252,7 @@ const ARNEB_DATA: RealData = RealData {
     }),
     absolute_magnitude: -5.40,
     apparent_magnitude: 2.58,
-    temperature: Some(Temperature::from_kelvin(6_850.)),
+    temperature: Some(Temperature::from_K(6_850.)),
     age: Some(Time {
         s: 0.013 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2273,7 +2273,7 @@ const GHURAB_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.94,
     apparent_magnitude: 2.58,
-    temperature: Some(Temperature::from_kelvin(12_000.)),
+    temperature: Some(Temperature::from_K(12_000.)),
     age: Some(Time {
         s: 0.160 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2298,7 +2298,7 @@ const TEJAT_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.42,
     apparent_magnitude: 2.75,
-    temperature: Some(Temperature::from_kelvin(3460.)),
+    temperature: Some(Temperature::from_K(3460.)),
     age: None,
     right_ascension: RightAscension::new(6, 22, 58),
     declination: Declination::new(Sgn::Pos, 22, 30, 49),
@@ -2318,7 +2318,7 @@ const R_DORADUS_DATA: RealData = RealData {
     }),
     absolute_magnitude: 1.61,
     apparent_magnitude: 5.59,
-    temperature: Some(Temperature::from_kelvin(2710.)),
+    temperature: Some(Temperature::from_K(2710.)),
     age: Some(Time {
         s: 10. * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2340,7 +2340,7 @@ const YED_PRIOR: RealData = RealData {
     }),
     absolute_magnitude: -0.90,
     apparent_magnitude: 2.73,
-    temperature: Some(Temperature::from_kelvin(3679.)),
+    temperature: Some(Temperature::from_K(3679.)),
     age: None,
     right_ascension: RightAscension::new(16, 14, 21),
     declination: Declination::new(Sgn::Neg, 3, 41, 40),
@@ -2360,7 +2360,7 @@ const GORGONEA_TERTIA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.67,
     apparent_magnitude: 3.32,
-    temperature: Some(Temperature::from_kelvin(3479.)),
+    temperature: Some(Temperature::from_K(3479.)),
     age: Some(Time {
         s: 0.440 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2398,7 +2398,7 @@ const HASSALEH: RealData = RealData {
     }),
     absolute_magnitude: -3.20,
     apparent_magnitude: 2.69,
-    temperature: Some(Temperature::from_kelvin(4160.)),
+    temperature: Some(Temperature::from_K(4160.)),
     age: Some(Time {
         s: 0.04 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2420,7 +2420,7 @@ const PROPUS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.84,
     apparent_magnitude: 3.31,
-    temperature: Some(Temperature::from_kelvin(3502.)),
+    temperature: Some(Temperature::from_K(3502.)),
     age: Some(Time {
         s: 0.81 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2440,7 +2440,7 @@ const ZAURAK_DATA: RealData = RealData {
     mass: None,
     absolute_magnitude: -1.19,
     apparent_magnitude: 2.97,
-    temperature: Some(Temperature::from_kelvin(3811.)),
+    temperature: Some(Temperature::from_K(3811.)),
     age: None,
     right_ascension: RightAscension::new(3, 58, 2),
     declination: Declination::new(Sgn::Neg, 13, 30, 31),
@@ -2460,7 +2460,7 @@ const KAUS_MEDIA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -2.14,
     apparent_magnitude: 2.72,
-    temperature: Some(Temperature::from_kelvin(4203.)),
+    temperature: Some(Temperature::from_K(4203.)),
     age: Some(Time {
         s: 0.26 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2482,7 +2482,7 @@ const BRACHIUM_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.5,
     apparent_magnitude: 3.21,
-    temperature: Some(Temperature::from_kelvin(3596.)),
+    temperature: Some(Temperature::from_K(3596.)),
     age: None,
     right_ascension: RightAscension::new(15, 4, 4),
     declination: Declination::new(Sgn::Neg, 25, 16, 55),
@@ -2502,7 +2502,7 @@ const TANIA_AUSTRALIS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.2,
     apparent_magnitude: 3.06,
-    temperature: Some(Temperature::from_kelvin(3899.)),
+    temperature: Some(Temperature::from_K(3899.)),
     age: None,
     right_ascension: RightAscension::new(10, 22, 20),
     declination: Declination::new(Sgn::Pos, 41, 29, 58),
@@ -2522,7 +2522,7 @@ const UNUKALHAI_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.88,
     apparent_magnitude: 2.63,
-    temperature: Some(Temperature::from_kelvin(4498.)),
+    temperature: Some(Temperature::from_K(4498.)),
     age: None,
     right_ascension: RightAscension::new(15, 44, 16),
     declination: Declination::new(Sgn::Pos, 6, 25, 32),
@@ -2540,7 +2540,7 @@ const R_LYRAE_DATE: RealData = RealData {
     }),
     absolute_magnitude: -1.07,
     apparent_magnitude: 4.08,
-    temperature: Some(Temperature::from_kelvin(3313.)),
+    temperature: Some(Temperature::from_K(3313.)),
     age: None,
     right_ascension: RightAscension::new(18, 55, 20),
     declination: Declination::new(Sgn::Pos, 43, 56, 46),
@@ -2560,7 +2560,7 @@ const BETA_ARAE_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.49,
     apparent_magnitude: 2.84,
-    temperature: Some(Temperature::from_kelvin(4197.)),
+    temperature: Some(Temperature::from_K(4197.)),
     age: Some(Time {
         s: 0.05 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2582,7 +2582,7 @@ const APLHA_TUCANAE_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.05,
     apparent_magnitude: 2.87,
-    temperature: Some(Temperature::from_kelvin(4300.)),
+    temperature: Some(Temperature::from_K(4300.)),
     age: None,
     right_ascension: RightAscension::new(22, 18, 30),
     declination: Declination::new(Sgn::Neg, 60, 15, 35),
@@ -2602,7 +2602,7 @@ const MINELAUVA_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.575,
     apparent_magnitude: 3.39,
-    temperature: Some(Temperature::from_kelvin(3999.)),
+    temperature: Some(Temperature::from_K(3999.)),
     age: None,
     right_ascension: RightAscension::new(12, 55, 36),
     declination: Declination::new(Sgn::Pos, 3, 23, 51),
@@ -2622,7 +2622,7 @@ const CEBALRAI_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.77,
     apparent_magnitude: 2.76,
-    temperature: Some(Temperature::from_kelvin(4467.)),
+    temperature: Some(Temperature::from_K(4467.)),
     age: Some(Time {
         s: 3.82 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2644,7 +2644,7 @@ const KRAZ_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.61,
     apparent_magnitude: 2.65,
-    temperature: Some(Temperature::from_kelvin(5100.)),
+    temperature: Some(Temperature::from_K(5100.)),
     age: Some(Time {
         s: 0.206 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2666,7 +2666,7 @@ const ERAKIS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -6.5,
     apparent_magnitude: 3.43,
-    temperature: Some(Temperature::from_kelvin(3551.)),
+    temperature: Some(Temperature::from_K(3551.)),
     age: Some(Time {
         s: 0.01 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2688,7 +2688,7 @@ const GAMMA_HYDRI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -0.83,
     apparent_magnitude: 3.26,
-    temperature: Some(Temperature::from_kelvin(3499.)),
+    temperature: Some(Temperature::from_K(3499.)),
     age: None,
     right_ascension: RightAscension::new(3, 47, 14),
     declination: Declination::new(Sgn::Neg, 74, 14, 20),
@@ -2708,7 +2708,7 @@ const ALPHA_LYNCIS_DATA: RealData = RealData {
     }),
     absolute_magnitude: -1.02,
     apparent_magnitude: 3.14,
-    temperature: Some(Temperature::from_kelvin(3882.)),
+    temperature: Some(Temperature::from_K(3882.)),
     age: Some(Time {
         s: 1.4 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2730,7 +2730,7 @@ const ATHEBYNE_DATA: RealData = RealData {
     }),
     absolute_magnitude: 0.58,
     apparent_magnitude: 2.73,
-    temperature: Some(Temperature::from_kelvin(5055.)),
+    temperature: Some(Temperature::from_K(5055.)),
     age: Some(Time {
         s: 0.55 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2754,7 +2754,7 @@ const AHADI_DATA: RealData = RealData {
     }),
     absolute_magnitude: -4.92,
     apparent_magnitude: 2.71,
-    temperature: Some(Temperature::from_kelvin(4000.)),
+    temperature: Some(Temperature::from_K(4000.)),
     age: Some(Time {
         s: 0.02 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2776,7 +2776,7 @@ const TARAZED_DATA: RealData = RealData {
     }),
     absolute_magnitude: -3.03,
     apparent_magnitude: 2.72,
-    temperature: Some(Temperature::from_kelvin(4098.)),
+    temperature: Some(Temperature::from_K(4098.)),
     age: Some(Time {
         s: 0.270 * SECONDS_PER_BILLION_YEARS,
     }),
@@ -2794,7 +2794,7 @@ const TARAZED_DATA: RealData = RealData {
 //     mass: Some(Mass{kg: * KILOGRAMS_PER_SOLAR_MASS}),
 //     absolute_magnitude: ),
 //     apparent_magnitude: ,
-//     temperature: Some(Temperature::from_kelvin()),
+//     temperature: Some(Temperature::from_K()),
 //     age: Some(Time{s:* SECONDS_PER_BILLION_YEARS}),
 //     right_ascension: RightAscension::new(),
 //     declination: Declination::new(),
@@ -2840,7 +2840,7 @@ pub const BRIGHTEST_STARS: [RealData; 124] = [
     DUBHE_DATA,
     WEZEN_DATA,
     ALKAID_DATA,
-    SARGAS_DATA,
+    SARGto_DATA,
     AVIOR_DATA,
     MENKALINAN_DATA,
     ATRIA_DATA,

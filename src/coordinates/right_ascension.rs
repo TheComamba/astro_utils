@@ -44,8 +44,8 @@ mod tests {
     fn one_second() {
         let dec = RightAscension::new(0, 0, 1);
         let expected = Angle::from_second_angle(1.);
-        println!("{}", dec.to_angle().as_arcsecs());
-        println!("{}", expected.as_arcsecs());
+        println!("{}", dec.to_angle().to_arcsecs());
+        println!("{}", expected.to_arcsecs());
         assert!(eq(dec.to_angle(), expected));
     }
 }

@@ -132,6 +132,8 @@ impl XYZColor {
 
 #[cfg(test)]
 mod tests {
+    use crate::tests::eq;
+
     use super::*;
 
     const TEST_ACCURACY: f64 = 0.06;
@@ -143,37 +145,37 @@ mod tests {
 
     #[test]
     fn fivehundred_kelvin_is_red() {
-        let color = sRGBColor::from_temperature(Temperature::from_kelvin(500.0));
+        let color = sRGBColor::from_temperature(Temperature::from_K(500.0));
         let expected = maximized_color_tuple((0.9, 0.1, 0.));
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
-        assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
-        assert!((expected.1 - actual.1).abs() < TEST_ACCURACY);
-        assert!((expected.2 - actual.2).abs() < TEST_ACCURACY);
+        assert!(eq(expected.0, actual.0));
+        assert!(eq(expected.1, actual.1));
+        assert!(eq(expected.2, actual.2));
     }
 
     #[test]
     fn fivethousandfivehounded_kelvin_is_white() {
-        let color = sRGBColor::from_temperature(Temperature::from_kelvin(5500.0));
+        let color = sRGBColor::from_temperature(Temperature::from_K(5500.0));
         let expected = maximized_color_tuple((1., 1., 1.));
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
-        assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
-        assert!((expected.1 - actual.1).abs() < TEST_ACCURACY);
-        assert!((expected.2 - actual.2).abs() < TEST_ACCURACY);
+        assert!(eq(expected.0, actual.0));
+        assert!(eq(expected.1, actual.1));
+        assert!(eq(expected.2, actual.2));
     }
 
     #[test]
     fn fourtythousand_kelvin_is_blue() {
-        let color = sRGBColor::from_temperature(Temperature::from_kelvin(40_000.0));
-        let expected: (f32, f32, f32) = maximized_color_tuple((0.25, 0.5, 1.0));
+        let color = sRGBColor::from_temperature(Temperature::from_K(40_000.0));
+        let expected = maximized_color_tuple((0.25, 0.5, 1.0));
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
-        assert!((expected.0 - actual.0).abs() < TEST_ACCURACY);
-        assert!((expected.1 - actual.1).abs() < TEST_ACCURACY);
-        assert!((expected.2 - actual.2).abs() < TEST_ACCURACY);
+        assert!(eq(expected.0, actual.0));
+        assert!(eq(expected.1, actual.1));
+        assert!(eq(expected.2, actual.2));
     }
 }

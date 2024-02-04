@@ -55,7 +55,7 @@ impl StarAppearance {
         if angle_between_directions > angle_accuracy {
             return false;
         }
-        let illuminance_ratio = self.illuminance.as_lux() / other.illuminance.as_lux();
+        let illuminance_ratio = self.illuminance.to_lux() / other.illuminance.to_lux();
         if illuminance_ratio < 0.1 || illuminance_ratio > 10.0 {
             return false;
         }

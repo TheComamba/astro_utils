@@ -23,9 +23,9 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
 
     let start = Instant::now();
     let number_of_stars_in_sphere =
-        STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.as_light_years().powi(3);
+        STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_light_years().powi(3);
     let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
-    let max_distance_in_au_squared = max_distance.as_astronomical_units().powi(2);
+    let max_distance_in_au_squared = max_distance.to_astronomical_units().powi(2);
     let mut rng = rand::thread_rng();
     let pos_distr = get_pos_distribution(max_distance);
     let mass_index_distr = get_mass_distribution();
@@ -59,7 +59,7 @@ pub fn generate_random_star(
     let parsec_data = ParsecData::new()?;
     let mut rng = rand::thread_rng();
     let max_distance_in_au_squared = max_distance
-        .map(|d| d.as_astronomical_units().powi(2))
+        .map(|d| d.to_astronomical_units().powi(2))
         .unwrap_or(1.);
     let pos_distr =
         get_pos_distribution(max_distance.unwrap_or(Distance::from_astronomical_units(1.)));
@@ -111,8 +111,8 @@ fn generate_visible_random_star(
 
 fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f32> {
     Uniform::new(
-        -max_distance.as_astronomical_units(),
-        max_distance.as_astronomical_units(),
+        -max_distance.to_astronomical_units(),
+        max_distance.to_astronomical_units(),
     )
 }
 
@@ -178,7 +178,7 @@ mod tests {
         // Generating 70_000 stars within 1000 ly takes round about 17 seconds in release mode.
         // But this should not take too long and also work in debug mode.
         // Furthermore, the parsec data needs to be loaded and parsed which takes some seconds.
-        let max_distance = Distance::from_light_years(200.);
+        let max_distance = Distance::from_lyr(200.);
         let max_seconds = 60;
 
         // Downloading files should not count against the time.
@@ -188,12 +188,12 @@ mod tests {
         let duration = start.elapsed();
         println!("duration: {:?}", duration);
         assert!(stars.len() > 1000);
-        assert!(duration.as_secs() < max_seconds);
+        assert!(duration.to_secs() < max_seconds);
     }
 
     #[test]
     fn generating_a_distant_random_star() {
-        let max_distance = Distance::from_light_years(1000.);
+        let max_distance = Distance::from_lyr(1000.);
         let star = generate_random_star(Some(max_distance));
         assert!(star.is_ok());
     }

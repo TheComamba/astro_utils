@@ -68,7 +68,7 @@ pub fn eccentric_anomaly(mean_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f
  */
 pub fn true_anomaly(eccentric_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f64> {
     let sqrt_arg = (1. + eccentricity) / (1. - eccentricity);
-    let artan_arg = (eccentric_anomaly.as_radians() / 2.).tan() * sqrt_arg.sqrt();
+    let artan_arg = (eccentric_anomaly.to_radians() / 2.).tan() * sqrt_arg.sqrt();
     let true_anomaly = 2. * artan_arg.atan();
     Angle::from_radians(true_anomaly)
 }

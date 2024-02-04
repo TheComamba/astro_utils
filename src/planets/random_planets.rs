@@ -11,15 +11,15 @@ pub fn generate_random_planet() -> PlanetData {
 
     let name = String::new();
 
-    let min = MERCURY.radius.as_kilometers() * 0.5;
-    let max = JUPITER.radius.as_kilometers() * 2.0;
+    let min = MERCURY.radius.to_kilometers() * 0.5;
+    let max = JUPITER.radius.to_kilometers() * 2.0;
     let radius = Distance::from_kilometers(rng.gen_range(min..max));
 
-    let min = SATURN.mass.as_jupiter_masses() / SATURN.radius.as_jupiter_radii().powi(3) * 0.9;
-    let max = EARTH.mass.as_jupiter_masses() / EARTH.radius.as_jupiter_radii().powi(3) * 1.1;
+    let min = SATURN.mass.to_jupiter_masses() / SATURN.radius.to_jupiter_radii().powi(3) * 0.9;
+    let max = EARTH.mass.to_jupiter_masses() / EARTH.radius.to_jupiter_radii().powi(3) * 1.1;
     let density = rng.gen_range(min..max);
 
-    let mass = Mass::from_jupiter_masses(density * radius.as_jupiter_radii().powi(3));
+    let mass = Mass::from_jupiter_masses(density * radius.to_jupiter_radii().powi(3));
 
     let geometric_albedo = rng.gen_range(0.0..1.0);
 
@@ -31,16 +31,16 @@ pub fn generate_random_planet() -> PlanetData {
 
     let rotation_period = Time::from_hours(rng.gen_range((-500.)..(500.)));
 
-    let min = MERCURY.orbit.semi_major_axis.as_astronomical_units() * 0.5;
-    let max = NEPTUNE.orbit.semi_major_axis.as_astronomical_units() * 2.0;
+    let min = MERCURY.orbit.semi_major_axis.to_astronomical_units() * 0.5;
+    let max = NEPTUNE.orbit.semi_major_axis.to_astronomical_units() * 2.0;
     let semi_major_axis = Distance::from_astronomical_units(rng.gen_range(min..max));
 
     let min = 0.;
     let max = PLUTO.orbit.eccentricity * 2.0;
     let eccentricity = rng.gen_range(min..max);
 
-    let min = -PLUTO.orbit.inclination.as_degrees();
-    let max = PLUTO.orbit.inclination.as_degrees();
+    let min = -PLUTO.orbit.inclination.to_degrees();
+    let max = PLUTO.orbit.inclination.to_degrees();
     let inclination = Angle::from_degrees(rng.gen_range(min..max));
 
     let longitude_of_ascending_node = Angle::from_degrees(rng.gen_range(0.0..360.0));

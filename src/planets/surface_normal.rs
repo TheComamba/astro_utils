@@ -10,7 +10,7 @@ pub fn surface_normal_at_time(
     time_since_epoch: Time<f64>,
     siderial_day: Time<f64>,
 ) -> Direction {
-    if siderial_day.as_seconds().abs() > 1. {
+    if siderial_day.to_seconds().abs() > 1. {
         let time_of_siderial_day = time_since_epoch % siderial_day;
         let rotation =
             angle_at_epoch + Angle::from_radians(time_of_siderial_day / siderial_day * TWO_PI);

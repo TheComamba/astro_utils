@@ -43,17 +43,17 @@ pub fn diplay_distance(distance: Distance<f64>) -> String {
         DistanceUnit::LightYears
     } else if distance.to_au().abs() > 0.099 {
         DistanceUnit::AstronomicalUnits
-    } else if distance.as_sun_radii().abs() > 0.099 {
+    } else if distance.to_sun_radii().abs() > 0.099 {
         DistanceUnit::SunRadii
-    } else if distance.as_earth_radii().abs() > 0.099 {
+    } else if distance.to_earth_radii().abs() > 0.099 {
         DistanceUnit::EarthRadii
-    } else if distance.as_kilometers().abs() > 0.099 {
+    } else if distance.to_kilometers().abs() > 0.099 {
         DistanceUnit::Kilometers
-    } else if distance.as_meters().abs() > 0.099 {
+    } else if distance.to_meters().abs() > 0.099 {
         DistanceUnit::Meters
-    } else if distance.as_millimeters().abs() > 0.099 {
+    } else if distance.to_millimeters().abs() > 0.099 {
         DistanceUnit::Millimeters
-    } else if distance.as_micrometers().abs() > 0.099 {
+    } else if distance.to_micrometers().abs() > 0.099 {
         DistanceUnit::Micrometers
     } else {
         DistanceUnit::Nanometers
@@ -67,7 +67,7 @@ mod tests {
 
     #[test]
     fn test_length_display() {
-        let nm = Distance::from_nanometers(1.23);
+        let nm = Distance::from_nm(1.23);
         assert_eq!(format!("{}", nm), "1.23 nm");
         let m = Distance::from_meters(1.23);
         assert_eq!(format!("{}", m), "1.23 m");
@@ -79,13 +79,13 @@ mod tests {
         assert_eq!(format!("{}", sun_radii), "1.23 R☉");
         let astronomical_units = Distance::from_astronomical_units(1.23);
         assert_eq!(format!("{}", astronomical_units), "1.23 AU");
-        let light_years = Distance::from_light_years(1.23);
+        let light_years = Distance::from_lyr(1.23);
         assert_eq!(format!("{}", light_years), "1.23 ly");
     }
 
     #[test]
     fn test_length_negative_display() {
-        let nm = Distance::from_nanometers(-1.23);
+        let nm = Distance::from_nm(-1.23);
         assert_eq!(format!("{}", nm), "-1.23 nm");
         let m = Distance::from_meters(-1.23);
         assert_eq!(format!("{}", m), "-1.23 m");
@@ -97,13 +97,13 @@ mod tests {
         assert_eq!(format!("{}", sun_radii), "-1.23 R☉");
         let astronomical_units = Distance::from_astronomical_units(-1.23);
         assert_eq!(format!("{}", astronomical_units), "-1.23 AU");
-        let light_years = Distance::from_light_years(-1.23);
+        let light_years = Distance::from_lyr(-1.23);
         assert_eq!(format!("{}", light_years), "-1.23 ly");
     }
 
     #[test]
     fn test_length_display_thresholds() {
-        let nm = Distance::from_nanometers(1000.);
+        let nm = Distance::from_nm(1000.);
         assert_eq!(format!("{}", nm), "1000.00 nm");
         let m = Distance::from_meters(1.);
         assert_eq!(format!("{}", m), "1.00 m");
@@ -115,7 +115,7 @@ mod tests {
         assert_eq!(format!("{}", sun_radii), "0.10 R☉");
         let astronomical_units = Distance::from_astronomical_units(0.01);
         assert_eq!(format!("{}", astronomical_units), "0.01 AU");
-        let light_years = Distance::from_light_years(0.01);
+        let light_years = Distance::from_lyr(0.01);
         assert_eq!(format!("{}", light_years), "0.01 ly");
     }
 }

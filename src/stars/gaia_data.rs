@@ -67,7 +67,7 @@ impl GaiaResponse {
             let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
             let direction_in_ecliptic = SphericalCoordinates::new(ecl_lon, ecl_lat).to_direction();
 
-            let temperature = temperature.map(|temperature| Temperature::from_kelvin(temperature));
+            let temperature = temperature.map(|temperature| Temperature::from_K(temperature));
             let color = match temperature {
                 Some(temperature) => sRGBColor::from_temperature(temperature),
                 None => sRGBColor::DEFAULT,
@@ -93,7 +93,7 @@ fn query_brightest_stars(brightest: Illuminance<f64>) -> Result<GaiaResponse, As
     url += "&QUERY=SELECT+designation,ecl_lon,ecl_lat,phot_g_mean_mag,teff_gspphot";
     url += "+FROM+gaiadr3.gaia_source";
     url += "+WHERE+phot_g_mean_mag+<+";
-    url += &format!("{:.1}", brightest.as_apparent_magnitude());
+    url += &format!("{:.1}", brightest.to_apparent_magnitude());
     let resp = reqwest::blocking::get(&url)
         .map_err(AstroUtilError::Connection)?
         .text()
@@ -216,14 +216,14 @@ mod tests {
                     println!("closest_star position: {}, {}", closest_ra, closest_dec);
                     println!(
                         "Angle difference: {} arcsecs",
-                        angle_difference.as_arcsecs()
+                        angle_difference.to_arcsecs()
                     );
                 } else {
                     println!("gaia_star_illuminance: {}", gaia_star.illuminance);
                     println!("closest_star_illuminance: {}", closest.illuminance);
                     println!(
                         "Illuminance difference: {} lx",
-                        (gaia_star.illuminance - closest.illuminance).as_lux()
+                        (gaia_star.illuminance - closest.illuminance).to_lux()
                     );
                 }
                 failure_count += 1;
@@ -272,13 +272,13 @@ mod tests {
 
         let brightest_gaia_star = gaia_stars
             .iter()
-            .min_by_key(|star| (star.illuminance.as_lux() * 1e5) as u32)
+            .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u32)
             .unwrap();
         println!(
             "Brightest gaia star illuminance: {} mag",
-            brightest_gaia_star.illuminance.as_apparent_magnitude()
+            brightest_gaia_star.illuminance.to_apparent_magnitude()
         );
-        assert!(brightest_gaia_star.illuminance.as_apparent_magnitude() < BRIGHTNESS_THRESHOLD);
+        assert!(brightest_gaia_star.illuminance.to_apparent_magnitude() < BRIGHTNESS_THRESHOLD);
 
         let mut failure_count = 0;
         for known_star in known_stars.iter() {
@@ -287,7 +287,7 @@ mod tests {
                 println!("\nknown_star is not in gaia:\n{}", known_star.name);
                 println!(
                     "known_star_illuminance: {} mag",
-                    known_star.illuminance.as_apparent_magnitude()
+                    known_star.illuminance.to_apparent_magnitude()
                 );
                 let closest_gaia_star =
                     find_closest_star(known_star, &gaia_stars.iter().collect()).unwrap();
@@ -328,16 +328,16 @@ mod tests {
         let acceptable_difference = Illuminance::from_apparent_magnitude(4.);
         println!(
             "mean_brightness_difference: \n{} lx",
-            mean_brightness_difference.as_lux()
+            mean_brightness_difference.to_lux()
         );
         println!(
             "acceptable_difference: \n{} lx",
-            acceptable_difference.as_lux()
+            acceptable_difference.to_lux()
         );
         println!(
             "ratio: {}",
             mean_brightness_difference / acceptable_difference
         );
-        assert!(mean_brightness_difference.as_lux().abs() < acceptable_difference.as_lux());
+        assert!(mean_brightness_difference.to_lux().abs() < acceptable_difference.to_lux());
     }
 }
