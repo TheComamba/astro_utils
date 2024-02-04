@@ -63,7 +63,7 @@ impl RealData {
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
-        let illuminance = Illuminance::from_apparent_magnitude(self.apparent_magnitude);
+        let illuminance = apparent_magnitude_to_illuminance(self.apparent_magnitude);
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
             None => sRGBColor::DEFAULT,
