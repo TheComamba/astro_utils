@@ -132,11 +132,11 @@ impl XYZColor {
 
 #[cfg(test)]
 mod tests {
-    use crate::tests::eq;
+    use crate::tests::eq_within;
 
     use super::*;
 
-    const TEST_ACCURACY: f64 = 0.06;
+    const COLOR_TEST_ACCURACY: f64 = 0.06;
 
     fn maximized_color_tuple(color: (f64, f64, f64)) -> (f64, f64, f64) {
         let max = color.0.max(color.1).max(color.2);
@@ -150,9 +150,9 @@ mod tests {
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
-        assert!(eq(expected.0, actual.0));
-        assert!(eq(expected.1, actual.1));
-        assert!(eq(expected.2, actual.2));
+        assert!(eq_within(expected.0, actual.0, COLOR_TEST_ACCURACY));
+        assert!(eq_within(expected.1, actual.1, COLOR_TEST_ACCURACY));
+        assert!(eq_within(expected.2, actual.2, COLOR_TEST_ACCURACY));
     }
 
     #[test]
@@ -162,9 +162,9 @@ mod tests {
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
-        assert!(eq(expected.0, actual.0));
-        assert!(eq(expected.1, actual.1));
-        assert!(eq(expected.2, actual.2));
+        assert!(eq_within(expected.0, actual.0, COLOR_TEST_ACCURACY));
+        assert!(eq_within(expected.1, actual.1, COLOR_TEST_ACCURACY));
+        assert!(eq_within(expected.2, actual.2, COLOR_TEST_ACCURACY));
     }
 
     #[test]
@@ -174,8 +174,8 @@ mod tests {
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
         println!("actual: {:?}", actual);
-        assert!(eq(expected.0, actual.0));
-        assert!(eq(expected.1, actual.1));
-        assert!(eq(expected.2, actual.2));
+        assert!(eq_within(expected.0, actual.0, COLOR_TEST_ACCURACY));
+        assert!(eq_within(expected.1, actual.1, COLOR_TEST_ACCURACY));
+        assert!(eq_within(expected.2, actual.2, COLOR_TEST_ACCURACY));
     }
 }
