@@ -52,3 +52,28 @@ pub fn normalized_angle(mut angle: Angle<f64>) -> Angle<f64> {
     }
     angle
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn arcsec_roundtrip() {
+        for i in -10..10 {
+            let input = i as f64;
+            let angle = angle_from_arcsecs(input);
+            let output = angle_to_arcsecs(&angle);
+            assert_eq!(input, output);
+        }
+    }
+
+    #[test]
+    fn second_angle_roundtrip() {
+        for i in -10..10 {
+            let input = i as f64;
+            let angle = angle_from_second_angle(input);
+            let output = angle_to_second_angle(&angle);
+            assert_eq!(input, output);
+        }
+    }
+}

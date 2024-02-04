@@ -50,11 +50,12 @@ impl Display for Declination {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::units::angle::{angle_from_arcsecs, angle_to_arcsecs};
 
     #[test]
     fn one_second() {
         let dec = Declination::new(Sgn::Pos, 0, 0, 1);
-        assert!((dec.to_angle().to_arcsecs() - 1.) < 1e-5);
+        assert!((angle_to_arcsecs(&dec.to_angle()) - 1.) < 1e-5);
     }
 
     #[test]
@@ -69,11 +70,11 @@ mod tests {
                         Sgn::Pos => 1.,
                         Sgn::Neg => -1.,
                     };
-                    let angle = Angle::from_arcsecs(sign * angle_abs);
+                    let angle = angle_from_arcsecs(sign * angle_abs);
                     println!("{} sign {} min {} sec", sign, min, sec);
-                    println!("expected: \n{} sec", angle.to_arcsecs());
-                    println!("actual: \n{} sec", dec.to_angle().to_arcsecs());
-                    let diff = (dec.to_angle().to_arcsecs() - angle.to_arcsecs()).abs();
+                    println!("expected: \n{} sec", angle_to_arcsecs(&angle));
+                    println!("actual: \n{} sec", angle_to_arcsecs(&dec.to_angle()));
+                    let diff = (angle_to_arcsecs(&dec.to_angle()) - angle_to_arcsecs(&angle)).abs();
                     println!("diff: \n{} sec", diff);
                     let mut accuracy = 1e-5 * angle_abs;
                     if accuracy < 1e-5 {

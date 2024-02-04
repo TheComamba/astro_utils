@@ -11,10 +11,6 @@ pub const SUN_LUMINOSITY: Luminosity<f64> = Luminosity {
     cd: WATTS_PER_SOLAR_LUMINOSITY,
 };
 
-pub const SUN_MASS: Mass<f64> = Mass {
-    kg: KG_PER_SOLAR_MASSES,
-};
-
 pub const SUN_RADIUS: Distance<f64> = Distance {
     m: METERS_PER_SUN_RADII,
 };
