@@ -32,7 +32,10 @@ pub fn illuminance_to_luminosity(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::tests::eq;
+    use crate::{
+        tests::eq,
+        units::luminosity::{luminosity_to_illuminance, WATTS_PER_SOLAR_LUMINOSITY},
+    };
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
 
@@ -49,9 +52,9 @@ mod tests {
 
     #[test]
     fn test_sunlight() {
-        let luminosity = Luminosity::from_solar_luminosities(1.);
-        let distance = Distance::from_astronomical_units(1.);
-        let illuminance = luminosity.to_illuminance(&distance);
+        let luminosity = Luminosity::from_cd(WATTS_PER_SOLAR_LUMINOSITY);
+        let distance = Distance::from_au(1.);
+        let illuminance = luminosity_to_illuminance(&luminosity, &distance);
         let actual = illuminance.to_lux();
         let expected = 107_527.;
         println!("expected: {}, actual: {}", expected, actual);

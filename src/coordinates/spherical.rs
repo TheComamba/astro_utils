@@ -171,7 +171,7 @@ mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
         tests::TEST_ACCURACY,
-        units::{angle::TWO_PI, tests::ANGLE_TEST_ACCURACY},
+        units::{angle::FULL_CIRC, tests::ANGLE_TEST_ACCURACY},
     };
     use simple_si_units::base::Distance;
 
@@ -339,7 +339,7 @@ mod tests {
             ANGLE_ZERO,
             LOCAL_TEST_ANGLE_ACCURACY / 100.,
         ];
-        let large_offsets = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
+        let large_offsets = vec![-FULL_CIRC, ANGLE_ZERO, FULL_CIRC, 100. * FULL_CIRC];
         let directions = vec![
             SphericalCoordinates::X_DIRECTION,
             SphericalCoordinates::Y_DIRECTION,
@@ -353,8 +353,8 @@ mod tests {
                 for large_offset in large_offsets.clone() {
                     let longitude1 = direction.longitude;
                     let latitude1 = direction.latitude;
-                    let longitude2 = longitude1 + Angle::from_radians(large_offset) + small_offset;
-                    let latitude2 = latitude1 + Angle::from_radians(large_offset) + small_offset;
+                    let longitude2 = longitude1 + large_offset + small_offset;
+                    let latitude2 = latitude1 + large_offset + small_offset;
                     let coords1 = SphericalCoordinates {
                         longitude: longitude2,
                         latitude: latitude1,
@@ -399,14 +399,14 @@ mod tests {
             2. * PI,
         ];
         let latitudes = vec![-0.25 * PI, 0., 0.25 * PI];
-        let offsets = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
+        let offsets = vec![-FULL_CIRC, ANGLE_ZERO, FULL_CIRC, 100. * FULL_CIRC];
         for longitude in longitudes.clone() {
             for latitude in latitudes.clone() {
                 for offset in offsets.clone() {
                     let longitude1 = Angle::from_radians(longitude);
                     let latitude1 = Angle::from_radians(latitude);
-                    let longitude2 = Angle::from_radians(longitude + offset);
-                    let latitude2 = Angle::from_radians(latitude + offset);
+                    let longitude2 = longitude1 + offset;
+                    let latitude2 = latitude1 + offset;
                     let mut coords1 = SphericalCoordinates {
                         longitude: longitude1,
                         latitude: latitude1,
