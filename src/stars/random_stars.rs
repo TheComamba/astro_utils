@@ -5,7 +5,7 @@ use super::{
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
-    Float, PI,
+    f64, PI,
 };
 use rand::{
     distributions::{Uniform, WeightedIndex},
@@ -16,12 +16,10 @@ use simple_si_units::base::Distance;
 use std::time::Instant;
 
 // https://en.wikipedia.org/wiki/Stellar_density
-const STARS_PER_LY_CUBED: Float = 0.004;
-const DIMMEST_VISIBLE_MAGNITUDE: Float = 6.5;
+const STARS_PER_LY_CUBED: f64 = 0.004;
+const DIMMEST_VISIBLE_MAGNITUDE: f64 = 6.5;
 
-pub fn generate_random_stars(
-    max_distance: Distance<Float>,
-) -> Result<Vec<StarData>, AstroUtilError> {
+pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
 
     let start = Instant::now();
@@ -57,7 +55,7 @@ pub fn generate_random_stars(
 }
 
 pub fn generate_random_star(
-    max_distance: Option<Distance<Float>>,
+    max_distance: Option<Distance<f64>>,
 ) -> Result<StarData, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
     let mut rng = rand::thread_rng();
@@ -92,10 +90,10 @@ pub fn generate_random_star(
 
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
-    max_distance_in_au_squared: Float,
+    max_distance_in_au_squared: f64,
     rng: &mut ThreadRng,
-    pos_distr: &Uniform<Float>,
-    mass_index_distr: &WeightedIndex<Float>,
+    pos_distr: &Uniform<f64>,
+    mass_index_distr: &WeightedIndex<f64>,
 ) -> Option<StarData> {
     let pos = random_point_in_sphere(rng, pos_distr, max_distance_in_au_squared);
     let mass_index = rng.sample(mass_index_distr);
@@ -112,14 +110,14 @@ fn generate_visible_random_star(
     Some(star)
 }
 
-fn get_pos_distribution(max_distance: Distance<Float>) -> Uniform<f32> {
+fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f32> {
     Uniform::new(
         -max_distance.as_astronomical_units(),
         max_distance.as_astronomical_units(),
     )
 }
 
-fn get_mass_distribution() -> WeightedIndex<Float> {
+fn get_mass_distribution() -> WeightedIndex<f64> {
     let mut weights = Vec::new();
     for m in ParsecData::SORTED_MASSES {
         let weight = kroupa_mass_distribution(m);
@@ -128,7 +126,7 @@ fn get_mass_distribution() -> WeightedIndex<Float> {
     WeightedIndex::new(weights).unwrap()
 }
 
-fn kroupa_mass_distribution(m_in_sun_masses: Float) -> Float {
+fn kroupa_mass_distribution(m_in_sun_masses: f64) -> f64 {
     let alpha = if m_in_sun_masses <= 0.08 {
         0.3
     } else if m_in_sun_masses <= 0.5 {
@@ -152,8 +150,8 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 fn random_point_in_sphere(
     rng: &mut ThreadRng,
-    distr: &Uniform<Float>,
-    max_distance_in_au_squared: Float,
+    distr: &Uniform<f64>,
+    max_distance_in_au_squared: f64,
 ) -> CartesianCoordinates {
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     while x * x + y * y + z * z > max_distance_in_au_squared {
@@ -169,7 +167,7 @@ fn pick_random_age(trajectory: &Vec<ParsecLine>) -> &ParsecLine {
     let mut rng: ThreadRng = rand::thread_rng();
     let life_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
     let age_in_years = rng.gen_range(0..=life_expectancy);
-    ParsecData::get_closest_params(trajectory, age_in_years as Float)
+    ParsecData::get_closest_params(trajectory, age_in_years as f64)
 }
 
 #[cfg(test)]

@@ -1,14 +1,14 @@
 use crate::{
     coordinates::{direction::Direction, equatorial::EquatorialCoordinates},
-    Float, TWO_PI,
+    f64, TWO_PI,
 };
 use simple_si_units::{base::Time, geometry::Angle};
 
 pub fn surface_normal_at_time(
     mut observer: EquatorialCoordinates,
-    angle_at_epoch: Angle<Float>,
-    time_since_epoch: Time<Float>,
-    siderial_day: Time<Float>,
+    angle_at_epoch: Angle<f64>,
+    time_since_epoch: Time<f64>,
+    siderial_day: Time<f64>,
 ) -> Direction {
     if siderial_day.as_seconds().abs() > 1. {
         let time_of_siderial_day = time_since_epoch % siderial_day;

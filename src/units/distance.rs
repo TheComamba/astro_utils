@@ -1,7 +1,15 @@
-pub const DISTANCE_ZERO: Distance<Float> = Distance { m: 0. };
-pub const METERS_PER_SUN_RADII: Float = 6.957e8;
-pub const METERS_PER_ASTRONOMICAL_UNIT: Float = 1.496e11;
-pub const METERS_PER_LIGHT_YEAR: Float = 9.461e15;
+use crate::f64;
+use simple_si_units::base::Distance;
+
+pub const DISTANCE_ZERO: Distance<f64> = Distance { m: 0. };
+pub(crate) const METERS_PER_NANOMETER: f64 = 1e-9;
+pub(crate) const METERS_PER_MICROMETER: f64 = 1e-6;
+pub(crate) const METERS_PER_MILLIMETER: f64 = 1e-3;
+pub(crate) const METERS_PER_KILOMETER: f64 = 1e3;
+pub(crate) const METERS_PER_EARTH_RADII: f64 = 6.371e6;
+pub(crate) const METERS_PER_SUN_RADII: f64 = 6.957e8;
+pub(crate) const METERS_PER_ASTRONOMICAL_UNIT: f64 = 1.496e11;
+pub(crate) const METERS_PER_LIGHT_YEAR: f64 = 9.461e15;
 
 pub enum DistanceUnit {
     Nanometers,
@@ -15,24 +23,26 @@ pub enum DistanceUnit {
     LightYears,
 }
 
-pub fn display_distance_in_units(distance: Distance<Float>, units: DistanceUnit) -> String {
+pub fn display_distance_in_units(distance: Distance<f64>, units: DistanceUnit) -> String {
     match units {
-        DistanceUnit::Nanometers => format!("{:2} nm", distance.to_nanometers()),
-        DistanceUnit::Micrometers => format!("{:2} μm", distance.to_micrometers()),
-        DistanceUnit::Millimeters => format!("{:2} mm", distance.to_millimeters()),
-        DistanceUnit::Meters => format!("{:2} m", distance.to_meters()),
-        DistanceUnit::Kilometers => format!("{:2} km", distance.to_kilometers()),
-        DistanceUnit::EarthRadii => format!("{:2} R🜨", distance.to_earth_radii()),
-        DistanceUnit::SunRadii => format!("{:2} R☉", distance.to_sun_radii()),
-        DistanceUnit::AstronomicalUnits => format!("{:2} AU", distance.to_astronomical_units()),
-        DistanceUnit::LightYears => format!("{:2} ly", distance.to_light_years()),
+        DistanceUnit::Nanometers => format!("{:2} nm", distance.m / METERS_PER_NANOMETER),
+        DistanceUnit::Micrometers => format!("{:2} μm", distance.m / METERS_PER_MICROMETER),
+        DistanceUnit::Millimeters => format!("{:2} mm", distance.m / METERS_PER_MILLIMETER),
+        DistanceUnit::Meters => format!("{:2} m", distance.m),
+        DistanceUnit::Kilometers => format!("{:2} km", distance.m / METERS_PER_KILOMETER),
+        DistanceUnit::EarthRadii => format!("{:2} R🜨", distance.m / METERS_PER_EARTH_RADII),
+        DistanceUnit::SunRadii => format!("{:2} R☉", distance.m / METERS_PER_SUN_RADII),
+        DistanceUnit::AstronomicalUnits => {
+            format!("{:2} AU", distance.m / METERS_PER_ASTRONOMICAL_UNIT)
+        }
+        DistanceUnit::LightYears => format!("{:2} ly", distance.m / METERS_PER_LIGHT_YEAR),
     }
 }
 
-pub fn diplay_distance(distance: Distance<Float>) -> String {
-    let units = if distance.as_light_years().abs() > 0.099 {
+pub fn diplay_distance(distance: Distance<f64>) -> String {
+    let units = if distance.to_lyr().abs() > 0.099 {
         DistanceUnit::LightYears
-    } else if distance.as_astronomical_units().abs() > 0.099 {
+    } else if distance.to_au().abs() > 0.099 {
         DistanceUnit::AstronomicalUnits
     } else if distance.as_sun_radii().abs() > 0.099 {
         DistanceUnit::SunRadii

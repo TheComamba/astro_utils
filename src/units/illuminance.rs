@@ -1,22 +1,22 @@
-pub const ILLUMINANCE_ZERO: Illuminance<Float> = Illuminance { lux: 0. };
+pub const ILLUMINANCE_ZERO: Illuminance<f64> = Illuminance { lux: 0. };
 
 pub const ZERO: Illuminance = Illuminance { lux: 0. };
 
-pub const fn from_lux(lux: Float) -> Illuminance {
+pub const fn from_lux(lux: f64) -> Illuminance {
     Illuminance { lux }
 }
 
-pub fn from_apparent_magnitude(apparent_magnitude: Float) -> Illuminance {
+pub fn from_apparent_magnitude(apparent_magnitude: f64) -> Illuminance {
     let exponent = (-14.18 - apparent_magnitude) / 2.5;
-    let lux = (10. as Float).powf(exponent);
+    let lux = (10. as f64).powf(exponent);
     Illuminance { lux }
 }
 
-pub const fn as_lux(&self) -> Float {
+pub const fn as_lux(&self) -> f64 {
     self.lux
 }
 
-pub fn as_apparent_magnitude(&self) -> Float {
+pub fn as_apparent_magnitude(&self) -> f64 {
     -14.18 - 2.5 * self.lux.log10()
 }
 
@@ -37,12 +37,12 @@ pub(crate) fn eq_within(&self, other: Illuminance, accuracy: Illuminance) -> boo
 
 #[cfg(test)]
 mod tests {
-    const REAL_DATA_TEST_ACCURACY: Float = 0.05;
+    const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
 
     #[test]
     fn test_apparent_magnitudes() {
         for magnitude in -10..10 {
-            let input = magnitude as Float;
+            let input = magnitude as f64;
             let illuminance = Illuminance::from_apparent_magnitude(input);
             let output = illuminance.as_apparent_magnitude();
             println!("input: {}, output: {}", input, output);

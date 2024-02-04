@@ -1,5 +1,5 @@
 use super::{direction::Direction, spherical::SphericalCoordinates};
-use crate::Float;
+use crate::f64;
 use simple_si_units::geometry::Angle;
 use std::fmt::Display;
 
@@ -16,19 +16,19 @@ impl EquatorialCoordinates {
         }
     }
 
-    pub fn get_longitude(&self) -> Angle<Float> {
+    pub fn get_longitude(&self) -> Angle<f64> {
         self.spherical.get_longitude()
     }
 
-    pub fn get_latitude(&self) -> Angle<Float> {
+    pub fn get_latitude(&self) -> Angle<f64> {
         self.spherical.get_latitude()
     }
 
-    pub fn set_longitude(&mut self, longitude: Angle<Float>) {
+    pub fn set_longitude(&mut self, longitude: Angle<f64>) {
         self.spherical.set_longitude(longitude);
     }
 
-    pub fn set_latitude(&mut self, latitude: Angle<Float>) {
+    pub fn set_latitude(&mut self, latitude: Angle<f64>) {
         self.spherical.set_latitude(latitude);
     }
 
@@ -69,13 +69,13 @@ mod tests {
             equatorial::EquatorialCoordinates,
             spherical::SphericalCoordinates,
         },
+        f64,
         tests::TEST_ACCURACY,
-        Float,
     };
 
     #[test]
     fn north_pole_points_along_axis() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -98,7 +98,7 @@ mod tests {
 
     #[test]
     fn south_pole_points_along_negative_axis() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -123,7 +123,7 @@ mod tests {
 
     #[test]
     fn x_axis_lies_in_horizontal_plane() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -144,7 +144,7 @@ mod tests {
 
     #[test]
     fn minus_x_axis_lies_in_horizontal_plane() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -165,7 +165,7 @@ mod tests {
 
     #[test]
     fn behaves_like_earth_equatorial() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         let earth_north = EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES
             .get_spherical()
             .to_direction();

@@ -1,6 +1,4 @@
-pub type Float = f32;
-pub(crate) const PI: Float = std::f32::consts::PI;
-pub(crate) const TWO_PI: Float = 2. * PI;
+use std::f64::consts::PI;
 
 pub mod color;
 pub mod coordinates;
@@ -12,15 +10,14 @@ pub mod units;
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use crate::Float;
 
-    pub(crate) const TEST_ACCURACY: Float = 1e-5;
+    pub(crate) const TEST_ACCURACY: f64 = 1e-5;
 
-    pub(crate) fn eq_within(a: Float, b: Float, accuracy: Float) -> bool {
+    pub(crate) fn eq_within(a: f64, b: f64, accuracy: f64) -> bool {
         (a - b).abs() <= accuracy
     }
 
-    pub(crate) fn eq(a: Float, b: Float) -> bool {
+    pub(crate) fn eq(a: f64, b: f64) -> bool {
         eq_within(a, b, TEST_ACCURACY)
     }
 }

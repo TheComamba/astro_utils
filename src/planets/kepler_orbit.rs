@@ -1,8 +1,9 @@
 use super::orbit_parameters::OrbitParameters;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates},
+    f64,
     units::ANGLE_ZERO,
-    Float, TWO_PI,
+    TWO_PI,
 };
 use simple_si_units::{
     base::{Distance, Mass, Time},
@@ -14,11 +15,11 @@ use simple_si_units::{
  * https://en.wikipedia.org/wiki/Orbital_period
  */
 pub fn orbital_period(
-    semi_major_axis: Distance<Float>,
-    mass1: Mass<Float>,
-    mass2: Mass<Float>,
-) -> Time<Float> {
-    const G: Float = 6.67430e-11;
+    semi_major_axis: Distance<f64>,
+    mass1: Mass<f64>,
+    mass2: Mass<f64>,
+) -> Time<f64> {
+    const G: f64 = 6.67430e-11;
 
     let semi_major_axis_cubed = semi_major_axis * semi_major_axis * semi_major_axis;
     let total_mass = mass1 + mass2;
@@ -33,7 +34,7 @@ pub fn orbital_period(
  *
  * Output is normalised to the range [-π, π].
  */
-pub fn mean_anomaly(orbital_period: Time<Float>, time: Time<Float>) -> Angle<Float> {
+pub fn mean_anomaly(orbital_period: Time<f64>, time: Time<f64>) -> Angle<f64> {
     let mean_motion = TWO_PI / orbital_period;
     let mean_anomaly = mean_motion * (time % orbital_period);
     mean_anomaly.normalize();
@@ -45,8 +46,8 @@ pub fn mean_anomaly(orbital_period: Time<Float>, time: Time<Float>) -> Angle<Flo
  * as seen from the center of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/Eccentric_anomaly
  */
-pub fn eccentric_anomaly(mean_anomaly: Angle<Float>, eccentricity: Float) -> Angle<Float> {
-    const ACCURACY: Float = 1e-6;
+pub fn eccentric_anomaly(mean_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f64> {
+    const ACCURACY: f64 = 1e-6;
     let mean_anomaly = mean_anomaly.to_radians();
     let mut eccentric_anomaly = mean_anomaly;
     let mut error = 10. * ACCURACY;
@@ -67,7 +68,7 @@ pub fn eccentric_anomaly(mean_anomaly: Angle<Float>, eccentricity: Float) -> Ang
  * as seen from the main focus of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/True_anomaly
  */
-pub fn true_anomaly(eccentric_anomaly: Angle<Float>, eccentricity: Float) -> Angle<Float> {
+pub fn true_anomaly(eccentric_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f64> {
     let sqrt_arg = (1. + eccentricity) / (1. - eccentricity);
     let artan_arg = (eccentric_anomaly.as_radians() / 2.).tan() * sqrt_arg.sqrt();
     let true_anomaly = 2. * artan_arg.atan();
@@ -80,10 +81,10 @@ pub fn true_anomaly(eccentric_anomaly: Angle<Float>, eccentricity: Float) -> Ang
  * https://en.wikipedia.org/wiki/Ellipse#Distance_from_focus
  */
 fn distance_from_focus(
-    semi_major_axis: Distance<Float>,
-    true_anomaly: Angle<Float>,
-    eccentricity: Float,
-) -> Distance<Float> {
+    semi_major_axis: Distance<f64>,
+    true_anomaly: Angle<f64>,
+    eccentricity: f64,
+) -> Distance<f64> {
     let numerator = 1. - eccentricity * eccentricity;
     let denominator = 1. + eccentricity * true_anomaly.cos();
     semi_major_axis * numerator / denominator
@@ -94,9 +95,9 @@ fn distance_from_focus(
  * https://en.wikipedia.org/wiki/Orbital_elements#Position_relative_to_the_central_body
  */
 pub fn position_relative_to_central_body(
-    semi_major_axis: Distance<Float>,
-    eccentricity: Float,
-    true_anomaly: Angle<Float>,
+    semi_major_axis: Distance<f64>,
+    eccentricity: f64,
+    true_anomaly: Angle<f64>,
     orientation: &OrbitParameters,
 ) -> CartesianCoordinates {
     let ecliptic_from_focus = SphericalCoordinates::new(true_anomaly, ANGLE_ZERO);
@@ -176,7 +177,7 @@ mod tests {
 
     #[test]
     fn mean_anomaly_is_stable_after_loads_of_revolutions() {
-        const LOCAL_TEST_ANGLE_ACCURACY: Angle<Float> = Angle { rad: 5e-3 * TWO_PI };
+        const LOCAL_TEST_ANGLE_ACCURACY: Angle<f64> = Angle { rad: 5e-3 * TWO_PI };
 
         let expected_mean_anomaly = Angle::from_radians(TWO_PI / 4.);
         let passed_time = Time::from_years(1e5 + 0.25);

@@ -1,11 +1,11 @@
-use crate::{color::sRGBColor, coordinates::direction::Direction, Float};
+use crate::{color::sRGBColor, coordinates::direction::Direction, f64};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
     pub(crate) name: String,
-    pub(crate) illuminance: Illuminance<Float>,
+    pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
     pub(crate) direction_in_ecliptic: Direction,
 }
@@ -13,7 +13,7 @@ pub struct StarAppearance {
 impl StarAppearance {
     pub fn new(
         name: String,
-        illuminance: Illuminance<Float>,
+        illuminance: Illuminance<f64>,
         color: sRGBColor,
         direction_in_ecliptic: Direction,
     ) -> Self {
@@ -29,7 +29,7 @@ impl StarAppearance {
         &self.name
     }
 
-    pub const fn get_illuminance(&self) -> &Illuminance<Float> {
+    pub const fn get_illuminance(&self) -> &Illuminance<f64> {
         &self.illuminance
     }
 

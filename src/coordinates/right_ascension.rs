@@ -1,4 +1,4 @@
-use crate::Float;
+use crate::f64;
 use simple_si_units::geometry::Angle;
 use std::fmt::Display;
 
@@ -17,10 +17,10 @@ impl RightAscension {
         }
     }
 
-    pub fn to_angle(&self) -> Angle<Float> {
-        let hours = self.hours as Float;
-        let minutes = self.minutes as Float;
-        let seconds = self.seconds as Float;
+    pub fn to_angle(&self) -> Angle<f64> {
+        let hours = self.hours as f64;
+        let minutes = self.minutes as f64;
+        let seconds = self.seconds as f64;
 
         Angle::from_degrees((hours + minutes / 60. + seconds / 3600.) * 15.)
     }

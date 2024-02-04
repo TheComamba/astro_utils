@@ -4,18 +4,18 @@ use simple_si_units::{
 };
 
 use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
-use crate::{color::sRGBColor, coordinates::earth_equatorial::EarthEquatorialCoordinates, Float};
+use crate::{color::sRGBColor, coordinates::earth_equatorial::EarthEquatorialCoordinates, f64};
 
 pub struct RealData {
     pub name: &'static str,
     pub orbit: OrbitParameters,
-    pub geometric_albedo: Float,
-    pub bond_albedo: Option<Float>,
+    pub geometric_albedo: f64,
+    pub bond_albedo: Option<f64>,
     pub color: sRGBColor,
-    pub radius: Distance<Float>,
-    pub mass: Mass<Float>,
-    pub siderial_rotation_period: Time<Float>,
-    pub axis_tilt: Angle<Float>,
+    pub radius: Distance<f64>,
+    pub mass: Mass<f64>,
+    pub siderial_rotation_period: Time<f64>,
+    pub axis_tilt: Angle<f64>,
     pub rotation_axis: EarthEquatorialCoordinates,
 }
 

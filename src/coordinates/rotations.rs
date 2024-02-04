@@ -1,11 +1,11 @@
 use super::direction::Direction;
-use crate::Float;
+use crate::f64;
 use simple_si_units::geometry::Angle;
 use std::ops::{Add, Mul};
 
-pub(super) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle<Float>, axis: &Direction) -> (T, T, T)
+pub(super) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle<f64>, axis: &Direction) -> (T, T, T)
 where
-    T: Mul<Float, Output = T> + Add<Output = T> + Copy,
+    T: Mul<f64, Output = T> + Add<Output = T> + Copy,
 {
     let cos = angle.cos();
     let sin = angle.sin();
@@ -34,7 +34,7 @@ where
     (x_out, y_out, z_out)
 }
 
-pub fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle<Float>, Direction) {
+pub fn get_rotation_parameters(start: &Direction, end: &Direction) -> (Angle<f64>, Direction) {
     let angle = start.angle_to(end);
     let axis = start.cross_product(end);
     if let Ok(axis) = axis {
@@ -54,29 +54,30 @@ mod tests {
             direction::Direction,
             rotations::{get_rotation_parameters, rotated_tuple},
         },
+        f64,
         tests::TEST_ACCURACY,
-        Float, TWO_PI,
+        TWO_PI,
     };
 
-    const X_VECTOR: (Float, Float, Float) = (1., 0., 0.);
-    const MINUS_X_VECTOR: (Float, Float, Float) = (-1., 0., 0.);
-    const Y_VECTOR: (Float, Float, Float) = (0., 1., 0.);
-    const MINUS_Y_VECTOR: (Float, Float, Float) = (0., -1., 0.);
-    const Z_VECTOR: (Float, Float, Float) = (0., 0., 1.);
-    const MINUS_Z_VECTOR: (Float, Float, Float) = (0., 0., -1.);
+    const X_VECTOR: (f64, f64, f64) = (1., 0., 0.);
+    const MINUS_X_VECTOR: (f64, f64, f64) = (-1., 0., 0.);
+    const Y_VECTOR: (f64, f64, f64) = (0., 1., 0.);
+    const MINUS_Y_VECTOR: (f64, f64, f64) = (0., -1., 0.);
+    const Z_VECTOR: (f64, f64, f64) = (0., 0., 1.);
+    const MINUS_Z_VECTOR: (f64, f64, f64) = (0., 0., -1.);
 
-    const QUARTER_TURN: Angle<Float> = Angle { rad: TWO_PI / 4. };
-    const HALF_TURN: Angle<Float> = Angle { rad: TWO_PI / 2. };
-    const THREE_QUARTER_TURN: Angle<Float> = Angle {
+    const QUARTER_TURN: Angle<f64> = Angle { rad: TWO_PI / 4. };
+    const HALF_TURN: Angle<f64> = Angle { rad: TWO_PI / 2. };
+    const THREE_QUARTER_TURN: Angle<f64> = Angle {
         rad: 3. / 4. * TWO_PI,
     };
-    const FULL_TURN: Angle<Float> = Angle { rad: TWO_PI };
-    const ONE_THIRD_TURN: Angle<Float> = Angle { rad: TWO_PI / 3. };
-    const TWO_THIRDS_TURN: Angle<Float> = Angle {
+    const FULL_TURN: Angle<f64> = Angle { rad: TWO_PI };
+    const ONE_THIRD_TURN: Angle<f64> = Angle { rad: TWO_PI / 3. };
+    const TWO_THIRDS_TURN: Angle<f64> = Angle {
         rad: 2. / 3. * TWO_PI,
     };
 
-    fn kinda_equal(a: (Float, Float, Float), b: (Float, Float, Float)) -> bool {
+    fn kinda_equal(a: (f64, f64, f64), b: (f64, f64, f64)) -> bool {
         let (ax, ay, az) = a;
         let (bx, by, bz) = b;
         (ax - bx).abs() < TEST_ACCURACY
@@ -84,7 +85,7 @@ mod tests {
             && (az - bz).abs() < TEST_ACCURACY
     }
 
-    fn print_expectations(expected: (Float, Float, Float), actual: (Float, Float, Float)) {
+    fn print_expectations(expected: (f64, f64, f64), actual: (f64, f64, f64)) {
         println!(
             "expected ({}, {}, {}), actual ({}, {}, {})",
             expected.0, expected.1, expected.2, actual.0, actual.1, actual.2
@@ -368,7 +369,7 @@ mod tests {
 
     #[test]
     fn get_rotation_parameters_test() {
-        const ROTATION_DIRECTION_ACCURACY: Float = 1e-3;
+        const ROTATION_DIRECTION_ACCURACY: f64 = 1e-3;
         let ordinates = vec![-1., 0., 1., 10.];
         for start_x in ordinates.clone().iter() {
             for start_y in ordinates.clone().iter() {

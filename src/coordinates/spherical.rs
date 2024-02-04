@@ -3,7 +3,7 @@ use super::{
     direction::Direction,
     right_ascension::RightAscension,
 };
-use crate::{units::ANGLE_ZERO, Float, PI};
+use crate::{f64, units::ANGLE_ZERO, PI};
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::{
@@ -11,12 +11,12 @@ use std::{
     ops::Neg,
 };
 
-const PI_HALF: Float = PI / 2.;
+const PI_HALF: f64 = PI / 2.;
 
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SphericalCoordinates {
-    longitude: Angle<Float>,
-    latitude: Angle<Float>,
+    longitude: Angle<f64>,
+    latitude: Angle<f64>,
 }
 
 impl SphericalCoordinates {
@@ -35,7 +35,7 @@ impl SphericalCoordinates {
         latitude: Angle::from_radians(PI / 2.),
     };
 
-    pub const fn new(longitude: Angle<Float>, latitude: Angle<Float>) -> Self {
+    pub const fn new(longitude: Angle<f64>, latitude: Angle<f64>) -> Self {
         Self {
             longitude,
             latitude,
@@ -56,9 +56,9 @@ impl SphericalCoordinates {
     }
 
     #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<Float>) -> bool {
-        const NORTHPOLE_LATITUDE: Angle<Float> = Angle { rad: PI_HALF };
-        const SOUTHPOLE_LATITUDE: Angle<Float> = Angle { rad: -PI_HALF };
+    pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<f64>) -> bool {
+        const NORTHPOLE_LATITUDE: Angle<f64> = Angle { rad: PI_HALF };
+        const SOUTHPOLE_LATITUDE: Angle<f64> = Angle { rad: -PI_HALF };
         let mut clone = self.clone();
         let mut other_clone = other.clone();
         clone.normalize();
@@ -74,23 +74,23 @@ impl SphericalCoordinates {
         latitudes_equal && longitudes_equal
     }
 
-    pub fn get_longitude(&self) -> Angle<Float> {
+    pub fn get_longitude(&self) -> Angle<f64> {
         self.longitude
     }
 
-    pub fn get_latitude(&self) -> Angle<Float> {
+    pub fn get_latitude(&self) -> Angle<f64> {
         self.latitude
     }
 
-    pub fn set_longitude(&mut self, longitude: Angle<Float>) {
+    pub fn set_longitude(&mut self, longitude: Angle<f64>) {
         self.longitude = longitude;
     }
 
-    pub fn set_latitude(&mut self, latitude: Angle<Float>) {
+    pub fn set_latitude(&mut self, latitude: Angle<f64>) {
         self.latitude = latitude;
     }
 
-    pub(super) fn cartesian_to_spherical(cart: (Float, Float, Float)) -> Self {
+    pub(super) fn cartesian_to_spherical(cart: (f64, f64, f64)) -> Self {
         let (x, y, z) = cart;
         let longitude = Angle::from_radians(y.atan2(x));
         let latitude = Angle::from_radians(z.atan2((x * x + y * y).sqrt()));
@@ -110,9 +110,9 @@ impl SphericalCoordinates {
     pub fn to_ra_and_dec(&self) -> (RightAscension, Declination) {
         let mut ra_remainder = self.longitude.as_degrees();
         let ra_hours = (ra_remainder / 15.).floor() as i8;
-        ra_remainder -= ra_hours as Float * 15.;
+        ra_remainder -= ra_hours as f64 * 15.;
         let ra_minutes = (ra_remainder / 15. * 60.).floor() as i8;
-        ra_remainder -= ra_minutes as Float / 60. * 15.;
+        ra_remainder -= ra_minutes as f64 / 60. * 15.;
         let ra_seconds = (ra_remainder / 15. * 3600.).floor() as i8;
         let ra = RightAscension::new(ra_hours, ra_minutes, ra_seconds);
 
@@ -124,9 +124,9 @@ impl SphericalCoordinates {
             Sgn::Pos
         };
         let dec_degrees = dec_remainder.floor() as u8;
-        dec_remainder -= dec_degrees as Float;
+        dec_remainder -= dec_degrees as f64;
         let dec_minutes = (dec_remainder * 60.).floor() as u8;
-        dec_remainder -= dec_minutes as Float / 60.;
+        dec_remainder -= dec_minutes as f64 / 60.;
         let dec_seconds = (dec_remainder * 3600.).floor() as u8;
         let dec = Declination::new(sign, dec_degrees, dec_minutes, dec_seconds);
 
@@ -327,7 +327,7 @@ mod tests {
 
     #[test]
     fn test_eq_within() {
-        const LOCAL_TEST_ANGLE_ACCURACY: Float = 10. * TEST_ACCURACY;
+        const LOCAL_TEST_ANGLE_ACCURACY: f64 = 10. * TEST_ACCURACY;
 
         let small_offsets = vec![
             -LOCAL_TEST_ANGLE_ACCURACY / 100.,
@@ -375,7 +375,7 @@ mod tests {
 
     #[test]
     fn test_normalization_two_pi_offsets() {
-        const LOCAL_TEST_ANGLE_ACCURACY: Float = 10. * TEST_ACCURACY;
+        const LOCAL_TEST_ANGLE_ACCURACY: f64 = 10. * TEST_ACCURACY;
 
         let longitudes = vec![
             -0.75 * PI,
@@ -520,8 +520,8 @@ mod tests {
         const STEP: usize = 100;
         for i in 0..STEP {
             for j in 0..STEP {
-                let ra_angle = Angle::from_radians(2. * PI * i as Float / STEP as Float);
-                let dec_angle = Angle::from_radians(PI * j as Float / STEP as Float - PI_HALF);
+                let ra_angle = Angle::from_radians(2. * PI * i as f64 / STEP as f64);
+                let dec_angle = Angle::from_radians(PI * j as f64 / STEP as f64 - PI_HALF);
                 let spherical = SphericalCoordinates {
                     longitude: ra_angle,
                     latitude: dec_angle,

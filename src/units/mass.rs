@@ -1,5 +1,5 @@
-pub const KILOGRAMS_PER_SOLAR_MASS: Float = 1.988e30;
-pub const KG_PER_SOLAR_MASSES: Float = 1.988e30;
+pub const KILOGRAMS_PER_SOLAR_MASS: f64 = 1.988e30;
+pub const KG_PER_SOLAR_MASSES: f64 = 1.988e30;
 
 pub enum MassUnit {
     Kilograms,
@@ -7,7 +7,7 @@ pub enum MassUnit {
     SolarMasses,
 }
 
-pub fn display_mass_in_units(mass: Mass<Float>, units: MassUnit) -> String {
+pub fn display_mass_in_units(mass: Mass<f64>, units: MassUnit) -> String {
     match units {
         MassUnit::Kilograms => format!("{:2} kg", mass.to_kilograms()),
         MassUnit::EarthMasses => format!("{:2} M🜨", mass.to_earth_masses()),
@@ -15,7 +15,7 @@ pub fn display_mass_in_units(mass: Mass<Float>, units: MassUnit) -> String {
     }
 }
 
-pub fn display_mass(mass: Mass<Float>) -> String {
+pub fn display_mass(mass: Mass<f64>) -> String {
     let units = if mass.as_solar_masses().abs() > 0.099 {
         MassUnit::SolarMasses
     } else if mass.as_earth_masses().abs() > 0.099 {

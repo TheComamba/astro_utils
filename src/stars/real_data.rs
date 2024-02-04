@@ -5,7 +5,7 @@ use crate::{
         declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
         right_ascension::RightAscension,
     },
-    Float,
+    f64,
 };
 use simple_si_units::{
     base::{Distance, Mass, Temperature, Time},
@@ -16,20 +16,20 @@ use std::fmt::Display;
 pub struct RealData {
     pub common_name: &'static str,
     pub astronomical_name: &'static str,
-    pub mass: Option<Mass<Float>>,
-    pub radius: Option<Distance<Float>>,
-    pub absolute_magnitude: Float,
-    pub apparent_magnitude: Float,
-    pub temperature: Option<Temperature<Float>>,
-    pub age: Option<Time<Float>>,
+    pub mass: Option<Mass<f64>>,
+    pub radius: Option<Distance<f64>>,
+    pub absolute_magnitude: f64,
+    pub apparent_magnitude: f64,
+    pub temperature: Option<Temperature<f64>>,
+    pub age: Option<Time<f64>>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
-    pub distance: Distance<Float>,
+    pub distance: Distance<f64>,
 }
 
 impl Display for RealData {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        <Distance<Float> as Display>::fmt(&self.distance, f)
+        <Distance<f64> as Display>::fmt(&self.distance, f)
     }
 }
 

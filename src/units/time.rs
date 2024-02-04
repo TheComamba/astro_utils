@@ -1,8 +1,8 @@
-pub const SECONDS_PER_HOUR: Float = 60. * 60.;
-pub const SECONDS_PER_DAY: Float = 24. * SECONDS_PER_HOUR;
-pub const SECONDS_PER_YEAR: Float = 365.25 * SECONDS_PER_DAY;
-pub const SECONDS_PER_MILLION_YEARS: Float = 1e6 * SECONDS_PER_YEAR;
-pub const SECONDS_PER_BILLION_YEARS: Float = 1e9 * SECONDS_PER_YEAR;
+pub const SECONDS_PER_HOUR: f64 = 60. * 60.;
+pub const SECONDS_PER_DAY: f64 = 24. * SECONDS_PER_HOUR;
+pub const SECONDS_PER_YEAR: f64 = 365.25 * SECONDS_PER_DAY;
+pub const SECONDS_PER_MILLION_YEARS: f64 = 1e6 * SECONDS_PER_YEAR;
+pub const SECONDS_PER_BILLION_YEARS: f64 = 1e9 * SECONDS_PER_YEAR;
 
 pub enum TimeUnit {
     Seconds,
@@ -15,7 +15,7 @@ pub enum TimeUnit {
     BillionYears,
 }
 
-pub fn display_time_in_units(time: Time<Float>, units: TimeUnit) -> String {
+pub fn display_time_in_units(time: Time<f64>, units: TimeUnit) -> String {
     match units {
         TimeUnit::Seconds => format!("{:2} sec", time.to_seconds()),
         TimeUnit::Minutes => format!("{:2} min", time.to_minutes()),
@@ -28,7 +28,7 @@ pub fn display_time_in_units(time: Time<Float>, units: TimeUnit) -> String {
     }
 }
 
-pub fn display_time(time: Time<Float>) -> String {
+pub fn display_time(time: Time<f64>) -> String {
     let units = if time.as_billion_years().abs() > 0.099 {
         TimeUnit::BillionYears
     } else if time.as_million_years().abs() > 0.099 {

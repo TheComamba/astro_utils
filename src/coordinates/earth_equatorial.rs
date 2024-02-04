@@ -1,17 +1,17 @@
 use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
-use crate::{real_data::planets::EARTH, Float};
+use crate::{f64, real_data::planets::EARTH};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::fmt::Display;
 
 pub struct EarthEquatorialCoordinates {
-    right_ascension: Angle<Float>,
-    declination: Angle<Float>,
+    right_ascension: Angle<f64>,
+    declination: Angle<f64>,
 }
 
 impl EarthEquatorialCoordinates {
     pub const fn new(
-        right_ascension: Angle<Float>,
-        declination: Angle<Float>,
+        right_ascension: Angle<f64>,
+        declination: Angle<f64>,
     ) -> EarthEquatorialCoordinates {
         EarthEquatorialCoordinates {
             right_ascension,
@@ -41,7 +41,7 @@ impl EarthEquatorialCoordinates {
     pub(crate) fn eq_within(
         &self,
         other: &EarthEquatorialCoordinates,
-        accuracy: Angle<Float>,
+        accuracy: Angle<f64>,
     ) -> bool {
         let mut self_spherical = SphericalCoordinates::new(self.right_ascension, self.declination);
         self_spherical.normalize();
@@ -79,13 +79,13 @@ mod tests {
             earth_equatorial::EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES,
             ecliptic::EclipticCoordinates, spherical::SphericalCoordinates,
         },
+        f64,
         real_data::planets::*,
         tests::{eq, eq_within},
         units::ANGLE_ZERO,
-        Float,
     };
 
-    const TILT_TEST_ACCURACY_DEGREES: Float = 2e-3;
+    const TILT_TEST_ACCURACY_DEGREES: f64 = 2e-3;
 
     /*
      * https://ned.ipac.caltech.edu/coordinate_calculator?in_csys=Equatorial&in_equinox=J2000.0&obs_epoch=2000.0&ra=0&dec=90&pa=0.0&out_csys=Ecliptic&out_equinox=J2000.0

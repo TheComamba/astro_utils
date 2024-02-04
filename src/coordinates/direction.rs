@@ -2,26 +2,26 @@ use super::{
     cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
     rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
-use crate::{error::AstroUtilError, real_data::planets::EARTH, units::ANGLE_ZERO, Float, PI};
+use crate::{error::AstroUtilError, f64, real_data::planets::EARTH, units::ANGLE_ZERO, PI};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::{fmt::Display, ops::Neg};
 
-pub(super) const NORMALIZATION_THRESHOLD: Float = 1e-5;
+pub(super) const NORMALIZATION_THRESHOLD: f64 = 1e-5;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Direction {
-    pub(super) x: Float,
-    pub(super) y: Float,
-    pub(super) z: Float,
+    pub(super) x: f64,
+    pub(super) y: f64,
+    pub(super) z: f64,
 }
 
 impl Direction {
-    pub fn to_array(&self) -> [Float; 3] {
+    pub fn to_array(&self) -> [f64; 3] {
         [self.x, self.y, self.z]
     }
 
-    pub fn from_array(array: [Float; 3]) -> Result<Self, AstroUtilError> {
+    pub fn from_array(array: [f64; 3]) -> Result<Self, AstroUtilError> {
         Direction::new(array[0], array[1], array[2])
     }
 }
@@ -34,7 +34,7 @@ impl Serialize for Direction {
 
 impl<'de> Deserialize<'de> for Direction {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        let array = <[Float; 3]>::deserialize(deserializer)?;
+        let array = <[f64; 3]>::deserialize(deserializer)?;
         Direction::from_array(array).map_err(serde::de::Error::custom)
     }
 }
@@ -56,7 +56,7 @@ impl Direction {
         z: 1.,
     };
 
-    pub fn new(x: Float, y: Float, z: Float) -> Result<Self, AstroUtilError> {
+    pub fn new(x: f64, y: f64, z: f64) -> Result<Self, AstroUtilError> {
         let length = (x * x + y * y + z * z).sqrt();
         if length < NORMALIZATION_THRESHOLD {
             Err(AstroUtilError::NormalizingZeroVector)
@@ -69,7 +69,7 @@ impl Direction {
         }
     }
 
-    pub fn to_cartesian(&self, length: Distance<Float>) -> CartesianCoordinates {
+    pub fn to_cartesian(&self, length: Distance<f64>) -> CartesianCoordinates {
         CartesianCoordinates::new(self.x * length, self.y * length, self.z * length)
     }
 
@@ -77,30 +77,30 @@ impl Direction {
         SphericalCoordinates::cartesian_to_spherical((self.x, self.y, self.z))
     }
 
-    pub fn x(&self) -> Float {
+    pub fn x(&self) -> f64 {
         self.x
     }
 
-    pub fn y(&self) -> Float {
+    pub fn y(&self) -> f64 {
         self.y
     }
 
-    pub fn z(&self) -> Float {
+    pub fn z(&self) -> f64 {
         self.z
     }
 
-    pub fn rotated(&self, angle: Angle<Float>, axis: &Direction) -> Direction {
+    pub fn rotated(&self, angle: Angle<f64>, axis: &Direction) -> Direction {
         let (x, y, z) = rotated_tuple((self.x, self.y, self.z), angle, axis);
         Direction { x, y, z }
     }
 
-    pub fn eq_within(&self, other: &Direction, accuracy: Float) -> bool {
+    pub fn eq_within(&self, other: &Direction, accuracy: f64) -> bool {
         (self.x - other.x).abs() < accuracy
             && (self.y - other.y).abs() < accuracy
             && (self.z - other.z).abs() < accuracy
     }
 
-    pub fn angle_to(&self, other: &Direction) -> Angle<Float> {
+    pub fn angle_to(&self, other: &Direction) -> Angle<f64> {
         let (ax, ay, az) = (self.x(), self.y(), self.z());
         let (bx, by, bz) = (other.x(), other.y(), other.z());
 
@@ -135,7 +135,7 @@ impl Direction {
         Direction::new(cx, cy, cz)
     }
 
-    pub fn dot_product(&self, other: &Direction) -> Float {
+    pub fn dot_product(&self, other: &Direction) -> f64 {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
 
@@ -211,7 +211,7 @@ mod tests {
 
     use super::*;
 
-    const ROTATION_ANGLE_ACCURACY: Angle<Float> = Angle { rad: 1e-3 }; //Accos is a bit unstable
+    const ROTATION_ANGLE_ACCURACY: Angle<f64> = Angle { rad: 1e-3 }; //Accos is a bit unstable
 
     #[test]
     fn from_spherical() {
@@ -239,7 +239,7 @@ mod tests {
 
     #[test]
     fn angle_between_is_half_turn() {
-        const EXPECTED: Angle<Float> = Angle::from_radians(PI);
+        const EXPECTED: Angle<f64> = Angle::from_radians(PI);
 
         let angle = Direction::X.angle_to(&(-&Direction::X));
         println!("angle: {}", angle);
@@ -303,7 +303,7 @@ mod tests {
 
     #[test]
     fn angle_between_is_zero() {
-        const EXPECTED: Angle<Float> = Angle::from_rad(0.);
+        const EXPECTED: Angle<f64> = Angle::from_rad(0.);
 
         let angle = Direction::X.angle_to(&Direction::X);
         println!("expected: {}, actual: {}", EXPECTED, angle);
@@ -408,7 +408,7 @@ mod tests {
 
     #[test]
     fn test_revertability_of_rotation() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x1 in ordinates.clone() {
             for y1 in ordinates.clone() {
                 for z1 in ordinates.clone() {
@@ -443,7 +443,7 @@ mod tests {
 
     #[test]
     fn test_north_after_active_rotation() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -467,7 +467,7 @@ mod tests {
 
     #[test]
     fn active_rotation_to_z_changes_nothing() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -490,7 +490,7 @@ mod tests {
 
     #[test]
     fn test_north_after_passive_rotation() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {

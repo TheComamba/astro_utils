@@ -1,4 +1,4 @@
-use crate::Float;
+use crate::f64;
 use simple_si_units::geometry::Angle;
 use std::fmt::Display;
 
@@ -25,14 +25,14 @@ impl Declination {
         }
     }
 
-    pub fn to_angle(&self) -> Angle<Float> {
+    pub fn to_angle(&self) -> Angle<f64> {
         let sign = match self.sign {
             Sgn::Pos => 1.,
             Sgn::Neg => -1.,
         };
-        let degrees = self.degrees as Float;
-        let minutes = self.minutes as Float;
-        let seconds = self.seconds as Float;
+        let degrees = self.degrees as f64;
+        let minutes = self.minutes as f64;
+        let seconds = self.seconds as f64;
 
         sign * Angle::from_degrees(degrees + minutes / 60. + seconds / 3600.)
     }
@@ -65,7 +65,7 @@ mod tests {
             for min in 0..STEPS {
                 for sign in [Sgn::Pos, Sgn::Neg] {
                     let dec = Declination::new(sign, 0, min, sec);
-                    let angle_abs = ((min as u32) * 60 + sec as u32) as Float;
+                    let angle_abs = ((min as u32) * 60 + sec as u32) as f64;
                     let sign = match sign {
                         Sgn::Pos => 1.,
                         Sgn::Neg => -1.,

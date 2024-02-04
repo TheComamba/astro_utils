@@ -1,29 +1,29 @@
 use super::star_appearance::StarAppearance;
-use crate::{color::sRGBColor, coordinates::direction::Direction, units::ILLUMINANCE_ZERO, Float};
+use crate::{color::sRGBColor, coordinates::direction::Direction, f64, units::ILLUMINANCE_ZERO};
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
     pub(super) name: String,
-    pub(super) mass: Option<Mass<Float>>,
-    pub(super) radius: Option<Distance<Float>>,
-    pub(super) luminosity: Option<Luminosity<Float>>,
-    pub(super) temperature: Option<Temperature<Float>>,
-    pub(super) age: Option<Time<Float>>,
-    pub(super) distance: Option<Distance<Float>>,
+    pub(super) mass: Option<Mass<f64>>,
+    pub(super) radius: Option<Distance<f64>>,
+    pub(super) luminosity: Option<Luminosity<f64>>,
+    pub(super) temperature: Option<Temperature<f64>>,
+    pub(super) age: Option<Time<f64>>,
+    pub(super) distance: Option<Distance<f64>>,
     pub(super) direction_in_ecliptic: Direction,
 }
 
 impl StarData {
     pub fn new(
         name: String,
-        mass: Option<Mass<Float>>,
-        radius: Option<Distance<Float>>,
-        luminosity: Option<Luminosity<Float>>,
-        temperature: Option<Temperature<Float>>,
-        age: Option<Time<Float>>,
-        distance: Option<Distance<Float>>,
+        mass: Option<Mass<f64>>,
+        radius: Option<Distance<f64>>,
+        luminosity: Option<Luminosity<f64>>,
+        temperature: Option<Temperature<f64>>,
+        age: Option<Time<f64>>,
+        distance: Option<Distance<f64>>,
         direction_in_ecliptic: Direction,
     ) -> Self {
         Self {
@@ -42,27 +42,27 @@ impl StarData {
         &self.name
     }
 
-    pub const fn get_radius(&self) -> &Option<Distance<Float>> {
+    pub const fn get_radius(&self) -> &Option<Distance<f64>> {
         &self.radius
     }
 
-    pub const fn get_mass(&self) -> &Option<Mass<Float>> {
+    pub const fn get_mass(&self) -> &Option<Mass<f64>> {
         &self.mass
     }
 
-    pub const fn get_luminosity(&self) -> &Option<Luminosity<Float>> {
+    pub const fn get_luminosity(&self) -> &Option<Luminosity<f64>> {
         &self.luminosity
     }
 
-    pub const fn get_temperature(&self) -> &Option<Temperature<Float>> {
+    pub const fn get_temperature(&self) -> &Option<Temperature<f64>> {
         &self.temperature
     }
 
-    pub const fn get_age(&self) -> &Option<Time<Float>> {
+    pub const fn get_age(&self) -> &Option<Time<f64>> {
         &self.age
     }
 
-    pub const fn get_distance(&self) -> &Option<Distance<Float>> {
+    pub const fn get_distance(&self) -> &Option<Distance<f64>> {
         &self.distance
     }
 
@@ -74,27 +74,27 @@ impl StarData {
         self.name = name;
     }
 
-    pub fn set_mass(&mut self, mass: Option<Mass<Float>>) {
+    pub fn set_mass(&mut self, mass: Option<Mass<f64>>) {
         self.mass = mass;
     }
 
-    pub fn set_radius(&mut self, radius: Option<Distance<Float>>) {
+    pub fn set_radius(&mut self, radius: Option<Distance<f64>>) {
         self.radius = radius;
     }
 
-    pub fn set_luminosity(&mut self, luminosity: Option<Luminosity<Float>>) {
+    pub fn set_luminosity(&mut self, luminosity: Option<Luminosity<f64>>) {
         self.luminosity = luminosity;
     }
 
-    pub fn set_temperature(&mut self, temperature: Option<Temperature<Float>>) {
+    pub fn set_temperature(&mut self, temperature: Option<Temperature<f64>>) {
         self.temperature = temperature;
     }
 
-    pub fn set_age(&mut self, age: Option<Time<Float>>) {
+    pub fn set_age(&mut self, age: Option<Time<f64>>) {
         self.age = age;
     }
 
-    pub fn set_distance(&mut self, distance: Option<Distance<Float>>) {
+    pub fn set_distance(&mut self, distance: Option<Distance<f64>>) {
         self.distance = distance;
     }
 

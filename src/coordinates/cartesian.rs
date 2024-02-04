@@ -2,7 +2,7 @@ use super::{
     direction::Direction, ecliptic::EclipticCoordinates, rotations::rotated_tuple,
     spherical::SphericalCoordinates,
 };
-use crate::{error::AstroUtilError, units::DISTANCE_ZERO, Float};
+use crate::{error::AstroUtilError, f64, units::DISTANCE_ZERO};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::{
@@ -12,9 +12,9 @@ use std::{
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CartesianCoordinates {
-    x: Distance<Float>,
-    y: Distance<Float>,
-    z: Distance<Float>,
+    x: Distance<f64>,
+    y: Distance<f64>,
+    z: Distance<f64>,
 }
 
 impl CartesianCoordinates {
@@ -24,56 +24,48 @@ impl CartesianCoordinates {
         z: DISTANCE_ZERO,
     };
 
-    pub const fn new(
-        x: Distance<Float>,
-        y: Distance<Float>,
-        z: Distance<Float>,
-    ) -> CartesianCoordinates {
+    pub const fn new(x: Distance<f64>, y: Distance<f64>, z: Distance<f64>) -> CartesianCoordinates {
         CartesianCoordinates { x, y, z }
     }
 
     #[cfg(test)]
     #[allow(dead_code)]
-    pub(crate) fn eq_within(
-        &self,
-        other: &CartesianCoordinates,
-        accuracy: Distance<Float>,
-    ) -> bool {
+    pub(crate) fn eq_within(&self, other: &CartesianCoordinates, accuracy: Distance<f64>) -> bool {
         self.x.eq_within(&other.x, accuracy)
             && self.y.eq_within(&other.y, accuracy)
             && self.z.eq_within(&other.z, accuracy)
     }
 
-    pub fn length(&self) -> Distance<Float> {
+    pub fn length(&self) -> Distance<f64> {
         let x = self.x.au;
         let y = self.y.au;
         let z = self.z.au;
         Distance::from_astronomical_units((x * x + y * y + z * z).sqrt())
     }
 
-    pub fn distance(&self, other: &CartesianCoordinates) -> Distance<Float> {
+    pub fn distance(&self, other: &CartesianCoordinates) -> Distance<f64> {
         let diff = self - other;
         diff.length()
     }
 
-    pub fn x(&self) -> Distance<Float> {
+    pub fn x(&self) -> Distance<f64> {
         self.x
     }
 
-    pub fn y(&self) -> Distance<Float> {
+    pub fn y(&self) -> Distance<f64> {
         self.y
     }
 
-    pub fn z(&self) -> Distance<Float> {
+    pub fn z(&self) -> Distance<f64> {
         self.z
     }
 
-    pub fn rotated(&self, angle: Angle<Float>, axis: &Direction) -> CartesianCoordinates {
+    pub fn rotated(&self, angle: Angle<f64>, axis: &Direction) -> CartesianCoordinates {
         let (x, y, z) = rotated_tuple((self.x, self.y, self.z), angle, axis);
         CartesianCoordinates { x, y, z }
     }
 
-    pub fn angle_to(&self, other: &CartesianCoordinates) -> Result<Angle<Float>, AstroUtilError> {
+    pub fn angle_to(&self, other: &CartesianCoordinates) -> Result<Angle<f64>, AstroUtilError> {
         Ok(self.to_direction()?.angle_to(&other.to_direction()?))
     }
 
@@ -140,10 +132,10 @@ impl Sub for CartesianCoordinates {
     }
 }
 
-impl Mul<Float> for &CartesianCoordinates {
+impl Mul<f64> for &CartesianCoordinates {
     type Output = CartesianCoordinates;
 
-    fn mul(self, f: Float) -> CartesianCoordinates {
+    fn mul(self, f: f64) -> CartesianCoordinates {
         CartesianCoordinates {
             x: self.x * f,
             y: self.y * f,
@@ -152,10 +144,10 @@ impl Mul<Float> for &CartesianCoordinates {
     }
 }
 
-impl Mul<Float> for CartesianCoordinates {
+impl Mul<f64> for CartesianCoordinates {
     type Output = CartesianCoordinates;
 
-    fn mul(self, f: Float) -> CartesianCoordinates {
+    fn mul(self, f: f64) -> CartesianCoordinates {
         CartesianCoordinates {
             x: self.x * f,
             y: self.y * f,
@@ -164,10 +156,10 @@ impl Mul<Float> for CartesianCoordinates {
     }
 }
 
-impl Div<Float> for &CartesianCoordinates {
+impl Div<f64> for &CartesianCoordinates {
     type Output = CartesianCoordinates;
 
-    fn div(self, f: Float) -> CartesianCoordinates {
+    fn div(self, f: f64) -> CartesianCoordinates {
         CartesianCoordinates {
             x: self.x / f,
             y: self.y / f,
@@ -176,10 +168,10 @@ impl Div<Float> for &CartesianCoordinates {
     }
 }
 
-impl Div<Float> for CartesianCoordinates {
+impl Div<f64> for CartesianCoordinates {
     type Output = CartesianCoordinates;
 
-    fn div(self, f: Float) -> CartesianCoordinates {
+    fn div(self, f: f64) -> CartesianCoordinates {
         CartesianCoordinates {
             x: self.x / f,
             y: self.y / f,

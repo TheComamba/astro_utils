@@ -4,7 +4,7 @@ use simple_si_units::{
     geometry::Angle,
 };
 
-use crate::{coordinates::cartesian::CartesianCoordinates, error::AstroUtilError, Float, PI};
+use crate::{coordinates::cartesian::CartesianCoordinates, error::AstroUtilError, f64, PI};
 
 /*
  * Refraction is awfully complicated:
@@ -16,17 +16,17 @@ use crate::{coordinates::cartesian::CartesianCoordinates, error::AstroUtilError,
 /*
  * https://www.physicsforums.com/threads/illuminated-fraction-of-the-moon.515983/
  */
-fn illuminated_fraction(reflection_angle: &Angle<Float>) -> Float {
+fn illuminated_fraction(reflection_angle: &Angle<f64>) -> f64 {
     let reflection_angle = reflection_angle.as_radians();
     let illuminated_fraction = (1. + reflection_angle.cos()) / 2.;
     illuminated_fraction
 }
 
 fn solid_angle(
-    radius: &Distance<Float>,
-    distance: &Distance<Float>,
-    reflection_angle: &Angle<Float>,
-) -> Float {
+    radius: &Distance<f64>,
+    distance: &Distance<f64>,
+    reflection_angle: &Angle<f64>,
+) -> f64 {
     let radius = radius.as_astronomical_units();
     let distance = distance.as_astronomical_units();
     let area = PI * radius.powi(2) * illuminated_fraction(reflection_angle);
@@ -34,13 +34,13 @@ fn solid_angle(
 }
 
 pub fn planet_brightness(
-    star_luminosity: Luminosity<Float>,
+    star_luminosity: Luminosity<f64>,
     star_position: &CartesianCoordinates,
     planet_position: &CartesianCoordinates,
     observer_position: &CartesianCoordinates,
-    planet_radius: Distance<Float>,
-    geometric_albedo: Float,
-) -> Result<Illuminance<Float>, AstroUtilError> {
+    planet_radius: Distance<f64>,
+    geometric_albedo: f64,
+) -> Result<Illuminance<f64>, AstroUtilError> {
     let planet_to_star = star_position - planet_position;
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer)?;
@@ -63,8 +63,8 @@ mod tests {
         units::{ANGLE_ZERO, DISTANCE_ZERO},
     };
 
-    const SOLID_ANGLE_TEST_ACCURACY: Float = 3e-6;
-    const REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR: Float = 0.5;
+    const SOLID_ANGLE_TEST_ACCURACY: f64 = 3e-6;
+    const REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR: f64 = 0.5;
 
     #[test]
     fn solid_angle_of_sun() {

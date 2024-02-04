@@ -1,6 +1,6 @@
 use super::star_appearance::StarAppearance;
 use crate::{
-    color::sRGBColor, coordinates::spherical::SphericalCoordinates, error::AstroUtilError, Float,
+    color::sRGBColor, coordinates::spherical::SphericalCoordinates, error::AstroUtilError, f64,
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Temperature, electromagnetic::Illuminance, geometry::Angle};
@@ -21,7 +21,7 @@ struct GaiaMetadataLine {
 #[serde(untagged)]
 enum GaiaCellData {
     String(String),
-    Float(Float),
+    f64(f64),
     Null,
 }
 
@@ -32,9 +32,9 @@ fn get_string(data: &GaiaCellData) -> Option<String> {
     }
 }
 
-fn get_float(data: &GaiaCellData) -> Option<Float> {
+fn get_float(data: &GaiaCellData) -> Option<f64> {
     match data {
-        GaiaCellData::Float(float) => Some(*float),
+        GaiaCellData::f64(float) => Some(*float),
         _ => None,
     }
 }
@@ -85,7 +85,7 @@ impl GaiaResponse {
     }
 }
 
-fn query_brightest_stars(brightest: Illuminance<Float>) -> Result<GaiaResponse, AstroUtilError> {
+fn query_brightest_stars(brightest: Illuminance<f64>) -> Result<GaiaResponse, AstroUtilError> {
     let mut url = "https://gea.esac.esa.int/tap-server/tap/sync".to_string();
     url += "?REQUEST=doQuery";
     url += "&LANG=ADQL";
@@ -249,7 +249,7 @@ mod tests {
             "Enif",         // Only in Gaia DR2
         ];
 
-        const BRIGHTNESS_THRESHOLD: Float = 2.2;
+        const BRIGHTNESS_THRESHOLD: f64 = 2.2;
 
         let mut known_stars = vec![];
         for star_data in BRIGHTEST_STARS {
@@ -324,7 +324,7 @@ mod tests {
             let brightness_difference = known_star.illuminance - gaia_star.illuminance;
             mean_brightness_difference += brightness_difference;
         }
-        mean_brightness_difference /= star_pairs.len() as Float;
+        mean_brightness_difference /= star_pairs.len() as f64;
         let acceptable_difference = Illuminance::from_apparent_magnitude(4.);
         println!(
             "mean_brightness_difference: \n{} lx",

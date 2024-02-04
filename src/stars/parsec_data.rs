@@ -1,6 +1,6 @@
 use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
-use crate::{error::AstroUtilError, Float};
+use crate::{error::AstroUtilError, f64};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
 use rmp_serde;
@@ -14,11 +14,11 @@ use tar::Archive;
 
 #[derive(Deserialize, Serialize)]
 pub(super) struct ParsecLine {
-    mass: Float,
-    age: Float,
-    log_l: Float,
-    log_te: Float,
-    log_r: Float,
+    mass: f64,
+    age: f64,
+    log_l: f64,
+    log_te: f64,
+    log_r: f64,
 }
 
 #[derive(Deserialize, Serialize)]
@@ -29,7 +29,7 @@ pub(super) struct ParsecData {
 impl ParsecData {
     const METALLICITY: &'static str = "Z0.01";
     const FILENAME: &'static str = "Z0.01.rmp";
-    pub(super) const SORTED_MASSES: [Float; 100] = [
+    pub(super) const SORTED_MASSES: [f64; 100] = [
         0.09, 0.10, 0.12, 0.14, 0.16, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65,
         0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.40,
         1.45, 1.50, 1.55, 1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90, 1.95, 2.00, 2.05, 2.10, 2.15,
@@ -78,7 +78,7 @@ impl ParsecData {
         }
     }
 
-    fn get_closest_mass_index(mass: Float) -> usize {
+    fn get_closest_mass_index(mass: f64) -> usize {
         let mut min_index = 0;
         let mut max_index = Self::SORTED_MASSES.len() - 1;
         while max_index - min_index > 1 {
@@ -157,7 +157,7 @@ impl ParsecData {
             .get(Self::MASS_INDEX)
             .ok_or(AstroUtilError::DataNotAvailable)?;
         if mass_position.is_none() {
-            if let Ok(mass_value) = mass_entry.parse::<Float>() {
+            if let Ok(mass_value) = mass_entry.parse::<f64>() {
                 *mass_position = Some(Self::get_closest_mass_index(mass_value));
             }
         }
@@ -175,11 +175,11 @@ impl ParsecData {
                 .get(Self::LOG_R_INDEX)
                 .ok_or(AstroUtilError::DataNotAvailable)?;
             if let (Ok(mass), Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
-                mass_entry.parse::<Float>(),
-                age_entry.parse::<Float>(),
-                log_l_entry.parse::<Float>(),
-                log_te_entry.parse::<Float>(),
-                log_r_entry.parse::<Float>(),
+                mass_entry.parse::<f64>(),
+                age_entry.parse::<f64>(),
+                log_l_entry.parse::<f64>(),
+                log_te_entry.parse::<f64>(),
+                log_r_entry.parse::<f64>(),
             ) {
                 let parsec_line = ParsecLine {
                     mass,
@@ -204,8 +204,8 @@ impl ParsecData {
     #[cfg(test)]
     pub(super) fn get_params_for_current_mass_and_age(
         &self,
-        mass: Mass<Float>,
-        age_in_years: Float,
+        mass: Mass<f64>,
+        age_in_years: f64,
     ) -> &ParsecLine {
         let mut mass_index = Self::get_closest_mass_index(mass.as_solar_masses());
         let mut trajectory = &self.data[mass_index];
@@ -220,9 +220,9 @@ impl ParsecData {
 
     pub(super) fn get_closest_params(
         trajectory: &Vec<ParsecLine>,
-        actual_age_in_years: Float,
+        actual_age_in_years: f64,
     ) -> &ParsecLine {
-        let mut closest_age = Float::MAX;
+        let mut closest_age = f64::MAX;
         let mut age_index = 0;
         for (i, line) in trajectory.iter().enumerate() {
             let age_difference = (line.age - actual_age_in_years).abs();
@@ -254,31 +254,31 @@ impl ParsecLine {
         }
     }
 
-    pub(super) fn get_mass(&self) -> Mass<Float> {
+    pub(super) fn get_mass(&self) -> Mass<f64> {
         Mass::from_solar_masses(self.mass)
     }
 
-    pub(super) fn get_age(&self) -> Time<Float> {
+    pub(super) fn get_age(&self) -> Time<f64> {
         Time::from_years(self.age)
     }
 
-    pub(super) fn get_luminosity(&self) -> Luminosity<Float> {
+    pub(super) fn get_luminosity(&self) -> Luminosity<f64> {
         let lum = 10f32.powf(self.log_l);
         Luminosity::from_solar_luminosities(lum)
     }
 
-    pub(super) fn get_apparent_magnitude(&self, distance: &Distance<Float>) -> Float {
+    pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
         let lum = self.get_luminosity();
         let ill = lum.to_illuminance(&distance);
         ill.as_apparent_magnitude()
     }
 
-    pub(super) fn get_temperature(&self) -> Temperature<Float> {
+    pub(super) fn get_temperature(&self) -> Temperature<f64> {
         let temp = 10f32.powf(self.log_te);
         Temperature::from_kelvin(temp)
     }
 
-    pub(super) fn get_radius(&self) -> Distance<Float> {
+    pub(super) fn get_radius(&self) -> Distance<f64> {
         let radius = 10f32.powf(self.log_r);
         Distance::from_centimeters(radius)
     }
@@ -360,7 +360,7 @@ mod tests {
                 let mass_index = ParsecData::get_closest_mass_index(mass.as_solar_masses());
                 let trajectory = parsec_data.get_trajectory_via_index(mass_index);
                 let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
-                let age_expectancy = Time::from_years(age_expectancy as Float);
+                let age_expectancy = Time::from_years(age_expectancy as f64);
                 if age_expectancy < Time::from_billion_years(0.3) {
                     // Numerics get really unstable for stars with short life expectancies.
                     continue;
@@ -384,7 +384,7 @@ mod tests {
 
     #[test]
     fn masses_are_mapped_to_themselves() {
-        const SMALL_OFFSET: Float = 1e-4;
+        const SMALL_OFFSET: f64 = 1e-4;
         for expected_mass in ParsecData::SORTED_MASSES.iter() {
             let mass = *expected_mass;
             let mass_index = ParsecData::get_closest_mass_index(mass);
