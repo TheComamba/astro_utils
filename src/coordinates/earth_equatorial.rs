@@ -65,8 +65,10 @@ impl Display for EarthEquatorialCoordinates {
 #[cfg(test)]
 pub(super) const EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES: EclipticCoordinates =
     EclipticCoordinates::new(SphericalCoordinates::new(
-        Angle::from_radians(crate::PI / 2.),
-        Angle::from_radians(crate::PI / 2. - EARTH.axis_tilt.to_radians()),
+        crate::units::angle::QUARTER_CIRC,
+        Angle {
+            rad: crate::units::angle::QUARTER_CIRC.rad - EARTH.axis_tilt.rad,
+        },
     ));
 
 #[cfg(test)]

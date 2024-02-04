@@ -176,7 +176,7 @@ mod tests {
 
     #[test]
     fn mean_anomaly_is_stable_after_loads_of_revolutions() {
-        const LOCAL_TEST_ANGLE_ACCURACY: Angle<f64> = 5e-3 * FULL_CIRC;
+        let local_test_angle_accuracy: Angle<f64> = 5e-3 * FULL_CIRC;
 
         let expected_mean_anomaly = QUARTER_CIRC;
         let passed_time = Time::from_yr(1e5 + 0.25);
@@ -186,7 +186,7 @@ mod tests {
         assert!(eq_within(
             mean_anomaly.rad,
             expected_mean_anomaly.rad,
-            LOCAL_TEST_ANGLE_ACCURACY.rad
+            local_test_angle_accuracy.rad
         ));
     }
 

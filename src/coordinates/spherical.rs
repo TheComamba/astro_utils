@@ -3,7 +3,7 @@ use super::{
     direction::Direction,
     right_ascension::RightAscension,
 };
-use crate::units::angle::{normalized_angle, ANGLE_ZERO};
+use crate::units::angle::{normalized_angle, ANGLE_ZERO, QUARTER_CIRC};
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::{
@@ -27,13 +27,13 @@ impl SphericalCoordinates {
     };
 
     pub const Y_DIRECTION: SphericalCoordinates = SphericalCoordinates {
-        longitude: Angle::from_radians(PI / 2.),
+        longitude: QUARTER_CIRC,
         latitude: ANGLE_ZERO,
     };
 
     pub const Z_DIRECTION: SphericalCoordinates = SphericalCoordinates {
         longitude: ANGLE_ZERO,
-        latitude: Angle::from_radians(PI / 2.),
+        latitude: QUARTER_CIRC,
     };
 
     pub const fn new(longitude: Angle<f64>, latitude: Angle<f64>) -> Self {
