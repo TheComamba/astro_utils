@@ -1,8 +1,11 @@
-pub const SECONDS_PER_HOUR: f64 = 60. * 60.;
-pub const SECONDS_PER_DAY: f64 = 24. * SECONDS_PER_HOUR;
-pub const SECONDS_PER_YEAR: f64 = 365.25 * SECONDS_PER_DAY;
-pub const SECONDS_PER_MILLION_YEARS: f64 = 1e6 * SECONDS_PER_YEAR;
-pub const SECONDS_PER_BILLION_YEARS: f64 = 1e9 * SECONDS_PER_YEAR;
+use simple_si_units::base::Time;
+
+pub const TIME_ZERO: Time<f64> = Time { s: 0. };
+pub(crate) const SECONDS_PER_HOUR: f64 = 60. * 60.;
+pub(crate) const SECONDS_PER_DAY: f64 = 24. * SECONDS_PER_HOUR;
+pub(crate) const SECONDS_PER_YEAR: f64 = 365.25 * SECONDS_PER_DAY;
+pub(crate) const SECONDS_PER_MILLION_YEARS: f64 = 1e6 * SECONDS_PER_YEAR;
+pub(crate) const SECONDS_PER_BILLION_YEARS: f64 = 1e9 * SECONDS_PER_YEAR;
 
 pub enum TimeUnit {
     Seconds,
@@ -63,7 +66,7 @@ mod tests {
         assert_eq!(format!("{}", time), "1.00 hrs");
         let time = Time::from_days(1.);
         assert_eq!(format!("{}", time), "1.00 days");
-        let time = Time::from_years(1.);
+        let time = Time::from_yr(1.);
         assert_eq!(format!("{}", time), "1.00 yrs");
         let time = Time::from_thousand_years(1.);
         assert_eq!(format!("{}", time), "1.00 kyr");
@@ -83,7 +86,7 @@ mod tests {
         assert_eq!(format!("{}", time), "-1.00 hrs");
         let time = Time::from_days(-1.);
         assert_eq!(format!("{}", time), "-1.00 days");
-        let time = Time::from_years(-1.);
+        let time = Time::from_yr(-1.);
         assert_eq!(format!("{}", time), "-1.00 yrs");
         let time = Time::from_thousand_years(-1.);
         assert_eq!(format!("{}", time), "-1.00 kyr");

@@ -6,8 +6,8 @@ pub(super) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle<f64>, axis: &Directi
 where
     T: Mul<f64, Output = T> + Add<Output = T> + Copy,
 {
-    let cos = angle.cos();
-    let sin = angle.sin();
+    let cos = angle.rad.cos();
+    let sin = angle.rad.sin();
 
     let (x, y, z) = tup;
 

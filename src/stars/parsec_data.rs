@@ -259,7 +259,7 @@ impl ParsecLine {
     }
 
     pub(super) fn get_age(&self) -> Time<f64> {
-        Time::from_years(self.age)
+        Time::from_yr(self.age)
     }
 
     pub(super) fn get_luminosity(&self) -> Luminosity<f64> {
@@ -360,7 +360,7 @@ mod tests {
                 let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_masses());
                 let trajectory = parsec_data.get_trajectory_via_index(mass_index);
                 let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
-                let age_expectancy = Time::from_years(age_expectancy as f64);
+                let age_expectancy = Time::from_yr(age_expectancy as f64);
                 if age_expectancy < Time::from_billion_years(0.3) {
                     // Numerics get really unstable for stars with short life expectancies.
                     continue;

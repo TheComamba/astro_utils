@@ -21,7 +21,7 @@ struct GaiaMetadataLine {
 #[serde(untagged)]
 enum GaiaCellData {
     String(String),
-    f64(f64),
+    Float(f64),
     Null,
 }
 
@@ -34,7 +34,7 @@ fn get_string(data: &GaiaCellData) -> Option<String> {
 
 fn get_float(data: &GaiaCellData) -> Option<f64> {
     match data {
-        GaiaCellData::f64(float) => Some(*float),
+        GaiaCellData::Float(float) => Some(*float),
         _ => None,
     }
 }

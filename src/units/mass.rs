@@ -1,5 +1,8 @@
-pub const KILOGRAMS_PER_SOLAR_MASS: f64 = 1.988e30;
-pub const KG_PER_SOLAR_MASSES: f64 = 1.988e30;
+use simple_si_units::base::Mass;
+
+pub const MASS_ZERO: Mass<f64> = Mass { kg: 0. };
+pub(crate) const KILOGRAMS_PER_SOLAR_MASS: f64 = 1.988e30;
+pub(crate) const KG_PER_SOLAR_MASSES: f64 = 1.988e30;
 
 pub enum MassUnit {
     Kilograms,

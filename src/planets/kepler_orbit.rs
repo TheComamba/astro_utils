@@ -149,7 +149,7 @@ mod tests {
     #[test]
     fn mean_anomaly_a_quarter_circle() {
         let expected_mean_anomaly = Angle::from_radians(TWO_PI / 4.);
-        let mean_anomaly = mean_anomaly(Time::from_years(4.), Time::from_years(1.));
+        let mean_anomaly = mean_anomaly(Time::from_yr(4.), Time::from_yr(1.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
         assert!(eq(mean_anomaly, expected_mean_anomaly));
@@ -158,7 +158,7 @@ mod tests {
     #[test]
     fn mean_anomaly_a_half_circle() {
         let expected_mean_anomaly = Angle::from_radians(TWO_PI / 2.);
-        let mean_anomaly = mean_anomaly(Time::from_years(4.), Time::from_years(2.));
+        let mean_anomaly = mean_anomaly(Time::from_yr(4.), Time::from_yr(2.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
         assert!(eq(mean_anomaly, expected_mean_anomaly));
@@ -167,7 +167,7 @@ mod tests {
     #[test]
     fn mean_anomaly_three_quarters_circle() {
         let expected_mean_anomaly = Angle::from_radians(TWO_PI * 3. / 4.);
-        let mean_anomaly = mean_anomaly(Time::from_years(4.), Time::from_years(-1.));
+        let mean_anomaly = mean_anomaly(Time::from_yr(4.), Time::from_yr(-1.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
         assert!(eq(mean_anomaly, expected_mean_anomaly));
@@ -178,8 +178,8 @@ mod tests {
         const LOCAL_TEST_ANGLE_ACCURACY: Angle<f64> = Angle { rad: 5e-3 * TWO_PI };
 
         let expected_mean_anomaly = Angle::from_radians(TWO_PI / 4.);
-        let passed_time = Time::from_years(1e5 + 0.25);
-        let mean_anomaly = mean_anomaly(Time::from_years(1.), passed_time);
+        let passed_time = Time::from_yr(1e5 + 0.25);
+        let mean_anomaly = mean_anomaly(Time::from_yr(1.), passed_time);
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
         assert!(eq_within(

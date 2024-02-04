@@ -1,16 +1,15 @@
+use simple_si_units::base::Luminosity;
+
 pub const LUMINOSITY_ZERO: Luminosity<f64> = Luminosity { cd: 0. };
+pub(crate) const WATTS_PER_SOLAR_LUMINOSITY: f64 = 3.828e26;
 
-pub(crate) const PRACICALLY_ZERO: Self = Self {
-    absolute_magnitude: -100.,
-};
-
-pub const fn from_absolute_magnitude(absolute_magnitude: f64) -> Luminosity {
-    Luminosity { absolute_magnitude }
+pub const fn absolute_magnitude_to_luminosity(absolute_magnitude: f64) -> Luminosity<f64> {
+    todo!()
 }
 
-pub fn from_solar_luminosities(solar_luminosities: f64) -> Luminosity {
-    let absolute_magnitude = 4.8 - 2.5 * solar_luminosities.log10();
-    Luminosity { absolute_magnitude }
+pub fn luminosity_to_absolute_magnitude(luminosity: Luminosity<f64>) -> f64 {
+    let absolute_magnitude = 4.8 - 2.5 * luminosity.to.log10();
+    absolute_magnitude
 }
 
 pub fn from_watts(watts: f64) -> Luminosity {
@@ -33,11 +32,6 @@ pub fn to_watts(&self) -> f64 {
 pub fn to_illuminance(&self, distance: &Distance) -> Illuminance {
     let apparent_magnitude = self.absolute_magnitude + 5. * distance.to_parsecs().log10() - 5.;
     Illuminance::from_apparent_magnitude(apparent_magnitude)
-}
-
-#[cfg(test)]
-pub(crate) fn eq_within(&self, other: &Self, accuracy: Self) -> bool {
-    (self.absolute_magnitude - other.absolute_magnitude).abs() < accuracy.absolute_magnitude
 }
 
 #[cfg(test)]

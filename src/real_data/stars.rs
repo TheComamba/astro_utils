@@ -903,7 +903,7 @@ const ALKAID_DATA: RealData = RealData {
 };
 
 //39
-const SARGto_DATA: RealData = RealData {
+const SARGAS_DATA: RealData = RealData {
     common_name: "Sargas",
     astronomical_name: "Theta Scorpii",
     radius: Some(Distance {
@@ -2840,7 +2840,7 @@ pub const BRIGHTEST_STARS: [RealData; 124] = [
     DUBHE_DATA,
     WEZEN_DATA,
     ALKAID_DATA,
-    SARGto_DATA,
+    SARGAS_DATA,
     AVIOR_DATA,
     MENKALINAN_DATA,
     ATRIA_DATA,
