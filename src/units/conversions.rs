@@ -6,6 +6,12 @@ pub const RADIANS_PER_DEGREE: Float = PI / 180.;
 
 // Mass
 pub const KILOGRAMS_PER_SOLAR_MASS: Float = 1.988e30;
+pub const KG_PER_SOLAR_MASSES: Float = 1.988e30;
+
+// Distance
+pub const METERS_PER_SUN_RADII: Float = 6.957e8;
+pub const METERS_PER_ASTRONOMICAL_UNIT: Float = 1.496e11;
+pub const METERS_PER_LIGHT_YEAR: Float = 9.461e15;
 
 // Time
 pub const SECONDS_PER_HOUR: Float = 60. * 60.;

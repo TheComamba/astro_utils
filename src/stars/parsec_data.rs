@@ -5,6 +5,7 @@ use directories::ProjectDirs;
 use flate2::read::GzDecoder;
 use rmp_serde;
 use serde::{Deserialize, Serialize};
+use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 use std::fs;
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
@@ -203,7 +204,7 @@ impl ParsecData {
     #[cfg(test)]
     pub(super) fn get_params_for_current_mass_and_age(
         &self,
-        mass: Mass,
+        mass: Mass<Float>,
         age_in_years: Float,
     ) -> &ParsecLine {
         let mut mass_index = Self::get_closest_mass_index(mass.as_solar_masses());
@@ -253,31 +254,31 @@ impl ParsecLine {
         }
     }
 
-    pub(super) fn get_mass(&self) -> Mass {
+    pub(super) fn get_mass(&self) -> Mass<Float> {
         Mass::from_solar_masses(self.mass)
     }
 
-    pub(super) fn get_age(&self) -> Time {
+    pub(super) fn get_age(&self) -> Time<Float> {
         Time::from_years(self.age)
     }
 
-    pub(super) fn get_luminosity(&self) -> Luminosity {
+    pub(super) fn get_luminosity(&self) -> Luminosity<Float> {
         let lum = 10f32.powf(self.log_l);
         Luminosity::from_solar_luminosities(lum)
     }
 
-    pub(super) fn get_apparent_magnitude(&self, distance: &Distance) -> Float {
+    pub(super) fn get_apparent_magnitude(&self, distance: &Distance<Float>) -> Float {
         let lum = self.get_luminosity();
         let ill = lum.to_illuminance(&distance);
         ill.as_apparent_magnitude()
     }
 
-    pub(super) fn get_temperature(&self) -> Temperature {
+    pub(super) fn get_temperature(&self) -> Temperature<Float> {
         let temp = 10f32.powf(self.log_te);
         Temperature::from_kelvin(temp)
     }
 
-    pub(super) fn get_radius(&self) -> Distance {
+    pub(super) fn get_radius(&self) -> Distance<Float> {
         let radius = 10f32.powf(self.log_r);
         Distance::from_centimeters(radius)
     }
@@ -294,15 +295,11 @@ mod tests {
     use super::*;
     use crate::{
         real_data::stars::{BRIGHTEST_STARS, SUN_DATA},
-        units::{length::AU_PER_SUN_RADII, mass::KILOGRAMS_PER_SOLAR_MASS},
+        tests::eq_within,
     };
 
     #[test]
     fn test_caluclate_sun() {
-        const MASS_ACCURACY: Mass = Mass::from_kilograms(1e-2 * KILOGRAMS_PER_SOLAR_MASS);
-        const RADIUS_ACCURACY: Distance = Distance::from_astronomical_units(0.1 * AU_PER_SUN_RADII);
-        const LUMINOSITY_ACCURACY: Luminosity = Luminosity::from_absolute_magnitude(0.05);
-        const TEMPERATURE_ACCURACY: Temperature = Temperature::from_kelvin(500.);
         let parsec_data = ParsecData::new().unwrap();
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
@@ -330,22 +327,26 @@ mod tests {
             calculated_sun.get_temperature().unwrap(),
             real_sun.get_temperature().unwrap()
         );
-        assert!(calculated_sun
-            .get_mass()
-            .unwrap()
-            .eq_within(real_sun.get_mass().unwrap(), MASS_ACCURACY));
-        assert!(calculated_sun
-            .get_radius()
-            .unwrap()
-            .eq_within(&real_sun.get_radius().unwrap(), RADIUS_ACCURACY));
-        assert!(calculated_sun
-            .get_luminosity()
-            .unwrap()
-            .eq_within(&real_sun.get_luminosity().unwrap(), LUMINOSITY_ACCURACY));
-        assert!(calculated_sun
-            .get_temperature()
-            .unwrap()
-            .eq_within(&real_sun.get_temperature().unwrap(), TEMPERATURE_ACCURACY));
+        assert!(eq_within(
+            calculated_sun.get_mass().unwrap().to_solar_masses(),
+            real_sun.get_mass().unwrap(),
+            1e-2
+        ));
+        assert!(eq_within(
+            calculated_sun.get_radius().unwrap().to_solar_radii(),
+            &real_sun.get_radius().unwrap(),
+            1e-1
+        ));
+        assert!(eq_within(
+            calculated_sun.get_luminosity().unwrap(),
+            &real_sun.get_luminosity().unwrap(),
+            0.
+        ));
+        assert!(eq_within(
+            calculated_sun.get_temperature().unwrap(),
+            &real_sun.get_temperature().unwrap(),
+            500.
+        ));
     }
 
     #[test]

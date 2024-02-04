@@ -3,6 +3,7 @@ use crate::{
     color::sRGBColor, coordinates::spherical::SphericalCoordinates, error::AstroUtilError, Float,
 };
 use serde::{Deserialize, Serialize};
+use simple_si_units::{base::Temperature, electromagnetic::Illuminance, geometry::Angle};
 
 #[derive(Serialize, Deserialize)]
 struct GaiaMetadataLine {
@@ -66,8 +67,7 @@ impl GaiaResponse {
             let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
             let direction_in_ecliptic = SphericalCoordinates::new(ecl_lon, ecl_lat).to_direction();
 
-            let temperature =
-                temperature.map(|temperature| temperature::Temperature::from_kelvin(temperature));
+            let temperature = temperature.map(|temperature| Temperature::from_kelvin(temperature));
             let color = match temperature {
                 Some(temperature) => sRGBColor::from_temperature(temperature),
                 None => sRGBColor::DEFAULT,
@@ -85,7 +85,7 @@ impl GaiaResponse {
     }
 }
 
-fn query_brightest_stars(brightest: Illuminance) -> Result<GaiaResponse, AstroUtilError> {
+fn query_brightest_stars(brightest: Illuminance<Float>) -> Result<GaiaResponse, AstroUtilError> {
     let mut url = "https://gea.esac.esa.int/tap-server/tap/sync".to_string();
     url += "?REQUEST=doQuery";
     url += "&LANG=ADQL";

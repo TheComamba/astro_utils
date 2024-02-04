@@ -7,19 +7,30 @@ use crate::{
     },
     Float,
 };
+use simple_si_units::{
+    base::{Distance, Mass, Temperature, Time},
+    electromagnetic::Illuminance,
+};
+use std::fmt::Display;
 
 pub struct RealData {
     pub common_name: &'static str,
     pub astronomical_name: &'static str,
-    pub mass: Option<Mass>,
-    pub radius: Option<Length>,
+    pub mass: Option<Mass<Float>>,
+    pub radius: Option<Distance<Float>>,
     pub absolute_magnitude: Float,
     pub apparent_magnitude: Float,
-    pub temperature: Option<Temperature>,
-    pub age: Option<Time>,
+    pub temperature: Option<Temperature<Float>>,
+    pub age: Option<Time<Float>>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
-    pub distance: Distance,
+    pub distance: Distance<Float>,
+}
+
+impl Display for RealData {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        <Distance<Float> as Display>::fmt(&self.distance, f)
+    }
 }
 
 impl RealData {

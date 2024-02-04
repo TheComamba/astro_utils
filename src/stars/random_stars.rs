@@ -1,5 +1,3 @@
-use std::time::Instant;
-
 use super::{
     parsec_data::{ParsecData, ParsecLine},
     star_data::StarData,
@@ -14,12 +12,16 @@ use rand::{
     rngs::ThreadRng,
     Rng,
 };
+use simple_si_units::base::Distance;
+use std::time::Instant;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 const STARS_PER_LY_CUBED: Float = 0.004;
 const DIMMEST_VISIBLE_MAGNITUDE: Float = 6.5;
 
-pub fn generate_random_stars(max_distance: Distance) -> Result<Vec<StarData>, AstroUtilError> {
+pub fn generate_random_stars(
+    max_distance: Distance<Float>,
+) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
 
     let start = Instant::now();
@@ -54,7 +56,9 @@ pub fn generate_random_stars(max_distance: Distance) -> Result<Vec<StarData>, As
     Ok(stars)
 }
 
-pub fn generate_random_star(max_distance: Option<Length>) -> Result<StarData, AstroUtilError> {
+pub fn generate_random_star(
+    max_distance: Option<Distance<Float>>,
+) -> Result<StarData, AstroUtilError> {
     let parsec_data = ParsecData::new()?;
     let mut rng = rand::thread_rng();
     let max_distance_in_au_squared = max_distance
@@ -108,7 +112,7 @@ fn generate_visible_random_star(
     Some(star)
 }
 
-fn get_pos_distribution(max_distance: Distance) -> Uniform<f32> {
+fn get_pos_distribution(max_distance: Distance<Float>) -> Uniform<f32> {
     Uniform::new(
         -max_distance.as_astronomical_units(),
         max_distance.as_astronomical_units(),

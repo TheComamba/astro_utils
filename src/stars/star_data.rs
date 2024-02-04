@@ -1,28 +1,29 @@
 use super::star_appearance::StarAppearance;
-use crate::{color::sRGBColor, coordinates::direction::Direction};
+use crate::{color::sRGBColor, coordinates::direction::Direction, units::ILLUMINANCE_ZERO, Float};
 use serde::{Deserialize, Serialize};
+use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
     pub(super) name: String,
-    pub(super) mass: Option<Mass>,
-    pub(super) radius: Option<Length>,
-    pub(super) luminosity: Option<Luminosity>,
-    pub(super) temperature: Option<Temperature>,
-    pub(super) age: Option<Time>,
-    pub(super) distance: Option<Length>,
+    pub(super) mass: Option<Mass<Float>>,
+    pub(super) radius: Option<Distance<Float>>,
+    pub(super) luminosity: Option<Luminosity<Float>>,
+    pub(super) temperature: Option<Temperature<Float>>,
+    pub(super) age: Option<Time<Float>>,
+    pub(super) distance: Option<Distance<Float>>,
     pub(super) direction_in_ecliptic: Direction,
 }
 
 impl StarData {
     pub fn new(
         name: String,
-        mass: Option<Mass>,
-        radius: Option<Length>,
-        luminosity: Option<Luminosity>,
-        temperature: Option<Temperature>,
-        age: Option<Time>,
-        distance: Option<Length>,
+        mass: Option<Mass<Float>>,
+        radius: Option<Distance<Float>>,
+        luminosity: Option<Luminosity<Float>>,
+        temperature: Option<Temperature<Float>>,
+        age: Option<Time<Float>>,
+        distance: Option<Distance<Float>>,
         direction_in_ecliptic: Direction,
     ) -> Self {
         Self {
@@ -41,27 +42,27 @@ impl StarData {
         &self.name
     }
 
-    pub const fn get_radius(&self) -> &Option<Length> {
+    pub const fn get_radius(&self) -> &Option<Distance<Float>> {
         &self.radius
     }
 
-    pub const fn get_mass(&self) -> &Option<Mass> {
+    pub const fn get_mass(&self) -> &Option<Mass<Float>> {
         &self.mass
     }
 
-    pub const fn get_luminosity(&self) -> &Option<Luminosity> {
+    pub const fn get_luminosity(&self) -> &Option<Luminosity<Float>> {
         &self.luminosity
     }
 
-    pub const fn get_temperature(&self) -> &Option<Temperature> {
+    pub const fn get_temperature(&self) -> &Option<Temperature<Float>> {
         &self.temperature
     }
 
-    pub const fn get_age(&self) -> &Option<Time> {
+    pub const fn get_age(&self) -> &Option<Time<Float>> {
         &self.age
     }
 
-    pub const fn get_distance(&self) -> &Option<Length> {
+    pub const fn get_distance(&self) -> &Option<Distance<Float>> {
         &self.distance
     }
 
@@ -73,27 +74,27 @@ impl StarData {
         self.name = name;
     }
 
-    pub fn set_mass(&mut self, mass: Option<Mass>) {
+    pub fn set_mass(&mut self, mass: Option<Mass<Float>>) {
         self.mass = mass;
     }
 
-    pub fn set_radius(&mut self, radius: Option<Length>) {
+    pub fn set_radius(&mut self, radius: Option<Distance<Float>>) {
         self.radius = radius;
     }
 
-    pub fn set_luminosity(&mut self, luminosity: Option<Luminosity>) {
+    pub fn set_luminosity(&mut self, luminosity: Option<Luminosity<Float>>) {
         self.luminosity = luminosity;
     }
 
-    pub fn set_temperature(&mut self, temperature: Option<Temperature>) {
+    pub fn set_temperature(&mut self, temperature: Option<Temperature<Float>>) {
         self.temperature = temperature;
     }
 
-    pub fn set_age(&mut self, age: Option<Time>) {
+    pub fn set_age(&mut self, age: Option<Time<Float>>) {
         self.age = age;
     }
 
-    pub fn set_distance(&mut self, distance: Option<Length>) {
+    pub fn set_distance(&mut self, distance: Option<Distance<Float>>) {
         self.distance = distance;
     }
 
@@ -104,7 +105,7 @@ impl StarData {
     pub fn to_star_appearance(&self) -> StarAppearance {
         let illuminance = match (self.luminosity, self.distance) {
             (Some(luminosity), Some(distance)) => luminosity.to_illuminance(&distance),
-            _ => Illuminance::ZERO,
+            _ => ILLUMINANCE_ZERO,
         };
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
