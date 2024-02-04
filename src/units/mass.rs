@@ -1,3 +1,4 @@
+use super::DISPLAY_THRESHOLD;
 use simple_si_units::base::Mass;
 
 pub const MASS_ZERO: Mass<f64> = Mass { kg: 0. };
@@ -20,16 +21,16 @@ pub(crate) fn mass_to_solar_masses(mass: Mass<f64>) -> f64 {
 
 pub fn display_mass_in_units(mass: Mass<f64>, units: MassUnit) -> String {
     match units {
-        MassUnit::Kilograms => format!("{:2} kg", mass.to_kilograms()),
-        MassUnit::EarthMasses => format!("{:2} M🜨", mass / EARTH_MASS),
-        MassUnit::SolarMasses => format!("{:2} M☉", mass / SOLAR_MASS),
+        MassUnit::Kilograms => format!("{:.2} kg", mass.to_kilograms()),
+        MassUnit::EarthMasses => format!("{:.2} M🜨", mass / EARTH_MASS),
+        MassUnit::SolarMasses => format!("{:.2} M☉", mass / SOLAR_MASS),
     }
 }
 
 pub fn display_mass(mass: Mass<f64>) -> String {
-    let units = if mass_to_solar_masses(mass).abs() > 0.099 {
+    let units = if mass_to_solar_masses(mass).abs() > DISPLAY_THRESHOLD {
         MassUnit::SolarMasses
-    } else if mass_to_earth_masses(mass).abs() > 0.099 {
+    } else if mass_to_earth_masses(mass).abs() > DISPLAY_THRESHOLD {
         MassUnit::EarthMasses
     } else {
         MassUnit::Kilograms

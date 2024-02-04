@@ -1,3 +1,4 @@
+use super::DISPLAY_THRESHOLD;
 use simple_si_units::base::Time;
 
 pub const TIME_ZERO: Time<f64> = Time { s: 0. };
@@ -19,31 +20,31 @@ pub enum TimeUnit {
 
 pub fn display_time_in_units(time: Time<f64>, units: TimeUnit) -> String {
     match units {
-        TimeUnit::Seconds => format!("{:2} sec", time.to_seconds()),
-        TimeUnit::Minutes => format!("{:2} min", time.to_min()),
-        TimeUnit::Hours => format!("{:2} hrs", time.to_hr()),
-        TimeUnit::Days => format!("{:2} days", time.to_days()),
-        TimeUnit::Years => format!("{:2} yrs", time.to_yr()),
-        TimeUnit::ThousandYears => format!("{:2} kyr", time.to_kyr()),
-        TimeUnit::MillionYears => format!("{:2} Myrs", time.to_Myr()),
-        TimeUnit::BillionYears => format!("{:2} Gyrs", time.to_Gyr()),
+        TimeUnit::Seconds => format!("{:.2} sec", time.to_seconds()),
+        TimeUnit::Minutes => format!("{:.2} min", time.to_min()),
+        TimeUnit::Hours => format!("{:.2} hrs", time.to_hr()),
+        TimeUnit::Days => format!("{:.2} days", time.to_days()),
+        TimeUnit::Years => format!("{:.2} yrs", time.to_yr()),
+        TimeUnit::ThousandYears => format!("{:.2} kyr", time.to_kyr()),
+        TimeUnit::MillionYears => format!("{:.2} Myrs", time.to_Myr()),
+        TimeUnit::BillionYears => format!("{:.2} Gyrs", time.to_Gyr()),
     }
 }
 
 pub fn display_time(time: Time<f64>) -> String {
-    let units = if time.to_Gyr().abs() > 0.099 {
+    let units = if time.to_Gyr().abs() > DISPLAY_THRESHOLD {
         TimeUnit::BillionYears
-    } else if time.to_Myr().abs() > 0.099 {
+    } else if time.to_Myr().abs() > DISPLAY_THRESHOLD {
         TimeUnit::MillionYears
-    } else if time.to_kyr().abs() > 0.099 {
+    } else if time.to_kyr().abs() > DISPLAY_THRESHOLD {
         TimeUnit::ThousandYears
-    } else if time.to_yr().abs() > 0.099 {
+    } else if time.to_yr().abs() > DISPLAY_THRESHOLD {
         TimeUnit::Years
-    } else if time.to_days().abs() > 0.099 {
+    } else if time.to_days().abs() > DISPLAY_THRESHOLD {
         TimeUnit::Days
-    } else if time.to_hr().abs() > 0.099 {
+    } else if time.to_hr().abs() > DISPLAY_THRESHOLD {
         TimeUnit::Hours
-    } else if time.to_min().abs() > 0.099 {
+    } else if time.to_min().abs() > DISPLAY_THRESHOLD {
         TimeUnit::Minutes
     } else {
         TimeUnit::Seconds
