@@ -62,7 +62,7 @@ mod tests {
         assert_eq!(format!("{}", time), "1.00 sec");
         let time = Time::from_minutes(1.);
         assert_eq!(format!("{}", time), "1.00 min");
-        let time = Time::from_hours(1.);
+        let time = Time::from_hr(1.);
         assert_eq!(format!("{}", time), "1.00 hrs");
         let time = Time::from_days(1.);
         assert_eq!(format!("{}", time), "1.00 days");
@@ -82,7 +82,7 @@ mod tests {
         assert_eq!(format!("{}", time), "-1.00 sec");
         let time = Time::from_minutes(-1.);
         assert_eq!(format!("{}", time), "-1.00 min");
-        let time = Time::from_hours(-1.);
+        let time = Time::from_hr(-1.);
         assert_eq!(format!("{}", time), "-1.00 hrs");
         let time = Time::from_days(-1.);
         assert_eq!(format!("{}", time), "-1.00 days");

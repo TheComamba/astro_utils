@@ -47,7 +47,7 @@ pub fn diplay_distance(distance: Distance<f64>) -> String {
         DistanceUnit::SunRadii
     } else if distance.to_earth_radii().abs() > 0.099 {
         DistanceUnit::EarthRadii
-    } else if distance.to_kilometers().abs() > 0.099 {
+    } else if distance.to_km().abs() > 0.099 {
         DistanceUnit::Kilometers
     } else if distance.to_meters().abs() > 0.099 {
         DistanceUnit::Meters
@@ -71,7 +71,7 @@ mod tests {
         assert_eq!(format!("{}", nm), "1.23 nm");
         let m = Distance::from_meters(1.23);
         assert_eq!(format!("{}", m), "1.23 m");
-        let km = Distance::from_kilometers(1.23);
+        let km = Distance::from_km(1.23);
         assert_eq!(format!("{}", km), "1.23 km");
         let earth_radii = Distance::from_earth_radii(1.23);
         assert_eq!(format!("{}", earth_radii), "1.23 R🜨");
@@ -89,7 +89,7 @@ mod tests {
         assert_eq!(format!("{}", nm), "-1.23 nm");
         let m = Distance::from_meters(-1.23);
         assert_eq!(format!("{}", m), "-1.23 m");
-        let km = Distance::from_kilometers(-1.23);
+        let km = Distance::from_km(-1.23);
         assert_eq!(format!("{}", km), "-1.23 km");
         let earth_radii = Distance::from_earth_radii(-1.23);
         assert_eq!(format!("{}", earth_radii), "-1.23 R🜨");
@@ -107,7 +107,7 @@ mod tests {
         assert_eq!(format!("{}", nm), "1000.00 nm");
         let m = Distance::from_meters(1.);
         assert_eq!(format!("{}", m), "1.00 m");
-        let km = Distance::from_kilometers(1.);
+        let km = Distance::from_km(1.);
         assert_eq!(format!("{}", km), "1.00 km");
         let earth_radii = Distance::from_earth_radii(1.);
         assert_eq!(format!("{}", earth_radii), "1.00 R🜨");
