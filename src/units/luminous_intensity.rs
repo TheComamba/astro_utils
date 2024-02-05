@@ -2,6 +2,7 @@ use super::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_appar
 use simple_si_units::{
     base::{Distance, Luminosity},
     electromagnetic::Illuminance,
+    geometry::SolidAngle,
 };
 use std::f64::consts::PI;
 
@@ -25,20 +26,18 @@ pub fn luminous_intensity_to_illuminance(
     luminous_intensity: &Luminosity<f64>,
     distance: &Distance<f64>,
 ) -> Illuminance<f64> {
-    let lux = luminous_intensity.cd / (4. * PI * distance * distance).m2;
-    Illuminance { lux }
+    luminous_intensity * SolidAngle::from_steradians(4. * PI) / (distance * distance)
 }
 
 pub fn illuminance_to_luminous_intensity(
     illuminance: &Illuminance<f64>,
     distance: &Distance<f64>,
 ) -> Luminosity<f64> {
-    let watts = illuminance.lux * 4. * PI * distance.m * distance.m;
-    Luminosity { cd: watts }
+    illuminance * (distance * distance) / SolidAngle::from_steradians(4. * PI)
 }
 
 pub fn display_luminous_intensity(luminous_intensity: &Luminosity<f64>) -> String {
-    format!("{} W", luminous_intensity.cd) //should be watts
+    format!("{:.2} cd", luminous_intensity.cd) //should be watts
 }
 
 #[cfg(test)]
@@ -47,7 +46,7 @@ mod tests {
     use crate::tests::{eq, eq_within};
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
-    const ILLUMINANCE_AT_UNIT_DISTANCE: f64 = 1. / (4. * PI);
+    const ILLUMINANCE_AT_UNIT_DISTANCE: f64 = 4. * PI;
 
     #[test]
     fn illuminance_roundtrip() {
@@ -74,8 +73,8 @@ mod tests {
     }
 
     #[test]
-    fn illuminance_of_1_watt_source_at_1_m() {
-        let luminous_intensity = Luminosity::from_cd(1.); //should be watts
+    fn illuminance_of_1_cd_source_at_1_m() {
+        let luminous_intensity = Luminosity::from_cd(1.);
         let distance = Distance::from_m(1.);
         let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
         let actual = illuminance.to_lux();

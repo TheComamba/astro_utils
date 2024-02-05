@@ -5,7 +5,7 @@ use simple_si_units::{
 };
 
 pub const IRRADIANCE_ZERO: Illuminance<f64> = Illuminance { lux: 0. };
-pub const ILLUMINANCE_OF_BOLOMETRIC_ZERO: Illuminance<f64> = Illuminance { lux: 0. };
+pub const ILLUMINANCE_OF_BOLOMETRIC_ZERO: Illuminance<f64> = Illuminance { lux: 2.128e-6 };
 pub const IRRADIANCE_OF_BOLOMETRIC_ZERO: Illuminance<f64> = Illuminance { lux: 2.518e-8 }; // W/m^2, not lux
 
 pub const fn from_lux(lux: f64) -> Illuminance<f64> {
