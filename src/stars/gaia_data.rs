@@ -3,7 +3,7 @@ use crate::{
     color::sRGBColor,
     coordinates::spherical::SphericalCoordinates,
     error::AstroUtilError,
-    units::irradiance::{apparent_magnitude_to_irradiance, irradiance_to_apparent_magnitude},
+    units::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Temperature, electromagnetic::Illuminance, geometry::Angle};
@@ -65,7 +65,7 @@ impl GaiaResponse {
             let temperature = get_float(&row[TEMPERATURE_INDEX]);
 
             let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
-            let irradiance = apparent_magnitude_to_irradiance(mag);
+            let illuminance = apparent_magnitude_to_illuminance(mag);
             let ecl_lon = Angle::from_degrees(ecl_lon.ok_or(AstroUtilError::DataNotAvailable)?);
             let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
             let direction_in_ecliptic = SphericalCoordinates::new(ecl_lon, ecl_lat).to_direction();
@@ -78,7 +78,7 @@ impl GaiaResponse {
 
             let star = StarAppearance {
                 name: designation,
-                irradiance,
+                illuminance,
                 color,
                 direction_in_ecliptic,
             };
@@ -96,7 +96,7 @@ fn query_brightest_stars(brightest: Illuminance<f64>) -> Result<GaiaResponse, As
     url += "&QUERY=SELECT+designation,ecl_lon,ecl_lat,phot_g_mean_mag,teff_gspphot";
     url += "+FROM+gaiadr3.gaia_source";
     url += "+WHERE+phot_g_mean_mag+<+";
-    url += &format!("{:.1}", irradiance_to_apparent_magnitude(&brightest));
+    url += &format!("{:.1}", illuminance_to_apparent_magnitude(&brightest));
     let resp = reqwest::blocking::get(&url)
         .map_err(AstroUtilError::Connection)?
         .text()
@@ -114,7 +114,7 @@ pub fn star_is_already_known(
 }
 
 pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
-    let brightest = apparent_magnitude_to_irradiance(6.5);
+    let brightest = apparent_magnitude_to_illuminance(6.5);
     let resp = query_brightest_stars(brightest)?;
     let gaia_stars = resp.to_star_appearances()?;
     Ok(gaia_stars)
@@ -124,7 +124,7 @@ pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
 mod tests {
     use crate::{
         real_data::stars::BRIGHTEST_STARS,
-        units::{angle::angle_to_arcsecs, irradiance::IRRADIANCE_ZERO},
+        units::{angle::angle_to_arcsecs, illuminance::IRRADIANCE_ZERO},
     };
 
     use super::*;
@@ -185,7 +185,7 @@ mod tests {
             known_stars.push(star_data.to_star_appearance());
         }
 
-        let gaia_response = query_brightest_stars(apparent_magnitude_to_irradiance(2.5)).unwrap();
+        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(2.5)).unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
 
         println!("known_stars.len(): {}", known_stars.len());
@@ -224,11 +224,11 @@ mod tests {
                         angle_to_arcsecs(&angle_difference)
                     );
                 } else {
-                    println!("gaia_star_irradiance: {}", gaia_star.irradiance);
-                    println!("closest_star_irradiance: {}", closest.irradiance);
+                    println!("gaia_star_illuminance: {}", gaia_star.illuminance);
+                    println!("closest_star_illuminance: {}", closest.illuminance);
                     println!(
                         "Illuminance difference: {} lx",
-                        (gaia_star.irradiance - closest.irradiance).to_lux()
+                        (gaia_star.illuminance - closest.illuminance).to_lux()
                     );
                 }
                 failure_count += 1;
@@ -266,7 +266,7 @@ mod tests {
             }
         }
 
-        let gaia_response = query_brightest_stars(apparent_magnitude_to_irradiance(4.)).unwrap();
+        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(4.)).unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
 
         println!("known_stars.len(): {}", known_stars.len());
@@ -276,14 +276,14 @@ mod tests {
 
         let brightest_gaia_star = gaia_stars
             .iter()
-            .min_by_key(|star| (star.irradiance.to_lux() * 1e5) as u32)
+            .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u32)
             .unwrap();
         println!(
-            "Brightest gaia star irradiance: {} mag",
-            irradiance_to_apparent_magnitude(&brightest_gaia_star.irradiance)
+            "Brightest gaia star illuminance: {} mag",
+            illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
         );
         assert!(
-            irradiance_to_apparent_magnitude(&brightest_gaia_star.irradiance)
+            illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
                 < BRIGHTNESS_THRESHOLD
         );
 
@@ -293,8 +293,8 @@ mod tests {
             if !is_known {
                 println!("\nknown_star is not in gaia:\n{}", known_star.name);
                 println!(
-                    "known_star_irradiance: {} mag",
-                    irradiance_to_apparent_magnitude(&known_star.irradiance)
+                    "known_star_illuminance: {} mag",
+                    illuminance_to_apparent_magnitude(&known_star.illuminance)
                 );
                 let closest_gaia_star =
                     find_closest_star(known_star, &gaia_stars.iter().collect()).unwrap();
@@ -313,7 +313,7 @@ mod tests {
             known_stars.push(star_data.to_star_appearance());
         }
 
-        let gaia_response = query_brightest_stars(apparent_magnitude_to_irradiance(3.5)).unwrap();
+        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(3.5)).unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
         let mut star_pairs = vec![];
         for gaia_star in gaia_stars.iter() {
@@ -327,11 +327,11 @@ mod tests {
         assert!(star_pairs.len() > 15);
         let mut mean_brightness_difference = IRRADIANCE_ZERO;
         for (gaia_star, known_star) in star_pairs.iter() {
-            let brightness_difference = known_star.irradiance - gaia_star.irradiance;
+            let brightness_difference = known_star.illuminance - gaia_star.illuminance;
             mean_brightness_difference += brightness_difference;
         }
         mean_brightness_difference /= star_pairs.len() as f64;
-        let acceptable_difference = apparent_magnitude_to_irradiance(4.);
+        let acceptable_difference = apparent_magnitude_to_illuminance(4.);
         println!(
             "mean_brightness_difference: \n{} lx",
             mean_brightness_difference.to_lux()

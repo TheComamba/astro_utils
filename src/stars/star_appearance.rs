@@ -5,7 +5,7 @@ use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
     pub(crate) name: String,
-    pub(crate) irradiance: Illuminance<f64>,
+    pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
     pub(crate) direction_in_ecliptic: Direction,
 }
@@ -13,13 +13,13 @@ pub struct StarAppearance {
 impl StarAppearance {
     pub fn new(
         name: String,
-        irradiance: Illuminance<f64>,
+        illuminance: Illuminance<f64>,
         color: sRGBColor,
         direction_in_ecliptic: Direction,
     ) -> Self {
         Self {
             name,
-            irradiance,
+            illuminance,
             color,
             direction_in_ecliptic,
         }
@@ -29,8 +29,8 @@ impl StarAppearance {
         &self.name
     }
 
-    pub const fn get_irradiance(&self) -> &Illuminance<f64> {
-        &self.irradiance
+    pub const fn get_illuminance(&self) -> &Illuminance<f64> {
+        &self.illuminance
     }
 
     pub const fn get_color(&self) -> &sRGBColor {
@@ -55,8 +55,8 @@ impl StarAppearance {
         if angle_between_directions > angle_accuracy {
             return false;
         }
-        let irradiance_ratio = self.irradiance.to_lux() / other.irradiance.to_lux();
-        if irradiance_ratio < 0.1 || irradiance_ratio > 10.0 {
+        let illuminance_ratio = self.illuminance.to_lux() / other.illuminance.to_lux();
+        if illuminance_ratio < 0.1 || illuminance_ratio > 10.0 {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ mod tests {
             Direction::X,
         );
         let mut other = star.clone();
-        other.irradiance = Illuminance::from_lux(100.0);
+        other.illuminance = Illuminance::from_lux(100.0);
 
         assert!(!star.apparently_the_same(&other));
     }

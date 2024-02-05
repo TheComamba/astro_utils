@@ -5,7 +5,7 @@ use crate::{
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
     stars::{star_appearance::StarAppearance, star_data::StarData},
-    units::luminosity::LUMINOSITY_ZERO,
+    units::luminous_intensity::LUMINOSITY_ZERO,
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
@@ -140,9 +140,11 @@ impl PlanetData {
         planet_pos: &CartesianCoordinates,
         observer_position: &CartesianCoordinates,
     ) -> Result<StarAppearance, AstroUtilError> {
-        let central_body_luminosity = central_body.get_luminosity().unwrap_or(LUMINOSITY_ZERO);
+        let central_body_luminous_intensity = central_body
+            .get_luminous_intensity()
+            .unwrap_or(LUMINOSITY_ZERO);
         let brightness = planet_brightness(
-            central_body_luminosity,
+            central_body_luminous_intensity,
             &CartesianCoordinates::ORIGIN,
             planet_pos,
             observer_position,
@@ -152,7 +154,7 @@ impl PlanetData {
         let relative_position = observer_position - planet_pos;
         Ok(StarAppearance {
             name: self.name.clone(),
-            irradiance: brightness,
+            illuminance: brightness,
             color: self.color.clone(),
             direction_in_ecliptic: relative_position.to_direction()?,
         })

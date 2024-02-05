@@ -6,7 +6,8 @@ use crate::{
         right_ascension::RightAscension,
     },
     units::{
-        irradiance::apparent_magnitude_to_irradiance, luminosity::absolute_magnitude_to_luminosity,
+        illuminance::apparent_magnitude_to_illuminance,
+        luminous_intensity::absolute_magnitude_to_luminous_intensity,
     },
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
@@ -39,7 +40,7 @@ impl RealData {
         } else {
             self.common_name
         };
-        let luminosity = absolute_magnitude_to_luminosity(self.absolute_magnitude);
+        let luminous_intensity = absolute_magnitude_to_luminous_intensity(self.absolute_magnitude);
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
@@ -47,7 +48,7 @@ impl RealData {
             name: name.to_string(),
             mass: self.mass,
             radius: self.radius,
-            luminosity: Some(luminosity),
+            luminous_intensity: Some(luminous_intensity),
             temperature: self.temperature,
             age: self.age,
             distance: Some(self.distance),
@@ -64,14 +65,14 @@ impl RealData {
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
-        let irradiance = apparent_magnitude_to_irradiance(self.apparent_magnitude);
+        let illuminance = apparent_magnitude_to_illuminance(self.apparent_magnitude);
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
             None => sRGBColor::DEFAULT,
         };
         StarAppearance {
             name: name.to_string(),
-            irradiance,
+            illuminance,
             color,
             direction_in_ecliptic,
         }
@@ -83,7 +84,8 @@ mod tests {
     use crate::{
         real_data::stars::BRIGHTEST_STARS,
         units::{
-            irradiance::irradiance_to_apparent_magnitude, luminosity::luminosity_to_irradiance,
+            illuminance::illuminance_to_apparent_magnitude,
+            luminous_intensity::luminous_intensity_to_illuminance,
         },
     };
 
@@ -92,9 +94,10 @@ mod tests {
         let mut failed = false;
         for star_data in BRIGHTEST_STARS {
             let star = star_data.to_star_data();
-            let luminosity = star.get_luminosity().unwrap();
-            let irradiance = luminosity_to_irradiance(&luminosity, &star.distance.unwrap());
-            let apparent_magnitude = irradiance_to_apparent_magnitude(&irradiance);
+            let luminous_intensity = star.get_luminous_intensity().unwrap();
+            let illuminance =
+                luminous_intensity_to_illuminance(&luminous_intensity, &star.distance.unwrap());
+            let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             if difference.abs() > 0.1 {
                 println!(

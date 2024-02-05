@@ -2,8 +2,8 @@
 
 pub mod angle;
 pub mod distance;
-pub mod irradiance;
-pub mod luminosity;
+pub mod illuminance;
+pub mod luminous_intensity;
 pub mod mass;
 pub mod time;
 

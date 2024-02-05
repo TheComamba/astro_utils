@@ -1,8 +1,8 @@
 use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
 use crate::error::AstroUtilError;
-use crate::units::irradiance::irradiance_to_apparent_magnitude;
-use crate::units::luminosity::{luminosity_to_irradiance, SOLAR_LUMINOSITY};
+use crate::units::illuminance::illuminance_to_apparent_magnitude;
+use crate::units::luminous_intensity::{luminous_intensity_to_illuminance, SOLAR_LUMINOSITY};
 use crate::units::mass::SOLAR_MASS;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
@@ -244,14 +244,14 @@ impl ParsecLine {
     pub(super) fn to_star_at_origin(&self) -> StarData {
         let mass = self.get_mass();
         let age = self.get_age();
-        let luminosity = self.get_luminosity();
+        let luminous_intensity = self.get_luminous_intensity();
         let temperature = self.get_temperature();
         let radius = self.get_radius();
         StarData {
             name: "".to_string(),
             mass: Some(mass),
             age: Some(age),
-            luminosity: Some(luminosity),
+            luminous_intensity: Some(luminous_intensity),
             temperature: Some(temperature),
             radius: Some(radius),
             distance: None,
@@ -267,15 +267,15 @@ impl ParsecLine {
         Time::from_yr(self.age)
     }
 
-    pub(super) fn get_luminosity(&self) -> Luminosity<f64> {
+    pub(super) fn get_luminous_intensity(&self) -> Luminosity<f64> {
         let lum = 10f64.powf(self.log_l);
         lum * SOLAR_LUMINOSITY
     }
 
     pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
-        let lum = self.get_luminosity();
-        let ill = luminosity_to_irradiance(&lum, &distance);
-        irradiance_to_apparent_magnitude(&ill)
+        let lum = self.get_luminous_intensity();
+        let ill = luminous_intensity_to_illuminance(&lum, &distance);
+        illuminance_to_apparent_magnitude(&ill)
     }
 
     pub(super) fn get_temperature(&self) -> Temperature<f64> {
@@ -324,9 +324,9 @@ mod tests {
             real_sun.get_radius().unwrap()
         );
         println!(
-            "calculated luminosity: {}, real luminosity: {}",
-            calculated_sun.get_luminosity().unwrap(),
-            real_sun.get_luminosity().unwrap()
+            "calculated luminous_intensity: {}, real luminous_intensity: {}",
+            calculated_sun.get_luminous_intensity().unwrap(),
+            real_sun.get_luminous_intensity().unwrap()
         );
         println!(
             "calculated temperature: {}, real temperature: {}",
@@ -344,8 +344,8 @@ mod tests {
             1e-1 * SOLAR_RADIUS.m
         ));
         assert!(eq_within(
-            calculated_sun.get_luminosity().unwrap().cd,
-            real_sun.get_luminosity().unwrap().cd,
+            calculated_sun.get_luminous_intensity().unwrap().cd,
+            real_sun.get_luminous_intensity().unwrap().cd,
             1e-5 * SOLAR_LUMINOSITY.cd
         ));
         assert!(eq_within(
