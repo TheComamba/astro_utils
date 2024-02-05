@@ -8,7 +8,7 @@ use simple_si_units::{
 
 use crate::{
     coordinates::cartesian::CartesianCoordinates, error::AstroUtilError,
-    units::luminosity::luminosity_to_illuminance,
+    units::luminosity::luminosity_to_irradiance,
 };
 
 /*
@@ -45,8 +45,8 @@ pub fn planet_brightness(
     let planet_to_star = star_position - planet_position;
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer)?;
-    let planet_illuminance = luminosity_to_illuminance(&star_luminosity, &planet_to_star.length());
-    let planet_flat_surface_luminance = (planet_illuminance * geometric_albedo) / PI;
+    let planet_irradiance = luminosity_to_irradiance(&star_luminosity, &planet_to_star.length());
+    let planet_flat_surface_luminance = (planet_irradiance * geometric_albedo) / PI;
     let solid_angle_at_obsverver = solid_angle(
         &planet_radius,
         &planet_to_observer.length(),
@@ -65,7 +65,7 @@ mod tests {
         units::{
             angle::ANGLE_ZERO,
             distance::{DISTANCE_ZERO, SOLAR_RADIUS},
-            illuminance::apparent_magnitude_to_illuminance,
+            irradiance::apparent_magnitude_to_irradiance,
             luminosity::SOLAR_LUMINOSITY,
         },
     };
@@ -152,7 +152,7 @@ mod tests {
 
     #[test]
     fn mars_at_opposition() {
-        let expected = apparent_magnitude_to_illuminance(-2.94);
+        let expected = apparent_magnitude_to_irradiance(-2.94);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
@@ -182,7 +182,7 @@ mod tests {
 
     #[test]
     fn jupiter_at_opposition() {
-        let expected = apparent_magnitude_to_illuminance(-2.94);
+        let expected = apparent_magnitude_to_irradiance(-2.94);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
@@ -212,7 +212,7 @@ mod tests {
 
     #[test]
     fn saturn_at_opposition() {
-        let expected = apparent_magnitude_to_illuminance(-0.55);
+        let expected = apparent_magnitude_to_irradiance(-0.55);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
@@ -242,7 +242,7 @@ mod tests {
 
     #[test]
     fn uranus_at_opposition() {
-        let expected = apparent_magnitude_to_illuminance(5.38);
+        let expected = apparent_magnitude_to_irradiance(5.38);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
@@ -272,7 +272,7 @@ mod tests {
 
     #[test]
     fn neptune_at_opposition() {
-        let expected = apparent_magnitude_to_illuminance(7.67);
+        let expected = apparent_magnitude_to_irradiance(7.67);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(

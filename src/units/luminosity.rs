@@ -1,4 +1,4 @@
-use super::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude};
+use super::irradiance::{apparent_magnitude_to_irradiance, irradiance_to_apparent_magnitude};
 use simple_si_units::{
     base::{Distance, Luminosity},
     electromagnetic::Illuminance,
@@ -6,22 +6,24 @@ use simple_si_units::{
 use std::f64::consts::PI;
 
 pub const LUMINOSITY_ZERO: Luminosity<f64> = Luminosity { cd: 0. };
-
-pub const SOLAR_LUMINOSITY: Luminosity<f64> = Luminosity { cd: 3.828e26 };
+pub const SOLAR_LUMINOSITY: Luminosity<f64> = Luminosity {
+    /*Watts*/ cd: 3.828e26,
+};
+pub const SOLAR_LUMINOUS_INTENSITY: Luminosity<f64> = Luminosity { cd: 2.98e27 };
 
 pub fn absolute_magnitude_to_luminosity(absolute_magnitude: f64) -> Luminosity<f64> {
     let ten_pc = Distance::from_parsec(10.);
-    let illuminance = apparent_magnitude_to_illuminance(absolute_magnitude);
-    illuminance_to_luminosity(&illuminance, &ten_pc)
+    let irradiance = apparent_magnitude_to_irradiance(absolute_magnitude);
+    irradiance_to_luminosity(&irradiance, &ten_pc)
 }
 
 pub fn luminosity_to_absolute_magnitude(luminosity: Luminosity<f64>) -> f64 {
     let ten_pc = Distance::from_parsec(10.);
-    let illuminance = luminosity_to_illuminance(&luminosity, &ten_pc);
-    illuminance_to_apparent_magnitude(&illuminance)
+    let irradiance = luminosity_to_irradiance(&luminosity, &ten_pc);
+    irradiance_to_apparent_magnitude(&irradiance)
 }
 
-pub fn luminosity_to_illuminance(
+pub fn luminosity_to_irradiance(
     luminosity: &Luminosity<f64>,
     distance: &Distance<f64>,
 ) -> Illuminance<f64> {
@@ -29,11 +31,11 @@ pub fn luminosity_to_illuminance(
     Illuminance { lux }
 }
 
-pub fn illuminance_to_luminosity(
-    illuminance: &Illuminance<f64>,
+pub fn irradiance_to_luminosity(
+    irradiance: &Illuminance<f64>,
     distance: &Distance<f64>,
 ) -> Luminosity<f64> {
-    let watts = illuminance.lux * 4. * PI * distance.m * distance.m;
+    let watts = irradiance.lux * 4. * PI * distance.m * distance.m;
     Luminosity { cd: watts }
 }
 
@@ -47,15 +49,16 @@ mod tests {
     use crate::tests::{eq, eq_within};
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
+    const ILLUMINANCE_AT_UNIT_DISTANCE: f64 = 1. / (4. * PI);
 
     #[test]
-    fn illuminance_roundtrip() {
+    fn irradiance_roundtrip() {
         for i in -10..10 {
             let input = i as f64;
             let luminosity = Luminosity::from_cd(input);
             let distance = Distance::from_m(1.);
-            let illuminance = luminosity_to_illuminance(&luminosity, &distance);
-            let output = illuminance_to_luminosity(&illuminance, &distance);
+            let irradiance = luminosity_to_irradiance(&luminosity, &distance);
+            let output = irradiance_to_luminosity(&irradiance, &distance);
             println!("input: {}, output: {}", input, output.cd);
             assert!(eq(input, output.cd));
         }
@@ -73,14 +76,41 @@ mod tests {
     }
 
     #[test]
-    fn illuminance_of_1_watt_source_at_1_m() {
+    fn irradiance_of_1_watt_source_at_1_m() {
         let luminosity = Luminosity::from_cd(1.); //should be watts
         let distance = Distance::from_m(1.);
-        let illuminance = luminosity_to_illuminance(&luminosity, &distance);
-        let actual = illuminance.to_lux();
-        let expected = 1.;
+        let irradiance = luminosity_to_irradiance(&luminosity, &distance);
+        let actual = irradiance.to_lux();
+        let expected = ILLUMINANCE_AT_UNIT_DISTANCE;
         println!("expected: {}, actual: {}", expected, actual);
         assert!(eq(actual, expected));
+    }
+
+    #[test]
+    fn irradiance_is_proportional_to_luminosity() {
+        for i in 1..10 {
+            let cd = i as f64;
+            let luminosity = Luminosity::from_cd(cd);
+            let distance = Distance::from_m(1.);
+            let irradiance = luminosity_to_irradiance(&luminosity, &distance);
+            let expected = cd * ILLUMINANCE_AT_UNIT_DISTANCE;
+            let actual = irradiance.to_lux();
+            println!("expected: {}, actual: {}", expected, actual);
+            assert!(eq(actual, expected));
+        }
+    }
+
+    #[test]
+    fn irradiance_is_inversely_proportional_to_distance_squared() {
+        for d in 1..10 {
+            let distance = Distance::from_m(d as f64);
+            let luminosity = Luminosity::from_cd(1.);
+            let irradiance = luminosity_to_irradiance(&luminosity, &distance);
+            let expected = ILLUMINANCE_AT_UNIT_DISTANCE / (d * d) as f64;
+            let actual = irradiance.to_lux();
+            println!("expected: {}, actual: {}", expected, actual);
+            assert!(eq(actual, expected));
+        }
     }
 
     #[test]
@@ -89,8 +119,8 @@ mod tests {
         for i in -10..10 {
             let input = i as f64;
             let luminosity = absolute_magnitude_to_luminosity(input);
-            let illuminance = luminosity_to_illuminance(&luminosity, &ten_pc);
-            let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+            let irradiance = luminosity_to_irradiance(&luminosity, &ten_pc);
+            let apparent_magnitude = irradiance_to_apparent_magnitude(&irradiance);
             let absolute_magnitude = luminosity_to_absolute_magnitude(luminosity);
             println!("input: {}", input);
             println!("apparent magnitude: {}", apparent_magnitude);
@@ -101,28 +131,17 @@ mod tests {
 
     #[test]
     fn test_the_sun() {
-        let sun = absolute_magnitude_to_luminosity(4.83);
-
-        let distance = Distance::from_au(1.);
-        let sun_illuminance = luminosity_to_illuminance(&sun, &distance);
-        let sun_app_mag = illuminance_to_apparent_magnitude(&sun_illuminance);
-        let expected = -26.74;
-        println!("expected: {},\nactual: {}", expected, sun_app_mag);
-        assert!(eq_within(expected, sun_app_mag, REAL_DATA_TEST_ACCURACY));
+        let sun_abs_mag = luminosity_to_absolute_magnitude(SOLAR_LUMINOSITY);
+        let expected = 4.83;
+        println!("expected: {},\nactual: {}", expected, sun_abs_mag);
+        assert!(eq_within(expected, sun_abs_mag, REAL_DATA_TEST_ACCURACY));
     }
 
     #[test]
     fn test_sirius() {
-        let sirius = absolute_magnitude_to_luminosity(1.43);
-
-        let distance = Distance::from_lyr(8.6);
-        let sirius_illuminance = luminosity_to_illuminance(&sirius, &distance);
-        let sirius_app_mag = illuminance_to_apparent_magnitude(&sirius_illuminance);
-        let expected = -1.46;
-        println!(
-            "Apparnet Magnitude:\nexpected: {},\nactual: {}",
-            expected, sirius_app_mag
-        );
-        assert!(eq_within(expected, sirius_app_mag, REAL_DATA_TEST_ACCURACY));
+        let sun_abs_mag = luminosity_to_absolute_magnitude(25.4 * SOLAR_LUMINOSITY);
+        let expected = 1.43;
+        println!("expected: {},\nactual: {}", expected, sun_abs_mag);
+        assert!(eq_within(expected, sun_abs_mag, REAL_DATA_TEST_ACCURACY));
     }
 }

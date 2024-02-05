@@ -152,7 +152,7 @@ impl PlanetData {
         let relative_position = observer_position - planet_pos;
         Ok(StarAppearance {
             name: self.name.clone(),
-            illuminance: brightness,
+            irradiance: brightness,
             color: self.color.clone(),
             direction_in_ecliptic: relative_position.to_direction()?,
         })

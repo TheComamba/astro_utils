@@ -2,7 +2,7 @@ use super::star_appearance::StarAppearance;
 use crate::{
     color::sRGBColor,
     coordinates::direction::Direction,
-    units::{illuminance::ILLUMINANCE_ZERO, luminosity::luminosity_to_illuminance},
+    units::{irradiance::IRRADIANCE_ZERO, luminosity::luminosity_to_irradiance},
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
@@ -107,9 +107,9 @@ impl StarData {
     }
 
     pub fn to_star_appearance(&self) -> StarAppearance {
-        let illuminance = match (self.luminosity, self.distance) {
-            (Some(luminosity), Some(distance)) => luminosity_to_illuminance(&luminosity, &distance),
-            _ => ILLUMINANCE_ZERO,
+        let irradiance = match (self.luminosity, self.distance) {
+            (Some(luminosity), Some(distance)) => luminosity_to_irradiance(&luminosity, &distance),
+            _ => IRRADIANCE_ZERO,
         };
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
@@ -117,7 +117,7 @@ impl StarData {
         };
         StarAppearance {
             name: self.name.clone(),
-            illuminance,
+            irradiance,
             color,
             direction_in_ecliptic: self.direction_in_ecliptic.clone(),
         }

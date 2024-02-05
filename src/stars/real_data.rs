@@ -6,8 +6,7 @@ use crate::{
         right_ascension::RightAscension,
     },
     units::{
-        illuminance::apparent_magnitude_to_illuminance,
-        luminosity::absolute_magnitude_to_luminosity,
+        irradiance::apparent_magnitude_to_irradiance, luminosity::absolute_magnitude_to_luminosity,
     },
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
@@ -65,14 +64,14 @@ impl RealData {
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
-        let illuminance = apparent_magnitude_to_illuminance(self.apparent_magnitude);
+        let irradiance = apparent_magnitude_to_irradiance(self.apparent_magnitude);
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
             None => sRGBColor::DEFAULT,
         };
         StarAppearance {
             name: name.to_string(),
-            illuminance,
+            irradiance,
             color,
             direction_in_ecliptic,
         }
@@ -84,7 +83,7 @@ mod tests {
     use crate::{
         real_data::stars::BRIGHTEST_STARS,
         units::{
-            illuminance::illuminance_to_apparent_magnitude, luminosity::luminosity_to_illuminance,
+            irradiance::irradiance_to_apparent_magnitude, luminosity::luminosity_to_irradiance,
         },
     };
 
@@ -94,8 +93,8 @@ mod tests {
         for star_data in BRIGHTEST_STARS {
             let star = star_data.to_star_data();
             let luminosity = star.get_luminosity().unwrap();
-            let illuminance = luminosity_to_illuminance(&luminosity, &star.distance.unwrap());
-            let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+            let irradiance = luminosity_to_irradiance(&luminosity, &star.distance.unwrap());
+            let apparent_magnitude = irradiance_to_apparent_magnitude(&irradiance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             if difference.abs() > 0.1 {
                 println!(

@@ -1,8 +1,8 @@
 use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
 use crate::error::AstroUtilError;
-use crate::units::illuminance::illuminance_to_apparent_magnitude;
-use crate::units::luminosity::{luminosity_to_illuminance, SOLAR_LUMINOSITY};
+use crate::units::irradiance::irradiance_to_apparent_magnitude;
+use crate::units::luminosity::{luminosity_to_irradiance, SOLAR_LUMINOSITY};
 use crate::units::mass::SOLAR_MASS;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
@@ -274,8 +274,8 @@ impl ParsecLine {
 
     pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
         let lum = self.get_luminosity();
-        let ill = luminosity_to_illuminance(&lum, &distance);
-        illuminance_to_apparent_magnitude(&ill)
+        let ill = luminosity_to_irradiance(&lum, &distance);
+        irradiance_to_apparent_magnitude(&ill)
     }
 
     pub(super) fn get_temperature(&self) -> Temperature<f64> {
