@@ -4,7 +4,6 @@ use simple_si_units::{
     electromagnetic::Illuminance,
     geometry::SolidAngle,
 };
-use std::f64::consts::PI;
 
 pub const LUMINOSITY_ZERO: Luminosity<f64> = Luminosity { cd: 0. };
 pub const SOLAR_LUMINOUS_INTENSITY: Luminosity<f64> = Luminosity { cd: 2.98e27 };
@@ -33,7 +32,7 @@ pub fn illuminance_to_luminous_intensity(
     illuminance: &Illuminance<f64>,
     distance: &Distance<f64>,
 ) -> Luminosity<f64> {
-    illuminance * (distance * distance) / SolidAngle::from_steradians(4. * PI)
+    illuminance * (distance * distance) / SolidAngle::from_steradians(1.)
 }
 
 pub fn display_luminous_intensity(luminous_intensity: &Luminosity<f64>) -> String {
