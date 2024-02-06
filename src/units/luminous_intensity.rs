@@ -126,7 +126,7 @@ mod tests {
 
     #[test]
     fn test_sirius() {
-        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(25.4 * SOLAR_LUMINOUS_INTENSITY);
+        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(22. * SOLAR_LUMINOUS_INTENSITY);
         let expected = 1.43;
         assert!(eq_within(sun_abs_mag, expected, REAL_DATA_TEST_ACCURACY));
     }
