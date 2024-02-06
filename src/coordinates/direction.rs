@@ -213,11 +213,11 @@ impl Display for Direction {
 mod tests {
     use super::*;
     use crate::{
-        tests::{eq, eq_within, TEST_ACCURACY},
-        units::angle::QUARTER_CIRC,
+        tests::{eq, TEST_ACCURACY},
+        units::angle::{angle_eq_within, QUARTER_CIRC},
     };
 
-    const ROTATION_ANGLE_ACCURACY_RAD: f64 = 1e-3; //Accos is a bit unstable
+    const ROTATION_ACCURACY: Angle<f64> = Angle { rad: 1e-3 }; //Accos is a bit unstable
 
     #[test]
     fn from_spherical() {
@@ -249,57 +249,33 @@ mod tests {
 
         let angle = Direction::X.angle_to(&(-&Direction::X));
         println!("angle: {}", angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle = Direction::Y.angle_to(&(-&Direction::Y));
         println!("angle: {}", angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle = Direction::Z.angle_to(&(-&Direction::Z));
         println!("angle: {}", angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle1 = Direction::new(1., 1., 0.).unwrap();
         let angle2 = Direction::new(-1., -1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle1 = Direction::new(1., 0., 1.).unwrap();
         let angle2 = Direction::new(-1., 0., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle1 = Direction::new(0., 1., 1.).unwrap();
         let angle2 = Direction::new(0., -1., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("angle: {}", angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
     }
 
     #[test]
@@ -308,47 +284,27 @@ mod tests {
 
         let angle = Direction::X.angle_to(&Direction::Y);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle = Direction::X.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle = Direction::Y.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle1 = Direction::new(1., 1., 0.).unwrap();
         let angle2 = Direction::new(1., -1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle1 = Direction::new(1., 0., 1.).unwrap();
         let angle2 = Direction::new(1., 0., -1.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
     }
 
     #[test]
@@ -357,37 +313,21 @@ mod tests {
 
         let angle = Direction::X.angle_to(&Direction::X);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle = Direction::Y.angle_to(&Direction::Y);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle = Direction::Z.angle_to(&Direction::Z);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
 
         let angle1 = Direction::new(1., 1., 0.).unwrap();
         let angle2 = Direction::new(1., 1., 0.).unwrap();
         let angle = angle1.angle_to(&angle2);
         println!("expected: {}, actual: {}", expected, angle);
-        assert!(eq_within(
-            angle.rad,
-            expected.rad,
-            ROTATION_ANGLE_ACCURACY_RAD
-        ));
+        assert!(angle_eq_within(angle, expected, ROTATION_ACCURACY));
     }
 
     #[test]
@@ -593,7 +533,7 @@ mod tests {
     #[test]
     fn angle_between_two_close_directions() {
         // The maths is correct, but this is really unstable due to accos.
-        let test_accuracy = 0.03;
+        let test_accuracy = Angle { rad: 0.03 };
         let a = Direction {
             x: -0.085366555,
             y: -0.8412673,
@@ -606,6 +546,6 @@ mod tests {
         };
         let angle = a.angle_to(&b);
         println!("angle: {}", angle);
-        assert!(eq_within(angle.rad, 0., test_accuracy));
+        assert!(angle_eq_within(angle, ANGLE_ZERO, test_accuracy));
     }
 }

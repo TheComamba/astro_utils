@@ -111,7 +111,7 @@ mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
         real_data::planets::*,
-        tests::{eq, eq_within},
+        tests::eq,
         units::{angle::*, distance::DISTANCE_ZERO, mass::SOLAR_MASS},
     };
 
@@ -153,7 +153,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_yr(4.), Time::from_yr(1.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(eq(mean_anomaly.rad, expected_mean_anomaly.rad));
+        assert!(angle_eq(mean_anomaly, expected_mean_anomaly));
     }
 
     #[test]
@@ -162,7 +162,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_yr(4.), Time::from_yr(2.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(eq(mean_anomaly.rad, expected_mean_anomaly.rad));
+        assert!(angle_eq(mean_anomaly, expected_mean_anomaly));
     }
 
     #[test]
@@ -171,7 +171,7 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_yr(4.), Time::from_yr(-1.));
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(eq(mean_anomaly.rad, expected_mean_anomaly.rad));
+        assert!(angle_eq(mean_anomaly, expected_mean_anomaly));
     }
 
     #[test]
@@ -183,10 +183,10 @@ mod tests {
         let mean_anomaly = mean_anomaly(Time::from_yr(1.), passed_time);
         println!("Expected mean anomaly: {}", expected_mean_anomaly);
         println!("Calculated mean anomaly: {}", mean_anomaly);
-        assert!(eq_within(
-            mean_anomaly.rad,
-            expected_mean_anomaly.rad,
-            local_test_angle_accuracy.rad
+        assert!(angle_eq_within(
+            mean_anomaly,
+            expected_mean_anomaly,
+            local_test_angle_accuracy
         ));
     }
 
@@ -196,7 +196,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(QUARTER_CIRC, 0.);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eq(eccentric_anomaly.rad, expected_eccentric_anomaly.rad));
+        assert!(angle_eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -205,7 +205,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(HALF_CIRC, 0.);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eq(eccentric_anomaly.rad, expected_eccentric_anomaly.rad));
+        assert!(angle_eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -214,7 +214,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(THREE_QUARTER_CIRC, 0.);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eq(eccentric_anomaly.rad, expected_eccentric_anomaly.rad));
+        assert!(angle_eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -223,7 +223,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(-QUARTER_CIRC, 0.);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eq(eccentric_anomaly.rad, expected_eccentric_anomaly.rad));
+        assert!(angle_eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -232,7 +232,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(QUARTER_CIRC, 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eq(eccentric_anomaly.rad, expected_eccentric_anomaly.rad));
+        assert!(angle_eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -241,7 +241,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(HALF_CIRC, 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eq(eccentric_anomaly.rad, expected_eccentric_anomaly.rad));
+        assert!(angle_eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -250,7 +250,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(THREE_QUARTER_CIRC, 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eq(eccentric_anomaly.rad, expected_eccentric_anomaly.rad));
+        assert!(angle_eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -259,7 +259,7 @@ mod tests {
         let eccentric_anomaly = eccentric_anomaly(-QUARTER_CIRC, 0.5);
         println!("Expected eccentric anomaly: {}", expected_eccentric_anomaly);
         println!("Calculated eccentric anomaly: {}", eccentric_anomaly);
-        assert!(eq(eccentric_anomaly.rad, expected_eccentric_anomaly.rad));
+        assert!(angle_eq(eccentric_anomaly, expected_eccentric_anomaly));
     }
 
     #[test]
@@ -268,7 +268,7 @@ mod tests {
         let true_anomaly = true_anomaly(QUARTER_CIRC, 0.);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(eq(true_anomaly.rad, expected_true_anomaly.rad));
+        assert!(angle_eq(true_anomaly, expected_true_anomaly));
     }
 
     #[test]
@@ -277,7 +277,7 @@ mod tests {
         let true_anomaly = true_anomaly(HALF_CIRC, 0.);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(eq(true_anomaly.rad, expected_true_anomaly.rad));
+        assert!(angle_eq(true_anomaly, expected_true_anomaly));
     }
 
     #[test]
@@ -286,7 +286,7 @@ mod tests {
         let true_anomaly = true_anomaly(THREE_QUARTER_CIRC, 0.);
         println!("Expected true anomaly: {}", expected_true_anomaly);
         println!("Calculated true anomaly: {}", true_anomaly);
-        assert!(eq(true_anomaly.rad, expected_true_anomaly.rad));
+        assert!(angle_eq(true_anomaly, expected_true_anomaly));
     }
 
     #[test]

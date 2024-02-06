@@ -47,12 +47,29 @@ pub fn angle_to_second_angle(angle: &Angle<f64>) -> f64 {
 */
 pub fn normalized_angle(mut angle: Angle<f64>) -> Angle<f64> {
     angle.rad = angle.rad % FULL_CIRC.rad;
-    if angle.rad > PI {
-        angle.rad -= FULL_CIRC.rad;
-    } else if angle.rad < -PI {
-        angle.rad += FULL_CIRC.rad;
+    if angle > HALF_CIRC {
+        angle -= FULL_CIRC;
+    } else if angle < -HALF_CIRC {
+        angle += FULL_CIRC;
     }
     angle
+}
+
+#[cfg(test)]
+pub(crate) fn angle_eq_within(
+    actual: Angle<f64>,
+    expected: Angle<f64>,
+    accuracy: Angle<f64>,
+) -> bool {
+    let diff = normalized_angle(actual - expected);
+    diff.rad.abs() < accuracy.rad
+}
+
+#[cfg(test)]
+pub(crate) fn angle_eq(actual: Angle<f64>, expected: Angle<f64>) -> bool {
+    use crate::tests::TEST_ACCURACY;
+
+    angle_eq_within(actual, expected, Angle { rad: TEST_ACCURACY })
 }
 
 #[cfg(test)]

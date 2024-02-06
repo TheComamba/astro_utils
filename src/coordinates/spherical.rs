@@ -55,23 +55,21 @@ impl SphericalCoordinates {
 
     #[cfg(test)]
     pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<f64>) -> bool {
-        use crate::tests::eq_within;
+        use crate::units::angle::angle_eq_within;
 
-        const NORTHPOLE_LATITUDE: Angle<f64> = QUARTER_CIRC;
-        const SOUTHPOLE_LATITUDE: Angle<f64> = Angle {
-            rad: -QUARTER_CIRC.rad,
-        };
+        let northpole_latitude = QUARTER_CIRC;
+        let southpole_latitude = -QUARTER_CIRC;
         let mut clone = self.clone();
         let mut other_clone = other.clone();
         clone.normalize();
         other_clone.normalize();
-        let latitudes_equal = eq_within(clone.latitude.rad, other_clone.latitude.rad, accuracy.rad);
-        let is_pole = eq_within(clone.latitude.rad, NORTHPOLE_LATITUDE.rad, accuracy.rad)
-            || eq_within(clone.latitude.rad, SOUTHPOLE_LATITUDE.rad, accuracy.rad);
+        let latitudes_equal = angle_eq_within(clone.latitude, other_clone.latitude, accuracy);
+        let is_pole = angle_eq_within(clone.latitude, northpole_latitude, accuracy)
+            || angle_eq_within(clone.latitude, southpole_latitude, accuracy);
         let longitudes_equal = if is_pole {
             true
         } else {
-            eq_within(clone.longitude.rad, other_clone.longitude.rad, accuracy.rad)
+            angle_eq_within(clone.longitude, other_clone.longitude, accuracy)
         };
         latitudes_equal && longitudes_equal
     }
