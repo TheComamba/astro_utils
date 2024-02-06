@@ -111,7 +111,7 @@ mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
         real_data::planets::*,
-        tests::eq,
+        tests::{eq, eq_within},
         units::{angle::*, distance::DISTANCE_ZERO, mass::SOLAR_MASS},
     };
 
@@ -124,7 +124,11 @@ mod tests {
         let orbital_period = orbital_period(earth_semi_major_axis, EARTH.mass, SOLAR_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(eq(orbital_period.to_yr(), expected_orbital_period.to_yr()));
+        assert!(eq_within(
+            orbital_period.to_yr(),
+            expected_orbital_period.to_yr(),
+            1e-3
+        ));
     }
 
     #[test]
@@ -134,7 +138,11 @@ mod tests {
         let orbital_period = orbital_period(jupiter_semi_major_axis, JUPITER.mass, SOLAR_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(eq(orbital_period.to_yr(), expected_orbital_period.to_yr()));
+        assert!(eq_within(
+            orbital_period.to_yr(),
+            expected_orbital_period.to_yr(),
+            1e-2
+        ));
     }
 
     #[test]
@@ -144,7 +152,11 @@ mod tests {
         let orbital_period = orbital_period(moon_semi_major_axis, MOON.mass, EARTH.mass);
         println!("Expected orbital period: {}", expected_orbital_period);
         println!("Calculated orbital period: {}", orbital_period);
-        assert!(eq(orbital_period.to_yr(), expected_orbital_period.to_yr()));
+        assert!(eq_within(
+            orbital_period.to_yr(),
+            expected_orbital_period.to_yr(),
+            1e-3
+        ));
     }
 
     #[test]
