@@ -3,16 +3,13 @@ use super::{
     direction::Direction,
     right_ascension::RightAscension,
 };
-use crate::units::angle::{normalized_angle, ANGLE_ZERO, QUARTER_CIRC};
+use crate::units::angle::{normalized_angle, ANGLE_ZERO, HALF_CIRC, QUARTER_CIRC};
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::{
-    f64::consts::PI,
     fmt::{Display, Formatter},
     ops::Neg,
 };
-
-const PI_HALF: f64 = PI / 2.;
 
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SphericalCoordinates {
@@ -45,14 +42,14 @@ impl SphericalCoordinates {
     pub fn normalize(&mut self) {
         self.longitude = normalized_angle(self.longitude);
         self.latitude = normalized_angle(self.latitude);
-        if self.latitude.to_radians() > PI_HALF {
-            self.longitude = self.longitude + Angle::from_radians(PI);
+        if self.latitude > QUARTER_CIRC {
+            self.longitude = self.longitude + HALF_CIRC;
             self.longitude = normalized_angle(self.longitude);
-            self.latitude = Angle::from_radians(PI) - self.latitude;
-        } else if self.latitude.to_radians() < -PI_HALF {
-            self.longitude = self.longitude + Angle::from_radians(PI);
+            self.latitude = HALF_CIRC - self.latitude;
+        } else if self.latitude < -QUARTER_CIRC {
+            self.longitude = self.longitude + HALF_CIRC;
             self.longitude = normalized_angle(self.longitude);
-            self.latitude = Angle::from_radians(-PI) - self.latitude;
+            self.latitude = -HALF_CIRC - self.latitude;
         }
     }
 
@@ -60,8 +57,10 @@ impl SphericalCoordinates {
     pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<f64>) -> bool {
         use crate::tests::eq_within;
 
-        const NORTHPOLE_LATITUDE: Angle<f64> = Angle { rad: PI_HALF };
-        const SOUTHPOLE_LATITUDE: Angle<f64> = Angle { rad: -PI_HALF };
+        const NORTHPOLE_LATITUDE: Angle<f64> = QUARTER_CIRC;
+        const SOUTHPOLE_LATITUDE: Angle<f64> = Angle {
+            rad: -QUARTER_CIRC.rad,
+        };
         let mut clone = self.clone();
         let mut other_clone = other.clone();
         clone.normalize();
@@ -141,7 +140,7 @@ impl Neg for &SphericalCoordinates {
     type Output = SphericalCoordinates;
 
     fn neg(self) -> SphericalCoordinates {
-        let mut longitude = self.longitude + Angle::from_radians(PI);
+        let mut longitude = self.longitude + HALF_CIRC;
         longitude = normalized_angle(longitude);
         let latitude = -self.latitude;
         SphericalCoordinates {
@@ -167,6 +166,8 @@ impl Display for SphericalCoordinates {
 
 #[cfg(test)]
 mod tests {
+    use std::f64::consts::PI;
+
     use super::*;
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
@@ -292,16 +293,16 @@ mod tests {
             latitude: Angle::from_radians(PI / 4.),
         };
         let expected_minus_x = SphericalCoordinates {
-            longitude: Angle::from_radians(PI),
+            longitude: HALF_CIRC,
             latitude: ANGLE_ZERO,
         };
         let expected_minus_y = SphericalCoordinates {
-            longitude: Angle::from_radians(-PI_HALF),
+            longitude: -QUARTER_CIRC,
             latitude: ANGLE_ZERO,
         };
         let expected_minus_z = SphericalCoordinates {
             longitude: ANGLE_ZERO,
-            latitude: Angle::from_radians(-PI_HALF),
+            latitude: -QUARTER_CIRC,
         };
         let expected_minus_xyz = SphericalCoordinates {
             longitude: Angle::from_radians(-PI * 3. / 4.),
@@ -442,7 +443,7 @@ mod tests {
             latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
-            longitude: Angle::from_radians(PI),
+            longitude: HALF_CIRC,
             latitude: Angle::from_radians(PI / 4.),
         };
         coord.normalize();
@@ -454,7 +455,7 @@ mod tests {
             latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
-            longitude: Angle::from_radians(PI),
+            longitude: HALF_CIRC,
             latitude: Angle::from_radians(-PI / 4.),
         };
         coord.normalize();
@@ -462,7 +463,7 @@ mod tests {
         assert!(coord.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let mut coord = SphericalCoordinates {
-            longitude: Angle::from_radians(PI),
+            longitude: HALF_CIRC,
             latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
@@ -474,7 +475,7 @@ mod tests {
         assert!(coord.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let mut coord = SphericalCoordinates {
-            longitude: Angle::from_radians(PI),
+            longitude: HALF_CIRC,
             latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
@@ -486,7 +487,7 @@ mod tests {
         assert!(coord.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let mut coord = SphericalCoordinates {
-            longitude: Angle::from_radians(PI / 2.),
+            longitude: QUARTER_CIRC,
             latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
@@ -498,7 +499,7 @@ mod tests {
         assert!(coord.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let mut coord = SphericalCoordinates {
-            longitude: Angle::from_radians(PI / 2.),
+            longitude: QUARTER_CIRC,
             latitude: Angle::from_radians(-3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
@@ -514,7 +515,7 @@ mod tests {
             latitude: Angle::from_radians(3. / 4. * PI),
         };
         let expected = SphericalCoordinates {
-            longitude: Angle::from_radians(PI / 2.),
+            longitude: QUARTER_CIRC,
             latitude: Angle::from_radians(PI / 4.),
         };
         coord.normalize();
@@ -529,7 +530,7 @@ mod tests {
         for i in 0..STEP {
             for j in 0..STEP {
                 let ra_angle = Angle::from_radians(2. * PI * i as f64 / STEP as f64);
-                let dec_angle = Angle::from_radians(PI * j as f64 / STEP as f64 - PI_HALF);
+                let dec_angle = Angle::from_radians(PI * j as f64 / STEP as f64 - PI / 2.);
                 let spherical = SphericalCoordinates {
                     longitude: ra_angle,
                     latitude: dec_angle,

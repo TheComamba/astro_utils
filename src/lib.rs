@@ -1,5 +1,3 @@
-use std::f64::consts::PI;
-
 pub mod color;
 pub mod coordinates;
 pub mod error;

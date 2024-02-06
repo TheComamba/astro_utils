@@ -4,7 +4,6 @@ use std::f64::consts::PI;
 pub const ANGLE_ZERO: Angle<f64> = Angle { rad: 0. };
 pub(crate) const FULL_CIRC: Angle<f64> = Angle { rad: 2. * PI };
 pub(crate) const QUARTER_CIRC: Angle<f64> = Angle { rad: 2. * PI / 4. };
-#[cfg(test)]
 pub(crate) const HALF_CIRC: Angle<f64> = Angle { rad: 2. * PI / 2. };
 #[cfg(test)]
 pub(crate) const THREE_QUARTER_CIRC: Angle<f64> = Angle {

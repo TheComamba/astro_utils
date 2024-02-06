@@ -2,7 +2,11 @@ use super::{
     cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
     rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
-use crate::{error::AstroUtilError, real_data::planets::EARTH, units::angle::ANGLE_ZERO, PI};
+use crate::{
+    error::AstroUtilError,
+    real_data::planets::EARTH,
+    units::angle::{ANGLE_ZERO, HALF_CIRC},
+};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::{fmt::Display, ops::Neg};
@@ -109,7 +113,7 @@ impl Direction {
             //Saving acos from being called with an argument > 1 due to numerical instability
             return ANGLE_ZERO;
         } else if cosine_argument < -1. {
-            return Angle::from_radians(PI);
+            return HALF_CIRC;
         }
         Angle::from_radians(cosine_argument.acos())
     }
@@ -208,7 +212,10 @@ impl Display for Direction {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::tests::{eq, eq_within, TEST_ACCURACY};
+    use crate::{
+        tests::{eq, eq_within, TEST_ACCURACY},
+        units::angle::QUARTER_CIRC,
+    };
 
     const ROTATION_ANGLE_ACCURACY_RAD: f64 = 1e-3; //Accos is a bit unstable
 
@@ -238,7 +245,7 @@ mod tests {
 
     #[test]
     fn angle_between_is_half_turn() {
-        let expected: Angle<f64> = Angle::from_radians(PI);
+        let expected: Angle<f64> = HALF_CIRC;
 
         let angle = Direction::X.angle_to(&(-&Direction::X));
         println!("angle: {}", angle);
@@ -297,7 +304,7 @@ mod tests {
 
     #[test]
     fn angle_between_is_quarter_turn() {
-        let expected = Angle::from_radians(PI / 2.);
+        let expected = QUARTER_CIRC;
 
         let angle = Direction::X.angle_to(&Direction::Y);
         println!("expected: {}, actual: {}", expected, angle);
