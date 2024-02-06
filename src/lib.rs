@@ -12,10 +12,9 @@ pub(crate) mod tests {
 
     pub(crate) fn eq_within(actual: f64, expected: f64, accuracy: f64) -> bool {
         if (actual - expected).abs() >= accuracy {
-            println!(
-                "actual: {}\nexpected: {}\naccuracy: {}",
-                actual, expected, accuracy
-            );
+            println!("actual  : {}", actual);
+            println!("expected: {}", expected);
+            println!("accuracy: {}", accuracy);
             false
         } else {
             true
