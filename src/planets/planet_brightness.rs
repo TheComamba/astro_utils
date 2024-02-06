@@ -67,7 +67,7 @@ mod tests {
             angle::ANGLE_ZERO,
             distance::{DISTANCE_ZERO, SOLAR_RADIUS},
             illuminance::apparent_magnitude_to_illuminance,
-            luminous_intensity::SOLAR_LUMINOSITY,
+            luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
         },
     };
 
@@ -137,7 +137,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOSITY,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -167,7 +167,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOSITY,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -197,7 +197,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOSITY,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -227,7 +227,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOSITY,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -257,7 +257,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOSITY,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -287,7 +287,7 @@ mod tests {
             DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOSITY,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,

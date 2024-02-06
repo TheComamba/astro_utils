@@ -12,11 +12,20 @@ pub mod units;
 pub(crate) mod tests {
     pub(crate) const TEST_ACCURACY: f64 = 1e-5;
 
-    pub(crate) fn eq_within(a: f64, b: f64, accuracy: f64) -> bool {
-        (a - b).abs() <= accuracy
+    pub(crate) fn eq_within(actual: f64, expected: f64, accuracy: f64) -> bool {
+        if (actual - expected).abs() >= accuracy {
+            println!("Test assertion a == b failed:");
+            println!(
+                "actual: {}\nexpected: {}\naccuracy: {}",
+                actual, expected, accuracy
+            );
+            false
+        } else {
+            true
+        }
     }
 
-    pub(crate) fn eq(a: f64, b: f64) -> bool {
-        eq_within(a, b, TEST_ACCURACY)
+    pub(crate) fn eq(actual: f64, expected: f64) -> bool {
+        eq_within(actual, expected, TEST_ACCURACY)
     }
 }

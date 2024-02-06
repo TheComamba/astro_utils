@@ -8,7 +8,7 @@ use std::f64::consts::PI;
 
 pub const LUMINOSITY_ZERO: Luminosity<f64> = Luminosity { cd: 0. };
 pub const SOLAR_LUMINOUS_INTENSITY: Luminosity<f64> = Luminosity { cd: 2.98e27 };
-pub const SOLAR_LUMINOSITY: Luminosity<f64> = Luminosity { cd: 3.828e26 }; //Watts, not cd
+//pub const SOLAR_LUMINOSITY: Luminosity<f64> = Luminosity { cd: 3.828e26 }; //Watts, not cd
 
 pub fn absolute_magnitude_to_luminous_intensity(absolute_magnitude: f64) -> Luminosity<f64> {
     let ten_pc = Distance::from_parsec(10.);
@@ -26,7 +26,7 @@ pub fn luminous_intensity_to_illuminance(
     luminous_intensity: &Luminosity<f64>,
     distance: &Distance<f64>,
 ) -> Illuminance<f64> {
-    luminous_intensity * SolidAngle::from_steradians(4. * PI) / (distance * distance)
+    luminous_intensity * SolidAngle::from_steradians(1.) / (distance * distance)
 }
 
 pub fn illuminance_to_luminous_intensity(
@@ -46,7 +46,7 @@ mod tests {
     use crate::tests::{eq, eq_within};
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
-    const ILLUMINANCE_AT_UNIT_DISTANCE: f64 = 4. * PI;
+    const ILLUMINANCE_AT_UNIT_DISTANCE: f64 = 1.;
 
     #[test]
     fn illuminance_roundtrip() {
@@ -56,7 +56,6 @@ mod tests {
             let distance = Distance::from_m(1.);
             let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
             let output = illuminance_to_luminous_intensity(&illuminance, &distance);
-            println!("input: {}, output: {}", input, output.cd);
             assert!(eq(input, output.cd));
         }
     }
@@ -67,7 +66,6 @@ mod tests {
             let input = i as f64;
             let luminous_intensity = absolute_magnitude_to_luminous_intensity(input);
             let output = luminous_intensity_to_absolute_magnitude(luminous_intensity);
-            println!("input: {}, output: {}", input, output);
             assert!(eq(input, output));
         }
     }
@@ -79,7 +77,6 @@ mod tests {
         let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
         let actual = illuminance.to_lux();
         let expected = ILLUMINANCE_AT_UNIT_DISTANCE;
-        println!("expected: {}, actual: {}", expected, actual);
         assert!(eq(actual, expected));
     }
 
@@ -92,7 +89,6 @@ mod tests {
             let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
             let expected = cd * ILLUMINANCE_AT_UNIT_DISTANCE;
             let actual = illuminance.to_lux();
-            println!("expected: {}, actual: {}", expected, actual);
             assert!(eq(actual, expected));
         }
     }
@@ -105,7 +101,6 @@ mod tests {
             let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
             let expected = ILLUMINANCE_AT_UNIT_DISTANCE / (d * d) as f64;
             let actual = illuminance.to_lux();
-            println!("expected: {}, actual: {}", expected, actual);
             assert!(eq(actual, expected));
         }
     }
@@ -119,26 +114,21 @@ mod tests {
             let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &ten_pc);
             let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
             let absolute_magnitude = luminous_intensity_to_absolute_magnitude(luminous_intensity);
-            println!("input: {}", input);
-            println!("apparent magnitude: {}", apparent_magnitude);
-            println!("absolute magnitude: {}", absolute_magnitude);
             assert!(eq(apparent_magnitude, absolute_magnitude));
         }
     }
 
     #[test]
     fn test_the_sun() {
-        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(SOLAR_LUMINOSITY);
+        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(SOLAR_LUMINOUS_INTENSITY);
         let expected = 4.83;
-        println!("expected: {},\nactual: {}", expected, sun_abs_mag);
-        assert!(eq_within(expected, sun_abs_mag, REAL_DATA_TEST_ACCURACY));
+        assert!(eq_within(sun_abs_mag, expected, REAL_DATA_TEST_ACCURACY));
     }
 
     #[test]
     fn test_sirius() {
-        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(25.4 * SOLAR_LUMINOSITY);
+        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(25.4 * SOLAR_LUMINOUS_INTENSITY);
         let expected = 1.43;
-        println!("expected: {},\nactual: {}", expected, sun_abs_mag);
-        assert!(eq_within(expected, sun_abs_mag, REAL_DATA_TEST_ACCURACY));
+        assert!(eq_within(sun_abs_mag, expected, REAL_DATA_TEST_ACCURACY));
     }
 }

@@ -2,7 +2,9 @@ use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
 use crate::error::AstroUtilError;
 use crate::units::illuminance::illuminance_to_apparent_magnitude;
-use crate::units::luminous_intensity::{luminous_intensity_to_illuminance, SOLAR_LUMINOSITY};
+use crate::units::luminous_intensity::{
+    luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY,
+};
 use crate::units::mass::SOLAR_MASS;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
@@ -269,7 +271,7 @@ impl ParsecLine {
 
     pub(super) fn get_luminous_intensity(&self) -> Luminosity<f64> {
         let lum = 10f64.powf(self.log_l);
-        lum * SOLAR_LUMINOSITY
+        lum * SOLAR_LUMINOUS_INTENSITY
     }
 
     pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
@@ -346,7 +348,7 @@ mod tests {
         assert!(eq_within(
             calculated_sun.get_luminous_intensity().unwrap().cd,
             real_sun.get_luminous_intensity().unwrap().cd,
-            1e-5 * SOLAR_LUMINOSITY.cd
+            1e-5 * SOLAR_LUMINOUS_INTENSITY.cd
         ));
         assert!(eq_within(
             calculated_sun.get_temperature().unwrap().K,

@@ -34,7 +34,7 @@ pub fn illuminance_to_luminous_intensity(
 mod tests {
     use super::*;
     use crate::{
-        tests::eq,
+        tests::{eq, eq_within},
         units::luminous_intensity::{luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY},
     };
 
@@ -46,8 +46,19 @@ mod tests {
             let input = apparent_magnitude as f64;
             let illuminance = apparent_magnitude_to_illuminance(input);
             let output = illuminance_to_apparent_magnitude(&illuminance);
-            println!("input: {}, output: {}", input, output);
             assert!(eq(input, output));
+        }
+    }
+
+    #[test]
+    fn apparent_magnitude_difference_of_1_corresponds_to_factor_of_2_512() {
+        let expected = 100_f64.powf(1. / 5.);
+        for i in -10..10 {
+            let illuminance = apparent_magnitude_to_illuminance(i as f64);
+            let illuminance_plus_1 = apparent_magnitude_to_illuminance((i + 1) as f64);
+            let ratio = illuminance / illuminance_plus_1;
+            println!("i: {}, ratio: {}", i, ratio);
+            assert!(eq(ratio, expected));
         }
     }
 
@@ -58,29 +69,24 @@ mod tests {
         let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
         let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
         let expected_app_mag = -26.74;
-        println!(
-            "Apparent Magnitude:\nexpected: {}, actual: {}",
-            expected_app_mag, apparent_magnitude
-        );
         assert!(eq(apparent_magnitude, expected_app_mag));
 
         let lux = illuminance.to_lux();
         let expected_lux = 107_527.;
-        println!("lux:\nexpected: {}, actual: {}", expected_lux, lux);
-        assert!((lux - expected_lux).abs() < REAL_DATA_TEST_ACCURACY * expected_lux);
+        assert!(eq_within(
+            lux,
+            expected_lux,
+            REAL_DATA_TEST_ACCURACY * expected_lux
+        ));
     }
 
     #[test]
     fn test_sirius() {
         let luminous_intensity = 25.4 * SOLAR_LUMINOUS_INTENSITY;
-        let distance = Distance::from_au(8.6);
+        let distance = Distance::from_lyr(8.6);
         let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
         let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
         let expected_app_mag = -1.46;
-        println!(
-            "Apparent Magnitude:\nexpected: {}, actual: {}",
-            expected_app_mag, apparent_magnitude
-        );
         assert!(eq(apparent_magnitude, expected_app_mag));
     }
 }
