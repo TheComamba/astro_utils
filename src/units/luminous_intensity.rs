@@ -9,6 +9,10 @@ pub const LUMINOSITY_ZERO: Luminosity<f64> = Luminosity { cd: 0. };
 pub const SOLAR_LUMINOUS_INTENSITY: Luminosity<f64> = Luminosity { cd: 2.98e27 };
 //pub const SOLAR_LUMINOSITY: Luminosity<f64> = Luminosity { cd: 3.828e26 }; //Watts, not cd
 
+pub fn luminous_intensity_to_solar_luminosities(luminous_intensity: Luminosity<f64>) -> f64 {
+    luminous_intensity / SOLAR_LUMINOUS_INTENSITY
+}
+
 pub fn absolute_magnitude_to_luminous_intensity(absolute_magnitude: f64) -> Luminosity<f64> {
     let ten_pc = Distance::from_parsec(10.);
     let illuminance = apparent_magnitude_to_illuminance(absolute_magnitude);

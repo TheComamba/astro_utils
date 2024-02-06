@@ -19,11 +19,11 @@ pub enum DistanceUnit {
     LightYears,
 }
 
-pub(crate) fn distance_to_earth_radii(distance: Distance<f64>) -> f64 {
+pub fn distance_to_earth_radii(distance: Distance<f64>) -> f64 {
     distance / EARTH_RADIUS
 }
 
-pub(crate) fn distance_to_sun_radii(distance: Distance<f64>) -> f64 {
+pub fn distance_to_sun_radii(distance: Distance<f64>) -> f64 {
     distance / SOLAR_RADIUS
 }
 
