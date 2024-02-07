@@ -2,6 +2,18 @@ pub trait AstroDisplay {
     fn astro_display(&self) -> String;
 }
 
+impl AstroDisplay for f64 {
+    fn astro_display(&self) -> String {
+        format!("{:.2}", self)
+    }
+}
+
+impl AstroDisplay for String {
+    fn astro_display(&self) -> String {
+        self.clone()
+    }
+}
+
 impl<T> AstroDisplay for Option<T>
 where
     T: AstroDisplay,
