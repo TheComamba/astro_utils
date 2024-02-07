@@ -1,7 +1,8 @@
+use crate::astro_display::AstroDisplay;
+
 use self::color_matching_functions::*;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Temperature};
-use std::fmt::Display;
 
 pub mod black_body;
 pub(crate) mod color_matching_functions;
@@ -34,10 +35,10 @@ pub struct sRGBColor {
     B: f64,
 }
 
-impl Display for sRGBColor {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl AstroDisplay for sRGBColor {
+    fn astro_display(&self) -> String {
         let (r, g, b) = self.maximized_sRGB_tuple();
-        write!(f, "({:.2}, {:.2}, {:.2})", r, g, b)
+        format!("({:.2}, {:.2}, {:.2})", r, g, b)
     }
 }
 

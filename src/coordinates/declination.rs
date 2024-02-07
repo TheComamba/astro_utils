@@ -1,5 +1,8 @@
-use simple_si_units::geometry::Angle;
 use std::fmt::Display;
+
+use simple_si_units::geometry::Angle;
+
+use crate::astro_display::AstroDisplay;
 
 pub struct Declination {
     pub(super) sign: Sgn,
@@ -37,13 +40,18 @@ impl Declination {
     }
 }
 
-impl Display for Declination {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
+impl AstroDisplay for Declination {
+    fn astro_display(&self) -> String {
+        format!(
             "{:02}°{:02}'{:02}\"",
             self.degrees, self.minutes, self.seconds
         )
+    }
+}
+
+impl Display for Declination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.astro_display())
     }
 }
 

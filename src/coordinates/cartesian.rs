@@ -2,11 +2,11 @@ use super::{
     direction::Direction, ecliptic::EclipticCoordinates, rotations::rotated_tuple,
     spherical::SphericalCoordinates,
 };
-use crate::{error::AstroUtilError, units::distance::DISTANCE_ZERO};
+use crate::{astro_display::AstroDisplay, error::AstroUtilError, units::distance::DISTANCE_ZERO};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::{
-    fmt::{Display, Formatter},
+    fmt::Display,
     ops::{Add, Div, Mul, Neg, Sub},
 };
 
@@ -208,9 +208,20 @@ impl Neg for &CartesianCoordinates {
     }
 }
 
+impl AstroDisplay for CartesianCoordinates {
+    fn astro_display(&self) -> String {
+        format!(
+            "({}, {}, {})",
+            self.x.astro_display(),
+            self.y.astro_display(),
+            self.z.astro_display()
+        )
+    }
+}
+
 impl Display for CartesianCoordinates {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "({}, {}, {})", self.x, self.y, self.z)
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.astro_display())
     }
 }
 

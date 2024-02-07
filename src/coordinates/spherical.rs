@@ -3,13 +3,13 @@ use super::{
     direction::Direction,
     right_ascension::RightAscension,
 };
-use crate::units::angle::{normalized_angle, ANGLE_ZERO, HALF_CIRC, QUARTER_CIRC};
+use crate::{
+    astro_display::AstroDisplay,
+    units::angle::{normalized_angle, ANGLE_ZERO, HALF_CIRC, QUARTER_CIRC},
+};
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
-use std::{
-    fmt::{Display, Formatter},
-    ops::Neg,
-};
+use std::{fmt::Display, ops::Neg};
 
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SphericalCoordinates {
@@ -156,9 +156,15 @@ impl Neg for SphericalCoordinates {
     }
 }
 
+impl AstroDisplay for SphericalCoordinates {
+    fn astro_display(&self) -> String {
+        format!("({} long, {} lat)", self.longitude, self.latitude)
+    }
+}
+
 impl Display for SphericalCoordinates {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "({} long, {} lat)", self.longitude, self.latitude)
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.astro_display())
     }
 }
 
@@ -168,6 +174,7 @@ mod tests {
 
     use super::*;
     use crate::{
+        astro_display::AstroDisplay,
         coordinates::cartesian::CartesianCoordinates,
         tests::TEST_ACCURACY,
         units::{angle::FULL_CIRC, tests::ANGLE_TEST_ACCURACY},
@@ -186,7 +193,12 @@ mod tests {
             latitude: Angle::from_degrees(90. - 54.7356),
         };
         let actual = cartesian.to_spherical();
-        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        println!(
+            "{}, expected: {}, actual: {}",
+            cartesian.astro_display(),
+            expected,
+            actual
+        );
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -199,7 +211,12 @@ mod tests {
             latitude: Angle::from_degrees(-90. + 54.7356),
         };
         let actual = cartesian.to_spherical();
-        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        println!(
+            "{}, expected: {}, actual: {}",
+            cartesian.astro_display(),
+            expected,
+            actual
+        );
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -212,7 +229,12 @@ mod tests {
             latitude: Angle::from_degrees(90. - 54.7356),
         };
         let actual = cartesian.to_spherical();
-        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        println!(
+            "{}, expected: {}, actual: {}",
+            cartesian.astro_display(),
+            expected,
+            actual
+        );
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -225,7 +247,12 @@ mod tests {
             latitude: Angle::from_degrees(-90. + 54.7356),
         };
         let actual = cartesian.to_spherical();
-        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        println!(
+            "{}, expected: {}, actual: {}",
+            cartesian.astro_display(),
+            expected,
+            actual
+        );
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -238,7 +265,12 @@ mod tests {
             latitude: Angle::from_degrees(90. - 54.7356),
         };
         let actual = cartesian.to_spherical();
-        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        println!(
+            "{}, expected: {}, actual: {}",
+            cartesian.astro_display(),
+            expected,
+            actual
+        );
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -251,7 +283,12 @@ mod tests {
             latitude: Angle::from_degrees(-90. + 54.7356),
         };
         let actual = cartesian.to_spherical();
-        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        println!(
+            "{}, expected: {}, actual: {}",
+            cartesian.astro_display(),
+            expected,
+            actual
+        );
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -264,7 +301,12 @@ mod tests {
             latitude: Angle::from_degrees(90. - 54.7356),
         };
         let actual = cartesian.to_spherical();
-        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        println!(
+            "{}, expected: {}, actual: {}",
+            cartesian.astro_display(),
+            expected,
+            actual
+        );
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));
 
         let cartesian = CartesianCoordinates::new(
@@ -277,7 +319,12 @@ mod tests {
             latitude: Angle::from_degrees(-90. + 54.7356),
         };
         let actual = cartesian.to_spherical();
-        println!("{}, expected: {}, actual: {}", cartesian, expected, actual);
+        println!(
+            "{}, expected: {}, actual: {}",
+            cartesian.astro_display(),
+            expected,
+            actual
+        );
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));
     }
 

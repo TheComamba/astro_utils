@@ -1,7 +1,8 @@
-use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
-use crate::real_data::planets::EARTH;
-use simple_si_units::{base::Distance, geometry::Angle};
 use std::fmt::Display;
+
+use super::{direction::Direction, ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
+use crate::{astro_display::AstroDisplay, real_data::planets::EARTH};
+use simple_si_units::{base::Distance, geometry::Angle};
 
 pub struct EarthEquatorialCoordinates {
     right_ascension: Angle<f64>,
@@ -52,13 +53,15 @@ impl EarthEquatorialCoordinates {
     }
 }
 
+impl AstroDisplay for EarthEquatorialCoordinates {
+    fn astro_display(&self) -> String {
+        format!("(ra: {}, dec: {})", self.right_ascension, self.declination)
+    }
+}
+
 impl Display for EarthEquatorialCoordinates {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "(ra: {}, dec: {})",
-            self.right_ascension, self.declination
-        )
+        write!(f, "{}", self.astro_display())
     }
 }
 

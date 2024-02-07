@@ -1,6 +1,9 @@
+use std::fmt::Display;
+
+use crate::astro_display::AstroDisplay;
+
 use super::{direction::Direction, spherical::SphericalCoordinates};
 use simple_si_units::geometry::Angle;
-use std::fmt::Display;
 
 pub struct EquatorialCoordinates {
     spherical: SphericalCoordinates,
@@ -46,13 +49,18 @@ impl EquatorialCoordinates {
     }
 }
 
-impl Display for EquatorialCoordinates {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
+impl AstroDisplay for EquatorialCoordinates {
+    fn astro_display(&self) -> String {
+        format!(
             "{} relative to equatorial plane with north pole at {}",
             self.spherical, self.rotation_axis
         )
+    }
+}
+
+impl Display for EquatorialCoordinates {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.astro_display())
     }
 }
 

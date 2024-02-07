@@ -1,8 +1,9 @@
+use crate::astro_display::AstroDisplay;
+
 use super::spherical::SphericalCoordinates;
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
-use std::fmt::{Display, Formatter};
-use std::ops::Neg;
+use std::{fmt::Display, ops::Neg};
 
 /*  The "absolute" reference we use for polar coordiantes is heliocentric ecliptic coordinates:
  * Longitude denotes the angle between the vernal equinox and the body, measured in the ecliptic plane.
@@ -79,8 +80,14 @@ impl Neg for EclipticCoordinates {
     }
 }
 
+impl AstroDisplay for EclipticCoordinates {
+    fn astro_display(&self) -> String {
+        format!("{} to ecliptic plane", self.spherical)
+    }
+}
+
 impl Display for EclipticCoordinates {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} to ecliptic plane", self.spherical)
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.astro_display())
     }
 }

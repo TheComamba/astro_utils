@@ -3,6 +3,7 @@ use super::{
     rotations::rotated_tuple, spherical::SphericalCoordinates,
 };
 use crate::{
+    astro_display::AstroDisplay,
     error::AstroUtilError,
     real_data::planets::EARTH,
     units::angle::{ANGLE_ZERO, HALF_CIRC},
@@ -203,9 +204,15 @@ impl Neg for &Direction {
     }
 }
 
+impl AstroDisplay for Direction {
+    fn astro_display(&self) -> String {
+        format!("({:.2}, {:.2}, {:.2})", self.x, self.y, self.z)
+    }
+}
+
 impl Display for Direction {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "({:.2}, {:.2}, {:.2})", self.x, self.y, self.z)
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.astro_display())
     }
 }
 
