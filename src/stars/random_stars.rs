@@ -3,6 +3,7 @@ use super::{
     star_data::StarData,
 };
 use crate::{
+    astro_display::AstroDisplay,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
 };
@@ -46,7 +47,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     println!(
         "\nGenerated {} stars within {} in {:?}\n",
         stars.len(),
-        max_distance,
+        max_distance.astro_display(),
         duration
     );
 
