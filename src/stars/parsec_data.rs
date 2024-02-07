@@ -311,6 +311,7 @@ mod tests {
     #[test]
     fn test_caluclate_sun() {
         let parsec_data = ParsecData::new().unwrap();
+        assert!(parsec_data.data.len() > 0);
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
         let current_params =

@@ -2,7 +2,7 @@ name: Run Tests
 on: [push, pull_request]
 
 env:
-  RUST_BACKTRACE: full
+  RUST_BACKTRACE: 1
 
 jobs:
   buildAndTest:
