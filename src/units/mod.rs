@@ -5,6 +5,7 @@ pub mod distance;
 pub mod illuminance;
 pub mod luminous_intensity;
 pub mod mass;
+pub mod temperature;
 pub mod time;
 
 pub(super) const DISPLAY_THRESHOLD: f64 = 0.099;
