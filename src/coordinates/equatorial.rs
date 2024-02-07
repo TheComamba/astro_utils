@@ -1,7 +1,9 @@
 use std::fmt::Display;
 
+use crate::astro_display::AstroDisplay;
+
 use super::{direction::Direction, spherical::SphericalCoordinates};
-use crate::units::angle::Angle;
+use simple_si_units::geometry::Angle;
 
 pub struct EquatorialCoordinates {
     spherical: SphericalCoordinates,
@@ -16,19 +18,19 @@ impl EquatorialCoordinates {
         }
     }
 
-    pub fn get_longitude(&self) -> Angle {
+    pub fn get_longitude(&self) -> Angle<f64> {
         self.spherical.get_longitude()
     }
 
-    pub fn get_latitude(&self) -> Angle {
+    pub fn get_latitude(&self) -> Angle<f64> {
         self.spherical.get_latitude()
     }
 
-    pub fn set_longitude(&mut self, longitude: Angle) {
+    pub fn set_longitude(&mut self, longitude: Angle<f64>) {
         self.spherical.set_longitude(longitude);
     }
 
-    pub fn set_latitude(&mut self, latitude: Angle) {
+    pub fn set_latitude(&mut self, latitude: Angle<f64>) {
         self.spherical.set_latitude(latitude);
     }
 
@@ -47,18 +49,24 @@ impl EquatorialCoordinates {
     }
 }
 
-impl Display for EquatorialCoordinates {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
+impl AstroDisplay for EquatorialCoordinates {
+    fn astro_display(&self) -> String {
+        format!(
             "{} relative to equatorial plane with north pole at {}",
             self.spherical, self.rotation_axis
         )
     }
 }
 
+impl Display for EquatorialCoordinates {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.astro_display())
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use super::*;
     use crate::{
         coordinates::{
             direction::Direction,
@@ -69,13 +77,11 @@ mod tests {
             spherical::SphericalCoordinates,
         },
         tests::TEST_ACCURACY,
-        units::angle::Angle,
-        Float,
     };
 
     #[test]
     fn north_pole_points_along_axis() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -98,7 +104,7 @@ mod tests {
 
     #[test]
     fn south_pole_points_along_negative_axis() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -123,7 +129,7 @@ mod tests {
 
     #[test]
     fn x_axis_lies_in_horizontal_plane() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -144,7 +150,7 @@ mod tests {
 
     #[test]
     fn minus_x_axis_lies_in_horizontal_plane() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         for x in ordinates.clone() {
             for y in ordinates.clone() {
                 for z in ordinates.clone() {
@@ -165,7 +171,7 @@ mod tests {
 
     #[test]
     fn behaves_like_earth_equatorial() {
-        let ordinates: Vec<Float> = vec![-1., 0., 1., 10.];
+        let ordinates: Vec<f64> = vec![-1., 0., 1., 10.];
         let earth_north = EARTH_NORTH_POLE_IN_ECLIPTIC_COORDINATES
             .get_spherical()
             .to_direction();

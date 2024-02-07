@@ -1,19 +1,18 @@
 use crate::{
     coordinates::{direction::Direction, equatorial::EquatorialCoordinates},
-    units::{angle::Angle, time::Time},
-    TWO_PI,
+    units::angle::FULL_CIRC,
 };
+use simple_si_units::{base::Time, geometry::Angle};
 
 pub fn surface_normal_at_time(
     mut observer: EquatorialCoordinates,
-    angle_at_epoch: Angle,
-    time_since_epoch: Time,
-    siderial_day: Time,
+    angle_at_epoch: Angle<f64>,
+    time_since_epoch: Time<f64>,
+    siderial_day: Time<f64>,
 ) -> Direction {
-    if siderial_day.as_seconds().abs() > 1. {
-        let time_of_siderial_day = time_since_epoch % siderial_day;
-        let rotation =
-            angle_at_epoch + Angle::from_radians(time_of_siderial_day / siderial_day * TWO_PI);
+    if siderial_day.to_seconds().abs() > 1. {
+        let time_of_siderial_day = Time::from_s(time_since_epoch.s % siderial_day.s);
+        let rotation = angle_at_epoch + (time_of_siderial_day / siderial_day) * FULL_CIRC;
         observer.set_longitude(observer.get_longitude() + rotation);
     }
     observer.to_direction()
@@ -47,7 +46,9 @@ pub fn direction_relative_to_surface_normal(
 mod tests {
     use super::*;
     use crate::{
-        coordinates::spherical::SphericalCoordinates, tests::TEST_ACCURACY, units::angle::Angle,
+        coordinates::spherical::SphericalCoordinates,
+        tests::TEST_ACCURACY,
+        units::{angle::ANGLE_ZERO, time::TIME_ZERO},
     };
 
     #[test]
@@ -55,10 +56,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.);
 
         let expected = Direction::X;
         let actual =
@@ -72,10 +73,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.);
 
         let expected = Direction::Y;
         let actual =
@@ -89,10 +90,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::Z_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.);
 
         let expected = Direction::Z;
         let actual =
@@ -106,10 +107,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.25);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.25);
 
         let expected = Direction::Y;
         let actual =
@@ -123,10 +124,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.25);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.25);
 
         let expected = -&Direction::X;
         let actual =
@@ -140,10 +141,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::Z_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.25);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.25);
 
         let expected = Direction::Z;
         let actual =
@@ -157,10 +158,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.5);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.5);
 
         let expected = -&Direction::X;
         let actual =
@@ -174,10 +175,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(-1.);
+        let siderial_day = Time::from_yr(-1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.25);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.25);
 
         let expected = -&Direction::Y;
         let actual =
@@ -191,10 +192,10 @@ mod tests {
         let rotation_axis = Direction::Y;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.);
 
         let expected = Direction::X;
         let actual =
@@ -208,10 +209,10 @@ mod tests {
         let rotation_axis = Direction::Y;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::from_years(0.25);
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = Time::from_yr(0.25);
 
         let expected = -&Direction::Z;
         let actual =
@@ -225,10 +226,10 @@ mod tests {
         let rotation_axis = Direction::Z;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::from_years(1.);
+        let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = Angle::from_degrees(90.);
-        let time_since_epoch = Time::from_years(0.);
+        let time_since_epoch = Time::from_yr(0.);
 
         let expected = Direction::Y;
         let actual =
@@ -242,10 +243,10 @@ mod tests {
         let rotation_axis = Direction::Y;
         let observer =
             EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, rotation_axis.clone());
-        let siderial_day = Time::ZERO;
+        let siderial_day = TIME_ZERO;
 
-        let angle_at_epoch = Angle::ZERO;
-        let time_since_epoch = Time::ZERO;
+        let angle_at_epoch = ANGLE_ZERO;
+        let time_since_epoch = TIME_ZERO;
 
         let expected = -&Direction::Z;
         let actual =
@@ -258,7 +259,7 @@ mod tests {
     fn objects_along_the_new_x_axis_have_no_y_component() {
         let ordinates = vec![0., 1., -1., 12.];
         let angles = vec![
-            Angle::ZERO,
+            ANGLE_ZERO,
             Angle::from_radians(1.),
             Angle::from_radians(-1.),
             Angle::from_radians(12.),

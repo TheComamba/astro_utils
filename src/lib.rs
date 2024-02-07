@@ -1,7 +1,4 @@
-pub type Float = f32;
-pub(crate) const PI: Float = std::f32::consts::PI;
-pub(crate) const TWO_PI: Float = 2. * PI;
-
+pub mod astro_display;
 pub mod color;
 pub mod coordinates;
 pub mod error;
@@ -12,20 +9,20 @@ pub mod units;
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use crate::{
-        units::{
-            angle::Angle,
-            length::{Length, AU_PER_METER},
-            mass::Mass,
-            time::Time,
-        },
-        Float,
-    };
+    pub(crate) const TEST_ACCURACY: f64 = 1e-5;
 
-    pub(crate) const TEST_ACCURACY: Float = 1e-5;
-    pub(crate) const TEST_ANGLE_ACCURACY: Angle = Angle::from_radians(TEST_ACCURACY);
-    pub(crate) const TEST_LENGTH_ACCURACY: Length =
-        Length::from_astronomical_units(TEST_ACCURACY * AU_PER_METER);
-    pub(crate) const TEST_MASS_ACCURACY: Mass = Mass::from_kilograms(TEST_ACCURACY);
-    pub(crate) const TEST_TIME_ACCURACY: Time = Time::from_seconds(TEST_ACCURACY);
+    pub(crate) fn eq_within(actual: f64, expected: f64, accuracy: f64) -> bool {
+        if (actual - expected).abs() >= accuracy {
+            println!("actual  : {}", actual);
+            println!("expected: {}", expected);
+            println!("accuracy: {}", accuracy);
+            false
+        } else {
+            true
+        }
+    }
+
+    pub(crate) fn eq(actual: f64, expected: f64) -> bool {
+        eq_within(actual, expected, TEST_ACCURACY)
+    }
 }

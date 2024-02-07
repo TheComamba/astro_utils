@@ -1,8 +1,14 @@
+use std::f64::consts::PI;
+
+use simple_si_units::{
+    base::{Distance, Luminosity},
+    electromagnetic::Illuminance,
+    geometry::Angle,
+};
+
 use crate::{
-    coordinates::cartesian::CartesianCoordinates,
-    error::AstroUtilError,
-    units::{angle::Angle, illuminance::Illuminance, length::Length, luminosity::Luminosity},
-    Float, PI,
+    coordinates::cartesian::CartesianCoordinates, error::AstroUtilError,
+    units::luminous_intensity::luminous_intensity_to_illuminance,
 };
 
 /*
@@ -15,38 +21,39 @@ use crate::{
 /*
  * https://www.physicsforums.com/threads/illuminated-fraction-of-the-moon.515983/
  */
-fn illuminated_fraction(reflection_angle: &Angle) -> Float {
-    let reflection_angle = reflection_angle.as_radians();
-    let illuminated_fraction = (1. + reflection_angle.cos()) / 2.;
-    illuminated_fraction
+fn illuminated_fraction(reflection_angle: &Angle<f64>) -> f64 {
+    (1. + reflection_angle.rad.cos()) / 2.
 }
 
-fn solid_angle(radius: &Length, distance: &Length, reflection_angle: &Angle) -> Float {
-    let radius = radius.as_astronomical_units();
-    let distance = distance.as_astronomical_units();
-    let area = PI * radius.powi(2) * illuminated_fraction(reflection_angle);
-    area / distance.powi(2)
+fn solid_angle(
+    radius: &Distance<f64>,
+    distance: &Distance<f64>,
+    reflection_angle: &Angle<f64>,
+) -> f64 {
+    let area = PI * radius * radius * illuminated_fraction(reflection_angle);
+    area / (distance * distance)
 }
 
 pub fn planet_brightness(
-    star_luminosity: Luminosity,
+    star_luminous_intensity: Luminosity<f64>,
     star_position: &CartesianCoordinates,
     planet_position: &CartesianCoordinates,
     observer_position: &CartesianCoordinates,
-    planet_radius: Length,
-    geometric_albedo: Float,
-) -> Result<Illuminance, AstroUtilError> {
+    planet_radius: Distance<f64>,
+    geometric_albedo: f64,
+) -> Result<Illuminance<f64>, AstroUtilError> {
     let planet_to_star = star_position - planet_position;
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer)?;
-    let planet_illuminance = star_luminosity.to_illuminance(&planet_to_star.length());
-    let planet_luminance = (planet_illuminance * geometric_albedo).to_luminance_flat_surface();
+    let planet_illuminance =
+        luminous_intensity_to_illuminance(&star_luminous_intensity, &planet_to_star.length());
+    let planet_flat_surface_luminance = (planet_illuminance * geometric_albedo) / PI;
     let solid_angle_at_obsverver = solid_angle(
         &planet_radius,
         &planet_to_observer.length(),
         &reflection_angle,
     );
-    Ok(planet_luminance.to_illuminance(solid_angle_at_obsverver))
+    Ok(planet_flat_surface_luminance * solid_angle_at_obsverver)
 }
 
 #[cfg(test)]
@@ -54,20 +61,26 @@ mod tests {
     use super::*;
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
-        real_data::{planets::*, SUN_RADIUS},
-        units::length::Length,
+        real_data::planets::*,
+        tests::eq_within,
+        units::{
+            angle::ANGLE_ZERO,
+            distance::{DISTANCE_ZERO, SOLAR_RADIUS},
+            illuminance::apparent_magnitude_to_illuminance,
+            luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
+        },
     };
 
-    const SOLID_ANGLE_TEST_ACCURACY: Float = 3e-6;
-    const REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR: Float = 0.5;
+    const SOLID_ANGLE_TEST_ACCURACY: f64 = 3e-6;
+    const REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR: f64 = 0.5;
 
     #[test]
     fn solid_angle_of_sun() {
         let expected = 7e-5;
         let actual = solid_angle(
-            &SUN_RADIUS,
+            &SOLAR_RADIUS,
             &EARTH.orbit.get_semi_major_axis(),
-            &Angle::ZERO,
+            &ANGLE_ZERO,
         );
         println!("expected: {}, actual: {}", expected, actual);
         println!(
@@ -81,11 +94,7 @@ mod tests {
     #[test]
     fn solid_angle_of_full_moon() {
         let expected = 6.4e-5;
-        let actual = solid_angle(
-            &MOON.radius,
-            &MOON.orbit.get_semi_major_axis(),
-            &Angle::ZERO,
-        );
+        let actual = solid_angle(&MOON.radius, &MOON.orbit.get_semi_major_axis(), &ANGLE_ZERO);
         println!("expected: {}, actual: {}", expected, actual);
         println!(
             "diff: {}, accuracy: {}",
@@ -116,20 +125,19 @@ mod tests {
     fn venus_at_occultation() {
         let accuracy = Illuminance::from_lux(1e-11);
         let expected = Illuminance::from_lux(0.);
-        let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             VENUS.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            sun_luminosity,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -138,26 +146,28 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(actual.eq_within(expected, accuracy));
+        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
     }
 
     #[test]
     fn mars_at_opposition() {
-        let expected = Illuminance::from_apparent_magnitude(-2.94);
+        let expected = apparent_magnitude_to_illuminance(-2.94);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
-        let planet_position =
-            CartesianCoordinates::new(MARS.orbit.get_semi_major_axis(), Length::ZERO, Length::ZERO);
+        let planet_position = CartesianCoordinates::new(
+            MARS.orbit.get_semi_major_axis(),
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
+        );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            sun_luminosity,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -166,29 +176,28 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(actual.eq_within(expected, accuracy));
+        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
     }
 
     #[test]
     fn jupiter_at_opposition() {
-        let expected = Illuminance::from_apparent_magnitude(-2.94);
+        let expected = apparent_magnitude_to_illuminance(-2.94);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             JUPITER.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            sun_luminosity,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -197,29 +206,28 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(actual.eq_within(expected, accuracy));
+        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
     }
 
     #[test]
     fn saturn_at_opposition() {
-        let expected = Illuminance::from_apparent_magnitude(-0.55);
+        let expected = apparent_magnitude_to_illuminance(-0.55);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             SATURN.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            sun_luminosity,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -228,29 +236,28 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(actual.eq_within(expected, accuracy));
+        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
     }
 
     #[test]
     fn uranus_at_opposition() {
-        let expected = Illuminance::from_apparent_magnitude(5.38);
+        let expected = apparent_magnitude_to_illuminance(5.38);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             URANUS.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            sun_luminosity,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -259,29 +266,28 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(actual.eq_within(expected, accuracy));
+        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
     }
 
     #[test]
     fn neptune_at_opposition() {
-        let expected = Illuminance::from_apparent_magnitude(7.67);
+        let expected = apparent_magnitude_to_illuminance(7.67);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let sun_luminosity = Luminosity::from_solar_luminosities(1.);
         let star_position = CartesianCoordinates::ORIGIN;
         let planet_position = CartesianCoordinates::new(
             NEPTUNE.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let observer_position = CartesianCoordinates::new(
             EARTH.orbit.get_semi_major_axis(),
-            Length::ZERO,
-            Length::ZERO,
+            DISTANCE_ZERO,
+            DISTANCE_ZERO,
         );
         let actual = planet_brightness(
-            sun_luminosity,
+            SOLAR_LUMINOUS_INTENSITY,
             &star_position,
             &planet_position,
             &observer_position,
@@ -290,8 +296,8 @@ mod tests {
         )
         .unwrap();
         println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.as_lux() / expected.as_lux());
+        println!("ratio: {}", actual.to_lux() / expected.to_lux());
         println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(actual.eq_within(expected, accuracy));
+        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
     }
 }

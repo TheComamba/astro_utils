@@ -1,242 +1,102 @@
-use crate::Float;
-use serde::{Deserialize, Serialize};
-use std::fmt::Display;
+use crate::astro_display::AstroDisplay;
 
-pub(crate) const SECONDS_PER_MINUTE: Float = 60.;
-const MINUTES_PER_SECOND: Float = 1. / SECONDS_PER_MINUTE;
-pub(crate) const SECONDS_PER_HOUR: Float = 3600.;
-const HOURS_PER_SECOND: Float = 1. / SECONDS_PER_HOUR;
-pub(crate) const SECONDS_PER_DAY: Float = 86400.;
-const DAYS_PER_SECOND: Float = 1. / SECONDS_PER_DAY;
-pub(crate) const SECONDS_PER_YEAR: Float = 31_557_600.;
-const YEARS_PER_SECOND: Float = 1. / SECONDS_PER_YEAR;
-pub(crate) const SECONDS_PER_MILLENIUM: Float = 3_155_760e3;
-const KILOYEARS_PER_SECOND: Float = 1. / SECONDS_PER_MILLENIUM;
-pub(crate) const SECONDS_PER_MILLION_YEARS: Float = 3_155_760e6;
-const MILLION_YEARS_PER_SECOND: Float = 1. / SECONDS_PER_MILLION_YEARS;
-pub(crate) const SECONDS_PER_BILLION_YEARS: Float = 3_155_760e9;
-const BILLION_YEARS_PER_SECOND: Float = 1. / SECONDS_PER_BILLION_YEARS;
+use super::DISPLAY_THRESHOLD;
+use simple_si_units::base::Time;
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
-pub struct Time {
-    pub(super) seconds: Float,
+pub const TIME_ZERO: Time<f64> = Time { s: 0. };
+pub const HOUR: Time<f64> = Time { s: 60. * 60. };
+pub const DAY: Time<f64> = Time { s: 24. * HOUR.s };
+pub const YEAR: Time<f64> = Time { s: 365.25 * DAY.s };
+pub const BILLION_YEARS: Time<f64> = Time { s: 1e9 * YEAR.s };
+
+pub enum TimeUnit {
+    Seconds,
+    Minutes,
+    Hours,
+    Days,
+    Years,
+    ThousandYears,
+    MillionYears,
+    BillionYears,
 }
 
-impl Time {
-    pub const ZERO: Time = Time { seconds: 0. };
-
-    pub const fn from_seconds(seconds: Float) -> Time {
-        Time { seconds }
-    }
-
-    pub fn from_minutes(minutes: Float) -> Time {
-        Time {
-            seconds: minutes * SECONDS_PER_MINUTE,
-        }
-    }
-
-    pub fn from_hours(hours: Float) -> Time {
-        Time {
-            seconds: hours * SECONDS_PER_HOUR,
-        }
-    }
-
-    pub fn from_days(days: Float) -> Time {
-        Time {
-            seconds: days * SECONDS_PER_DAY,
-        }
-    }
-
-    pub fn from_years(years: Float) -> Time {
-        Time {
-            seconds: years * SECONDS_PER_YEAR,
-        }
-    }
-
-    pub fn from_thousand_years(kiloyears: Float) -> Time {
-        Time {
-            seconds: kiloyears * SECONDS_PER_MILLENIUM,
-        }
-    }
-
-    pub fn from_million_years(million_years: Float) -> Time {
-        Time {
-            seconds: million_years * SECONDS_PER_MILLION_YEARS,
-        }
-    }
-
-    pub fn from_billion_years(billion_years: Float) -> Time {
-        Time {
-            seconds: billion_years * SECONDS_PER_BILLION_YEARS,
-        }
-    }
-
-    pub const fn as_seconds(&self) -> Float {
-        self.seconds
-    }
-
-    pub fn as_minutes(&self) -> Float {
-        self.seconds * MINUTES_PER_SECOND
-    }
-
-    pub fn as_hours(&self) -> Float {
-        self.seconds * HOURS_PER_SECOND
-    }
-
-    pub fn as_days(&self) -> Float {
-        self.seconds * DAYS_PER_SECOND
-    }
-
-    pub fn as_years(&self) -> Float {
-        self.seconds * YEARS_PER_SECOND
-    }
-
-    pub fn as_thousand_years(&self) -> Float {
-        self.seconds * KILOYEARS_PER_SECOND
-    }
-
-    pub fn as_million_years(&self) -> Float {
-        self.seconds * MILLION_YEARS_PER_SECOND
-    }
-
-    pub fn as_billion_years(&self) -> Float {
-        self.seconds * BILLION_YEARS_PER_SECOND
-    }
-
-    #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: Time, accuracy: Time) -> bool {
-        let diff = self.seconds - other.seconds;
-        diff.abs() <= accuracy.seconds
+pub(crate) fn display_time_in_units(time: &Time<f64>, units: TimeUnit) -> String {
+    match units {
+        TimeUnit::Seconds => format!("{:.2} sec", time.to_seconds()),
+        TimeUnit::Minutes => format!("{:.2} min", time.to_min()),
+        TimeUnit::Hours => format!("{:.2} hrs", time.to_hr()),
+        TimeUnit::Days => format!("{:.2} days", time.to_days()),
+        TimeUnit::Years => format!("{:.2} yrs", time.to_yr()),
+        TimeUnit::ThousandYears => format!("{:.2} kyr", time.to_kyr()),
+        TimeUnit::MillionYears => format!("{:.2} Myrs", time.to_Myr()),
+        TimeUnit::BillionYears => format!("{:.2} Gyrs", time.to_Gyr()),
     }
 }
 
-impl Display for Time {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        if self.seconds.abs() > 0.99 * SECONDS_PER_BILLION_YEARS {
-            write!(f, "{:.2} Gyrs", self.as_billion_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLION_YEARS {
-            write!(f, "{:.2} Myrs", self.as_million_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MILLENIUM {
-            write!(f, "{:.2} kyr", self.as_thousand_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_YEAR {
-            write!(f, "{:.2} yrs", self.as_years())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_DAY {
-            write!(f, "{:.2} days", self.as_days())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_HOUR {
-            write!(f, "{:.2} hrs", self.as_hours())
-        } else if self.seconds.abs() > 0.99 * SECONDS_PER_MINUTE {
-            write!(f, "{:.2} min", self.as_minutes())
+impl AstroDisplay for Time<f64> {
+    fn astro_display(&self) -> String {
+        let units = if self.to_Gyr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::BillionYears
+        } else if self.to_Myr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::MillionYears
+        } else if self.to_kyr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::ThousandYears
+        } else if self.to_yr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::Years
+        } else if self.to_days().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::Days
+        } else if self.to_hr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::Hours
+        } else if self.to_min().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::Minutes
         } else {
-            write!(f, "{:.2} sec", self.as_seconds())
-        }
+            TimeUnit::Seconds
+        };
+        display_time_in_units(self, units)
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::tests::{TEST_ACCURACY, TEST_TIME_ACCURACY};
 
     #[test]
-    fn test_seconds() {
+    fn test_time_display() {
         let time = Time::from_seconds(1.);
-        assert!((time.as_seconds() - 1.).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_minutes() {
-        let expected = Time::from_seconds(SECONDS_PER_MINUTE);
-        let time = Time::from_minutes(1.);
-        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
-        assert!((time.as_minutes() - 1.).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_hours() {
-        let expected = Time::from_seconds(SECONDS_PER_HOUR);
-        let time = Time::from_hours(1.);
-        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
-        assert!((time.as_hours() - 1.).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_days() {
-        let expected = Time::from_seconds(SECONDS_PER_DAY);
+        assert_eq!(time.astro_display(), "1.00 sec");
+        let time = Time::from_min(1.);
+        assert_eq!(time.astro_display(), "1.00 min");
+        let time = Time::from_hr(1.);
+        assert_eq!(time.astro_display(), "1.00 hrs");
         let time = Time::from_days(1.);
-        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
-        assert!((time.as_days() - 1.).abs() < TEST_ACCURACY);
+        assert_eq!(time.astro_display(), "1.00 days");
+        let time = Time::from_yr(1.);
+        assert_eq!(time.astro_display(), "1.00 yrs");
+        let time = Time::from_kyr(1.);
+        assert_eq!(time.astro_display(), "1.00 kyr");
+        let time = Time::from_Myr(1.);
+        assert_eq!(time.astro_display(), "1.00 Myrs");
+        let time = Time::from_Gyr(1.);
+        assert_eq!(time.astro_display(), "1.00 Gyrs");
     }
 
     #[test]
-    fn test_years() {
-        let expected = Time::from_seconds(SECONDS_PER_YEAR);
-        let time = Time::from_years(1.);
-        assert!(time.eq_within(expected, TEST_TIME_ACCURACY));
-        assert!((time.as_years() - 1.).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_add() {
-        let time1 = Time::from_seconds(1.);
-        let time2 = Time::from_seconds(2.);
-        let expected = Time::from_seconds(3.);
-        assert!(expected.eq_within(time1 + time2, TEST_TIME_ACCURACY));
-    }
-
-    #[test]
-    fn test_sub() {
-        let time1 = Time::from_seconds(1.);
-        let time2 = Time::from_seconds(2.);
-        let expected = Time::from_seconds(-1.);
-        assert!(expected.eq_within(time1 - time2, TEST_TIME_ACCURACY));
-    }
-
-    #[test]
-    fn test_div_by_time() {
-        let time1 = Time::from_seconds(1.);
-        let time2 = Time::from_seconds(2.);
-        let expected = 0.5 as Float;
-        let actual = time1 / time2;
-        assert!((expected - actual).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_display() {
-        let time = Time::from_seconds(1.);
-        assert_eq!(format!("{}", time), "1.00 sec");
-        let time = Time::from_minutes(1.);
-        assert_eq!(format!("{}", time), "1.00 min");
-        let time = Time::from_hours(1.);
-        assert_eq!(format!("{}", time), "1.00 hrs");
-        let time = Time::from_days(1.);
-        assert_eq!(format!("{}", time), "1.00 days");
-        let time = Time::from_years(1.);
-        assert_eq!(format!("{}", time), "1.00 yrs");
-        let time = Time::from_thousand_years(1.);
-        assert_eq!(format!("{}", time), "1.00 kyr");
-        let time = Time::from_million_years(1.);
-        assert_eq!(format!("{}", time), "1.00 Myrs");
-        let time = Time::from_billion_years(1.);
-        assert_eq!(format!("{}", time), "1.00 Gyrs");
-    }
-
-    #[test]
-    fn test_negative_display() {
+    fn test_time_negative_display() {
         let time = Time::from_seconds(-1.);
-        assert_eq!(format!("{}", time), "-1.00 sec");
-        let time = Time::from_minutes(-1.);
-        assert_eq!(format!("{}", time), "-1.00 min");
-        let time = Time::from_hours(-1.);
-        assert_eq!(format!("{}", time), "-1.00 hrs");
+        assert_eq!(time.astro_display(), "-1.00 sec");
+        let time = Time::from_min(-1.);
+        assert_eq!(time.astro_display(), "-1.00 min");
+        let time = Time::from_hr(-1.);
+        assert_eq!(time.astro_display(), "-1.00 hrs");
         let time = Time::from_days(-1.);
-        assert_eq!(format!("{}", time), "-1.00 days");
-        let time = Time::from_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 yrs");
-        let time = Time::from_thousand_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 kyr");
-        let time = Time::from_million_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 Myrs");
-        let time = Time::from_billion_years(-1.);
-        assert_eq!(format!("{}", time), "-1.00 Gyrs");
+        assert_eq!(time.astro_display(), "-1.00 days");
+        let time = Time::from_yr(-1.);
+        assert_eq!(time.astro_display(), "-1.00 yrs");
+        let time = Time::from_kyr(-1.);
+        assert_eq!(time.astro_display(), "-1.00 kyr");
+        let time = Time::from_Myr(-1.);
+        assert_eq!(time.astro_display(), "-1.00 Myrs");
+        let time = Time::from_Gyr(-1.);
+        assert_eq!(time.astro_display(), "-1.00 Gyrs");
     }
 }

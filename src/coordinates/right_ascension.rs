@@ -1,6 +1,8 @@
 use std::fmt::Display;
 
-use crate::{units::angle::Angle, Float};
+use simple_si_units::geometry::Angle;
+
+use crate::astro_display::AstroDisplay;
 
 pub struct RightAscension {
     pub(super) hours: i8,
@@ -17,37 +19,38 @@ impl RightAscension {
         }
     }
 
-    pub fn to_angle(&self) -> Angle {
-        let hours = self.hours as Float;
-        let minutes = self.minutes as Float;
-        let seconds = self.seconds as Float;
+    pub fn to_angle(&self) -> Angle<f64> {
+        let hours = self.hours as f64;
+        let minutes = self.minutes as f64;
+        let seconds = self.seconds as f64;
 
         Angle::from_degrees((hours + minutes / 60. + seconds / 3600.) * 15.)
     }
 }
 
+impl AstroDisplay for RightAscension {
+    fn astro_display(&self) -> String {
+        format!("{:02}h{:02}m{:02}s", self.hours, self.minutes, self.seconds)
+    }
+}
+
 impl Display for RightAscension {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{:02}h{:02}m{:02}s",
-            self.hours, self.minutes, self.seconds
-        )
+        write!(f, "{}", self.astro_display())
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tests::TEST_ANGLE_ACCURACY;
-
     use super::*;
+    use crate::units::angle::{angle_eq, angle_from_second_angle, angle_to_arcsecs};
 
     #[test]
     fn one_second() {
         let dec = RightAscension::new(0, 0, 1);
-        let expected = Angle::from_second_angle(1.);
-        println!("{}", dec.to_angle().as_arcsecs());
-        println!("{}", expected.as_arcsecs());
-        assert!(dec.to_angle().eq_within(expected, TEST_ANGLE_ACCURACY));
+        let expected = angle_from_second_angle(1.);
+        println!("{}", angle_to_arcsecs(&dec.to_angle()));
+        println!("{}", angle_to_arcsecs(&expected));
+        assert!(angle_eq(dec.to_angle(), expected));
     }
 }

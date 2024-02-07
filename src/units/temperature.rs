@@ -1,30 +1,10 @@
-use std::fmt::Display;
+use crate::astro_display::AstroDisplay;
+use simple_si_units::base::Temperature;
 
-use crate::Float;
-use serde::{Deserialize, Serialize};
+pub const TEMPERATURE_ZERO: Temperature<f64> = Temperature { K: 0. };
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
-pub struct Temperature {
-    pub(super) kelvin: Float,
-}
-
-impl Temperature {
-    pub const fn from_kelvin(kelvin: Float) -> Temperature {
-        Temperature { kelvin }
-    }
-
-    pub const fn as_kelvin(&self) -> Float {
-        self.kelvin
-    }
-
-    #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: &Self, accuracy: Self) -> bool {
-        (self.kelvin - other.kelvin).abs() < accuracy.kelvin
-    }
-}
-
-impl Display for Temperature {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:.0} K", self.kelvin)
+impl AstroDisplay for Temperature<f64> {
+    fn astro_display(&self) -> String {
+        format!("{:.2} K", self.K)
     }
 }

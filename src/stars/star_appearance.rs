@@ -1,14 +1,11 @@
-use crate::{
-    color::sRGBColor,
-    coordinates::direction::Direction,
-    units::{angle::Angle, illuminance::Illuminance},
-};
+use crate::{color::sRGBColor, coordinates::direction::Direction};
 use serde::{Deserialize, Serialize};
+use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
     pub(crate) name: String,
-    pub(crate) illuminance: Illuminance,
+    pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
     pub(crate) direction_in_ecliptic: Direction,
 }
@@ -16,7 +13,7 @@ pub struct StarAppearance {
 impl StarAppearance {
     pub fn new(
         name: String,
-        illuminance: Illuminance,
+        illuminance: Illuminance<f64>,
         color: sRGBColor,
         direction_in_ecliptic: Direction,
     ) -> Self {
@@ -32,7 +29,7 @@ impl StarAppearance {
         &self.name
     }
 
-    pub const fn get_illuminance(&self) -> &Illuminance {
+    pub const fn get_illuminance(&self) -> &Illuminance<f64> {
         &self.illuminance
     }
 
@@ -58,7 +55,7 @@ impl StarAppearance {
         if angle_between_directions > angle_accuracy {
             return false;
         }
-        let illuminance_ratio = self.illuminance.as_lux() / other.illuminance.as_lux();
+        let illuminance_ratio = self.illuminance.to_lux() / other.illuminance.to_lux();
         if illuminance_ratio < 0.1 || illuminance_ratio > 10.0 {
             return false;
         }
@@ -68,13 +65,11 @@ impl StarAppearance {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use crate::{color::sRGBColor, coordinates::direction::Direction};
+
     #[test]
     fn star_is_apparently_the_same_with_itself() {
-        use super::*;
-        use crate::{
-            color::sRGBColor, coordinates::direction::Direction, units::illuminance::Illuminance,
-        };
-
         let star = StarAppearance::new(
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
@@ -87,11 +82,6 @@ mod tests {
 
     #[test]
     fn star_is_not_the_same_if_direction_is_too_different() {
-        use super::*;
-        use crate::{
-            color::sRGBColor, coordinates::direction::Direction, units::illuminance::Illuminance,
-        };
-
         let star = StarAppearance::new(
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
@@ -106,11 +96,6 @@ mod tests {
 
     #[test]
     fn star_is_not_the_same_if_brightness_is_too_different() {
-        use super::*;
-        use crate::{
-            color::sRGBColor, coordinates::direction::Direction, units::illuminance::Illuminance,
-        };
-
         let star = StarAppearance::new(
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),

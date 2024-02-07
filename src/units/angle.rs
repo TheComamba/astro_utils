@@ -1,259 +1,107 @@
-use crate::{Float, PI, TWO_PI};
-use serde::{Deserialize, Serialize};
-use std::fmt::Display;
+use simple_si_units::geometry::Angle;
+use std::f64::consts::PI;
 
-pub(crate) const RADIANS_PER_DEGREE: Float = PI / 180.;
-const DEGREES_PER_RADIAN: Float = 1. / RADIANS_PER_DEGREE;
-const ARCSECS_PER_RADIAN: Float = 3600. * DEGREES_PER_RADIAN;
-const RADIAN_PER_ARCSEC: Float = 1. / ARCSECS_PER_RADIAN;
-const SECOND_ANGLE_PER_RADIAN: Float = 24. * 60. * 60. / 2. / PI;
-const RADIANS_PER_SECOND_ANGLE: Float = 1. / SECOND_ANGLE_PER_RADIAN;
+use crate::astro_display::AstroDisplay;
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd, Serialize, Deserialize)]
-pub struct Angle {
-    pub(super) radian: Float,
+pub const ANGLE_ZERO: Angle<f64> = Angle { rad: 0. };
+pub(crate) const FULL_CIRC: Angle<f64> = Angle { rad: 2. * PI };
+pub(crate) const QUARTER_CIRC: Angle<f64> = Angle { rad: 2. * PI / 4. };
+pub(crate) const HALF_CIRC: Angle<f64> = Angle { rad: 2. * PI / 2. };
+#[cfg(test)]
+pub(crate) const THREE_QUARTER_CIRC: Angle<f64> = Angle {
+    rad: 2. * PI * 3. / 4.,
+};
+#[cfg(test)]
+pub(crate) const ONE_THIRD_CIRC: Angle<f64> = Angle { rad: 2. * PI / 3. };
+#[cfg(test)]
+pub(crate) const TWO_THIRDS_CIRC: Angle<f64> = Angle {
+    rad: 2. * PI * 2. / 3.,
+};
+
+pub const DEGREE: Angle<f64> = Angle {
+    rad: 2. * PI / 360.,
+};
+pub const ARCSEC: Angle<f64> = Angle {
+    rad: 2. * PI / (360. * 60. * 60.),
+};
+pub const SECOND_ANGLE: Angle<f64> = Angle {
+    rad: 2. * PI / (24. * 60. * 60.),
+};
+
+pub fn angle_from_arcsecs(arcsec: f64) -> Angle<f64> {
+    arcsec * ARCSEC
 }
 
-impl Angle {
-    pub const ZERO: Angle = Angle { radian: 0. };
-
-    pub const fn from_radians(radian: Float) -> Angle {
-        Angle { radian }
-    }
-
-    pub fn from_degrees(degree: Float) -> Angle {
-        Angle {
-            radian: degree * RADIANS_PER_DEGREE,
-        }
-    }
-
-    pub fn from_arcsecs(arcsec: Float) -> Angle {
-        Angle {
-            radian: arcsec * RADIAN_PER_ARCSEC,
-        }
-    }
-
-    pub fn from_second_angle(second_angle: Float) -> Angle {
-        Angle {
-            radian: second_angle * RADIANS_PER_SECOND_ANGLE,
-        }
-    }
-
-    pub const fn as_radians(&self) -> Float {
-        self.radian
-    }
-
-    pub fn as_degrees(&self) -> Float {
-        self.radian * DEGREES_PER_RADIAN
-    }
-
-    pub fn as_arcsecs(&self) -> Float {
-        self.radian * ARCSECS_PER_RADIAN
-    }
-
-    pub fn as_second_angle(&self) -> Float {
-        self.radian * SECOND_ANGLE_PER_RADIAN
-    }
-
-    #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: Angle, accuracy: Angle) -> bool {
-        let diff = self.radian - other.radian;
-        let diff = diff % TWO_PI;
-        let diff = if diff > PI {
-            diff - TWO_PI
-        } else if diff < -PI {
-            diff + TWO_PI
-        } else {
-            diff
-        };
-        diff.abs() <= accuracy.radian
-    }
-
-    /*
-     * Normalize the angle to a range of −π to +π radians, -180° to 180°.
-     */
-    pub fn normalize(&mut self) {
-        self.radian = self.radian % TWO_PI;
-        if self.radian > PI {
-            self.radian -= TWO_PI;
-        } else if self.radian < -PI {
-            self.radian += TWO_PI;
-        }
-    }
-
-    pub fn sin(&self) -> Float {
-        self.radian.sin()
-    }
-
-    pub fn cos(&self) -> Float {
-        self.radian.cos()
-    }
-
-    pub fn tan(&self) -> Float {
-        self.radian.tan()
-    }
+pub fn angle_to_arcsecs(angle: &Angle<f64>) -> f64 {
+    angle / &ARCSEC
 }
 
-impl Display for Angle {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "{:.2} deg", self.as_degrees())
+pub fn angle_from_second_angle(second_angle: f64) -> Angle<f64> {
+    second_angle * SECOND_ANGLE
+}
+
+pub fn angle_to_second_angle(angle: &Angle<f64>) -> f64 {
+    angle / &SECOND_ANGLE
+}
+
+/*
+* Normalize the angle to a range of −π to +π radians, -180° to 180°.
+*/
+pub fn normalized_angle(mut angle: Angle<f64>) -> Angle<f64> {
+    angle.rad = angle.rad % FULL_CIRC.rad;
+    if angle > HALF_CIRC {
+        angle -= FULL_CIRC;
+    } else if angle < -HALF_CIRC {
+        angle += FULL_CIRC;
+    }
+    angle
+}
+
+#[cfg(test)]
+pub(crate) fn angle_eq_within(
+    actual: Angle<f64>,
+    expected: Angle<f64>,
+    accuracy: Angle<f64>,
+) -> bool {
+    let diff = normalized_angle(actual - expected);
+    diff.rad.abs() < accuracy.rad
+}
+
+#[cfg(test)]
+pub(crate) fn angle_eq(actual: Angle<f64>, expected: Angle<f64>) -> bool {
+    use crate::tests::TEST_ACCURACY;
+
+    angle_eq_within(actual, expected, Angle { rad: TEST_ACCURACY })
+}
+
+impl AstroDisplay for Angle<f64> {
+    fn astro_display(&self) -> String {
+        format!("{:.2} °", self.to_degrees())
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{
-        tests::{TEST_ACCURACY, TEST_ANGLE_ACCURACY},
-        Float,
-    };
+    use crate::tests::eq;
 
     #[test]
-    fn test_radians() {
-        let angle = Angle::from_radians(1.);
-        assert!((angle.as_radians() - 1.).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_degrees() {
-        let expected = Angle::from_radians(RADIANS_PER_DEGREE);
-        let angle = Angle::from_degrees(1.);
-        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
-        assert!((angle.as_degrees() - 1.).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_arcsecs() {
-        let expected = Angle::from_radians(RADIAN_PER_ARCSEC);
-        let angle = Angle::from_arcsecs(1.);
-        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
-        assert!((angle.as_arcsecs() - 1.).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn test_second_angle() {
-        let expected = Angle::from_radians(RADIANS_PER_SECOND_ANGLE);
-        let angle = Angle::from_second_angle(1.);
-        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
-        assert!((angle.as_second_angle() - 1.).abs() < TEST_ACCURACY);
-    }
-
-    #[test]
-    fn some_unit_conversions() {
-        let one_degree = Angle::from_degrees(1.);
-        let one_degree_in_arcsecs = Angle::from_arcsecs(3600.);
-        assert!(one_degree.eq_within(one_degree_in_arcsecs, TEST_ANGLE_ACCURACY));
-
-        let one_radiant = Angle::from_radians(1.);
-        let one_radiant_in_arcsecs = Angle::from_arcsecs(206264.8);
-        assert!(one_radiant.eq_within(one_radiant_in_arcsecs, TEST_ANGLE_ACCURACY));
-
-        let one_second_angle = Angle::from_second_angle(1.);
-        let one_second_angle_in_arcsecs = Angle::from_arcsecs(15.);
-        assert!(one_second_angle.eq_within(one_second_angle_in_arcsecs, TEST_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn quarter_circle_in_various_units() {
-        let radians = Angle::from_radians(PI / 2.);
-        let degrees = Angle::from_degrees(90.);
-        let arcsecs = Angle::from_arcsecs(90. * 3600.);
-        assert!(radians.eq_within(degrees, TEST_ANGLE_ACCURACY));
-        assert!(radians.eq_within(arcsecs, TEST_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn half_circle_in_various_units() {
-        let radians = Angle::from_radians(PI);
-        let degrees = Angle::from_degrees(180.);
-        let arcsecs = Angle::from_arcsecs(180. * 3600.);
-        assert!(radians.eq_within(degrees, TEST_ANGLE_ACCURACY));
-        assert!(radians.eq_within(arcsecs, TEST_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn test_add() {
-        let angle1 = Angle::from_radians(1.);
-        let angle2 = Angle::from_radians(2.);
-        let expected = Angle::from_radians(3.);
-        assert!(angle1 + angle2 == expected);
-    }
-
-    #[test]
-    fn test_sub() {
-        let angle1 = Angle::from_radians(1.);
-        let angle2 = Angle::from_radians(2.);
-        let expected = Angle::from_radians(-1.);
-        assert!(angle1 - angle2 == expected);
-    }
-
-    #[test]
-    fn test_normalization_range() {
-        for i in -100..100 {
-            let radians = TWO_PI / 5. * i as Float;
-            let mut angle = Angle::from_radians(radians);
-            angle.normalize();
-            println!(
-                "{} deg got normalised to {}",
-                radians * DEGREES_PER_RADIAN,
-                angle
-            );
-            assert!(angle.as_radians() >= -PI);
-            assert!(angle.as_radians() < PI);
+    fn arcsec_roundtrip() {
+        for i in -10..10 {
+            let input = i as f64;
+            let angle = angle_from_arcsecs(input);
+            let output = angle_to_arcsecs(&angle);
+            assert!(eq(input, output));
         }
     }
 
     #[test]
-    fn test_normalizing_quarter_pi() {
-        let mut angle = Angle::from_radians(PI / 4.);
-        let expected = Angle::from_radians(PI / 4.);
-        angle.normalize();
-        println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn test_normalizing_three_quarters_pi() {
-        let mut angle = Angle::from_radians(3. * PI / 4.);
-        let expected = Angle::from_radians(3. * PI / 4.);
-        angle.normalize();
-        println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn test_normalizing_minus_quarter_pi() {
-        let mut angle = Angle::from_radians(-PI / 4.);
-        let expected = Angle::from_radians(-PI / 4.);
-        angle.normalize();
-        println!("expected: {}, actual: {}", expected, angle);
-        assert!(angle.eq_within(expected, TEST_ANGLE_ACCURACY));
-    }
-
-    #[test]
-    fn test_display() {
-        let angle = Angle::from_degrees(100.);
-        assert_eq!(format!("{}", angle), "100.00 deg");
-        let angle = Angle::from_degrees(-100.);
-        assert_eq!(format!("{}", angle), "-100.00 deg");
-    }
-
-    #[test]
-    fn test_eq_within() {
-        let starts = vec![-10., 0., 3., 7.0];
-        let small_diffs = vec![-TEST_ACCURACY / 100., 0., TEST_ACCURACY / 100.];
-        let large_diffs = vec![-TWO_PI, 0., TWO_PI, 100. * TWO_PI];
-        for start in starts {
-            for small_diff in &small_diffs {
-                for large_diff in &large_diffs {
-                    let rad1 = start;
-                    let rad2 = start + small_diff + large_diff;
-                    let angle1 = Angle::from_radians(rad1);
-                    let angle2 = Angle::from_radians(rad2);
-                    println!("Expecting {} == {}", angle1, angle2);
-                    assert!(angle1.eq_within(angle2, TEST_ANGLE_ACCURACY));
-                }
-            }
+    fn second_angle_roundtrip() {
+        for i in -10..10 {
+            let input = i as f64;
+            let angle = angle_from_second_angle(input);
+            let output = angle_to_second_angle(&angle);
+            assert!(eq(input, output));
         }
     }
 }

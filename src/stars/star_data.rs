@@ -2,41 +2,39 @@ use super::star_appearance::StarAppearance;
 use crate::{
     color::sRGBColor,
     coordinates::direction::Direction,
-    units::{
-        illuminance::Illuminance, length::Length, luminosity::Luminosity, mass::Mass,
-        temperature::Temperature, time::Time,
-    },
+    units::{illuminance::IRRADIANCE_ZERO, luminous_intensity::luminous_intensity_to_illuminance},
 };
 use serde::{Deserialize, Serialize};
+use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
     pub(super) name: String,
-    pub(super) mass: Option<Mass>,
-    pub(super) radius: Option<Length>,
-    pub(super) luminosity: Option<Luminosity>,
-    pub(super) temperature: Option<Temperature>,
-    pub(super) age: Option<Time>,
-    pub(super) distance: Option<Length>,
+    pub(super) mass: Option<Mass<f64>>,
+    pub(super) radius: Option<Distance<f64>>,
+    pub(super) luminous_intensity: Option<Luminosity<f64>>,
+    pub(super) temperature: Option<Temperature<f64>>,
+    pub(super) age: Option<Time<f64>>,
+    pub(super) distance: Option<Distance<f64>>,
     pub(super) direction_in_ecliptic: Direction,
 }
 
 impl StarData {
     pub fn new(
         name: String,
-        mass: Option<Mass>,
-        radius: Option<Length>,
-        luminosity: Option<Luminosity>,
-        temperature: Option<Temperature>,
-        age: Option<Time>,
-        distance: Option<Length>,
+        mass: Option<Mass<f64>>,
+        radius: Option<Distance<f64>>,
+        luminous_intensity: Option<Luminosity<f64>>,
+        temperature: Option<Temperature<f64>>,
+        age: Option<Time<f64>>,
+        distance: Option<Distance<f64>>,
         direction_in_ecliptic: Direction,
     ) -> Self {
         Self {
             name,
             mass,
             radius,
-            luminosity,
+            luminous_intensity,
             temperature,
             age,
             distance,
@@ -48,27 +46,27 @@ impl StarData {
         &self.name
     }
 
-    pub const fn get_radius(&self) -> &Option<Length> {
+    pub const fn get_radius(&self) -> &Option<Distance<f64>> {
         &self.radius
     }
 
-    pub const fn get_mass(&self) -> &Option<Mass> {
+    pub const fn get_mass(&self) -> &Option<Mass<f64>> {
         &self.mass
     }
 
-    pub const fn get_luminosity(&self) -> &Option<Luminosity> {
-        &self.luminosity
+    pub const fn get_luminous_intensity(&self) -> &Option<Luminosity<f64>> {
+        &self.luminous_intensity
     }
 
-    pub const fn get_temperature(&self) -> &Option<Temperature> {
+    pub const fn get_temperature(&self) -> &Option<Temperature<f64>> {
         &self.temperature
     }
 
-    pub const fn get_age(&self) -> &Option<Time> {
+    pub const fn get_age(&self) -> &Option<Time<f64>> {
         &self.age
     }
 
-    pub const fn get_distance(&self) -> &Option<Length> {
+    pub const fn get_distance(&self) -> &Option<Distance<f64>> {
         &self.distance
     }
 
@@ -80,27 +78,27 @@ impl StarData {
         self.name = name;
     }
 
-    pub fn set_mass(&mut self, mass: Option<Mass>) {
+    pub fn set_mass(&mut self, mass: Option<Mass<f64>>) {
         self.mass = mass;
     }
 
-    pub fn set_radius(&mut self, radius: Option<Length>) {
+    pub fn set_radius(&mut self, radius: Option<Distance<f64>>) {
         self.radius = radius;
     }
 
-    pub fn set_luminosity(&mut self, luminosity: Option<Luminosity>) {
-        self.luminosity = luminosity;
+    pub fn set_luminous_intensity(&mut self, luminous_intensity: Option<Luminosity<f64>>) {
+        self.luminous_intensity = luminous_intensity;
     }
 
-    pub fn set_temperature(&mut self, temperature: Option<Temperature>) {
+    pub fn set_temperature(&mut self, temperature: Option<Temperature<f64>>) {
         self.temperature = temperature;
     }
 
-    pub fn set_age(&mut self, age: Option<Time>) {
+    pub fn set_age(&mut self, age: Option<Time<f64>>) {
         self.age = age;
     }
 
-    pub fn set_distance(&mut self, distance: Option<Length>) {
+    pub fn set_distance(&mut self, distance: Option<Distance<f64>>) {
         self.distance = distance;
     }
 
@@ -109,9 +107,11 @@ impl StarData {
     }
 
     pub fn to_star_appearance(&self) -> StarAppearance {
-        let illuminance = match (self.luminosity, self.distance) {
-            (Some(luminosity), Some(distance)) => luminosity.to_illuminance(&distance),
-            _ => Illuminance::ZERO,
+        let illuminance = match (self.luminous_intensity, self.distance) {
+            (Some(luminous_intensity), Some(distance)) => {
+                luminous_intensity_to_illuminance(&luminous_intensity, &distance)
+            }
+            _ => IRRADIANCE_ZERO,
         };
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
@@ -127,6 +127,8 @@ impl StarData {
 
     #[cfg(test)]
     pub(crate) fn similar_within_order_of_magnitude(&self, other: &Self) -> bool {
+        use crate::units::luminous_intensity::luminous_intensity_to_absolute_magnitude;
+
         let mass_ratio = match (self.mass, other.mass) {
             (Some(self_mass), Some(other_mass)) => self_mass / other_mass,
             _ => 1.0,
@@ -135,13 +137,15 @@ impl StarData {
             (Some(self_radius), Some(other_radius)) => self_radius / other_radius,
             _ => 1.0,
         };
-        let luminosity_difference = match (self.luminosity, other.luminosity) {
-            (Some(self_luminosity), Some(other_luminosity)) => {
-                (self_luminosity.as_absolute_magnitude() - other_luminosity.as_absolute_magnitude())
+        let luminous_intensity_difference =
+            match (self.luminous_intensity, other.luminous_intensity) {
+                (Some(self_luminous_intensity), Some(other_luminous_intensity)) => {
+                    (luminous_intensity_to_absolute_magnitude(self_luminous_intensity)
+                        - luminous_intensity_to_absolute_magnitude(other_luminous_intensity))
                     .abs()
-            }
-            _ => 0.0,
-        };
+                }
+                _ => 0.0,
+            };
         let temperature_ratio = match (self.temperature, other.temperature) {
             (Some(self_temperature), Some(other_temperature)) => {
                 self_temperature / other_temperature
@@ -171,12 +175,12 @@ impl StarData {
             );
             result = false;
         }
-        if luminosity_difference > 1.0 {
+        if luminous_intensity_difference > 1.0 {
             println!(
-                "luminosity1: {}, luminosity2: {}, difference: {}",
-                self.luminosity.unwrap(),
-                other.luminosity.unwrap(),
-                luminosity_difference
+                "luminous_intensity1: {}, luminous_intensity2: {}, difference: {}",
+                self.luminous_intensity.unwrap(),
+                other.luminous_intensity.unwrap(),
+                luminous_intensity_difference
             );
             result = false;
         }
