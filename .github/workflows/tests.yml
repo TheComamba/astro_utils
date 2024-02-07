@@ -1,6 +1,9 @@
 name: Run Tests
 on: [push, pull_request]
 
+env:
+  RUST_BACKTRACE: full
+
 jobs:
   buildAndTest:
     strategy:
