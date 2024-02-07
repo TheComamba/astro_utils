@@ -14,8 +14,8 @@ jobs:
       - name: Install dependencies for Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
-          apt-get update
-          apt-get install -y sudo curl build-essential cmake pkg-config cargo
+          sudo apt-get update
+          sudo apt-get install -y curl build-essential cmake pkg-config cargo
 
       - uses: dtolnay/rust-toolchain@stable
         with:
