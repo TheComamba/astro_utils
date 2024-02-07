@@ -1,8 +1,0 @@
-name: Build Library
-on: [push, pull_request]
-
-jobs:
-  debugBuild:
-    uses: ./.github/workflows/_build.yml
-    with:
-      isRelease: ${{ github.ref == 'refs/heads/main' }}
