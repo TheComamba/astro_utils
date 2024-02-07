@@ -108,7 +108,7 @@ pub const EARTH: RealData = RealData {
         s: 0.997_269_68 * DAY.s,
     },
     axis_tilt: Angle {
-        rad: 23.439_2811 * DEGREE.rad,
+        rad: 23.439_281 * DEGREE.rad,
     },
     rotation_axis: EarthEquatorialCoordinates::new(ANGLE_ZERO, QUARTER_CIRC),
 };

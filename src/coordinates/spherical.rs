@@ -43,11 +43,11 @@ impl SphericalCoordinates {
         self.longitude = normalized_angle(self.longitude);
         self.latitude = normalized_angle(self.latitude);
         if self.latitude > QUARTER_CIRC {
-            self.longitude = self.longitude + HALF_CIRC;
+            self.longitude += HALF_CIRC;
             self.longitude = normalized_angle(self.longitude);
             self.latitude = HALF_CIRC - self.latitude;
         } else if self.latitude < -QUARTER_CIRC {
-            self.longitude = self.longitude + HALF_CIRC;
+            self.longitude += HALF_CIRC;
             self.longitude = normalized_angle(self.longitude);
             self.latitude = -HALF_CIRC - self.latitude;
         }

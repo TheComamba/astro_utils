@@ -72,13 +72,12 @@ impl OrbitParameters {
         let mean_anomaly = mean_anomaly(orbital_period, time);
         let eccentric_anomaly = eccentric_anomaly(mean_anomaly, self.eccentricity);
         let true_anomaly = true_anomaly(eccentric_anomaly, self.eccentricity);
-        let position = position_relative_to_central_body(
+        position_relative_to_central_body(
             self.semi_major_axis,
             self.eccentricity,
             true_anomaly,
-            &self,
-        );
-        position
+            self,
+        )
     }
 
     pub(crate) fn apply_orientation_to(
@@ -87,14 +86,12 @@ impl OrbitParameters {
     ) -> CartesianCoordinates {
         let position = position_in_plane.rotated(self.inclination, &Direction::X);
         let position = position.rotated(self.longitude_of_ascending_node, &Direction::Z);
-        let position = position.rotated(self.argument_of_periapsis, &self.normal());
-        position
+        position.rotated(self.argument_of_periapsis, &self.normal())
     }
 
     pub(crate) fn normal(&self) -> Direction {
         let ecliptic_normal = Direction::Z;
         let orbit_normal = ecliptic_normal.rotated(self.inclination, &Direction::X);
-        let orbit_normal = orbit_normal.rotated(self.longitude_of_ascending_node, &Direction::Z);
-        orbit_normal
+        orbit_normal.rotated(self.longitude_of_ascending_node, &Direction::Z)
     }
 }

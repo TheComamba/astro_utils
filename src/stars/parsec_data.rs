@@ -143,12 +143,13 @@ impl ParsecData {
         parsec_data: &mut ParsecData,
     ) -> Result<(), AstroUtilError> {
         let file_path = entry.map_err(AstroUtilError::Io)?.path();
-        let file = File::open(&file_path).map_err(AstroUtilError::Io)?;
+        let file = File::open(file_path).map_err(AstroUtilError::Io)?;
         let reader = BufReader::new(file);
         let mut mass_position = None;
-        Ok(for line in reader.lines() {
+        for line in reader.lines() {
             Self::read_line(line, &mut mass_position, parsec_data)?;
-        })
+        }
+        Ok(())
     }
 
     fn read_line(
@@ -166,7 +167,7 @@ impl ParsecData {
                 *mass_position = Some(Self::get_closest_mass_index(mass_value));
             }
         }
-        Ok(if let Some(mass_position) = &*mass_position {
+        if let Some(mass_position) = &*mass_position {
             let age_entry = entries
                 .get(Self::AGE_INDEX)
                 .ok_or(AstroUtilError::DataNotAvailable)?;
@@ -199,10 +200,11 @@ impl ParsecData {
                     .ok_or(AstroUtilError::DataNotAvailable)?;
                 data.push(parsec_line);
             }
-        })
+        };
+        Ok(())
     }
 
-    pub(super) fn get_life_expectancy_in_years(trajectory: &Vec<ParsecLine>) -> u32 {
+    pub(super) fn get_life_expectancy_in_years(trajectory: &[ParsecLine]) -> u32 {
         trajectory.last().unwrap().age as u32
     }
 
@@ -226,7 +228,7 @@ impl ParsecData {
     }
 
     pub(super) fn get_closest_params(
-        trajectory: &Vec<ParsecLine>,
+        trajectory: &[ParsecLine],
         actual_age_in_years: f64,
     ) -> &ParsecLine {
         let mut closest_age = f64::MAX;
@@ -276,7 +278,7 @@ impl ParsecLine {
 
     pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
         let lum = self.get_luminous_intensity();
-        let ill = luminous_intensity_to_illuminance(&lum, &distance);
+        let ill = luminous_intensity_to_illuminance(&lum, distance);
         illuminance_to_apparent_magnitude(&ill)
     }
 

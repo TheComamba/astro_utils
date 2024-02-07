@@ -70,7 +70,7 @@ impl GaiaResponse {
             let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
             let direction_in_ecliptic = SphericalCoordinates::new(ecl_lon, ecl_lat).to_direction();
 
-            let temperature = temperature.map(|temperature| Temperature::from_K(temperature));
+            let temperature = temperature.map(Temperature::from_K);
             let color = match temperature {
                 Some(temperature) => sRGBColor::from_temperature(temperature),
                 None => sRGBColor::DEFAULT,
@@ -104,10 +104,7 @@ fn query_brightest_stars(brightest: Illuminance<f64>) -> Result<GaiaResponse, As
     serde_json::from_str(&resp).map_err(AstroUtilError::Json)
 }
 
-pub fn star_is_already_known(
-    new_star: &StarAppearance,
-    known_stars: &Vec<&StarAppearance>,
-) -> bool {
+pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[StarAppearance]) -> bool {
     known_stars
         .iter()
         .any(|known_star| known_star.apparently_the_same(new_star))
@@ -198,7 +195,7 @@ mod tests {
             if gaia_star.name == PROBLEMATIC_STAR {
                 continue;
             }
-            let is_known = star_is_already_known(gaia_star, &known_stars.iter().collect());
+            let is_known = star_is_already_known(gaia_star, &known_stars[..]);
             if !is_known {
                 println!("\ngaia_star is not known");
                 let closest = find_closest_star(gaia_star, &known_stars.iter().collect()).unwrap();
@@ -298,7 +295,7 @@ mod tests {
 
         let mut failure_count = 0;
         for known_star in known_stars.iter() {
-            let is_known = star_is_already_known(known_star, &gaia_stars.iter().collect());
+            let is_known = star_is_already_known(known_star, &gaia_stars[..]);
             if !is_known {
                 println!("\nknown_star is not in gaia:\n{}", known_star.name);
                 println!(

@@ -95,7 +95,7 @@ fn generate_visible_random_star(
     let pos = random_point_in_sphere(rng, pos_distr, max_distance_in_au_squared);
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-    let current_params = pick_random_age(&trajectory);
+    let current_params = pick_random_age(trajectory);
     let distance = pos.length();
     let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
     if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
@@ -157,7 +157,7 @@ fn random_point_in_sphere(
     CartesianCoordinates::new(x, y, z)
 }
 
-fn pick_random_age(trajectory: &Vec<ParsecLine>) -> &ParsecLine {
+fn pick_random_age(trajectory: &[ParsecLine]) -> &ParsecLine {
     let mut rng: ThreadRng = rand::thread_rng();
     let life_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
     let age_in_years = rng.gen_range(0..=life_expectancy);
