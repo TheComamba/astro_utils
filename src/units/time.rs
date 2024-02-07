@@ -1,3 +1,5 @@
+use crate::astro_display::AstroDisplay;
+
 use super::DISPLAY_THRESHOLD;
 use simple_si_units::base::Time;
 
@@ -18,7 +20,7 @@ pub enum TimeUnit {
     BillionYears,
 }
 
-pub fn display_time_in_units(time: Time<f64>, units: TimeUnit) -> String {
+pub(crate) fn display_time_in_units(time: &Time<f64>, units: TimeUnit) -> String {
     match units {
         TimeUnit::Seconds => format!("{:.2} sec", time.to_seconds()),
         TimeUnit::Minutes => format!("{:.2} min", time.to_min()),
@@ -31,25 +33,27 @@ pub fn display_time_in_units(time: Time<f64>, units: TimeUnit) -> String {
     }
 }
 
-pub fn display_time(time: Time<f64>) -> String {
-    let units = if time.to_Gyr().abs() > DISPLAY_THRESHOLD {
-        TimeUnit::BillionYears
-    } else if time.to_Myr().abs() > DISPLAY_THRESHOLD {
-        TimeUnit::MillionYears
-    } else if time.to_kyr().abs() > DISPLAY_THRESHOLD {
-        TimeUnit::ThousandYears
-    } else if time.to_yr().abs() > DISPLAY_THRESHOLD {
-        TimeUnit::Years
-    } else if time.to_days().abs() > DISPLAY_THRESHOLD {
-        TimeUnit::Days
-    } else if time.to_hr().abs() > DISPLAY_THRESHOLD {
-        TimeUnit::Hours
-    } else if time.to_min().abs() > DISPLAY_THRESHOLD {
-        TimeUnit::Minutes
-    } else {
-        TimeUnit::Seconds
-    };
-    display_time_in_units(time, units)
+impl AstroDisplay for Time<f64> {
+    fn astro_display(&self) -> String {
+        let units = if self.to_Gyr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::BillionYears
+        } else if self.to_Myr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::MillionYears
+        } else if self.to_kyr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::ThousandYears
+        } else if self.to_yr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::Years
+        } else if self.to_days().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::Days
+        } else if self.to_hr().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::Hours
+        } else if self.to_min().abs() > DISPLAY_THRESHOLD {
+            TimeUnit::Minutes
+        } else {
+            TimeUnit::Seconds
+        };
+        display_time_in_units(self, units)
+    }
 }
 
 #[cfg(test)]
@@ -59,40 +63,40 @@ mod tests {
     #[test]
     fn test_time_display() {
         let time = Time::from_seconds(1.);
-        assert_eq!(display_time(time), "1.00 sec");
+        assert_eq!(time.astro_display(), "1.00 sec");
         let time = Time::from_min(1.);
-        assert_eq!(display_time(time), "1.00 min");
+        assert_eq!(time.astro_display(), "1.00 min");
         let time = Time::from_hr(1.);
-        assert_eq!(display_time(time), "1.00 hrs");
+        assert_eq!(time.astro_display(), "1.00 hrs");
         let time = Time::from_days(1.);
-        assert_eq!(display_time(time), "1.00 days");
+        assert_eq!(time.astro_display(), "1.00 days");
         let time = Time::from_yr(1.);
-        assert_eq!(display_time(time), "1.00 yrs");
+        assert_eq!(time.astro_display(), "1.00 yrs");
         let time = Time::from_kyr(1.);
-        assert_eq!(display_time(time), "1.00 kyr");
+        assert_eq!(time.astro_display(), "1.00 kyr");
         let time = Time::from_Myr(1.);
-        assert_eq!(display_time(time), "1.00 Myrs");
+        assert_eq!(time.astro_display(), "1.00 Myrs");
         let time = Time::from_Gyr(1.);
-        assert_eq!(display_time(time), "1.00 Gyrs");
+        assert_eq!(time.astro_display(), "1.00 Gyrs");
     }
 
     #[test]
     fn test_time_negative_display() {
         let time = Time::from_seconds(-1.);
-        assert_eq!(display_time(time), "-1.00 sec");
+        assert_eq!(time.astro_display(), "-1.00 sec");
         let time = Time::from_min(-1.);
-        assert_eq!(display_time(time), "-1.00 min");
+        assert_eq!(time.astro_display(), "-1.00 min");
         let time = Time::from_hr(-1.);
-        assert_eq!(display_time(time), "-1.00 hrs");
+        assert_eq!(time.astro_display(), "-1.00 hrs");
         let time = Time::from_days(-1.);
-        assert_eq!(display_time(time), "-1.00 days");
+        assert_eq!(time.astro_display(), "-1.00 days");
         let time = Time::from_yr(-1.);
-        assert_eq!(display_time(time), "-1.00 yrs");
+        assert_eq!(time.astro_display(), "-1.00 yrs");
         let time = Time::from_kyr(-1.);
-        assert_eq!(display_time(time), "-1.00 kyr");
+        assert_eq!(time.astro_display(), "-1.00 kyr");
         let time = Time::from_Myr(-1.);
-        assert_eq!(display_time(time), "-1.00 Myrs");
+        assert_eq!(time.astro_display(), "-1.00 Myrs");
         let time = Time::from_Gyr(-1.);
-        assert_eq!(display_time(time), "-1.00 Gyrs");
+        assert_eq!(time.astro_display(), "-1.00 Gyrs");
     }
 }

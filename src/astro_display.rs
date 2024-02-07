@@ -1,3 +1,3 @@
 pub trait AstroDisplay {
-    fn display(&self) -> String;
+    fn astro_display(&self) -> String;
 }

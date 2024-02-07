@@ -1,6 +1,8 @@
 use simple_si_units::geometry::Angle;
 use std::f64::consts::PI;
 
+use crate::astro_display::AstroDisplay;
+
 pub const ANGLE_ZERO: Angle<f64> = Angle { rad: 0. };
 pub(crate) const FULL_CIRC: Angle<f64> = Angle { rad: 2. * PI };
 pub(crate) const QUARTER_CIRC: Angle<f64> = Angle { rad: 2. * PI / 4. };
@@ -70,6 +72,12 @@ pub(crate) fn angle_eq(actual: Angle<f64>, expected: Angle<f64>) -> bool {
     use crate::tests::TEST_ACCURACY;
 
     angle_eq_within(actual, expected, Angle { rad: TEST_ACCURACY })
+}
+
+impl AstroDisplay for Angle<f64> {
+    fn astro_display(&self) -> String {
+        format!("{:.2} °", self.to_degrees())
+    }
 }
 
 #[cfg(test)]

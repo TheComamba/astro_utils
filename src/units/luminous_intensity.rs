@@ -1,3 +1,5 @@
+use crate::astro_display::AstroDisplay;
+
 use super::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude};
 use simple_si_units::{
     base::{Distance, Luminosity},
@@ -39,8 +41,11 @@ pub fn illuminance_to_luminous_intensity(
     illuminance * (distance * distance) / SolidAngle::from_steradians(1.)
 }
 
-pub fn display_luminous_intensity(luminous_intensity: &Luminosity<f64>) -> String {
-    format!("{:.2} cd", luminous_intensity.cd) //should be watts
+impl AstroDisplay for Luminosity<f64> {
+    fn astro_display(&self) -> String {
+        let absolute_magnitude = luminous_intensity_to_absolute_magnitude(*self);
+        format!("{:.2} abs. mag.", absolute_magnitude)
+    }
 }
 
 #[cfg(test)]

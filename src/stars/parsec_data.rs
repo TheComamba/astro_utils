@@ -209,7 +209,7 @@ impl ParsecData {
     #[cfg(test)]
     pub(super) fn get_params_for_current_mass_and_age(
         &self,
-        mass: Mass<f64>,
+        mass: &Mass<f64>,
         age_in_years: f64,
     ) -> &ParsecLine {
         use crate::units::mass::mass_to_solar_masses;
@@ -217,7 +217,7 @@ impl ParsecData {
         let mut mass_index = Self::get_closest_mass_index(mass_to_solar_masses(mass));
         let mut trajectory = &self.data[mass_index];
         let mut params = Self::get_closest_params(trajectory, age_in_years);
-        while params.get_mass() < mass && mass_index < Self::SORTED_MASSES.len() - 1 {
+        while params.get_mass() < *mass && mass_index < Self::SORTED_MASSES.len() - 1 {
             mass_index += 1;
             trajectory = &self.data[mass_index];
             params = Self::get_closest_params(trajectory, age_in_years);
@@ -312,7 +312,7 @@ mod tests {
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
         let current_params =
-            parsec_data.get_params_for_current_mass_and_age(mass.unwrap(), age.to_yr());
+            parsec_data.get_params_for_current_mass_and_age(&mass.unwrap(), age.to_yr());
         let calculated_sun = current_params.to_star_at_origin();
         let real_sun = SUN_DATA.to_star_data();
         println!(
@@ -365,7 +365,7 @@ mod tests {
         for data in BRIGHTEST_STARS.iter() {
             if let (Some(age), Some(mass)) = (data.age, data.mass) {
                 let age = age.to_yr();
-                let mass_index = ParsecData::get_closest_mass_index(mass_to_solar_masses(mass));
+                let mass_index = ParsecData::get_closest_mass_index(mass_to_solar_masses(&mass));
                 let trajectory = parsec_data.get_trajectory_via_index(mass_index);
                 let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
                 let age_expectancy = Time::from_yr(age_expectancy as f64);
@@ -374,7 +374,7 @@ mod tests {
                     continue;
                 }
 
-                let current_params = parsec_data.get_params_for_current_mass_and_age(mass, age);
+                let current_params = parsec_data.get_params_for_current_mass_and_age(&mass, age);
                 let calculated_star = current_params.to_star_at_origin();
                 let real_star = data.to_star_data();
                 if calculated_star.similar_within_order_of_magnitude(&real_star) {
