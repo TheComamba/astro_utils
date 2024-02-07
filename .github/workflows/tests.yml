@@ -1,0 +1,9 @@
+name: Run Tests
+on: 
+  [push]
+  schedule:
+    - cron: "0 0 * * 6" # every saturday at 00:00 UTC
+
+jobs:
+  runTests:
+    uses: ./.github/workflows/_tests.yml
