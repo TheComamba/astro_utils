@@ -1,3 +1,4 @@
+pub mod astro_display;
 pub mod color;
 pub mod coordinates;
 pub mod error;
