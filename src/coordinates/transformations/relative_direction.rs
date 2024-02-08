@@ -5,7 +5,7 @@ use crate::coordinates::direction::Direction;
  * The rotation_reference is used to determine the direction of the rotation.
  * Its projection onto the new XY plane points along the new X axis.
  */
-pub fn direction_relative_to_surface_normal(
+pub fn direction_relative_to_normal(
     object_direction: &Direction,
     observer_normal: &Direction,
     rotation_reference: &Direction,
@@ -27,7 +27,10 @@ pub fn direction_relative_to_surface_normal(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{tests::TEST_ACCURACY, units::angle::ANGLE_ZERO};
+    use crate::{
+        tests::TEST_ACCURACY,
+        units::angle::{ANGLE_ZERO, HALF_CIRC},
+    };
     use simple_si_units::geometry::Angle;
 
     #[test]
@@ -42,8 +45,7 @@ mod tests {
                     }
                     let dir = dir.unwrap();
                     let rotation_reference = dir.some_orthogonal_vector();
-                    let rotated =
-                        direction_relative_to_surface_normal(&dir, &dir, &rotation_reference);
+                    let rotated = direction_relative_to_normal(&dir, &dir, &rotation_reference);
 
                     assert!(rotated.eq_within(&Direction::Z, TEST_ACCURACY));
                 }
@@ -82,7 +84,7 @@ mod tests {
                                     let object_direction =
                                         rotation_reference.rotated(*angle, &ortho);
 
-                                    let dir_in_new_system = direction_relative_to_surface_normal(
+                                    let dir_in_new_system = direction_relative_to_normal(
                                         &object_direction,
                                         &observer_normal,
                                         &rotation_reference,
@@ -98,6 +100,70 @@ mod tests {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn rotating_to_original_x_and_z_does_nothing() {
+        let ordinates = vec![0., 1., -1., 12.];
+        for x in ordinates.clone().iter() {
+            for y in ordinates.clone().iter() {
+                for z in ordinates.clone().iter() {
+                    let object_direction = Direction::new(*x, *y, *z);
+                    if object_direction.is_err() {
+                        continue;
+                    }
+                    let orig = object_direction.unwrap();
+
+                    let new = direction_relative_to_normal(&orig, &Direction::Z, &Direction::X);
+
+                    assert!(new.eq_within(&orig, TEST_ACCURACY));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn mirroring_x_axis_rotates_around_z() {
+        let ordinates = vec![0., 1., -1., 12.];
+        for x in ordinates.clone().iter() {
+            for y in ordinates.clone().iter() {
+                for z in ordinates.clone().iter() {
+                    let object_direction = Direction::new(*x, *y, *z);
+                    if object_direction.is_err() {
+                        continue;
+                    }
+                    let orig = object_direction.unwrap();
+
+                    let new = direction_relative_to_normal(&orig, &Direction::Z, &-&Direction::X);
+
+                    let expected = orig.rotated(HALF_CIRC, &Direction::Z);
+
+                    assert!(new.eq_within(&expected, TEST_ACCURACY));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn mirroring_z_axis_rotates_around_x() {
+        let ordinates = vec![0., 1., -1., 12.];
+        for x in ordinates.clone().iter() {
+            for y in ordinates.clone().iter() {
+                for z in ordinates.clone().iter() {
+                    let object_direction = Direction::new(*x, *y, *z);
+                    if object_direction.is_err() {
+                        continue;
+                    }
+                    let orig = object_direction.unwrap();
+
+                    let new = direction_relative_to_normal(&orig, &-&Direction::Z, &Direction::X);
+
+                    let expected = orig.rotated(HALF_CIRC, &Direction::X);
+
+                    assert!(new.eq_within(&expected, TEST_ACCURACY));
                 }
             }
         }
