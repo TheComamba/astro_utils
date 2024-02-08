@@ -151,7 +151,7 @@ impl PlanetData {
             self.radius,
             self.geometric_albedo,
         )?;
-        let relative_position = observer_position - planet_pos;
+        let relative_position = planet_pos - observer_position;
         Ok(StarAppearance {
             name: self.name.clone(),
             illuminance: brightness,
