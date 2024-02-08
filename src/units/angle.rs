@@ -48,7 +48,7 @@ pub fn angle_to_second_angle(angle: &Angle<f64>) -> f64 {
 * Normalize the angle to a range of −π to +π radians, -180° to 180°.
 */
 pub fn normalized_angle(mut angle: Angle<f64>) -> Angle<f64> {
-    angle.rad = angle.rad % FULL_CIRC.rad;
+    angle.rad %= FULL_CIRC.rad;
     if angle > HALF_CIRC {
         angle -= FULL_CIRC;
     } else if angle < -HALF_CIRC {

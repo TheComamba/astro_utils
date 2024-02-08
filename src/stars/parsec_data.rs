@@ -8,6 +8,7 @@ use crate::units::luminous_intensity::{
 use crate::units::mass::SOLAR_MASS;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
+use lazy_static::lazy_static;
 use rmp_serde;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
@@ -15,7 +16,13 @@ use std::fs;
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::path::PathBuf;
+use std::sync::Mutex;
 use tar::Archive;
+
+lazy_static! {
+    pub(super) static ref PARSEC_DATA: Mutex<Result<ParsecData, AstroUtilError>> =
+        Mutex::new(ParsecData::new());
+}
 
 #[derive(Deserialize, Serialize)]
 pub(super) struct ParsecLine {
@@ -49,7 +56,7 @@ impl ParsecData {
     const LOG_TE_INDEX: usize = 4;
     const LOG_R_INDEX: usize = 5;
 
-    pub(super) fn new() -> Result<ParsecData, AstroUtilError> {
+    fn new() -> Result<ParsecData, AstroUtilError> {
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let file_path = data_dir.join(Self::FILENAME);
@@ -59,17 +66,21 @@ impl ParsecData {
             let file = File::open(&file_path).map_err(AstroUtilError::Io)?;
             let parsec_data: ParsecData =
                 rmp_serde::from_read(file).map_err(AstroUtilError::RmpDeserialization)?;
-            Ok(parsec_data)
+            if parsec_data.is_filled() {
+                Ok(parsec_data)
+            } else {
+                Err(AstroUtilError::DataNotAvailable)
+            }
         } else {
             Self::ensure_data_files()?;
+            let folder_path = data_dir.join(PathBuf::from(Self::METALLICITY));
+            let filepaths = fs::read_dir(folder_path).map_err(AstroUtilError::Io)?;
             let mut parsec_data = ParsecData {
                 data: Vec::with_capacity(Self::SORTED_MASSES.len()),
             };
             for _ in Self::SORTED_MASSES.iter() {
                 parsec_data.data.push(Vec::new());
             }
-            let folder_path = data_dir.join(PathBuf::from(Self::METALLICITY));
-            let filepaths = fs::read_dir(folder_path).map_err(AstroUtilError::Io)?;
             for entry in filepaths {
                 Self::read_file(entry, &mut parsec_data)?;
             }
@@ -79,7 +90,11 @@ impl ParsecData {
                 rmp_serde::to_vec(&parsec_data).map_err(AstroUtilError::RmpSerialization)?;
             let mut writer = BufWriter::new(file);
             writer.write_all(&buffer).map_err(AstroUtilError::Io)?;
-            Ok(parsec_data)
+            if parsec_data.is_filled() {
+                Ok(parsec_data)
+            } else {
+                Err(AstroUtilError::DataNotAvailable)
+            }
         }
     }
 
@@ -124,7 +139,7 @@ impl ParsecData {
         Ok(())
     }
 
-    pub(super) fn ensure_data_files() -> Result<(), AstroUtilError> {
+    fn ensure_data_files() -> Result<(), AstroUtilError> {
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let path = data_dir.join(PathBuf::from(Self::METALLICITY));
@@ -143,12 +158,13 @@ impl ParsecData {
         parsec_data: &mut ParsecData,
     ) -> Result<(), AstroUtilError> {
         let file_path = entry.map_err(AstroUtilError::Io)?.path();
-        let file = File::open(&file_path).map_err(AstroUtilError::Io)?;
+        let file = File::open(file_path).map_err(AstroUtilError::Io)?;
         let reader = BufReader::new(file);
         let mut mass_position = None;
-        Ok(for line in reader.lines() {
+        for line in reader.lines() {
             Self::read_line(line, &mut mass_position, parsec_data)?;
-        })
+        }
+        Ok(())
     }
 
     fn read_line(
@@ -166,7 +182,7 @@ impl ParsecData {
                 *mass_position = Some(Self::get_closest_mass_index(mass_value));
             }
         }
-        Ok(if let Some(mass_position) = &*mass_position {
+        if let Some(mass_position) = &*mass_position {
             let age_entry = entries
                 .get(Self::AGE_INDEX)
                 .ok_or(AstroUtilError::DataNotAvailable)?;
@@ -199,10 +215,11 @@ impl ParsecData {
                     .ok_or(AstroUtilError::DataNotAvailable)?;
                 data.push(parsec_line);
             }
-        })
+        };
+        Ok(())
     }
 
-    pub(super) fn get_life_expectancy_in_years(trajectory: &Vec<ParsecLine>) -> u32 {
+    pub(super) fn get_life_expectancy_in_years(trajectory: &[ParsecLine]) -> u32 {
         trajectory.last().unwrap().age as u32
     }
 
@@ -225,8 +242,16 @@ impl ParsecData {
         params
     }
 
+    fn is_filled(&self) -> bool {
+        let mut is_filled = !self.data.is_empty();
+        for trajectory in self.data.iter() {
+            is_filled = is_filled && !trajectory.is_empty();
+        }
+        is_filled
+    }
+
     pub(super) fn get_closest_params(
-        trajectory: &Vec<ParsecLine>,
+        trajectory: &[ParsecLine],
         actual_age_in_years: f64,
     ) -> &ParsecLine {
         let mut closest_age = f64::MAX;
@@ -276,7 +301,7 @@ impl ParsecLine {
 
     pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
         let lum = self.get_luminous_intensity();
-        let ill = luminous_intensity_to_illuminance(&lum, &distance);
+        let ill = luminous_intensity_to_illuminance(&lum, distance);
         illuminance_to_apparent_magnitude(&ill)
     }
 
@@ -308,12 +333,15 @@ mod tests {
 
     #[test]
     fn test_caluclate_sun() {
-        let parsec_data = ParsecData::new().unwrap();
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
-        let current_params =
-            parsec_data.get_params_for_current_mass_and_age(&mass.unwrap(), age.to_yr());
-        let calculated_sun = current_params.to_star_at_origin();
+        let calculated_sun = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            parsec_data
+                .get_params_for_current_mass_and_age(&mass.unwrap(), age.to_yr())
+                .to_star_at_origin()
+        };
         let real_sun = SUN_DATA.to_star_data();
         println!(
             "calculated mass: {}, real mass: {}",
@@ -359,35 +387,40 @@ mod tests {
 
     #[test]
     fn test_calculate_star() {
-        let parsec_data = ParsecData::new().unwrap();
         let mut num_success = 0;
         let mut num_fail = 0;
-        for data in BRIGHTEST_STARS.iter() {
-            if let (Some(age), Some(mass)) = (data.age, data.mass) {
-                let age = age.to_yr();
-                let mass_index = ParsecData::get_closest_mass_index(mass_to_solar_masses(&mass));
-                let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-                let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
-                let age_expectancy = Time::from_yr(age_expectancy as f64);
-                if age_expectancy < 0.3 * BILLION_YEARS {
-                    // Numerics get really unstable for stars with short life expectancies.
-                    continue;
-                }
+        {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            for data in BRIGHTEST_STARS.iter() {
+                if let (Some(age), Some(mass)) = (data.age, data.mass) {
+                    let age = age.to_yr();
+                    let mass_index =
+                        ParsecData::get_closest_mass_index(mass_to_solar_masses(&mass));
+                    let trajectory = parsec_data.get_trajectory_via_index(mass_index);
+                    let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
+                    let age_expectancy = Time::from_yr(age_expectancy as f64);
+                    if age_expectancy < 0.3 * BILLION_YEARS {
+                        // Numerics get really unstable for stars with short life expectancies.
+                        continue;
+                    }
 
-                let current_params = parsec_data.get_params_for_current_mass_and_age(&mass, age);
-                let calculated_star = current_params.to_star_at_origin();
-                let real_star = data.to_star_data();
-                if calculated_star.similar_within_order_of_magnitude(&real_star) {
-                    num_success += 1;
-                } else {
-                    println!("Comparing data for {} failed.\n\n", data.common_name);
-                    num_fail += 1;
+                    let current_params =
+                        parsec_data.get_params_for_current_mass_and_age(&mass, age);
+                    let calculated_star = current_params.to_star_at_origin();
+                    let real_star = data.to_star_data();
+                    if calculated_star.similar_within_order_of_magnitude(&real_star) {
+                        num_success += 1;
+                    } else {
+                        println!("Comparing data for {} failed.\n\n", data.common_name);
+                        num_fail += 1;
+                    }
                 }
             }
         }
         println!("\nnum_success: {}", num_success);
         println!("num_fail: {}", num_fail);
-        assert!(num_success > num_fail)
+        assert!(num_success > num_fail);
     }
 
     #[test]

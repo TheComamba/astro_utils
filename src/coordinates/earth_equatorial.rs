@@ -23,9 +23,7 @@ impl EarthEquatorialCoordinates {
     pub fn to_direction(&self) -> Direction {
         let direction_in_equatorial =
             SphericalCoordinates::new(self.right_ascension, self.declination).to_direction();
-        let direction_in_ecliptic =
-            direction_in_equatorial.rotated(-EARTH.axis_tilt, &Direction::X);
-        direction_in_ecliptic
+        direction_in_equatorial.rotated(-EARTH.axis_tilt, &Direction::X)
     }
 
     pub fn to_ecliptic(&self) -> EclipticCoordinates {

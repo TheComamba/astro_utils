@@ -36,7 +36,9 @@ pub fn generate_random_planet() -> PlanetData {
         rng.gen_range(0.0..1.0),
     );
 
-    let rotation_period = Time::from_hr(rng.gen_range((-500.)..(500.)));
+    let min = -500.;
+    let max = 500.;
+    let rotation_period = Time::from_hr(rng.gen_range(min..max));
 
     let min = MERCURY.orbit.semi_major_axis * 0.5;
     let max = NEPTUNE.orbit.semi_major_axis * 2.0;

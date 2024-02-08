@@ -2703,7 +2703,7 @@ const ALPHA_LYNCIS_DATA: RealData = RealData {
         kg: 2. * SOLAR_MASS.kg,
     }),
     absolute_magnitude: -1.02,
-    apparent_magnitude: 3.14,
+    apparent_magnitude: 3.15,
     temperature: Some(Temperature { K: 3882. }),
     age: Some(Time {
         s: 1.4 * BILLION_YEARS.s,
