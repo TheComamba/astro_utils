@@ -250,9 +250,9 @@ impl ParsecData {
 
     fn is_filled(&self) -> bool {
         println!("is_filled");
-        let mut is_filled = self.data.len() > 0;
+        let mut is_filled = !self.data.is_empty();
         for trajectory in self.data.iter() {
-            is_filled = is_filled && trajectory.len() > 0;
+            is_filled = is_filled && !trajectory.is_empty();
         }
         is_filled
     }
