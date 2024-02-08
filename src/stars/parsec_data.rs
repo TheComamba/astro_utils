@@ -333,7 +333,8 @@ mod tests {
 
     #[test]
     fn test_caluclate_sun() {
-        let parsec_data = ParsecData::new().unwrap();
+        let parsec_data = PARSEC_DATA.lock().unwrap();
+        let parsec_data = parsec_data.as_ref().unwrap();
         assert!(parsec_data.data.len() > 0);
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
@@ -385,7 +386,8 @@ mod tests {
 
     #[test]
     fn test_calculate_star() {
-        let parsec_data = ParsecData::new().unwrap();
+        let parsec_data = PARSEC_DATA.lock().unwrap();
+        let parsec_data = parsec_data.as_ref().unwrap();
         let mut num_success = 0;
         let mut num_fail = 0;
         for data in BRIGHTEST_STARS.iter() {
