@@ -57,7 +57,6 @@ impl ParsecData {
     const LOG_R_INDEX: usize = 5;
 
     fn new() -> Result<ParsecData, AstroUtilError> {
-        println!("new");
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let file_path = data_dir.join(Self::FILENAME);
@@ -344,14 +343,15 @@ mod tests {
 
     #[test]
     fn test_caluclate_sun() {
-        let parsec_data = PARSEC_DATA.lock().unwrap();
-        let parsec_data = parsec_data.as_ref().unwrap();
-        assert!(parsec_data.data.len() > 0);
         let mass = SUN_DATA.mass;
         let age = SUN_DATA.age.unwrap();
-        let current_params =
-            parsec_data.get_params_for_current_mass_and_age(&mass.unwrap(), age.to_yr());
-        let calculated_sun = current_params.to_star_at_origin();
+        let calculated_sun = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            parsec_data
+                .get_params_for_current_mass_and_age(&mass.unwrap(), age.to_yr())
+                .to_star_at_origin()
+        };
         let real_sun = SUN_DATA.to_star_data();
         println!(
             "calculated mass: {}, real mass: {}",
@@ -393,42 +393,44 @@ mod tests {
             real_sun.get_temperature().unwrap().K,
             500.
         ));
-        assert!(false)
     }
 
     #[test]
     fn test_calculate_star() {
-        let parsec_data = PARSEC_DATA.lock().unwrap();
-        let parsec_data = parsec_data.as_ref().unwrap();
         let mut num_success = 0;
         let mut num_fail = 0;
-        for data in BRIGHTEST_STARS.iter() {
-            if let (Some(age), Some(mass)) = (data.age, data.mass) {
-                let age = age.to_yr();
-                let mass_index = ParsecData::get_closest_mass_index(mass_to_solar_masses(&mass));
-                let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-                let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
-                let age_expectancy = Time::from_yr(age_expectancy as f64);
-                if age_expectancy < 0.3 * BILLION_YEARS {
-                    // Numerics get really unstable for stars with short life expectancies.
-                    continue;
-                }
+        {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            for data in BRIGHTEST_STARS.iter() {
+                if let (Some(age), Some(mass)) = (data.age, data.mass) {
+                    let age = age.to_yr();
+                    let mass_index =
+                        ParsecData::get_closest_mass_index(mass_to_solar_masses(&mass));
+                    let trajectory = parsec_data.get_trajectory_via_index(mass_index);
+                    let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
+                    let age_expectancy = Time::from_yr(age_expectancy as f64);
+                    if age_expectancy < 0.3 * BILLION_YEARS {
+                        // Numerics get really unstable for stars with short life expectancies.
+                        continue;
+                    }
 
-                let current_params = parsec_data.get_params_for_current_mass_and_age(&mass, age);
-                let calculated_star = current_params.to_star_at_origin();
-                let real_star = data.to_star_data();
-                if calculated_star.similar_within_order_of_magnitude(&real_star) {
-                    num_success += 1;
-                } else {
-                    println!("Comparing data for {} failed.\n\n", data.common_name);
-                    num_fail += 1;
+                    let current_params =
+                        parsec_data.get_params_for_current_mass_and_age(&mass, age);
+                    let calculated_star = current_params.to_star_at_origin();
+                    let real_star = data.to_star_data();
+                    if calculated_star.similar_within_order_of_magnitude(&real_star) {
+                        num_success += 1;
+                    } else {
+                        println!("Comparing data for {} failed.\n\n", data.common_name);
+                        num_fail += 1;
+                    }
                 }
             }
         }
         println!("\nnum_success: {}", num_success);
         println!("num_fail: {}", num_fail);
         assert!(num_success > num_fail);
-        assert!(false)
     }
 
     #[test]
