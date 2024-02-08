@@ -178,7 +178,6 @@ impl ParsecData {
         mass_position: &mut Option<usize>,
         parsec_data: &mut ParsecData,
     ) -> Result<(), AstroUtilError> {
-        println!("read_line({})", line.as_ref().unwrap());
         let line = line.map_err(AstroUtilError::Io)?;
         let entries: Vec<&str> = line.split_whitespace().collect();
         let mass_entry = entries
