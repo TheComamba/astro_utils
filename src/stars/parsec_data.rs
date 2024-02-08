@@ -394,6 +394,7 @@ mod tests {
             real_sun.get_temperature().unwrap().K,
             500.
         ));
+        assert!(false)
     }
 
     #[test]
@@ -427,7 +428,8 @@ mod tests {
         }
         println!("\nnum_success: {}", num_success);
         println!("num_fail: {}", num_fail);
-        assert!(num_success > num_fail)
+        assert!(num_success > num_fail);
+        assert!(false)
     }
 
     #[test]
