@@ -168,4 +168,31 @@ mod tests {
             }
         }
     }
+
+    #[test]
+    fn converting_axes() {
+        let new = direction_relative_to_normal(&Direction::X, &Direction::Y, &Direction::Z);
+        let expected = Direction::Y;
+        assert!(new.eq_within(&expected, TEST_ACCURACY));
+
+        let new = direction_relative_to_normal(&Direction::X, &Direction::Z, &Direction::Y);
+        let expected = -&Direction::Y;
+        assert!(new.eq_within(&expected, TEST_ACCURACY));
+
+        let new = direction_relative_to_normal(&Direction::Y, &Direction::X, &Direction::Z);
+        let expected = -&Direction::Y;
+        assert!(new.eq_within(&expected, TEST_ACCURACY));
+
+        let new = direction_relative_to_normal(&Direction::Y, &Direction::Z, &Direction::X);
+        let expected = Direction::Y;
+        assert!(new.eq_within(&expected, TEST_ACCURACY));
+
+        let new = direction_relative_to_normal(&Direction::Z, &Direction::X, &Direction::Y);
+        let expected = Direction::Y;
+        assert!(new.eq_within(&expected, TEST_ACCURACY));
+
+        let new = direction_relative_to_normal(&Direction::Z, &Direction::Y, &Direction::X);
+        let expected = -&Direction::Y;
+        assert!(new.eq_within(&expected, TEST_ACCURACY));
+    }
 }
