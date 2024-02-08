@@ -31,6 +31,27 @@ mod tests {
     use simple_si_units::geometry::Angle;
 
     #[test]
+    fn direction_relative_to_itself_is_z_axis() {
+        let ordinates = vec![0., 1., -1., 12.];
+        for x in ordinates.clone().iter() {
+            for y in ordinates.clone().iter() {
+                for z in ordinates.clone().iter() {
+                    let dir = Direction::new(*x, *y, *z);
+                    if dir.is_err() {
+                        continue;
+                    }
+                    let dir = dir.unwrap();
+                    let rotation_reference = dir.some_orthogonal_vector();
+                    let rotated =
+                        direction_relative_to_surface_normal(&dir, &dir, &rotation_reference);
+
+                    assert!(rotated.eq_within(&Direction::Z, TEST_ACCURACY));
+                }
+            }
+        }
+    }
+
+    #[test]
     fn objects_along_the_new_x_axis_have_no_y_component() {
         let ordinates = vec![0., 1., -1., 12.];
         let angles = vec![
