@@ -1,8 +1,8 @@
-use super::direction::Direction;
+use crate::coordinates::direction::Direction;
 use simple_si_units::geometry::Angle;
 use std::ops::{Add, Mul};
 
-pub(super) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle<f64>, axis: &Direction) -> (T, T, T)
+pub(crate) fn rotated_tuple<T>(tup: (T, T, T), angle: Angle<f64>, axis: &Direction) -> (T, T, T)
 where
     T: Mul<f64, Output = T> + Add<Output = T> + Copy,
 {
