@@ -8,6 +8,7 @@ use crate::units::luminous_intensity::{
 use crate::units::mass::SOLAR_MASS;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
+use lazy_static::lazy_static;
 use rmp_serde;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
@@ -15,7 +16,13 @@ use std::fs;
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::path::PathBuf;
+use std::sync::Mutex;
 use tar::Archive;
+
+lazy_static! {
+    pub(super) static ref PARSEC_DATA: Mutex<Result<ParsecData, AstroUtilError>> =
+        Mutex::new(ParsecData::new());
+}
 
 #[derive(Deserialize, Serialize)]
 pub(super) struct ParsecLine {
@@ -49,7 +56,7 @@ impl ParsecData {
     const LOG_TE_INDEX: usize = 4;
     const LOG_R_INDEX: usize = 5;
 
-    pub(super) fn new() -> Result<ParsecData, AstroUtilError> {
+    fn new() -> Result<ParsecData, AstroUtilError> {
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let file_path = data_dir.join(Self::FILENAME);
@@ -62,14 +69,14 @@ impl ParsecData {
             Ok(parsec_data)
         } else {
             Self::ensure_data_files()?;
+            let folder_path = data_dir.join(PathBuf::from(Self::METALLICITY));
+            let filepaths = fs::read_dir(folder_path).map_err(AstroUtilError::Io)?;
             let mut parsec_data = ParsecData {
                 data: Vec::with_capacity(Self::SORTED_MASSES.len()),
             };
             for _ in Self::SORTED_MASSES.iter() {
                 parsec_data.data.push(Vec::new());
             }
-            let folder_path = data_dir.join(PathBuf::from(Self::METALLICITY));
-            let filepaths = fs::read_dir(folder_path).map_err(AstroUtilError::Io)?;
             for entry in filepaths {
                 Self::read_file(entry, &mut parsec_data)?;
             }
@@ -124,7 +131,7 @@ impl ParsecData {
         Ok(())
     }
 
-    pub(super) fn ensure_data_files() -> Result<(), AstroUtilError> {
+    fn ensure_data_files() -> Result<(), AstroUtilError> {
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let path = data_dir.join(PathBuf::from(Self::METALLICITY));

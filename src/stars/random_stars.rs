@@ -6,6 +6,7 @@ use crate::{
     astro_display::AstroDisplay,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
+    stars::parsec_data::PARSEC_DATA,
 };
 use rand::{
     distributions::{Uniform, WeightedIndex},
@@ -20,7 +21,10 @@ const STARS_PER_LY_CUBED: f64 = 0.004;
 const DIMMEST_VISIBLE_MAGNITUDE: f64 = 6.5;
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
-    let parsec_data = ParsecData::new()?;
+    let parsec_data = PARSEC_DATA
+        .try_lock()
+        .map_err(|_| AstroUtilError::MutexPoison)?;
+    let parsec_data = parsec_data.as_ref()?;
 
     let start = Instant::now();
     let number_of_stars_in_sphere =
@@ -57,7 +61,10 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
 pub fn generate_random_star(
     max_distance: Option<Distance<f64>>,
 ) -> Result<StarData, AstroUtilError> {
-    let parsec_data = ParsecData::new()?;
+    let parsec_data = PARSEC_DATA
+        .try_lock()
+        .map_err(|_| AstroUtilError::MutexPoison)?;
+    let parsec_data = parsec_data.as_ref()?;
     let mut rng = rand::thread_rng();
     let max_distance_in_au_squared = max_distance.map(|d| d.to_au().powi(2)).unwrap_or(1.);
     let pos_distr = get_pos_distribution(max_distance.unwrap_or(Distance::from_au(1.)));
@@ -176,8 +183,6 @@ mod tests {
         let max_distance = Distance::from_lyr(200.);
         let max_seconds = 60;
 
-        // Downloading files should not count against the time.
-        ParsecData::ensure_data_files().unwrap();
         let start = Instant::now();
         let stars = generate_random_stars(max_distance).unwrap();
         let duration = start.elapsed();
