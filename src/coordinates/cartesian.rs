@@ -227,7 +227,7 @@ impl Display for CartesianCoordinates {
 
 #[cfg(test)]
 mod tests {
-    use crate::tests::eq;
+    use crate::tests::{eq, TEST_ACCURACY};
 
     use super::*;
 
@@ -240,5 +240,29 @@ mod tests {
         };
 
         assert!(eq(coordinates.length().to_m(), 7.0710678118654755));
+    }
+
+    #[test]
+    fn subtraction_tests() {
+        let  ordinates = vec![0.,1.,-1.,12.17];
+        for x1 in ordinates.iter() {
+            for y1 in ordinates.iter() {
+                for z1 in ordinates.iter() {
+                    for x2 in ordinates.iter() {
+                        for y2 in ordinates.iter() {
+                            for z2 in ordinates.iter() {
+                                let c1 = CartesianCoordinates::new(Distance::from_meters(*x1), Distance::from_meters(*y1), Distance::from_meters(*z1));
+                                let c2 = CartesianCoordinates::new(Distance::from_meters(*x2), Distance::from_meters(*y2), Distance::from_meters(*z2));
+                                let c3 = &c1 - &c2;
+                                let c4 = c1.clone() - c2.clone();
+                                let c5 = c1 + -c2;
+                                assert!(c3.eq_within(&c4, Distance { m: TEST_ACCURACY }));
+                                assert!(c4.eq_within(&c5, Distance { m: TEST_ACCURACY }));
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
