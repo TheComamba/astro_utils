@@ -179,7 +179,6 @@ mod tests {
 
     #[test]
     fn generate_random_stars_stress_test() {
-        unsafe { backtrace_on_stack_overflow::enable() };
         // Generating 70_000 stars within 1000 ly takes round about 17 seconds in release mode.
         // But this should not take too long and also work in debug mode.
         // Furthermore, the parsec data needs to be loaded and parsed which takes some seconds.
@@ -197,7 +196,6 @@ mod tests {
 
     #[test]
     fn generating_a_distant_random_star() {
-        unsafe { backtrace_on_stack_overflow::enable() };
         let max_distance = Distance::from_lyr(1000.);
         let _ = generate_random_star(Some(max_distance)).unwrap();
     }

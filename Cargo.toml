@@ -19,6 +19,3 @@ serde = { version = "1.0", features = ["derive"] } # (De)Serialization
 serde_json = "1.0"
 simple-si-units = { version = "1.1", features = ["serde"] }
 tar = "0.4.0" # Decompression
-
-[dev-dependencies]
-backtrace-on-stack-overflow = "0.3.0"
