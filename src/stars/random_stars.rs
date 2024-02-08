@@ -20,8 +20,6 @@ const STARS_PER_LY_CUBED: f64 = 0.004;
 const DIMMEST_VISIBLE_MAGNITUDE: f64 = 6.5;
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
-    println!("generating random stars...");
-
     let number_of_stars_in_sphere =
         STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
     let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
@@ -54,7 +52,6 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
 pub fn generate_random_star(
     max_distance: Option<Distance<f64>>,
 ) -> Result<StarData, AstroUtilError> {
-    println!("generating random star...");
     let mut rng = rand::thread_rng();
     let max_distance_in_au_squared = max_distance.map(|d| d.to_au().powi(2)).unwrap_or(1.);
     let pos_distr = get_pos_distribution(max_distance.unwrap_or(Distance::from_au(1.)));
@@ -94,7 +91,6 @@ fn generate_visible_random_star(
     pos_distr: &Uniform<f64>,
     mass_index_distr: &WeightedIndex<f64>,
 ) -> Option<StarData> {
-    println!("generating visible random star...");
     let pos = random_point_in_sphere(rng, pos_distr, max_distance_in_au_squared);
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
@@ -111,12 +107,10 @@ fn generate_visible_random_star(
 }
 
 fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f64> {
-    println!("getting pos distribution...");
     Uniform::new(-max_distance.to_au(), max_distance.to_au())
 }
 
 fn get_mass_distribution() -> WeightedIndex<f64> {
-    println!(" getting mass distribution...");
     let mut weights = Vec::new();
     for m in ParsecData::SORTED_MASSES {
         let weight = kroupa_mass_distribution(m);
@@ -139,7 +133,6 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
 }
 
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
-    println!(" random direction...");
     let distr = Uniform::new(-1., 1.);
     let mut point = random_point_in_sphere(rng, &distr, 1.);
     let mut dir = point.to_direction();
@@ -155,7 +148,6 @@ fn random_point_in_sphere(
     distr: &Uniform<f64>,
     max_distance_in_au_squared: f64,
 ) -> CartesianCoordinates {
-    println!(" random point in sphere...");
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     while x * x + y * y + z * z > max_distance_in_au_squared {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
@@ -167,7 +159,6 @@ fn random_point_in_sphere(
 }
 
 fn pick_random_age(trajectory: &[ParsecLine]) -> &ParsecLine {
-    println!(" pick random age...");
     let mut rng: ThreadRng = rand::thread_rng();
     let life_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
     let age_in_years = rng.gen_range(0..=life_expectancy);
@@ -181,7 +172,6 @@ mod tests {
 
     #[test]
     fn generate_random_stars_stress_test() {
-        println!(" generate random stars stress test...");
         // Generating 70_000 stars within 1000 ly takes round about 17 seconds in release mode.
         // But this should not take too long and also work in debug mode.
         // Furthermore, the parsec data needs to be loaded and parsed which takes some seconds.
@@ -199,7 +189,6 @@ mod tests {
 
     #[test]
     fn generating_a_distant_random_star() {
-        println!(" generating a distant random star...");
         let max_distance = Distance::from_lyr(1000.);
         let _ = generate_random_star(Some(max_distance)).unwrap();
     }

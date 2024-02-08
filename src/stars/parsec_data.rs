@@ -99,7 +99,6 @@ impl ParsecData {
     }
 
     fn get_closest_mass_index(mass: f64) -> usize {
-        println!("get_closest_mass_index({})", mass);
         let mut min_index = 0;
         let mut max_index = Self::SORTED_MASSES.len() - 1;
         while max_index - min_index > 1 {
@@ -121,7 +120,6 @@ impl ParsecData {
     }
 
     fn download() -> Result<(), AstroUtilError> {
-        println!("download");
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let data_dir = data_dir
@@ -142,7 +140,6 @@ impl ParsecData {
     }
 
     fn ensure_data_files() -> Result<(), AstroUtilError> {
-        println!("ensure_data_files");
         let project_dirs = get_project_dirs()?;
         let data_dir = project_dirs.data_dir();
         let path = data_dir.join(PathBuf::from(Self::METALLICITY));
@@ -153,7 +150,6 @@ impl ParsecData {
     }
 
     pub(super) fn get_trajectory_via_index(&self, i: usize) -> &Vec<ParsecLine> {
-        println!("get_trajectory_via_index({})", i);
         &self.data[i]
     }
 
@@ -161,7 +157,6 @@ impl ParsecData {
         entry: Result<fs::DirEntry, std::io::Error>,
         parsec_data: &mut ParsecData,
     ) -> Result<(), AstroUtilError> {
-        println!("read_file({})", entry.as_ref().unwrap().path().display());
         let file_path = entry.map_err(AstroUtilError::Io)?.path();
         let file = File::open(file_path).map_err(AstroUtilError::Io)?;
         let reader = BufReader::new(file);
@@ -225,7 +220,6 @@ impl ParsecData {
     }
 
     pub(super) fn get_life_expectancy_in_years(trajectory: &[ParsecLine]) -> u32 {
-        println!("get_life_expectancy_in_years");
         trajectory.last().unwrap().age as u32
     }
 
@@ -249,7 +243,6 @@ impl ParsecData {
     }
 
     fn is_filled(&self) -> bool {
-        println!("is_filled");
         let mut is_filled = !self.data.is_empty();
         for trajectory in self.data.iter() {
             is_filled = is_filled && !trajectory.is_empty();
@@ -261,7 +254,6 @@ impl ParsecData {
         trajectory: &[ParsecLine],
         actual_age_in_years: f64,
     ) -> &ParsecLine {
-        println!("get_closest_params");
         let mut closest_age = f64::MAX;
         let mut age_index = 0;
         for (i, line) in trajectory.iter().enumerate() {
@@ -277,7 +269,6 @@ impl ParsecData {
 
 impl ParsecLine {
     pub(super) fn to_star_at_origin(&self) -> StarData {
-        println!("to_star_at_origin");
         let mass = self.get_mass();
         let age = self.get_age();
         let luminous_intensity = self.get_luminous_intensity();
@@ -326,7 +317,6 @@ impl ParsecLine {
 }
 
 fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
-    println!("get_project_dirs");
     ProjectDirs::from("", "the_comamba", "astro_utils").ok_or(AstroUtilError::Io(
         std::io::Error::new(std::io::ErrorKind::Other, "Could not get project dirs"),
     ))
