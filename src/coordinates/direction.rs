@@ -1,6 +1,6 @@
 use super::{
     cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
-    rotations::rotated_tuple, spherical::SphericalCoordinates,
+    spherical::SphericalCoordinates, transformations::rotations::rotated_tuple,
 };
 use crate::{
     astro_display::AstroDisplay,

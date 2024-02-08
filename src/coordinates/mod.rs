@@ -5,5 +5,5 @@ pub mod earth_equatorial;
 pub mod ecliptic;
 pub mod equatorial;
 pub mod right_ascension;
-pub mod rotations;
 pub mod spherical;
+pub mod transformations;
