@@ -197,7 +197,6 @@ mod tests {
     #[test]
     fn generating_a_distant_random_star() {
         let max_distance = Distance::from_lyr(1000.);
-        let star = generate_random_star(Some(max_distance));
-        assert!(star.is_ok());
+        let _ = generate_random_star(Some(max_distance)).unwrap();
     }
 }

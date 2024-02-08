@@ -66,7 +66,11 @@ impl ParsecData {
             let file = File::open(&file_path).map_err(AstroUtilError::Io)?;
             let parsec_data: ParsecData =
                 rmp_serde::from_read(file).map_err(AstroUtilError::RmpDeserialization)?;
-            Ok(parsec_data)
+            if parsec_data.is_filled() {
+                Ok(parsec_data)
+            } else {
+                Err(AstroUtilError::DataNotAvailable)
+            }
         } else {
             Self::ensure_data_files()?;
             let folder_path = data_dir.join(PathBuf::from(Self::METALLICITY));
@@ -86,7 +90,11 @@ impl ParsecData {
                 rmp_serde::to_vec(&parsec_data).map_err(AstroUtilError::RmpSerialization)?;
             let mut writer = BufWriter::new(file);
             writer.write_all(&buffer).map_err(AstroUtilError::Io)?;
-            Ok(parsec_data)
+            if parsec_data.is_filled() {
+                Ok(parsec_data)
+            } else {
+                Err(AstroUtilError::DataNotAvailable)
+            }
         }
     }
 
@@ -232,6 +240,14 @@ impl ParsecData {
             params = Self::get_closest_params(trajectory, age_in_years);
         }
         params
+    }
+
+    fn is_filled(&self) -> bool {
+        let mut is_filled = self.data.len() > 0;
+        for trajectory in self.data.iter() {
+            is_filled = is_filled && trajectory.len() > 0;
+        }
+        is_filled
     }
 
     pub(super) fn get_closest_params(
