@@ -7,8 +7,12 @@ use simple_si_units::{
 };
 
 use crate::{
-    coordinates::cartesian::CartesianCoordinates, error::AstroUtilError,
-    units::luminous_intensity::luminous_intensity_to_illuminance,
+    coordinates::cartesian::CartesianCoordinates,
+    error::AstroUtilError,
+    units::{
+        luminous_intensity::luminous_intensity_to_illuminance,
+        solid_angle::radius_and_distance_to_solid_angle,
+    },
 };
 
 /*
@@ -25,15 +29,6 @@ fn illuminated_fraction(reflection_angle: &Angle<f64>) -> f64 {
     (1. + reflection_angle.rad.cos()) / 2.
 }
 
-fn solid_angle(
-    radius: &Distance<f64>,
-    distance: &Distance<f64>,
-    reflection_angle: &Angle<f64>,
-) -> f64 {
-    let area = PI * radius * radius * illuminated_fraction(reflection_angle);
-    area / (distance * distance)
-}
-
 pub fn planet_brightness(
     star_luminous_intensity: Luminosity<f64>,
     star_position: &CartesianCoordinates,
@@ -48,12 +43,10 @@ pub fn planet_brightness(
     let planet_illuminance =
         luminous_intensity_to_illuminance(&star_luminous_intensity, &planet_to_star.length());
     let planet_flat_surface_luminance = (planet_illuminance * geometric_albedo) / PI;
-    let solid_angle_at_obsverver = solid_angle(
-        &planet_radius,
-        &planet_to_observer.length(),
-        &reflection_angle,
-    );
-    Ok(planet_flat_surface_luminance * solid_angle_at_obsverver)
+    let solid_angle =
+        radius_and_distance_to_solid_angle(planet_radius, planet_to_observer.length());
+    let luminating_solid_angle = solid_angle * illuminated_fraction(&reflection_angle);
+    Ok(planet_flat_surface_luminance * luminating_solid_angle.sr)
 }
 
 #[cfg(test)]
@@ -64,62 +57,11 @@ mod tests {
         real_data::planets::*,
         tests::eq_within,
         units::{
-            angle::ANGLE_ZERO,
-            distance::{DISTANCE_ZERO, SOLAR_RADIUS},
-            illuminance::apparent_magnitude_to_illuminance,
+            distance::DISTANCE_ZERO, illuminance::apparent_magnitude_to_illuminance,
             luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
         },
     };
-
-    const SOLID_ANGLE_TEST_ACCURACY: f64 = 3e-6;
     const REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR: f64 = 0.5;
-
-    #[test]
-    fn solid_angle_of_sun() {
-        let expected = 7e-5;
-        let actual = solid_angle(
-            &SOLAR_RADIUS,
-            &EARTH.orbit.get_semi_major_axis(),
-            &ANGLE_ZERO,
-        );
-        println!("expected: {}, actual: {}", expected, actual);
-        println!(
-            "diff: {}, accuracy: {}",
-            actual - expected,
-            SOLID_ANGLE_TEST_ACCURACY
-        );
-        assert!((actual - expected).abs() < SOLID_ANGLE_TEST_ACCURACY);
-    }
-
-    #[test]
-    fn solid_angle_of_full_moon() {
-        let expected = 6.4e-5;
-        let actual = solid_angle(&MOON.radius, &MOON.orbit.get_semi_major_axis(), &ANGLE_ZERO);
-        println!("expected: {}, actual: {}", expected, actual);
-        println!(
-            "diff: {}, accuracy: {}",
-            actual - expected,
-            SOLID_ANGLE_TEST_ACCURACY
-        );
-        assert!((actual - expected).abs() < SOLID_ANGLE_TEST_ACCURACY);
-    }
-
-    #[test]
-    fn solid_angle_of_half_moon() {
-        let expected = 6.4e-5 / 2.;
-        let actual = solid_angle(
-            &MOON.radius,
-            &MOON.orbit.get_semi_major_axis(),
-            &Angle::from_degrees(90.),
-        );
-        println!("expected: {}, actual: {}", expected, actual);
-        println!(
-            "diff: {}, accuracy: {}",
-            actual - expected,
-            SOLID_ANGLE_TEST_ACCURACY
-        );
-        assert!((actual - expected).abs() < SOLID_ANGLE_TEST_ACCURACY);
-    }
 
     #[test]
     fn venus_at_occultation() {
