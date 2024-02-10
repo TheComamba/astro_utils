@@ -229,9 +229,7 @@ impl ParsecData {
         mass: &Mass<f64>,
         age_in_years: f64,
     ) -> &ParsecLine {
-        use crate::units::mass::mass_to_solar_masses;
-
-        let mut mass_index = Self::get_closest_mass_index(mass_to_solar_masses(mass));
+        let mut mass_index = Self::get_closest_mass_index(mass.to_solar_mass());
         let mut trajectory = &self.data[mass_index];
         let mut params = Self::get_closest_params(trajectory, age_in_years);
         while params.get_mass() < *mass && mass_index < Self::SORTED_MASSES.len() - 1 {
@@ -328,7 +326,7 @@ mod tests {
     use crate::{
         real_data::stars::{BRIGHTEST_STARS, SUN_DATA},
         tests::eq_within,
-        units::{distance::SOLAR_RADIUS, mass::mass_to_solar_masses, time::BILLION_YEARS},
+        units::{distance::SOLAR_RADIUS, time::BILLION_YEARS},
     };
 
     #[test]
@@ -395,8 +393,7 @@ mod tests {
             for data in BRIGHTEST_STARS.iter() {
                 if let (Some(age), Some(mass)) = (data.age, data.mass) {
                     let age = age.to_yr();
-                    let mass_index =
-                        ParsecData::get_closest_mass_index(mass_to_solar_masses(&mass));
+                    let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
                     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
                     let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
                     let age_expectancy = Time::from_yr(age_expectancy as f64);
