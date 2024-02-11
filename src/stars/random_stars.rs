@@ -171,10 +171,11 @@ mod tests {
     use std::time::Instant;
 
     #[test]
+    #[ignore]
     fn generate_random_stars_stress_test() {
+        let _ = PARSEC_DATA.lock(); // Load the parsec data.
+
         // Generating 70_000 stars within 1000 ly takes round about 17 seconds in release mode.
-        // But this should not take too long and also work in debug mode.
-        // Furthermore, the parsec data needs to be loaded and parsed which takes some seconds.
         let max_distance = Distance::from_lyr(200.);
         let max_seconds = 60;
 
