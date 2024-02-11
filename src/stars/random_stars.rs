@@ -1,7 +1,4 @@
-use super::{
-    parsec_data::{ParsecData, ParsecLine},
-    star_data::StarData,
-};
+use super::{parsec_data::ParsecData, star_data::StarData};
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
@@ -12,12 +9,15 @@ use rand::{
     rngs::ThreadRng,
     Rng,
 };
-use simple_si_units::base::Distance;
+use simple_si_units::base::{Distance, Time};
 use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 const STARS_PER_LY_CUBED: f64 = 0.004;
 const DIMMEST_VISIBLE_MAGNITUDE: f64 = 6.5;
+const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
+    s: 8.8e9 * 365.25 * 24. * 3600.,
+};
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
     let number_of_stars_in_sphere =
@@ -27,6 +27,8 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let mut rng = rand::thread_rng();
     let pos_distr = get_pos_distribution(max_distance);
     let mass_index_distr = get_mass_distribution();
+    let age_distr = get_age_distribution();
+
     let mut stars = Vec::new();
     {
         let parsec_data_mutex = PARSEC_DATA
@@ -42,6 +44,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
                 &mut rng,
                 &pos_distr,
                 &mass_index_distr,
+                &age_distr,
             ) {
                 stars.push(star);
             }
@@ -68,6 +71,7 @@ pub fn generate_random_star(
     let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
     let pos_distr = get_pos_distribution(max_distance_or_1);
     let mass_index_distr = get_mass_distribution();
+    let age_dist = get_age_distribution();
 
     let parsec_data_mutex = PARSEC_DATA
         .lock()
@@ -79,6 +83,7 @@ pub fn generate_random_star(
         &mut rng,
         &pos_distr,
         &mass_index_distr,
+        &age_dist,
     );
     while star.is_none() {
         star = generate_visible_random_star(
@@ -87,6 +92,7 @@ pub fn generate_random_star(
             &mut rng,
             &pos_distr,
             &mass_index_distr,
+            &age_dist,
         );
     }
     let mut star = star.unwrap();
@@ -102,11 +108,17 @@ fn generate_visible_random_star(
     rng: &mut ThreadRng,
     pos_distr: &Uniform<f64>,
     mass_index_distr: &WeightedIndex<f64>,
+    age_dist: &Uniform<f64>,
 ) -> Option<StarData> {
     let pos = random_point_in_sphere(rng, pos_distr, max_distance);
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-    let current_params = pick_random_age(trajectory);
+    let age = rng.sample(age_dist);
+    let current_params = ParsecData::get_current_params(trajectory, age);
+    if current_params.is_none() {
+        return None;
+    }
+    let current_params = current_params.unwrap();
     let distance = pos.length();
     let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
     if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
@@ -144,15 +156,8 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
     m_in_solar_masses.powf(-alpha)
 }
 
-pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
-    let distr = Uniform::new(-1., 1.);
-    let mut point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
-    let mut dir = point.to_direction();
-    while dir.is_err() {
-        point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
-        dir = point.to_direction();
-    }
-    dir.unwrap()
+fn get_age_distribution() -> Uniform<f64> {
+    Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.to_yr())
 }
 
 fn random_point_in_sphere(
@@ -170,11 +175,15 @@ fn random_point_in_sphere(
     CartesianCoordinates::new(x, y, z)
 }
 
-fn pick_random_age(trajectory: &[ParsecLine]) -> &ParsecLine {
-    let mut rng: ThreadRng = rand::thread_rng();
-    let life_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
-    let age_in_years = rng.gen_range(0..=life_expectancy);
-    ParsecData::get_closest_params(trajectory, age_in_years as f64)
+pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
+    let distr = Uniform::new(-1., 1.);
+    let mut point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
+    let mut dir = point.to_direction();
+    while dir.is_err() {
+        point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
+        dir = point.to_direction();
+    }
+    dir.unwrap()
 }
 
 #[cfg(test)]

@@ -248,6 +248,16 @@ impl ParsecData {
         is_filled
     }
 
+    pub(super) fn get_current_params(
+        trajectory: &[ParsecLine],
+        age_in_years: f64,
+    ) -> Option<&ParsecLine> {
+        if age_in_years > Self::get_life_expectancy_in_years(trajectory) as f64 {
+            return None;
+        }
+        Some(Self::get_closest_params(trajectory, age_in_years))
+    }
+
     pub(super) fn get_closest_params(
         trajectory: &[ParsecLine],
         actual_age_in_years: f64,

@@ -12,7 +12,7 @@ use simple_si_units::base::Distance;
 #[test]
 #[ignore]
 fn parsec_generates_data_similar_to_gaia() {
-    let max_distance: Distance<f64> = Distance::from_lyr(300.0);
+    let max_distance: Distance<f64> = Distance::from_parsec(1000.0);
 
     let parsec_data = generate_random_stars(max_distance).unwrap();
     let parsec_stars = parsec_data
