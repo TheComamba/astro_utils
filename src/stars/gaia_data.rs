@@ -21,6 +21,13 @@ struct GaiaMetadataLine {
     utype: Option<String>,
 }
 
+struct ParsedGaiaCellData {
+    pub designation: String,
+    pub direction_in_ecliptic: Direction,
+    pub mag: f64,
+    pub temperature: Option<Temperature<f64>>,
+}
+
 #[derive(Serialize, Deserialize)]
 #[serde(untagged)]
 enum GaiaCellData {
@@ -50,9 +57,7 @@ struct GaiaResponse {
 }
 
 impl GaiaResponse {
-    fn get_data(
-        row: &Vec<GaiaCellData>,
-    ) -> Result<(String, Direction, f64, Option<Temperature<f64>>), AstroUtilError> {
+    fn get_parsed_data(row: &[GaiaCellData]) -> Result<ParsedGaiaCellData, AstroUtilError> {
         const DESIGNATION_INDEX: usize = 0;
         const ECL_LON_INDEX: usize = 1;
         const ECL_LAT_INDEX: usize = 2;
@@ -71,7 +76,12 @@ impl GaiaResponse {
         let mag = get_float(&row[MAG_INDEX]);
         let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
         let temperature = temperature.map(Temperature::from_K);
-        Ok((designation, direction_in_ecliptic, mag, temperature))
+        Ok(ParsedGaiaCellData {
+            designation,
+            direction_in_ecliptic,
+            mag,
+            temperature,
+        })
     }
 
     fn to_star_data(&self) -> Result<Vec<StarData>, AstroUtilError> {
@@ -79,16 +89,16 @@ impl GaiaResponse {
             .data
             .par_iter()
             .map(|row| {
-                let (designation, direction_in_ecliptic, _mag, temperature) = Self::get_data(row)?;
+                let parsed_data = Self::get_parsed_data(row)?;
                 let star = StarData {
-                    name: designation,
+                    name: parsed_data.designation,
                     mass: None,
                     radius: None,
                     luminous_intensity: None,
-                    temperature,
+                    temperature: parsed_data.temperature,
                     age: None,
                     distance: None,
-                    direction_in_ecliptic,
+                    direction_in_ecliptic: parsed_data.direction_in_ecliptic,
                 };
                 Ok(star)
             })
@@ -101,19 +111,19 @@ impl GaiaResponse {
             .data
             .par_iter()
             .map(|row| {
-                let (designation, direction_in_ecliptic, mag, temperature) = Self::get_data(row)?;
+                let parsed_data = Self::get_parsed_data(row)?;
 
-                let illuminance = apparent_magnitude_to_illuminance(mag);
-                let color = match temperature {
+                let illuminance = apparent_magnitude_to_illuminance(parsed_data.mag);
+                let color = match parsed_data.temperature {
                     Some(temperature) => sRGBColor::from_temperature(temperature),
                     None => sRGBColor::DEFAULT,
                 };
 
                 let star = StarAppearance {
-                    name: designation,
+                    name: parsed_data.designation,
                     illuminance,
                     color,
-                    direction_in_ecliptic,
+                    direction_in_ecliptic: parsed_data.direction_in_ecliptic,
                 };
                 Ok(star)
             })

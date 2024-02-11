@@ -43,9 +43,9 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             MAX_CHUNKSIZE,
             parsec_data,
             max_distance,
-            pos_distr.clone(),
+            pos_distr,
             mass_index_distr.clone(),
-            age_distr.clone(),
+            age_distr,
         );
         stars.extend(chunk);
         remaining -= MAX_CHUNKSIZE;
@@ -96,11 +96,7 @@ fn generate_certain_number_of_random_stars(
         })
         .collect::<Vec<Option<StarData>>>();
 
-    let stars = stars
-        .into_par_iter()
-        .filter_map(|star| star)
-        .collect::<Vec<StarData>>();
-    stars
+    stars.into_par_iter().filter_map(|star| star).collect()
 }
 
 pub fn generate_random_star(
@@ -153,11 +149,7 @@ fn generate_visible_random_star(
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
     let age = rng.sample(age_dist);
-    let current_params = ParsecData::get_current_params(trajectory, age);
-    if current_params.is_none() {
-        return None;
-    }
-    let current_params = current_params.unwrap();
+    let current_params = ParsecData::get_current_params(trajectory, age)?;
     let distance = pos.length();
     let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
     if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
