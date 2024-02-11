@@ -1,5 +1,6 @@
 pub mod astro_display;
 pub mod color;
+pub(crate) mod compact_float;
 pub mod coordinates;
 pub mod error;
 pub mod planets;
