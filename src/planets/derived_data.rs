@@ -1,5 +1,57 @@
+use std::f64::consts::PI;
+
 use fraction::Fraction;
-use simple_si_units::base::Time;
+use simple_si_units::{
+    base::{Mass, Time},
+    mechanical::Density,
+};
+
+use crate::astro_display::AstroDisplay;
+
+use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
+
+pub struct DerivedData {
+    density: Density<f64>,
+    orbital_period: Time<f64>,
+    orbital_resonance: Option<Fraction>,
+}
+
+impl DerivedData {
+    pub fn new(data: &PlanetData, central_body_mass: Mass<f64>, previous: &DerivedData) -> Self {
+        let radius = data.get_radius();
+        let volume = 4. / 3. * PI * radius * radius * radius;
+        let density = data.get_mass() / volume;
+        let orbital_period = orbital_period(
+            data.get_orbital_parameters().semi_major_axis,
+            data.get_mass(),
+            central_body_mass,
+        );
+        let orbital_resonance = orbital_resonance(orbital_period, previous.orbital_period);
+        Self {
+            density,
+            orbital_period,
+            orbital_resonance,
+        }
+    }
+
+    pub fn get_density(&self) -> Density<f64> {
+        self.density
+    }
+
+    pub fn get_orbital_period(&self) -> Time<f64> {
+        self.orbital_period
+    }
+
+    pub fn get_orbital_resonance(&self) -> Option<Fraction> {
+        self.orbital_resonance
+    }
+}
+
+impl AstroDisplay for Fraction {
+    fn astro_display(&self) -> String {
+        format!("{}", self)
+    }
+}
 
 const RESONANCE_TOLERANCE: f64 = 0.01;
 const RESONANCE_MAX_INT: u8 = 6;
