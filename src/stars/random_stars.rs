@@ -193,4 +193,15 @@ mod tests {
         let max_distance = Distance::from_lyr(1000.);
         let _ = generate_random_star(Some(max_distance)).unwrap();
     }
+
+    #[test]
+    fn generated_stars_are_not_further_away_than_max_distance() {
+        let max_distance = Distance::from_lyr(100.);
+        let stars = generate_random_stars(max_distance).unwrap();
+        for star in stars {
+            if let Some(distance) = star.distance {
+                assert!(distance <= max_distance);
+            }
+        }
+    }
 }
