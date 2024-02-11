@@ -197,8 +197,7 @@ mod tests {
     fn generate_random_stars_stress_test() {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
-        // Generating 70_000 stars within 1000 ly takes round about 17 seconds in release mode.
-        let max_distance = Distance::from_lyr(200.);
+        let max_distance = Distance::from_lyr(500.);
         let max_seconds = 60;
 
         let start = Instant::now();

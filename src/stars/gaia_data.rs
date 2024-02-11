@@ -5,6 +5,7 @@ use crate::{
     error::AstroUtilError,
     units::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
 };
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Temperature, electromagnetic::Illuminance, geometry::Angle};
 
@@ -74,44 +75,50 @@ impl GaiaResponse {
     }
 
     fn to_star_data(&self) -> Result<Vec<StarData>, AstroUtilError> {
-        let mut stars = Vec::new();
-        for row in self.data.iter() {
-            let (designation, direction_in_ecliptic, _mag, temperature) = Self::get_data(row)?;
-            let star = StarData {
-                name: designation,
-                mass: None,
-                radius: None,
-                luminous_intensity: None,
-                temperature,
-                age: None,
-                distance: None,
-                direction_in_ecliptic,
-            };
-            stars.push(star);
-        }
-        Ok(stars)
+        let stars = self
+            .data
+            .par_iter()
+            .map(|row| {
+                let (designation, direction_in_ecliptic, _mag, temperature) = Self::get_data(row)?;
+                let star = StarData {
+                    name: designation,
+                    mass: None,
+                    radius: None,
+                    luminous_intensity: None,
+                    temperature,
+                    age: None,
+                    distance: None,
+                    direction_in_ecliptic,
+                };
+                Ok(star)
+            })
+            .collect::<Result<Vec<StarData>, AstroUtilError>>();
+        stars
     }
 
     fn to_star_appearances(&self) -> Result<Vec<StarAppearance>, AstroUtilError> {
-        let mut stars = Vec::new();
-        for row in self.data.iter() {
-            let (designation, direction_in_ecliptic, mag, temperature) = Self::get_data(row)?;
+        let stars = self
+            .data
+            .par_iter()
+            .map(|row| {
+                let (designation, direction_in_ecliptic, mag, temperature) = Self::get_data(row)?;
 
-            let illuminance = apparent_magnitude_to_illuminance(mag);
-            let color = match temperature {
-                Some(temperature) => sRGBColor::from_temperature(temperature),
-                None => sRGBColor::DEFAULT,
-            };
+                let illuminance = apparent_magnitude_to_illuminance(mag);
+                let color = match temperature {
+                    Some(temperature) => sRGBColor::from_temperature(temperature),
+                    None => sRGBColor::DEFAULT,
+                };
 
-            let star = StarAppearance {
-                name: designation,
-                illuminance,
-                color,
-                direction_in_ecliptic,
-            };
-            stars.push(star);
-        }
-        Ok(stars)
+                let star = StarAppearance {
+                    name: designation,
+                    illuminance,
+                    color,
+                    direction_in_ecliptic,
+                };
+                Ok(star)
+            })
+            .collect::<Result<Vec<StarAppearance>, AstroUtilError>>();
+        stars
     }
 }
 
