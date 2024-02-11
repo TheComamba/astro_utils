@@ -49,7 +49,7 @@ fn similar(a: f64, b: f64) -> bool {
     let min = a.min(b);
     let ratio = max / min;
     println!("ratio: {:2.2}", ratio);
-    ratio < 1.3
+    ratio < 1.5
 }
 
 fn total_number_is_similar(parsec: &[StarAppearance], gaia: &[StarAppearance]) -> bool {

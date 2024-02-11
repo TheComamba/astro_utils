@@ -9,6 +9,7 @@ use rand::{
     rngs::ThreadRng,
     Rng,
 };
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use simple_si_units::base::{Distance, Time};
 use std::f64::consts::PI;
 
@@ -25,44 +26,81 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
     let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
 
-    let mut rng = rand::thread_rng();
     let pos_distr = get_pos_distribution(max_distance);
     let mass_index_distr = get_mass_distribution();
     let age_distr = get_age_distribution();
 
-    let mut stars = Vec::new();
-    {
-        let parsec_data_mutex = PARSEC_DATA
-            .lock()
-            .map_err(|_| AstroUtilError::MutexPoison)?;
-        let parsec_data = parsec_data_mutex.as_ref()?;
+    let parsec_data_mutex = PARSEC_DATA
+        .lock()
+        .map_err(|_| AstroUtilError::MutexPoison)?;
+    let parsec_data = parsec_data_mutex.as_ref()?;
 
-        let print_step = 5000.max(number_of_stars_in_sphere / 100);
-        for i in 0..number_of_stars_in_sphere {
-            if let Some(star) = generate_visible_random_star(
+    const MAX_CHUNKSIZE: usize = 1_000_000;
+    let mut remaining = number_of_stars_in_sphere;
+    let mut stars = Vec::new();
+    while remaining > MAX_CHUNKSIZE {
+        let chunk = generate_certain_number_of_random_stars(
+            MAX_CHUNKSIZE,
+            parsec_data,
+            max_distance,
+            pos_distr.clone(),
+            mass_index_distr.clone(),
+            age_distr.clone(),
+        );
+        stars.extend(chunk);
+        remaining -= MAX_CHUNKSIZE;
+
+        let finished = number_of_stars_in_sphere - remaining;
+        let fraction = finished as f64 / number_of_stars_in_sphere as f64;
+        println!(
+            "Generated {:2.2e} of {:2.2e} stars ({:2.0}%) and kept {:2.2e}",
+            finished,
+            number_of_stars_in_sphere,
+            fraction * 100.,
+            stars.len()
+        );
+    }
+    let chunk = generate_certain_number_of_random_stars(
+        remaining,
+        parsec_data,
+        max_distance,
+        pos_distr,
+        mass_index_distr,
+        age_distr,
+    );
+    stars.extend(chunk);
+
+    Ok(stars)
+}
+
+fn generate_certain_number_of_random_stars(
+    number: usize,
+    parsec_data: &ParsecData,
+    max_distance: Distance<f64>,
+    pos_distr: Uniform<f64>,
+    mass_index_distr: WeightedIndex<f64>,
+    age_distr: Uniform<f64>,
+) -> Vec<StarData> {
+    let stars = (0..=number)
+        .into_par_iter()
+        .map(|_| {
+            let mut rng = rand::thread_rng();
+            generate_visible_random_star(
                 parsec_data,
                 max_distance,
                 &mut rng,
                 &pos_distr,
                 &mass_index_distr,
                 &age_distr,
-            ) {
-                stars.push(star);
-            }
-            if i % print_step == 0 {
-                let fraction = i as f64 / number_of_stars_in_sphere as f64;
-                println!(
-                    "Generated {:2.2e} of {:2.2e} stars ({:2.0}%) and kept {:2.2e}",
-                    i,
-                    number_of_stars_in_sphere,
-                    fraction * 100.,
-                    stars.len()
-                );
-            }
-        }
-    }
+            )
+        })
+        .collect::<Vec<Option<StarData>>>();
 
-    Ok(stars)
+    let stars = stars
+        .into_par_iter()
+        .filter_map(|star| star)
+        .collect::<Vec<StarData>>();
+    stars
 }
 
 pub fn generate_random_star(
@@ -197,7 +235,7 @@ mod tests {
     fn generate_random_stars_stress_test() {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
-        let max_distance = Distance::from_lyr(500.);
+        let max_distance = Distance::from_lyr(1000.);
         let max_seconds = 60;
 
         let start = Instant::now();
