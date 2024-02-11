@@ -1,7 +1,7 @@
-use super::star_appearance::StarAppearance;
+use super::{star_appearance::StarAppearance, star_data::StarData};
 use crate::{
     color::sRGBColor,
-    coordinates::spherical::SphericalCoordinates,
+    coordinates::{direction::Direction, spherical::SphericalCoordinates},
     error::AstroUtilError,
     units::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
 };
@@ -49,28 +49,55 @@ struct GaiaResponse {
 }
 
 impl GaiaResponse {
-    fn to_star_appearances(&self) -> Result<Vec<StarAppearance>, AstroUtilError> {
+    fn get_data(
+        row: &Vec<GaiaCellData>,
+    ) -> Result<(String, Direction, f64, Option<Temperature<f64>>), AstroUtilError> {
         const DESIGNATION_INDEX: usize = 0;
         const ECL_LON_INDEX: usize = 1;
         const ECL_LAT_INDEX: usize = 2;
         const MAG_INDEX: usize = 3;
         const TEMPERATURE_INDEX: usize = 4;
+
+        let designation =
+            get_string(&row[DESIGNATION_INDEX]).ok_or(AstroUtilError::DataNotAvailable)?;
+        let ecl_lon = get_float(&row[ECL_LON_INDEX]);
+        let ecl_lat = get_float(&row[ECL_LAT_INDEX]);
+        let temperature = get_float(&row[TEMPERATURE_INDEX]);
+
+        let ecl_lon = Angle::from_degrees(ecl_lon.ok_or(AstroUtilError::DataNotAvailable)?);
+        let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
+        let direction_in_ecliptic = SphericalCoordinates::new(ecl_lon, ecl_lat).to_direction();
+        let mag = get_float(&row[MAG_INDEX]);
+        let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
+        let temperature = temperature.map(Temperature::from_K);
+        Ok((designation, direction_in_ecliptic, mag, temperature))
+    }
+
+    fn to_star_data(&self) -> Result<Vec<StarData>, AstroUtilError> {
         let mut stars = Vec::new();
         for row in self.data.iter() {
-            let designation =
-                get_string(&row[DESIGNATION_INDEX]).ok_or(AstroUtilError::DataNotAvailable)?;
-            let ecl_lon = get_float(&row[ECL_LON_INDEX]);
-            let ecl_lat = get_float(&row[ECL_LAT_INDEX]);
-            let mag = get_float(&row[MAG_INDEX]);
-            let temperature = get_float(&row[TEMPERATURE_INDEX]);
+            let (designation, direction_in_ecliptic, _mag, temperature) = Self::get_data(row)?;
+            let star = StarData {
+                name: designation,
+                mass: None,
+                radius: None,
+                luminous_intensity: None,
+                temperature,
+                age: None,
+                distance: None,
+                direction_in_ecliptic,
+            };
+            stars.push(star);
+        }
+        Ok(stars)
+    }
 
-            let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
+    fn to_star_appearances(&self) -> Result<Vec<StarAppearance>, AstroUtilError> {
+        let mut stars = Vec::new();
+        for row in self.data.iter() {
+            let (designation, direction_in_ecliptic, mag, temperature) = Self::get_data(row)?;
+
             let illuminance = apparent_magnitude_to_illuminance(mag);
-            let ecl_lon = Angle::from_degrees(ecl_lon.ok_or(AstroUtilError::DataNotAvailable)?);
-            let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
-            let direction_in_ecliptic = SphericalCoordinates::new(ecl_lon, ecl_lat).to_direction();
-
-            let temperature = temperature.map(Temperature::from_K);
             let color = match temperature {
                 Some(temperature) => sRGBColor::from_temperature(temperature),
                 None => sRGBColor::DEFAULT,
@@ -114,6 +141,13 @@ pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
     let brightest = apparent_magnitude_to_illuminance(6.5);
     let resp = query_brightest_stars(brightest)?;
     let gaia_stars = resp.to_star_appearances()?;
+    Ok(gaia_stars)
+}
+
+pub fn fetch_brightest_stars_data() -> Result<Vec<StarData>, AstroUtilError> {
+    let brightest = apparent_magnitude_to_illuminance(6.5);
+    let resp = query_brightest_stars(brightest)?;
+    let gaia_stars = resp.to_star_data()?;
     Ok(gaia_stars)
 }
 
