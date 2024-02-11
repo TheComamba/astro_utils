@@ -1,3 +1,4 @@
+pub mod derived_data;
 pub mod kepler_orbit;
 pub mod orbit_parameters;
 pub mod planet_brightness;
