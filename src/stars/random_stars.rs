@@ -23,7 +23,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let number_of_stars_in_sphere =
         STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
     let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
-    let max_distance_in_au_squared = max_distance.to_au().powi(2);
+
     let mut rng = rand::thread_rng();
     let pos_distr = get_pos_distribution(max_distance);
     let mass_index_distr = get_mass_distribution();
@@ -36,7 +36,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         for _ in 0..number_of_stars_in_sphere {
             if let Some(star) = generate_visible_random_star(
                 parsec_data,
-                max_distance_in_au_squared,
+                max_distance,
                 &mut rng,
                 &pos_distr,
                 &mass_index_distr,
@@ -53,8 +53,8 @@ pub fn generate_random_star(
     max_distance: Option<Distance<f64>>,
 ) -> Result<StarData, AstroUtilError> {
     let mut rng = rand::thread_rng();
-    let max_distance_in_au_squared = max_distance.map(|d| d.to_au().powi(2)).unwrap_or(1.);
-    let pos_distr = get_pos_distribution(max_distance.unwrap_or(Distance::from_au(1.)));
+    let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
+    let pos_distr = get_pos_distribution(max_distance_or_1);
     let mass_index_distr = get_mass_distribution();
 
     let parsec_data_mutex = PARSEC_DATA
@@ -63,7 +63,7 @@ pub fn generate_random_star(
     let parsec_data = parsec_data_mutex.as_ref()?;
     let mut star = generate_visible_random_star(
         parsec_data,
-        max_distance_in_au_squared,
+        max_distance_or_1,
         &mut rng,
         &pos_distr,
         &mass_index_distr,
@@ -71,7 +71,7 @@ pub fn generate_random_star(
     while star.is_none() {
         star = generate_visible_random_star(
             parsec_data,
-            max_distance_in_au_squared,
+            max_distance_or_1,
             &mut rng,
             &pos_distr,
             &mass_index_distr,
@@ -86,12 +86,12 @@ pub fn generate_random_star(
 
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
-    max_distance_in_au_squared: f64,
+    max_distance: Distance<f64>,
     rng: &mut ThreadRng,
     pos_distr: &Uniform<f64>,
     mass_index_distr: &WeightedIndex<f64>,
 ) -> Option<StarData> {
-    let pos = random_point_in_sphere(rng, pos_distr, max_distance_in_au_squared);
+    let pos = random_point_in_sphere(rng, pos_distr, max_distance);
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
     let current_params = pick_random_age(trajectory);
@@ -107,7 +107,7 @@ fn generate_visible_random_star(
 }
 
 fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f64> {
-    Uniform::new(-max_distance.to_au(), max_distance.to_au())
+    Uniform::new(-max_distance.m, max_distance.m)
 }
 
 fn get_mass_distribution() -> WeightedIndex<f64> {
@@ -134,10 +134,10 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
 
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
     let distr = Uniform::new(-1., 1.);
-    let mut point = random_point_in_sphere(rng, &distr, 1.);
+    let mut point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
     let mut dir = point.to_direction();
     while dir.is_err() {
-        point = random_point_in_sphere(rng, &distr, 1.);
+        point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
         dir = point.to_direction();
     }
     dir.unwrap()
@@ -146,15 +146,15 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 fn random_point_in_sphere(
     rng: &mut ThreadRng,
     distr: &Uniform<f64>,
-    max_distance_in_au_squared: f64,
+    max_distance: Distance<f64>,
 ) -> CartesianCoordinates {
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
-    while x * x + y * y + z * z > max_distance_in_au_squared {
+    while x * x + y * y + z * z > max_distance.m * max_distance.m {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     }
-    let x = Distance::from_au(rng.sample(distr));
-    let y = Distance::from_au(rng.sample(distr));
-    let z = Distance::from_au(rng.sample(distr));
+    let x = Distance { m: x };
+    let y = Distance { m: y };
+    let z = Distance { m: z };
     CartesianCoordinates::new(x, y, z)
 }
 
@@ -200,7 +200,7 @@ mod tests {
         let stars = generate_random_stars(max_distance).unwrap();
         for star in stars {
             if let Some(distance) = star.distance {
-                assert!(distance <= max_distance);
+                assert!(distance < max_distance * 1.01);
             }
         }
     }
