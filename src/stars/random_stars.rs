@@ -10,13 +10,16 @@ use rand::{
     Rng,
 };
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
-use simple_si_units::base::{Distance, Time};
+use simple_si_units::{
+    base::{Distance, Time},
+    electromagnetic::Illuminance,
+};
 use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted a little bit
 const STARS_PER_LY_CUBED: f64 = 3.33e-3;
-const DIMMEST_VISIBLE_MAGNITUDE: f64 = 6.5;
+const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
 };
@@ -151,8 +154,8 @@ fn generate_visible_random_star(
     let age = rng.sample(age_dist);
     let current_params = ParsecData::get_current_params(trajectory, age)?;
     let distance = pos.length();
-    let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
-    if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
+    let illuminance = current_params.get_apparent_magnitude(&distance);
+    if illuminance < DIMMEST_ILLUMINANCE {
         return None;
     }
     let mut star = current_params.to_star_at_origin();
@@ -219,8 +222,16 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 #[cfg(test)]
 mod tests {
+    use crate::{tests::eq, units::illuminance::illuminance_to_apparent_magnitude};
+
     use super::*;
     use std::time::Instant;
+
+    #[test]
+    fn dimmest_illuminance_is_magnitude_6_5() {
+        let dimmest = illuminance_to_apparent_magnitude(&DIMMEST_ILLUMINANCE);
+        assert!(eq(dimmest, 6.5));
+    }
 
     #[test]
     #[ignore]
