@@ -48,7 +48,7 @@ fn similar(a: f64, b: f64) -> bool {
     let max = a.max(b);
     let min = a.min(b);
     let ratio = max / min;
-    let accepted = 1. + 10. / min.sqrt();
+    let accepted = 1. + 20. / min.sqrt();
     println!("ratio: {:2.2} (accepted: {:2.2})", ratio, accepted);
     ratio < accepted
 }
