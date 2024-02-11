@@ -1,7 +1,6 @@
 use super::star_data::StarData;
 use crate::coordinates::direction::Direction;
 use crate::error::AstroUtilError;
-use crate::units::illuminance::illuminance_to_apparent_magnitude;
 use crate::units::luminous_intensity::{
     luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY,
 };
@@ -12,6 +11,7 @@ use lazy_static::lazy_static;
 use rmp_serde;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
+use simple_si_units::electromagnetic::Illuminance;
 use std::fs;
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
@@ -248,6 +248,16 @@ impl ParsecData {
         is_filled
     }
 
+    pub(super) fn get_current_params(
+        trajectory: &[ParsecLine],
+        age_in_years: f64,
+    ) -> Option<&ParsecLine> {
+        if age_in_years > Self::get_life_expectancy_in_years(trajectory) as f64 {
+            return None;
+        }
+        Some(Self::get_closest_params(trajectory, age_in_years))
+    }
+
     pub(super) fn get_closest_params(
         trajectory: &[ParsecLine],
         actual_age_in_years: f64,
@@ -297,10 +307,9 @@ impl ParsecLine {
         lum * SOLAR_LUMINOUS_INTENSITY
     }
 
-    pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> f64 {
+    pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> Illuminance<f64> {
         let lum = self.get_luminous_intensity();
-        let ill = luminous_intensity_to_illuminance(&lum, distance);
-        illuminance_to_apparent_magnitude(&ill)
+        luminous_intensity_to_illuminance(&lum, distance)
     }
 
     pub(super) fn get_temperature(&self) -> Temperature<f64> {

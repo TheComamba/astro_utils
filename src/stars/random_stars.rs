@@ -1,7 +1,4 @@
-use super::{
-    parsec_data::{ParsecData, ParsecLine},
-    star_data::StarData,
-};
+use super::{parsec_data::ParsecData, star_data::StarData};
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
@@ -12,50 +9,107 @@ use rand::{
     rngs::ThreadRng,
     Rng,
 };
-use simple_si_units::base::Distance;
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
+use simple_si_units::{
+    base::{Distance, Time},
+    electromagnetic::Illuminance,
+};
 use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
-const STARS_PER_LY_CUBED: f64 = 0.004;
-const DIMMEST_VISIBLE_MAGNITUDE: f64 = 6.5;
+// Adjusted a little bit
+const STARS_PER_LY_CUBED: f64 = 3.33e-3;
+const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
+const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
+    s: 8.8e9 * 365.25 * 24. * 3600.,
+};
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
     let number_of_stars_in_sphere =
         STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
     let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
-    let max_distance_in_au_squared = max_distance.to_au().powi(2);
-    let mut rng = rand::thread_rng();
+
     let pos_distr = get_pos_distribution(max_distance);
     let mass_index_distr = get_mass_distribution();
+    let age_distr = get_age_distribution();
+
+    let parsec_data_mutex = PARSEC_DATA
+        .lock()
+        .map_err(|_| AstroUtilError::MutexPoison)?;
+    let parsec_data = parsec_data_mutex.as_ref()?;
+
+    const MAX_CHUNKSIZE: usize = 1_000_000;
+    let mut remaining = number_of_stars_in_sphere;
     let mut stars = Vec::new();
-    {
-        let parsec_data_mutex = PARSEC_DATA
-            .lock()
-            .map_err(|_| AstroUtilError::MutexPoison)?;
-        let parsec_data = parsec_data_mutex.as_ref()?;
-        for _ in 0..number_of_stars_in_sphere {
-            if let Some(star) = generate_visible_random_star(
+    while remaining > MAX_CHUNKSIZE {
+        let chunk = generate_certain_number_of_random_stars(
+            MAX_CHUNKSIZE,
+            parsec_data,
+            max_distance,
+            pos_distr,
+            mass_index_distr.clone(),
+            age_distr,
+        );
+        stars.extend(chunk);
+        remaining -= MAX_CHUNKSIZE;
+
+        let finished = number_of_stars_in_sphere - remaining;
+        let fraction = finished as f64 / number_of_stars_in_sphere as f64;
+        println!(
+            "Generated {:2.2e} of {:2.2e} stars ({:2.0}%) and kept {:2.2e}",
+            finished,
+            number_of_stars_in_sphere,
+            fraction * 100.,
+            stars.len()
+        );
+    }
+    let chunk = generate_certain_number_of_random_stars(
+        remaining,
+        parsec_data,
+        max_distance,
+        pos_distr,
+        mass_index_distr,
+        age_distr,
+    );
+    stars.extend(chunk);
+
+    Ok(stars)
+}
+
+fn generate_certain_number_of_random_stars(
+    number: usize,
+    parsec_data: &ParsecData,
+    max_distance: Distance<f64>,
+    pos_distr: Uniform<f64>,
+    mass_index_distr: WeightedIndex<f64>,
+    age_distr: Uniform<f64>,
+) -> Vec<StarData> {
+    let stars = (0..=number)
+        .into_par_iter()
+        .map(|_| {
+            let mut rng = rand::thread_rng();
+            generate_visible_random_star(
                 parsec_data,
-                max_distance_in_au_squared,
+                max_distance,
                 &mut rng,
                 &pos_distr,
                 &mass_index_distr,
-            ) {
-                stars.push(star);
-            }
-        }
-    }
+                &age_distr,
+            )
+        })
+        .collect::<Vec<Option<StarData>>>();
 
-    Ok(stars)
+    stars.into_par_iter().filter_map(|star| star).collect()
 }
 
 pub fn generate_random_star(
     max_distance: Option<Distance<f64>>,
 ) -> Result<StarData, AstroUtilError> {
     let mut rng = rand::thread_rng();
-    let max_distance_in_au_squared = max_distance.map(|d| d.to_au().powi(2)).unwrap_or(1.);
-    let pos_distr = get_pos_distribution(max_distance.unwrap_or(Distance::from_au(1.)));
+    let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
+    let pos_distr = get_pos_distribution(max_distance_or_1);
     let mass_index_distr = get_mass_distribution();
+    let age_dist = get_age_distribution();
 
     let parsec_data_mutex = PARSEC_DATA
         .lock()
@@ -63,18 +117,20 @@ pub fn generate_random_star(
     let parsec_data = parsec_data_mutex.as_ref()?;
     let mut star = generate_visible_random_star(
         parsec_data,
-        max_distance_in_au_squared,
+        max_distance_or_1,
         &mut rng,
         &pos_distr,
         &mass_index_distr,
+        &age_dist,
     );
     while star.is_none() {
         star = generate_visible_random_star(
             parsec_data,
-            max_distance_in_au_squared,
+            max_distance_or_1,
             &mut rng,
             &pos_distr,
             &mass_index_distr,
+            &age_dist,
         );
     }
     let mut star = star.unwrap();
@@ -86,18 +142,20 @@ pub fn generate_random_star(
 
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
-    max_distance_in_au_squared: f64,
+    max_distance: Distance<f64>,
     rng: &mut ThreadRng,
     pos_distr: &Uniform<f64>,
     mass_index_distr: &WeightedIndex<f64>,
+    age_dist: &Uniform<f64>,
 ) -> Option<StarData> {
-    let pos = random_point_in_sphere(rng, pos_distr, max_distance_in_au_squared);
+    let pos = random_point_in_sphere(rng, pos_distr, max_distance);
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-    let current_params = pick_random_age(trajectory);
+    let age = rng.sample(age_dist);
+    let current_params = ParsecData::get_current_params(trajectory, age)?;
     let distance = pos.length();
-    let apparent_magnitude = current_params.get_apparent_magnitude(&distance);
-    if apparent_magnitude > DIMMEST_VISIBLE_MAGNITUDE {
+    let illuminance = current_params.get_apparent_magnitude(&distance);
+    if illuminance < DIMMEST_ILLUMINANCE {
         return None;
     }
     let mut star = current_params.to_star_at_origin();
@@ -107,7 +165,7 @@ fn generate_visible_random_star(
 }
 
 fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f64> {
-    Uniform::new(-max_distance.to_au(), max_distance.to_au())
+    Uniform::new(-max_distance.m, max_distance.m)
 }
 
 fn get_mass_distribution() -> WeightedIndex<f64> {
@@ -132,50 +190,55 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
     m_in_solar_masses.powf(-alpha)
 }
 
-pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
-    let distr = Uniform::new(-1., 1.);
-    let mut point = random_point_in_sphere(rng, &distr, 1.);
-    let mut dir = point.to_direction();
-    while dir.is_err() {
-        point = random_point_in_sphere(rng, &distr, 1.);
-        dir = point.to_direction();
-    }
-    dir.unwrap()
+fn get_age_distribution() -> Uniform<f64> {
+    Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.to_yr())
 }
 
 fn random_point_in_sphere(
     rng: &mut ThreadRng,
     distr: &Uniform<f64>,
-    max_distance_in_au_squared: f64,
+    max_distance: Distance<f64>,
 ) -> CartesianCoordinates {
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
-    while x * x + y * y + z * z > max_distance_in_au_squared {
+    while x * x + y * y + z * z > max_distance.m * max_distance.m {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     }
-    let x = Distance::from_au(rng.sample(distr));
-    let y = Distance::from_au(rng.sample(distr));
-    let z = Distance::from_au(rng.sample(distr));
+    let x = Distance { m: x };
+    let y = Distance { m: y };
+    let z = Distance { m: z };
     CartesianCoordinates::new(x, y, z)
 }
 
-fn pick_random_age(trajectory: &[ParsecLine]) -> &ParsecLine {
-    let mut rng: ThreadRng = rand::thread_rng();
-    let life_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
-    let age_in_years = rng.gen_range(0..=life_expectancy);
-    ParsecData::get_closest_params(trajectory, age_in_years as f64)
+pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
+    let distr = Uniform::new(-1., 1.);
+    let mut point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
+    let mut dir = point.to_direction();
+    while dir.is_err() {
+        point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
+        dir = point.to_direction();
+    }
+    dir.unwrap()
 }
 
 #[cfg(test)]
 mod tests {
+    use crate::{tests::eq, units::illuminance::illuminance_to_apparent_magnitude};
+
     use super::*;
     use std::time::Instant;
 
     #[test]
+    fn dimmest_illuminance_is_magnitude_6_5() {
+        let dimmest = illuminance_to_apparent_magnitude(&DIMMEST_ILLUMINANCE);
+        assert!(eq(dimmest, 6.5));
+    }
+
+    #[test]
+    #[ignore]
     fn generate_random_stars_stress_test() {
-        // Generating 70_000 stars within 1000 ly takes round about 17 seconds in release mode.
-        // But this should not take too long and also work in debug mode.
-        // Furthermore, the parsec data needs to be loaded and parsed which takes some seconds.
-        let max_distance = Distance::from_lyr(200.);
+        let _ = PARSEC_DATA.lock(); // Load the parsec data.
+
+        let max_distance = Distance::from_lyr(1000.);
         let max_seconds = 60;
 
         let start = Instant::now();
@@ -191,5 +254,16 @@ mod tests {
     fn generating_a_distant_random_star() {
         let max_distance = Distance::from_lyr(1000.);
         let _ = generate_random_star(Some(max_distance)).unwrap();
+    }
+
+    #[test]
+    fn generated_stars_are_not_further_away_than_max_distance() {
+        let max_distance = Distance::from_lyr(100.);
+        let stars = generate_random_stars(max_distance).unwrap();
+        for star in stars {
+            if let Some(distance) = star.distance {
+                assert!(distance < max_distance * 1.01);
+            }
+        }
     }
 }

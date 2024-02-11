@@ -13,6 +13,7 @@ flate2 = "1.0" # Decompression
 forward_ref_generic = "0.2.0" # Auto-generating std operations on structs
 lazy_static = "1.4"
 rand = "0.8.0" # Random number generation
+rayon = "1.8" # Parallelism
 reqwest = { version = "0.11.0", features = ["blocking"] } # Downloading files
 rmp-serde = "1.1"
 serde = { version = "1.0", features = ["derive"] } # (De)Serialization
