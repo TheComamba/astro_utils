@@ -13,7 +13,8 @@ use simple_si_units::base::{Distance, Time};
 use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
-const STARS_PER_LY_CUBED: f64 = 0.004;
+// Adjusted a little bit
+const STARS_PER_LY_CUBED: f64 = 3.33e-3;
 const DIMMEST_VISIBLE_MAGNITUDE: f64 = 6.5;
 const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
