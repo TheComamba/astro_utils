@@ -12,7 +12,7 @@ use simple_si_units::base::Distance;
 #[test]
 #[ignore]
 fn parsec_generates_data_similar_to_gaia() {
-    let max_distance: Distance<f64> = Distance::from_lyr(100.0);
+    let max_distance: Distance<f64> = Distance::from_lyr(300.0);
 
     let parsec_data = generate_random_stars(max_distance).unwrap();
     let parsec_stars = parsec_data
@@ -48,7 +48,7 @@ fn similar(a: f64, b: f64) -> bool {
     let max = a.max(b);
     let min = a.min(b);
     let ratio = max / min;
-    println!("ratio: {}", ratio);
+    println!("ratio: {:2.2}", ratio);
     ratio < 2.0
 }
 
@@ -56,7 +56,7 @@ fn total_number_is_similar(parsec: &[StarAppearance], gaia: &[StarAppearance]) -
     let parsec = parsec.len() as f64;
     let gaia = gaia.len() as f64;
     println!("\nTotal number of stars");
-    println!("parsec: {}, gaia: {}", parsec, gaia);
+    println!("parsec: {:2.2e}, gaia: {:2.2e}", parsec, gaia);
     similar(parsec, gaia)
 }
 
@@ -84,7 +84,7 @@ fn number_of_stars_in_apparent_magnitude_range_is_similar(
         "\nTotal number of stars with apparent magnitude between {} and {}:",
         mag_min, mag_max
     );
-    println!("parsec: {}, gaia: {}", parsec, gaia);
+    println!("parsec: {:2.2e}, gaia: {:2.2e}", parsec, gaia);
     similar(parsec, gaia)
 }
 
@@ -102,6 +102,6 @@ fn mean_temperature_is_similar(parsec: &[StarData], gaia: &[StarData]) -> bool {
     let parsec = mean_temperature(parsec);
     let gaia = mean_temperature(gaia);
     println!("\nMean temperature");
-    println!("parsec: {}, gaia: {}", parsec, gaia);
+    println!("parsec: {:2.2e}, gaia: {:2.2e}", parsec, gaia);
     similar(parsec, gaia)
 }

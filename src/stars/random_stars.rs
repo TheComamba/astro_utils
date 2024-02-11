@@ -33,7 +33,9 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             .lock()
             .map_err(|_| AstroUtilError::MutexPoison)?;
         let parsec_data = parsec_data_mutex.as_ref()?;
-        for _ in 0..number_of_stars_in_sphere {
+
+        let print_step = 5000.max(number_of_stars_in_sphere / 100);
+        for i in 0..number_of_stars_in_sphere {
             if let Some(star) = generate_visible_random_star(
                 parsec_data,
                 max_distance,
@@ -42,6 +44,16 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
                 &mass_index_distr,
             ) {
                 stars.push(star);
+            }
+            if i % print_step == 0 {
+                let fraction = i as f64 / number_of_stars_in_sphere as f64;
+                println!(
+                    "Generated {:2.2e} of {:2.2e} stars ({:2.0}%) and kept {:2.2e}",
+                    i,
+                    number_of_stars_in_sphere,
+                    fraction * 100.,
+                    stars.len()
+                );
             }
         }
     }
