@@ -8,6 +8,8 @@ use crate::{
     real_data::planets::EARTH,
     units::angle::{ANGLE_ZERO, HALF_CIRC},
 };
+use serde::ser::SerializeTuple;
+use serde::Serializer;
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Distance, geometry::Angle};
 use std::{fmt::Display, ops::Neg};
@@ -32,8 +34,13 @@ impl Direction {
 }
 
 impl Serialize for Direction {
-    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        self.to_array().serialize(serializer)
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        let array = self.to_array();
+        let mut tuple_serializer = serializer.serialize_tuple(3)?;
+        for value in &array {
+            tuple_serializer.serialize_element(&format!("{:.3}", value))?;
+        }
+        tuple_serializer.end()
     }
 }
 
