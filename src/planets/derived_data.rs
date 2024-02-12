@@ -30,7 +30,7 @@ pub struct DerivedPlanetData {
 impl DerivedPlanetData {
     pub fn new(
         data: &PlanetData,
-        central_body: StarData,
+        central_body: &StarData,
         previous: Option<&DerivedPlanetData>,
     ) -> Self {
         let central_body_mass = central_body.get_mass().unwrap();
