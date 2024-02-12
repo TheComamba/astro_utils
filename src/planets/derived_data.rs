@@ -1,19 +1,17 @@
-use std::f64::consts::PI;
-
+use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
+use crate::astro_display::AstroDisplay;
 use fraction::Fraction;
 use simple_si_units::{
     base::{Mass, Time},
     mechanical::Density,
 };
-
-use crate::astro_display::AstroDisplay;
-
-use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
+use std::f64::consts::PI;
 
 pub struct DerivedData {
     density: Density<f64>,
     orbital_period: Time<f64>,
     orbital_resonance: Option<Fraction>,
+    mean_synodic_day: Time<f64>,
 }
 
 impl DerivedData {
@@ -27,10 +25,12 @@ impl DerivedData {
             central_body_mass,
         );
         let orbital_resonance = orbital_resonance(orbital_period, previous.orbital_period);
+        let synodic_day = mean_synodic_day(data.get_sideral_rotation_period(), orbital_period);
         Self {
             density,
             orbital_period,
             orbital_resonance,
+            mean_synodic_day: synodic_day,
         }
     }
 
@@ -44,6 +44,10 @@ impl DerivedData {
 
     pub fn get_orbital_resonance(&self) -> Option<Fraction> {
         self.orbital_resonance
+    }
+
+    pub fn get_mean_synodic_day(&self) -> Time<f64> {
+        self.mean_synodic_day
     }
 }
 
@@ -71,8 +75,14 @@ fn orbital_resonance(period1: Time<f64>, period2: Time<f64>) -> Option<Fraction>
     None
 }
 
+fn mean_synodic_day(siderial_day: Time<f64>, orbital_period: Time<f64>) -> Time<f64> {
+    1. / (1. / siderial_day - 1. / orbital_period)
+}
+
 #[cfg(test)]
 mod tests {
+    use crate::{real_data::planets::EARTH, tests::eq};
+
     use super::*;
 
     #[test]
@@ -119,5 +129,11 @@ mod tests {
                 assert!(resonance.is_none());
             }
         }
+    }
+
+    #[test]
+    fn earth_has_synodic_period_of_1_day() {
+        let synodic_day = mean_synodic_day(EARTH.siderial_rotation_period, Time::from_yr(1.));
+        assert!(eq(synodic_day.to_days(), 1.));
     }
 }
