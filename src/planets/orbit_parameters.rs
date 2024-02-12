@@ -4,7 +4,6 @@ use crate::{
         eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,
         true_anomaly,
     },
-    stars::star_data::StarData,
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
@@ -61,14 +60,10 @@ impl OrbitParameters {
     pub fn calculate_position(
         &self,
         body_mass: Mass<f64>,
-        central_body: &StarData,
+        central_body_mass: Mass<f64>,
         time: Time<f64>,
     ) -> CartesianCoordinates {
-        let orbital_period = orbital_period(
-            self.semi_major_axis,
-            body_mass,
-            central_body.get_mass().unwrap(),
-        );
+        let orbital_period = orbital_period(self.semi_major_axis, body_mass, central_body_mass);
         let mean_anomaly = mean_anomaly(orbital_period, time);
         let eccentric_anomaly = eccentric_anomaly(mean_anomaly, self.eccentricity);
         let true_anomaly = true_anomaly(eccentric_anomaly, self.eccentricity);

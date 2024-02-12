@@ -1,6 +1,6 @@
-use crate::astro_display::AstroDisplay;
-
 use self::color_matching_functions::*;
+use crate::astro_display::AstroDisplay;
+use serde::{ser::SerializeTuple, Serializer};
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Temperature};
 
@@ -51,6 +51,7 @@ pub struct XYZColor {
 
 impl sRGBColor {
     pub(crate) const DEFAULT: Self = sRGBColor::from_sRGB(1., 1., 1.);
+    const SERIALIZATION_ACCURACY: f64 = 1e-2;
 
     fn to_array(&self) -> [f64; 3] {
         [self.R, self.G, self.B]
@@ -90,8 +91,15 @@ impl sRGBColor {
 }
 
 impl Serialize for sRGBColor {
-    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        self.to_array().serialize(serializer)
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        let array = self.to_array();
+        let mut tuple_serializer = serializer.serialize_tuple(3)?;
+        for value in &array {
+            let value =
+                (value / Self::SERIALIZATION_ACCURACY).round() * Self::SERIALIZATION_ACCURACY;
+            tuple_serializer.serialize_element(&value)?;
+        }
+        tuple_serializer.end()
     }
 }
 
@@ -101,7 +109,6 @@ impl<'de> Deserialize<'de> for sRGBColor {
         sRGBColor::from_array(array).map_err(serde::de::Error::custom)
     }
 }
-
 impl XYZColor {
     #[allow(non_snake_case)]
     fn from_XYZ(X: f64, Y: f64, Z: f64) -> XYZColor {
@@ -178,5 +185,32 @@ mod tests {
         assert!(eq_within(expected.0, actual.0, COLOR_TEST_ACCURACY));
         assert!(eq_within(expected.1, actual.1, COLOR_TEST_ACCURACY));
         assert!(eq_within(expected.2, actual.2, COLOR_TEST_ACCURACY));
+    }
+
+    #[test]
+    fn serialization() {
+        let color = sRGBColor::from_sRGB(1.23, -0.01, 1e-8);
+        let serialized = serde_json::to_string(&color).unwrap();
+        println!("{:?}", color);
+        println!("{}", serialized);
+        assert_eq!(serialized, "[1.23,-0.01,0.0]");
+
+        let deserialized: sRGBColor = serde_json::from_str(&serialized).unwrap();
+        println!("{:?}", deserialized);
+        assert!(eq_within(
+            deserialized.R,
+            color.R,
+            sRGBColor::SERIALIZATION_ACCURACY
+        ));
+        assert!(eq_within(
+            deserialized.G,
+            color.G,
+            sRGBColor::SERIALIZATION_ACCURACY
+        ));
+        assert!(eq_within(
+            deserialized.B,
+            color.B,
+            sRGBColor::SERIALIZATION_ACCURACY
+        ));
     }
 }

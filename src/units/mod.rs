@@ -1,13 +1,17 @@
 // https://www.astro.princeton.edu/~gk/A403/constants.pdf
 
+pub mod acceleration;
 pub mod angle;
+pub mod density;
 pub mod distance;
 pub mod illuminance;
+pub mod luminosity;
 pub mod luminous_intensity;
 pub mod mass;
 pub mod solid_angle;
 pub mod temperature;
 pub mod time;
+pub mod velocity;
 
 pub(super) const DISPLAY_THRESHOLD: f64 = 0.099;
 
