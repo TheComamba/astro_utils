@@ -20,7 +20,7 @@ impl EarthEquatorialCoordinates {
         }
     }
 
-    pub fn to_direction(&self) -> Direction {
+    pub(crate) fn to_direction(&self) -> Direction {
         let direction_in_equatorial =
             SphericalCoordinates::new(self.right_ascension, self.declination).to_direction();
         direction_in_equatorial.rotated(-EARTH.axis_tilt, &Direction::X)
@@ -194,10 +194,11 @@ mod tests {
     fn specific_testcase() {
         let equatorial =
             EarthEquatorialCoordinates::new(Angle::from_degrees(234.), Angle::from_degrees(56.));
-        let expected = EclipticCoordinates::new(SphericalCoordinates::new(
+        let expected = SphericalCoordinates::new(
             Angle::from_degrees(194.547656),
             Angle::from_degrees(70.149178),
-        ));
+        )
+        .to_ecliptic();
         let actual = equatorial.to_ecliptic();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));

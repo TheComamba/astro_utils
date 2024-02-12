@@ -1,11 +1,12 @@
 use super::{
     declination::{Declination, Sgn},
     direction::Direction,
+    ecliptic::EclipticCoordinates,
     right_ascension::RightAscension,
 };
 use crate::{
     astro_display::AstroDisplay,
-    units::angle::{normalized_angle, ANGLE_ZERO, HALF_CIRC, QUARTER_CIRC},
+    units::angle::{angle_eq_within, normalized_angle, ANGLE_ZERO, HALF_CIRC, QUARTER_CIRC},
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
@@ -53,10 +54,7 @@ impl SphericalCoordinates {
         }
     }
 
-    #[cfg(test)]
     pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<f64>) -> bool {
-        use crate::units::angle::angle_eq_within;
-
         let northpole_latitude = QUARTER_CIRC;
         let southpole_latitude = -QUARTER_CIRC;
         let mut clone = self.clone();
@@ -105,6 +103,10 @@ impl SphericalCoordinates {
         let y = self.get_longitude().rad.sin() * self.get_latitude().rad.cos();
         let z = self.get_latitude().rad.sin();
         Direction { x, y, z }
+    }
+
+    pub fn to_ecliptic(&self) -> EclipticCoordinates {
+        EclipticCoordinates { spherical: *self }
     }
 
     pub fn to_ra_and_dec(&self) -> (RightAscension, Declination) {

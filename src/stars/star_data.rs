@@ -1,7 +1,7 @@
 use super::star_appearance::StarAppearance;
 use crate::{
     color::sRGBColor,
-    coordinates::direction::Direction,
+    coordinates::ecliptic::EclipticCoordinates,
     units::{illuminance::IRRADIANCE_ZERO, luminous_intensity::luminous_intensity_to_illuminance},
 };
 use serde::{Deserialize, Serialize};
@@ -16,7 +16,7 @@ pub struct StarData {
     pub(super) temperature: Option<Temperature<f64>>,
     pub(super) age: Option<Time<f64>>,
     pub(super) distance: Option<Distance<f64>>,
-    pub(super) direction_in_ecliptic: Direction,
+    pub(super) pos: EclipticCoordinates,
 }
 
 impl StarData {
@@ -28,7 +28,7 @@ impl StarData {
         temperature: Option<Temperature<f64>>,
         age: Option<Time<f64>>,
         distance: Option<Distance<f64>>,
-        direction_in_ecliptic: Direction,
+        pos: EclipticCoordinates,
     ) -> Self {
         Self {
             name,
@@ -38,7 +38,7 @@ impl StarData {
             temperature,
             age,
             distance,
-            direction_in_ecliptic,
+            pos,
         }
     }
 
@@ -70,8 +70,8 @@ impl StarData {
         &self.distance
     }
 
-    pub const fn get_direction_in_ecliptic(&self) -> &Direction {
-        &self.direction_in_ecliptic
+    pub const fn get_pos(&self) -> &EclipticCoordinates {
+        &self.pos
     }
 
     pub fn set_name(&mut self, name: String) {
@@ -102,8 +102,8 @@ impl StarData {
         self.distance = distance;
     }
 
-    pub fn set_direction_in_ecliptic(&mut self, direction_in_ecliptic: Direction) {
-        self.direction_in_ecliptic = direction_in_ecliptic;
+    pub fn set_pos(&mut self, pos: EclipticCoordinates) {
+        self.pos = pos;
     }
 
     pub fn to_star_appearance(&self) -> StarAppearance {
@@ -121,7 +121,7 @@ impl StarData {
             name: self.name.clone(),
             illuminance,
             color,
-            direction_in_ecliptic: self.direction_in_ecliptic.clone(),
+            pos: self.pos.clone(),
         }
     }
 

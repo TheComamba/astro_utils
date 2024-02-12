@@ -152,11 +152,12 @@ impl PlanetData {
             self.geometric_albedo,
         )?;
         let relative_position = planet_pos - observer_position;
+        let pos = relative_position.to_ecliptic();
         Ok(StarAppearance {
             name: self.name.clone(),
             illuminance: brightness,
             color: self.color.clone(),
-            direction_in_ecliptic: relative_position.to_direction()?,
+            pos,
         })
     }
 }

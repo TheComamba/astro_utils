@@ -1,6 +1,6 @@
 use crate::astro_display::AstroDisplay;
 
-use super::spherical::SphericalCoordinates;
+use super::{direction::Direction, spherical::SphericalCoordinates};
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::{fmt::Display, ops::Neg};
@@ -36,8 +36,7 @@ impl EclipticCoordinates {
         self.spherical.normalize();
     }
 
-    #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: &EclipticCoordinates, accuracy: Angle<f64>) -> bool {
+    pub fn eq_within(&self, other: &EclipticCoordinates, accuracy: Angle<f64>) -> bool {
         self.spherical.eq_within(&other.spherical, accuracy)
     }
 
@@ -59,6 +58,10 @@ impl EclipticCoordinates {
 
     pub fn set_latitude(&mut self, latitude: Angle<f64>) {
         self.spherical.set_latitude(latitude);
+    }
+
+    pub fn to_direction(&self) -> Direction {
+        self.spherical.to_direction()
     }
 }
 

@@ -1,4 +1,4 @@
-use crate::{color::sRGBColor, coordinates::direction::Direction};
+use crate::{color::sRGBColor, coordinates::ecliptic::EclipticCoordinates};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
 
@@ -7,7 +7,7 @@ pub struct StarAppearance {
     pub(crate) name: String,
     pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
-    pub(crate) direction_in_ecliptic: Direction,
+    pub(crate) pos: EclipticCoordinates,
 }
 
 impl StarAppearance {
@@ -15,13 +15,13 @@ impl StarAppearance {
         name: String,
         illuminance: Illuminance<f64>,
         color: sRGBColor,
-        direction_in_ecliptic: Direction,
+        pos: EclipticCoordinates,
     ) -> Self {
         Self {
             name,
             illuminance,
             color,
-            direction_in_ecliptic,
+            pos,
         }
     }
 
@@ -37,22 +37,18 @@ impl StarAppearance {
         &self.color
     }
 
-    pub const fn get_direction_in_ecliptic(&self) -> &Direction {
-        &self.direction_in_ecliptic
+    pub const fn get_pos(&self) -> &EclipticCoordinates {
+        &self.pos
     }
 
-    pub fn set_direction_in_ecliptic(&mut self, direction: Direction) {
-        self.direction_in_ecliptic = direction;
+    pub fn set_pos(&mut self, direction: EclipticCoordinates) {
+        self.pos = direction;
     }
 
     pub(super) fn apparently_the_same(&self, other: &Self) -> bool {
         let angle_accuracy = Angle::from_degrees(0.03); //Rather high due to accos inaccuracy
 
-        let angle_between_directions = self
-            .direction_in_ecliptic
-            .angle_to(&other.direction_in_ecliptic);
-
-        if angle_between_directions > angle_accuracy {
+        if !self.pos.eq_within(&other.pos, angle_accuracy) {
             return false;
         }
         let illuminance_ratio = self.illuminance.to_lux() / other.illuminance.to_lux();
@@ -66,7 +62,7 @@ impl StarAppearance {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{color::sRGBColor, coordinates::direction::Direction};
+    use crate::color::sRGBColor;
 
     #[test]
     fn star_is_apparently_the_same_with_itself() {
@@ -74,7 +70,7 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            Direction::X,
+            EclipticCoordinates::X_DIRECTION,
         );
 
         assert!(star.apparently_the_same(&star));
@@ -86,10 +82,10 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            Direction::X,
+            EclipticCoordinates::X_DIRECTION,
         );
         let mut other = star.clone();
-        other.direction_in_ecliptic = Direction::Y;
+        other.pos = EclipticCoordinates::Y_DIRECTION;
 
         assert!(!star.apparently_the_same(&other));
     }
@@ -100,7 +96,7 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            Direction::X,
+            EclipticCoordinates::X_DIRECTION,
         );
         let mut other = star.clone();
         other.illuminance = Illuminance::from_lux(100.0);

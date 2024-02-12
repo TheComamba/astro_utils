@@ -1,7 +1,7 @@
 use super::{star_appearance::StarAppearance, star_data::StarData};
 use crate::{
     color::sRGBColor,
-    coordinates::{direction::Direction, spherical::SphericalCoordinates},
+    coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates},
     error::AstroUtilError,
     units::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
 };
@@ -23,7 +23,7 @@ struct GaiaMetadataLine {
 
 struct ParsedGaiaCellData {
     pub designation: String,
-    pub direction_in_ecliptic: Direction,
+    pub pos: EclipticCoordinates,
     pub mag: f64,
     pub temperature: Option<Temperature<f64>>,
 }
@@ -72,13 +72,13 @@ impl GaiaResponse {
 
         let ecl_lon = Angle::from_degrees(ecl_lon.ok_or(AstroUtilError::DataNotAvailable)?);
         let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
-        let direction_in_ecliptic = SphericalCoordinates::new(ecl_lon, ecl_lat).to_direction();
+        let pos = SphericalCoordinates::new(ecl_lon, ecl_lat).to_ecliptic();
         let mag = get_float(&row[MAG_INDEX]);
         let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
         let temperature = temperature.map(Temperature::from_K);
         Ok(ParsedGaiaCellData {
             designation,
-            direction_in_ecliptic,
+            pos,
             mag,
             temperature,
         })
@@ -98,7 +98,7 @@ impl GaiaResponse {
                     temperature: parsed_data.temperature,
                     age: None,
                     distance: None,
-                    direction_in_ecliptic: parsed_data.direction_in_ecliptic,
+                    pos: parsed_data.pos,
                 };
                 Ok(star)
             })
@@ -123,7 +123,7 @@ impl GaiaResponse {
                     name: parsed_data.designation,
                     illuminance,
                     color,
-                    direction_in_ecliptic: parsed_data.direction_in_ecliptic,
+                    pos: parsed_data.pos,
                 };
                 Ok(star)
             })
@@ -186,8 +186,10 @@ mod tests {
         let mut closest_distance = Angle::from_degrees(90.);
         for known_star in known_stars.iter() {
             let distance = gaia_star
-                .direction_in_ecliptic
-                .angle_to(&known_star.direction_in_ecliptic);
+                .pos
+                .get_spherical()
+                .to_direction()
+                .angle_to(&known_star.pos.get_spherical().to_direction());
             if distance < closest_distance {
                 closest_star = Some(known_star);
                 closest_distance = distance;
@@ -253,19 +255,13 @@ mod tests {
                 let closest = find_closest_star(gaia_star, &known_stars_ref).unwrap();
                 println!("gaia_star: {:?}", gaia_star.name);
                 println!("closest_star: {:?}", closest.name);
-                let (gaia_ra, gaia_dec) = gaia_star
-                    .direction_in_ecliptic
-                    .to_earth_equatorial()
-                    .to_spherical()
-                    .to_ra_and_dec();
-                let (closest_ra, closest_dec) = closest
-                    .direction_in_ecliptic
-                    .to_earth_equatorial()
-                    .to_spherical()
-                    .to_ra_and_dec();
+                let (gaia_ra, gaia_dec) = gaia_star.pos.get_spherical().to_ra_and_dec();
+                let (closest_ra, closest_dec) = closest.pos.get_spherical().to_ra_and_dec();
                 let angle_difference = gaia_star
-                    .direction_in_ecliptic
-                    .angle_to(&closest.direction_in_ecliptic);
+                    .pos
+                    .get_spherical()
+                    .to_direction()
+                    .angle_to(&closest.pos.get_spherical().to_direction());
                 if angle_difference > Angle::from_degrees(0.03) {
                     println!(
                         "gaia_star position: {}, {}",

@@ -43,7 +43,7 @@ impl RealData {
         let luminous_intensity = absolute_magnitude_to_luminous_intensity(self.absolute_magnitude);
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
-        let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
+        let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
         StarData {
             name: name.to_string(),
             mass: self.mass,
@@ -52,7 +52,7 @@ impl RealData {
             temperature: self.temperature,
             age: self.age,
             distance: Some(self.distance),
-            direction_in_ecliptic,
+            pos,
         }
     }
 
@@ -64,7 +64,7 @@ impl RealData {
         };
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
-        let direction_in_ecliptic = EarthEquatorialCoordinates::new(ra, dec).to_direction();
+        let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
         let illuminance = apparent_magnitude_to_illuminance(self.apparent_magnitude);
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
@@ -74,7 +74,7 @@ impl RealData {
             name: name.to_string(),
             illuminance,
             color,
-            direction_in_ecliptic,
+            pos,
         }
     }
 }
