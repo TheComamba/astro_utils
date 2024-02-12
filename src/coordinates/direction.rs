@@ -24,6 +24,8 @@ pub struct Direction {
 }
 
 impl Direction {
+    const SERIALIZATION_ACCURACY: f64 = 1e-3;
+
     pub fn to_array(&self) -> [f64; 3] {
         [self.x, self.y, self.z]
     }
@@ -38,7 +40,9 @@ impl Serialize for Direction {
         let array = self.to_array();
         let mut tuple_serializer = serializer.serialize_tuple(3)?;
         for value in &array {
-            tuple_serializer.serialize_element(&format!("{:.3}", value))?;
+            let value =
+                (value / Self::SERIALIZATION_ACCURACY).round() * Self::SERIALIZATION_ACCURACY;
+            tuple_serializer.serialize_element(&value)?;
         }
         tuple_serializer.end()
     }
@@ -561,5 +565,18 @@ mod tests {
         let angle = a.angle_to(&b);
         println!("angle: {}", angle);
         assert!(angle_eq_within(angle, ANGLE_ZERO, test_accuracy));
+    }
+
+    #[test]
+    fn serialization() {
+        let dir = Direction::new(1.23, -0.01, 1e-8).unwrap();
+        let serialized = serde_json::to_string(&dir).unwrap();
+        println!("{:?}", dir);
+        println!("{}", serialized);
+        assert_eq!(serialized, "[1.0,-0.008,0.0]");
+
+        let deserialized: Direction = serde_json::from_str(&serialized).unwrap();
+        println!("{:?}", deserialized);
+        assert!(deserialized.eq_within(&dir, Direction::SERIALIZATION_ACCURACY));
     }
 }
