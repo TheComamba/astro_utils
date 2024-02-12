@@ -20,7 +20,7 @@ impl EarthEquatorialCoordinates {
         }
     }
 
-    pub fn to_direction(&self) -> Direction {
+    pub(crate) fn to_direction(&self) -> Direction {
         let direction_in_equatorial =
             SphericalCoordinates::new(self.right_ascension, self.declination).to_direction();
         direction_in_equatorial.rotated(-EARTH.axis_tilt, &Direction::X)

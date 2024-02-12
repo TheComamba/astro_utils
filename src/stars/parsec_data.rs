@@ -1,5 +1,5 @@
 use super::star_data::StarData;
-use crate::coordinates::direction::Direction;
+use crate::coordinates::ecliptic::EclipticCoordinates;
 use crate::error::AstroUtilError;
 use crate::units::luminous_intensity::{
     luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY,
@@ -290,7 +290,7 @@ impl ParsecLine {
             temperature: Some(temperature),
             radius: Some(radius),
             distance: None,
-            direction_in_ecliptic: Direction::Z,
+            pos: EclipticCoordinates::Z_DIRECTION,
         }
     }
 

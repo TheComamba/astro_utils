@@ -5,7 +5,7 @@ use super::{
 };
 use crate::{
     astro_display::AstroDisplay,
-    units::angle::{normalized_angle, ANGLE_ZERO, HALF_CIRC, QUARTER_CIRC},
+    units::angle::{angle_eq_within, normalized_angle, ANGLE_ZERO, HALF_CIRC, QUARTER_CIRC},
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
@@ -53,10 +53,7 @@ impl SphericalCoordinates {
         }
     }
 
-    #[cfg(test)]
     pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<f64>) -> bool {
-        use crate::units::angle::angle_eq_within;
-
         let northpole_latitude = QUARTER_CIRC;
         let southpole_latitude = -QUARTER_CIRC;
         let mut clone = self.clone();

@@ -57,7 +57,6 @@ pub fn normalized_angle(mut angle: Angle<f64>) -> Angle<f64> {
     angle
 }
 
-#[cfg(test)]
 pub(crate) fn angle_eq_within(
     actual: Angle<f64>,
     expected: Angle<f64>,

@@ -36,8 +36,7 @@ impl EclipticCoordinates {
         self.spherical.normalize();
     }
 
-    #[cfg(test)]
-    pub(crate) fn eq_within(&self, other: &EclipticCoordinates, accuracy: Angle<f64>) -> bool {
+    pub fn eq_within(&self, other: &EclipticCoordinates, accuracy: Angle<f64>) -> bool {
         self.spherical.eq_within(&other.spherical, accuracy)
     }
 
