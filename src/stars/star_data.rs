@@ -10,6 +10,7 @@ use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
     pub(super) name: String,
+    pub(super) constellation: Option<String>,
     pub(super) mass: Option<Mass<f64>>,
     pub(super) radius: Option<Distance<f64>>,
     pub(super) luminous_intensity: Option<Luminosity<f64>>,
@@ -17,12 +18,12 @@ pub struct StarData {
     pub(super) age: Option<Time<f64>>,
     pub(super) distance: Option<Distance<f64>>,
     pub(super) pos: EclipticCoordinates,
-    pub(super) constellation: Option<String>,
 }
 
 impl StarData {
     pub fn new(
         name: String,
+        constellation: Option<String>,
         mass: Option<Mass<f64>>,
         radius: Option<Distance<f64>>,
         luminous_intensity: Option<Luminosity<f64>>,
@@ -30,7 +31,6 @@ impl StarData {
         age: Option<Time<f64>>,
         distance: Option<Distance<f64>>,
         pos: EclipticCoordinates,
-        constellation: Option<String>,
     ) -> Self {
         Self {
             name,
@@ -47,6 +47,10 @@ impl StarData {
 
     pub fn get_name(&self) -> &String {
         &self.name
+    }
+
+    pub fn get_constellation(&self) -> &Option<String> {
+        &self.constellation
     }
 
     pub const fn get_radius(&self) -> &Option<Distance<f64>> {
@@ -79,6 +83,10 @@ impl StarData {
 
     pub fn set_name(&mut self, name: String) {
         self.name = name;
+    }
+
+    pub fn set_constellation(&mut self, constellation: Option<String>) {
+        self.constellation = constellation;
     }
 
     pub fn set_mass(&mut self, mass: Option<Mass<f64>>) {
