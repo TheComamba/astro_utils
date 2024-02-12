@@ -18,7 +18,7 @@ impl DerivedPlanetData {
     pub fn new(
         data: &PlanetData,
         central_body_mass: Mass<f64>,
-        previous: &DerivedPlanetData,
+        previous: Option<&DerivedPlanetData>,
     ) -> Self {
         let radius = data.get_radius();
         let volume = 4. / 3. * PI * radius * radius * radius;
@@ -28,7 +28,10 @@ impl DerivedPlanetData {
             data.get_mass(),
             central_body_mass,
         );
-        let orbital_resonance = orbital_resonance(orbital_period, previous.orbital_period);
+        let orbital_resonance = match previous {
+            Some(previous) => orbital_resonance(orbital_period, previous.orbital_period),
+            None => None,
+        };
         let synodic_day = mean_synodic_day(data.get_sideral_rotation_period(), orbital_period);
         Self {
             density,
