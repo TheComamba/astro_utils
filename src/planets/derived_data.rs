@@ -7,15 +7,19 @@ use simple_si_units::{
 };
 use std::f64::consts::PI;
 
-pub struct DerivedData {
+pub struct DerivedPlanetData {
     density: Density<f64>,
     orbital_period: Time<f64>,
     orbital_resonance: Option<Fraction>,
     mean_synodic_day: Time<f64>,
 }
 
-impl DerivedData {
-    pub fn new(data: &PlanetData, central_body_mass: Mass<f64>, previous: &DerivedData) -> Self {
+impl DerivedPlanetData {
+    pub fn new(
+        data: &PlanetData,
+        central_body_mass: Mass<f64>,
+        previous: &DerivedPlanetData,
+    ) -> Self {
         let radius = data.get_radius();
         let volume = 4. / 3. * PI * radius * radius * radius;
         let density = data.get_mass() / volume;
