@@ -10,9 +10,13 @@ use std::f64::consts::PI;
 #[derive(Debug, Clone)]
 pub struct DerivedPlanetData {
     density: Density<f64>,
+    // escape_velocity
+    // surface_gravity
     orbital_period: Time<f64>,
     orbital_resonance: Option<Fraction>,
     mean_synodic_day: Time<f64>,
+    // black_body_temperature
+    // axial_tilt
 }
 
 impl DerivedPlanetData {
@@ -143,5 +147,11 @@ mod tests {
     fn earth_has_synodic_period_of_1_day() {
         let synodic_day = mean_synodic_day(EARTH.siderial_rotation_period, Time::from_yr(1.));
         assert!(eq(synodic_day.to_days(), 1.));
+    }
+
+    #[test]
+    fn tidaly_locked_planet_has_synodic_period_of_infinity() {
+        let synodic_day = mean_synodic_day(Time::from_days(1.), Time::from_days(1.));
+        assert!(synodic_day.s.is_infinite() || synodic_day.s.is_nan() || synodic_day.s > 1e20);
     }
 }
