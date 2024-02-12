@@ -7,6 +7,7 @@ use simple_si_units::{
 };
 use std::f64::consts::PI;
 
+#[derive(Debug, Clone)]
 pub struct DerivedPlanetData {
     density: Density<f64>,
     orbital_period: Time<f64>,
