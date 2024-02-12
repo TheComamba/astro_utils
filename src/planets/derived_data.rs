@@ -1,5 +1,12 @@
 use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
-use crate::{astro_display::AstroDisplay, stars::star_data::StarData};
+use crate::{
+    astro_display::AstroDisplay,
+    stars::star_data::StarData,
+    units::{
+        acceleration::EARTH_SURFACE_GRAVITY, distance::distance_to_earth_radii,
+        luminous_intensity::luminous_intensity_to_illuminance,
+    },
+};
 use fraction::Fraction;
 use simple_si_units::{
     base::{Distance, Luminosity, Mass, Temperature, Time},
@@ -52,10 +59,7 @@ impl DerivedPlanetData {
 
         let axial_tilt = axis_tilt(data);
 
-        let black_body_temperature = black_body_temperature(
-            central_body_luminosity,
-            data.get_orbital_parameters().semi_major_axis,
-        );
+        let black_body_temperature = black_body_temperature(central_body_luminosity, data);
 
         Self {
             density,
@@ -103,11 +107,14 @@ impl DerivedPlanetData {
 }
 
 fn surface_gravity(mass: Mass<f64>, radius: Distance<f64>) -> Acceleration<f64> {
-    todo!()
+    mass.to_earth_mass() / distance_to_earth_radii(&radius).powi(2) * EARTH_SURFACE_GRAVITY
 }
 
 fn escape_velocity(mass: Mass<f64>, radius: Distance<f64>) -> Velocity<f64> {
-    todo!()
+    let gravity = surface_gravity(mass, radius);
+    Velocity {
+        mps: (2. * gravity.mps2 * radius.m).sqrt(),
+    }
 }
 
 impl AstroDisplay for Fraction {
@@ -140,29 +147,51 @@ fn mean_synodic_day(siderial_day: Time<f64>, orbital_period: Time<f64>) -> Time<
 
 fn black_body_temperature(
     central_body_luminosity: Luminosity<f64>,
-    distance: Distance<f64>,
+    data: &PlanetData,
 ) -> Temperature<f64> {
-    todo!()
+    const STEFAN_BOLTZMANN: f64 = 5.67e-8;
+
+    let distance = data.get_orbital_parameters().semi_major_axis;
+    let illuminance = luminous_intensity_to_illuminance(&central_body_luminosity, &distance);
+    let albedo = data.get_geometric_albedo();
+    Temperature {
+        K: (illuminance.lux * (1. - albedo) / (4. * STEFAN_BOLTZMANN)).powf(1. / 4.),
+    }
 }
 
 fn axis_tilt(data: &PlanetData) -> Angle<f64> {
-    todo!()
+    data.orbital_parameters
+        .normal()
+        .angle_to(&data.rotation_axis)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::{
-        real_data::{planets::EARTH, stars::SUN_DATA},
-        tests::eq,
+        real_data::{
+            planets::{EARTH, MERCURY},
+            stars::SUN_DATA,
+        },
+        tests::{eq, eq_within},
     };
+
+    const ACCURACY: f64 = 0.025;
 
     #[test]
     fn surface_gravity_of_earth() {
         let mass = EARTH.to_planet_data().mass;
         let radius = EARTH.to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
-        assert!(eq(gravity.to_mps2(), 9.81));
+        assert!(eq_within(gravity.to_mps2(), 9.81, ACCURACY));
+    }
+
+    #[test]
+    fn surface_gravity_of_mercury() {
+        let mass = MERCURY.to_planet_data().mass;
+        let radius = MERCURY.to_planet_data().get_radius();
+        let gravity = surface_gravity(mass, radius);
+        assert!(eq_within(gravity.to_mps2(), 3.7, ACCURACY));
     }
 
     #[test]
@@ -170,18 +199,29 @@ mod tests {
         let mass = EARTH.to_planet_data().mass;
         let radius = EARTH.to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
-        assert!(eq(velocity.to_kmps(), 11.2));
+        assert!(eq_within(velocity.to_kmps(), 11.2, 10. * ACCURACY));
+    }
+
+    #[test]
+    fn escape_velocity_of_mercury() {
+        let mass = MERCURY.to_planet_data().mass;
+        let radius = MERCURY.to_planet_data().get_radius();
+        let velocity = escape_velocity(mass, radius);
+        assert!(eq_within(velocity.to_kmps(), 4.3, 10. * ACCURACY));
     }
 
     #[test]
     fn black_body_temperature_of_earth() {
         let luminosity = SUN_DATA.to_star_data().get_luminous_intensity().unwrap();
-        let distance = EARTH
-            .to_planet_data()
-            .get_orbital_parameters()
-            .semi_major_axis;
-        let temperature = black_body_temperature(luminosity, distance);
-        assert!(eq(temperature.to_celsius(), 255.));
+        let temperature = black_body_temperature(luminosity, &EARTH.to_planet_data());
+        assert!(eq_within(temperature.to_K(), 255., ACCURACY));
+    }
+
+    #[test]
+    fn black_body_temperature_of_mercury() {
+        let luminosity = SUN_DATA.to_star_data().get_luminous_intensity().unwrap();
+        let temperature = black_body_temperature(luminosity, &MERCURY.to_planet_data());
+        assert!(eq_within(temperature.to_K(), 442., ACCURACY));
     }
 
     #[test]
@@ -245,6 +285,12 @@ mod tests {
     #[test]
     fn axis_tilt_of_earth() {
         let tilt = axis_tilt(&EARTH.to_planet_data());
-        assert!(eq(tilt.to_degrees(), 23.44));
+        assert!(eq_within(tilt.to_degrees(), 23.44, ACCURACY));
+    }
+
+    #[test]
+    fn axis_tilt_of_mercury() {
+        let tilt = axis_tilt(&MERCURY.to_planet_data());
+        assert!(eq_within(tilt.to_degrees(), 0.034, ACCURACY));
     }
 }
