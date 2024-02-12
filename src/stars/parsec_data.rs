@@ -291,6 +291,7 @@ impl ParsecLine {
             radius: Some(radius),
             distance: None,
             pos: EclipticCoordinates::Z_DIRECTION,
+            constellation: None,
         }
     }
 

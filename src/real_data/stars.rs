@@ -17,6 +17,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 pub const SUN_DATA: RealData = RealData {
     common_name: "Sun",
     astronomical_name: "Sol",
+    constellation: "",
     mass: Some(SOLAR_MASS),
     radius: Some(SOLAR_RADIUS),
     absolute_magnitude: 4.83,
@@ -34,6 +35,7 @@ pub const SUN_DATA: RealData = RealData {
 const SIRIUS_DATA: RealData = RealData {
     common_name: "Sirius",
     astronomical_name: "Alpha Canis Majoris",
+    constellation: "Canis Major",
     radius: Some(Distance {
         m: 1.711 * SOLAR_RADIUS.m,
     }),
@@ -57,6 +59,7 @@ const SIRIUS_DATA: RealData = RealData {
 const CANOPUS_DATA: RealData = RealData {
     common_name: "Canopus",
     astronomical_name: "Alpha Carinae",
+    constellation: "Carina",
     radius: Some(Distance {
         m: 72. * SOLAR_RADIUS.m,
     }),
@@ -80,6 +83,7 @@ const CANOPUS_DATA: RealData = RealData {
 const ARCTURUS_DATA: RealData = RealData {
     common_name: "Arcturus",
     astronomical_name: "Alpha Bootis",
+    constellation: "Boötes",
     radius: Some(Distance {
         m: 25.4 * SOLAR_RADIUS.m,
     }),
@@ -103,6 +107,7 @@ const ARCTURUS_DATA: RealData = RealData {
 const RIGEL_KENTAURUS_DATA: RealData = RealData {
     common_name: "Rigel Kentaurus",
     astronomical_name: "Alpha Centauri",
+    constellation: "Centaurus",
     radius: Some(Distance {
         m: 1.2175 * SOLAR_RADIUS.m,
     }),
@@ -126,6 +131,7 @@ const RIGEL_KENTAURUS_DATA: RealData = RealData {
 const VEGA_DATA: RealData = RealData {
     common_name: "Vega",
     astronomical_name: "Alpha Lyrae",
+    constellation: "Lyra",
     radius: Some(Distance {
         m: 2.362 * SOLAR_RADIUS.m,
     }),
@@ -149,6 +155,7 @@ const VEGA_DATA: RealData = RealData {
 const CAPELLA_DATA: RealData = RealData {
     common_name: "Capella",
     astronomical_name: "Alpha Aurigae",
+    constellation: "Auriga",
     radius: Some(Distance {
         m: 11.98 * SOLAR_RADIUS.m,
     }),
@@ -172,6 +179,7 @@ const CAPELLA_DATA: RealData = RealData {
 const RIGEL_DATA: RealData = RealData {
     common_name: "Rigel",
     astronomical_name: "Beta Orionis",
+    constellation: "Orion",
     radius: Some(Distance {
         m: 78.9 * SOLAR_RADIUS.m,
     }),
@@ -195,6 +203,7 @@ const RIGEL_DATA: RealData = RealData {
 const PROCYON_DATA: RealData = RealData {
     common_name: "Procyon",
     astronomical_name: "Alpha Canis Minoris",
+    constellation: "Canis Minor",
     radius: Some(Distance {
         m: 2.048 * SOLAR_RADIUS.m,
     }),
@@ -218,6 +227,7 @@ const PROCYON_DATA: RealData = RealData {
 const BETELGEUSE_DATA: RealData = RealData {
     common_name: "Betelgeuse",
     astronomical_name: "Alpha Orionis",
+    constellation: "Orion",
     radius: Some(Distance {
         m: 887. * SOLAR_RADIUS.m,
     }),
@@ -241,6 +251,7 @@ const BETELGEUSE_DATA: RealData = RealData {
 const ACHERNAR_DATA: RealData = RealData {
     common_name: "Achernar",
     astronomical_name: "Alpha Eridani",
+    constellation: "Eridanus",
     radius: Some(Distance {
         m: 6.78 * SOLAR_RADIUS.m,
     }),
@@ -264,6 +275,7 @@ const ACHERNAR_DATA: RealData = RealData {
 const HADAR_DATA: RealData = RealData {
     common_name: "Hadar",
     astronomical_name: "Beta Centauri",
+    constellation: "Centaurus",
     radius: Some(Distance {
         m: 9. * SOLAR_RADIUS.m,
     }),
@@ -287,6 +299,7 @@ const HADAR_DATA: RealData = RealData {
 const ALTAIR_DATA: RealData = RealData {
     common_name: "Altair",
     astronomical_name: "Alpha Aquilae",
+    constellation: "Aquila",
     radius: Some(Distance {
         m: 1.63 * SOLAR_RADIUS.m,
     }),
@@ -310,6 +323,7 @@ const ALTAIR_DATA: RealData = RealData {
 const ACRUX_DATA: RealData = RealData {
     common_name: "Acrux",
     astronomical_name: "Alpha Crucis",
+    constellation: "Crux",
     radius: Some(Distance {
         m: 7.8 * SOLAR_RADIUS.m,
     }),
@@ -333,6 +347,7 @@ const ACRUX_DATA: RealData = RealData {
 const ALDEBARAN_DATA: RealData = RealData {
     common_name: "Aldebaran",
     astronomical_name: "Alpha Tauri",
+    constellation: "Taurus",
     radius: Some(Distance {
         m: 45.1 * SOLAR_RADIUS.m,
     }),
@@ -356,6 +371,7 @@ const ALDEBARAN_DATA: RealData = RealData {
 const SPICA_DATA: RealData = RealData {
     common_name: "Spica",
     astronomical_name: "Alpha Virginis",
+    constellation: "Virgo",
     radius: Some(Distance {
         m: 7.47 * SOLAR_RADIUS.m,
     }),
@@ -379,6 +395,7 @@ const SPICA_DATA: RealData = RealData {
 const ANTARES_DATA: RealData = RealData {
     common_name: "Antares",
     astronomical_name: "Alpha Scorpii",
+    constellation: "Scorpius",
     radius: Some(Distance {
         m: 680. * SOLAR_RADIUS.m,
     }),
@@ -402,6 +419,7 @@ const ANTARES_DATA: RealData = RealData {
 const POLLUX_DATA: RealData = RealData {
     common_name: "Pollux",
     astronomical_name: "Beta Geminorum",
+    constellation: "Gemini",
     radius: Some(Distance {
         m: 9.06 * SOLAR_RADIUS.m,
     }),
@@ -425,6 +443,7 @@ const POLLUX_DATA: RealData = RealData {
 const FORMALHAUT_DATA: RealData = RealData {
     common_name: "Formalhaut",
     astronomical_name: "Alpha Piscis Austrini",
+    constellation: "Piscis Austrinus",
     radius: Some(Distance {
         m: 1.842 * SOLAR_RADIUS.m,
     }),
@@ -448,6 +467,7 @@ const FORMALHAUT_DATA: RealData = RealData {
 const DENEB_DATA: RealData = RealData {
     common_name: "Deneb",
     astronomical_name: "Alpha Cygni",
+    constellation: "Cygnus",
     radius: Some(Distance {
         m: 203. * SOLAR_RADIUS.m,
     }),
@@ -469,6 +489,7 @@ const DENEB_DATA: RealData = RealData {
 const MIMOSA_DATA: RealData = RealData {
     common_name: "Mimosa",
     astronomical_name: "Beta Crucis",
+    constellation: "Crux",
     radius: Some(Distance {
         m: 8.4 * SOLAR_RADIUS.m,
     }),
@@ -492,6 +513,7 @@ const MIMOSA_DATA: RealData = RealData {
 const REGULUS_DATA: RealData = RealData {
     common_name: "Regulus",
     astronomical_name: "Alpha Leonis",
+    constellation: "Leo",
     radius: Some(Distance {
         m: 4.35 * SOLAR_RADIUS.m,
     }),
@@ -515,6 +537,7 @@ const REGULUS_DATA: RealData = RealData {
 const ADHARA_DATA: RealData = RealData {
     common_name: "Adhara",
     astronomical_name: "Epsilon Canis Majoris",
+    constellation: "Canis Major",
     radius: Some(Distance {
         m: 13.9 * SOLAR_RADIUS.m,
     }),
@@ -538,6 +561,7 @@ const ADHARA_DATA: RealData = RealData {
 const CASTOR_DATA: RealData = RealData {
     common_name: "Castor",
     astronomical_name: "Alpha Geminorum",
+    constellation: "Gemini",
     radius: Some(Distance {
         m: 2.089 * SOLAR_RADIUS.m,
     }),
@@ -561,6 +585,7 @@ const CASTOR_DATA: RealData = RealData {
 const GACRUX_DATA: RealData = RealData {
     common_name: "Gacrux",
     astronomical_name: "Gamma Crucis",
+    constellation: "Crux",
     radius: Some(Distance {
         m: 120. * SOLAR_RADIUS.m,
     }),
@@ -582,6 +607,7 @@ const GACRUX_DATA: RealData = RealData {
 const SHAULA_DATA: RealData = RealData {
     common_name: "Shaula",
     astronomical_name: "Lambda Scorpii",
+    constellation: "Scorpius",
     radius: Some(Distance {
         m: 8.8 * SOLAR_RADIUS.m,
     }),
@@ -603,6 +629,7 @@ const SHAULA_DATA: RealData = RealData {
 const BELLATRIX_DATA: RealData = RealData {
     common_name: "Bellatrix",
     astronomical_name: "Gamma Orionis",
+    constellation: "Orion",
     radius: Some(Distance {
         m: 5.75 * SOLAR_RADIUS.m,
     }),
@@ -626,6 +653,7 @@ const BELLATRIX_DATA: RealData = RealData {
 const ALNATH_DATA: RealData = RealData {
     common_name: "Alnath",
     astronomical_name: "Beta Tauri",
+    constellation: "Taurus",
     radius: Some(Distance {
         m: 4.2 * SOLAR_RADIUS.m,
     }),
@@ -649,6 +677,7 @@ const ALNATH_DATA: RealData = RealData {
 const MIAPLACIDUS_DATA: RealData = RealData {
     common_name: "Miaplacidus",
     astronomical_name: "Beta Carinae",
+    constellation: "Carina",
     radius: Some(Distance {
         m: 6.8 * SOLAR_RADIUS.m,
     }),
@@ -672,6 +701,7 @@ const MIAPLACIDUS_DATA: RealData = RealData {
 const ALNILAM_DATA: RealData = RealData {
     common_name: "Alnilam",
     astronomical_name: "Epsilon Orionis",
+    constellation: "Orion",
     radius: Some(Distance {
         m: 42. * SOLAR_RADIUS.m,
     }),
@@ -695,6 +725,7 @@ const ALNILAM_DATA: RealData = RealData {
 const ALNAIR_DATA: RealData = RealData {
     common_name: "Alnair",
     astronomical_name: "Alpha Gruis",
+    constellation: "Grus",
     radius: Some(Distance {
         m: 3.4 * SOLAR_RADIUS.m,
     }),
@@ -718,6 +749,7 @@ const ALNAIR_DATA: RealData = RealData {
 const ALNITAK_DATA: RealData = RealData {
     common_name: "Alnitak",
     astronomical_name: "Zeta Orionis",
+    constellation: "Orion",
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
     }),
@@ -741,6 +773,7 @@ const ALNITAK_DATA: RealData = RealData {
 const REGOR_DATA: RealData = RealData {
     common_name: "Regor",
     astronomical_name: "Gamma Velorum",
+    constellation: "Vela",
     radius: Some(Distance {
         m: 17. * SOLAR_RADIUS.m,
     }),
@@ -764,6 +797,7 @@ const REGOR_DATA: RealData = RealData {
 const ALIOTH_DATA: RealData = RealData {
     common_name: "Alioth",
     astronomical_name: "Epsilon Ursae Majoris",
+    constellation: "Ursa Major",
     radius: Some(Distance {
         m: 4.14 * SOLAR_RADIUS.m,
     }),
@@ -787,6 +821,7 @@ const ALIOTH_DATA: RealData = RealData {
 const KAUS_AUSTRALIS_DATA: RealData = RealData {
     common_name: "Kaus Australis",
     astronomical_name: "Epsilon Sagittarii",
+    constellation: "Sagittarius",
     radius: Some(Distance {
         m: 6.8 * SOLAR_RADIUS.m,
     }),
@@ -810,6 +845,7 @@ const KAUS_AUSTRALIS_DATA: RealData = RealData {
 const MIRPHAK_DATA: RealData = RealData {
     common_name: "Mirphak",
     astronomical_name: "Alpha Persei",
+    constellation: "Perseus",
     radius: Some(Distance {
         m: 68. * SOLAR_RADIUS.m,
     }),
@@ -833,6 +869,7 @@ const MIRPHAK_DATA: RealData = RealData {
 const DUBHE_DATA: RealData = RealData {
     common_name: "Dubhe",
     astronomical_name: "Alpha Ursae Majoris",
+    constellation: "Ursa Major",
     radius: Some(Distance {
         m: 17.03 * SOLAR_RADIUS.m,
     }),
@@ -856,6 +893,7 @@ const DUBHE_DATA: RealData = RealData {
 const WEZEN_DATA: RealData = RealData {
     common_name: "Wezen",
     astronomical_name: "Delta Canis Majoris",
+    constellation: "Canis Major",
     radius: Some(Distance {
         m: 215. * SOLAR_RADIUS.m,
     }),
@@ -879,6 +917,7 @@ const WEZEN_DATA: RealData = RealData {
 const ALKAID_DATA: RealData = RealData {
     common_name: "Alkaid",
     astronomical_name: "Eta Ursae Majoris",
+    constellation: "Ursa Major",
     radius: Some(Distance {
         m: 3.4 * SOLAR_RADIUS.m,
     }),
@@ -902,6 +941,7 @@ const ALKAID_DATA: RealData = RealData {
 const SARGAS_DATA: RealData = RealData {
     common_name: "Sargas",
     astronomical_name: "Theta Scorpii",
+    constellation: "Scorpius",
     radius: Some(Distance {
         m: 26.3 * SOLAR_RADIUS.m,
     }),
@@ -923,6 +963,7 @@ const SARGAS_DATA: RealData = RealData {
 const AVIOR_DATA: RealData = RealData {
     common_name: "Avior",
     astronomical_name: "Epsilon Carinae",
+    constellation: "Carina",
     radius: None,
     mass: Some(Mass {
         kg: 10.5 * SOLAR_MASS.kg,
@@ -944,6 +985,7 @@ const AVIOR_DATA: RealData = RealData {
 const MENKALINAN_DATA: RealData = RealData {
     common_name: "Menkalinan",
     astronomical_name: "Beta Aurigae",
+    constellation: "Auriga",
     radius: Some(Distance {
         m: 2.77 * SOLAR_RADIUS.m,
     }),
@@ -967,6 +1009,7 @@ const MENKALINAN_DATA: RealData = RealData {
 const ATRIA_DATA: RealData = RealData {
     common_name: "Atria",
     astronomical_name: "Alpha Trianguli Australis",
+    constellation: "Triangulum Australe",
     radius: Some(Distance {
         m: 143. * SOLAR_RADIUS.m,
     }),
@@ -990,6 +1033,7 @@ const ATRIA_DATA: RealData = RealData {
 const ALSEPHINA_DATA: RealData = RealData {
     common_name: "Alsephina",
     astronomical_name: "Delta Velorum",
+    constellation: "Vela",
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
@@ -1013,6 +1057,7 @@ const ALSEPHINA_DATA: RealData = RealData {
 const ALHENA_DATA: RealData = RealData {
     common_name: "Alhena",
     astronomical_name: "Gamma Geminorum",
+    constellation: "Gemini",
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
     }),
@@ -1034,6 +1079,7 @@ const ALHENA_DATA: RealData = RealData {
 const PEACOCK_DATA: RealData = RealData {
     common_name: "Peacock",
     astronomical_name: "Alpha Pavonis",
+    constellation: "Pavo",
     radius: Some(Distance {
         m: 4.83 * SOLAR_RADIUS.m,
     }),
@@ -1057,6 +1103,7 @@ const PEACOCK_DATA: RealData = RealData {
 const POLARIS_DATA: RealData = RealData {
     common_name: "Polaris",
     astronomical_name: "Alpha Ursae Minoris",
+    constellation: "Ursa Minor",
     radius: Some(Distance {
         m: 37.5 * SOLAR_RADIUS.m,
     }),
@@ -1080,6 +1127,7 @@ const POLARIS_DATA: RealData = RealData {
 const MIRZAM_DATA: RealData = RealData {
     common_name: "Mirzam",
     astronomical_name: "Beta Canis Majoris",
+    constellation: "Canis Major",
     radius: Some(Distance {
         m: 9.7 * SOLAR_RADIUS.m,
     }),
@@ -1103,6 +1151,7 @@ const MIRZAM_DATA: RealData = RealData {
 const ALPHARD_DATA: RealData = RealData {
     common_name: "Alphard",
     astronomical_name: "Alpha Hydrae",
+    constellation: "Hydra",
     radius: Some(Distance {
         m: 50.5 * SOLAR_RADIUS.m,
     }),
@@ -1126,6 +1175,7 @@ const ALPHARD_DATA: RealData = RealData {
 const ALGIEBA_DATA: RealData = RealData {
     common_name: "Algieba",
     astronomical_name: "Gamma Leonis",
+    constellation: "Leo",
     radius: Some(Distance {
         m: 31.88 * SOLAR_RADIUS.m,
     }),
@@ -1147,6 +1197,7 @@ const ALGIEBA_DATA: RealData = RealData {
 const HAMAL_DATA: RealData = RealData {
     common_name: "Hamal",
     astronomical_name: "Alpha Arietis",
+    constellation: "Aries",
     radius: Some(Distance {
         m: 14.9 * SOLAR_RADIUS.m,
     }),
@@ -1170,6 +1221,7 @@ const HAMAL_DATA: RealData = RealData {
 const DIPHDA_DATA: RealData = RealData {
     common_name: "Diphda",
     astronomical_name: "Beta Ceti",
+    constellation: "Cetus",
     radius: Some(Distance {
         m: 16.78 * SOLAR_RADIUS.m,
     }),
@@ -1193,6 +1245,7 @@ const DIPHDA_DATA: RealData = RealData {
 const NUNKI_DATA: RealData = RealData {
     common_name: "Nunki",
     astronomical_name: "Sigma Sagittarii",
+    constellation: "Sagittarius",
     radius: Some(Distance {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
@@ -1216,6 +1269,7 @@ const NUNKI_DATA: RealData = RealData {
 const MENKENT_DATA: RealData = RealData {
     common_name: "Menkent",
     astronomical_name: "Theta Centauri",
+    constellation: "Centaurus",
     radius: Some(Distance {
         m: 10.6 * SOLAR_RADIUS.m,
     }),
@@ -1237,6 +1291,7 @@ const MENKENT_DATA: RealData = RealData {
 const SAIPH_DATA: RealData = RealData {
     common_name: "Saiph",
     astronomical_name: "Kappa Orionis",
+    constellation: "Orion",
     radius: Some(Distance {
         m: 22.2 * SOLAR_RADIUS.m,
     }),
@@ -1260,6 +1315,7 @@ const SAIPH_DATA: RealData = RealData {
 const ALPHERATZ_DATA: RealData = RealData {
     common_name: "Alpheratz",
     astronomical_name: "Alpha Andromedae",
+    constellation: "Andromeda",
     radius: Some(Distance {
         m: 2.7 * SOLAR_RADIUS.m,
     }),
@@ -1283,6 +1339,7 @@ const ALPHERATZ_DATA: RealData = RealData {
 const TIAKI_DATA: RealData = RealData {
     common_name: "Tiaki",
     astronomical_name: "Beta Gruis",
+    constellation: "Grus",
     radius: Some(Distance {
         m: 180. * SOLAR_RADIUS.m,
     }),
@@ -1304,6 +1361,7 @@ const TIAKI_DATA: RealData = RealData {
 const MIRACH_DATA: RealData = RealData {
     common_name: "Mirach",
     astronomical_name: "Beta Andromedae",
+    constellation: "Andromeda",
     radius: Some(Distance {
         m: 100. * SOLAR_RADIUS.m,
     }),
@@ -1325,6 +1383,7 @@ const MIRACH_DATA: RealData = RealData {
 const KOCHAB_DATA: RealData = RealData {
     common_name: "Kochab",
     astronomical_name: "Beta Ursae Minoris",
+    constellation: "Ursa Minor",
     radius: Some(Distance {
         m: 42.06 * SOLAR_RADIUS.m,
     }),
@@ -1346,6 +1405,7 @@ const KOCHAB_DATA: RealData = RealData {
 const RASALHAGUE_DATA: RealData = RealData {
     common_name: "Rasalhague",
     astronomical_name: "Alpha Ophiuchi",
+    constellation: "Ophiuchus",
     radius: Some(Distance {
         m: 2.6 * SOLAR_RADIUS.m,
     }),
@@ -1369,6 +1429,7 @@ const RASALHAGUE_DATA: RealData = RealData {
 const ALGOL_DATA: RealData = RealData {
     common_name: "Algol",
     astronomical_name: "Beta Persei",
+    constellation: "Perseus",
     radius: Some(Distance {
         m: 2.73 * SOLAR_RADIUS.m,
     }),
@@ -1392,6 +1453,7 @@ const ALGOL_DATA: RealData = RealData {
 const ALMACH_DATA: RealData = RealData {
     common_name: "Almach",
     astronomical_name: "Gamma Andromedae",
+    constellation: "Andromeda",
     radius: Some(Distance {
         m: 80. * SOLAR_RADIUS.m,
     }),
@@ -1415,6 +1477,7 @@ const ALMACH_DATA: RealData = RealData {
 const DENEBOLA_DATA: RealData = RealData {
     common_name: "Denebola",
     astronomical_name: "Beta Leonis",
+    constellation: "Leo",
     radius: Some(Distance {
         m: 1.728 * SOLAR_RADIUS.m,
     }),
@@ -1438,6 +1501,7 @@ const DENEBOLA_DATA: RealData = RealData {
 const NAVI_DATA: RealData = RealData {
     common_name: "Navi",
     astronomical_name: "Gamma Cassiopeiae",
+    constellation: "Cassiopeia",
     radius: Some(Distance {
         m: 10. * SOLAR_RADIUS.m,
     }),
@@ -1461,6 +1525,7 @@ const NAVI_DATA: RealData = RealData {
 const MUHLIFAIN_DATA: RealData = RealData {
     common_name: "Muhlifain",
     astronomical_name: "Gamma Centauri",
+    constellation: "Centaurus",
     radius: None,
     mass: Some(Mass {
         kg: 2.91 * SOLAR_MASS.kg,
@@ -1480,6 +1545,7 @@ const MUHLIFAIN_DATA: RealData = RealData {
 const NAOS_DATA: RealData = RealData {
     common_name: "Naos",
     astronomical_name: "Zeta Puppis",
+    constellation: "Puppis",
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
     }),
@@ -1503,6 +1569,7 @@ const NAOS_DATA: RealData = RealData {
 const ASPIDISKE_DATA: RealData = RealData {
     common_name: "Aspidiske",
     astronomical_name: "Iota Carinae",
+    constellation: "Carina",
     radius: Some(Distance {
         m: 43. * SOLAR_RADIUS.m,
     }),
@@ -1526,6 +1593,7 @@ const ASPIDISKE_DATA: RealData = RealData {
 const ALPHECCA_DATA: RealData = RealData {
     common_name: "Alphecca",
     astronomical_name: "Alpha Coronae Borealis",
+    constellation: "Corona Borealis",
     radius: Some(Distance {
         m: 3. * SOLAR_RADIUS.m,
     }),
@@ -1549,6 +1617,7 @@ const ALPHECCA_DATA: RealData = RealData {
 const SUHAIL_DATA: RealData = RealData {
     common_name: "Suhail",
     astronomical_name: "Lambda Velorum",
+    constellation: "Vela",
     radius: Some(Distance {
         m: 210. * SOLAR_RADIUS.m,
     }),
@@ -1572,6 +1641,7 @@ const SUHAIL_DATA: RealData = RealData {
 const SADIR_DATA: RealData = RealData {
     common_name: "Sadir",
     astronomical_name: "Gamma Cygni",
+    constellation: "Cygnus",
     radius: Some(Distance {
         m: 150. * SOLAR_RADIUS.m,
     }),
@@ -1595,6 +1665,7 @@ const SADIR_DATA: RealData = RealData {
 const MIZAR_DATA: RealData = RealData {
     common_name: "Mizar",
     astronomical_name: "Zeta Ursae Majoris",
+    constellation: "Ursa Major",
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
@@ -1618,6 +1689,7 @@ const MIZAR_DATA: RealData = RealData {
 const SCHEDAR_DATA: RealData = RealData {
     common_name: "Schedar",
     astronomical_name: "Alpha Cassiopeiae",
+    constellation: "Cassiopeia",
     radius: Some(Distance {
         m: 45.39 * SOLAR_RADIUS.m,
     }),
@@ -1641,6 +1713,7 @@ const SCHEDAR_DATA: RealData = RealData {
 const ELTANIN_DATA: RealData = RealData {
     common_name: "Eltanin",
     astronomical_name: "Gamma Draconis",
+    constellation: "Draco",
     radius: Some(Distance {
         m: 48.15 * SOLAR_RADIUS.m,
     }),
@@ -1662,6 +1735,7 @@ const ELTANIN_DATA: RealData = RealData {
 const MINTAKA_DATA: RealData = RealData {
     common_name: "Mintaka",
     astronomical_name: "Delta Orionis",
+    constellation: "Orion",
     radius: Some(Distance {
         m: 16.5 * SOLAR_RADIUS.m,
     }),
@@ -1683,6 +1757,7 @@ const MINTAKA_DATA: RealData = RealData {
 const CAPH_DATA: RealData = RealData {
     common_name: "Caph",
     astronomical_name: "Beta Cassiopeiae",
+    constellation: "Cassiopeia",
     radius: Some(Distance {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
@@ -1706,6 +1781,7 @@ const CAPH_DATA: RealData = RealData {
 const DSCHUBBA_DATA: RealData = RealData {
     common_name: "Dschubba",
     astronomical_name: "Delta Scorpii",
+    constellation: "Scorpius",
     radius: Some(Distance {
         m: 6.7 * SOLAR_RADIUS.m,
     }),
@@ -1729,6 +1805,7 @@ const DSCHUBBA_DATA: RealData = RealData {
 const LARAWAG_DATA: RealData = RealData {
     common_name: "Larawag",
     astronomical_name: "Epsilon Scorpii",
+    constellation: "Scorpius",
     radius: Some(Distance {
         m: 12.6 * SOLAR_RADIUS.m,
     }),
@@ -1750,6 +1827,7 @@ const LARAWAG_DATA: RealData = RealData {
 const EPSILON_CENTAURI_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "Epsilon Centauri",
+    constellation: "Centaurus",
     radius: None,
     mass: Some(Mass {
         kg: 11.6 * SOLAR_MASS.kg,
@@ -1771,6 +1849,7 @@ const EPSILON_CENTAURI_DATA: RealData = RealData {
 const ALPHA_LUPI_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "Alpha Lupi",
+    constellation: "Lupus",
     radius: None,
     mass: Some(Mass {
         kg: 10.1 * SOLAR_MASS.kg,
@@ -1792,6 +1871,7 @@ const ALPHA_LUPI_DATA: RealData = RealData {
 const ETA_CENTAURI_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "Eta Centauri",
+    constellation: "Centaurus",
     radius: Some(Distance {
         m: 6.1 * SOLAR_RADIUS.m,
     }),
@@ -1815,6 +1895,7 @@ const ETA_CENTAURI_DATA: RealData = RealData {
 const MERAK_DATA: RealData = RealData {
     common_name: "Merak",
     astronomical_name: "Beta Ursae Majoris",
+    constellation: "Ursa Major",
     radius: Some(Distance {
         m: 3.021 * SOLAR_RADIUS.m,
     }),
@@ -1838,6 +1919,7 @@ const MERAK_DATA: RealData = RealData {
 const IZAR_DATA: RealData = RealData {
     common_name: "Izar",
     astronomical_name: "Epsilon Bootis",
+    constellation: "Boötes",
     radius: Some(Distance {
         m: 33. * SOLAR_RADIUS.m,
     }),
@@ -1861,6 +1943,7 @@ const IZAR_DATA: RealData = RealData {
 const ENIF_DATA: RealData = RealData {
     common_name: "Enif",
     astronomical_name: "Epsilon Pegasi",
+    constellation: "Pegasus",
     radius: Some(Distance {
         m: 211. * SOLAR_RADIUS.m,
     }),
@@ -1884,6 +1967,7 @@ const ENIF_DATA: RealData = RealData {
 const GIRTAB_DATA: RealData = RealData {
     common_name: "Girtab",
     astronomical_name: "Kappa Scorpii",
+    constellation: "Scorpius",
     radius: Some(Distance {
         m: 6.8 * SOLAR_RADIUS.m,
     }),
@@ -1907,6 +1991,7 @@ const GIRTAB_DATA: RealData = RealData {
 const ANKAA_DATA: RealData = RealData {
     common_name: "Ankaa",
     astronomical_name: "Alpha Phoenicis",
+    constellation: "Phoenix",
     radius: Some(Distance {
         m: 15. * SOLAR_RADIUS.m,
     }),
@@ -1928,6 +2013,7 @@ const ANKAA_DATA: RealData = RealData {
 const PHECDA_DATA: RealData = RealData {
     common_name: "Phecda",
     astronomical_name: "Gamma Ursae Majoris",
+    constellation: "Ursa Major",
     radius: Some(Distance {
         m: 3.04 * SOLAR_RADIUS.m,
     }),
@@ -1951,6 +2037,7 @@ const PHECDA_DATA: RealData = RealData {
 const SABIK_DATA: RealData = RealData {
     common_name: "Sabik",
     astronomical_name: "Eta Ophiuchi",
+    constellation: "Ophiuchus",
     radius: None,
     mass: Some(Mass {
         kg: 2.966 * SOLAR_MASS.kg,
@@ -1970,6 +2057,7 @@ const SABIK_DATA: RealData = RealData {
 const SCHEAT_DATA: RealData = RealData {
     common_name: "Scheat",
     astronomical_name: "Beta Pegasi",
+    constellation: "Pegasus",
     radius: Some(Distance {
         m: 95. * SOLAR_RADIUS.m,
     }),
@@ -1991,6 +2079,7 @@ const SCHEAT_DATA: RealData = RealData {
 const ALDERAMIN_DATA: RealData = RealData {
     common_name: "Alderamin",
     astronomical_name: "Alpha Cephei",
+    constellation: "Cepheus",
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
@@ -2014,6 +2103,7 @@ const ALDERAMIN_DATA: RealData = RealData {
 const ALUDRA_DATA: RealData = RealData {
     common_name: "Aludra",
     astronomical_name: "Eta Canis Majoris",
+    constellation: "Canis Major",
     radius: Some(Distance {
         m: 54. * SOLAR_RADIUS.m,
     }),
@@ -2037,6 +2127,7 @@ const ALUDRA_DATA: RealData = RealData {
 const MARKEB_DATA: RealData = RealData {
     common_name: "Markeb",
     astronomical_name: "Kappa Velorum",
+    constellation: "Vela",
     radius: Some(Distance {
         m: 9.1 * SOLAR_RADIUS.m,
     }),
@@ -2060,6 +2151,7 @@ const MARKEB_DATA: RealData = RealData {
 const ALJANAH_DATA: RealData = RealData {
     common_name: "Aljanah",
     astronomical_name: "Epsilon Cygni",
+    constellation: "Cygnus",
     radius: Some(Distance {
         m: 10.82 * SOLAR_RADIUS.m,
     }),
@@ -2083,6 +2175,7 @@ const ALJANAH_DATA: RealData = RealData {
 const MARKAB_DATA: RealData = RealData {
     common_name: "Markab",
     astronomical_name: "Alpha Pegasi",
+    constellation: "Pegasus",
     radius: Some(Distance {
         m: 4.62 * SOLAR_RADIUS.m,
     }),
@@ -2106,6 +2199,7 @@ const MARKAB_DATA: RealData = RealData {
 const HAN_DATA: RealData = RealData {
     common_name: "Han",
     astronomical_name: "Zeta Ophiuchi",
+    constellation: "Ophiuchus",
     radius: Some(Distance {
         m: 8.5 * SOLAR_RADIUS.m,
     }),
@@ -2129,6 +2223,7 @@ const HAN_DATA: RealData = RealData {
 const MENKAR_DATA: RealData = RealData {
     common_name: "Menkar",
     astronomical_name: "Alpha Ceti",
+    constellation: "Cetus",
     radius: Some(Distance {
         m: 89. * SOLAR_RADIUS.m,
     }),
@@ -2150,6 +2245,7 @@ const MENKAR_DATA: RealData = RealData {
 const ZETA_CENTAURI_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "Zeta Centauri",
+    constellation: "Centaurus",
     radius: Some(Distance {
         m: 5.8 * SOLAR_RADIUS.m,
     }),
@@ -2173,6 +2269,7 @@ const ZETA_CENTAURI_DATA: RealData = RealData {
 const ACRAB_DATA: RealData = RealData {
     common_name: "Acrab",
     astronomical_name: "Beta Scorpii",
+    constellation: "Scorpius",
     radius: Some(Distance {
         m: 6.3 * SOLAR_RADIUS.m,
     }),
@@ -2194,6 +2291,7 @@ const ACRAB_DATA: RealData = RealData {
 const ZOSMA_DATA: RealData = RealData {
     common_name: "Zosma",
     astronomical_name: "Delta Leonis",
+    constellation: "Leo",
     radius: Some(Distance {
         m: 2.14 * SOLAR_RADIUS.m,
     }),
@@ -2217,6 +2315,7 @@ const ZOSMA_DATA: RealData = RealData {
 const MA_WEI_DATA: RealData = RealData {
     common_name: "Ma Wei",
     astronomical_name: "Delta Centauri",
+    constellation: "Centaurus",
     radius: Some(Distance {
         m: 6.5 * SOLAR_RADIUS.m,
     }),
@@ -2240,6 +2339,7 @@ const MA_WEI_DATA: RealData = RealData {
 const ARNEB_DATA: RealData = RealData {
     common_name: "Arneb",
     astronomical_name: "Alpha Leporis",
+    constellation: "Lepus",
     radius: Some(Distance {
         m: 75. * SOLAR_RADIUS.m,
     }),
@@ -2263,6 +2363,7 @@ const ARNEB_DATA: RealData = RealData {
 const GHURAB_DATA: RealData = RealData {
     common_name: "Ghurab",
     astronomical_name: "Gamma Corvi",
+    constellation: "Corvus",
     radius: None,
     mass: Some(Mass {
         kg: 4.2 * SOLAR_MASS.kg,
@@ -2286,6 +2387,7 @@ const GHURAB_DATA: RealData = RealData {
 const TEJAT_DATA: RealData = RealData {
     common_name: "Tejat",
     astronomical_name: "Mu Geminorum",
+    constellation: "Gemini",
     radius: Some(Distance {
         m: 90. * SOLAR_RADIUS.m,
     }),
@@ -2306,6 +2408,7 @@ const TEJAT_DATA: RealData = RealData {
 const R_DORADUS_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "R Doradus",
+    constellation: "Dorado",
     radius: Some(Distance {
         m: 298. * SOLAR_RADIUS.m,
     }),
@@ -2328,6 +2431,7 @@ const R_DORADUS_DATA: RealData = RealData {
 const YED_PRIOR: RealData = RealData {
     common_name: "Yed Prior",
     astronomical_name: "Delta Ophiuchi",
+    constellation: "Ophiuchus",
     radius: Some(Distance {
         m: 59. * SOLAR_RADIUS.m,
     }),
@@ -2348,6 +2452,7 @@ const YED_PRIOR: RealData = RealData {
 const GORGONEA_TERTIA_DATA: RealData = RealData {
     common_name: "Gorgonea Tertia",
     astronomical_name: "Rho Persei",
+    constellation: "Perseus",
     radius: Some(Distance {
         m: 143. * SOLAR_RADIUS.m,
     }),
@@ -2370,6 +2475,7 @@ const GORGONEA_TERTIA_DATA: RealData = RealData {
 const NAMALWARID: RealData = RealData {
     common_name: "Namalwarid",
     astronomical_name: "Eta Sagittarii",
+    constellation: "Sagittarius",
     radius: None,
     mass: None,
     absolute_magnitude: -0.201,
@@ -2386,6 +2492,7 @@ const NAMALWARID: RealData = RealData {
 const HASSALEH: RealData = RealData {
     common_name: "Hassaleh",
     astronomical_name: "Iota Aurigae",
+    constellation: "Auriga",
     radius: Some(Distance {
         m: 127. * SOLAR_RADIUS.m,
     }),
@@ -2408,6 +2515,7 @@ const HASSALEH: RealData = RealData {
 const PROPUS_DATA: RealData = RealData {
     common_name: "Propus",
     astronomical_name: "Eta Geminorum",
+    constellation: "Gemini",
     radius: Some(Distance {
         m: 275. * SOLAR_RADIUS.m,
     }),
@@ -2430,6 +2538,7 @@ const PROPUS_DATA: RealData = RealData {
 const ZAURAK_DATA: RealData = RealData {
     common_name: "Zaurak",
     astronomical_name: "Gamma Eridani",
+    constellation: "Eridanus",
     radius: Some(Distance {
         m: 80. * SOLAR_RADIUS.m,
     }),
@@ -2448,6 +2557,7 @@ const ZAURAK_DATA: RealData = RealData {
 const KAUS_MEDIA_DATA: RealData = RealData {
     common_name: "Kaus Media",
     astronomical_name: "Delta Sagittarii",
+    constellation: "Sagittarius",
     radius: Some(Distance {
         m: 16. * SOLAR_RADIUS.m,
     }),
@@ -2470,6 +2580,7 @@ const KAUS_MEDIA_DATA: RealData = RealData {
 const BRACHIUM_DATA: RealData = RealData {
     common_name: "Brachium",
     astronomical_name: "Sigma Librae",
+    constellation: "Libra",
     radius: Some(Distance {
         m: 108. * SOLAR_RADIUS.m,
     }),
@@ -2490,6 +2601,7 @@ const BRACHIUM_DATA: RealData = RealData {
 const TANIA_AUSTRALIS_DATA: RealData = RealData {
     common_name: "Tania Australis",
     astronomical_name: "Mu Ursae Majoris",
+    constellation: "Ursa Major",
     radius: Some(Distance {
         m: 75. * SOLAR_RADIUS.m,
     }),
@@ -2510,6 +2622,7 @@ const TANIA_AUSTRALIS_DATA: RealData = RealData {
 const UNUKALHAI_DATA: RealData = RealData {
     common_name: "Unukalhai",
     astronomical_name: "Alpha Serpentis",
+    constellation: "Serpens",
     radius: Some(Distance {
         m: 13.48 * SOLAR_RADIUS.m,
     }),
@@ -2530,6 +2643,7 @@ const UNUKALHAI_DATA: RealData = RealData {
 const R_LYRAE_DATE: RealData = RealData {
     common_name: "",
     astronomical_name: "R Lyrae",
+    constellation: "Lyra",
     radius: None,
     mass: Some(Mass {
         kg: 1.8 * SOLAR_MASS.kg,
@@ -2548,6 +2662,7 @@ const R_LYRAE_DATE: RealData = RealData {
 const BETA_ARAE_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "Beta Arae",
+    constellation: "Ara",
     radius: Some(Distance {
         m: 142. * SOLAR_RADIUS.m,
     }),
@@ -2570,6 +2685,7 @@ const BETA_ARAE_DATA: RealData = RealData {
 const APLHA_TUCANAE_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "Alpha Tucanae",
+    constellation: "Tucana",
     radius: Some(Distance {
         m: 37. * SOLAR_RADIUS.m,
     }),
@@ -2590,6 +2706,7 @@ const APLHA_TUCANAE_DATA: RealData = RealData {
 const MINELAUVA_DATA: RealData = RealData {
     common_name: "Minelauva",
     astronomical_name: "Delta Virginis",
+    constellation: "Virgo",
     radius: Some(Distance {
         m: 48. * SOLAR_RADIUS.m,
     }),
@@ -2610,6 +2727,7 @@ const MINELAUVA_DATA: RealData = RealData {
 const CEBALRAI_DATA: RealData = RealData {
     common_name: "Cebalrai",
     astronomical_name: "Beta Ophiuchi",
+    constellation: "Ophiuchus",
     radius: Some(Distance {
         m: 12.42 * SOLAR_RADIUS.m,
     }),
@@ -2632,6 +2750,7 @@ const CEBALRAI_DATA: RealData = RealData {
 const KRAZ_DATA: RealData = RealData {
     common_name: "Kraz",
     astronomical_name: "Beta Corvi",
+    constellation: "Corvus",
     radius: Some(Distance {
         m: 16. * SOLAR_RADIUS.m,
     }),
@@ -2654,6 +2773,7 @@ const KRAZ_DATA: RealData = RealData {
 const ERAKIS_DATA: RealData = RealData {
     common_name: "Erakis",
     astronomical_name: "Mu Cephei",
+    constellation: "Cepheus",
     radius: Some(Distance {
         m: 972. * SOLAR_RADIUS.m,
     }),
@@ -2676,6 +2796,7 @@ const ERAKIS_DATA: RealData = RealData {
 const GAMMA_HYDRI_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "Gamma Hydri",
+    constellation: "Hydrus",
     radius: Some(Distance {
         m: 62. * SOLAR_RADIUS.m,
     }),
@@ -2696,6 +2817,7 @@ const GAMMA_HYDRI_DATA: RealData = RealData {
 const ALPHA_LYNCIS_DATA: RealData = RealData {
     common_name: "",
     astronomical_name: "Alpha Lyncis",
+    constellation: "Lynx",
     radius: Some(Distance {
         m: 54.5 * SOLAR_RADIUS.m,
     }),
@@ -2718,6 +2840,7 @@ const ALPHA_LYNCIS_DATA: RealData = RealData {
 const ATHEBYNE_DATA: RealData = RealData {
     common_name: "Athebyne",
     astronomical_name: "Eta Draconis",
+    constellation: "Draco",
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
@@ -2742,6 +2865,7 @@ const ATHEBYNE_DATA: RealData = RealData {
 const AHADI_DATA: RealData = RealData {
     common_name: "Ahadi",
     astronomical_name: "Pi Puppis",
+    constellation: "Puppis",
     radius: Some(Distance {
         m: 235. * SOLAR_RADIUS.m,
     }),
@@ -2764,6 +2888,7 @@ const AHADI_DATA: RealData = RealData {
 const TARAZED_DATA: RealData = RealData {
     common_name: "Tarazed",
     astronomical_name: "Gamma Aquilae",
+    constellation: "Aquila",
     radius: Some(Distance {
         m: 91.82 * SOLAR_RADIUS.m,
     }),
@@ -2786,6 +2911,7 @@ const TARAZED_DATA: RealData = RealData {
 // RealData = RealData {
 //     common_name: "",
 //     astronomical_name: "",
+//     constellation: "",
 //     radius: Some(Distance{m:Distance{m:. * SOLAR_RADIUS.m}}),
 //     mass: Some(Mass{kg: * SOLAR_MASS.kg}}),
 //     absolute_magnitude: ),

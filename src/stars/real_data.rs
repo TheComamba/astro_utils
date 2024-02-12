@@ -16,6 +16,7 @@ use std::fmt::Display;
 pub struct RealData {
     pub common_name: &'static str,
     pub astronomical_name: &'static str,
+    pub constellation: &'static str,
     pub mass: Option<Mass<f64>>,
     pub radius: Option<Distance<f64>>,
     pub absolute_magnitude: f64,
@@ -40,6 +41,11 @@ impl RealData {
         } else {
             self.common_name
         };
+        let constellation = if self.constellation.is_empty() {
+            None
+        } else {
+            Some(self.constellation.to_string())
+        };
         let luminous_intensity = absolute_magnitude_to_luminous_intensity(self.absolute_magnitude);
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
@@ -47,6 +53,7 @@ impl RealData {
         StarData {
             name: name.to_string(),
             mass: self.mass,
+            constellation,
             radius: self.radius,
             luminous_intensity: Some(luminous_intensity),
             temperature: self.temperature,

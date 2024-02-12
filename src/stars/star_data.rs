@@ -17,6 +17,7 @@ pub struct StarData {
     pub(super) age: Option<Time<f64>>,
     pub(super) distance: Option<Distance<f64>>,
     pub(super) pos: EclipticCoordinates,
+    pub(super) constellation: Option<String>,
 }
 
 impl StarData {
@@ -29,6 +30,7 @@ impl StarData {
         age: Option<Time<f64>>,
         distance: Option<Distance<f64>>,
         pos: EclipticCoordinates,
+        constellation: Option<String>,
     ) -> Self {
         Self {
             name,
@@ -39,6 +41,7 @@ impl StarData {
             age,
             distance,
             pos,
+            constellation,
         }
     }
 

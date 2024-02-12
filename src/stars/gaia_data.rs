@@ -99,6 +99,7 @@ impl GaiaResponse {
                     age: None,
                     distance: None,
                     pos: parsed_data.pos,
+                    constellation: None,
                 };
                 Ok(star)
             })
