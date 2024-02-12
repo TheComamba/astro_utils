@@ -1,53 +1,84 @@
 use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
-use crate::astro_display::AstroDisplay;
+use crate::{astro_display::AstroDisplay, stars::star_data::StarData};
 use fraction::Fraction;
 use simple_si_units::{
-    base::{Mass, Time},
-    mechanical::Density,
+    base::{Distance, Luminosity, Mass, Temperature, Time},
+    geometry::Angle,
+    mechanical::{Acceleration, Density, Velocity},
 };
 use std::f64::consts::PI;
 
 #[derive(Debug, Clone)]
 pub struct DerivedPlanetData {
     density: Density<f64>,
-    // escape_velocity
-    // surface_gravity
+    surface_gravity: Acceleration<f64>,
+    escape_velocity: Velocity<f64>,
     orbital_period: Time<f64>,
     orbital_resonance: Option<Fraction>,
     mean_synodic_day: Time<f64>,
-    // black_body_temperature
-    // axial_tilt
+    axial_tilt: Angle<f64>,
+    black_body_temperature: Temperature<f64>,
 }
 
 impl DerivedPlanetData {
     pub fn new(
         data: &PlanetData,
-        central_body_mass: Mass<f64>,
+        central_body: StarData,
         previous: Option<&DerivedPlanetData>,
     ) -> Self {
+        let central_body_mass = central_body.get_mass().unwrap();
+        let central_body_luminosity = central_body.get_luminous_intensity().unwrap();
         let radius = data.get_radius();
+
+        let surface_gravity = surface_gravity(data.get_mass(), radius);
+
+        let escape_velocity = escape_velocity(data.get_mass(), radius);
+
         let volume = 4. / 3. * PI * radius * radius * radius;
         let density = data.get_mass() / volume;
+
         let orbital_period = orbital_period(
             data.get_orbital_parameters().semi_major_axis,
             data.get_mass(),
             central_body_mass,
         );
+
         let orbital_resonance = match previous {
             Some(previous) => orbital_resonance(orbital_period, previous.orbital_period),
             None => None,
         };
-        let synodic_day = mean_synodic_day(data.get_sideral_rotation_period(), orbital_period);
+
+        let mean_synodic_day = mean_synodic_day(data.get_sideral_rotation_period(), orbital_period);
+
+        let axial_tilt = axis_tilt(data);
+
+        let black_body_temperature = black_body_temperature(
+            central_body_luminosity,
+            data.get_orbital_parameters().semi_major_axis,
+        );
+
         Self {
             density,
+            surface_gravity,
+            escape_velocity,
             orbital_period,
             orbital_resonance,
-            mean_synodic_day: synodic_day,
+            mean_synodic_day,
+            axial_tilt,
+            black_body_temperature,
         }
     }
 
     pub fn get_density(&self) -> Density<f64> {
         self.density
+    }
+
+    pub fn get_surface_gravity(&self) -> Acceleration<f64> {
+        self.surface_gravity
+    }
+
+    pub fn get_escape_velocity(&self) -> Velocity<f64> {
+        self.escape_velocity
     }
 
     pub fn get_orbital_period(&self) -> Time<f64> {
@@ -61,6 +92,22 @@ impl DerivedPlanetData {
     pub fn get_mean_synodic_day(&self) -> Time<f64> {
         self.mean_synodic_day
     }
+
+    pub fn get_axial_tilt(&self) -> Angle<f64> {
+        self.axial_tilt
+    }
+
+    pub fn get_black_body_temperature(&self) -> Temperature<f64> {
+        self.black_body_temperature
+    }
+}
+
+fn surface_gravity(mass: Mass<f64>, radius: Distance<f64>) -> Acceleration<f64> {
+    todo!()
+}
+
+fn escape_velocity(mass: Mass<f64>, radius: Distance<f64>) -> Velocity<f64> {
+    todo!()
 }
 
 impl AstroDisplay for Fraction {
@@ -91,11 +138,51 @@ fn mean_synodic_day(siderial_day: Time<f64>, orbital_period: Time<f64>) -> Time<
     1. / (1. / siderial_day - 1. / orbital_period)
 }
 
+fn black_body_temperature(
+    central_body_luminosity: Luminosity<f64>,
+    distance: Distance<f64>,
+) -> Temperature<f64> {
+    todo!()
+}
+
+fn axis_tilt(data: &PlanetData) -> Angle<f64> {
+    todo!()
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::{real_data::planets::EARTH, tests::eq};
-
     use super::*;
+    use crate::{
+        real_data::{planets::EARTH, stars::SUN_DATA},
+        tests::eq,
+    };
+
+    #[test]
+    fn surface_gravity_of_earth() {
+        let mass = EARTH.to_planet_data().mass;
+        let radius = EARTH.to_planet_data().get_radius();
+        let gravity = surface_gravity(mass, radius);
+        assert!(eq(gravity.to_mps2(), 9.81));
+    }
+
+    #[test]
+    fn escape_velocity_of_earth() {
+        let mass = EARTH.to_planet_data().mass;
+        let radius = EARTH.to_planet_data().get_radius();
+        let velocity = escape_velocity(mass, radius);
+        assert!(eq(velocity.to_kmps(), 11.2));
+    }
+
+    #[test]
+    fn black_body_temperature_of_earth() {
+        let luminosity = SUN_DATA.to_star_data().get_luminous_intensity().unwrap();
+        let distance = EARTH
+            .to_planet_data()
+            .get_orbital_parameters()
+            .semi_major_axis;
+        let temperature = black_body_temperature(luminosity, distance);
+        assert!(eq(temperature.to_celsius(), 255.));
+    }
 
     #[test]
     fn orbital_resonance_is_never_larger_than_1() {
@@ -150,8 +237,14 @@ mod tests {
     }
 
     #[test]
-    fn tidaly_locked_planet_has_synodic_period_of_infinity() {
+    fn tidally_locked_planet_has_synodic_period_of_infinity() {
         let synodic_day = mean_synodic_day(Time::from_days(1.), Time::from_days(1.));
         assert!(synodic_day.s.is_infinite() || synodic_day.s.is_nan() || synodic_day.s > 1e20);
+    }
+
+    #[test]
+    fn axis_tilt_of_earth() {
+        let tilt = axis_tilt(&EARTH.to_planet_data());
+        assert!(eq(tilt.to_degrees(), 23.44));
     }
 }

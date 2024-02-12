@@ -8,6 +8,8 @@ use simple_si_units::{
     geometry::Angle,
 };
 
+pub(crate) const GRAVITATIONAL_CONSTANT: f64 = 6.67430e-11;
+
 /*
  * The orbital period is the time it takes for a given object to make one full orbit around another object.
  * https://en.wikipedia.org/wiki/Orbital_period
@@ -17,12 +19,10 @@ pub fn orbital_period(
     mass1: Mass<f64>,
     mass2: Mass<f64>,
 ) -> Time<f64> {
-    const G: f64 = 6.67430e-11;
-
     let semi_major_axis_cubed = semi_major_axis * semi_major_axis * semi_major_axis;
     let total_mass = mass1 + mass2;
-    let orbital_period =
-        FULL_CIRC.rad * ((semi_major_axis_cubed / total_mass).m3_per_kg / G).sqrt();
+    let orbital_period = FULL_CIRC.rad
+        * ((semi_major_axis_cubed / total_mass).m3_per_kg / GRAVITATIONAL_CONSTANT).sqrt();
     Time::from_seconds(orbital_period)
 }
 
