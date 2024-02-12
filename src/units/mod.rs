@@ -5,6 +5,7 @@ pub mod angle;
 pub mod density;
 pub mod distance;
 pub mod illuminance;
+pub mod luminosity;
 pub mod luminous_intensity;
 pub mod mass;
 pub mod solid_angle;

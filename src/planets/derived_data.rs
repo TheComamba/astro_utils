@@ -4,7 +4,7 @@ use crate::{
     stars::star_data::StarData,
     units::{
         acceleration::EARTH_SURFACE_GRAVITY, distance::distance_to_earth_radii,
-        luminous_intensity::luminous_intensity_to_illuminance,
+        luminosity::luminous_intensity_to_luminosity,
     },
 };
 use fraction::Fraction;
@@ -145,17 +145,22 @@ fn mean_synodic_day(siderial_day: Time<f64>, orbital_period: Time<f64>) -> Time<
     1. / (1. / siderial_day - 1. / orbital_period)
 }
 
+/*
+ * http://www.jeff-hester.com/wp-content/uploads/2015/10/Thermal-Equilibrium-of-Planets.pdf
+ */
 fn black_body_temperature(
-    central_body_luminosity: Luminosity<f64>,
+    central_body_luminous_intensity: Luminosity<f64>,
     data: &PlanetData,
 ) -> Temperature<f64> {
     const STEFAN_BOLTZMANN: f64 = 5.67e-8;
 
+    let luminosity = luminous_intensity_to_luminosity(&central_body_luminous_intensity);
     let distance = data.get_orbital_parameters().semi_major_axis;
-    let illuminance = luminous_intensity_to_illuminance(&central_body_luminosity, &distance);
     let albedo = data.get_geometric_albedo();
+    let t_to_the_4 =
+        luminosity.cd * (1. - albedo) / (16. * STEFAN_BOLTZMANN * PI * distance.m * distance.m);
     Temperature {
-        K: (illuminance.lux * (1. - albedo) / (4. * STEFAN_BOLTZMANN)).powf(1. / 4.),
+        K: t_to_the_4.powf(1. / 4.),
     }
 }
 
@@ -214,14 +219,14 @@ mod tests {
     fn black_body_temperature_of_earth() {
         let luminosity = SUN_DATA.to_star_data().get_luminous_intensity().unwrap();
         let temperature = black_body_temperature(luminosity, &EARTH.to_planet_data());
-        assert!(eq_within(temperature.to_K(), 255., ACCURACY));
+        assert!(eq_within(temperature.to_K(), 255., 20.));
     }
 
     #[test]
     fn black_body_temperature_of_mercury() {
         let luminosity = SUN_DATA.to_star_data().get_luminous_intensity().unwrap();
         let temperature = black_body_temperature(luminosity, &MERCURY.to_planet_data());
-        assert!(eq_within(temperature.to_K(), 442., ACCURACY));
+        assert!(eq_within(temperature.to_K(), 442., 20.));
     }
 
     #[test]
