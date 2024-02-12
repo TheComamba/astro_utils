@@ -72,7 +72,7 @@ impl GaiaResponse {
 
         let ecl_lon = Angle::from_degrees(ecl_lon.ok_or(AstroUtilError::DataNotAvailable)?);
         let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
-        let pos = EclipticCoordinates::new(SphericalCoordinates::new(ecl_lon, ecl_lat));
+        let pos = SphericalCoordinates::new(ecl_lon, ecl_lat).to_ecliptic();
         let mag = get_float(&row[MAG_INDEX]);
         let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
         let temperature = temperature.map(Temperature::from_K);

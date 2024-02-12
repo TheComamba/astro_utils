@@ -1,6 +1,7 @@
 use super::{
     declination::{Declination, Sgn},
     direction::Direction,
+    ecliptic::EclipticCoordinates,
     right_ascension::RightAscension,
 };
 use crate::{
@@ -102,6 +103,10 @@ impl SphericalCoordinates {
         let y = self.get_longitude().rad.sin() * self.get_latitude().rad.cos();
         let z = self.get_latitude().rad.sin();
         Direction { x, y, z }
+    }
+
+    pub fn to_ecliptic(&self) -> EclipticCoordinates {
+        EclipticCoordinates { spherical: *self }
     }
 
     pub fn to_ra_and_dec(&self) -> (RightAscension, Declination) {

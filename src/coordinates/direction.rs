@@ -1,6 +1,7 @@
 use super::{
     cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
-    spherical::SphericalCoordinates, transformations::rotations::rotated_tuple,
+    ecliptic::EclipticCoordinates, spherical::SphericalCoordinates,
+    transformations::rotations::rotated_tuple,
 };
 use crate::{
     astro_display::AstroDisplay,
@@ -200,6 +201,10 @@ impl Direction {
         let dir_in_equatorial = self.rotated(EARTH.axis_tilt, &Direction::X);
         let spherical = dir_in_equatorial.to_spherical();
         EarthEquatorialCoordinates::new(spherical.get_longitude(), spherical.get_latitude())
+    }
+
+    pub fn to_ecliptic(&self) -> EclipticCoordinates {
+        EclipticCoordinates::new(self.to_spherical())
     }
 }
 

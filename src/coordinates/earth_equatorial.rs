@@ -194,10 +194,11 @@ mod tests {
     fn specific_testcase() {
         let equatorial =
             EarthEquatorialCoordinates::new(Angle::from_degrees(234.), Angle::from_degrees(56.));
-        let expected = EclipticCoordinates::new(SphericalCoordinates::new(
+        let expected = SphericalCoordinates::new(
             Angle::from_degrees(194.547656),
             Angle::from_degrees(70.149178),
-        ));
+        )
+        .to_ecliptic();
         let actual = equatorial.to_ecliptic();
         println!("expected: {}, actual: {}", expected, actual);
         assert!(actual.eq_within(&expected, ANGLE_TEST_ACCURACY));

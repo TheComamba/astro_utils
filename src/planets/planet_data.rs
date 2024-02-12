@@ -1,9 +1,7 @@
 use super::orbit_parameters::OrbitParameters;
 use crate::{
     color::sRGBColor,
-    coordinates::{
-        cartesian::CartesianCoordinates, direction::Direction, ecliptic::EclipticCoordinates,
-    },
+    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
     stars::{star_appearance::StarAppearance, star_data::StarData},
@@ -154,7 +152,7 @@ impl PlanetData {
             self.geometric_albedo,
         )?;
         let relative_position = planet_pos - observer_position;
-        let pos = EclipticCoordinates::new(relative_position.to_spherical());
+        let pos = relative_position.to_ecliptic();
         Ok(StarAppearance {
             name: self.name.clone(),
             illuminance: brightness,
