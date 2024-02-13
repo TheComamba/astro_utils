@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 //https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html
 
-pub const SUN_DATA: RealData = RealData {
+pub const SUN: RealData = RealData {
     common_name: "Sun",
     astronomical_name: "Sol",
     constellation: "",
@@ -32,7 +32,7 @@ pub const SUN_DATA: RealData = RealData {
 };
 
 //1
-const SIRIUS_DATA: RealData = RealData {
+const SIRIUS: RealData = RealData {
     common_name: "Sirius",
     astronomical_name: "Alpha Canis Majoris",
     constellation: "Canis Major",
@@ -56,7 +56,7 @@ const SIRIUS_DATA: RealData = RealData {
 };
 
 //2
-const CANOPUS_DATA: RealData = RealData {
+const CANOPUS: RealData = RealData {
     common_name: "Canopus",
     astronomical_name: "Alpha Carinae",
     constellation: "Carina",
@@ -80,7 +80,7 @@ const CANOPUS_DATA: RealData = RealData {
 };
 
 //3
-const ARCTURUS_DATA: RealData = RealData {
+const ARCTURUS: RealData = RealData {
     common_name: "Arcturus",
     astronomical_name: "Alpha Bootis",
     constellation: "Boötes",
@@ -104,7 +104,7 @@ const ARCTURUS_DATA: RealData = RealData {
 };
 
 //4
-const RIGEL_KENTAURUS_DATA: RealData = RealData {
+const RIGEL_KENTAURUS: RealData = RealData {
     common_name: "Rigel Kentaurus",
     astronomical_name: "Alpha Centauri",
     constellation: "Centaurus",
@@ -128,7 +128,7 @@ const RIGEL_KENTAURUS_DATA: RealData = RealData {
 };
 
 //5
-const VEGA_DATA: RealData = RealData {
+const VEGA: RealData = RealData {
     common_name: "Vega",
     astronomical_name: "Alpha Lyrae",
     constellation: "Lyra",
@@ -152,7 +152,7 @@ const VEGA_DATA: RealData = RealData {
 };
 
 //6
-const CAPELLA_DATA: RealData = RealData {
+const CAPELLA: RealData = RealData {
     common_name: "Capella",
     astronomical_name: "Alpha Aurigae",
     constellation: "Auriga",
@@ -176,7 +176,7 @@ const CAPELLA_DATA: RealData = RealData {
 };
 
 //7
-const RIGEL_DATA: RealData = RealData {
+const RIGEL: RealData = RealData {
     common_name: "Rigel",
     astronomical_name: "Beta Orionis",
     constellation: "Orion",
@@ -200,7 +200,7 @@ const RIGEL_DATA: RealData = RealData {
 };
 
 //8
-const PROCYON_DATA: RealData = RealData {
+const PROCYON: RealData = RealData {
     common_name: "Procyon",
     astronomical_name: "Alpha Canis Minoris",
     constellation: "Canis Minor",
@@ -224,7 +224,7 @@ const PROCYON_DATA: RealData = RealData {
 };
 
 //9
-const BETELGEUSE_DATA: RealData = RealData {
+const BETELGEUSE: RealData = RealData {
     common_name: "Betelgeuse",
     astronomical_name: "Alpha Orionis",
     constellation: "Orion",
@@ -248,7 +248,7 @@ const BETELGEUSE_DATA: RealData = RealData {
 };
 
 //10
-const ACHERNAR_DATA: RealData = RealData {
+const ACHERNAR: RealData = RealData {
     common_name: "Achernar",
     astronomical_name: "Alpha Eridani",
     constellation: "Eridanus",
@@ -272,7 +272,7 @@ const ACHERNAR_DATA: RealData = RealData {
 };
 
 //11
-const HADAR_DATA: RealData = RealData {
+const HADAR: RealData = RealData {
     common_name: "Hadar",
     astronomical_name: "Beta Centauri",
     constellation: "Centaurus",
@@ -296,7 +296,7 @@ const HADAR_DATA: RealData = RealData {
 };
 
 //12
-const ALTAIR_DATA: RealData = RealData {
+const ALTAIR: RealData = RealData {
     common_name: "Altair",
     astronomical_name: "Alpha Aquilae",
     constellation: "Aquila",
@@ -320,7 +320,7 @@ const ALTAIR_DATA: RealData = RealData {
 };
 
 //13
-const ACRUX_DATA: RealData = RealData {
+const ACRUX: RealData = RealData {
     common_name: "Acrux",
     astronomical_name: "Alpha Crucis",
     constellation: "Crux",
@@ -344,7 +344,7 @@ const ACRUX_DATA: RealData = RealData {
 };
 
 //14
-const ALDEBARAN_DATA: RealData = RealData {
+const ALDEBARAN: RealData = RealData {
     common_name: "Aldebaran",
     astronomical_name: "Alpha Tauri",
     constellation: "Taurus",
@@ -368,7 +368,7 @@ const ALDEBARAN_DATA: RealData = RealData {
 };
 
 //15
-const SPICA_DATA: RealData = RealData {
+const SPICA: RealData = RealData {
     common_name: "Spica",
     astronomical_name: "Alpha Virginis",
     constellation: "Virgo",
@@ -392,7 +392,7 @@ const SPICA_DATA: RealData = RealData {
 };
 
 //16
-const ANTARES_DATA: RealData = RealData {
+const ANTARES: RealData = RealData {
     common_name: "Antares",
     astronomical_name: "Alpha Scorpii",
     constellation: "Scorpius",
@@ -416,7 +416,7 @@ const ANTARES_DATA: RealData = RealData {
 };
 
 //17
-const POLLUX_DATA: RealData = RealData {
+const POLLUX: RealData = RealData {
     common_name: "Pollux",
     astronomical_name: "Beta Geminorum",
     constellation: "Gemini",
@@ -440,7 +440,7 @@ const POLLUX_DATA: RealData = RealData {
 };
 
 //18
-const FORMALHAUT_DATA: RealData = RealData {
+const FORMALHAUT: RealData = RealData {
     common_name: "Formalhaut",
     astronomical_name: "Alpha Piscis Austrini",
     constellation: "Piscis Austrinus",
@@ -464,7 +464,7 @@ const FORMALHAUT_DATA: RealData = RealData {
 };
 
 //19
-const DENEB_DATA: RealData = RealData {
+const DENEB: RealData = RealData {
     common_name: "Deneb",
     astronomical_name: "Alpha Cygni",
     constellation: "Cygnus",
@@ -486,7 +486,7 @@ const DENEB_DATA: RealData = RealData {
 };
 
 //20
-const MIMOSA_DATA: RealData = RealData {
+const MIMOSA: RealData = RealData {
     common_name: "Mimosa",
     astronomical_name: "Beta Crucis",
     constellation: "Crux",
@@ -510,7 +510,7 @@ const MIMOSA_DATA: RealData = RealData {
 };
 
 //21
-const REGULUS_DATA: RealData = RealData {
+const REGULUS: RealData = RealData {
     common_name: "Regulus",
     astronomical_name: "Alpha Leonis",
     constellation: "Leo",
@@ -534,7 +534,7 @@ const REGULUS_DATA: RealData = RealData {
 };
 
 //22
-const ADHARA_DATA: RealData = RealData {
+const ADHARA: RealData = RealData {
     common_name: "Adhara",
     astronomical_name: "Epsilon Canis Majoris",
     constellation: "Canis Major",
@@ -558,7 +558,7 @@ const ADHARA_DATA: RealData = RealData {
 };
 
 //23
-const CASTOR_DATA: RealData = RealData {
+const CASTOR: RealData = RealData {
     common_name: "Castor",
     astronomical_name: "Alpha Geminorum",
     constellation: "Gemini",
@@ -582,7 +582,7 @@ const CASTOR_DATA: RealData = RealData {
 };
 
 //24
-const GACRUX_DATA: RealData = RealData {
+const GACRUX: RealData = RealData {
     common_name: "Gacrux",
     astronomical_name: "Gamma Crucis",
     constellation: "Crux",
@@ -604,7 +604,7 @@ const GACRUX_DATA: RealData = RealData {
 };
 
 //25
-const SHAULA_DATA: RealData = RealData {
+const SHAULA: RealData = RealData {
     common_name: "Shaula",
     astronomical_name: "Lambda Scorpii",
     constellation: "Scorpius",
@@ -626,7 +626,7 @@ const SHAULA_DATA: RealData = RealData {
 };
 
 //26
-const BELLATRIX_DATA: RealData = RealData {
+const BELLATRIX: RealData = RealData {
     common_name: "Bellatrix",
     astronomical_name: "Gamma Orionis",
     constellation: "Orion",
@@ -650,7 +650,7 @@ const BELLATRIX_DATA: RealData = RealData {
 };
 
 //27
-const ALNATH_DATA: RealData = RealData {
+const ALNATH: RealData = RealData {
     common_name: "Alnath",
     astronomical_name: "Beta Tauri",
     constellation: "Taurus",
@@ -674,7 +674,7 @@ const ALNATH_DATA: RealData = RealData {
 };
 
 //28
-const MIAPLACIDUS_DATA: RealData = RealData {
+const MIAPLACIDUS: RealData = RealData {
     common_name: "Miaplacidus",
     astronomical_name: "Beta Carinae",
     constellation: "Carina",
@@ -698,7 +698,7 @@ const MIAPLACIDUS_DATA: RealData = RealData {
 };
 
 //29
-const ALNILAM_DATA: RealData = RealData {
+const ALNILAM: RealData = RealData {
     common_name: "Alnilam",
     astronomical_name: "Epsilon Orionis",
     constellation: "Orion",
@@ -722,7 +722,7 @@ const ALNILAM_DATA: RealData = RealData {
 };
 
 //30
-const ALNAIR_DATA: RealData = RealData {
+const ALNAIR: RealData = RealData {
     common_name: "Alnair",
     astronomical_name: "Alpha Gruis",
     constellation: "Grus",
@@ -746,7 +746,7 @@ const ALNAIR_DATA: RealData = RealData {
 };
 
 //31
-const ALNITAK_DATA: RealData = RealData {
+const ALNITAK: RealData = RealData {
     common_name: "Alnitak",
     astronomical_name: "Zeta Orionis",
     constellation: "Orion",
@@ -770,7 +770,7 @@ const ALNITAK_DATA: RealData = RealData {
 };
 
 //32
-const REGOR_DATA: RealData = RealData {
+const REGOR: RealData = RealData {
     common_name: "Regor",
     astronomical_name: "Gamma Velorum",
     constellation: "Vela",
@@ -794,7 +794,7 @@ const REGOR_DATA: RealData = RealData {
 };
 
 //33
-const ALIOTH_DATA: RealData = RealData {
+const ALIOTH: RealData = RealData {
     common_name: "Alioth",
     astronomical_name: "Epsilon Ursae Majoris",
     constellation: "Ursa Major",
@@ -818,7 +818,7 @@ const ALIOTH_DATA: RealData = RealData {
 };
 
 //34
-const KAUS_AUSTRALIS_DATA: RealData = RealData {
+const KAUS_AUSTRALIS: RealData = RealData {
     common_name: "Kaus Australis",
     astronomical_name: "Epsilon Sagittarii",
     constellation: "Sagittarius",
@@ -842,7 +842,7 @@ const KAUS_AUSTRALIS_DATA: RealData = RealData {
 };
 
 //35
-const MIRPHAK_DATA: RealData = RealData {
+const MIRPHAK: RealData = RealData {
     common_name: "Mirphak",
     astronomical_name: "Alpha Persei",
     constellation: "Perseus",
@@ -866,7 +866,7 @@ const MIRPHAK_DATA: RealData = RealData {
 };
 
 //36
-const DUBHE_DATA: RealData = RealData {
+const DUBHE: RealData = RealData {
     common_name: "Dubhe",
     astronomical_name: "Alpha Ursae Majoris",
     constellation: "Ursa Major",
@@ -890,7 +890,7 @@ const DUBHE_DATA: RealData = RealData {
 };
 
 //37
-const WEZEN_DATA: RealData = RealData {
+const WEZEN: RealData = RealData {
     common_name: "Wezen",
     astronomical_name: "Delta Canis Majoris",
     constellation: "Canis Major",
@@ -914,7 +914,7 @@ const WEZEN_DATA: RealData = RealData {
 };
 
 //38
-const ALKAID_DATA: RealData = RealData {
+const ALKAID: RealData = RealData {
     common_name: "Alkaid",
     astronomical_name: "Eta Ursae Majoris",
     constellation: "Ursa Major",
@@ -938,7 +938,7 @@ const ALKAID_DATA: RealData = RealData {
 };
 
 //39
-const SARGAS_DATA: RealData = RealData {
+const SARGAS: RealData = RealData {
     common_name: "Sargas",
     astronomical_name: "Theta Scorpii",
     constellation: "Scorpius",
@@ -960,7 +960,7 @@ const SARGAS_DATA: RealData = RealData {
 };
 
 //40
-const AVIOR_DATA: RealData = RealData {
+const AVIOR: RealData = RealData {
     common_name: "Avior",
     astronomical_name: "Epsilon Carinae",
     constellation: "Carina",
@@ -982,7 +982,7 @@ const AVIOR_DATA: RealData = RealData {
 };
 
 //41
-const MENKALINAN_DATA: RealData = RealData {
+const MENKALINAN: RealData = RealData {
     common_name: "Menkalinan",
     astronomical_name: "Beta Aurigae",
     constellation: "Auriga",
@@ -1006,7 +1006,7 @@ const MENKALINAN_DATA: RealData = RealData {
 };
 
 //42
-const ATRIA_DATA: RealData = RealData {
+const ATRIA: RealData = RealData {
     common_name: "Atria",
     astronomical_name: "Alpha Trianguli Australis",
     constellation: "Triangulum Australe",
@@ -1030,7 +1030,7 @@ const ATRIA_DATA: RealData = RealData {
 };
 
 //43
-const ALSEPHINA_DATA: RealData = RealData {
+const ALSEPHINA: RealData = RealData {
     common_name: "Alsephina",
     astronomical_name: "Delta Velorum",
     constellation: "Vela",
@@ -1054,7 +1054,7 @@ const ALSEPHINA_DATA: RealData = RealData {
 };
 
 //44
-const ALHENA_DATA: RealData = RealData {
+const ALHENA: RealData = RealData {
     common_name: "Alhena",
     astronomical_name: "Gamma Geminorum",
     constellation: "Gemini",
@@ -1076,7 +1076,7 @@ const ALHENA_DATA: RealData = RealData {
 };
 
 //45
-const PEACOCK_DATA: RealData = RealData {
+const PEACOCK: RealData = RealData {
     common_name: "Peacock",
     astronomical_name: "Alpha Pavonis",
     constellation: "Pavo",
@@ -1100,7 +1100,7 @@ const PEACOCK_DATA: RealData = RealData {
 };
 
 //46
-const POLARIS_DATA: RealData = RealData {
+const POLARIS: RealData = RealData {
     common_name: "Polaris",
     astronomical_name: "Alpha Ursae Minoris",
     constellation: "Ursa Minor",
@@ -1124,7 +1124,7 @@ const POLARIS_DATA: RealData = RealData {
 };
 
 //47
-const MIRZAM_DATA: RealData = RealData {
+const MIRZAM: RealData = RealData {
     common_name: "Mirzam",
     astronomical_name: "Beta Canis Majoris",
     constellation: "Canis Major",
@@ -1148,7 +1148,7 @@ const MIRZAM_DATA: RealData = RealData {
 };
 
 //48
-const ALPHARD_DATA: RealData = RealData {
+const ALPHARD: RealData = RealData {
     common_name: "Alphard",
     astronomical_name: "Alpha Hydrae",
     constellation: "Hydra",
@@ -1172,7 +1172,7 @@ const ALPHARD_DATA: RealData = RealData {
 };
 
 //49
-const ALGIEBA_DATA: RealData = RealData {
+const ALGIEBA: RealData = RealData {
     common_name: "Algieba",
     astronomical_name: "Gamma Leonis",
     constellation: "Leo",
@@ -1194,7 +1194,7 @@ const ALGIEBA_DATA: RealData = RealData {
 };
 
 //50
-const HAMAL_DATA: RealData = RealData {
+const HAMAL: RealData = RealData {
     common_name: "Hamal",
     astronomical_name: "Alpha Arietis",
     constellation: "Aries",
@@ -1218,7 +1218,7 @@ const HAMAL_DATA: RealData = RealData {
 };
 
 //51
-const DIPHDA_DATA: RealData = RealData {
+const DIPHDA: RealData = RealData {
     common_name: "Diphda",
     astronomical_name: "Beta Ceti",
     constellation: "Cetus",
@@ -1242,7 +1242,7 @@ const DIPHDA_DATA: RealData = RealData {
 };
 
 //52
-const NUNKI_DATA: RealData = RealData {
+const NUNKI: RealData = RealData {
     common_name: "Nunki",
     astronomical_name: "Sigma Sagittarii",
     constellation: "Sagittarius",
@@ -1266,7 +1266,7 @@ const NUNKI_DATA: RealData = RealData {
 };
 
 //53
-const MENKENT_DATA: RealData = RealData {
+const MENKENT: RealData = RealData {
     common_name: "Menkent",
     astronomical_name: "Theta Centauri",
     constellation: "Centaurus",
@@ -1288,7 +1288,7 @@ const MENKENT_DATA: RealData = RealData {
 };
 
 //54
-const SAIPH_DATA: RealData = RealData {
+const SAIPH: RealData = RealData {
     common_name: "Saiph",
     astronomical_name: "Kappa Orionis",
     constellation: "Orion",
@@ -1312,7 +1312,7 @@ const SAIPH_DATA: RealData = RealData {
 };
 
 //55
-const ALPHERATZ_DATA: RealData = RealData {
+const ALPHERATZ: RealData = RealData {
     common_name: "Alpheratz",
     astronomical_name: "Alpha Andromedae",
     constellation: "Andromeda",
@@ -1336,7 +1336,7 @@ const ALPHERATZ_DATA: RealData = RealData {
 };
 
 //56
-const TIAKI_DATA: RealData = RealData {
+const TIAKI: RealData = RealData {
     common_name: "Tiaki",
     astronomical_name: "Beta Gruis",
     constellation: "Grus",
@@ -1358,7 +1358,7 @@ const TIAKI_DATA: RealData = RealData {
 };
 
 //57
-const MIRACH_DATA: RealData = RealData {
+const MIRACH: RealData = RealData {
     common_name: "Mirach",
     astronomical_name: "Beta Andromedae",
     constellation: "Andromeda",
@@ -1380,7 +1380,7 @@ const MIRACH_DATA: RealData = RealData {
 };
 
 //58
-const KOCHAB_DATA: RealData = RealData {
+const KOCHAB: RealData = RealData {
     common_name: "Kochab",
     astronomical_name: "Beta Ursae Minoris",
     constellation: "Ursa Minor",
@@ -1402,7 +1402,7 @@ const KOCHAB_DATA: RealData = RealData {
 };
 
 //59
-const RASALHAGUE_DATA: RealData = RealData {
+const RASALHAGUE: RealData = RealData {
     common_name: "Rasalhague",
     astronomical_name: "Alpha Ophiuchi",
     constellation: "Ophiuchus",
@@ -1426,7 +1426,7 @@ const RASALHAGUE_DATA: RealData = RealData {
 };
 
 //60
-const ALGOL_DATA: RealData = RealData {
+const ALGOL: RealData = RealData {
     common_name: "Algol",
     astronomical_name: "Beta Persei",
     constellation: "Perseus",
@@ -1450,7 +1450,7 @@ const ALGOL_DATA: RealData = RealData {
 };
 
 //61
-const ALMACH_DATA: RealData = RealData {
+const ALMACH: RealData = RealData {
     common_name: "Almach",
     astronomical_name: "Gamma Andromedae",
     constellation: "Andromeda",
@@ -1474,7 +1474,7 @@ const ALMACH_DATA: RealData = RealData {
 };
 
 //62
-const DENEBOLA_DATA: RealData = RealData {
+const DENEBOLA: RealData = RealData {
     common_name: "Denebola",
     astronomical_name: "Beta Leonis",
     constellation: "Leo",
@@ -1498,7 +1498,7 @@ const DENEBOLA_DATA: RealData = RealData {
 };
 
 //63
-const NAVI_DATA: RealData = RealData {
+const NAVI: RealData = RealData {
     common_name: "Navi",
     astronomical_name: "Gamma Cassiopeiae",
     constellation: "Cassiopeia",
@@ -1522,7 +1522,7 @@ const NAVI_DATA: RealData = RealData {
 };
 
 //64
-const MUHLIFAIN_DATA: RealData = RealData {
+const MUHLIFAIN: RealData = RealData {
     common_name: "Muhlifain",
     astronomical_name: "Gamma Centauri",
     constellation: "Centaurus",
@@ -1542,7 +1542,7 @@ const MUHLIFAIN_DATA: RealData = RealData {
 };
 
 //65
-const NAOS_DATA: RealData = RealData {
+const NAOS: RealData = RealData {
     common_name: "Naos",
     astronomical_name: "Zeta Puppis",
     constellation: "Puppis",
@@ -1566,7 +1566,7 @@ const NAOS_DATA: RealData = RealData {
 };
 
 //66
-const ASPIDISKE_DATA: RealData = RealData {
+const ASPIDISKE: RealData = RealData {
     common_name: "Aspidiske",
     astronomical_name: "Iota Carinae",
     constellation: "Carina",
@@ -1590,7 +1590,7 @@ const ASPIDISKE_DATA: RealData = RealData {
 };
 
 //67
-const ALPHECCA_DATA: RealData = RealData {
+const ALPHECCA: RealData = RealData {
     common_name: "Alphecca",
     astronomical_name: "Alpha Coronae Borealis",
     constellation: "Corona Borealis",
@@ -1614,7 +1614,7 @@ const ALPHECCA_DATA: RealData = RealData {
 };
 
 //68
-const SUHAIL_DATA: RealData = RealData {
+const SUHAIL: RealData = RealData {
     common_name: "Suhail",
     astronomical_name: "Lambda Velorum",
     constellation: "Vela",
@@ -1638,7 +1638,7 @@ const SUHAIL_DATA: RealData = RealData {
 };
 
 //69
-const SADIR_DATA: RealData = RealData {
+const SADIR: RealData = RealData {
     common_name: "Sadir",
     astronomical_name: "Gamma Cygni",
     constellation: "Cygnus",
@@ -1662,7 +1662,7 @@ const SADIR_DATA: RealData = RealData {
 };
 
 //70
-const MIZAR_DATA: RealData = RealData {
+const MIZAR: RealData = RealData {
     common_name: "Mizar",
     astronomical_name: "Zeta Ursae Majoris",
     constellation: "Ursa Major",
@@ -1686,7 +1686,7 @@ const MIZAR_DATA: RealData = RealData {
 };
 
 //71
-const SCHEDAR_DATA: RealData = RealData {
+const SCHEDAR: RealData = RealData {
     common_name: "Schedar",
     astronomical_name: "Alpha Cassiopeiae",
     constellation: "Cassiopeia",
@@ -1710,7 +1710,7 @@ const SCHEDAR_DATA: RealData = RealData {
 };
 
 //72
-const ELTANIN_DATA: RealData = RealData {
+const ELTANIN: RealData = RealData {
     common_name: "Eltanin",
     astronomical_name: "Gamma Draconis",
     constellation: "Draco",
@@ -1732,7 +1732,7 @@ const ELTANIN_DATA: RealData = RealData {
 };
 
 //73
-const MINTAKA_DATA: RealData = RealData {
+const MINTAKA: RealData = RealData {
     common_name: "Mintaka",
     astronomical_name: "Delta Orionis",
     constellation: "Orion",
@@ -1754,7 +1754,7 @@ const MINTAKA_DATA: RealData = RealData {
 };
 
 //74
-const CAPH_DATA: RealData = RealData {
+const CAPH: RealData = RealData {
     common_name: "Caph",
     astronomical_name: "Beta Cassiopeiae",
     constellation: "Cassiopeia",
@@ -1778,7 +1778,7 @@ const CAPH_DATA: RealData = RealData {
 };
 
 //75
-const DSCHUBBA_DATA: RealData = RealData {
+const DSCHUBBA: RealData = RealData {
     common_name: "Dschubba",
     astronomical_name: "Delta Scorpii",
     constellation: "Scorpius",
@@ -1802,7 +1802,7 @@ const DSCHUBBA_DATA: RealData = RealData {
 };
 
 //76
-const LARAWAG_DATA: RealData = RealData {
+const LARAWAG: RealData = RealData {
     common_name: "Larawag",
     astronomical_name: "Epsilon Scorpii",
     constellation: "Scorpius",
@@ -1824,7 +1824,7 @@ const LARAWAG_DATA: RealData = RealData {
 };
 
 //77
-const EPSILON_CENTAURI_DATA: RealData = RealData {
+const EPSILON_CENTAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "Epsilon Centauri",
     constellation: "Centaurus",
@@ -1846,7 +1846,7 @@ const EPSILON_CENTAURI_DATA: RealData = RealData {
 };
 
 //78
-const ALPHA_LUPI_DATA: RealData = RealData {
+const ALPHA_LUPI: RealData = RealData {
     common_name: "",
     astronomical_name: "Alpha Lupi",
     constellation: "Lupus",
@@ -1868,7 +1868,7 @@ const ALPHA_LUPI_DATA: RealData = RealData {
 };
 
 //79
-const ETA_CENTAURI_DATA: RealData = RealData {
+const ETA_CENTAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "Eta Centauri",
     constellation: "Centaurus",
@@ -1892,7 +1892,7 @@ const ETA_CENTAURI_DATA: RealData = RealData {
 };
 
 //80
-const MERAK_DATA: RealData = RealData {
+const MERAK: RealData = RealData {
     common_name: "Merak",
     astronomical_name: "Beta Ursae Majoris",
     constellation: "Ursa Major",
@@ -1916,7 +1916,7 @@ const MERAK_DATA: RealData = RealData {
 };
 
 //81
-const IZAR_DATA: RealData = RealData {
+const IZAR: RealData = RealData {
     common_name: "Izar",
     astronomical_name: "Epsilon Bootis",
     constellation: "Boötes",
@@ -1940,7 +1940,7 @@ const IZAR_DATA: RealData = RealData {
 };
 
 //82
-const ENIF_DATA: RealData = RealData {
+const ENIF: RealData = RealData {
     common_name: "Enif",
     astronomical_name: "Epsilon Pegasi",
     constellation: "Pegasus",
@@ -1964,7 +1964,7 @@ const ENIF_DATA: RealData = RealData {
 };
 
 //83
-const GIRTAB_DATA: RealData = RealData {
+const GIRTAB: RealData = RealData {
     common_name: "Girtab",
     astronomical_name: "Kappa Scorpii",
     constellation: "Scorpius",
@@ -1988,7 +1988,7 @@ const GIRTAB_DATA: RealData = RealData {
 };
 
 //84
-const ANKAA_DATA: RealData = RealData {
+const ANKAA: RealData = RealData {
     common_name: "Ankaa",
     astronomical_name: "Alpha Phoenicis",
     constellation: "Phoenix",
@@ -2010,7 +2010,7 @@ const ANKAA_DATA: RealData = RealData {
 };
 
 //85
-const PHECDA_DATA: RealData = RealData {
+const PHECDA: RealData = RealData {
     common_name: "Phecda",
     astronomical_name: "Gamma Ursae Majoris",
     constellation: "Ursa Major",
@@ -2034,7 +2034,7 @@ const PHECDA_DATA: RealData = RealData {
 };
 
 //86
-const SABIK_DATA: RealData = RealData {
+const SABIK: RealData = RealData {
     common_name: "Sabik",
     astronomical_name: "Eta Ophiuchi",
     constellation: "Ophiuchus",
@@ -2054,7 +2054,7 @@ const SABIK_DATA: RealData = RealData {
 };
 
 //87
-const SCHEAT_DATA: RealData = RealData {
+const SCHEAT: RealData = RealData {
     common_name: "Scheat",
     astronomical_name: "Beta Pegasi",
     constellation: "Pegasus",
@@ -2076,7 +2076,7 @@ const SCHEAT_DATA: RealData = RealData {
 };
 
 //88
-const ALDERAMIN_DATA: RealData = RealData {
+const ALDERAMIN: RealData = RealData {
     common_name: "Alderamin",
     astronomical_name: "Alpha Cephei",
     constellation: "Cepheus",
@@ -2100,7 +2100,7 @@ const ALDERAMIN_DATA: RealData = RealData {
 };
 
 //89
-const ALUDRA_DATA: RealData = RealData {
+const ALUDRA: RealData = RealData {
     common_name: "Aludra",
     astronomical_name: "Eta Canis Majoris",
     constellation: "Canis Major",
@@ -2124,7 +2124,7 @@ const ALUDRA_DATA: RealData = RealData {
 };
 
 //90
-const MARKEB_DATA: RealData = RealData {
+const MARKEB: RealData = RealData {
     common_name: "Markeb",
     astronomical_name: "Kappa Velorum",
     constellation: "Vela",
@@ -2148,7 +2148,7 @@ const MARKEB_DATA: RealData = RealData {
 };
 
 //91
-const ALJANAH_DATA: RealData = RealData {
+const ALJANAH: RealData = RealData {
     common_name: "Aljanah",
     astronomical_name: "Epsilon Cygni",
     constellation: "Cygnus",
@@ -2172,7 +2172,7 @@ const ALJANAH_DATA: RealData = RealData {
 };
 
 //92
-const MARKAB_DATA: RealData = RealData {
+const MARKAB: RealData = RealData {
     common_name: "Markab",
     astronomical_name: "Alpha Pegasi",
     constellation: "Pegasus",
@@ -2196,7 +2196,7 @@ const MARKAB_DATA: RealData = RealData {
 };
 
 //93
-const HAN_DATA: RealData = RealData {
+const HAN: RealData = RealData {
     common_name: "Han",
     astronomical_name: "Zeta Ophiuchi",
     constellation: "Ophiuchus",
@@ -2220,7 +2220,7 @@ const HAN_DATA: RealData = RealData {
 };
 
 //94
-const MENKAR_DATA: RealData = RealData {
+const MENKAR: RealData = RealData {
     common_name: "Menkar",
     astronomical_name: "Alpha Ceti",
     constellation: "Cetus",
@@ -2242,7 +2242,7 @@ const MENKAR_DATA: RealData = RealData {
 };
 
 //95
-const ZETA_CENTAURI_DATA: RealData = RealData {
+const ZETA_CENTAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "Zeta Centauri",
     constellation: "Centaurus",
@@ -2266,7 +2266,7 @@ const ZETA_CENTAURI_DATA: RealData = RealData {
 };
 
 //96
-const ACRAB_DATA: RealData = RealData {
+const ACRAB: RealData = RealData {
     common_name: "Acrab",
     astronomical_name: "Beta Scorpii",
     constellation: "Scorpius",
@@ -2288,7 +2288,7 @@ const ACRAB_DATA: RealData = RealData {
 };
 
 //97
-const ZOSMA_DATA: RealData = RealData {
+const ZOSMA: RealData = RealData {
     common_name: "Zosma",
     astronomical_name: "Delta Leonis",
     constellation: "Leo",
@@ -2312,7 +2312,7 @@ const ZOSMA_DATA: RealData = RealData {
 };
 
 //98
-const MA_WEI_DATA: RealData = RealData {
+const MA_WEI: RealData = RealData {
     common_name: "Ma Wei",
     astronomical_name: "Delta Centauri",
     constellation: "Centaurus",
@@ -2336,7 +2336,7 @@ const MA_WEI_DATA: RealData = RealData {
 };
 
 //99
-const ARNEB_DATA: RealData = RealData {
+const ARNEB: RealData = RealData {
     common_name: "Arneb",
     astronomical_name: "Alpha Leporis",
     constellation: "Lepus",
@@ -2360,7 +2360,7 @@ const ARNEB_DATA: RealData = RealData {
 };
 
 //100
-const GHURAB_DATA: RealData = RealData {
+const GHURAB: RealData = RealData {
     common_name: "Ghurab",
     astronomical_name: "Gamma Corvi",
     constellation: "Corvus",
@@ -2384,7 +2384,7 @@ const GHURAB_DATA: RealData = RealData {
 // Gaia data that was not found in the list of 100 brightest stars
 // Designations can be checked under http://simbad.cds.unistra.fr/simbad/sim-fid
 
-const TEJAT_DATA: RealData = RealData {
+const TEJAT: RealData = RealData {
     common_name: "Tejat",
     astronomical_name: "Mu Geminorum",
     constellation: "Gemini",
@@ -2405,7 +2405,7 @@ const TEJAT_DATA: RealData = RealData {
     },
 };
 
-const R_DORADUS_DATA: RealData = RealData {
+const R_DORADUS: RealData = RealData {
     common_name: "",
     astronomical_name: "R Doradus",
     constellation: "Dorado",
@@ -2449,7 +2449,7 @@ const YED_PRIOR: RealData = RealData {
     },
 };
 
-const GORGONEA_TERTIA_DATA: RealData = RealData {
+const GORGONEA_TERTIA: RealData = RealData {
     common_name: "Gorgonea Tertia",
     astronomical_name: "Rho Persei",
     constellation: "Perseus",
@@ -2512,7 +2512,7 @@ const HASSALEH: RealData = RealData {
     },
 };
 
-const PROPUS_DATA: RealData = RealData {
+const PROPUS: RealData = RealData {
     common_name: "Propus",
     astronomical_name: "Eta Geminorum",
     constellation: "Gemini",
@@ -2535,7 +2535,7 @@ const PROPUS_DATA: RealData = RealData {
     },
 };
 
-const ZAURAK_DATA: RealData = RealData {
+const ZAURAK: RealData = RealData {
     common_name: "Zaurak",
     astronomical_name: "Gamma Eridani",
     constellation: "Eridanus",
@@ -2554,7 +2554,7 @@ const ZAURAK_DATA: RealData = RealData {
     },
 };
 
-const KAUS_MEDIA_DATA: RealData = RealData {
+const KAUS_MEDIA: RealData = RealData {
     common_name: "Kaus Media",
     astronomical_name: "Delta Sagittarii",
     constellation: "Sagittarius",
@@ -2577,7 +2577,7 @@ const KAUS_MEDIA_DATA: RealData = RealData {
     },
 };
 
-const BRACHIUM_DATA: RealData = RealData {
+const BRACHIUM: RealData = RealData {
     common_name: "Brachium",
     astronomical_name: "Sigma Librae",
     constellation: "Libra",
@@ -2598,7 +2598,7 @@ const BRACHIUM_DATA: RealData = RealData {
     },
 };
 
-const TANIA_AUSTRALIS_DATA: RealData = RealData {
+const TANIA_AUSTRALIS: RealData = RealData {
     common_name: "Tania Australis",
     astronomical_name: "Mu Ursae Majoris",
     constellation: "Ursa Major",
@@ -2619,7 +2619,7 @@ const TANIA_AUSTRALIS_DATA: RealData = RealData {
     },
 };
 
-const UNUKALHAI_DATA: RealData = RealData {
+const UNUKALHAI: RealData = RealData {
     common_name: "Unukalhai",
     astronomical_name: "Alpha Serpentis",
     constellation: "Serpens",
@@ -2659,7 +2659,7 @@ const R_LYRAE_DATE: RealData = RealData {
     },
 };
 
-const BETA_ARAE_DATA: RealData = RealData {
+const BETA_ARAE: RealData = RealData {
     common_name: "",
     astronomical_name: "Beta Arae",
     constellation: "Ara",
@@ -2682,7 +2682,7 @@ const BETA_ARAE_DATA: RealData = RealData {
     },
 };
 
-const APLHA_TUCANAE_DATA: RealData = RealData {
+const APLHA_TUCANAE: RealData = RealData {
     common_name: "",
     astronomical_name: "Alpha Tucanae",
     constellation: "Tucana",
@@ -2703,7 +2703,7 @@ const APLHA_TUCANAE_DATA: RealData = RealData {
     },
 };
 
-const MINELAUVA_DATA: RealData = RealData {
+const MINELAUVA: RealData = RealData {
     common_name: "Minelauva",
     astronomical_name: "Delta Virginis",
     constellation: "Virgo",
@@ -2724,7 +2724,7 @@ const MINELAUVA_DATA: RealData = RealData {
     },
 };
 
-const CEBALRAI_DATA: RealData = RealData {
+const CEBALRAI: RealData = RealData {
     common_name: "Cebalrai",
     astronomical_name: "Beta Ophiuchi",
     constellation: "Ophiuchus",
@@ -2747,7 +2747,7 @@ const CEBALRAI_DATA: RealData = RealData {
     },
 };
 
-const KRAZ_DATA: RealData = RealData {
+const KRAZ: RealData = RealData {
     common_name: "Kraz",
     astronomical_name: "Beta Corvi",
     constellation: "Corvus",
@@ -2770,7 +2770,7 @@ const KRAZ_DATA: RealData = RealData {
     },
 };
 
-const ERAKIS_DATA: RealData = RealData {
+const ERAKIS: RealData = RealData {
     common_name: "Erakis",
     astronomical_name: "Mu Cephei",
     constellation: "Cepheus",
@@ -2793,7 +2793,7 @@ const ERAKIS_DATA: RealData = RealData {
     },
 };
 
-const GAMMA_HYDRI_DATA: RealData = RealData {
+const GAMMA_HYDRI: RealData = RealData {
     common_name: "",
     astronomical_name: "Gamma Hydri",
     constellation: "Hydrus",
@@ -2814,7 +2814,7 @@ const GAMMA_HYDRI_DATA: RealData = RealData {
     },
 };
 
-const ALPHA_LYNCIS_DATA: RealData = RealData {
+const ALPHA_LYNCIS: RealData = RealData {
     common_name: "",
     astronomical_name: "Alpha Lyncis",
     constellation: "Lynx",
@@ -2837,7 +2837,7 @@ const ALPHA_LYNCIS_DATA: RealData = RealData {
     },
 };
 
-const ATHEBYNE_DATA: RealData = RealData {
+const ATHEBYNE: RealData = RealData {
     common_name: "Athebyne",
     astronomical_name: "Eta Draconis",
     constellation: "Draco",
@@ -2862,7 +2862,7 @@ const ATHEBYNE_DATA: RealData = RealData {
 
 // http://www.avastronomyclub.org/skymap/d/skymap.php
 
-const AHADI_DATA: RealData = RealData {
+const AHADI: RealData = RealData {
     common_name: "Ahadi",
     astronomical_name: "Pi Puppis",
     constellation: "Puppis",
@@ -2885,7 +2885,7 @@ const AHADI_DATA: RealData = RealData {
     },
 };
 
-const TARAZED_DATA: RealData = RealData {
+const TARAZED: RealData = RealData {
     common_name: "Tarazed",
     astronomical_name: "Gamma Aquilae",
     constellation: "Aquila",
@@ -2908,7 +2908,7 @@ const TARAZED_DATA: RealData = RealData {
     },
 };
 
-const MEGREZ_DATA: RealData = RealData {
+const MEGREZ: RealData = RealData {
     common_name: "Megrez",
     astronomical_name: "Delta Ursae Majoris",
     constellation: "Ursa Major",
@@ -2931,145 +2931,627 @@ const MEGREZ_DATA: RealData = RealData {
     },
 };
 
+const ALPHA_ANTLIAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Antliae",
+    constellation: "Antlia",
+    radius: Some(Distance {
+        m: 41. * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 2.2 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -0.97,
+    apparent_magnitude: 4.25,
+    temperature: Some(Temperature { K: 4070. }),
+    age: None,
+    right_ascension: RightAscension::new(10, 27, 9),
+    declination: Declination::new(Sgn::Neg, 31, 4, 4),
+    distance: Distance {
+        m: 320. * LIGHT_YEAR.m,
+    },
+};
+
+const EPSILON_ANTLIAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Epsilon Antliae",
+    constellation: "Antlia",
+    radius: Some(Distance {
+        m: 56.3 * SOLAR_RADIUS.m,
+    }),
+    mass: None,
+    absolute_magnitude: -2.17,
+    apparent_magnitude: 4.51,
+    temperature: Some(Temperature { K: 4237. }),
+    age: None,
+    right_ascension: RightAscension::new(9, 29, 15),
+    declination: Declination::new(Sgn::Neg, 35, 57, 5),
+    distance: Distance {
+        m: 590. * LIGHT_YEAR.m,
+    },
+};
+
+const IOTA_ANTLIAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Iota Antliae",
+    constellation: "Antlia",
+    radius: Some(Distance {
+        m: 12.1 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 1.55 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 0.77,
+    apparent_magnitude: 4.60,
+    temperature: Some(Temperature { K: 4892. }),
+    age: Some(Time {
+        s: 3.32 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(10, 56, 43),
+    declination: Declination::new(Sgn::Neg, 37, 8, 16),
+    distance: Distance {
+        m: 202. * LIGHT_YEAR.m,
+    },
+};
+
+const ALPHA_APODIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Apodis",
+    constellation: "Apus",
+    radius: Some(Distance {
+        m: 48. * SOLAR_RADIUS.m,
+    }),
+    mass: None,
+    absolute_magnitude: -1.67,
+    apparent_magnitude: 3.825,
+    temperature: Some(Temperature { K: 4312. }),
+    age: None,
+    right_ascension: RightAscension::new(14, 47, 52),
+    declination: Declination::new(Sgn::Neg, 79, 2, 41),
+    distance: Distance {
+        m: 430. * LIGHT_YEAR.m,
+    },
+};
+
+const GAMMA_APODIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Apodis",
+    constellation: "Apus",
+    radius: None,
+    mass: None,
+    absolute_magnitude: 0.41,
+    apparent_magnitude: 3.86,
+    temperature: Some(Temperature { K: 5040. }),
+    age: None,
+    right_ascension: RightAscension::new(16, 33, 27),
+    declination: Declination::new(Sgn::Neg, 78, 53, 50),
+    distance: Distance {
+        m: 150. * LIGHT_YEAR.m,
+    },
+};
+
+const BETA_APODIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Apodis",
+    constellation: "Apus",
+    radius: Some(Distance {
+        m: 11. * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 1.84 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 0.819,
+    apparent_magnitude: 4.24,
+    temperature: Some(Temperature { K: 4900. }),
+    age: None,
+    right_ascension: RightAscension::new(16, 43, 5),
+    declination: Declination::new(Sgn::Neg, 77, 31, 3),
+    distance: Distance {
+        m: 149. * LIGHT_YEAR.m,
+    },
+};
+
+const SADALSUUD: RealData = RealData {
+    common_name: "Sadalsuud",
+    astronomical_name: "Beta Aquarii",
+    constellation: "Aquarius",
+    radius: Some(Distance {
+        m: 47.88 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 4.97 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -3.04,
+    apparent_magnitude: 2.87,
+    temperature: Some(Temperature { K: 5608. }),
+    age: Some(Time {
+        s: 0.110 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(21, 31, 34),
+    declination: Declination::new(Sgn::Neg, 5, 34, 16),
+    distance: Distance {
+        m: 550. * LIGHT_YEAR.m,
+    },
+};
+
+const SADALMELIK: RealData = RealData {
+    common_name: "Sadalmelik",
+    astronomical_name: "Alpha Aquarii",
+    constellation: "Aquarius",
+    radius: Some(Distance {
+        m: 53.89 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 5.13 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -3.882,
+    apparent_magnitude: 2.942,
+    temperature: Some(Temperature { K: 5383. }),
+    age: Some(Time {
+        s: 0.053 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(22, 5, 47),
+    declination: Declination::new(Sgn::Neg, 0, 19, 11),
+    distance: Distance {
+        m: 520. * LIGHT_YEAR.m,
+    },
+};
+
+const SKAT: RealData = RealData {
+    common_name: "Skat",
+    astronomical_name: "Delta Aquarii",
+    constellation: "Aquarius",
+    radius: Some(Distance {
+        m: 2.4 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 2.51 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -0.17,
+    apparent_magnitude: 3.28,
+    temperature: Some(Temperature { K: 8650. }),
+    age: Some(Time {
+        s: 0.3 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(22, 54, 39),
+    declination: Declination::new(Sgn::Neg, 15, 49, 15),
+    distance: Distance {
+        m: 113. * LIGHT_YEAR.m,
+    },
+};
+
+const ALPHA_CAELI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Caeli",
+    constellation: "Caelum",
+    radius: Some(Distance {
+        m: 1.3 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 1.48 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 3.39,
+    apparent_magnitude: 4.456,
+    temperature: Some(Temperature { K: 6991. }),
+    age: Some(Time {
+        s: 0.9 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(4, 40, 34),
+    declination: Declination::new(Sgn::Neg, 41, 51, 50),
+    distance: Distance {
+        m: 65.7 * LIGHT_YEAR.m,
+    },
+};
+
+const GAMMA1_CAELI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma1 Caeli",
+    constellation: "Caelum",
+    radius: Some(Distance {
+        m: 14.31 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 1.4 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 0.781,
+    apparent_magnitude: 4.57,
+    temperature: Some(Temperature { K: 4411. }),
+    age: None,
+    right_ascension: RightAscension::new(5, 4, 24),
+    declination: Declination::new(Sgn::Neg, 35, 28, 59),
+    distance: Distance {
+        m: 185. * LIGHT_YEAR.m,
+    },
+};
+
+const BETA_CAELI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Caeli",
+    constellation: "Caelum",
+    radius: Some(Distance {
+        m: 1.3 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 1.32 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 2.64,
+    apparent_magnitude: 5.04,
+    temperature: Some(Temperature { K: 6763. }),
+    age: Some(Time {
+        s: 1.753 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(4, 42, 3),
+    declination: Declination::new(Sgn::Neg, 37, 8, 39),
+    distance: Distance {
+        m: 94. * LIGHT_YEAR.m,
+    },
+};
+
+const BETA_CAMELOPARDALIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Camelopardalis",
+    constellation: "Camelopardalis",
+    radius: Some(Distance {
+        m: 58. * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 6.5 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -3.1,
+    apparent_magnitude: 4.02,
+    temperature: Some(Temperature { K: 5300. }),
+    age: Some(Time {
+        s: 0.053 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(5, 3, 25),
+    declination: Declination::new(Sgn::Pos, 60, 26, 32),
+    distance: Distance {
+        m: 870. * LIGHT_YEAR.m,
+    },
+};
+
+const CS_CAMELOPARDALIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "CS Camelopardalis",
+    constellation: "Camelopardalis",
+    radius: Some(Distance {
+        m: 85.7 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 19. * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -7.1,
+    apparent_magnitude: 4.22,
+    temperature: Some(Temperature { K: 10_800. }),
+    age: Some(Time {
+        s: 0.016_5 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(3, 29, 4),
+    declination: Declination::new(Sgn::Pos, 59, 56, 25),
+    distance: Distance {
+        m: 3100. * LIGHT_YEAR.m,
+    },
+};
+
+const ALPHA_CAMELOPARDALIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Camelopardalis",
+    constellation: "Camelopardalis",
+    radius: Some(Distance {
+        m: 32.5 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 37.6 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -7.1,
+    apparent_magnitude: 4.29,
+    temperature: Some(Temperature { K: 29_000. }),
+    age: Some(Time {
+        s: 0.002 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(4, 54, 3),
+    declination: Declination::new(Sgn::Pos, 66, 20, 34),
+    distance: Distance {
+        m: 6_000. * LIGHT_YEAR.m,
+    },
+};
+
+const TARF: RealData = RealData {
+    common_name: "Tarf",
+    astronomical_name: "Beta Cancri",
+    constellation: "Cancer",
+    radius: Some(Distance {
+        m: 47.2 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 1.7 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -1.218,
+    apparent_magnitude: 3.50,
+    temperature: Some(Temperature { K: 4092. }),
+    age: Some(Time {
+        s: 1.85 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(8, 16, 31),
+    declination: Declination::new(Sgn::Pos, 9, 11, 8),
+    distance: Distance {
+        m: 290. * LIGHT_YEAR.m,
+    },
+};
+
+const ASELLUS_AUSTRALIS: RealData = RealData {
+    common_name: "Asellus Australis",
+    astronomical_name: "Delta Cancri",
+    constellation: "Cancer",
+    radius: Some(Distance {
+        m: 11. * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 1.71 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 0.843,
+    apparent_magnitude: 3.94,
+    temperature: Some(Temperature { K: 4637. }),
+    age: Some(Time {
+        s: 2.45 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(8, 44, 41),
+    declination: Declination::new(Sgn::Pos, 18, 9, 16),
+    distance: Distance {
+        m: 131. * LIGHT_YEAR.m,
+    },
+};
+
+const IOTA_CANCRI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Iota Cancri",
+    constellation: "Cancer",
+    radius: Some(Distance {
+        m: 21. * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 3.43 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: -0.79,
+    apparent_magnitude: 4.02,
+    temperature: Some(Temperature { K: 4954. }),
+    age: None,
+    right_ascension: RightAscension::new(8, 46, 42),
+    declination: Declination::new(Sgn::Pos, 28, 45, 36),
+    distance: Distance {
+        m: 330. * LIGHT_YEAR.m,
+    },
+};
+
+const COR_CAROLI: RealData = RealData {
+    common_name: "Cor Caroli",
+    astronomical_name: "Alpha Canum Venaticorum",
+    constellation: "Canes Venatici",
+    radius: Some(Distance {
+        m: 2.49 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 2.97 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 0.16,
+    apparent_magnitude: 2.9,
+    temperature: Some(Temperature { K: 11_600. }),
+    age: Some(Time {
+        s: 0.165 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(12, 56, 2),
+    declination: Declination::new(Sgn::Pos, 38, 19, 6),
+    distance: Distance {
+        m: 100. * LIGHT_YEAR.m,
+    },
+};
+
+const CHARA: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Canum Venaticorum",
+    constellation: "Canes Venatici",
+    radius: Some(Distance {
+        m: 1.123 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 0.97 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 4.64,
+    apparent_magnitude: 4.25,
+    temperature: Some(Temperature { K: 6043. }),
+    age: Some(Time {
+        s: 3.4 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(12, 33, 45),
+    declination: Declination::new(Sgn::Pos, 41, 21, 27),
+    distance: Distance {
+        m: 27.63 * LIGHT_YEAR.m,
+    },
+};
+
+const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
+    common_name: "",
+    astronomical_name: "24 Canum Venaticorum",
+    constellation: "Canes Venatici",
+    right_ascension: RightAscension::new(13, 34, 27),
+    declination: Declination::new(Sgn::Pos, 49, 0, 58),
+    apparent_magnitude: 4.68,
+    distance: Distance {
+        m: 180. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.85,
+    mass: Some(Mass {
+        kg: 1.74 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.90 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 8285. }),
+    age: Some(Time {
+        s: 0.360 * BILLION_YEARS.s,
+    }),
+};
+
 // RealData = RealData {
 //     common_name: "",
 //     astronomical_name: "",
 //     constellation: "",
-//     radius: Some(Distance{m: * SOLAR_RADIUS.m}),
-//     mass: Some(Mass{kg: * SOLAR_MASS.kg}),
-//     absolute_magnitude: ),
-//     apparent_magnitude: ,
-//     temperature: Some(Temperature{K:}),
-//     age: Some(Time{s:* BILLION_YEARS.s}),
 //     right_ascension: RightAscension::new(),
 //     declination: Declination::new(),
+//     apparent_magnitude: ,
 //     distance: Distance{m:  * LIGHT_YEAR.m},
+//     absolute_magnitude: ,
+//     mass: Some(Mass{kg: * SOLAR_MASS.kg}),
+//     radius: Some(Distance{m: * SOLAR_RADIUS.m}),
+//     temperature: Some(Temperature{K:}),
+//     age: Some(Time{s:* BILLION_YEARS.s}),
 // };
 
-pub const BRIGHTEST_STARS: [RealData; 125] = [
-    SIRIUS_DATA,
-    CANOPUS_DATA,
-    ARCTURUS_DATA,
-    RIGEL_KENTAURUS_DATA,
-    VEGA_DATA,
-    CAPELLA_DATA,
-    RIGEL_DATA,
-    PROCYON_DATA,
-    BETELGEUSE_DATA,
-    ACHERNAR_DATA,
-    HADAR_DATA,
-    ALTAIR_DATA,
-    ACRUX_DATA,
-    ALDEBARAN_DATA,
-    SPICA_DATA,
-    ANTARES_DATA,
-    POLLUX_DATA,
-    FORMALHAUT_DATA,
-    DENEB_DATA,
-    MIMOSA_DATA,
-    REGULUS_DATA,
-    ADHARA_DATA,
-    CASTOR_DATA,
-    GACRUX_DATA,
-    SHAULA_DATA,
-    BELLATRIX_DATA,
-    ALNATH_DATA,
-    MIAPLACIDUS_DATA,
-    ALNILAM_DATA,
-    ALNAIR_DATA,
-    ALNITAK_DATA,
-    REGOR_DATA,
-    ALIOTH_DATA,
-    KAUS_AUSTRALIS_DATA,
-    MIRPHAK_DATA,
-    DUBHE_DATA,
-    WEZEN_DATA,
-    ALKAID_DATA,
-    SARGAS_DATA,
-    AVIOR_DATA,
-    MENKALINAN_DATA,
-    ATRIA_DATA,
-    ALSEPHINA_DATA,
-    ALHENA_DATA,
-    PEACOCK_DATA,
-    POLARIS_DATA,
-    MIRZAM_DATA,
-    ALPHARD_DATA,
-    ALGIEBA_DATA,
-    HAMAL_DATA,
-    DIPHDA_DATA,
-    NUNKI_DATA,
-    MENKENT_DATA,
-    SAIPH_DATA,
-    ALPHERATZ_DATA,
-    TIAKI_DATA,
-    MIRACH_DATA,
-    KOCHAB_DATA,
-    RASALHAGUE_DATA,
-    ALGOL_DATA,
-    ALMACH_DATA,
-    DENEBOLA_DATA,
-    NAVI_DATA,
-    MUHLIFAIN_DATA,
-    NAOS_DATA,
-    ASPIDISKE_DATA,
-    ALPHECCA_DATA,
-    SUHAIL_DATA,
-    SADIR_DATA,
-    MIZAR_DATA,
-    SCHEDAR_DATA,
-    ELTANIN_DATA,
-    MINTAKA_DATA,
-    CAPH_DATA,
-    DSCHUBBA_DATA,
-    LARAWAG_DATA,
-    EPSILON_CENTAURI_DATA,
-    ALPHA_LUPI_DATA,
-    ETA_CENTAURI_DATA,
-    MERAK_DATA,
-    IZAR_DATA,
-    ENIF_DATA,
-    GIRTAB_DATA,
-    ANKAA_DATA,
-    PHECDA_DATA,
-    SABIK_DATA,
-    SCHEAT_DATA,
-    ALDERAMIN_DATA,
-    ALUDRA_DATA,
-    MARKEB_DATA,
-    ALJANAH_DATA,
-    MARKAB_DATA,
-    HAN_DATA,
-    MENKAR_DATA,
-    ZETA_CENTAURI_DATA,
-    ACRAB_DATA,
-    ZOSMA_DATA,
-    MA_WEI_DATA,
-    ARNEB_DATA,
-    GHURAB_DATA,
-    TEJAT_DATA,
-    R_DORADUS_DATA,
+pub const BRIGHTEST_STARS: [RealData; 146] = [
+    SIRIUS,
+    CANOPUS,
+    ARCTURUS,
+    RIGEL_KENTAURUS,
+    VEGA,
+    CAPELLA,
+    RIGEL,
+    PROCYON,
+    BETELGEUSE,
+    ACHERNAR,
+    HADAR,
+    ALTAIR,
+    ACRUX,
+    ALDEBARAN,
+    SPICA,
+    ANTARES,
+    POLLUX,
+    FORMALHAUT,
+    DENEB,
+    MIMOSA,
+    REGULUS,
+    ADHARA,
+    CASTOR,
+    GACRUX,
+    SHAULA,
+    BELLATRIX,
+    ALNATH,
+    MIAPLACIDUS,
+    ALNILAM,
+    ALNAIR,
+    ALNITAK,
+    REGOR,
+    ALIOTH,
+    KAUS_AUSTRALIS,
+    MIRPHAK,
+    DUBHE,
+    WEZEN,
+    ALKAID,
+    SARGAS,
+    AVIOR,
+    MENKALINAN,
+    ATRIA,
+    ALSEPHINA,
+    ALHENA,
+    PEACOCK,
+    POLARIS,
+    MIRZAM,
+    ALPHARD,
+    ALGIEBA,
+    HAMAL,
+    DIPHDA,
+    NUNKI,
+    MENKENT,
+    SAIPH,
+    ALPHERATZ,
+    TIAKI,
+    MIRACH,
+    KOCHAB,
+    RASALHAGUE,
+    ALGOL,
+    ALMACH,
+    DENEBOLA,
+    NAVI,
+    MUHLIFAIN,
+    NAOS,
+    ASPIDISKE,
+    ALPHECCA,
+    SUHAIL,
+    SADIR,
+    MIZAR,
+    SCHEDAR,
+    ELTANIN,
+    MINTAKA,
+    CAPH,
+    DSCHUBBA,
+    LARAWAG,
+    EPSILON_CENTAURI,
+    ALPHA_LUPI,
+    ETA_CENTAURI,
+    MERAK,
+    IZAR,
+    ENIF,
+    GIRTAB,
+    ANKAA,
+    PHECDA,
+    SABIK,
+    SCHEAT,
+    ALDERAMIN,
+    ALUDRA,
+    MARKEB,
+    ALJANAH,
+    MARKAB,
+    HAN,
+    MENKAR,
+    ZETA_CENTAURI,
+    ACRAB,
+    ZOSMA,
+    MA_WEI,
+    ARNEB,
+    GHURAB,
+    TEJAT,
+    R_DORADUS,
     YED_PRIOR,
-    GORGONEA_TERTIA_DATA,
+    GORGONEA_TERTIA,
     NAMALWARID,
     HASSALEH,
-    PROPUS_DATA,
-    ZAURAK_DATA,
-    KAUS_MEDIA_DATA,
-    BRACHIUM_DATA,
-    TANIA_AUSTRALIS_DATA,
-    UNUKALHAI_DATA,
+    PROPUS,
+    ZAURAK,
+    KAUS_MEDIA,
+    BRACHIUM,
+    TANIA_AUSTRALIS,
+    UNUKALHAI,
     R_LYRAE_DATE,
-    BETA_ARAE_DATA,
-    APLHA_TUCANAE_DATA,
-    MINELAUVA_DATA,
-    CEBALRAI_DATA,
-    KRAZ_DATA,
-    ERAKIS_DATA,
-    GAMMA_HYDRI_DATA,
-    ALPHA_LYNCIS_DATA,
-    ATHEBYNE_DATA,
-    AHADI_DATA,
-    TARAZED_DATA,
-    MEGREZ_DATA,
+    BETA_ARAE,
+    APLHA_TUCANAE,
+    MINELAUVA,
+    CEBALRAI,
+    KRAZ,
+    ERAKIS,
+    GAMMA_HYDRI,
+    ALPHA_LYNCIS,
+    ATHEBYNE,
+    AHADI,
+    TARAZED,
+    MEGREZ,
+    ALPHA_ANTLIAE,
+    EPSILON_ANTLIAE,
+    IOTA_ANTLIAE,
+    ALPHA_APODIS,
+    GAMMA_APODIS,
+    BETA_APODIS,
+    SADALSUUD,
+    SADALMELIK,
+    SKAT,
+    ALPHA_CAELI,
+    GAMMA1_CAELI,
+    BETA_CAELI,
+    BETA_CAMELOPARDALIS,
+    CS_CAMELOPARDALIS,
+    ALPHA_CAMELOPARDALIS,
+    TARF,
+    ASELLUS_AUSTRALIS,
+    IOTA_CANCRI,
+    COR_CAROLI,
+    CHARA,
+    TWENTYFOUR_CANUM_VENATICORUM,
 ];

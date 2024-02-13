@@ -58,3 +58,43 @@ pub fn collect_constellations(all_stars: &[StarData]) -> Vec<Constellation> {
     }
     constellations
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::real_data::stars::BRIGHTEST_STARS;
+
+    #[test]
+    fn there_are_88_constellations() {
+        let all_stars = BRIGHTEST_STARS
+            .iter()
+            .map(|star| star.to_star_data())
+            .collect::<Vec<_>>();
+        let constellations = crate::stars::constellation::collect_constellations(&all_stars);
+        let mut constellation_names = constellations
+            .iter()
+            .map(|constellation| constellation.get_name())
+            .collect::<Vec<_>>();
+        constellation_names.sort();
+        for name in constellation_names {
+            println!("{}", name);
+        }
+        assert_eq!(constellations.len(), 88);
+    }
+
+    #[test]
+    fn all_constellations_have_at_least_three_stars() {
+        let all_stars = BRIGHTEST_STARS
+            .iter()
+            .map(|star| star.to_star_data())
+            .collect::<Vec<_>>();
+        let constellations = crate::stars::constellation::collect_constellations(&all_stars);
+        for constellation in constellations {
+            println!(
+                "{}: {}",
+                constellation.get_name(),
+                constellation.get_stars().len()
+            );
+            assert!(constellation.get_stars().len() >= 3);
+        }
+    }
+}
