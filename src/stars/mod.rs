@@ -1,3 +1,4 @@
+pub mod constellation;
 pub mod gaia_data;
 pub mod parsec_data;
 pub mod random_stars;

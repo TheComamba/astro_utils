@@ -2908,22 +2908,45 @@ const TARAZED_DATA: RealData = RealData {
     },
 };
 
+const MEGREZ_DATA: RealData = RealData {
+    common_name: "Megrez",
+    astronomical_name: "Delta Ursae Majoris",
+    constellation: "Ursa Major",
+    radius: Some(Distance {
+        m: 1.4 * SOLAR_RADIUS.m,
+    }),
+    mass: Some(Mass {
+        kg: 1.63 * SOLAR_MASS.kg,
+    }),
+    absolute_magnitude: 1.39,
+    apparent_magnitude: 3.312,
+    temperature: Some(Temperature { K: 9480. }),
+    age: Some(Time {
+        s: 0.3 * BILLION_YEARS.s,
+    }),
+    right_ascension: RightAscension::new(12, 15, 26),
+    declination: Declination::new(Sgn::Pos, 57, 1, 57),
+    distance: Distance {
+        m: 80.5 * LIGHT_YEAR.m,
+    },
+};
+
 // RealData = RealData {
 //     common_name: "",
 //     astronomical_name: "",
 //     constellation: "",
-//     radius: Some(Distance{m:Distance{m:. * SOLAR_RADIUS.m}}),
-//     mass: Some(Mass{kg: * SOLAR_MASS.kg}}),
+//     radius: Some(Distance{m: * SOLAR_RADIUS.m}),
+//     mass: Some(Mass{kg: * SOLAR_MASS.kg}),
 //     absolute_magnitude: ),
 //     apparent_magnitude: ,
 //     temperature: Some(Temperature{K:}),
-//     age: Some(Time{s:* BILLION_YEARS.s}}),
+//     age: Some(Time{s:* BILLION_YEARS.s}),
 //     right_ascension: RightAscension::new(),
 //     declination: Declination::new(),
-//     distance: Distance{m: Distance{m:. * LIGHT_YEAR.m}},
+//     distance: Distance{m:  * LIGHT_YEAR.m},
 // };
 
-pub const BRIGHTEST_STARS: [RealData; 124] = [
+pub const BRIGHTEST_STARS: [RealData; 125] = [
     SIRIUS_DATA,
     CANOPUS_DATA,
     ARCTURUS_DATA,
@@ -3048,4 +3071,5 @@ pub const BRIGHTEST_STARS: [RealData; 124] = [
     ATHEBYNE_DATA,
     AHADI_DATA,
     TARAZED_DATA,
+    MEGREZ_DATA,
 ];
