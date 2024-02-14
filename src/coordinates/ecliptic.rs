@@ -63,6 +63,11 @@ impl EclipticCoordinates {
     pub fn to_direction(&self) -> Direction {
         self.spherical.to_direction()
     }
+
+    pub fn angle_to(&self, other: &Self) -> Angle<f64> {
+        //TODO: There must be a more performant and stable way.
+        self.to_direction().angle_to(&other.to_direction())
+    }
 }
 
 impl Neg for &EclipticCoordinates {
@@ -92,5 +97,43 @@ impl AstroDisplay for EclipticCoordinates {
 impl Display for EclipticCoordinates {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.astro_display())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use simple_si_units::geometry::Angle;
+
+    use crate::{
+        astro_display::AstroDisplay, coordinates::direction::Direction, units::angle::angle_eq,
+    };
+
+    #[test]
+    fn test_angle_function() {
+        let numbers = [1., 0., -1., 3.];
+        for x in numbers.iter() {
+            for y in numbers.iter() {
+                for z in numbers.iter() {
+                    for angle in numbers.iter() {
+                        let dir1 = Direction::new(*x, *y, *z);
+                        if dir1.is_err() {
+                            continue;
+                        }
+                        let angle = Angle::from_radians((*angle).abs());
+                        let dir1 = dir1.unwrap();
+                        let axis = dir1.some_orthogonal_vector();
+                        let dir2 = dir1.rotated(angle, &axis);
+
+                        let ecliptic1 = dir1.to_ecliptic();
+                        let ecliptic2 = dir2.to_ecliptic();
+                        let actual_angle = ecliptic1.angle_to(&ecliptic2);
+
+                        println!("Expected: {}", angle.astro_display());
+                        println!("Actual: {}", actual_angle.astro_display());
+                        assert!(angle_eq(actual_angle, angle));
+                    }
+                }
+            }
+        }
     }
 }
