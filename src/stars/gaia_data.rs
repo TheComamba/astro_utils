@@ -186,11 +186,7 @@ mod tests {
         let mut closest_star = None;
         let mut closest_distance = Angle::from_degrees(90.);
         for known_star in known_stars.iter() {
-            let distance = gaia_star
-                .pos
-                .get_spherical()
-                .to_direction()
-                .angle_to(&known_star.pos.get_spherical().to_direction());
+            let distance = gaia_star.pos.angle_to(&known_star.pos);
             if distance < closest_distance {
                 closest_star = Some(known_star);
                 closest_distance = distance;
@@ -258,11 +254,7 @@ mod tests {
                 println!("closest_star: {:?}", closest.name);
                 let (gaia_ra, gaia_dec) = gaia_star.pos.get_spherical().to_ra_and_dec();
                 let (closest_ra, closest_dec) = closest.pos.get_spherical().to_ra_and_dec();
-                let angle_difference = gaia_star
-                    .pos
-                    .get_spherical()
-                    .to_direction()
-                    .angle_to(&closest.pos.get_spherical().to_direction());
+                let angle_difference = gaia_star.pos.angle_to(&closest.pos);
                 if angle_difference > Angle::from_degrees(0.03) {
                     println!(
                         "gaia_star position: {}, {}",
