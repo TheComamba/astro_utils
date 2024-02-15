@@ -3392,6 +3392,1163 @@ const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
     }),
 };
 
+const BETA_CAPRICORNI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Capricorni",
+    constellation: "Capricornus",
+    right_ascension: RightAscension::new(20, 21, 1),
+    declination: Declination::new(Sgn::Neg, 14, 46, 53),
+    apparent_magnitude: 3.05,
+    distance: Distance {
+        m: 390. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -2.03,
+    mass: None,
+    radius: None,
+    temperature: None,
+    age: None,
+};
+
+const DELTA_CAPRICORNI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Capricorni",
+    constellation: "Capricornus",
+    right_ascension: RightAscension::new(21, 47, 2),
+    declination: Declination::new(Sgn::Neg, 16, 7, 38),
+    apparent_magnitude: 2.81,
+    distance: Distance {
+        m: 38.7 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.48,
+    mass: Some(Mass {
+        kg: 2. * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.91 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 7301. }),
+    age: None,
+};
+
+const OMEGA_CAPRICORNI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Omega Capricorni",
+    constellation: "Capricornus",
+    right_ascension: RightAscension::new(20, 51, 49),
+    declination: Declination::new(Sgn::Neg, 26, 55, 9),
+    apparent_magnitude: 4.11,
+    distance: Distance {
+        m: 1000. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -2.7,
+    mass: Some(Mass {
+        kg: 6.8 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 172.1 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 3915. }),
+    age: Some(Time {
+        s: 0.0481 * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_CHAMAELEONTIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Chamaeleontis",
+    constellation: "Chamaeleon",
+    right_ascension: RightAscension::new(8, 18, 32),
+    declination: Declination::new(Sgn::Neg, 76, 55, 11),
+    apparent_magnitude: 4.06,
+    distance: Distance {
+        m: 63.8 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.59,
+    mass: Some(Mass {
+        kg: 1.42 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.11 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 6580. }),
+    age: Some(Time {
+        s: 1.8 * BILLION_YEARS.s,
+    }),
+};
+
+const GAMMA_CHAMAELEONTIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Chamaeleontis",
+    constellation: "Chamaeleon",
+    right_ascension: RightAscension::new(10, 35, 28),
+    declination: Declination::new(Sgn::Neg, 78, 36, 28),
+    apparent_magnitude: 4.12,
+    distance: Distance {
+        m: 418. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -1.43,
+    mass: None,
+    radius: Some(Distance {
+        m: 67. * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4035. }),
+    age: None,
+};
+
+const BETA_CHAMAELEONIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Chamaeleontis",
+    constellation: "Chaemleon",
+    right_ascension: RightAscension::new(12, 18, 21),
+    declination: Declination::new(Sgn::Neg, 79, 18, 44),
+    apparent_magnitude: 4.24,
+    distance: Distance {
+        m: 298. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.57,
+    mass: Some(Mass {
+        kg: 5. * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.84 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 14_495. }),
+    age: Some(Time {
+        s: 0.0227 * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_CIRCINI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Circini",
+    constellation: "Circinus",
+    right_ascension: RightAscension::new(14, 42, 30),
+    declination: Declination::new(Sgn::Neg, 64, 58, 30),
+    apparent_magnitude: 3.18,
+    distance: Distance {
+        m: 54. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.18,
+    mass: Some(Mass {
+        kg: 1.6 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.967 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 7500. }),
+    age: Some(Time {
+        s: 0.012 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_CIRCINI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Circini",
+    constellation: "Circinus",
+    right_ascension: RightAscension::new(15, 17, 31),
+    declination: Declination::new(Sgn::Neg, 58, 48, 4),
+    apparent_magnitude: 4.069,
+    distance: Distance {
+        m: 93. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.64,
+    mass: None,
+    radius: Some(Distance {
+        m: 1.3 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 8676. }),
+    age: Some(Time {
+        s: 0.4 * BILLION_YEARS.s,
+    }),
+};
+
+const GAMMA_CIRCINI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Circini",
+    constellation: "Circinus",
+    right_ascension: RightAscension::new(15, 23, 23),
+    declination: Declination::new(Sgn::Neg, 59, 19, 15),
+    apparent_magnitude: 4.51,
+    distance: Distance {
+        m: 450. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -1.18,
+    mass: Some(Mass {
+        kg: 6. * SOLAR_MASS.kg,
+    }),
+    radius: None,
+    temperature: Some(Temperature { K: 15_135. }),
+    age: Some(Time {
+        s: 0.0631 * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_COLUMBAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Columbae",
+    constellation: "Columba",
+    right_ascension: RightAscension::new(5, 39, 39),
+    declination: Declination::new(Sgn::Neg, 34, 4, 27),
+    apparent_magnitude: 2.645,
+    distance: Distance {
+        m: 261. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -1.87,
+    mass: Some(Mass {
+        kg: 4.5 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 5.8 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 12_963. }),
+    age: Some(Time {
+        s: 0.093 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_COLUMBAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Columbae",
+    constellation: "Columba",
+    right_ascension: RightAscension::new(5, 50, 58),
+    declination: Declination::new(Sgn::Neg, 35, 46, 6),
+    apparent_magnitude: 3.105,
+    distance: Distance {
+        m: 87.41 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.01,
+    mass: Some(Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 11.5 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4545. }),
+    age: Some(Time {
+        s: 2. * BILLION_YEARS.s,
+    }),
+};
+
+const DELTA_COLUMBAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Columbae",
+    constellation: "Columba",
+    right_ascension: RightAscension::new(6, 22, 7),
+    declination: Declination::new(Sgn::Neg, 33, 26, 11),
+    apparent_magnitude: 3.85,
+    distance: Distance {
+        m: 234. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.32,
+    mass: None,
+    radius: None,
+    temperature: Some(Temperature { K: 5136. }),
+    age: None,
+};
+
+const EPSILON_COLUMBAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Epsilon Columbae",
+    constellation: "Columba",
+    right_ascension: RightAscension::new(5, 31, 13),
+    declination: Declination::new(Sgn::Neg, 35, 28, 14),
+    apparent_magnitude: 3.87,
+    distance: Distance {
+        m: 262. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.67,
+    mass: Some(Mass {
+        kg: 2.47 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 25.2 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4575. }),
+    age: Some(Time {
+        s: 1.53 * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_COMAE_BERENICES: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Comae Berenices",
+    constellation: "Coma Berenices",
+    right_ascension: RightAscension::new(13, 9, 59),
+    declination: Declination::new(Sgn::Pos, 17, 31, 46),
+    apparent_magnitude: 4.29,
+    distance: Distance {
+        m: 58.1 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 3.82,
+    mass: Some(Mass {
+        kg: 1.237 * SOLAR_MASS.kg,
+    }),
+    radius: None,
+    temperature: Some(Temperature { K: 6365. }),
+    age: None,
+};
+
+const BETA_COMA_BERENICES: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Comae Berenices",
+    constellation: "Coma Berenices",
+    right_ascension: RightAscension::new(13, 11, 53),
+    declination: Declination::new(Sgn::Pos, 27, 52, 41),
+    apparent_magnitude: 4.26,
+    distance: Distance {
+        m: 29.95 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 4.46,
+    mass: Some(Mass {
+        kg: 1.15 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.106 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 5936. }),
+    age: Some(Time {
+        s: 2. * BILLION_YEARS.s,
+    }),
+};
+
+const GAMMA_COMA_BERENICES: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Comae Berenices",
+    constellation: "Coma Berenices",
+    right_ascension: RightAscension::new(12, 26, 56),
+    declination: Declination::new(Sgn::Pos, 28, 16, 6),
+    apparent_magnitude: 4.36,
+    distance: Distance {
+        m: 169. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.76,
+    mass: Some(Mass {
+        kg: 1.65 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 11.76 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4652. }),
+    age: Some(Time {
+        s: 2.72 * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_CORONAE_AUSTRALIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Coronae Australis",
+    constellation: "Corona Australis",
+    right_ascension: RightAscension::new(19, 9, 28),
+    declination: Declination::new(Sgn::Neg, 37, 54, 16),
+    apparent_magnitude: 4.102,
+    distance: Distance {
+        m: 125. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.11,
+    mass: Some(Mass {
+        kg: 2.57 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.21 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 9916. }),
+    age: Some(Time {
+        s: 0.254 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_CORONAE_AUSTRALIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Coronae Australis",
+    constellation: "Corona Australis",
+    right_ascension: RightAscension::new(19, 10, 2),
+    declination: Declination::new(Sgn::Neg, 39, 20, 27),
+    apparent_magnitude: 4.10,
+    distance: Distance {
+        m: 470. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -1.71,
+    mass: Some(Mass {
+        kg: 5.17 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 38.5 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4575. }),
+    age: None,
+};
+
+const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Coronae Australis",
+    constellation: "Corona Australis",
+    right_ascension: RightAscension::new(19, 6, 25),
+    declination: Declination::new(Sgn::Neg, 37, 3, 48),
+    apparent_magnitude: 4.2,
+    distance: Distance {
+        m: 56.4 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 3.73,
+    mass: Some(Mass {
+        kg: 1.15 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.47 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 6090. }),
+    age: Some(Time {
+        s: 5. * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_CRATERIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Crateris",
+    constellation: "Crater",
+    right_ascension: RightAscension::new(10, 59, 46),
+    declination: Declination::new(Sgn::Neg, 18, 17, 56),
+    apparent_magnitude: 4.07,
+    distance: Distance {
+        m: 141. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.44,
+    mass: Some(Mass {
+        kg: 1.81 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 12.32 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4691. }),
+    age: Some(Time {
+        s: 2.06 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_CRATERIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Crateris",
+    constellation: "Crater",
+    right_ascension: RightAscension::new(11, 11, 39),
+    declination: Declination::new(Sgn::Neg, 22, 49, 33),
+    apparent_magnitude: 4.46,
+    distance: Distance {
+        m: 296. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.62,
+    mass: None,
+    radius: None,
+    temperature: Some(Temperature { K: 8830. }),
+    age: None,
+};
+
+const GAMMA_CRATERIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Crateris",
+    constellation: "Crater",
+    right_ascension: RightAscension::new(11, 24, 53),
+    declination: Declination::new(Sgn::Neg, 17, 41, 2),
+    apparent_magnitude: 4.06,
+    distance: Distance {
+        m: 85.6 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.05,
+    mass: Some(Mass {
+        kg: 1.81 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.3 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 8020. }),
+    age: Some(Time {
+        s: 0.757 * BILLION_YEARS.s,
+    }),
+};
+
+const DELTA_CRATERIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Crateris",
+    constellation: "Crater",
+    right_ascension: RightAscension::new(11, 19, 20),
+    declination: Declination::new(Sgn::Neg, 14, 46, 42),
+    apparent_magnitude: 3.56,
+    distance: Distance {
+        m: 163. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.321,
+    mass: Some(Mass {
+        kg: 1.56 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 22.44 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4510. }),
+    age: Some(Time {
+        s: 2.89 * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_DELPHINI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Delphini",
+    constellation: "Delphinus",
+    right_ascension: RightAscension::new(20, 39, 38),
+    declination: Declination::new(Sgn::Pos, 15, 54, 43),
+    apparent_magnitude: 3.777,
+    distance: Distance {
+        m: 254. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.4,
+    mass: Some(Mass {
+        kg: 3.83 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 3.92 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 11_643. }),
+    age: Some(Time {
+        s: 0.227 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_DELPHINI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Delphini",
+    constellation: "Delphinus",
+    right_ascension: RightAscension::new(20, 37, 33),
+    declination: Declination::new(Sgn::Pos, 14, 35, 42),
+    apparent_magnitude: 3.617,
+    distance: Distance {
+        m: 101. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.58,
+    mass: Some(Mass {
+        kg: 1.75 * SOLAR_MASS.kg,
+    }),
+    radius: None,
+    temperature: Some(Temperature { K: 6587. }),
+    age: Some(Time {
+        s: 1.79 * BILLION_YEARS.s,
+    }),
+};
+
+const GAMMA_DELPHINI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Delphini",
+    constellation: "Delphinus",
+    right_ascension: RightAscension::new(20, 46, 39),
+    declination: Declination::new(Sgn::Pos, 16, 7, 27),
+    apparent_magnitude: 5.14,
+    distance: Distance {
+        m: 114.8 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.24,
+    mass: Some(Mass {
+        kg: 1.61 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.6 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 6295. }),
+    age: Some(Time {
+        s: 1.85 * BILLION_YEARS.s,
+    }),
+};
+
+const DELTA_DELPHINI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Delphini",
+    constellation: "Delphinus",
+    right_ascension: RightAscension::new(20, 43, 28),
+    declination: Declination::new(Sgn::Pos, 15, 4, 28),
+    apparent_magnitude: 4.43,
+    distance: Distance {
+        m: 223. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.25,
+    mass: Some(Mass {
+        kg: 1.78 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 3.43 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 7440. }),
+    age: Some(Time {
+        s: 0.945 * BILLION_YEARS.s,
+    }),
+};
+
+const EPSILON_DELPHINI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Epsilon Delphini",
+    constellation: "Delphinus",
+    right_ascension: RightAscension::new(20, 33, 13),
+    declination: Declination::new(Sgn::Pos, 11, 18, 12),
+    apparent_magnitude: 4.03,
+    distance: Distance {
+        m: 330. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.06,
+    mass: None,
+    radius: Some(Distance {
+        m: 4.6 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 13_614. }),
+    age: Some(Time {
+        s: 0.220 * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_EQUULEI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Equulei",
+    constellation: "Equuleus",
+    right_ascension: RightAscension::new(21, 15, 49),
+    declination: Declination::new(Sgn::Pos, 5, 14, 52),
+    apparent_magnitude: 3.919,
+    distance: Distance {
+        m: 190. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.17,
+    mass: Some(Mass {
+        kg: 2.3 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 9.2 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 5100. }),
+    age: None,
+};
+
+const DELTA_EQUULEI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Equulei",
+    constellation: "Equuleus",
+    right_ascension: RightAscension::new(21, 14, 29),
+    declination: Declination::new(Sgn::Pos, 10, 0, 25),
+    apparent_magnitude: 5.19,
+    distance: Distance {
+        m: 59.4 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 3.1,
+    mass: Some(Mass {
+        kg: 1.192 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.30 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 6200. }),
+    age: Some(Time {
+        s: 3. * BILLION_YEARS.s,
+    }),
+};
+
+const GAMMA_EQUULEI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Equulei",
+    constellation: "Equuleus",
+    right_ascension: RightAscension::new(21, 10, 21),
+    declination: Declination::new(Sgn::Pos, 10, 7, 54),
+    apparent_magnitude: 4.6,
+    distance: Distance {
+        m: 118. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.9,
+    mass: Some(Mass {
+        kg: 1.78 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.11 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 7550. }),
+    age: Some(Time {
+        s: 1. * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_FORNACIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Fornacis",
+    constellation: "Fornax",
+    right_ascension: RightAscension::new(3, 12, 5),
+    declination: Declination::new(Sgn::Neg, 28, 59, 15),
+    apparent_magnitude: 3.85,
+    distance: Distance {
+        m: 45.66 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 3.08,
+    mass: Some(Mass {
+        kg: 1.33 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.04 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 6240. }),
+    age: Some(Time {
+        s: 2.9 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_FORNACIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Fornacis",
+    constellation: "Fornax",
+    right_ascension: RightAscension::new(2, 49, 5),
+    declination: Declination::new(Sgn::Neg, 32, 24, 21),
+    apparent_magnitude: 4.46,
+    distance: Distance {
+        m: 178. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.894,
+    mass: Some(Mass {
+        kg: 1.53 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 11.02 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4820. }),
+    age: None,
+};
+
+const NU_FORNACIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Nu Fornacis",
+    constellation: "Fornax",
+    right_ascension: RightAscension::new(2, 4, 29),
+    declination: Declination::new(Sgn::Neg, 29, 17, 49),
+    apparent_magnitude: 4.69,
+    distance: Distance {
+        m: 370. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.6,
+    mass: Some(Mass {
+        kg: 3.65 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 3.44 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 13_400. }),
+    age: None,
+};
+
+const ALPHA_HERCULIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Herculis",
+    constellation: "Hercules",
+    right_ascension: RightAscension::new(17, 14, 39),
+    declination: Declination::new(Sgn::Pos, 14, 23, 25),
+    apparent_magnitude: 3.350,
+    distance: Distance {
+        m: 360. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -2.3,
+    mass: Some(Mass {
+        kg: 2.5 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 284. * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 3155. }),
+    age: None,
+};
+
+const BETA_HERCULIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Herculis",
+    constellation: "Herucles",
+    right_ascension: RightAscension::new(16, 30, 13),
+    declination: Declination::new(Sgn::Pos, 21, 29, 23),
+    apparent_magnitude: 2.81,
+    distance: Distance {
+        m: 139. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.49,
+    mass: Some(Mass {
+        kg: 2.9 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 17. * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4887. }),
+    age: None,
+};
+
+const DELTA_HERCULIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Herculis",
+    constellation: "Herucles",
+    right_ascension: RightAscension::new(17, 15, 2),
+    declination: Declination::new(Sgn::Pos, 24, 50, 21),
+    apparent_magnitude: 3.126,
+    distance: Distance {
+        m: 75.1 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.31,
+    mass: Some(Mass {
+        kg: 2.4 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.2 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 9620. }),
+    age: Some(Time {
+        s: 0.370 * BILLION_YEARS.s,
+    }),
+};
+
+const ETA_HERCULIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Eta Herculis",
+    constellation: "Herucles",
+    right_ascension: RightAscension::new(16, 42, 54),
+    declination: Declination::new(Sgn::Pos, 38, 55, 20),
+    apparent_magnitude: 3.487,
+    distance: Distance {
+        m: 112. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.84,
+    mass: Some(Mass {
+        kg: 2.13 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 8.9 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4900. }),
+    age: Some(Time {
+        s: 1. * BILLION_YEARS.s,
+    }),
+};
+
+const MU_HERCULIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Mu Herculis",
+    constellation: "Herucles",
+    right_ascension: RightAscension::new(17, 46, 28),
+    declination: Declination::new(Sgn::Pos, 27, 43, 14),
+    apparent_magnitude: 3.417,
+    distance: Distance {
+        m: 27.11 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 3.82,
+    mass: Some(Mass {
+        kg: 1.11 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.73 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 5560. }),
+    age: Some(Time {
+        s: 7.8 * BILLION_YEARS.s,
+    }),
+};
+
+const ZETA_HERCULIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Zeta Herculis",
+    constellation: "Herucles",
+    right_ascension: RightAscension::new(16, 41, 17),
+    declination: Declination::new(Sgn::Pos, 31, 36, 10),
+    apparent_magnitude: 2.81,
+    distance: Distance {
+        m: 35. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.65,
+    mass: Some(Mass {
+        kg: 1.45 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.56 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 5820. }),
+    age: Some(Time {
+        s: 6.2 * BILLION_YEARS.s,
+    }),
+};
+
+const PI_HERCULIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Pi Herculis",
+    constellation: "Herucles",
+    right_ascension: RightAscension::new(17, 15, 3),
+    declination: Declination::new(Sgn::Pos, 36, 48, 33),
+    apparent_magnitude: 3.15,
+    distance: Distance {
+        m: 377. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -2.1,
+    mass: Some(Mass {
+        kg: 4. * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 72. * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4170. }),
+    age: None,
+};
+
+const ALPHA_HOROLOGII: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Horologii",
+    constellation: "Horologium",
+    right_ascension: RightAscension::new(4, 14, 0),
+    declination: Declination::new(Sgn::Neg, 42, 17, 40),
+    apparent_magnitude: 3.853,
+    distance: Distance {
+        m: 115. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.08,
+    mass: Some(Mass {
+        kg: 1.55 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 8. * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 5028. }),
+    age: None,
+};
+
+const R_HOROLOGII: RealData = RealData {
+    common_name: "",
+    astronomical_name: "R Horologii",
+    constellation: "Horologium",
+    right_ascension: RightAscension::new(2, 53, 53),
+    declination: Declination::new(Sgn::Neg, 49, 53, 23),
+    apparent_magnitude: 6.,
+    distance: Distance {
+        m: 1000. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.,
+    mass: None,
+    radius: None,
+    temperature: Some(Temperature { K: 2200. }),
+    age: None,
+};
+
+const BETA_HOROLOGII: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Horologii",
+    constellation: "Horologium",
+    right_ascension: RightAscension::new(2, 58, 48),
+    declination: Declination::new(Sgn::Neg, 64, 4, 17),
+    apparent_magnitude: 4.979,
+    distance: Distance {
+        m: 312. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.2,
+    mass: None,
+    radius: Some(Distance {
+        m: 1.4 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 8303. }),
+    age: None,
+};
+
+const ALPHA_INDI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Indi",
+    constellation: "Indus",
+    right_ascension: RightAscension::new(20, 37, 34),
+    declination: Declination::new(Sgn::Neg, 47, 17, 29),
+    apparent_magnitude: 3.11,
+    distance: Distance {
+        m: 98.3 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.65,
+    mass: Some(Mass {
+        kg: 2.0 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 12. * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4893. }),
+    age: Some(Time {
+        s: 1. * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_INDI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Indi",
+    constellation: "Indus",
+    right_ascension: RightAscension::new(20, 54, 49),
+    declination: Declination::new(Sgn::Neg, 58, 27, 15),
+    apparent_magnitude: 3.67,
+    distance: Distance {
+        m: 600. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -2.664,
+    mass: Some(Mass {
+        kg: 6.7 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 55.58 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4541. }),
+    age: Some(Time {
+        s: 0.0532 * BILLION_YEARS.s,
+    }),
+};
+
+const ETA_INDI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Eta Indi",
+    constellation: "Indus",
+    right_ascension: RightAscension::new(20, 44, 2),
+    declination: Declination::new(Sgn::Neg, 51, 55, 15),
+    apparent_magnitude: 4.52,
+    distance: Distance {
+        m: 78.8 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.59,
+    mass: Some(Mass {
+        kg: 1.6 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.27 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 7694. }),
+    age: Some(Time {
+        s: 0.1 * BILLION_YEARS.s,
+    }),
+};
+
+const ALPHA_LACERTAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Alpha Lacertae",
+    constellation: "Lacerta",
+    right_ascension: RightAscension::new(22, 31, 18),
+    declination: Declination::new(Sgn::Pos, 50, 16, 57),
+    apparent_magnitude: 3.76,
+    distance: Distance {
+        m: 102.6 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.27,
+    mass: Some(Mass {
+        kg: 2.194 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.1432 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 9050. }),
+    age: Some(Time {
+        s: 0.4 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_LACERTAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Lacertae",
+    constellation: "Lacerta",
+    right_ascension: RightAscension::new(22, 23, 34),
+    declination: Declination::new(Sgn::Pos, 52, 13, 45),
+    apparent_magnitude: 4.43,
+    distance: Distance {
+        m: 170. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.67,
+    mass: Some(Mass {
+        kg: 0.97 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 10.96 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4803. }),
+    age: Some(Time {
+        s: 6.76 * BILLION_YEARS.s,
+    }),
+};
+
+const FIVE_LACERTAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "5 Lacertae",
+    constellation: "Lacerta",
+    right_ascension: RightAscension::new(22, 29, 32),
+    declination: Declination::new(Sgn::Pos, 47, 42, 25),
+    apparent_magnitude: 4.36,
+    distance: Distance {
+        m: 1600. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -3.42,
+    mass: Some(Mass {
+        kg: 5.11 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 319.2 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 3713. }),
+    age: Some(Time {
+        s: 110. * BILLION_YEARS.s,
+    }),
+};
+
+const FOURTYSIX_LEONIS_MINORIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "46 Leonis Minoris",
+    constellation: "Leo Minor",
+    right_ascension: RightAscension::new(10, 53, 19),
+    declination: Declination::new(Sgn::Pos, 34, 12, 54),
+    apparent_magnitude: 3.83,
+    distance: Distance {
+        m: 94.9 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.45,
+    mass: Some(Mass {
+        kg: 1.69 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 8.22 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4670. }),
+    age: Some(Time {
+        s: 6.76 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_LEONIS_MINORIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Leonis Minoris",
+    constellation: "Leo Minor",
+    right_ascension: RightAscension::new(10, 27, 53),
+    declination: Declination::new(Sgn::Pos, 36, 42, 26),
+    apparent_magnitude: 4.21,
+    distance: Distance {
+        m: 154. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.85,
+    mass: Some(Mass {
+        kg: 2.98 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 9.4 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4097. }),
+    age: Some(Time {
+        s: 1.2 * BILLION_YEARS.s,
+    }),
+};
+
+const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "21 Leonis Minoris",
+    constellation: "Leo Minor",
+    right_ascension: RightAscension::new(10, 7, 26),
+    declination: Declination::new(Sgn::Pos, 35, 14, 41),
+    apparent_magnitude: 4.5,
+    distance: Distance {
+        m: 92.1 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.43,
+    mass: Some(Mass {
+        kg: 1.75 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.75 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 7839. }),
+    age: Some(Time {
+        s: 0.390 * BILLION_YEARS.s,
+    }),
+};
+
 // RealData = RealData {
 //     common_name: "",
 //     astronomical_name: "",
@@ -3407,7 +4564,7 @@ const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
 //     age: Some(Time{s:* BILLION_YEARS.s}),
 // };
 
-pub const BRIGHTEST_STARS: [RealData; 146] = [
+pub const BRIGHTEST_STARS: [RealData; 199] = [
     SIRIUS,
     CANOPUS,
     ARCTURUS,
@@ -3554,4 +4711,57 @@ pub const BRIGHTEST_STARS: [RealData; 146] = [
     COR_CAROLI,
     CHARA,
     TWENTYFOUR_CANUM_VENATICORUM,
+    BETA_CAPRICORNI,
+    DELTA_CAPRICORNI,
+    OMEGA_CAPRICORNI,
+    ALPHA_CHAMAELEONTIS,
+    GAMMA_CHAMAELEONTIS,
+    BETA_CHAMAELEONIS,
+    ALPHA_CIRCINI,
+    BETA_CIRCINI,
+    GAMMA_CIRCINI,
+    ALPHA_COLUMBAE,
+    BETA_COLUMBAE,
+    DELTA_COLUMBAE,
+    EPSILON_COLUMBAE,
+    ALPHA_COMAE_BERENICES,
+    BETA_COMA_BERENICES,
+    GAMMA_COMA_BERENICES,
+    ALPHA_CORONAE_AUSTRALIS,
+    BETA_CORONAE_AUSTRALIS,
+    GAMMA_CORONAE_AUSTRALIS,
+    ALPHA_CRATERIS,
+    BETA_CRATERIS,
+    GAMMA_CRATERIS,
+    DELTA_CRATERIS,
+    ALPHA_DELPHINI,
+    BETA_DELPHINI,
+    GAMMA_DELPHINI,
+    DELTA_DELPHINI,
+    EPSILON_DELPHINI,
+    ALPHA_EQUULEI,
+    DELTA_EQUULEI,
+    GAMMA_EQUULEI,
+    ALPHA_FORNACIS,
+    BETA_FORNACIS,
+    NU_FORNACIS,
+    ALPHA_HERCULIS,
+    BETA_HERCULIS,
+    DELTA_HERCULIS,
+    ETA_HERCULIS,
+    MU_HERCULIS,
+    ZETA_HERCULIS,
+    PI_HERCULIS,
+    ALPHA_HOROLOGII,
+    R_HOROLOGII,
+    BETA_HOROLOGII,
+    ALPHA_INDI,
+    BETA_INDI,
+    ETA_INDI,
+    ALPHA_LACERTAE,
+    BETA_LACERTAE,
+    FIVE_LACERTAE,
+    FOURTYSIX_LEONIS_MINORIS,
+    BETA_LEONIS_MINORIS,
+    TWENTYFOUR_LEONIS_MINORIS,
 ];
