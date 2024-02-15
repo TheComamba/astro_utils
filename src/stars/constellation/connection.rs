@@ -1,4 +1,4 @@
-use crate::{stars::star_appearance::StarAppearance, units::angle::FULL_CIRC};
+use crate::stars::star_appearance::StarAppearance;
 use simple_si_units::geometry::Angle;
 use std::cmp::Ordering;
 
@@ -39,28 +39,6 @@ impl PartialEq for Connection {
     }
 }
 
-fn shortest_path(start: usize, end: usize, connections: &[Connection]) -> Option<Vec<&Connection>> {
-    let mut paths: Vec<Vec<&Connection>> = Vec::new();
-    for connection in connections {
-        if connection.connects_to(start) {
-            let mut path = vec![connection];
-            if connection.connects_to(end) {
-                return Some(path);
-            } else if let Some(mut sub_path) =
-                shortest_path(connection.other_end(start), end, connections)
-            {
-                path.append(&mut sub_path);
-                paths.push(path);
-            }
-        }
-    }
-    if paths.is_empty() {
-        return None;
-    }
-    paths.sort_by(|a, b| a.len().cmp(&b.len()));
-    Some(paths[0].clone())
-}
-
 fn is_reachable_within(
     start: usize,
     end: usize,
@@ -85,25 +63,6 @@ fn is_reachable_within(
         }
     }
     false
-}
-
-fn connections_sorted_by_distance(stars: &[StarAppearance]) -> Vec<Vec<Connection>> {
-    let mut connections: Vec<Vec<Connection>> = Vec::new();
-    for i in 0..stars.len() {
-        let mut star_connections: Vec<Connection> = Vec::new();
-        for j in 0..stars.len() {
-            if i != j {
-                star_connections.push(Connection::new(i, j, stars));
-            }
-        }
-        star_connections.sort_by(|a, b| {
-            a.distance
-                .partial_cmp(&b.distance)
-                .unwrap_or(Ordering::Equal)
-        });
-        connections.push(star_connections);
-    }
-    connections
 }
 
 fn sorted_connections(stars: &[StarAppearance]) -> Vec<Connection> {
@@ -180,6 +139,7 @@ pub(super) fn collect_connections(stars: &[StarAppearance]) -> Vec<Connection> {
     connections
 }
 
+#[cfg(test)]
 fn find_nearest_neighbour(
     index: usize,
     stars: &[StarAppearance],
@@ -203,7 +163,10 @@ fn find_nearest_neighbour(
     nearest_neighbour
 }
 
+#[cfg(test)]
 fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
+    use crate::units::angle::FULL_CIRC;
+
     // This is Prim's algorithm
     let mut connections = Vec::new();
     if stars.len() < 2 {
