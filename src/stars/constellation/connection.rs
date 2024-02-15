@@ -146,12 +146,18 @@ fn all_nearest_neighbours(stars: &[StarAppearance]) -> Vec<Vec<usize>> {
     all_neighbours
 }
 
-fn get_max_allowed_steps(end: usize, nearest_neighbours: &Vec<usize>) -> usize {
-    nearest_neighbours
+fn get_max_allowed_steps(i: usize, j: usize, all_nearest_neighbours: &Vec<Vec<usize>>) -> usize {
+    let steps1 = all_nearest_neighbours[i]
         .iter()
-        .position(|&i| i == end)
+        .position(|&ind| ind == j)
         .unwrap_or(0)
-        + 1
+        + 1;
+    let steps2 = all_nearest_neighbours[j]
+        .iter()
+        .position(|&ind| ind == i)
+        .unwrap_or(0)
+        + 1;
+    steps1.min(steps2)
 }
 
 pub(super) fn collect_connections(stars: &[StarAppearance]) -> Vec<Connection> {
@@ -166,8 +172,7 @@ pub(super) fn collect_connections(stars: &[StarAppearance]) -> Vec<Connection> {
         let start = connection.get_indices().0;
         let end = connection.get_indices().1;
 
-        let max_steps =
-            get_max_allowed_steps(end, &all_nearest_neighbours[connection.get_indices().0]);
+        let max_steps = get_max_allowed_steps(start, end, &all_nearest_neighbours);
         if !is_reachable_within(start, end, max_steps, &connections) {
             connections.push(connection);
         }
@@ -362,6 +367,18 @@ mod tests {
         case1 || case2
     }
 
+    fn nice_print(connections: &[Connection], stars: &[StarAppearance]) {
+        println!("");
+        for connection in connections {
+            let mut names = vec![
+                stars[connection.from].get_name(),
+                stars[connection.to].get_name(),
+            ];
+            names.sort();
+            println!("{} - {} : {}", names[0], names[1], connection.distance);
+        }
+    }
+
     #[test]
     fn constellation_connection_is_independent_of_order() {
         let all_stars = BRIGHTEST_STARS
@@ -376,15 +393,10 @@ mod tests {
             stars_rev.reverse();
             let connections_rev = collect_connections(&stars_rev);
 
+            nice_print(connections, constellation.get_stars());
+            nice_print(&connections_rev, &stars_rev);
             assert!(connections.len() == connections_rev.len());
-            println!("{:?}", connections);
             for connection in connections {
-                // let mut connection_rev = (*connection).clone();
-                // connection_rev.from = connections.len() - 1 - connection_rev.from;
-                // connection_rev.to = connections.len() - 1 - connection_rev.to;
-
-                // println!("{:?}", connection_rev);
-                // println!("{:?}", connections_rev);
                 assert!(connections_rev.iter().any(|con_rev| index_independent_cmp(
                     connection,
                     &constellation.get_stars(),
