@@ -2,6 +2,7 @@ use crate::{stars::star_appearance::StarAppearance, units::angle::FULL_CIRC};
 use simple_si_units::geometry::Angle;
 use std::cmp::Ordering;
 
+#[derive(Debug, Clone)]
 pub struct Connection {
     from: usize,
     to: usize,
@@ -231,9 +232,11 @@ mod tests {
 
     use super::*;
     use crate::{
-        color::sRGBColor, coordinates::spherical::SphericalCoordinates,
+        color::sRGBColor,
+        coordinates::spherical::SphericalCoordinates,
         real_data::stars::BRIGHTEST_STARS,
-        stars::constellation::constellation::collect_constellations, units::angle::ANGLE_ZERO,
+        stars::constellation::constellation::collect_constellations,
+        units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY},
     };
 
     fn stars_in_line(size: usize) -> Vec<StarAppearance> {
@@ -333,12 +336,30 @@ mod tests {
             .collect::<Vec<_>>();
         let all_consteallations = collect_constellations(&all_stars[..]);
         for constellation in all_consteallations {
+            println!("\nChecking {}", constellation.get_name());
             let connections = constellation.get_connections();
             let mst = minimum_spanning_tree(&constellation.get_stars());
             for mst_connection in mst {
                 assert!(connections.contains(&mst_connection));
             }
         }
+    }
+
+    fn index_independent_cmp(
+        con1: &Connection,
+        stars1: &[StarAppearance],
+        con2: &Connection,
+        stars2: &[StarAppearance],
+    ) -> bool {
+        let pos_1_1 = stars1[con1.from].get_pos();
+        let pos_1_2 = stars1[con1.to].get_pos();
+        let pos_2_1 = stars2[con2.from].get_pos();
+        let pos_2_2 = stars2[con2.to].get_pos();
+        let case1 = pos_1_1.eq_within(pos_2_1, ANGLE_TEST_ACCURACY)
+            && pos_1_2.eq_within(pos_2_2, ANGLE_TEST_ACCURACY);
+        let case2 = pos_1_1.eq_within(pos_2_2, ANGLE_TEST_ACCURACY)
+            && pos_1_2.eq_within(pos_2_1, ANGLE_TEST_ACCURACY);
+        case1 || case2
     }
 
     #[test]
@@ -348,15 +369,28 @@ mod tests {
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
         let all_consteallations = collect_constellations(&all_stars[..]);
-        for consetllation in all_consteallations {
-            let connections = consetllation.get_connections();
-            let mut stars_rev = consetllation.get_stars().clone();
+        for constellation in all_consteallations {
+            println!("\nChecking {}", constellation.get_name());
+            let connections = constellation.get_connections();
+            let mut stars_rev = constellation.get_stars().clone();
             stars_rev.reverse();
             let connections_rev = collect_connections(&stars_rev);
 
             assert!(connections.len() == connections_rev.len());
+            println!("{:?}", connections);
             for connection in connections {
-                assert!(connections_rev.contains(&connection));
+                // let mut connection_rev = (*connection).clone();
+                // connection_rev.from = connections.len() - 1 - connection_rev.from;
+                // connection_rev.to = connections.len() - 1 - connection_rev.to;
+
+                // println!("{:?}", connection_rev);
+                // println!("{:?}", connections_rev);
+                assert!(connections_rev.iter().any(|con_rev| index_independent_cmp(
+                    connection,
+                    &constellation.get_stars(),
+                    con_rev,
+                    &stars_rev
+                )));
             }
         }
     }
