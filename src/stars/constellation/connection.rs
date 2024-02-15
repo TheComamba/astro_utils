@@ -167,7 +167,7 @@ pub(super) fn collect_connections(stars: &[StarAppearance]) -> Vec<Connection> {
 
         let max_steps =
             get_max_allowed_steps(end, &all_nearest_neighbours[connection.get_indices().0]);
-        if is_reachable_within(start, end, max_steps, &connections) {
+        if !is_reachable_within(start, end, max_steps, &connections) {
             connections.push(connection);
         }
     }
