@@ -317,40 +317,37 @@ mod tests {
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
         let gaia_stars_ref: Vec<&StarAppearance> = gaia_stars.iter().collect();
 
-        println!("known_stars.len(): {}", known_stars.len());
-        assert!(known_stars.len() > 30);
-        println!("gaia_stars.len(): {}", gaia_stars.len());
-        assert!(gaia_stars.len() > 30);
+        assert!(
+            known_stars.len() > 30,
+            "known_stars.len(): {}",
+            known_stars.len()
+        );
+        assert!(
+            gaia_stars.len() > 30,
+            "gaia_stars.len(): {}",
+            gaia_stars.len()
+        );
 
         let brightest_gaia_star = gaia_stars
             .iter()
             .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u32)
             .unwrap();
-        println!(
+        assert!(
+            illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
+                < BRIGHTNESS_THRESHOLD,
             "Brightest gaia star illuminance: {} mag",
             illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
         );
-        assert!(
-            illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
-                < BRIGHTNESS_THRESHOLD
-        );
 
-        let mut failure_count = 0;
         for known_star in known_stars.iter() {
             let is_known = star_is_already_known(known_star, &gaia_stars_ref);
-            if !is_known {
-                println!("\nknown_star is not in gaia:\n{}", known_star.name);
-                println!(
-                    "known_star_illuminance: {} mag",
-                    illuminance_to_apparent_magnitude(&known_star.illuminance)
-                );
-                let closest_gaia_star = find_closest_star(known_star, &gaia_stars_ref).unwrap();
-                println!("closest_gaia_star: {:?}", closest_gaia_star);
-                failure_count += 1;
-            }
+            let closest_gaia_star = find_closest_star(known_star, &gaia_stars_ref).unwrap();
+            assert!(
+                is_known,
+                "A known star is not found in Gaia\n\n{:?}\nClosest gaia star:\n{:?}",
+                known_star, closest_gaia_star
+            );
         }
-        println!("failure_count: {} of {}", failure_count, known_stars.len());
-        assert!(failure_count == 0);
     }
 
     #[test]
@@ -370,8 +367,11 @@ mod tests {
                 }
             }
         }
-        println!("star_pairs.len(): {}", star_pairs.len());
-        assert!(star_pairs.len() > 15);
+        assert!(
+            star_pairs.len() > 15,
+            "star_pairs.len(): {}",
+            star_pairs.len()
+        );
         let mut mean_brightness_difference = IRRADIANCE_ZERO;
         for (gaia_star, known_star) in star_pairs.iter() {
             let brightness_difference = known_star.illuminance - gaia_star.illuminance;

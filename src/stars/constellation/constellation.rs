@@ -176,15 +176,21 @@ mod tests {
             .map(|constellation| constellation.get_name())
             .collect::<Vec<_>>();
         constellation_names.sort();
-        let mut something_is_missing = false;
+        let mut something_is_wrong = false;
         for name in EXPECTED_CONSTELLATIONS {
             if !constellation_names.contains(&name) {
-                something_is_missing = true;
+                something_is_wrong = true;
                 println!("{} is missing", name);
             }
         }
+        for name in constellation_names {
+            if !EXPECTED_CONSTELLATIONS.contains(&name) {
+                something_is_wrong = true;
+                println!("{} is not expected", name);
+            }
+        }
         assert_eq!(constellations.len(), 88);
-        assert!(!something_is_missing);
+        assert!(!something_is_wrong);
     }
 
     #[test]
@@ -195,12 +201,12 @@ mod tests {
             .collect::<Vec<_>>();
         let constellations = collect_constellations(&all_stars);
         for constellation in constellations {
-            println!(
+            assert!(
+                constellation.get_stars().len() >= 3,
                 "{}: {}",
                 constellation.get_name(),
                 constellation.get_stars().len()
             );
-            assert!(constellation.get_stars().len() >= 3);
         }
     }
 }

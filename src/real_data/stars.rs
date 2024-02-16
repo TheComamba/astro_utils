@@ -3498,7 +3498,7 @@ const GAMMA_CHAMAELEONTIS: RealData = RealData {
 const BETA_CHAMAELEONIS: RealData = RealData {
     common_name: "",
     astronomical_name: "Beta Chamaeleontis",
-    constellation: "Chaemleon",
+    constellation: "Chamaeleon",
     right_ascension: RightAscension::new(12, 18, 21),
     declination: Declination::new(Sgn::Neg, 79, 18, 44),
     apparent_magnitude: 4.24,
@@ -4154,7 +4154,7 @@ const ALPHA_HERCULIS: RealData = RealData {
 const BETA_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "Beta Herculis",
-    constellation: "Herucles",
+    constellation: "Hercules",
     right_ascension: RightAscension::new(16, 30, 13),
     declination: Declination::new(Sgn::Pos, 21, 29, 23),
     apparent_magnitude: 2.81,
@@ -4175,7 +4175,7 @@ const BETA_HERCULIS: RealData = RealData {
 const DELTA_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "Delta Herculis",
-    constellation: "Herucles",
+    constellation: "Hercules",
     right_ascension: RightAscension::new(17, 15, 2),
     declination: Declination::new(Sgn::Pos, 24, 50, 21),
     apparent_magnitude: 3.126,
@@ -4198,7 +4198,7 @@ const DELTA_HERCULIS: RealData = RealData {
 const ETA_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "Eta Herculis",
-    constellation: "Herucles",
+    constellation: "Hercules",
     right_ascension: RightAscension::new(16, 42, 54),
     declination: Declination::new(Sgn::Pos, 38, 55, 20),
     apparent_magnitude: 3.487,
@@ -4221,7 +4221,7 @@ const ETA_HERCULIS: RealData = RealData {
 const MU_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "Mu Herculis",
-    constellation: "Herucles",
+    constellation: "Hercules",
     right_ascension: RightAscension::new(17, 46, 28),
     declination: Declination::new(Sgn::Pos, 27, 43, 14),
     apparent_magnitude: 3.417,
@@ -4244,7 +4244,7 @@ const MU_HERCULIS: RealData = RealData {
 const ZETA_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "Zeta Herculis",
-    constellation: "Herucles",
+    constellation: "Hercules",
     right_ascension: RightAscension::new(16, 41, 17),
     declination: Declination::new(Sgn::Pos, 31, 36, 10),
     apparent_magnitude: 2.81,
@@ -4267,7 +4267,7 @@ const ZETA_HERCULIS: RealData = RealData {
 const PI_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "Pi Herculis",
-    constellation: "Herucles",
+    constellation: "Hercules",
     right_ascension: RightAscension::new(17, 15, 3),
     declination: Declination::new(Sgn::Pos, 36, 48, 33),
     apparent_magnitude: 3.15,
@@ -5874,6 +5874,316 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
     }),
 };
 
+const GAMMA_BOOTIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Boötis",
+    constellation: "Boötes",
+    right_ascension: RightAscension::new(14, 32, 5),
+    declination: Declination::new(Sgn::Pos, 38, 18, 30),
+    apparent_magnitude: 3.03,
+    distance: Distance {
+        m: 86.8 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.93,
+    mass: Some(Mass {
+        kg: 2.10 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 5.16 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 7800. }),
+    age: Some(Time {
+        s: 0.9 * BILLION_YEARS.s,
+    }),
+};
+
+const DELTA_BOOTIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Boötis",
+    constellation: "Boötes",
+    right_ascension: RightAscension::new(15, 15, 30),
+    declination: Declination::new(Sgn::Pos, 33, 18, 53),
+    apparent_magnitude: 3.482,
+    distance: Distance {
+        m: 121.8 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.7,
+    mass: None,
+    radius: Some(Distance {
+        m: 10.5 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4847. }),
+    age: None,
+};
+
+const BETA_BOOTIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Boötis",
+    constellation: "Boötes",
+    right_ascension: RightAscension::new(15, 1, 57),
+    declination: Declination::new(Sgn::Pos, 40, 23, 26),
+    apparent_magnitude: 3.488,
+    distance: Distance {
+        m: 225. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.7,
+    mass: Some(Mass {
+        kg: 3.4 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 21.5 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4932. }),
+    age: Some(Time {
+        s: 0.240 * BILLION_YEARS.s,
+    }),
+};
+
+const ETA_BOOTIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Eta Boötis",
+    constellation: "Boötes",
+    right_ascension: RightAscension::new(13, 54, 41),
+    declination: Declination::new(Sgn::Pos, 18, 23, 52),
+    apparent_magnitude: 2.680,
+    distance: Distance {
+        m: 37.2 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.41,
+    mass: Some(Mass {
+        kg: 1.71 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.672 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 6100. }),
+    age: Some(Time {
+        s: 2.7 * BILLION_YEARS.s,
+    }),
+};
+
+const GAMMA_LYRAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Lyrae",
+    constellation: "Lyra",
+    right_ascension: RightAscension::new(18, 58, 57),
+    declination: Declination::new(Sgn::Pos, 32, 41, 22),
+    apparent_magnitude: 3.261,
+    distance: Distance {
+        m: 620. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -3.140,
+    mass: Some(Mass {
+        kg: 5.76 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 15.40 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 10_000. }),
+    age: None,
+};
+
+const BETA_LYRAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Lyrae",
+    constellation: "Lyra",
+    right_ascension: RightAscension::new(18, 50, 5),
+    declination: Declination::new(Sgn::Pos, 33, 21, 46),
+    apparent_magnitude: 3.52,
+    distance: Distance {
+        m: 960. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -3.82,
+    mass: Some(Mass {
+        kg: 2.97 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 15.2 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 13_300. }),
+    age: Some(Time {
+        s: 0.023 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_CANIS_MINORIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Canis Minoris",
+    constellation: "Canis Minor",
+    right_ascension: RightAscension::new(7, 27, 9),
+    declination: Declination::new(Sgn::Pos, 8, 17, 22),
+    apparent_magnitude: 2.84,
+    distance: Distance {
+        m: 160. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.59,
+    mass: Some(Mass {
+        kg: 3.5 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 3.5 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 11_772. }),
+    age: Some(Time {
+        s: 160. * BILLION_YEARS.s,
+    }),
+};
+
+const GAMMA_CANIS_MINORIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Canis Minoris",
+    constellation: "Canis Minor",
+    right_ascension: RightAscension::new(7, 28, 10),
+    declination: Declination::new(Sgn::Pos, 8, 55, 32),
+    apparent_magnitude: 4.33,
+    distance: Distance {
+        m: 320. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.5,
+    mass: Some(Mass {
+        kg: 1.88 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 36.8 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 4036. }),
+    age: Some(Time {
+        s: 1.3 * BILLION_YEARS.s,
+    }),
+};
+
+const BETA_ERIDANI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Eridani",
+    constellation: "Eridanus",
+    right_ascension: RightAscension::new(5, 7, 51),
+    declination: Declination::new(Sgn::Neg, 5, 5, 11),
+    apparent_magnitude: 2.796,
+    distance: Distance {
+        m: 90. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.59,
+    mass: Some(Mass {
+        kg: 2. * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.4 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 8360. }),
+    age: None,
+};
+
+const THETA_ERIDANI: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Theta Eridani",
+    constellation: "Eridanus",
+    right_ascension: RightAscension::new(2, 58, 16),
+    declination: Declination::new(Sgn::Neg, 40, 18, 17),
+    apparent_magnitude: 3.18,
+    distance: Distance {
+        m: 164. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.59,
+    mass: Some(Mass {
+        kg: 2.6 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 4.85 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 8200. }),
+    age: None,
+};
+
+const ZETA_AQUILAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Zeata Aquilae",
+    constellation: "Aquila",
+    right_ascension: RightAscension::new(19, 5, 25),
+    declination: Declination::new(Sgn::Pos, 13, 51, 49),
+    apparent_magnitude: 2.983,
+    distance: Distance {
+        m: 83.0 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.96,
+    mass: Some(Mass {
+        kg: 2.37 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.27 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 9620. }),
+    age: Some(Time {
+        s: 0.1 * BILLION_YEARS.s,
+    }),
+};
+
+const THETA_AQUILAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Theta Aquilae",
+    constellation: "Aquila",
+    right_ascension: RightAscension::new(20, 11, 18),
+    declination: Declination::new(Sgn::Neg, 0, 49, 17),
+    apparent_magnitude: 3.26,
+    distance: Distance {
+        m: 286. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -1.39,
+    mass: Some(Mass {
+        kg: 3.564 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 4.76 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 10_300. }),
+    age: Some(Time {
+        s: 0.0209 * BILLION_YEARS.s,
+    }),
+};
+
+const DELTA_AQUILAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Aquilae",
+    constellation: "Aquila",
+    right_ascension: RightAscension::new(19, 25, 30),
+    declination: Declination::new(Sgn::Pos, 3, 6, 53),
+    apparent_magnitude: 3.365,
+    distance: Distance {
+        m: 50.6 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 2.46,
+    mass: Some(Mass {
+        kg: 1.65 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.04 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 7016. }),
+    age: None,
+};
+
+const LAMBDA_AQUILAE: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Lambda Aquilae",
+    constellation: "Aquila",
+    right_ascension: RightAscension::new(19, 6, 15),
+    declination: Declination::new(Sgn::Neg, 4, 52, 57),
+    apparent_magnitude: 3.43,
+    distance: Distance {
+        m: 125. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.54,
+    mass: Some(Mass {
+        kg: 3.1 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.9 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 11_780. }),
+    age: Some(Time {
+        s: 0.160 * BILLION_YEARS.s,
+    }),
+};
+
 // RealData = RealData {
 //     common_name: "",
 //     astronomical_name: "",
@@ -5889,7 +6199,7 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
 //     age: Some(Time{s:* BILLION_YEARS.s}),
 // };
 
-pub const BRIGHTEST_STARS: [RealData; 260] = [
+pub const BRIGHTEST_STARS: [RealData; 274] = [
     SIRIUS,
     CANOPUS,
     ARCTURUS,
@@ -6150,4 +6460,18 @@ pub const BRIGHTEST_STARS: [RealData; 260] = [
     ALPHA_VULPECULAE,
     TWENTYTHREE_VULPECULAE,
     THIRTYONE_VULPECULAE,
+    GAMMA_BOOTIS,
+    DELTA_BOOTIS,
+    BETA_BOOTIS,
+    ETA_BOOTIS,
+    GAMMA_LYRAE,
+    BETA_LYRAE,
+    BETA_CANIS_MINORIS,
+    GAMMA_CANIS_MINORIS,
+    BETA_ERIDANI,
+    THETA_ERIDANI,
+    ZETA_AQUILAE,
+    THETA_AQUILAE,
+    DELTA_AQUILAE,
+    LAMBDA_AQUILAE,
 ];
