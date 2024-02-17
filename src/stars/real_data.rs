@@ -89,7 +89,7 @@ impl RealData {
 #[cfg(test)]
 mod tests {
     use crate::{
-        real_data::stars::BRIGHTEST_STARS,
+        real_data::stars::all::get_all_stars,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
             luminous_intensity::luminous_intensity_to_illuminance,
@@ -99,7 +99,7 @@ mod tests {
     #[test]
     fn calculate_apparent_magnitude() {
         let mut failed = false;
-        for star_data in BRIGHTEST_STARS {
+        for star_data in get_all_stars() {
             let star = star_data.to_star_data();
             let luminous_intensity = star.get_luminous_intensity().unwrap();
             let illuminance =
@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn every_star_hto_a_name() {
-        for star_data in BRIGHTEST_STARS {
+        for star_data in get_all_stars() {
             let star_data = star_data.to_star_data();
             assert!(!star_data.name.is_empty());
             let star_appearance = star_data.to_star_appearance();

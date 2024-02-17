@@ -202,7 +202,7 @@ mod tests {
     use crate::{
         color::sRGBColor,
         coordinates::spherical::SphericalCoordinates,
-        real_data::stars::BRIGHTEST_STARS,
+        real_data::stars::all::get_all_stars,
         stars::constellation::constellation::collect_constellations,
         units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY},
     };
@@ -285,7 +285,7 @@ mod tests {
 
     #[test]
     fn minimum_spanning_tree_has_length_n_minus_1() {
-        let all_stars = BRIGHTEST_STARS
+        let all_stars = get_all_stars()
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
@@ -298,7 +298,7 @@ mod tests {
 
     #[test]
     fn minimum_spanning_tree_is_contained_in_constellation_connections() {
-        let all_stars = BRIGHTEST_STARS
+        let all_stars = get_all_stars()
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
@@ -344,7 +344,7 @@ mod tests {
 
     #[test]
     fn constellation_connection_is_independent_of_order() {
-        let all_stars = BRIGHTEST_STARS
+        let all_stars = get_all_stars()
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();

@@ -173,7 +173,7 @@ pub fn fetch_brightest_stars_data() -> Result<Vec<StarData>, AstroUtilError> {
 mod tests {
     use crate::{
         astro_display::AstroDisplay,
-        real_data::stars::BRIGHTEST_STARS,
+        real_data::stars::all::get_all_stars,
         units::{angle::angle_to_arcsecs, illuminance::IRRADIANCE_ZERO},
     };
 
@@ -229,7 +229,7 @@ mod tests {
         const PROBLEMATIC_STAR: &str = "Gaia DR3 4677205714465503104";
 
         let mut known_stars = vec![];
-        for star_data in BRIGHTEST_STARS {
+        for star_data in get_all_stars() {
             known_stars.push(star_data.to_star_appearance());
         }
         let known_stars_ref: Vec<&StarAppearance> = known_stars.iter().collect();
@@ -304,7 +304,7 @@ mod tests {
         const BRIGHTNESS_THRESHOLD: f64 = 2.2;
 
         let mut known_stars = vec![];
-        for star_data in BRIGHTEST_STARS {
+        for star_data in get_all_stars() {
             if star_data.apparent_magnitude > BRIGHTNESS_THRESHOLD
                 && !PROBLEMATIC_STARS.contains(&star_data.common_name)
                 && !PROBLEMATIC_STARS.contains(&star_data.astronomical_name)
@@ -353,7 +353,7 @@ mod tests {
     #[test]
     fn known_stars_brightness_is_the_same() {
         let mut known_stars = vec![];
-        for star_data in BRIGHTEST_STARS {
+        for star_data in get_all_stars() {
             known_stars.push(star_data.to_star_appearance());
         }
 
