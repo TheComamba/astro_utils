@@ -69,7 +69,7 @@ pub fn collect_constellations(all_stars: &[StarData]) -> Vec<Constellation> {
 
 #[cfg(test)]
 mod tests {
-    use crate::real_data::stars::all::get_all_stars;
+    use crate::real_data::stars::all::get_many_stars;
 
     use super::*;
 
@@ -167,7 +167,7 @@ mod tests {
         ];
         assert!(EXPECTED_CONSTELLATIONS.len() == 88);
 
-        let all_stars = get_all_stars()
+        let all_stars = get_many_stars()
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
@@ -196,7 +196,7 @@ mod tests {
 
     #[test]
     fn all_constellations_have_at_least_three_stars() {
-        let all_stars = get_all_stars()
+        let all_stars = get_many_stars()
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();

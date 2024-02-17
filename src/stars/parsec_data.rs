@@ -334,7 +334,7 @@ fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
 mod tests {
     use super::*;
     use crate::{
-        real_data::stars::{all::get_all_stars, SUN},
+        real_data::stars::{all::get_many_stars, SUN},
         tests::eq_within,
         units::{distance::SOLAR_RADIUS, time::BILLION_YEARS},
     };
@@ -400,7 +400,7 @@ mod tests {
         {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            for data in get_all_stars().iter() {
+            for data in get_many_stars().iter() {
                 if let (Some(age), Some(mass)) = (data.age, data.mass) {
                     let age = age.to_yr();
                     let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());

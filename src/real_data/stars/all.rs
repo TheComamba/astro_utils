@@ -1,7 +1,7 @@
 use super::*;
 use crate::stars::real_data::RealData;
 
-pub fn get_all_stars() -> Vec<RealData> {
+pub fn get_many_stars() -> Vec<RealData> {
     let mut all_stars: Vec<RealData> = Vec::new();
     // all_stars.append(&mut Corvus::get_stars());
     andromeda::STARS
