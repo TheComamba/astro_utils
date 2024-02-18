@@ -104,8 +104,16 @@ impl StarData {
         &self.distance
     }
 
+    pub fn get_distance(&self, _time: Time<f64>) -> Distance<f64> {
+        self.distance
+    }
+
     pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
         &self.pos
+    }
+
+    pub fn get_pos(&self, _time: Time<f64>) -> EclipticCoordinates {
+        self.pos.clone()
     }
 
     pub fn set_name(&mut self, name: String) {
