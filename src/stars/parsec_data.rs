@@ -1,4 +1,7 @@
+use super::random_stars::DIMMEST_ILLUMINANCE;
 use super::star_data::StarData;
+use super::star_data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
+use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::coordinates::ecliptic::EclipticCoordinates;
 use crate::error::AstroUtilError;
 use crate::units::luminous_intensity::{
@@ -248,6 +251,33 @@ impl ParsecData {
         is_filled
     }
 
+    pub(super) fn get_star_data(
+        trajectory: &[ParsecLine],
+        age_in_years: f64,
+        pos: CartesianCoordinates,
+    ) -> Option<StarData> {
+        let current_params = ParsecData::get_current_params(trajectory, age_in_years)?;
+
+        let distance = pos.length();
+        let illuminance = current_params.get_illuminance(&distance);
+        if illuminance < DIMMEST_ILLUMINANCE {
+            return None;
+        }
+
+        let mut star = current_params.to_star_at_origin();
+
+        star.distance = Some(distance);
+        star.pos = pos.to_ecliptic();
+
+        let past_params = ParsecData::get_closest_params(trajectory, age_in_years - 1000.);
+        let past_star = past_params.to_star_at_origin();
+        let years = current_params.age - past_params.age;
+        let lifestage_evolution = StarDataLifestageEvolution::new(&star, &past_star, years);
+        star.evolution = StarDataEvolution::new(Some(lifestage_evolution));
+
+        Some(star)
+    }
+
     pub(super) fn get_current_params(
         trajectory: &[ParsecLine],
         age_in_years: f64,
@@ -292,6 +322,7 @@ impl ParsecLine {
             distance: None,
             pos: EclipticCoordinates::Z_DIRECTION,
             constellation: None,
+            evolution: StarDataEvolution::NONE,
         }
     }
 
@@ -308,7 +339,7 @@ impl ParsecLine {
         lum * SOLAR_LUMINOUS_INTENSITY
     }
 
-    pub(super) fn get_apparent_magnitude(&self, distance: &Distance<f64>) -> Illuminance<f64> {
+    pub(super) fn get_illuminance(&self, distance: &Distance<f64>) -> Illuminance<f64> {
         let lum = self.get_luminous_intensity();
         luminous_intensity_to_illuminance(&lum, distance)
     }

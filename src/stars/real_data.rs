@@ -1,6 +1,6 @@
 use super::{
     star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
-    star_data::StarData,
+    star_data::StarData, star_data_evolution::StarDataEvolution,
 };
 use crate::{
     color::srgb::sRGBColor,
@@ -63,6 +63,7 @@ impl RealData {
             age: self.age,
             distance: Some(self.distance),
             pos,
+            evolution: StarDataEvolution::NONE,
         }
     }
 

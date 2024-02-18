@@ -1,4 +1,7 @@
-use super::{star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution};
+use super::{
+    star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
+    star_data_evolution::StarDataEvolution,
+};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::ecliptic::EclipticCoordinates,
@@ -18,6 +21,7 @@ pub struct StarData {
     pub(super) age: Option<Time<f64>>,
     pub(super) distance: Option<Distance<f64>>,
     pub(super) pos: EclipticCoordinates,
+    pub(super) evolution: StarDataEvolution,
 }
 
 impl StarData {
@@ -31,6 +35,7 @@ impl StarData {
         age: Option<Time<f64>>,
         distance: Option<Distance<f64>>,
         pos: EclipticCoordinates,
+        evolution: StarDataEvolution,
     ) -> Self {
         Self {
             name,
@@ -42,6 +47,7 @@ impl StarData {
             distance,
             pos,
             constellation,
+            evolution,
         }
     }
 

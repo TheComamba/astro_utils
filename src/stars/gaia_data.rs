@@ -1,6 +1,6 @@
 use super::{
     star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
-    star_data::StarData,
+    star_data::StarData, star_data_evolution::StarDataEvolution,
 };
 use crate::{
     color::srgb::sRGBColor,
@@ -103,6 +103,7 @@ impl GaiaResponse {
                     distance: None,
                     pos: parsed_data.pos,
                     constellation: None,
+                    evolution: StarDataEvolution::NONE,
                 };
                 Ok(star)
             })
