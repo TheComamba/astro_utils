@@ -57,6 +57,10 @@ impl StarAppearance {
         &self.pos
     }
 
+    pub fn get_pos(&self, _time: Time<f64>) -> EclipticCoordinates {
+        self.pos.clone()
+    }
+
     pub fn set_pos_at_epoch(&mut self, direction: EclipticCoordinates) {
         self.pos = direction;
     }
