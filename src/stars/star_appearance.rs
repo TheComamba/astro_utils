@@ -1,4 +1,6 @@
-use crate::{color::sRGBColor, coordinates::ecliptic::EclipticCoordinates};
+use crate::{
+    astro_display::AstroDisplay, color::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
+};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
 
@@ -56,6 +58,18 @@ impl StarAppearance {
             return false;
         }
         true
+    }
+}
+
+impl AstroDisplay for StarAppearance {
+    fn astro_display(&self) -> String {
+        format!(
+            "Star: {}\nIlluminance: {}\nColor: {}\nDirection: {}",
+            self.name.astro_display(),
+            self.illuminance.astro_display(),
+            self.color.astro_display(),
+            self.pos.astro_display()
+        )
     }
 }
 

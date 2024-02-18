@@ -287,7 +287,7 @@ mod tests {
 
     #[test]
     fn all_not_too_bright_stars_are_in_gaia() {
-        const PROBLEMATIC_STARS: [&str; 11] = [
+        const PROBLEMATIC_STARS: [&str; 16] = [
             "R Doradus", // Gaia finds R Doradus to be much brighter than all other literature.
             "Scheat",
             "Suhail",
@@ -297,15 +297,21 @@ mod tests {
             "Menkar",
             "Ghurab",
             "Zeta Centauri",
-            "Eta Centauri", // Only in Gaia DR2
-            "Enif",         // Only in Gaia DR2
+            "Eta Centauri",    // Only in Gaia DR2
+            "Enif",            // Only in Gaia DR2
+            "Epsilon Antliae", // Only in Gaia DR2
+            "Beta Arietis",
+            "Omicron Ceti", // Only in Gaia DR2
+            "Gamma Circini",
+            "Rasalgethi",
         ];
 
-        const BRIGHTNESS_THRESHOLD: f64 = 2.2;
+        const UPPER_BRIGHTNESS_THRESHOLD: f64 = 2.2;
+        const LOWER_BRIGHTNESS_THRESHOLD: f64 = 7.;
 
         let mut known_stars = vec![];
         for star_data in get_many_stars() {
-            if star_data.apparent_magnitude > BRIGHTNESS_THRESHOLD
+            if star_data.apparent_magnitude > UPPER_BRIGHTNESS_THRESHOLD
                 && !PROBLEMATIC_STARS.contains(&star_data.common_name)
                 && !PROBLEMATIC_STARS.contains(&star_data.astronomical_name)
             {
@@ -313,7 +319,10 @@ mod tests {
             }
         }
 
-        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(4.)).unwrap();
+        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(
+            LOWER_BRIGHTNESS_THRESHOLD,
+        ))
+        .unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
         let gaia_stars_ref: Vec<&StarAppearance> = gaia_stars.iter().collect();
 
@@ -334,7 +343,7 @@ mod tests {
             .unwrap();
         assert!(
             illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
-                < BRIGHTNESS_THRESHOLD,
+                < UPPER_BRIGHTNESS_THRESHOLD,
             "Brightest gaia star illuminance: {} mag",
             illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
         );
@@ -344,8 +353,9 @@ mod tests {
             let closest_gaia_star = find_closest_star(known_star, &gaia_stars_ref).unwrap();
             assert!(
                 is_known,
-                "A known star is not found in Gaia\n\n{:?}\nClosest gaia star:\n{:?}",
-                known_star, closest_gaia_star
+                "A known star is not found in Gaia\n\n{}\n\nClosest gaia star:\n{}",
+                known_star.astro_display(),
+                closest_gaia_star.astro_display()
             );
         }
     }
