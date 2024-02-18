@@ -56,17 +56,17 @@ const KRAZ: RealData = RealData {
     },
 };
 
-const DELTA_CORVI: RealData = RealData {
-    common_name: "",
+const ALGORAB: RealData = RealData {
+    common_name: "Algorab",
     astronomical_name: "Delta Corvi",
     constellation: "Corvus",
     right_ascension: RightAscension::new(12, 29, 52),
     declination: Declination::new(Sgn::Neg, 16, 30, 56),
-    apparent_magnitude: 2.962,
+    apparent_magnitude: 2.94,
     distance: Distance {
-        m: 86.9 * LIGHT_YEAR.m,
+        m: 87.85 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 0.2,
+    absolute_magnitude: 0.787,
     mass: Some(Mass {
         kg: 2.74 * SOLAR_MASS.kg,
     }),
@@ -98,4 +98,4 @@ const EPSILON_CORVI: RealData = RealData {
     age: None,
 };
 
-pub(crate) const STARS: [RealData; 4] = [GHURAB, KRAZ, DELTA_CORVI, EPSILON_CORVI];
+pub(crate) const STARS: [RealData; 4] = [GHURAB, KRAZ, ALGORAB, EPSILON_CORVI];

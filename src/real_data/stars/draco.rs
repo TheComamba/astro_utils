@@ -236,7 +236,7 @@ const IOTA_DRACONIS: RealData = RealData {
 
 const ZETA_DRACONIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeata Draconis",
+    astronomical_name: "Zeta Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(17, 8, 47),
     declination: Declination::new(Sgn::Pos, 65, 42, 53),
@@ -301,28 +301,7 @@ const BETA_DRACONIS: RealData = RealData {
     }),
 };
 
-const GAMMA_DRACONIS: RealData = RealData {
-    common_name: "",
-    astronomical_name: "Gamma Draconis",
-    constellation: "Draco",
-    right_ascension: RightAscension::new(17, 56, 36),
-    declination: Declination::new(Sgn::Pos, 51, 29, 20),
-    apparent_magnitude: 2.23,
-    distance: Distance {
-        m: 154.3 * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -1.93,
-    mass: Some(Mass {
-        kg: 1.72 * SOLAR_MASS.kg,
-    }),
-    radius: Some(Distance {
-        m: 48.15 * SOLAR_RADIUS.m,
-    }),
-    temperature: Some(Temperature { K: 3930. }),
-    age: None,
-};
-
-pub(crate) const STARS: [RealData; 14] = [
+pub(crate) const STARS: [RealData; 13] = [
     ELTANIN,
     ATHEBYNE,
     THETA_DRACONIS,
@@ -336,5 +315,4 @@ pub(crate) const STARS: [RealData; 14] = [
     ZETA_DRACONIS,
     DELTA_DRACONIS,
     BETA_DRACONIS,
-    GAMMA_DRACONIS,
 ];

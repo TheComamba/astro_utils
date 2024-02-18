@@ -62,11 +62,11 @@ const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
     constellation: "Piscis Austrinus",
     right_ascension: RightAscension::new(22, 40, 39),
     declination: Declination::new(Sgn::Neg, 27, 2, 37),
-    apparent_magnitude: 4.17,
+    apparent_magnitude: 4.18,
     distance: Distance {
-        m: 400. * LIGHT_YEAR.m,
+        m: 744.3 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -1.66,
+    absolute_magnitude: -2.61,
     mass: Some(Mass {
         kg: 4.1 * SOLAR_MASS.kg,
     }),

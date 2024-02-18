@@ -43,9 +43,9 @@ const BETA_MENSAE: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 71, 18, 51),
     apparent_magnitude: 5.31,
     distance: Distance {
-        m: 660. * LIGHT_YEAR.m,
+        m: 641.7 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -1.62,
+    absolute_magnitude: -1.17,
     mass: Some(Mass {
         kg: 3.58 * SOLAR_MASS.kg,
     }),

@@ -62,11 +62,11 @@ const GAMMA_ARAE: RealData = RealData {
     constellation: "Ara",
     right_ascension: RightAscension::new(17, 25, 24),
     declination: Declination::new(Sgn::Neg, 56, 22, 40),
-    apparent_magnitude: 3.34,
+    apparent_magnitude: 3.31,
     distance: Distance {
-        m: 1110. * LIGHT_YEAR.m,
+        m: 1136. * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -5.8,
+    absolute_magnitude: -4.4,
     mass: Some(Mass {
         kg: 20. * SOLAR_MASS.kg,
     }),
@@ -104,15 +104,15 @@ const DELTA_ARAE: RealData = RealData {
 
 const ZETA_ARAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeata Arae",
+    astronomical_name: "Zeta Arae",
     constellation: "Ara",
     right_ascension: RightAscension::new(16, 58, 37),
     declination: Declination::new(Sgn::Neg, 55, 59, 25),
-    apparent_magnitude: 3.13,
+    apparent_magnitude: 3.12,
     distance: Distance {
-        m: 570. * LIGHT_YEAR.m,
+        m: 573.9 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -3.95,
+    absolute_magnitude: -3.11,
     mass: Some(Mass {
         kg: 7.5 * SOLAR_MASS.kg,
     }),

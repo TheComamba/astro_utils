@@ -45,8 +45,8 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     mass: Some(Mass {
         kg: 19. * SOLAR_MASS.kg,
     }),
-    absolute_magnitude: -7.1,
-    apparent_magnitude: 4.22,
+    absolute_magnitude: -6.39,
+    apparent_magnitude: 4.21,
     temperature: Some(Temperature { K: 10_800. }),
     age: Some(Time {
         s: 0.016_5 * BILLION_YEARS.s,
@@ -54,7 +54,7 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     right_ascension: RightAscension::new(3, 29, 4),
     declination: Declination::new(Sgn::Pos, 59, 56, 25),
     distance: Distance {
-        m: 3100. * LIGHT_YEAR.m,
+        m: 4289. * LIGHT_YEAR.m,
     },
 };
 

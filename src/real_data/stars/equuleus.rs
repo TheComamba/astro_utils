@@ -39,11 +39,11 @@ const DELTA_EQUULEI: RealData = RealData {
     constellation: "Equuleus",
     right_ascension: RightAscension::new(21, 14, 29),
     declination: Declination::new(Sgn::Pos, 10, 0, 25),
-    apparent_magnitude: 5.19,
+    apparent_magnitude: 4.47,
     distance: Distance {
-        m: 59.4 * LIGHT_YEAR.m,
+        m: 60.25 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 3.1,
+    absolute_magnitude: 3.140,
     mass: Some(Mass {
         kg: 1.192 * SOLAR_MASS.kg,
     }),

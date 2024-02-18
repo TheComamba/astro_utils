@@ -12,17 +12,17 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_COMAE_BERENICES: RealData = RealData {
-    common_name: "",
+const DIADEM: RealData = RealData {
+    common_name: "Diadem",
     astronomical_name: "Alpha Comae Berenices",
     constellation: "Coma Berenices",
     right_ascension: RightAscension::new(13, 9, 59),
     declination: Declination::new(Sgn::Pos, 17, 31, 46),
-    apparent_magnitude: 4.29,
+    apparent_magnitude: 4.32,
     distance: Distance {
-        m: 58.1 * LIGHT_YEAR.m,
+        m: 46.7 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 3.82,
+    absolute_magnitude: 3.54,
     mass: Some(Mass {
         kg: 1.237 * SOLAR_MASS.kg,
     }),
@@ -77,8 +77,4 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
     }),
 };
 
-pub(crate) const STARS: [RealData; 3] = [
-    ALPHA_COMAE_BERENICES,
-    BETA_COMA_BERENICES,
-    GAMMA_COMA_BERENICES,
-];
+pub(crate) const STARS: [RealData; 3] = [DIADEM, BETA_COMA_BERENICES, GAMMA_COMA_BERENICES];

@@ -54,7 +54,7 @@ const BETA_VOLANTIS: RealData = RealData {
 
 const ZETA_VOLANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeata Volantis",
+    astronomical_name: "Zeta Volantis",
     constellation: "Volans",
     right_ascension: RightAscension::new(7, 41, 49),
     declination: Declination::new(Sgn::Neg, 72, 36, 22),

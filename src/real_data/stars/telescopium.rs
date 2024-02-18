@@ -37,7 +37,7 @@ const ALPHA_TELESCOPII: RealData = RealData {
 
 const ZETA_TELESCOPII: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeata Telescopii",
+    astronomical_name: "Zeta Telescopii",
     constellation: "Telescopium",
     right_ascension: RightAscension::new(18, 28, 50),
     declination: Declination::new(Sgn::Neg, 49, 4, 14),

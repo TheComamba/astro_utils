@@ -41,11 +41,11 @@ const ALFIRK: RealData = RealData {
     constellation: "Cepheus",
     right_ascension: RightAscension::new(21, 28, 40),
     declination: Declination::new(Sgn::Pos, 70, 33, 39),
-    apparent_magnitude: 3.2,
+    apparent_magnitude: 3.23,
     distance: Distance {
-        m: 690. * LIGHT_YEAR.m,
+        m: 594.9 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -3.03,
+    absolute_magnitude: -3.08,
     mass: Some(Mass {
         kg: 7.4 * SOLAR_MASS.kg,
     }),
@@ -89,9 +89,9 @@ const DELTA_CEPHERI: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 58, 24, 55),
     apparent_magnitude: 4.07,
     distance: Distance {
-        m: 887. * LIGHT_YEAR.m,
+        m: 981.9 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -3.47,
+    absolute_magnitude: -3.32,
     mass: Some(Mass {
         kg: 4.5 * SOLAR_MASS.kg,
     }),
@@ -129,7 +129,7 @@ const ETA_CEPHEI: RealData = RealData {
 
 const IOTA_CEPHEI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Ioata Cephei",
+    astronomical_name: "Iota Cephei",
     constellation: "Cepheus",
     right_ascension: RightAscension::new(22, 49, 41),
     declination: Declination::new(Sgn::Pos, 66, 12, 1),
@@ -152,15 +152,15 @@ const IOTA_CEPHEI: RealData = RealData {
 
 const ZETA_CEPHEI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeata Cephei",
+    astronomical_name: "Zeta Cephei",
     constellation: "Cepheus",
     right_ascension: RightAscension::new(22, 10, 51),
     declination: Declination::new(Sgn::Pos, 58, 12, 5),
-    apparent_magnitude: 3.35,
+    apparent_magnitude: 3.39,
     distance: Distance {
-        m: 990. * LIGHT_YEAR.m,
+        m: 726.1 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -4.7,
+    absolute_magnitude: -3.35,
     mass: None,
     radius: Some(Distance {
         m: 94. * SOLAR_RADIUS.m,

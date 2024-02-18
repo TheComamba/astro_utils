@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const COR_CAROLI: RealData = RealData {
     common_name: "Cor Caroli",
-    astronomical_name: "Alpha Canum Venaticorum",
+    astronomical_name: "Alpha2 Canum Venaticorum",
     constellation: "Canes Venatici",
     radius: Some(Distance {
         m: 2.49 * SOLAR_RADIUS.m,
@@ -22,8 +22,8 @@ const COR_CAROLI: RealData = RealData {
     mass: Some(Mass {
         kg: 2.97 * SOLAR_MASS.kg,
     }),
-    absolute_magnitude: 0.16,
-    apparent_magnitude: 2.9,
+    absolute_magnitude: 0.246,
+    apparent_magnitude: 2.89,
     temperature: Some(Temperature { K: 11_600. }),
     age: Some(Time {
         s: 0.165 * BILLION_YEARS.s,
@@ -31,7 +31,7 @@ const COR_CAROLI: RealData = RealData {
     right_ascension: RightAscension::new(12, 56, 2),
     declination: Declination::new(Sgn::Pos, 38, 19, 6),
     distance: Distance {
-        m: 100. * LIGHT_YEAR.m,
+        m: 110.1 * LIGHT_YEAR.m,
     },
 };
 

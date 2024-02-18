@@ -58,15 +58,15 @@ const BETA_CORONAE_AUSTRALIS: RealData = RealData {
 
 const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Coronae Australis",
+    astronomical_name: "Gamma1 Coronae Australis",
     constellation: "Corona Australis",
     right_ascension: RightAscension::new(19, 6, 25),
     declination: Declination::new(Sgn::Neg, 37, 3, 48),
-    apparent_magnitude: 4.2,
+    apparent_magnitude: 4.23,
     distance: Distance {
-        m: 56.4 * LIGHT_YEAR.m,
+        m: 58.33 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 3.73,
+    absolute_magnitude: 2.97,
     mass: Some(Mass {
         kg: 1.15 * SOLAR_MASS.kg,
     }),

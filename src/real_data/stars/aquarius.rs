@@ -54,7 +54,7 @@ const SADALMELIK: RealData = RealData {
     right_ascension: RightAscension::new(22, 5, 47),
     declination: Declination::new(Sgn::Neg, 0, 19, 11),
     distance: Distance {
-        m: 520. * LIGHT_YEAR.m,
+        m: 758.1 * LIGHT_YEAR.m,
     },
 };
 
@@ -68,8 +68,8 @@ const SKAT: RealData = RealData {
     mass: Some(Mass {
         kg: 2.51 * SOLAR_MASS.kg,
     }),
-    absolute_magnitude: -0.17,
-    apparent_magnitude: 3.28,
+    absolute_magnitude: -0.178,
+    apparent_magnitude: 3.27,
     temperature: Some(Temperature { K: 8650. }),
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
@@ -77,7 +77,7 @@ const SKAT: RealData = RealData {
     right_ascension: RightAscension::new(22, 54, 39),
     declination: Declination::new(Sgn::Neg, 15, 49, 15),
     distance: Distance {
-        m: 113. * LIGHT_YEAR.m,
+        m: 159.5 * LIGHT_YEAR.m,
     },
 };
 

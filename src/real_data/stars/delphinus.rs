@@ -35,17 +35,17 @@ const ALPHA_DELPHINI: RealData = RealData {
     }),
 };
 
-const BETA_DELPHINI: RealData = RealData {
-    common_name: "",
+const ROTANEV: RealData = RealData {
+    common_name: "Rotanev",
     astronomical_name: "Beta Delphini",
     constellation: "Delphinus",
     right_ascension: RightAscension::new(20, 37, 33),
     declination: Declination::new(Sgn::Pos, 14, 35, 42),
-    apparent_magnitude: 3.617,
+    apparent_magnitude: 3.64,
     distance: Distance {
-        m: 101. * LIGHT_YEAR.m,
+        m: 97.34 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 1.58,
+    absolute_magnitude: 1.26,
     mass: Some(Mass {
         kg: 1.75 * SOLAR_MASS.kg,
     }),
@@ -102,17 +102,17 @@ const DELTA_DELPHINI: RealData = RealData {
     }),
 };
 
-const EPSILON_DELPHINI: RealData = RealData {
-    common_name: "",
+const ALDULFIN: RealData = RealData {
+    common_name: "Aldulfin",
     astronomical_name: "Epsilon Delphini",
     constellation: "Delphinus",
     right_ascension: RightAscension::new(20, 33, 13),
     declination: Declination::new(Sgn::Pos, 11, 18, 12),
     apparent_magnitude: 4.03,
     distance: Distance {
-        m: 330. * LIGHT_YEAR.m,
+        m: 358.6 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -0.06,
+    absolute_magnitude: -1.18,
     mass: None,
     radius: Some(Distance {
         m: 4.6 * SOLAR_RADIUS.m,
@@ -125,8 +125,8 @@ const EPSILON_DELPHINI: RealData = RealData {
 
 pub(crate) const STARS: [RealData; 5] = [
     ALPHA_DELPHINI,
-    BETA_DELPHINI,
+    ROTANEV,
     GAMMA_DELPHINI,
     DELTA_DELPHINI,
-    EPSILON_DELPHINI,
+    ALDULFIN,
 ];

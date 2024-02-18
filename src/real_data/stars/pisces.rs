@@ -81,7 +81,7 @@ const NU_PISCIUM: RealData = RealData {
 
 const IOTA_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Ioata Piscium",
+    astronomical_name: "Iota Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(23, 39, 57),
     declination: Declination::new(Sgn::Pos, 5, 37, 35),

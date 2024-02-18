@@ -41,9 +41,9 @@ const BETA_LUPI: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 43, 8, 2),
     apparent_magnitude: 2.68,
     distance: Distance {
-        m: 383. * LIGHT_YEAR.m,
+        m: 523.3 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -3.3,
+    absolute_magnitude: -3.35,
     mass: Some(Mass {
         kg: 8.8 * SOLAR_MASS.kg,
     }),
@@ -64,9 +64,9 @@ const GAMMA_LUPI: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 41, 10, 0),
     apparent_magnitude: 2.77,
     distance: Distance {
-        m: 420. * LIGHT_YEAR.m,
+        m: 567. * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -2.4,
+    absolute_magnitude: -3.4,
     mass: Some(Mass {
         kg: 9.5 * SOLAR_MASS.kg,
     }),

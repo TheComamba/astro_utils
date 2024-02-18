@@ -12,15 +12,15 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_CRATERIS: RealData = RealData {
-    common_name: "",
+const ALKES: RealData = RealData {
+    common_name: "Alkes",
     astronomical_name: "Alpha Crateris",
     constellation: "Crater",
     right_ascension: RightAscension::new(10, 59, 46),
     declination: Declination::new(Sgn::Neg, 18, 17, 56),
-    apparent_magnitude: 4.07,
+    apparent_magnitude: 4.08,
     distance: Distance {
-        m: 141. * LIGHT_YEAR.m,
+        m: 174.2 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.44,
     mass: Some(Mass {
@@ -83,7 +83,7 @@ const DELTA_CRATERIS: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 14, 46, 42),
     apparent_magnitude: 3.56,
     distance: Distance {
-        m: 163. * LIGHT_YEAR.m,
+        m: 194.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.321,
     mass: Some(Mass {
@@ -98,9 +98,4 @@ const DELTA_CRATERIS: RealData = RealData {
     }),
 };
 
-pub(crate) const STARS: [RealData; 4] = [
-    ALPHA_CRATERIS,
-    BETA_CRATERIS,
-    GAMMA_CRATERIS,
-    DELTA_CRATERIS,
-];
+pub(crate) const STARS: [RealData; 4] = [ALKES, BETA_CRATERIS, GAMMA_CRATERIS, DELTA_CRATERIS];

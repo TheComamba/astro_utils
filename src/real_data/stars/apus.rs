@@ -26,7 +26,7 @@ const ALPHA_APODIS: RealData = RealData {
     right_ascension: RightAscension::new(14, 47, 52),
     declination: Declination::new(Sgn::Neg, 79, 2, 41),
     distance: Distance {
-        m: 430. * LIGHT_YEAR.m,
+        m: 411.1 * LIGHT_YEAR.m,
     },
 };
 

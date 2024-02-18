@@ -20,12 +20,12 @@ const BETA_CAPRICORNI: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 14, 46, 53),
     apparent_magnitude: 3.05,
     distance: Distance {
-        m: 390. * LIGHT_YEAR.m,
+        m: 555.4 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -2.03,
+    absolute_magnitude: -3., // Not literature value
     mass: None,
     radius: None,
-    temperature: None,
+    temperature: Some(Temperature { K: 4900. }),
     age: None,
 };
 
@@ -56,11 +56,11 @@ const OMEGA_CAPRICORNI: RealData = RealData {
     constellation: "Capricornus",
     right_ascension: RightAscension::new(20, 51, 49),
     declination: Declination::new(Sgn::Neg, 26, 55, 9),
-    apparent_magnitude: 4.11,
+    apparent_magnitude: 4.12,
     distance: Distance {
-        m: 1000. * LIGHT_YEAR.m,
+        m: 628.1 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -2.7,
+    absolute_magnitude: -2.3,
     mass: Some(Mass {
         kg: 6.8 * SOLAR_MASS.kg,
     }),

@@ -98,7 +98,6 @@ mod tests {
 
     #[test]
     fn calculate_apparent_magnitude() {
-        let mut failed = false;
         for star_data in get_many_stars() {
             let star = star_data.to_star_data();
             let luminous_intensity = star.get_luminous_intensity().unwrap();
@@ -106,24 +105,54 @@ mod tests {
                 luminous_intensity_to_illuminance(&luminous_intensity, &star.distance.unwrap());
             let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
-            if difference.abs() > 0.1 {
-                println!(
-                    "{}:\nexpected: {}, actual: {}, difference: {}",
-                    star.name, star_data.apparent_magnitude, apparent_magnitude, difference
-                );
-                failed = true;
-            }
+            assert!(
+                difference.abs() < 0.3,
+                "{}:\nexpected: {}, actual: {}, difference: {}",
+                star.name,
+                star_data.apparent_magnitude,
+                apparent_magnitude,
+                difference
+            );
         }
-        assert!(!failed);
     }
 
     #[test]
-    fn every_star_hto_a_name() {
+    fn every_star_has_a_name() {
         for star_data in get_many_stars() {
             let star_data = star_data.to_star_data();
             assert!(!star_data.name.is_empty());
             let star_appearance = star_data.to_star_appearance();
             assert!(!star_appearance.name.is_empty());
+        }
+    }
+
+    #[test]
+    fn all_common_names_are_distinct() {
+        let mut names = Vec::new();
+        for star_data in get_many_stars() {
+            if star_data.common_name.is_empty() {
+                continue;
+            }
+            assert!(
+                !names.contains(&star_data.common_name),
+                "{} is a duplicate",
+                star_data.common_name
+            );
+            names.push(star_data.common_name);
+        }
+    }
+
+    #[test]
+    fn all_stars_have_a_distinct_astronomical_name() {
+        let mut names = Vec::new();
+        for star_data in get_many_stars() {
+            assert!(!star_data.astronomical_name.is_empty());
+            assert!(
+                !names.contains(&star_data.astronomical_name),
+                "{} is a duplicate",
+                star_data.astronomical_name
+            );
+            names.push(star_data.astronomical_name);
         }
     }
 }

@@ -22,8 +22,8 @@ const ALPHA_CAELI: RealData = RealData {
     mass: Some(Mass {
         kg: 1.48 * SOLAR_MASS.kg,
     }),
-    absolute_magnitude: 3.39,
-    apparent_magnitude: 4.456,
+    absolute_magnitude: 2.92,
+    apparent_magnitude: 4.44,
     temperature: Some(Temperature { K: 6991. }),
     age: Some(Time {
         s: 0.9 * BILLION_YEARS.s,
@@ -31,7 +31,7 @@ const ALPHA_CAELI: RealData = RealData {
     right_ascension: RightAscension::new(4, 40, 34),
     declination: Declination::new(Sgn::Neg, 41, 51, 50),
     distance: Distance {
-        m: 65.7 * LIGHT_YEAR.m,
+        m: 65.63 * LIGHT_YEAR.m,
     },
 };
 

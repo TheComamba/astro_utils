@@ -62,11 +62,11 @@ const MIRA: RealData = RealData {
     constellation: "Cetus",
     right_ascension: RightAscension::new(2, 19, 21),
     declination: Declination::new(Sgn::Neg, 2, 58, 39),
-    apparent_magnitude: 3.,
+    apparent_magnitude: 6.47,
     distance: Distance {
-        m: 300. * LIGHT_YEAR.m,
+        m: 418.5 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 0.99,
+    absolute_magnitude: 0.928,
     mass: Some(Mass {
         kg: 1.18 * SOLAR_MASS.kg,
     }),

@@ -64,9 +64,9 @@ const FIVE_LACERTAE: RealData = RealData {
     constellation: "Lacerta",
     right_ascension: RightAscension::new(22, 29, 32),
     declination: Declination::new(Sgn::Pos, 47, 42, 25),
-    apparent_magnitude: 4.36,
+    apparent_magnitude: 4.34,
     distance: Distance {
-        m: 1600. * LIGHT_YEAR.m,
+        m: 1164. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.42,
     mass: Some(Mass {

@@ -38,11 +38,11 @@ const BETA_PHOENICIS: RealData = RealData {
     constellation: "Phoenix",
     right_ascension: RightAscension::new(1, 6, 5),
     declination: Declination::new(Sgn::Neg, 46, 43, 6),
-    apparent_magnitude: 3.30,
+    apparent_magnitude: 3.32,
     distance: Distance {
         m: 198.1 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 0.29,
+    absolute_magnitude: -0.598,
     mass: Some(Mass {
         kg: 2.5 * SOLAR_MASS.kg,
     }),

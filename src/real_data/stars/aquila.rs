@@ -60,7 +60,7 @@ const TARAZED: RealData = RealData {
 
 const ZETA_AQUILAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeata Aquilae",
+    astronomical_name: "Zeta Aquilae",
     constellation: "Aquila",
     right_ascension: RightAscension::new(19, 5, 25),
     declination: Declination::new(Sgn::Pos, 13, 51, 49),

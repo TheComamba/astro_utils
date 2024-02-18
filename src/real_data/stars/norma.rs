@@ -33,11 +33,11 @@ const EPSILON_NORMAE: RealData = RealData {
     constellation: "Norma",
     right_ascension: RightAscension::new(16, 27, 11),
     declination: Declination::new(Sgn::Neg, 47, 33, 17),
-    apparent_magnitude: 4.47,
+    apparent_magnitude: 4.46,
     distance: Distance {
-        m: 530. * LIGHT_YEAR.m,
+        m: 399.5 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 0.06,
+    absolute_magnitude: -0.982,
     mass: Some(Mass {
         kg: 6.4 * SOLAR_MASS.kg,
     }),
@@ -50,7 +50,7 @@ const EPSILON_NORMAE: RealData = RealData {
 
 const IOTA1_NORMAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Ioata1 Normae",
+    astronomical_name: "Iota1 Normae",
     constellation: "Norma",
     right_ascension: RightAscension::new(16, 3, 32),
     declination: Declination::new(Sgn::Neg, 57, 46, 30),

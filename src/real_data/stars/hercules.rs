@@ -12,17 +12,17 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_HERCULIS: RealData = RealData {
-    common_name: "",
+const RASALGETHI: RealData = RealData {
+    common_name: "Rasalgethi",
     astronomical_name: "Alpha Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(17, 14, 39),
     declination: Declination::new(Sgn::Pos, 14, 23, 25),
-    apparent_magnitude: 3.350,
+    apparent_magnitude: 2.78,
     distance: Distance {
         m: 360. * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -2.3,
+    absolute_magnitude: -2.57,
     mass: Some(Mass {
         kg: 2.5 * SOLAR_MASS.kg,
     }),
@@ -168,7 +168,7 @@ const PI_HERCULIS: RealData = RealData {
 };
 
 pub(crate) const STARS: [RealData; 7] = [
-    ALPHA_HERCULIS,
+    RASALGETHI,
     BETA_HERCULIS,
     DELTA_HERCULIS,
     ETA_HERCULIS,

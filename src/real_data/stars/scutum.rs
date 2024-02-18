@@ -51,7 +51,7 @@ const BETA_SCUTI: RealData = RealData {
 
 const ZETA_SCUTI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeata Scuti",
+    astronomical_name: "Zeta Scuti",
     constellation: "Scutum",
     right_ascension: RightAscension::new(18, 23, 40),
     declination: Declination::new(Sgn::Neg, 8, 56, 4),

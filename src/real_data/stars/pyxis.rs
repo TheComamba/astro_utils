@@ -39,11 +39,11 @@ const BETA_PYXIDIS: RealData = RealData {
     constellation: "Pyxis",
     right_ascension: RightAscension::new(8, 40, 6),
     declination: Declination::new(Sgn::Neg, 35, 18, 30),
-    apparent_magnitude: 3.954,
+    apparent_magnitude: 3.97,
     distance: Distance {
-        m: 420. * LIGHT_YEAR.m,
+        m: 388.1 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: -0.78,
+    absolute_magnitude: -1.41,
     mass: Some(Mass {
         kg: 1.2 * SOLAR_MASS.kg,
     }),

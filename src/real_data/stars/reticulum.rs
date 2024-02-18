@@ -68,7 +68,7 @@ const EPSILON_RETICULI: RealData = RealData {
     distance: Distance {
         m: 60.1 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 0.87,
+    absolute_magnitude: 3.1,
     mass: Some(Mass {
         kg: 1.46 * SOLAR_MASS.kg,
     }),

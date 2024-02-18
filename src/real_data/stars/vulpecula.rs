@@ -62,9 +62,9 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 27, 5, 49),
     apparent_magnitude: 4.56,
     distance: Distance {
-        m: 228. * LIGHT_YEAR.m,
+        m: 216.5 * LIGHT_YEAR.m,
     },
-    absolute_magnitude: 0.77,
+    absolute_magnitude: 0.449,
     mass: Some(Mass {
         kg: 2.4 * SOLAR_MASS.kg,
     }),
