@@ -4,7 +4,10 @@ use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
-    stars::{star_appearance::StarAppearance, star_data::StarData},
+    stars::{
+        star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
+        star_data::StarData,
+    },
     units::luminous_intensity::LUMINOSITY_ZERO,
 };
 use serde::{Deserialize, Serialize};
@@ -158,6 +161,7 @@ impl PlanetData {
             illuminance: brightness,
             color: self.color.clone(),
             pos,
+            evolution: StarAppearanceEvolution::NONE,
         })
     }
 }

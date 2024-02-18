@@ -1,4 +1,7 @@
-use super::{star_appearance::StarAppearance, star_data::StarData};
+use super::{
+    star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
+    star_data::StarData,
+};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::{
@@ -79,6 +82,7 @@ impl RealData {
             illuminance,
             color,
             pos,
+            evolution: StarAppearanceEvolution::NONE,
         }
     }
 }

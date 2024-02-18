@@ -1,4 +1,4 @@
-use super::star_appearance::StarAppearance;
+use super::{star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::ecliptic::EclipticCoordinates,
@@ -133,6 +133,7 @@ impl StarData {
             illuminance,
             color,
             pos: self.pos.clone(),
+            evolution: StarAppearanceEvolution::NONE,
         }
     }
 

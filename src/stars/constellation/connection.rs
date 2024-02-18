@@ -204,7 +204,10 @@ mod tests {
         color::srgb::sRGBColor,
         coordinates::spherical::SphericalCoordinates,
         real_data::stars::all::get_many_stars,
-        stars::constellation::constellation::collect_constellations,
+        stars::{
+            constellation::constellation::collect_constellations,
+            star_appearance_evolution::StarAppearanceEvolution,
+        },
         units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY},
     };
 
@@ -220,6 +223,7 @@ mod tests {
                 Illuminance::from_lux(1.0),
                 sRGBColor::DEFAULT,
                 pos,
+                StarAppearanceEvolution::NONE,
             ));
         }
         stars

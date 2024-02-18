@@ -4,12 +4,15 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
 
+use super::star_appearance_evolution::StarAppearanceEvolution;
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
     pub(crate) name: String,
     pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
     pub(crate) pos: EclipticCoordinates,
+    pub(crate) evolution: StarAppearanceEvolution,
 }
 
 impl StarAppearance {
@@ -18,12 +21,14 @@ impl StarAppearance {
         illuminance: Illuminance<f64>,
         color: sRGBColor,
         pos: EclipticCoordinates,
+        evolution: StarAppearanceEvolution,
     ) -> Self {
         Self {
             name,
             illuminance,
             color,
             pos,
+            evolution,
         }
     }
 
@@ -84,6 +89,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            StarAppearanceEvolution::NONE,
         );
 
         assert!(star.apparently_the_same(&star));
@@ -96,6 +102,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            StarAppearanceEvolution::NONE,
         );
         let mut other = star.clone();
         other.pos = EclipticCoordinates::Y_DIRECTION;
@@ -110,6 +117,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            StarAppearanceEvolution::NONE,
         );
         let mut other = star.clone();
         other.illuminance = Illuminance::from_lux(100.0);
