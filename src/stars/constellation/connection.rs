@@ -1,8 +1,9 @@
 use crate::stars::star_appearance::StarAppearance;
+use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::cmp::Ordering;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Connection {
     from: usize,
     to: usize,

@@ -1,6 +1,8 @@
 use super::connection::{collect_connections, Connection};
 use crate::stars::{star_appearance::StarAppearance, star_data::StarData};
+use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Constellation {
     name: String,
     stars: Vec<StarAppearance>,
