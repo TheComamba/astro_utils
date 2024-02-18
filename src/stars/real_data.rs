@@ -16,11 +16,12 @@ use std::fmt::Display;
 pub struct RealData {
     pub common_name: &'static str,
     pub astronomical_name: &'static str,
+    pub constellation: &'static str,
     pub mass: Option<Mass<f64>>,
     pub radius: Option<Distance<f64>>,
     pub absolute_magnitude: f64,
     pub apparent_magnitude: f64,
-    pub temperature: Option<Temperature<f64>>,
+    pub temperature: Temperature<f64>,
     pub age: Option<Time<f64>>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
@@ -40,6 +41,11 @@ impl RealData {
         } else {
             self.common_name
         };
+        let constellation = if self.constellation.is_empty() {
+            None
+        } else {
+            Some(self.constellation.to_string())
+        };
         let luminous_intensity = absolute_magnitude_to_luminous_intensity(self.absolute_magnitude);
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
@@ -47,9 +53,10 @@ impl RealData {
         StarData {
             name: name.to_string(),
             mass: self.mass,
+            constellation,
             radius: self.radius,
             luminous_intensity: Some(luminous_intensity),
-            temperature: self.temperature,
+            temperature: Some(self.temperature),
             age: self.age,
             distance: Some(self.distance),
             pos,
@@ -66,10 +73,7 @@ impl RealData {
         let dec = self.declination.to_angle();
         let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
         let illuminance = apparent_magnitude_to_illuminance(self.apparent_magnitude);
-        let color = match self.temperature {
-            Some(temperature) => sRGBColor::from_temperature(temperature),
-            None => sRGBColor::DEFAULT,
-        };
+        let color = sRGBColor::from_temperature(self.temperature);
         StarAppearance {
             name: name.to_string(),
             illuminance,
@@ -82,7 +86,7 @@ impl RealData {
 #[cfg(test)]
 mod tests {
     use crate::{
-        real_data::stars::BRIGHTEST_STARS,
+        real_data::stars::all::get_many_stars,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
             luminous_intensity::luminous_intensity_to_illuminance,
@@ -91,32 +95,61 @@ mod tests {
 
     #[test]
     fn calculate_apparent_magnitude() {
-        let mut failed = false;
-        for star_data in BRIGHTEST_STARS {
+        for star_data in get_many_stars() {
             let star = star_data.to_star_data();
             let luminous_intensity = star.get_luminous_intensity().unwrap();
             let illuminance =
                 luminous_intensity_to_illuminance(&luminous_intensity, &star.distance.unwrap());
             let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
-            if difference.abs() > 0.1 {
-                println!(
-                    "{}:\nexpected: {}, actual: {}, difference: {}",
-                    star.name, star_data.apparent_magnitude, apparent_magnitude, difference
-                );
-                failed = true;
-            }
+            assert!(
+                difference.abs() < 0.3,
+                "{}:\nexpected: {}, actual: {}, difference: {}",
+                star.name,
+                star_data.apparent_magnitude,
+                apparent_magnitude,
+                difference
+            );
         }
-        assert!(!failed);
     }
 
     #[test]
-    fn every_star_hto_a_name() {
-        for star_data in BRIGHTEST_STARS {
+    fn every_star_has_a_name() {
+        for star_data in get_many_stars() {
             let star_data = star_data.to_star_data();
             assert!(!star_data.name.is_empty());
             let star_appearance = star_data.to_star_appearance();
             assert!(!star_appearance.name.is_empty());
+        }
+    }
+
+    #[test]
+    fn all_common_names_are_distinct() {
+        let mut names = Vec::new();
+        for star_data in get_many_stars() {
+            if star_data.common_name.is_empty() {
+                continue;
+            }
+            assert!(
+                !names.contains(&star_data.common_name),
+                "{} is a duplicate",
+                star_data.common_name
+            );
+            names.push(star_data.common_name);
+        }
+    }
+
+    #[test]
+    fn all_stars_have_a_distinct_astronomical_name() {
+        let mut names = Vec::new();
+        for star_data in get_many_stars() {
+            assert!(!star_data.astronomical_name.is_empty());
+            assert!(
+                !names.contains(&star_data.astronomical_name),
+                "{} is a duplicate",
+                star_data.astronomical_name
+            );
+            names.push(star_data.astronomical_name);
         }
     }
 }

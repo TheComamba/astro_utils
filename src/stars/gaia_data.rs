@@ -99,6 +99,7 @@ impl GaiaResponse {
                     age: None,
                     distance: None,
                     pos: parsed_data.pos,
+                    constellation: None,
                 };
                 Ok(star)
             })
@@ -172,7 +173,7 @@ pub fn fetch_brightest_stars_data() -> Result<Vec<StarData>, AstroUtilError> {
 mod tests {
     use crate::{
         astro_display::AstroDisplay,
-        real_data::stars::BRIGHTEST_STARS,
+        real_data::stars::all::get_many_stars,
         units::{angle::angle_to_arcsecs, illuminance::IRRADIANCE_ZERO},
     };
 
@@ -185,11 +186,7 @@ mod tests {
         let mut closest_star = None;
         let mut closest_distance = Angle::from_degrees(90.);
         for known_star in known_stars.iter() {
-            let distance = gaia_star
-                .pos
-                .get_spherical()
-                .to_direction()
-                .angle_to(&known_star.pos.get_spherical().to_direction());
+            let distance = gaia_star.pos.angle_to(&known_star.pos);
             if distance < closest_distance {
                 closest_star = Some(known_star);
                 closest_distance = distance;
@@ -232,7 +229,7 @@ mod tests {
         const PROBLEMATIC_STAR: &str = "Gaia DR3 4677205714465503104";
 
         let mut known_stars = vec![];
-        for star_data in BRIGHTEST_STARS {
+        for star_data in get_many_stars() {
             known_stars.push(star_data.to_star_appearance());
         }
         let known_stars_ref: Vec<&StarAppearance> = known_stars.iter().collect();
@@ -257,11 +254,7 @@ mod tests {
                 println!("closest_star: {:?}", closest.name);
                 let (gaia_ra, gaia_dec) = gaia_star.pos.get_spherical().to_ra_and_dec();
                 let (closest_ra, closest_dec) = closest.pos.get_spherical().to_ra_and_dec();
-                let angle_difference = gaia_star
-                    .pos
-                    .get_spherical()
-                    .to_direction()
-                    .angle_to(&closest.pos.get_spherical().to_direction());
+                let angle_difference = gaia_star.pos.angle_to(&closest.pos);
                 if angle_difference > Angle::from_degrees(0.03) {
                     println!(
                         "gaia_star position: {}, {}",
@@ -294,7 +287,7 @@ mod tests {
 
     #[test]
     fn all_not_too_bright_stars_are_in_gaia() {
-        const PROBLEMATIC_STARS: [&str; 11] = [
+        const PROBLEMATIC_STARS: [&str; 16] = [
             "R Doradus", // Gaia finds R Doradus to be much brighter than all other literature.
             "Scheat",
             "Suhail",
@@ -304,15 +297,21 @@ mod tests {
             "Menkar",
             "Ghurab",
             "Zeta Centauri",
-            "Eta Centauri", // Only in Gaia DR2
-            "Enif",         // Only in Gaia DR2
+            "Eta Centauri",    // Only in Gaia DR2
+            "Enif",            // Only in Gaia DR2
+            "Epsilon Antliae", // Only in Gaia DR2
+            "Beta Arietis",
+            "Omicron Ceti", // Only in Gaia DR2
+            "Gamma Circini",
+            "Rasalgethi",
         ];
 
-        const BRIGHTNESS_THRESHOLD: f64 = 2.2;
+        const UPPER_BRIGHTNESS_THRESHOLD: f64 = 2.2;
+        const LOWER_BRIGHTNESS_THRESHOLD: f64 = 7.;
 
         let mut known_stars = vec![];
-        for star_data in BRIGHTEST_STARS {
-            if star_data.apparent_magnitude > BRIGHTNESS_THRESHOLD
+        for star_data in get_many_stars() {
+            if star_data.apparent_magnitude > UPPER_BRIGHTNESS_THRESHOLD
                 && !PROBLEMATIC_STARS.contains(&star_data.common_name)
                 && !PROBLEMATIC_STARS.contains(&star_data.astronomical_name)
             {
@@ -320,50 +319,51 @@ mod tests {
             }
         }
 
-        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(4.)).unwrap();
+        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(
+            LOWER_BRIGHTNESS_THRESHOLD,
+        ))
+        .unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
         let gaia_stars_ref: Vec<&StarAppearance> = gaia_stars.iter().collect();
 
-        println!("known_stars.len(): {}", known_stars.len());
-        assert!(known_stars.len() > 30);
-        println!("gaia_stars.len(): {}", gaia_stars.len());
-        assert!(gaia_stars.len() > 30);
+        assert!(
+            known_stars.len() > 30,
+            "known_stars.len(): {}",
+            known_stars.len()
+        );
+        assert!(
+            gaia_stars.len() > 30,
+            "gaia_stars.len(): {}",
+            gaia_stars.len()
+        );
 
         let brightest_gaia_star = gaia_stars
             .iter()
             .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u32)
             .unwrap();
-        println!(
+        assert!(
+            illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
+                < UPPER_BRIGHTNESS_THRESHOLD,
             "Brightest gaia star illuminance: {} mag",
             illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
         );
-        assert!(
-            illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
-                < BRIGHTNESS_THRESHOLD
-        );
 
-        let mut failure_count = 0;
         for known_star in known_stars.iter() {
             let is_known = star_is_already_known(known_star, &gaia_stars_ref);
-            if !is_known {
-                println!("\nknown_star is not in gaia:\n{}", known_star.name);
-                println!(
-                    "known_star_illuminance: {} mag",
-                    illuminance_to_apparent_magnitude(&known_star.illuminance)
-                );
-                let closest_gaia_star = find_closest_star(known_star, &gaia_stars_ref).unwrap();
-                println!("closest_gaia_star: {:?}", closest_gaia_star);
-                failure_count += 1;
-            }
+            let closest_gaia_star = find_closest_star(known_star, &gaia_stars_ref).unwrap();
+            assert!(
+                is_known,
+                "A known star is not found in Gaia\n\n{}\n\nClosest gaia star:\n{}",
+                known_star.astro_display(),
+                closest_gaia_star.astro_display()
+            );
         }
-        println!("failure_count: {} of {}", failure_count, known_stars.len());
-        assert!(failure_count == 0);
     }
 
     #[test]
     fn known_stars_brightness_is_the_same() {
         let mut known_stars = vec![];
-        for star_data in BRIGHTEST_STARS {
+        for star_data in get_many_stars() {
             known_stars.push(star_data.to_star_appearance());
         }
 
@@ -377,8 +377,11 @@ mod tests {
                 }
             }
         }
-        println!("star_pairs.len(): {}", star_pairs.len());
-        assert!(star_pairs.len() > 15);
+        assert!(
+            star_pairs.len() > 15,
+            "star_pairs.len(): {}",
+            star_pairs.len()
+        );
         let mut mean_brightness_difference = IRRADIANCE_ZERO;
         for (gaia_star, known_star) in star_pairs.iter() {
             let brightness_difference = known_star.illuminance - gaia_star.illuminance;

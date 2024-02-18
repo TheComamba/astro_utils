@@ -291,6 +291,7 @@ impl ParsecLine {
             radius: Some(radius),
             distance: None,
             pos: EclipticCoordinates::Z_DIRECTION,
+            constellation: None,
         }
     }
 
@@ -333,15 +334,15 @@ fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
 mod tests {
     use super::*;
     use crate::{
-        real_data::stars::{BRIGHTEST_STARS, SUN_DATA},
+        real_data::stars::{all::get_many_stars, SUN},
         tests::eq_within,
         units::{distance::SOLAR_RADIUS, time::BILLION_YEARS},
     };
 
     #[test]
     fn test_caluclate_sun() {
-        let mass = SUN_DATA.mass;
-        let age = SUN_DATA.age.unwrap();
+        let mass = SUN.mass;
+        let age = SUN.age.unwrap();
         let calculated_sun = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
@@ -349,7 +350,7 @@ mod tests {
                 .get_params_for_current_mass_and_age(&mass.unwrap(), age.to_yr())
                 .to_star_at_origin()
         };
-        let real_sun = SUN_DATA.to_star_data();
+        let real_sun = SUN.to_star_data();
         println!(
             "calculated mass: {}, real mass: {}",
             calculated_sun.get_mass().unwrap(),
@@ -399,7 +400,7 @@ mod tests {
         {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            for data in BRIGHTEST_STARS.iter() {
+            for data in get_many_stars().iter() {
                 if let (Some(age), Some(mass)) = (data.age, data.mass) {
                     let age = age.to_yr();
                     let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());

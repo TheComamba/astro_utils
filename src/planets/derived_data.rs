@@ -176,7 +176,7 @@ mod tests {
     use crate::{
         real_data::{
             planets::{EARTH, MERCURY},
-            stars::SUN_DATA,
+            stars::SUN,
         },
         tests::{eq, eq_within},
     };
@@ -217,14 +217,14 @@ mod tests {
 
     #[test]
     fn black_body_temperature_of_earth() {
-        let luminosity = SUN_DATA.to_star_data().get_luminous_intensity().unwrap();
+        let luminosity = SUN.to_star_data().get_luminous_intensity().unwrap();
         let temperature = black_body_temperature(luminosity, &EARTH.to_planet_data());
         assert!(eq_within(temperature.to_K(), 255., 20.));
     }
 
     #[test]
     fn black_body_temperature_of_mercury() {
-        let luminosity = SUN_DATA.to_star_data().get_luminous_intensity().unwrap();
+        let luminosity = SUN.to_star_data().get_luminous_intensity().unwrap();
         let temperature = black_body_temperature(luminosity, &MERCURY.to_planet_data());
         assert!(eq_within(temperature.to_K(), 442., 20.));
     }
