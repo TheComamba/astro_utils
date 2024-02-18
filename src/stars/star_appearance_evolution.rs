@@ -1,4 +1,3 @@
-use super::star_appearance::StarAppearance;
 use crate::color::srgb::sRGBColor;
 use serde::{Deserialize, Serialize};
 use simple_si_units::electromagnetic::Illuminance;
@@ -10,8 +9,8 @@ pub struct StarAppearanceEvolution {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub(crate) struct StarAppearanceLifestageEvolution {
-    illuminance_per_year: Illuminance<f64>,
-    color_per_year: sRGBColor,
+    pub(super) illuminance_per_year: Illuminance<f64>,
+    pub(super) color_per_year: sRGBColor,
 }
 
 impl StarAppearanceEvolution {
@@ -24,15 +23,22 @@ impl StarAppearanceEvolution {
             lifestage_evolution,
         }
     }
-}
 
-impl StarAppearanceLifestageEvolution {
-    pub(crate) fn new(now: &StarAppearance, then: &StarAppearance, years: f64) -> Self {
-        let illuminance_per_year = (now.get_illuminance() - then.get_illuminance()) / years;
-        let color_per_year = now.get_color() - then.get_color();
-        Self {
-            illuminance_per_year,
-            color_per_year,
+    pub(crate) fn apply_to_illuminance(
+        &self,
+        illuminance: Illuminance<f64>,
+        years: f64,
+    ) -> Illuminance<f64> {
+        if let Some(lifestage_evolution) = &self.lifestage_evolution {
+            return illuminance + lifestage_evolution.illuminance_per_year * years;
         }
+        illuminance
+    }
+
+    pub(crate) fn apply_to_color(&self, color: sRGBColor, years: f64) -> sRGBColor {
+        if let Some(lifestage_evolution) = &self.lifestage_evolution {
+            return color + &lifestage_evolution.color_per_year * years;
+        }
+        color
     }
 }

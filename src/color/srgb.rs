@@ -1,4 +1,4 @@
-use std::ops::{Add, Neg, Sub};
+use std::ops::{Add, Mul, Neg, Sub};
 
 use crate::astro_display::AstroDisplay;
 use serde::{ser::SerializeTuple, Serializer};
@@ -7,7 +7,7 @@ use simple_si_units::base::Temperature;
 
 use super::xyz::XYZColor;
 
-#[derive(Debug, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, Copy)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
 pub struct sRGBColor {
@@ -24,7 +24,8 @@ impl AstroDisplay for sRGBColor {
 }
 
 impl sRGBColor {
-    pub(crate) const DEFAULT: Self = sRGBColor::from_sRGB(1., 1., 1.);
+    pub(crate) const WHITE: Self = sRGBColor::from_sRGB(1., 1., 1.);
+    pub(crate) const BLACK: Self = sRGBColor::from_sRGB(0., 0., 0.);
     const SERIALIZATION_ACCURACY: f64 = 1e-2;
 
     fn to_array(&self) -> [f64; 3] {
@@ -130,6 +131,26 @@ impl Neg for sRGBColor {
 
     fn neg(self) -> sRGBColor {
         -&self
+    }
+}
+
+impl Mul<f64> for &sRGBColor {
+    type Output = sRGBColor;
+
+    fn mul(self, scalar: f64) -> sRGBColor {
+        sRGBColor {
+            R: self.R * scalar,
+            G: self.G * scalar,
+            B: self.B * scalar,
+        }
+    }
+}
+
+impl Mul<f64> for sRGBColor {
+    type Output = sRGBColor;
+
+    fn mul(self, scalar: f64) -> sRGBColor {
+        &self * scalar
     }
 }
 

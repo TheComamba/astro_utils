@@ -12,7 +12,9 @@ pub struct Connection {
 
 impl Connection {
     fn new(from: usize, to: usize, stars: &[StarAppearance]) -> Self {
-        let distance = stars[from].get_pos().angle_to(stars[to].get_pos());
+        let distance = stars[from]
+            .get_pos_at_epoch()
+            .angle_to(stars[to].get_pos_at_epoch());
         Connection { from, to, distance }
     }
 
@@ -90,9 +92,13 @@ fn nearest_neighbours(i: usize, stars: &[StarAppearance]) -> Vec<usize> {
     }
     neighbours.sort_by(|a, b| {
         stars[i]
-            .get_pos()
-            .angle_to(stars[*a].get_pos())
-            .partial_cmp(&stars[i].get_pos().angle_to(stars[*b].get_pos()))
+            .get_pos_at_epoch()
+            .angle_to(stars[*a].get_pos_at_epoch())
+            .partial_cmp(
+                &stars[i]
+                    .get_pos_at_epoch()
+                    .angle_to(stars[*b].get_pos_at_epoch()),
+            )
             .unwrap_or(Ordering::Equal)
     });
     neighbours
@@ -147,12 +153,12 @@ fn find_nearest_neighbour(
     excluding: &Vec<usize>,
 ) -> Option<usize> {
     let mut nearest_neighbour = None;
-    let pos = stars[index].get_pos();
+    let pos = stars[index].get_pos_at_epoch();
     for j in 0..stars.len() {
         if index != j && !excluding.contains(&j) {
-            let distance = stars[j].get_pos().angle_to(pos);
+            let distance = stars[j].get_pos_at_epoch().angle_to(pos);
             if let Some(nn) = nearest_neighbour {
-                let nn_distance = stars[nn as usize].get_pos().angle_to(pos);
+                let nn_distance = stars[nn as usize].get_pos_at_epoch().angle_to(pos);
                 if distance < nn_distance {
                     nearest_neighbour = Some(j);
                 }
@@ -221,7 +227,7 @@ mod tests {
             stars.push(StarAppearance::new(
                 format!("Star {}", i),
                 Illuminance::from_lux(1.0),
-                sRGBColor::DEFAULT,
+                sRGBColor::WHITE,
                 pos,
                 StarAppearanceEvolution::NONE,
             ));
@@ -324,10 +330,10 @@ mod tests {
         con2: &Connection,
         stars2: &[StarAppearance],
     ) -> bool {
-        let pos_1_1 = stars1[con1.from].get_pos();
-        let pos_1_2 = stars1[con1.to].get_pos();
-        let pos_2_1 = stars2[con2.from].get_pos();
-        let pos_2_2 = stars2[con2.to].get_pos();
+        let pos_1_1 = stars1[con1.from].get_pos_at_epoch();
+        let pos_1_2 = stars1[con1.to].get_pos_at_epoch();
+        let pos_2_1 = stars2[con2.from].get_pos_at_epoch();
+        let pos_2_2 = stars2[con2.to].get_pos_at_epoch();
         let case1 = pos_1_1.eq_within(pos_2_1, ANGLE_TEST_ACCURACY)
             && pos_1_2.eq_within(pos_2_2, ANGLE_TEST_ACCURACY);
         let case2 = pos_1_1.eq_within(pos_2_2, ANGLE_TEST_ACCURACY)

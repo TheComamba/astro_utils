@@ -36,19 +36,27 @@ impl StarAppearance {
         &self.name
     }
 
-    pub const fn get_illuminance(&self) -> &Illuminance<f64> {
+    pub const fn get_illuminance_at_epoch(&self) -> &Illuminance<f64> {
         &self.illuminance
     }
 
-    pub const fn get_color(&self) -> &sRGBColor {
+    pub fn get_illuminance(&self, years: f64) -> Illuminance<f64> {
+        self.evolution.apply_to_illuminance(self.illuminance, years)
+    }
+
+    pub const fn get_color_at_epoch(&self) -> &sRGBColor {
         &self.color
     }
 
-    pub const fn get_pos(&self) -> &EclipticCoordinates {
+    pub fn get_color(&self, years: f64) -> sRGBColor {
+        self.evolution.apply_to_color(self.color, years)
+    }
+
+    pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
         &self.pos
     }
 
-    pub fn set_pos(&mut self, direction: EclipticCoordinates) {
+    pub fn set_pos_at_epoch(&mut self, direction: EclipticCoordinates) {
         self.pos = direction;
     }
 

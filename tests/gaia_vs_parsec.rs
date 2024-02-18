@@ -62,7 +62,7 @@ fn total_number_is_similar(parsec: &[StarAppearance], gaia: &[StarAppearance]) -
 }
 
 fn apparent_magnitude_is_within(star: &StarAppearance, mag_min: f64, mag_max: f64) -> bool {
-    let app_mag = illuminance_to_apparent_magnitude(star.get_illuminance());
+    let app_mag = illuminance_to_apparent_magnitude(star.get_illuminance_at_epoch());
     app_mag < mag_min && app_mag > mag_max
 }
 

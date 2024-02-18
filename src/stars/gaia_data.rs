@@ -121,7 +121,7 @@ impl GaiaResponse {
                 let illuminance = apparent_magnitude_to_illuminance(parsed_data.mag);
                 let color = match parsed_data.temperature {
                     Some(temperature) => sRGBColor::from_temperature(temperature),
-                    None => sRGBColor::DEFAULT,
+                    None => sRGBColor::WHITE,
                 };
 
                 let star = StarAppearance {

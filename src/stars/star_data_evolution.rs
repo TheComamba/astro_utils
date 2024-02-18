@@ -1,7 +1,15 @@
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature};
 
-use super::star_data::StarData;
+use crate::{
+    color::srgb::sRGBColor,
+    units::{illuminance::IRRADIANCE_ZERO, luminous_intensity::luminous_intensity_to_illuminance},
+};
+
+use super::{
+    star_appearance_evolution::{StarAppearanceEvolution, StarAppearanceLifestageEvolution},
+    star_data::StarData,
+};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarDataEvolution {
@@ -64,6 +72,18 @@ impl StarDataEvolution {
         }
         temperature
     }
+
+    pub(crate) fn to_star_appearance_evolution(
+        &self,
+        temperature_at_epoch: Temperature<f64>,
+        distance: Distance<f64>,
+    ) -> StarAppearanceEvolution {
+        let lifestage_evolution = self
+            .lifestage_evolution
+            .as_ref()
+            .map(|e| e.to_star_appearance_lifestage_evolution(temperature_at_epoch, distance));
+        StarAppearanceEvolution::new(lifestage_evolution)
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -101,6 +121,31 @@ impl StarDataLifestageEvolution {
             radius_per_year,
             luminous_intensity_per_year,
             temperature_per_year,
+        }
+    }
+
+    fn to_star_appearance_lifestage_evolution(
+        &self,
+        temperature_at_epoch: Temperature<f64>,
+        distance: Distance<f64>,
+    ) -> StarAppearanceLifestageEvolution {
+        let illuminance_per_year = match self.luminous_intensity_per_year {
+            Some(luminous_intensity_diff) => {
+                luminous_intensity_to_illuminance(&luminous_intensity_diff, &distance)
+            }
+            None => IRRADIANCE_ZERO,
+        };
+        let color_per_year = match self.temperature_per_year {
+            Some(temp_diff) => {
+                let color_now = sRGBColor::from_temperature(temperature_at_epoch);
+                let color_then = sRGBColor::from_temperature(temperature_at_epoch - temp_diff);
+                color_now - color_then
+            }
+            None => sRGBColor::BLACK,
+        };
+        StarAppearanceLifestageEvolution {
+            illuminance_per_year,
+            color_per_year,
         }
     }
 }

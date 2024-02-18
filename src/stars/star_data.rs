@@ -156,16 +156,25 @@ impl StarData {
             }
             _ => IRRADIANCE_ZERO,
         };
+
         let color = match self.temperature {
             Some(temperature) => sRGBColor::from_temperature(temperature),
-            None => sRGBColor::DEFAULT,
+            None => sRGBColor::WHITE,
         };
+
+        let evolution = match (self.temperature, self.distance) {
+            (Some(temperature), Some(distance)) => self
+                .evolution
+                .to_star_appearance_evolution(temperature, distance),
+            _ => StarAppearanceEvolution::NONE,
+        };
+
         StarAppearance {
             name: self.name.clone(),
             illuminance,
             color,
             pos: self.pos.clone(),
-            evolution: StarAppearanceEvolution::NONE,
+            evolution,
         }
     }
 
