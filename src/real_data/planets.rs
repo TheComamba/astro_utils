@@ -1,4 +1,4 @@
-use crate::color::sRGBColor;
+use crate::color::srgb::sRGBColor;
 use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
 use crate::planets::orbit_parameters::OrbitParameters;
 use crate::planets::real_data::RealData;

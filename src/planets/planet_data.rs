@@ -1,6 +1,6 @@
 use super::orbit_parameters::OrbitParameters;
 use crate::{
-    color::sRGBColor,
+    color::srgb::sRGBColor,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,

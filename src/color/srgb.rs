@@ -1,9 +1,11 @@
+use std::ops::{Add, Neg, Sub};
+
 use crate::astro_display::AstroDisplay;
 use serde::{ser::SerializeTuple, Serializer};
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::Temperature;
 
-use super::xyz::{sRGB_TO_XYZ, XYZColor};
+use super::xyz::XYZColor;
 
 #[derive(Debug, Clone, PartialEq, PartialOrd)]
 #[allow(non_camel_case_types)]
@@ -49,17 +51,6 @@ impl sRGBColor {
         let max = self.R.max(self.G).max(self.B);
         (self.R / max, self.G / max, self.B / max)
     }
-
-    #[allow(non_snake_case)]
-    pub fn to_XYZ(&self) -> XYZColor {
-        let X =
-            sRGB_TO_XYZ[0][0] * self.R + sRGB_TO_XYZ[0][1] * self.G + sRGB_TO_XYZ[0][2] * self.B;
-        let Y =
-            sRGB_TO_XYZ[1][0] * self.R + sRGB_TO_XYZ[1][1] * self.G + sRGB_TO_XYZ[1][2] * self.B;
-        let Z =
-            sRGB_TO_XYZ[2][0] * self.R + sRGB_TO_XYZ[2][1] * self.G + sRGB_TO_XYZ[2][2] * self.B;
-        XYZColor { X, Y, Z }
-    }
 }
 
 impl Serialize for sRGBColor {
@@ -79,6 +70,66 @@ impl<'de> Deserialize<'de> for sRGBColor {
     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let array = <[f64; 3]>::deserialize(deserializer)?;
         sRGBColor::from_array(array).map_err(serde::de::Error::custom)
+    }
+}
+
+impl Add for &sRGBColor {
+    type Output = sRGBColor;
+
+    fn add(self, other: Self) -> sRGBColor {
+        sRGBColor {
+            R: self.R + other.R,
+            G: self.G + other.G,
+            B: self.B + other.B,
+        }
+    }
+}
+
+impl Add for sRGBColor {
+    type Output = sRGBColor;
+
+    fn add(self, other: Self) -> sRGBColor {
+        &self + &other
+    }
+}
+
+impl Sub for &sRGBColor {
+    type Output = sRGBColor;
+
+    fn sub(self, other: Self) -> sRGBColor {
+        sRGBColor {
+            R: self.R - other.R,
+            G: self.G - other.G,
+            B: self.B - other.B,
+        }
+    }
+}
+
+impl Sub for sRGBColor {
+    type Output = sRGBColor;
+
+    fn sub(self, other: Self) -> sRGBColor {
+        &self - &other
+    }
+}
+
+impl Neg for &sRGBColor {
+    type Output = sRGBColor;
+
+    fn neg(self) -> sRGBColor {
+        sRGBColor {
+            R: -self.R,
+            G: -self.G,
+            B: -self.B,
+        }
+    }
+}
+
+impl Neg for sRGBColor {
+    type Output = sRGBColor;
+
+    fn neg(self) -> sRGBColor {
+        -&self
     }
 }
 

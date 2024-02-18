@@ -1,6 +1,6 @@
 use super::{star_appearance::StarAppearance, star_data::StarData};
 use crate::{
-    color::sRGBColor,
+    color::srgb::sRGBColor,
     coordinates::{
         declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
         right_ascension::RightAscension,

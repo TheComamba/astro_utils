@@ -201,7 +201,7 @@ mod tests {
 
     use super::*;
     use crate::{
-        color::sRGBColor,
+        color::srgb::sRGBColor,
         coordinates::spherical::SphericalCoordinates,
         real_data::stars::all::get_many_stars,
         stars::constellation::constellation::collect_constellations,

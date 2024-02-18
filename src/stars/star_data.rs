@@ -1,6 +1,6 @@
 use super::star_appearance::StarAppearance;
 use crate::{
-    color::sRGBColor,
+    color::srgb::sRGBColor,
     coordinates::ecliptic::EclipticCoordinates,
     units::{illuminance::IRRADIANCE_ZERO, luminous_intensity::luminous_intensity_to_illuminance},
 };

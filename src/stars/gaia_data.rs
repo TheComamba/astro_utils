@@ -1,6 +1,6 @@
 use super::{star_appearance::StarAppearance, star_data::StarData};
 use crate::{
-    color::sRGBColor,
+    color::srgb::sRGBColor,
     coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates},
     error::AstroUtilError,
     units::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},

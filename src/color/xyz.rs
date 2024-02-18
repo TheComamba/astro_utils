@@ -15,13 +15,6 @@ pub(super) struct XYZColor {
  * Page 19 defines the transformation matrix from XYZ to RGB
  */
 #[allow(non_upper_case_globals)]
-pub(super) const sRGB_TO_XYZ: [[f64; 3]; 3] = [
-    [0.490, 0.310, 0.200],
-    [0.177, 0.813, 0.010],
-    [0.000, 0.010, 0.990],
-];
-
-#[allow(non_upper_case_globals)]
 pub(super) const XYZ_TO_sRGB: [[f64; 3]; 3] = [
     [2.3644, -0.8958, -0.4686],
     [-0.5148, 1.4252, 0.0896],

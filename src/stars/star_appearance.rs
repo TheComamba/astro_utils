@@ -1,5 +1,5 @@
 use crate::{
-    astro_display::AstroDisplay, color::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
+    astro_display::AstroDisplay, color::srgb::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
@@ -76,7 +76,6 @@ impl AstroDisplay for StarAppearance {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::color::sRGBColor;
 
     #[test]
     fn star_is_apparently_the_same_with_itself() {
