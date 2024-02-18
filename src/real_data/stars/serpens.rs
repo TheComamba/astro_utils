@@ -24,7 +24,7 @@ const UNUKALHAI: RealData = RealData {
     }),
     absolute_magnitude: 0.88,
     apparent_magnitude: 2.63,
-    temperature: Some(Temperature { K: 4498. }),
+    temperature: Temperature { K: 4498. },
     age: None,
     right_ascension: RightAscension::new(15, 44, 16),
     declination: Declination::new(Sgn::Pos, 6, 25, 32),
@@ -48,7 +48,7 @@ const BETA_SERPENTIS: RealData = RealData {
         kg: 1.94 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 8928. }),
+    temperature: Temperature { K: 8928. },
     age: Some(Time {
         s: 0.267 * BILLION_YEARS.s,
     }),
@@ -69,7 +69,7 @@ const MU_SERPENTIS: RealData = RealData {
         kg: 2.4 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 9487. }),
+    temperature: Temperature { K: 9487. },
     age: None,
 };
 

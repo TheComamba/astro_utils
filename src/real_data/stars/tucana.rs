@@ -24,7 +24,7 @@ const ALPHA_TUCANAE: RealData = RealData {
     }),
     absolute_magnitude: -1.05,
     apparent_magnitude: 2.87,
-    temperature: Some(Temperature { K: 4300. }),
+    temperature: Temperature { K: 4300. },
     age: None,
     right_ascension: RightAscension::new(22, 18, 30),
     declination: Declination::new(Sgn::Neg, 60, 15, 35),
@@ -50,7 +50,7 @@ const GAMMA_TUCANAE: RealData = RealData {
     radius: Some(Distance {
         m: 2.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6679. }),
+    temperature: Temperature { K: 6679. },
     age: Some(Time {
         s: 1.414 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const ZETA_TUCANAE: RealData = RealData {
     radius: Some(Distance {
         m: 1.08 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5970. }),
+    temperature: Temperature { K: 5970. },
     age: Some(Time {
         s: 2.5 * BILLION_YEARS.s,
     }),

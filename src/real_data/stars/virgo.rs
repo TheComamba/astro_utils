@@ -24,7 +24,7 @@ const SPICA: RealData = RealData {
     }),
     absolute_magnitude: -3.55,
     apparent_magnitude: 0.98,
-    temperature: Some(Temperature { K: 22_300. }),
+    temperature: Temperature { K: 22_300. },
     age: Some(Time {
         s: 0.0125 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const MINELAUVA: RealData = RealData {
     }),
     absolute_magnitude: -0.575,
     apparent_magnitude: 3.39,
-    temperature: Some(Temperature { K: 3999. }),
+    temperature: Temperature { K: 3999. },
     age: None,
     right_ascension: RightAscension::new(12, 55, 36),
     declination: Declination::new(Sgn::Pos, 3, 23, 51),
@@ -73,7 +73,7 @@ const ZAVIJAVA: RealData = RealData {
     radius: Some(Distance {
         m: 1.681 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6132. }),
+    temperature: Temperature { K: 6132. },
     age: Some(Time {
         s: 2.9 * BILLION_YEARS.s,
     }),
@@ -96,7 +96,7 @@ const SYRMA: RealData = RealData {
     radius: Some(Distance {
         m: 2.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6282. }),
+    temperature: Temperature { K: 6282. },
     age: None,
 };
 
@@ -117,7 +117,7 @@ const HEZE: RealData = RealData {
     radius: Some(Distance {
         m: 2.079 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8247. }),
+    temperature: Temperature { K: 8247. },
     age: Some(Time {
         s: 0.51 * BILLION_YEARS.s,
     }),
@@ -140,7 +140,7 @@ const VINDEMIATRIX: RealData = RealData {
     radius: Some(Distance {
         m: 10.6 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5086. }),
+    temperature: Temperature { K: 5086. },
     age: Some(Time {
         s: 0.560 * BILLION_YEARS.s,
     }),
@@ -161,7 +161,7 @@ const PORRIMA: RealData = RealData {
         kg: 1.56 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 6757. }),
+    temperature: Temperature { K: 6757. },
     age: Some(Time {
         s: 1.14 * BILLION_YEARS.s,
     }),

@@ -24,7 +24,7 @@ const CANOPUS: RealData = RealData {
     }),
     absolute_magnitude: -5.53,
     apparent_magnitude: -0.62,
-    temperature: Some(Temperature { K: 7400. }),
+    temperature: Temperature { K: 7400. },
     age: Some(Time {
         s: 0.0251 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const MIAPLACIDUS: RealData = RealData {
     }),
     absolute_magnitude: -0.99,
     apparent_magnitude: 1.67,
-    temperature: Some(Temperature { K: 8866. }),
+    temperature: Temperature { K: 8866. },
     age: Some(Time {
         s: 0.260 * BILLION_YEARS.s,
     }),
@@ -68,7 +68,7 @@ const AVIOR: RealData = RealData {
     }),
     absolute_magnitude: -4.58,
     apparent_magnitude: 1.86,
-    temperature: Some(Temperature { K: 3523. }),
+    temperature: Temperature { K: 3523. },
     age: Some(Time {
         s: 0.020 * BILLION_YEARS.s,
     }),
@@ -91,7 +91,7 @@ const ASPIDISKE: RealData = RealData {
     }),
     absolute_magnitude: -4.42,
     apparent_magnitude: 2.21,
-    temperature: Some(Temperature { K: 7500. }),
+    temperature: Temperature { K: 7500. },
     age: Some(Time {
         s: 0.0374 * BILLION_YEARS.s,
     }),

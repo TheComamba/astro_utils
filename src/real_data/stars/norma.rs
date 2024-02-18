@@ -23,7 +23,7 @@ const GAMMA2_NORMAE: RealData = RealData {
         kg: 2.16 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 4699. }),
+    temperature: Temperature { K: 4699. },
     age: None,
 };
 
@@ -42,7 +42,7 @@ const EPSILON_NORMAE: RealData = RealData {
         kg: 6.4 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 10_888. }),
+    temperature: Temperature { K: 10_888. },
     age: Some(Time {
         s: 0.0501 * BILLION_YEARS.s,
     }),
@@ -63,7 +63,7 @@ const IOTA1_NORMAE: RealData = RealData {
         kg: 1.94 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 7842. }),
+    temperature: Temperature { K: 7842. },
     age: Some(Time {
         s: 0.731 * BILLION_YEARS.s,
     }),

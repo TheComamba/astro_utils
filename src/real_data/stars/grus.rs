@@ -24,7 +24,7 @@ const ALNAIR: RealData = RealData {
     }),
     absolute_magnitude: -0.73,
     apparent_magnitude: 1.73,
-    temperature: Some(Temperature { K: 13_920. }),
+    temperature: Temperature { K: 13_920. },
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const TIAKI: RealData = RealData {
     }),
     absolute_magnitude: -1.52,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature { K: 3480. }),
+    temperature: Temperature { K: 3480. },
     age: None,
     right_ascension: RightAscension::new(22, 42, 40),
     declination: Declination::new(Sgn::Neg, 46, 53, 4),
@@ -73,7 +73,7 @@ const GAMMA_GRUIS: RealData = RealData {
     radius: Some(Distance {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 12_520. }),
+    temperature: Temperature { K: 12_520. },
     age: Some(Time {
         s: 0.075 * BILLION_YEARS.s,
     }),

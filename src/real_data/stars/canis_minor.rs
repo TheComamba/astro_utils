@@ -24,7 +24,7 @@ const PROCYON: RealData = RealData {
     }),
     absolute_magnitude: 2.68,
     apparent_magnitude: 0.40,
-    temperature: Some(Temperature { K: 6530. }),
+    temperature: Temperature { K: 6530. },
     age: Some(Time {
         s: 1.37 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_CANIS_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 11_772. }),
+    temperature: Temperature { K: 11_772. },
     age: Some(Time {
         s: 160. * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 36.8 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4036. }),
+    temperature: Temperature { K: 4036. },
     age: Some(Time {
         s: 1.3 * BILLION_YEARS.s,
     }),

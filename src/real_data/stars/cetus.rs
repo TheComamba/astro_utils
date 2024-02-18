@@ -24,7 +24,7 @@ const DIPHDA: RealData = RealData {
     }),
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.04,
-    temperature: Some(Temperature { K: 4797. }),
+    temperature: Temperature { K: 4797. },
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const MENKAR: RealData = RealData {
     }),
     absolute_magnitude: -1.61,
     apparent_magnitude: 2.54,
-    temperature: Some(Temperature { K: 3795. }),
+    temperature: Temperature { K: 3795. },
     age: None,
     right_ascension: RightAscension::new(3, 2, 17),
     declination: Declination::new(Sgn::Pos, 4, 5, 23),
@@ -73,7 +73,7 @@ const MIRA: RealData = RealData {
     radius: Some(Distance {
         m: 350. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3000. }),
+    temperature: Temperature { K: 3000. },
     age: Some(Time {
         s: 6. * BILLION_YEARS.s,
     }),
@@ -96,7 +96,7 @@ const BATEN_KAITOS: RealData = RealData {
     radius: Some(Distance {
         m: 25. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4581. }),
+    temperature: Temperature { K: 4581. },
     age: Some(Time {
         s: 1.24 * BILLION_YEARS.s,
     }),
@@ -119,7 +119,7 @@ const GAMMA_CETI: RealData = RealData {
     radius: Some(Distance {
         m: 1.9 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8551. }),
+    temperature: Temperature { K: 8551. },
     age: Some(Time {
         s: 0.647 * BILLION_YEARS.s,
     }),
@@ -142,7 +142,7 @@ const IOTA_CETI: RealData = RealData {
     radius: Some(Distance {
         m: 34. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4446. }),
+    temperature: Temperature { K: 4446. },
     age: Some(Time {
         s: 2.23 * BILLION_YEARS.s,
     }),
@@ -165,7 +165,7 @@ const DENEB_ALGENUBI: RealData = RealData {
     radius: Some(Distance {
         m: 15.10 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4543. }),
+    temperature: Temperature { K: 4543. },
     age: Some(Time {
         s: 1.8 * BILLION_YEARS.s,
     }),
@@ -188,7 +188,7 @@ const TAU_CETI: RealData = RealData {
     radius: Some(Distance {
         m: 0.793 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5320. }),
+    temperature: Temperature { K: 5320. },
     age: Some(Time {
         s: 9. * BILLION_YEARS.s,
     }),

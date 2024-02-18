@@ -23,7 +23,7 @@ const ANKAA: RealData = RealData {
     }),
     absolute_magnitude: 0.52,
     apparent_magnitude: 2.4,
-    temperature: Some(Temperature { K: 4436. }),
+    temperature: Temperature { K: 4436. },
     age: None,
     right_ascension: RightAscension::new(0, 26, 17),
     declination: Declination::new(Sgn::Neg, 42, 18, 21),
@@ -47,7 +47,7 @@ const BETA_PHOENICIS: RealData = RealData {
         kg: 2.5 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 5090. }),
+    temperature: Temperature { K: 5090. },
     age: None,
 };
 
@@ -68,7 +68,7 @@ const GAMMA_PHOENICIS: RealData = RealData {
     radius: Some(Distance {
         m: 52. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3802. }),
+    temperature: Temperature { K: 3802. },
     age: None,
 };
 

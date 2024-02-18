@@ -29,7 +29,7 @@ const ALPHA_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 2.45 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 10_233. }),
+    temperature: Temperature { K: 10_233. },
     age: None,
 };
 
@@ -50,7 +50,7 @@ const DELTA_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 44. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3963. }),
+    temperature: Temperature { K: 3963. },
     age: Some(Time {
         s: 0.00298 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const NU_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 34. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4154. }),
+    temperature: Temperature { K: 4154. },
     age: Some(Time {
         s: 3.41 * BILLION_YEARS.s,
     }),
@@ -94,7 +94,7 @@ const IOTA_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 1.595 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6288. }),
+    temperature: Temperature { K: 6288. },
     age: Some(Time {
         s: 5.2 * BILLION_YEARS.s,
     }),
@@ -117,7 +117,7 @@ const OMICRON_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 14.57 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5004. }),
+    temperature: Temperature { K: 5004. },
     age: Some(Time {
         s: 0.390 * BILLION_YEARS.s,
     }),
@@ -140,7 +140,7 @@ const EPSILON_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 10.9 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4814. }),
+    temperature: Temperature { K: 4814. },
     age: Some(Time {
         s: 2.56 * BILLION_YEARS.s,
     }),
@@ -163,7 +163,7 @@ const THETA_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4684. }),
+    temperature: Temperature { K: 4684. },
     age: Some(Time {
         s: 0.00245 * BILLION_YEARS.s,
     }),
@@ -186,7 +186,7 @@ const ETA_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 26.48 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4937. }),
+    temperature: Temperature { K: 4937. },
     age: Some(Time {
         s: 0.220 * BILLION_YEARS.s,
     }),
@@ -209,7 +209,7 @@ const GAMMA_PISCIUM: RealData = RealData {
     radius: Some(Distance {
         m: 11.28 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4833. }),
+    temperature: Temperature { K: 4833. },
     age: Some(Time {
         s: 4.58 * BILLION_YEARS.s,
     }),
@@ -230,7 +230,7 @@ const OMEGA_PISCIUM: RealData = RealData {
         kg: 1.22 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 6641. }),
+    temperature: Temperature { K: 6641. },
     age: Some(Time {
         s: 1.337 * BILLION_YEARS.s,
     }),

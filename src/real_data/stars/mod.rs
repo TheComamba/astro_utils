@@ -28,7 +28,7 @@ use simple_si_units::base::{Temperature, Time};
 //     absolute_magnitude: ,
 //     mass: Some(Mass{kg: * SOLAR_MASS.kg}),
 //     radius: Some(Distance{m: * SOLAR_RADIUS.m}),
-//     temperature: Some(Temperature{K:}),
+//     temperature: Temperature{K:}),
 //     age: Some(Time{s:* BILLION_YEARS.s}),
 // };
 
@@ -40,7 +40,7 @@ pub const SUN: RealData = RealData {
     radius: Some(SOLAR_RADIUS),
     absolute_magnitude: 4.83,
     apparent_magnitude: -26.74, //seen from earth
-    temperature: Some(Temperature { K: 5778.0 }),
+    temperature: Temperature { K: 5778.0 },
     age: Some(Time {
         s: 4.6 * BILLION_YEARS.s,
     }),

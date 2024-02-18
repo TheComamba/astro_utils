@@ -29,7 +29,7 @@ const ALPHA_PYXIDIS: RealData = RealData {
     radius: Some(Distance {
         m: 6.3 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 24_300. }),
+    temperature: Temperature { K: 24_300. },
     age: None,
 };
 
@@ -50,7 +50,7 @@ const BETA_PYXIDIS: RealData = RealData {
     radius: Some(Distance {
         m: 24. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5124. }),
+    temperature: Temperature { K: 5124. },
     age: None,
 };
 
@@ -71,7 +71,7 @@ const GAMMA_PYXIDIS: RealData = RealData {
     radius: Some(Distance {
         m: 21.87 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4270. }),
+    temperature: Temperature { K: 4270. },
     age: Some(Time {
         s: 4.29 * BILLION_YEARS.s,
     }),

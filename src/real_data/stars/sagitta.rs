@@ -29,7 +29,7 @@ const GAMMA_SAGITTAE: RealData = RealData {
     radius: Some(Distance {
         m: 55.13 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3862. }),
+    temperature: Temperature { K: 3862. },
     age: Some(Time {
         s: 2.35 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const DELTA_SAGITTAE: RealData = RealData {
     radius: Some(Distance {
         m: 108. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3660. }),
+    temperature: Temperature { K: 3660. },
     age: None,
 };
 
@@ -73,7 +73,7 @@ const ALPHA_SAGITTAE: RealData = RealData {
     radius: Some(Distance {
         m: 21. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5333. }),
+    temperature: Temperature { K: 5333. },
     age: Some(Time {
         s: 0.151 * BILLION_YEARS.s,
     }),

@@ -24,7 +24,7 @@ const HAMAL: RealData = RealData {
     }),
     absolute_magnitude: 0.48,
     apparent_magnitude: 2.01,
-    temperature: Some(Temperature { K: 4480. }),
+    temperature: Temperature { K: 4480. },
     age: Some(Time {
         s: 3.4 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_ARIETIS: RealData = RealData {
     radius: Some(Distance {
         m: 23. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9000. }),
+    temperature: Temperature { K: 9000. },
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const FOURTYONE_ARIETIS: RealData = RealData {
         kg: 3.1 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 11_900. }),
+    temperature: Temperature { K: 11_900. },
     age: Some(Time {
         s: 0.130 * BILLION_YEARS.s,
     }),

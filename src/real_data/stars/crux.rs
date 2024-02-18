@@ -24,7 +24,7 @@ const ACRUX: RealData = RealData {
     }),
     absolute_magnitude: -4.19,
     apparent_magnitude: 0.77,
-    temperature: Some(Temperature { K: 24_000. }),
+    temperature: Temperature { K: 24_000. },
     age: Some(Time {
         s: 0.0108 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const MIMOSA: RealData = RealData {
     }),
     absolute_magnitude: -3.92,
     apparent_magnitude: 1.25,
-    temperature: Some(Temperature { K: 27_000. }),
+    temperature: Temperature { K: 27_000. },
     age: Some(Time {
         s: 0.010 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const GACRUX: RealData = RealData {
     }),
     absolute_magnitude: -0.56,
     apparent_magnitude: 1.59,
-    temperature: Some(Temperature { K: 3689. }),
+    temperature: Temperature { K: 3689. },
     age: None,
     right_ascension: RightAscension::new(12, 31, 10),
     declination: Declination::new(Sgn::Neg, 57, 6, 48),

@@ -24,7 +24,7 @@ const ALTAIR: RealData = RealData {
     }),
     absolute_magnitude: 2.20,
     apparent_magnitude: 0.76,
-    temperature: Some(Temperature { K: 7670. }),
+    temperature: Temperature { K: 7670. },
     age: Some(Time {
         s: 0.100 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const TARAZED: RealData = RealData {
     }),
     absolute_magnitude: -3.03,
     apparent_magnitude: 2.72,
-    temperature: Some(Temperature { K: 4098. }),
+    temperature: Temperature { K: 4098. },
     age: Some(Time {
         s: 0.270 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const ZETA_AQUILAE: RealData = RealData {
     radius: Some(Distance {
         m: 2.27 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9620. }),
+    temperature: Temperature { K: 9620. },
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),
@@ -98,7 +98,7 @@ const THETA_AQUILAE: RealData = RealData {
     radius: Some(Distance {
         m: 4.76 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 10_300. }),
+    temperature: Temperature { K: 10_300. },
     age: Some(Time {
         s: 0.0209 * BILLION_YEARS.s,
     }),
@@ -121,7 +121,7 @@ const DELTA_AQUILAE: RealData = RealData {
     radius: Some(Distance {
         m: 2.04 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7016. }),
+    temperature: Temperature { K: 7016. },
     age: None,
 };
 
@@ -142,7 +142,7 @@ const LAMBDA_AQUILAE: RealData = RealData {
     radius: Some(Distance {
         m: 1.9 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 11_780. }),
+    temperature: Temperature { K: 11_780. },
     age: Some(Time {
         s: 0.160 * BILLION_YEARS.s,
     }),

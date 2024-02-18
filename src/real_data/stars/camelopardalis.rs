@@ -24,7 +24,7 @@ const BETA_CAMELOPARDALIS: RealData = RealData {
     }),
     absolute_magnitude: -3.1,
     apparent_magnitude: 4.02,
-    temperature: Some(Temperature { K: 5300. }),
+    temperature: Temperature { K: 5300. },
     age: Some(Time {
         s: 0.053 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     }),
     absolute_magnitude: -6.39,
     apparent_magnitude: 4.21,
-    temperature: Some(Temperature { K: 10_800. }),
+    temperature: Temperature { K: 10_800. },
     age: Some(Time {
         s: 0.016_5 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const ALPHA_CAMELOPARDALIS: RealData = RealData {
     }),
     absolute_magnitude: -7.1,
     apparent_magnitude: 4.29,
-    temperature: Some(Temperature { K: 29_000. }),
+    temperature: Temperature { K: 29_000. },
     age: Some(Time {
         s: 0.002 * BILLION_YEARS.s,
     }),

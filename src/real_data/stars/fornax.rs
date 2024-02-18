@@ -29,7 +29,7 @@ const ALPHA_FORNACIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.04 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6240. }),
+    temperature: Temperature { K: 6240. },
     age: Some(Time {
         s: 2.9 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_FORNACIS: RealData = RealData {
     radius: Some(Distance {
         m: 11.02 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4820. }),
+    temperature: Temperature { K: 4820. },
     age: None,
 };
 
@@ -73,7 +73,7 @@ const NU_FORNACIS: RealData = RealData {
     radius: Some(Distance {
         m: 3.44 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 13_400. }),
+    temperature: Temperature { K: 13_400. },
     age: None,
 };
 

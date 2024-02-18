@@ -24,7 +24,7 @@ const REGOR: RealData = RealData {
     }),
     absolute_magnitude: -5.31,
     apparent_magnitude: 1.75,
-    temperature: Some(Temperature { K: 35_000. }),
+    temperature: Temperature { K: 35_000. },
     age: Some(Time {
         s: 0.0045 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const ALSEPHINA: RealData = RealData {
     }),
     absolute_magnitude: -0.01,
     apparent_magnitude: 1.93,
-    temperature: Some(Temperature { K: 9440. }),
+    temperature: Temperature { K: 9440. },
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const SUHAIL: RealData = RealData {
     }),
     absolute_magnitude: -3.99,
     apparent_magnitude: 2.23,
-    temperature: Some(Temperature { K: 3900. }),
+    temperature: Temperature { K: 3900. },
     age: Some(Time {
         s: 0.0316 * BILLION_YEARS.s,
     }),
@@ -93,7 +93,7 @@ const MARKEB: RealData = RealData {
     }),
     absolute_magnitude: -3.62,
     apparent_magnitude: 2.47,
-    temperature: Some(Temperature { K: 23_000. }),
+    temperature: Temperature { K: 23_000. },
     age: Some(Time {
         s: 0.018 * BILLION_YEARS.s,
     }),

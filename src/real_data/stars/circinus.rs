@@ -29,7 +29,7 @@ const ALPHA_CIRCINI: RealData = RealData {
     radius: Some(Distance {
         m: 1.967 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7500. }),
+    temperature: Temperature { K: 7500. },
     age: Some(Time {
         s: 0.012 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const BETA_CIRCINI: RealData = RealData {
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8676. }),
+    temperature: Temperature { K: 8676. },
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
@@ -71,7 +71,7 @@ const GAMMA_CIRCINI: RealData = RealData {
         kg: 6. * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 15_135. }),
+    temperature: Temperature { K: 15_135. },
     age: Some(Time {
         s: 0.0631 * BILLION_YEARS.s,
     }),

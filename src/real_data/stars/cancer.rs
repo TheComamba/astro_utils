@@ -24,7 +24,7 @@ const TARF: RealData = RealData {
     }),
     absolute_magnitude: -1.218,
     apparent_magnitude: 3.50,
-    temperature: Some(Temperature { K: 4092. }),
+    temperature: Temperature { K: 4092. },
     age: Some(Time {
         s: 1.85 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const ASELLUS_AUSTRALIS: RealData = RealData {
     }),
     absolute_magnitude: 0.843,
     apparent_magnitude: 3.94,
-    temperature: Some(Temperature { K: 4637. }),
+    temperature: Temperature { K: 4637. },
     age: Some(Time {
         s: 2.45 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const IOTA_CANCRI: RealData = RealData {
     }),
     absolute_magnitude: -0.79,
     apparent_magnitude: 4.02,
-    temperature: Some(Temperature { K: 4954. }),
+    temperature: Temperature { K: 4954. },
     age: None,
     right_ascension: RightAscension::new(8, 46, 42),
     declination: Declination::new(Sgn::Pos, 28, 45, 36),

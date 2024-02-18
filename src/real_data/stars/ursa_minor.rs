@@ -24,7 +24,7 @@ const POLARIS: RealData = RealData {
     }),
     absolute_magnitude: -3.64,
     apparent_magnitude: 1.97,
-    temperature: Some(Temperature { K: 6015. }),
+    temperature: Temperature { K: 6015. },
     age: Some(Time {
         s: 0.05 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const KOCHAB: RealData = RealData {
     }),
     absolute_magnitude: -0.87,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature { K: 4030. }),
+    temperature: Temperature { K: 4030. },
     age: None,
     right_ascension: RightAscension::new(14, 50, 42),
     declination: Declination::new(Sgn::Pos, 74, 9, 20),
@@ -73,7 +73,7 @@ const ZETA_URSAE_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 6.15 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8720. }),
+    temperature: Temperature { K: 8720. },
     age: Some(Time {
         s: 0.180 * BILLION_YEARS.s,
     }),
@@ -96,7 +96,7 @@ const DELTA_URSAE_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.8 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9911. }),
+    temperature: Temperature { K: 9911. },
     age: Some(Time {
         s: 0.327 * BILLION_YEARS.s,
     }),
@@ -119,7 +119,7 @@ const ETA_URSAE_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.0 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6858. }),
+    temperature: Temperature { K: 6858. },
     age: Some(Time {
         s: 1.061 * BILLION_YEARS.s,
     }),
@@ -140,7 +140,7 @@ const GAMMA_URSAE_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 15. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8280. }),
+    temperature: Temperature { K: 8280. },
     age: None,
 };
 
@@ -157,7 +157,7 @@ const EPSILON_URSAE_MINORIS: RealData = RealData {
     absolute_magnitude: -0.922,
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 5215. }),
+    temperature: Temperature { K: 5215. },
     age: None,
 };
 

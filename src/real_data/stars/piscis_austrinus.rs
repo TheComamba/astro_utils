@@ -24,7 +24,7 @@ const FORMALHAUT: RealData = RealData {
     }),
     absolute_magnitude: 1.74,
     apparent_magnitude: 1.17,
-    temperature: Some(Temperature { K: 8590. }),
+    temperature: Temperature { K: 8590. },
     age: Some(Time {
         s: 0.44 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const DELTA_PISCIS_AUSTRINI: RealData = RealData {
         kg: 1.42 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 4828. }),
+    temperature: Temperature { K: 4828. },
     age: Some(Time {
         s: 3.74 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
     radius: Some(Distance {
         m: 3.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 11_066. }),
+    temperature: Temperature { K: 11_066. },
     age: None,
 };
 
@@ -90,7 +90,7 @@ const IOTA_PISCIS_AUSTRINI: RealData = RealData {
     absolute_magnitude: 0.37,
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 9330. }),
+    temperature: Temperature { K: 9330. },
     age: None,
 };
 

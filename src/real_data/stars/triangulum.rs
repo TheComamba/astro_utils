@@ -27,7 +27,7 @@ const BETA_TRIANGULI: RealData = RealData {
         kg: 3.5 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 8186. }),
+    temperature: Temperature { K: 8186. },
     age: Some(Time {
         s: 0.73 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const ALPHA_TRIANGULI: RealData = RealData {
     radius: Some(Distance {
         m: 3.22 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6288. }),
+    temperature: Temperature { K: 6288. },
     age: Some(Time {
         s: 1.6 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const GAMMA_TRIANGULI: RealData = RealData {
     radius: Some(Distance {
         m: 1.96 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9440. }),
+    temperature: Temperature { K: 9440. },
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),

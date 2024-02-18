@@ -29,7 +29,7 @@ const ALPHA_CORONAE_AUSTRALIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.21 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9916. }),
+    temperature: Temperature { K: 9916. },
     age: Some(Time {
         s: 0.254 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_CORONAE_AUSTRALIS: RealData = RealData {
     radius: Some(Distance {
         m: 38.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4575. }),
+    temperature: Temperature { K: 4575. },
     age: None,
 };
 
@@ -73,7 +73,7 @@ const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.47 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6090. }),
+    temperature: Temperature { K: 6090. },
     age: Some(Time {
         s: 5. * BILLION_YEARS.s,
     }),

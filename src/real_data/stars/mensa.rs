@@ -29,7 +29,7 @@ const ALPHA_MENSAE: RealData = RealData {
     radius: Some(Distance {
         m: 0.960 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5569. }),
+    temperature: Temperature { K: 5569. },
     age: Some(Time {
         s: 6.2 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_MENSAE: RealData = RealData {
     radius: Some(Distance {
         m: 25.85 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5088. }),
+    temperature: Temperature { K: 5088. },
     age: Some(Time {
         s: 0.270 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const GAMMA_MENSAE: RealData = RealData {
     radius: Some(Distance {
         m: 4.99 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4491. }),
+    temperature: Temperature { K: 4491. },
     age: Some(Time {
         s: 10.60 * BILLION_YEARS.s,
     }),

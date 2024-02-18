@@ -24,7 +24,7 @@ const ALPHERATZ: RealData = RealData {
     }),
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature { K: 13_800. }),
+    temperature: Temperature { K: 13_800. },
     age: Some(Time {
         s: 0.06 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const MIRACH: RealData = RealData {
     }),
     absolute_magnitude: -1.86,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature { K: 3842. }),
+    temperature: Temperature { K: 3842. },
     age: None,
     right_ascension: RightAscension::new(1, 9, 44),
     declination: Declination::new(Sgn::Pos, 35, 37, 14),
@@ -68,7 +68,7 @@ const ALMACH: RealData = RealData {
     }),
     absolute_magnitude: -3.08,
     apparent_magnitude: 2.1,
-    temperature: Some(Temperature { K: 4250. }),
+    temperature: Temperature { K: 4250. },
     age: Some(Time {
         s: 0.0065 * BILLION_YEARS.s,
     }),

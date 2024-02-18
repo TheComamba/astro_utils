@@ -29,7 +29,7 @@ const ALPHA_SCULPTORIS: RealData = RealData {
     radius: Some(Distance {
         m: 7.52 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 13_600. }),
+    temperature: Temperature { K: 13_600. },
     age: Some(Time {
         s: 0.093 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_SCULPTORIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.0 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 12_110. }),
+    temperature: Temperature { K: 12_110. },
     age: None,
 };
 
@@ -73,7 +73,7 @@ const GAMMA_SULPTORIS: RealData = RealData {
     radius: Some(Distance {
         m: 12. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4578. }),
+    temperature: Temperature { K: 4578. },
     age: Some(Time {
         s: 2.47 * BILLION_YEARS.s,
     }),

@@ -24,7 +24,7 @@ const ALPHARD: RealData = RealData {
     }),
     absolute_magnitude: -1.69,
     apparent_magnitude: 1.99,
-    temperature: Some(Temperature { K: 4120. }),
+    temperature: Temperature { K: 4120. },
     age: Some(Time {
         s: 0.42 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const GAMMA_HYDRAE: RealData = RealData {
     radius: Some(Distance {
         m: 16. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5087. }),
+    temperature: Temperature { K: 5087. },
     age: Some(Time {
         s: 0.372 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const ZETA_HYDRAE: RealData = RealData {
     radius: Some(Distance {
         m: 17.9 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4925. }),
+    temperature: Temperature { K: 4925. },
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
@@ -98,7 +98,7 @@ const NU_HYDRAE: RealData = RealData {
     radius: Some(Distance {
         m: 21. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4335. }),
+    temperature: Temperature { K: 4335. },
     age: None,
 };
 

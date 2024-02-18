@@ -24,7 +24,7 @@ const CAPELLA: RealData = RealData {
     }),
     absolute_magnitude: -0.48,
     apparent_magnitude: 0.08,
-    temperature: Some(Temperature { K: 4970. }),
+    temperature: Temperature { K: 4970. },
     age: Some(Time {
         s: 0.620 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const MENKALINAN: RealData = RealData {
     }),
     absolute_magnitude: -0.10,
     apparent_magnitude: 1.9,
-    temperature: Some(Temperature { K: 9350. }),
+    temperature: Temperature { K: 9350. },
     age: Some(Time {
         s: 0.570 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const HASSALEH: RealData = RealData {
     }),
     absolute_magnitude: -3.20,
     apparent_magnitude: 2.69,
-    temperature: Some(Temperature { K: 4160. }),
+    temperature: Temperature { K: 4160. },
     age: Some(Time {
         s: 0.04 * BILLION_YEARS.s,
     }),

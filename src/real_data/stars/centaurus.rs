@@ -24,7 +24,7 @@ const RIGEL_KENTAURUS: RealData = RealData {
     }),
     absolute_magnitude: 4.34,
     apparent_magnitude: -0.27,
-    temperature: Some(Temperature { K: 5790. }),
+    temperature: Temperature { K: 5790. },
     age: Some(Time {
         s: 4.85 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const HADAR: RealData = RealData {
     }),
     absolute_magnitude: -5.42,
     apparent_magnitude: 0.61,
-    temperature: Some(Temperature { K: 25_000. }),
+    temperature: Temperature { K: 25_000. },
     age: Some(Time {
         s: 0.0141 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const MENKENT: RealData = RealData {
     }),
     absolute_magnitude: 0.70,
     apparent_magnitude: 2.06,
-    temperature: Some(Temperature { K: 4980. }),
+    temperature: Temperature { K: 4980. },
     age: None,
     right_ascension: RightAscension::new(14, 6, 41),
     declination: Declination::new(Sgn::Neg, 36, 22, 11),
@@ -89,7 +89,7 @@ const MUHLIFAIN: RealData = RealData {
     }),
     absolute_magnitude: -0.81,
     apparent_magnitude: 2.20,
-    temperature: Some(Temperature { K: 9082. }),
+    temperature: Temperature { K: 9082. },
     age: None,
     right_ascension: RightAscension::new(12, 41, 31),
     declination: Declination::new(Sgn::Neg, 48, 57, 35),
@@ -108,7 +108,7 @@ const EPSILON_CENTAURI: RealData = RealData {
     }),
     absolute_magnitude: -3.02,
     apparent_magnitude: 2.29,
-    temperature: Some(Temperature { K: 24_000. }),
+    temperature: Temperature { K: 24_000. },
     age: Some(Time {
         s: 0.0158 * BILLION_YEARS.s,
     }),
@@ -131,7 +131,7 @@ const ETA_CENTAURI: RealData = RealData {
     }),
     absolute_magnitude: -2.55,
     apparent_magnitude: 2.29,
-    temperature: Some(Temperature { K: 25_700. }),
+    temperature: Temperature { K: 25_700. },
     age: Some(Time {
         s: 0.0056 * BILLION_YEARS.s,
     }),
@@ -154,7 +154,7 @@ const ZETA_CENTAURI: RealData = RealData {
     }),
     absolute_magnitude: -2.81,
     apparent_magnitude: 2.55,
-    temperature: Some(Temperature { K: 23_561. }),
+    temperature: Temperature { K: 23_561. },
     age: Some(Time {
         s: 0.04 * BILLION_YEARS.s,
     }),
@@ -177,7 +177,7 @@ const MA_WEI: RealData = RealData {
     }),
     absolute_magnitude: -2.84,
     apparent_magnitude: 2.58,
-    temperature: Some(Temperature { K: 22_360. }),
+    temperature: Temperature { K: 22_360. },
     age: Some(Time {
         s: 0.02 * BILLION_YEARS.s,
     }),

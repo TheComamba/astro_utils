@@ -28,7 +28,7 @@ const ALPHA_SCUTI: RealData = RealData {
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4315. }),
+    temperature: Temperature { K: 4315. },
     age: None,
 };
 
@@ -45,7 +45,7 @@ const BETA_SCUTI: RealData = RealData {
     absolute_magnitude: -2.99,
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 4622. }),
+    temperature: Temperature { K: 4622. },
     age: None,
 };
 
@@ -66,7 +66,7 @@ const ZETA_SCUTI: RealData = RealData {
     radius: Some(Distance {
         m: 9.3 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4750. }),
+    temperature: Temperature { K: 4750. },
     age: None,
 };
 

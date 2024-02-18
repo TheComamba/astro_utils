@@ -27,7 +27,7 @@ const GAMMA1_VOLANTIS: RealData = RealData {
         kg: 1.69 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 6541. }),
+    temperature: Temperature { K: 6541. },
     age: Some(Time {
         s: 1.4 * BILLION_YEARS.s,
     }),
@@ -48,7 +48,7 @@ const BETA_VOLANTIS: RealData = RealData {
         kg: 1.62 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 4546. }),
+    temperature: Temperature { K: 4546. },
     age: None,
 };
 
@@ -69,7 +69,7 @@ const ZETA_VOLANTIS: RealData = RealData {
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4721. }),
+    temperature: Temperature { K: 4721. },
     age: Some(Time {
         s: 5.27 * BILLION_YEARS.s,
     }),

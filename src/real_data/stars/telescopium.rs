@@ -29,7 +29,7 @@ const ALPHA_TELESCOPII: RealData = RealData {
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 16_700. }),
+    temperature: Temperature { K: 16_700. },
     age: Some(Time {
         s: 0.0241 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const ZETA_TELESCOPII: RealData = RealData {
     radius: Some(Distance {
         m: 9. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4801. }),
+    temperature: Temperature { K: 4801. },
     age: None,
 };
 
@@ -69,7 +69,7 @@ const EPSILON_TELESCOPII: RealData = RealData {
     absolute_magnitude: -1.,
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 4996. }),
+    temperature: Temperature { K: 4996. },
     age: None,
 };
 

@@ -29,7 +29,7 @@ const ALPHA_PICTORIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.6 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7530. }),
+    temperature: Temperature { K: 7530. },
     age: Some(Time {
         s: 0.660 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_PICTORIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.8 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8052. }),
+    temperature: Temperature { K: 8052. },
     age: Some(Time {
         s: 0.023 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const GAMMA_PICTORIS: RealData = RealData {
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4600. }),
+    temperature: Temperature { K: 4600. },
     age: None,
 };
 

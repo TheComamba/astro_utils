@@ -24,7 +24,7 @@ const SADALSUUD: RealData = RealData {
     }),
     absolute_magnitude: -3.04,
     apparent_magnitude: 2.87,
-    temperature: Some(Temperature { K: 5608. }),
+    temperature: Temperature { K: 5608. },
     age: Some(Time {
         s: 0.110 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const SADALMELIK: RealData = RealData {
     }),
     absolute_magnitude: -3.882,
     apparent_magnitude: 2.942,
-    temperature: Some(Temperature { K: 5383. }),
+    temperature: Temperature { K: 5383. },
     age: Some(Time {
         s: 0.053 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const SKAT: RealData = RealData {
     }),
     absolute_magnitude: -0.178,
     apparent_magnitude: 3.27,
-    temperature: Some(Temperature { K: 8650. }),
+    temperature: Temperature { K: 8650. },
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),

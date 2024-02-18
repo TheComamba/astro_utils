@@ -24,7 +24,7 @@ const ARNEB: RealData = RealData {
     }),
     absolute_magnitude: -5.40,
     apparent_magnitude: 2.58,
-    temperature: Some(Temperature { K: 6_850. }),
+    temperature: Temperature { K: 6_850. },
     age: Some(Time {
         s: 0.013 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_LEPORIS: RealData = RealData {
     radius: Some(Distance {
         m: 16. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5450. }),
+    temperature: Temperature { K: 5450. },
     age: Some(Time {
         s: 0.240 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const EPSILON_LEPORIS: RealData = RealData {
     radius: Some(Distance {
         m: 40.1 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4131. }),
+    temperature: Temperature { K: 4131. },
     age: Some(Time {
         s: 1.72 * BILLION_YEARS.s,
     }),

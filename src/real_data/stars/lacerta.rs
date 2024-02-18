@@ -29,7 +29,7 @@ const ALPHA_LACERTAE: RealData = RealData {
     radius: Some(Distance {
         m: 2.1432 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9050. }),
+    temperature: Temperature { K: 9050. },
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_LACERTAE: RealData = RealData {
     radius: Some(Distance {
         m: 10.96 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4803. }),
+    temperature: Temperature { K: 4803. },
     age: Some(Time {
         s: 6.76 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const FIVE_LACERTAE: RealData = RealData {
     radius: Some(Distance {
         m: 319.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3713. }),
+    temperature: Temperature { K: 3713. },
     age: Some(Time {
         s: 110. * BILLION_YEARS.s,
     }),

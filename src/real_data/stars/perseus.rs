@@ -24,7 +24,7 @@ const MIRPHAK: RealData = RealData {
     }),
     absolute_magnitude: -4.50,
     apparent_magnitude: 1.79,
-    temperature: Some(Temperature { K: 6350. }),
+    temperature: Temperature { K: 6350. },
     age: Some(Time {
         s: 0.041 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const ALGOL: RealData = RealData {
     }),
     absolute_magnitude: -0.18,
     apparent_magnitude: 2.09,
-    temperature: Some(Temperature { K: 13_000. }),
+    temperature: Temperature { K: 13_000. },
     age: Some(Time {
         s: 0.57 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const GORGONEA_TERTIA: RealData = RealData {
     }),
     absolute_magnitude: -1.67,
     apparent_magnitude: 3.32,
-    temperature: Some(Temperature { K: 3479. }),
+    temperature: Temperature { K: 3479. },
     age: Some(Time {
         s: 0.440 * BILLION_YEARS.s,
     }),

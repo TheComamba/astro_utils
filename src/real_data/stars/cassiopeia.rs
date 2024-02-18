@@ -24,7 +24,7 @@ const NAVI: RealData = RealData {
     }),
     absolute_magnitude: -4.22,
     apparent_magnitude: 2.20,
-    temperature: Some(Temperature { K: 25_000. }),
+    temperature: Temperature { K: 25_000. },
     age: Some(Time {
         s: 0.008 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const SCHEDAR: RealData = RealData {
     }),
     absolute_magnitude: -1.99,
     apparent_magnitude: 2.24,
-    temperature: Some(Temperature { K: 4552. }),
+    temperature: Temperature { K: 4552. },
     age: Some(Time {
         s: 0.22 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const CAPH: RealData = RealData {
     }),
     absolute_magnitude: 1.17,
     apparent_magnitude: 2.28,
-    temperature: Some(Temperature { K: 7079. }),
+    temperature: Temperature { K: 7079. },
     age: Some(Time {
         s: 1.1 * BILLION_YEARS.s,
     }),

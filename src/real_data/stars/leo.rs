@@ -24,7 +24,7 @@ const REGULUS: RealData = RealData {
     }),
     absolute_magnitude: -0.52,
     apparent_magnitude: 1.36,
-    temperature: Some(Temperature { K: 11_668. }),
+    temperature: Temperature { K: 11_668. },
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const ALGIEBA: RealData = RealData {
     }),
     absolute_magnitude: -0.92,
     apparent_magnitude: 2.01,
-    temperature: Some(Temperature { K: 4470. }),
+    temperature: Temperature { K: 4470. },
     age: None,
     right_ascension: RightAscension::new(10, 19, 58),
     declination: Declination::new(Sgn::Pos, 19, 50, 29),
@@ -68,7 +68,7 @@ const DENEBOLA: RealData = RealData {
     }),
     absolute_magnitude: 1.92,
     apparent_magnitude: 2.14,
-    temperature: Some(Temperature { K: 8500. }),
+    temperature: Temperature { K: 8500. },
     age: Some(Time {
         s: 0.25 * BILLION_YEARS.s,
     }),
@@ -91,7 +91,7 @@ const ZOSMA: RealData = RealData {
     }),
     absolute_magnitude: 1.32,
     apparent_magnitude: 2.56,
-    temperature: Some(Temperature { K: 8_296. }),
+    temperature: Temperature { K: 8_296. },
     age: Some(Time {
         s: 0.65 * BILLION_YEARS.s,
     }),

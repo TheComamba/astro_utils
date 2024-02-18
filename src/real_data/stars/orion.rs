@@ -24,7 +24,7 @@ const RIGEL: RealData = RealData {
     }),
     absolute_magnitude: -6.69,
     apparent_magnitude: 0.18,
-    temperature: Some(Temperature { K: 12_100. }),
+    temperature: Temperature { K: 12_100. },
     age: Some(Time {
         s: 0.008 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const BETELGEUSE: RealData = RealData {
     }),
     absolute_magnitude: -5.14,
     apparent_magnitude: 0.9,
-    temperature: Some(Temperature { K: 3600. }),
+    temperature: Temperature { K: 3600. },
     age: Some(Time {
         s: 0.008 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const BELLATRIX: RealData = RealData {
     }),
     absolute_magnitude: -2.72,
     apparent_magnitude: 1.64,
-    temperature: Some(Temperature { K: 21_800. }),
+    temperature: Temperature { K: 21_800. },
     age: Some(Time {
         s: 0.0252 * BILLION_YEARS.s,
     }),
@@ -93,7 +93,7 @@ const ALNILAM: RealData = RealData {
     }),
     absolute_magnitude: -6.38,
     apparent_magnitude: 1.69,
-    temperature: Some(Temperature { K: 27_000. }),
+    temperature: Temperature { K: 27_000. },
     age: Some(Time {
         s: 0.0057 * BILLION_YEARS.s,
     }),
@@ -116,7 +116,7 @@ const ALNITAK: RealData = RealData {
     }),
     absolute_magnitude: -5.26,
     apparent_magnitude: 1.74,
-    temperature: Some(Temperature { K: 29_500. }),
+    temperature: Temperature { K: 29_500. },
     age: Some(Time {
         s: 0.0064 * BILLION_YEARS.s,
     }),
@@ -139,7 +139,7 @@ const SAIPH: RealData = RealData {
     }),
     absolute_magnitude: -4.65,
     apparent_magnitude: 2.07,
-    temperature: Some(Temperature { K: 26_500. }),
+    temperature: Temperature { K: 26_500. },
     age: Some(Time {
         s: 0.0111 * BILLION_YEARS.s,
     }),
@@ -162,7 +162,7 @@ const MINTAKA: RealData = RealData {
     }),
     absolute_magnitude: -4.99,
     apparent_magnitude: 2.25,
-    temperature: Some(Temperature { K: 29_500. }),
+    temperature: Temperature { K: 29_500. },
     age: None,
     right_ascension: RightAscension::new(5, 32, 0),
     declination: Declination::new(Sgn::Neg, 0, 17, 57),

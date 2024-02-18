@@ -29,7 +29,7 @@ const ALPHA_VULPECULAE: RealData = RealData {
     radius: Some(Distance {
         m: 43.14 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3690. }),
+    temperature: Temperature { K: 3690. },
     age: Some(Time {
         s: 11.3 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const TWENTYTHREE_VULPECULAE: RealData = RealData {
         kg: 2.4 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 4429. }),
+    temperature: Temperature { K: 4429. },
     age: None,
 };
 
@@ -71,7 +71,7 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
     radius: Some(Distance {
         m: 8.01 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5261. }),
+    temperature: Temperature { K: 5261. },
     age: Some(Time {
         s: 0.7 * BILLION_YEARS.s,
     }),

@@ -28,7 +28,7 @@ const ALPHA_HOROLOGII: RealData = RealData {
     radius: Some(Distance {
         m: 8. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5028. }),
+    temperature: Temperature { K: 5028. },
     age: None,
 };
 
@@ -45,7 +45,7 @@ const R_HOROLOGII: RealData = RealData {
     absolute_magnitude: -0.221,
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 2200. }),
+    temperature: Temperature { K: 2200. },
     age: None,
 };
 
@@ -64,7 +64,7 @@ const BETA_HOROLOGII: RealData = RealData {
     radius: Some(Distance {
         m: 1.4 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8303. }),
+    temperature: Temperature { K: 8303. },
     age: None,
 };
 

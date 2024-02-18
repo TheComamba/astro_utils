@@ -29,7 +29,7 @@ const ALPHA_EQUULEI: RealData = RealData {
     radius: Some(Distance {
         m: 9.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5100. }),
+    temperature: Temperature { K: 5100. },
     age: None,
 };
 
@@ -50,7 +50,7 @@ const DELTA_EQUULEI: RealData = RealData {
     radius: Some(Distance {
         m: 1.30 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6200. }),
+    temperature: Temperature { K: 6200. },
     age: Some(Time {
         s: 3. * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const GAMMA_EQUULEI: RealData = RealData {
     radius: Some(Distance {
         m: 2.11 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7550. }),
+    temperature: Temperature { K: 7550. },
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),

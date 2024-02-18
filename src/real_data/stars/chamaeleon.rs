@@ -29,7 +29,7 @@ const ALPHA_CHAMAELEONTIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.11 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6580. }),
+    temperature: Temperature { K: 6580. },
     age: Some(Time {
         s: 1.8 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const GAMMA_CHAMAELEONTIS: RealData = RealData {
     radius: Some(Distance {
         m: 67. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4035. }),
+    temperature: Temperature { K: 4035. },
     age: None,
 };
 
@@ -71,7 +71,7 @@ const BETA_CHAMAELEONIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.84 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 14_495. }),
+    temperature: Temperature { K: 14_495. },
     age: Some(Time {
         s: 0.0227 * BILLION_YEARS.s,
     }),

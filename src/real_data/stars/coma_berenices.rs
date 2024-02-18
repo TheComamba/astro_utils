@@ -27,7 +27,7 @@ const DIADEM: RealData = RealData {
         kg: 1.237 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 6365. }),
+    temperature: Temperature { K: 6365. },
     age: None,
 };
 
@@ -48,7 +48,7 @@ const BETA_COMA_BERENICES: RealData = RealData {
     radius: Some(Distance {
         m: 1.106 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5936. }),
+    temperature: Temperature { K: 5936. },
     age: Some(Time {
         s: 2. * BILLION_YEARS.s,
     }),
@@ -71,7 +71,7 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
     radius: Some(Distance {
         m: 11.76 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4652. }),
+    temperature: Temperature { K: 4652. },
     age: Some(Time {
         s: 2.72 * BILLION_YEARS.s,
     }),

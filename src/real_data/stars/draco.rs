@@ -24,7 +24,7 @@ const ELTANIN: RealData = RealData {
     }),
     absolute_magnitude: -1.04,
     apparent_magnitude: 2.24,
-    temperature: Some(Temperature { K: 3930. }),
+    temperature: Temperature { K: 3930. },
     age: None,
     right_ascension: RightAscension::new(17, 56, 36),
     declination: Declination::new(Sgn::Pos, 51, 29, 20),
@@ -45,7 +45,7 @@ const ATHEBYNE: RealData = RealData {
     }),
     absolute_magnitude: 0.58,
     apparent_magnitude: 2.73,
-    temperature: Some(Temperature { K: 5055. }),
+    temperature: Temperature { K: 5055. },
     age: Some(Time {
         s: 0.55 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const THETA_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.83 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6105. }),
+    temperature: Temperature { K: 6105. },
     age: Some(Time {
         s: 2.03 * BILLION_YEARS.s,
     }),
@@ -96,7 +96,7 @@ const KAPPA_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 5.85 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 13_982. }),
+    temperature: Temperature { K: 13_982. },
     age: None,
 };
 
@@ -117,7 +117,7 @@ const EPSILON_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 11.15 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4993. }),
+    temperature: Temperature { K: 4993. },
     age: Some(Time {
         s: 0.5 * BILLION_YEARS.s,
     }),
@@ -140,7 +140,7 @@ const LAMBDA_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 71. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3958. }),
+    temperature: Temperature { K: 3958. },
     age: None,
 };
 
@@ -161,7 +161,7 @@ const XI_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 12. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4445. }),
+    temperature: Temperature { K: 4445. },
     age: None,
 };
 
@@ -182,7 +182,7 @@ const THUBAN: RealData = RealData {
     radius: Some(Distance {
         m: 4.932 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 10_225. }),
+    temperature: Temperature { K: 10_225. },
     age: Some(Time {
         s: 0.280 * BILLION_YEARS.s,
     }),
@@ -205,7 +205,7 @@ const CHI_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6150. }),
+    temperature: Temperature { K: 6150. },
     age: Some(Time {
         s: 5.3 * BILLION_YEARS.s,
     }),
@@ -228,7 +228,7 @@ const IOTA_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 11.99 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4504. }),
+    temperature: Temperature { K: 4504. },
     age: Some(Time {
         s: 2.49 * BILLION_YEARS.s,
     }),
@@ -251,7 +251,7 @@ const ZETA_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.3 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 13_397. }),
+    temperature: Temperature { K: 13_397. },
     age: None,
 };
 
@@ -272,7 +272,7 @@ const DELTA_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4820. }),
+    temperature: Temperature { K: 4820. },
     age: Some(Time {
         s: 0.8 * BILLION_YEARS.s,
     }),
@@ -295,7 +295,7 @@ const BETA_DRACONIS: RealData = RealData {
     radius: Some(Distance {
         m: 40. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5160. }),
+    temperature: Temperature { K: 5160. },
     age: Some(Time {
         s: 0.062 * BILLION_YEARS.s,
     }),

@@ -24,7 +24,7 @@ const ALPHA_LYNCIS: RealData = RealData {
     }),
     absolute_magnitude: -1.02,
     apparent_magnitude: 3.15,
-    temperature: Some(Temperature { K: 3882. }),
+    temperature: Temperature { K: 3882. },
     age: Some(Time {
         s: 1.4 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const THIRTYEIGHT_LYNCIS: RealData = RealData {
     radius: Some(Distance {
         m: 3.07 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8862. }),
+    temperature: Temperature { K: 8862. },
     age: Some(Time {
         s: 0.213 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const THIRTYONE_LYNCIS: RealData = RealData {
     radius: Some(Distance {
         m: 53.27 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3921. }),
+    temperature: Temperature { K: 3921. },
     age: Some(Time {
         s: 1.32 * BILLION_YEARS.s,
     }),

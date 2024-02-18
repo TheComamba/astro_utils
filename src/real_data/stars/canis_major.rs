@@ -24,7 +24,7 @@ const SIRIUS: RealData = RealData {
     }),
     absolute_magnitude: 1.45,
     apparent_magnitude: -1.44,
-    temperature: Some(Temperature { K: 9940. }),
+    temperature: Temperature { K: 9940. },
     age: Some(Time {
         s: 0.242 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const ADHARA: RealData = RealData {
     }),
     absolute_magnitude: -4.10,
     apparent_magnitude: 1.5,
-    temperature: Some(Temperature { K: 22_900. }),
+    temperature: Temperature { K: 22_900. },
     age: Some(Time {
         s: 0.0225 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const WEZEN: RealData = RealData {
     }),
     absolute_magnitude: -6.87,
     apparent_magnitude: 1.83,
-    temperature: Some(Temperature { K: 6390. }),
+    temperature: Temperature { K: 6390. },
     age: Some(Time {
         s: 0.012 * BILLION_YEARS.s,
     }),
@@ -93,7 +93,7 @@ const MIRZAM: RealData = RealData {
     }),
     absolute_magnitude: -3.95,
     apparent_magnitude: 1.98,
-    temperature: Some(Temperature { K: 25_000. }),
+    temperature: Temperature { K: 25_000. },
     age: Some(Time {
         s: 0.0124 * BILLION_YEARS.s,
     }),
@@ -116,7 +116,7 @@ const ALUDRA: RealData = RealData {
     }),
     absolute_magnitude: -7.51,
     apparent_magnitude: 2.45,
-    temperature: Some(Temperature { K: 15_500. }),
+    temperature: Temperature { K: 15_500. },
     age: Some(Time {
         s: 0.0083 * BILLION_YEARS.s,
     }),

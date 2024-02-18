@@ -22,7 +22,7 @@ const GHURAB: RealData = RealData {
     }),
     absolute_magnitude: -0.94,
     apparent_magnitude: 2.58,
-    temperature: Some(Temperature { K: 12_000. }),
+    temperature: Temperature { K: 12_000. },
     age: Some(Time {
         s: 0.160 * BILLION_YEARS.s,
     }),
@@ -45,7 +45,7 @@ const KRAZ: RealData = RealData {
     }),
     absolute_magnitude: -0.61,
     apparent_magnitude: 2.65,
-    temperature: Some(Temperature { K: 5100. }),
+    temperature: Temperature { K: 5100. },
     age: Some(Time {
         s: 0.206 * BILLION_YEARS.s,
     }),
@@ -71,7 +71,7 @@ const ALGORAB: RealData = RealData {
         kg: 2.74 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 10_400. }),
+    temperature: Temperature { K: 10_400. },
     age: Some(Time {
         s: 0.260 * BILLION_YEARS.s,
     }),
@@ -94,7 +94,7 @@ const EPSILON_CORVI: RealData = RealData {
     radius: Some(Distance {
         m: 52. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4320. }),
+    temperature: Temperature { K: 4320. },
     age: None,
 };
 

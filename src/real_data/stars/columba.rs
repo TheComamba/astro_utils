@@ -29,7 +29,7 @@ const ALPHA_COLUMBAE: RealData = RealData {
     radius: Some(Distance {
         m: 5.8 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 12_963. }),
+    temperature: Temperature { K: 12_963. },
     age: Some(Time {
         s: 0.093 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_COLUMBAE: RealData = RealData {
     radius: Some(Distance {
         m: 11.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4545. }),
+    temperature: Temperature { K: 4545. },
     age: Some(Time {
         s: 2. * BILLION_YEARS.s,
     }),
@@ -71,7 +71,7 @@ const DELTA_COLUMBAE: RealData = RealData {
     absolute_magnitude: -0.32,
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 5136. }),
+    temperature: Temperature { K: 5136. },
     age: None,
 };
 
@@ -92,7 +92,7 @@ const EPSILON_COLUMBAE: RealData = RealData {
     radius: Some(Distance {
         m: 25.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4575. }),
+    temperature: Temperature { K: 4575. },
     age: Some(Time {
         s: 1.53 * BILLION_YEARS.s,
     }),

@@ -24,7 +24,7 @@ const DENEB: RealData = RealData {
     }),
     absolute_magnitude: -7.13,
     apparent_magnitude: 1.25,
-    temperature: Some(Temperature { K: 8515. }),
+    temperature: Temperature { K: 8515. },
     age: None,
     right_ascension: RightAscension::new(20, 41, 26),
     declination: Declination::new(Sgn::Pos, 45, 16, 49),
@@ -45,7 +45,7 @@ const SADIR: RealData = RealData {
     }),
     absolute_magnitude: -6.12,
     apparent_magnitude: 2.23,
-    temperature: Some(Temperature { K: 5790. }),
+    temperature: Temperature { K: 5790. },
     age: Some(Time {
         s: 0.012 * BILLION_YEARS.s,
     }),
@@ -68,7 +68,7 @@ const ALJANAH: RealData = RealData {
     }),
     absolute_magnitude: 0.76,
     apparent_magnitude: 2.48,
-    temperature: Some(Temperature { K: 4710. }),
+    temperature: Temperature { K: 4710. },
     age: Some(Time {
         s: 1.5 * BILLION_YEARS.s,
     }),

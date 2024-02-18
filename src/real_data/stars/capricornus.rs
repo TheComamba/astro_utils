@@ -25,7 +25,7 @@ const BETA_CAPRICORNI: RealData = RealData {
     absolute_magnitude: -3., // Not literature value
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 4900. }),
+    temperature: Temperature { K: 4900. },
     age: None,
 };
 
@@ -46,7 +46,7 @@ const DELTA_CAPRICORNI: RealData = RealData {
     radius: Some(Distance {
         m: 1.91 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7301. }),
+    temperature: Temperature { K: 7301. },
     age: None,
 };
 
@@ -67,7 +67,7 @@ const OMEGA_CAPRICORNI: RealData = RealData {
     radius: Some(Distance {
         m: 172.1 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3915. }),
+    temperature: Temperature { K: 3915. },
     age: Some(Time {
         s: 0.0481 * BILLION_YEARS.s,
     }),

@@ -24,7 +24,7 @@ const ALIOTH: RealData = RealData {
     }),
     absolute_magnitude: -0.21,
     apparent_magnitude: 1.76,
-    temperature: Some(Temperature { K: 9_020. }),
+    temperature: Temperature { K: 9_020. },
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const DUBHE: RealData = RealData {
     }),
     absolute_magnitude: -1.08,
     apparent_magnitude: 1.81,
-    temperature: Some(Temperature { K: 5012. }),
+    temperature: Temperature { K: 5012. },
     age: Some(Time {
         s: 0.28 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const ALKAID: RealData = RealData {
     }),
     absolute_magnitude: -0.60,
     apparent_magnitude: 1.85,
-    temperature: Some(Temperature { K: 15_540. }),
+    temperature: Temperature { K: 15_540. },
     age: Some(Time {
         s: 0.01 * BILLION_YEARS.s,
     }),
@@ -93,7 +93,7 @@ const MIZAR: RealData = RealData {
     }),
     absolute_magnitude: 0.33,
     apparent_magnitude: 2.23,
-    temperature: Some(Temperature { K: 9000. }),
+    temperature: Temperature { K: 9000. },
     age: Some(Time {
         s: 0.37 * BILLION_YEARS.s,
     }),
@@ -116,7 +116,7 @@ const MERAK: RealData = RealData {
     }),
     absolute_magnitude: 0.41,
     apparent_magnitude: 2.34,
-    temperature: Some(Temperature { K: 9377. }),
+    temperature: Temperature { K: 9377. },
     age: Some(Time {
         s: 0.5 * BILLION_YEARS.s,
     }),
@@ -139,7 +139,7 @@ const PHECDA: RealData = RealData {
     }),
     absolute_magnitude: 0.36,
     apparent_magnitude: 2.41,
-    temperature: Some(Temperature { K: 9355. }),
+    temperature: Temperature { K: 9355. },
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
@@ -162,7 +162,7 @@ const TANIA_AUSTRALIS: RealData = RealData {
     }),
     absolute_magnitude: -1.2,
     apparent_magnitude: 3.06,
-    temperature: Some(Temperature { K: 3899. }),
+    temperature: Temperature { K: 3899. },
     age: None,
     right_ascension: RightAscension::new(10, 22, 20),
     declination: Declination::new(Sgn::Pos, 41, 29, 58),
@@ -183,7 +183,7 @@ const MEGREZ: RealData = RealData {
     }),
     absolute_magnitude: 1.39,
     apparent_magnitude: 3.312,
-    temperature: Some(Temperature { K: 9480. }),
+    temperature: Temperature { K: 9480. },
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),

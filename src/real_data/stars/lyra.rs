@@ -24,7 +24,7 @@ const VEGA: RealData = RealData {
     }),
     absolute_magnitude: 0.58,
     apparent_magnitude: 0.03,
-    temperature: Some(Temperature { K: 9602. }),
+    temperature: Temperature { K: 9602. },
     age: Some(Time {
         s: 0.455 * BILLION_YEARS.s,
     }),
@@ -45,7 +45,7 @@ const R_LYRAE: RealData = RealData {
     }),
     absolute_magnitude: -1.07,
     apparent_magnitude: 4.08,
-    temperature: Some(Temperature { K: 3313. }),
+    temperature: Temperature { K: 3313. },
     age: None,
     right_ascension: RightAscension::new(18, 55, 20),
     declination: Declination::new(Sgn::Pos, 43, 56, 46),
@@ -71,7 +71,7 @@ const GAMMA_LYRAE: RealData = RealData {
     radius: Some(Distance {
         m: 15.40 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 10_000. }),
+    temperature: Temperature { K: 10_000. },
     age: None,
 };
 
@@ -92,7 +92,7 @@ const BETA_LYRAE: RealData = RealData {
     radius: Some(Distance {
         m: 15.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 13_300. }),
+    temperature: Temperature { K: 13_300. },
     age: Some(Time {
         s: 0.023 * BILLION_YEARS.s,
     }),

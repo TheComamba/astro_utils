@@ -24,7 +24,7 @@ const PEACOCK: RealData = RealData {
     }),
     absolute_magnitude: -1.81,
     apparent_magnitude: 1.94,
-    temperature: Some(Temperature { K: 17_711. }),
+    temperature: Temperature { K: 17_711. },
     age: Some(Time {
         s: 0.048 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_PAVONIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.3 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8184. }),
+    temperature: Temperature { K: 8184. },
     age: Some(Time {
         s: 0.305 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const DELTA_PAVONIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.197 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5571. }),
+    temperature: Temperature { K: 5571. },
     age: Some(Time {
         s: 6.7 * BILLION_YEARS.s,
     }),

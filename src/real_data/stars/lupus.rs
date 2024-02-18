@@ -22,7 +22,7 @@ const ALPHA_LUPI: RealData = RealData {
     }),
     absolute_magnitude: -3.83,
     apparent_magnitude: 2.30,
-    temperature: Some(Temperature { K: 21_820. }),
+    temperature: Temperature { K: 21_820. },
     age: Some(Time {
         s: 0.018 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const BETA_LUPI: RealData = RealData {
     radius: Some(Distance {
         m: 6.6 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 24_090. }),
+    temperature: Temperature { K: 24_090. },
     age: Some(Time {
         s: 0.0246 * BILLION_YEARS.s,
     }),
@@ -71,7 +71,7 @@ const GAMMA_LUPI: RealData = RealData {
         kg: 9.5 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 20_900. }),
+    temperature: Temperature { K: 20_900. },
     age: Some(Time {
         s: 0.0186 * BILLION_YEARS.s,
     }),

@@ -29,7 +29,7 @@ const FOURTYSIX_LEONIS_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 8.22 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4670. }),
+    temperature: Temperature { K: 4670. },
     age: Some(Time {
         s: 6.76 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_LEONIS_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 9.4 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4097. }),
+    temperature: Temperature { K: 4097. },
     age: Some(Time {
         s: 1.2 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.75 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7839. }),
+    temperature: Temperature { K: 7839. },
     age: Some(Time {
         s: 0.390 * BILLION_YEARS.s,
     }),

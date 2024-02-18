@@ -29,7 +29,7 @@ const RASALGETHI: RealData = RealData {
     radius: Some(Distance {
         m: 284. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 3155. }),
+    temperature: Temperature { K: 3155. },
     age: None,
 };
 
@@ -50,7 +50,7 @@ const BETA_HERCULIS: RealData = RealData {
     radius: Some(Distance {
         m: 17. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4887. }),
+    temperature: Temperature { K: 4887. },
     age: None,
 };
 
@@ -71,7 +71,7 @@ const DELTA_HERCULIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9620. }),
+    temperature: Temperature { K: 9620. },
     age: Some(Time {
         s: 0.370 * BILLION_YEARS.s,
     }),
@@ -94,7 +94,7 @@ const ETA_HERCULIS: RealData = RealData {
     radius: Some(Distance {
         m: 8.9 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4900. }),
+    temperature: Temperature { K: 4900. },
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
@@ -117,7 +117,7 @@ const MU_HERCULIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.73 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5560. }),
+    temperature: Temperature { K: 5560. },
     age: Some(Time {
         s: 7.8 * BILLION_YEARS.s,
     }),
@@ -140,7 +140,7 @@ const ZETA_HERCULIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.56 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5820. }),
+    temperature: Temperature { K: 5820. },
     age: Some(Time {
         s: 6.2 * BILLION_YEARS.s,
     }),
@@ -163,7 +163,7 @@ const PI_HERCULIS: RealData = RealData {
     radius: Some(Distance {
         m: 72. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4170. }),
+    temperature: Temperature { K: 4170. },
     age: None,
 };
 

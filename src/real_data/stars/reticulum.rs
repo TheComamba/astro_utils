@@ -29,7 +29,7 @@ const ALPHA_RETICULI: RealData = RealData {
     radius: Some(Distance {
         m: 12.8 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5196. }),
+    temperature: Temperature { K: 5196. },
     age: Some(Time {
         s: 0.33 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_RETICULI: RealData = RealData {
     radius: Some(Distance {
         m: 9.3 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4580. }),
+    temperature: Temperature { K: 4580. },
     age: Some(Time {
         s: 5. * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const EPSILON_RETICULI: RealData = RealData {
     radius: Some(Distance {
         m: 3.18 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4961. }),
+    temperature: Temperature { K: 4961. },
     age: Some(Time {
         s: 2.89 * BILLION_YEARS.s,
     }),

@@ -24,7 +24,7 @@ const NAOS: RealData = RealData {
     }),
     absolute_magnitude: -5.95,
     apparent_magnitude: 2.21,
-    temperature: Some(Temperature { K: 40_000. }),
+    temperature: Temperature { K: 40_000. },
     age: Some(Time {
         s: 0.0032 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const AHADI: RealData = RealData {
     }),
     absolute_magnitude: -4.92,
     apparent_magnitude: 2.71,
-    temperature: Some(Temperature { K: 4000. }),
+    temperature: Temperature { K: 4000. },
     age: Some(Time {
         s: 0.02 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const RHO_PUPPIS: RealData = RealData {
     radius: Some(Distance {
         m: 3.41 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6920. }),
+    temperature: Temperature { K: 6920. },
     age: Some(Time {
         s: 2. * BILLION_YEARS.s,
     }),
@@ -98,7 +98,7 @@ const TAU_PUPPIS: RealData = RealData {
     radius: Some(Distance {
         m: 27. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4489. }),
+    temperature: Temperature { K: 4489. },
     age: Some(Time {
         s: 0.540 * BILLION_YEARS.s,
     }),
@@ -119,7 +119,7 @@ const NU_PUPPIS: RealData = RealData {
     radius: Some(Distance {
         m: 4.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 12_120. }),
+    temperature: Temperature { K: 12_120. },
     age: None,
 };
 

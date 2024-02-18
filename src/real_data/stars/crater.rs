@@ -29,7 +29,7 @@ const ALKES: RealData = RealData {
     radius: Some(Distance {
         m: 12.32 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4691. }),
+    temperature: Temperature { K: 4691. },
     age: Some(Time {
         s: 2.06 * BILLION_YEARS.s,
     }),
@@ -48,7 +48,7 @@ const BETA_CRATERIS: RealData = RealData {
     absolute_magnitude: -0.62,
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 8830. }),
+    temperature: Temperature { K: 8830. },
     age: None,
 };
 
@@ -69,7 +69,7 @@ const GAMMA_CRATERIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8020. }),
+    temperature: Temperature { K: 8020. },
     age: Some(Time {
         s: 0.757 * BILLION_YEARS.s,
     }),
@@ -92,7 +92,7 @@ const DELTA_CRATERIS: RealData = RealData {
     radius: Some(Distance {
         m: 22.44 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4510. }),
+    temperature: Temperature { K: 4510. },
     age: Some(Time {
         s: 2.89 * BILLION_YEARS.s,
     }),

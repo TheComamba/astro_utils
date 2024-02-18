@@ -29,7 +29,7 @@ const ALPHA_DORADUS: RealData = RealData {
     radius: Some(Distance {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 11_588. }),
+    temperature: Temperature { K: 11_588. },
     age: None,
 };
 
@@ -50,7 +50,7 @@ const BETA_DORADUS: RealData = RealData {
     radius: Some(Distance {
         m: 67.8 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5445. }),
+    temperature: Temperature { K: 5445. },
     age: Some(Time {
         s: 0.0425 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const GAMMA_DORADUS: RealData = RealData {
     radius: Some(Distance {
         m: 1.85 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6906. }),
+    temperature: Temperature { K: 6906. },
     age: Some(Time {
         s: 0.535 * BILLION_YEARS.s,
     }),
@@ -91,7 +91,7 @@ const R_DORADUS: RealData = RealData {
     }),
     absolute_magnitude: 1.61,
     apparent_magnitude: 5.59,
-    temperature: Some(Temperature { K: 2710. }),
+    temperature: Temperature { K: 2710. },
     age: Some(Time {
         s: 10. * BILLION_YEARS.s,
     }),

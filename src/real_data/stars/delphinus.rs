@@ -29,7 +29,7 @@ const ALPHA_DELPHINI: RealData = RealData {
     radius: Some(Distance {
         m: 3.92 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 11_643. }),
+    temperature: Temperature { K: 11_643. },
     age: Some(Time {
         s: 0.227 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const ROTANEV: RealData = RealData {
         kg: 1.75 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 6587. }),
+    temperature: Temperature { K: 6587. },
     age: Some(Time {
         s: 1.79 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const GAMMA_DELPHINI: RealData = RealData {
     radius: Some(Distance {
         m: 2.6 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6295. }),
+    temperature: Temperature { K: 6295. },
     age: Some(Time {
         s: 1.85 * BILLION_YEARS.s,
     }),
@@ -96,7 +96,7 @@ const DELTA_DELPHINI: RealData = RealData {
     radius: Some(Distance {
         m: 3.43 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7440. }),
+    temperature: Temperature { K: 7440. },
     age: Some(Time {
         s: 0.945 * BILLION_YEARS.s,
     }),
@@ -117,7 +117,7 @@ const ALDULFIN: RealData = RealData {
     radius: Some(Distance {
         m: 4.6 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 13_614. }),
+    temperature: Temperature { K: 13_614. },
     age: Some(Time {
         s: 0.220 * BILLION_YEARS.s,
     }),

@@ -24,7 +24,7 @@ const ACHERNAR: RealData = RealData {
     }),
     absolute_magnitude: -2.77,
     apparent_magnitude: 0.45,
-    temperature: Some(Temperature { K: 14_000. }),
+    temperature: Temperature { K: 14_000. },
     age: Some(Time {
         s: 0.063 * BILLION_YEARS.s,
     }),
@@ -45,7 +45,7 @@ const ZAURAK: RealData = RealData {
     mass: None,
     absolute_magnitude: -1.19,
     apparent_magnitude: 2.97,
-    temperature: Some(Temperature { K: 3811. }),
+    temperature: Temperature { K: 3811. },
     age: None,
     right_ascension: RightAscension::new(3, 58, 2),
     declination: Declination::new(Sgn::Neg, 13, 30, 31),
@@ -71,7 +71,7 @@ const BETA_ERIDANI: RealData = RealData {
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8360. }),
+    temperature: Temperature { K: 8360. },
     age: None,
 };
 
@@ -92,7 +92,7 @@ const THETA_ERIDANI: RealData = RealData {
     radius: Some(Distance {
         m: 4.85 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8200. }),
+    temperature: Temperature { K: 8200. },
     age: None,
 };
 

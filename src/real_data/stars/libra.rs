@@ -27,7 +27,7 @@ const ZUBENELGENUBI: RealData = RealData {
         kg: 1.95 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 8128. }),
+    temperature: Temperature { K: 8128. },
     age: None,
 };
 
@@ -48,7 +48,7 @@ const ZUBENESCHAMALI: RealData = RealData {
     radius: Some(Distance {
         m: 4.9 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 12_300. }),
+    temperature: Temperature { K: 12_300. },
     age: Some(Time {
         s: 0.08 * BILLION_YEARS.s,
     }),
@@ -66,7 +66,7 @@ const BRACHIUM: RealData = RealData {
     }),
     absolute_magnitude: -1.5,
     apparent_magnitude: 3.21,
-    temperature: Some(Temperature { K: 3596. }),
+    temperature: Temperature { K: 3596. },
     age: None,
     right_ascension: RightAscension::new(15, 4, 4),
     declination: Declination::new(Sgn::Neg, 25, 16, 55),

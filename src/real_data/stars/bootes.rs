@@ -24,7 +24,7 @@ const ARCTURUS: RealData = RealData {
     }),
     absolute_magnitude: -0.31,
     apparent_magnitude: -0.05,
-    temperature: Some(Temperature { K: 4286. }),
+    temperature: Temperature { K: 4286. },
     age: Some(Time {
         s: 7.1 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const IZAR: RealData = RealData {
     }),
     absolute_magnitude: -1.69,
     apparent_magnitude: 2.35,
-    temperature: Some(Temperature { K: 4550. }),
+    temperature: Temperature { K: 4550. },
     age: Some(Time {
         s: 0.0374 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const GAMMA_BOOTIS: RealData = RealData {
     radius: Some(Distance {
         m: 5.16 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7800. }),
+    temperature: Temperature { K: 7800. },
     age: Some(Time {
         s: 0.9 * BILLION_YEARS.s,
     }),
@@ -96,7 +96,7 @@ const DELTA_BOOTIS: RealData = RealData {
     radius: Some(Distance {
         m: 10.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4847. }),
+    temperature: Temperature { K: 4847. },
     age: None,
 };
 
@@ -117,7 +117,7 @@ const BETA_BOOTIS: RealData = RealData {
     radius: Some(Distance {
         m: 21.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4932. }),
+    temperature: Temperature { K: 4932. },
     age: Some(Time {
         s: 0.240 * BILLION_YEARS.s,
     }),
@@ -140,7 +140,7 @@ const ETA_BOOTIS: RealData = RealData {
     radius: Some(Distance {
         m: 2.672 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6100. }),
+    temperature: Temperature { K: 6100. },
     age: Some(Time {
         s: 2.7 * BILLION_YEARS.s,
     }),

@@ -21,7 +21,7 @@ pub struct RealData {
     pub radius: Option<Distance<f64>>,
     pub absolute_magnitude: f64,
     pub apparent_magnitude: f64,
-    pub temperature: Option<Temperature<f64>>,
+    pub temperature: Temperature<f64>,
     pub age: Option<Time<f64>>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
@@ -56,7 +56,7 @@ impl RealData {
             constellation,
             radius: self.radius,
             luminous_intensity: Some(luminous_intensity),
-            temperature: self.temperature,
+            temperature: Some(self.temperature),
             age: self.age,
             distance: Some(self.distance),
             pos,
@@ -73,10 +73,7 @@ impl RealData {
         let dec = self.declination.to_angle();
         let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
         let illuminance = apparent_magnitude_to_illuminance(self.apparent_magnitude);
-        let color = match self.temperature {
-            Some(temperature) => sRGBColor::from_temperature(temperature),
-            None => sRGBColor::DEFAULT,
-        };
+        let color = sRGBColor::from_temperature(self.temperature);
         StarAppearance {
             name: name.to_string(),
             illuminance,

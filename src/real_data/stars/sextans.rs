@@ -29,7 +29,7 @@ const ALPHA_SEXTANTIS: RealData = RealData {
     radius: Some(Distance {
         m: 3.07 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9984. }),
+    temperature: Temperature { K: 9984. },
     age: Some(Time {
         s: 0.385 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const GAMMA_SEXTANTIS: RealData = RealData {
         kg: 2.60 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 9825. }),
+    temperature: Temperature { K: 9825. },
     age: Some(Time {
         s: 0.401 * BILLION_YEARS.s,
     }),
@@ -71,7 +71,7 @@ const BETA_SEXTANTIS: RealData = RealData {
     radius: Some(Distance {
         m: 3.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 14_570. }),
+    temperature: Temperature { K: 14_570. },
     age: None,
 };
 

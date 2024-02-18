@@ -29,7 +29,7 @@ const ALPHA_MONOCEROTIS: RealData = RealData {
     radius: Some(Distance {
         m: 10.1 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4879. }),
+    temperature: Temperature { K: 4879. },
     age: Some(Time {
         s: 1.18 * BILLION_YEARS.s,
     }),
@@ -48,7 +48,7 @@ const GAMMA_MONOCEROTIS: RealData = RealData {
     absolute_magnitude: -1.93,
     mass: None,
     radius: None,
-    temperature: Some(Temperature { K: 4375. }),
+    temperature: Temperature { K: 4375. },
     age: None,
 };
 
@@ -67,7 +67,7 @@ const DELTA_MONOCEROTIS: RealData = RealData {
         kg: 2.4 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: Some(Temperature { K: 9462. }),
+    temperature: Temperature { K: 9462. },
     age: Some(Time {
         s: 0.405 * BILLION_YEARS.s,
     }),

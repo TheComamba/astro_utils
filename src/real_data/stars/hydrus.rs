@@ -29,7 +29,7 @@ const ALPHA_HYDRI: RealData = RealData {
     radius: Some(Distance {
         m: 3.040 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7087. }),
+    temperature: Temperature { K: 7087. },
     age: Some(Time {
         s: 0.810 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_HYDRI: RealData = RealData {
     radius: Some(Distance {
         m: 1.809 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 5872. }),
+    temperature: Temperature { K: 5872. },
     age: Some(Time {
         s: 6.4 * BILLION_YEARS.s,
     }),
@@ -70,7 +70,7 @@ const GAMMA_HYDRI: RealData = RealData {
     }),
     absolute_magnitude: -0.83,
     apparent_magnitude: 3.26,
-    temperature: Some(Temperature { K: 3499. }),
+    temperature: Temperature { K: 3499. },
     age: None,
     right_ascension: RightAscension::new(3, 47, 14),
     declination: Declination::new(Sgn::Neg, 74, 14, 20),

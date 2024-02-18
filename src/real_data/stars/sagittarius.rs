@@ -24,7 +24,7 @@ const KAUS_AUSTRALIS: RealData = RealData {
     }),
     absolute_magnitude: -1.44,
     apparent_magnitude: 1.79,
-    temperature: Some(Temperature { K: 9960. }),
+    temperature: Temperature { K: 9960. },
     age: Some(Time {
         s: 0.232 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const NUNKI: RealData = RealData {
     }),
     absolute_magnitude: -2.14,
     apparent_magnitude: 2.05,
-    temperature: Some(Temperature { K: 18_890. }),
+    temperature: Temperature { K: 18_890. },
     age: Some(Time {
         s: 0.0314 * BILLION_YEARS.s,
     }),
@@ -66,7 +66,7 @@ const NAMALWARID: RealData = RealData {
     mass: None,
     absolute_magnitude: -0.201,
     apparent_magnitude: 3.1,
-    temperature: None,
+    temperature: Temperature { K: 3300. },
     age: None,
     right_ascension: RightAscension::new(18, 17, 38),
     declination: Declination::new(Sgn::Neg, 36, 45, 42),
@@ -87,7 +87,7 @@ const KAUS_MEDIA: RealData = RealData {
     }),
     absolute_magnitude: -2.14,
     apparent_magnitude: 2.72,
-    temperature: Some(Temperature { K: 4203. }),
+    temperature: Temperature { K: 4203. },
     age: Some(Time {
         s: 0.26 * BILLION_YEARS.s,
     }),

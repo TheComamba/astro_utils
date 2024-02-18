@@ -24,7 +24,7 @@ const ENIF: RealData = RealData {
     }),
     absolute_magnitude: -4.19,
     apparent_magnitude: 2.38,
-    temperature: Some(Temperature { K: 3963. }),
+    temperature: Temperature { K: 3963. },
     age: Some(Time {
         s: 0.020 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const SCHEAT: RealData = RealData {
     }),
     absolute_magnitude: -1.49,
     apparent_magnitude: 2.44,
-    temperature: Some(Temperature { K: 3689. }),
+    temperature: Temperature { K: 3689. },
     age: None,
     right_ascension: RightAscension::new(23, 3, 46),
     declination: Declination::new(Sgn::Pos, 28, 4, 58),
@@ -68,7 +68,7 @@ const MARKAB: RealData = RealData {
     }),
     absolute_magnitude: -0.67,
     apparent_magnitude: 2.49,
-    temperature: Some(Temperature { K: 10_100. }),
+    temperature: Temperature { K: 10_100. },
     age: Some(Time {
         s: 0.2 * BILLION_YEARS.s,
     }),

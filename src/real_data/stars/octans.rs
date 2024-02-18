@@ -29,7 +29,7 @@ const NU_OCTANTIS: RealData = RealData {
     radius: Some(Distance {
         m: 5.9 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4860. }),
+    temperature: Temperature { K: 4860. },
     age: Some(Time {
         s: 2.5 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_OCTANTIS: RealData = RealData {
     radius: Some(Distance {
         m: 3.2 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8006. }),
+    temperature: Temperature { K: 8006. },
     age: Some(Time {
         s: 496. * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const DELTA_OCTANTIS: RealData = RealData {
     radius: Some(Distance {
         m: 24.61 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4311. }),
+    temperature: Temperature { K: 4311. },
     age: None,
 };
 

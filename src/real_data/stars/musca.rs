@@ -29,7 +29,7 @@ const ALPHA_MUSCAE: RealData = RealData {
     radius: Some(Distance {
         m: 4.8 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 21_400. }),
+    temperature: Temperature { K: 21_400. },
     age: Some(Time {
         s: 18.3 * BILLION_YEARS.s,
     }),
@@ -50,7 +50,7 @@ const BETA_MUSCAE: RealData = RealData {
         kg: 7.35 * SOLAR_MASS.kg,
     }),
     radius: None,
-    temperature: None,
+    temperature: Temperature { K: 21_000. },
     age: Some(Time {
         s: 0.0151 * BILLION_YEARS.s,
     }),
@@ -69,7 +69,7 @@ const DELTA_MUSCAE: RealData = RealData {
     absolute_magnitude: 1.38,
     mass: None,
     radius: None,
-    temperature: None,
+    temperature: Temperature { K: 4_400. },
     age: None,
 };
 

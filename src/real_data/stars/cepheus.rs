@@ -24,7 +24,7 @@ const ALDERAMIN: RealData = RealData {
     }),
     absolute_magnitude: 1.58,
     apparent_magnitude: 2.45,
-    temperature: Some(Temperature { K: 7700. }),
+    temperature: Temperature { K: 7700. },
     age: Some(Time {
         s: 0.82 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const ALFIRK: RealData = RealData {
     radius: Some(Distance {
         m: 5.6 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 27_000. }),
+    temperature: Temperature { K: 27_000. },
     age: Some(Time {
         s: 0.0087 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const ERRAI: RealData = RealData {
     radius: Some(Distance {
         m: 4.93 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4792. }),
+    temperature: Temperature { K: 4792. },
     age: Some(Time {
         s: 3.25 * BILLION_YEARS.s,
     }),
@@ -98,7 +98,7 @@ const DELTA_CEPHERI: RealData = RealData {
     radius: Some(Distance {
         m: 44.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 6000. }),
+    temperature: Temperature { K: 6000. },
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),
@@ -121,7 +121,7 @@ const ETA_CEPHEI: RealData = RealData {
     radius: Some(Distance {
         m: 4.12 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4950. }),
+    temperature: Temperature { K: 4950. },
     age: Some(Time {
         s: 2.5 * BILLION_YEARS.s,
     }),
@@ -144,7 +144,7 @@ const IOTA_CEPHEI: RealData = RealData {
     radius: Some(Distance {
         m: 11.08 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4768. }),
+    temperature: Temperature { K: 4768. },
     age: Some(Time {
         s: 1.2 * BILLION_YEARS.s,
     }),
@@ -165,7 +165,7 @@ const ZETA_CEPHEI: RealData = RealData {
     radius: Some(Distance {
         m: 94. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4072. }),
+    temperature: Temperature { K: 4072. },
     age: None,
 };
 
@@ -181,7 +181,7 @@ const ERAKIS: RealData = RealData {
     }),
     absolute_magnitude: -6.5,
     apparent_magnitude: 3.43,
-    temperature: Some(Temperature { K: 3551. }),
+    temperature: Temperature { K: 3551. },
     age: Some(Time {
         s: 0.01 * BILLION_YEARS.s,
     }),

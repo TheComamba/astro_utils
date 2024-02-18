@@ -24,7 +24,7 @@ const COR_CAROLI: RealData = RealData {
     }),
     absolute_magnitude: 0.246,
     apparent_magnitude: 2.89,
-    temperature: Some(Temperature { K: 11_600. }),
+    temperature: Temperature { K: 11_600. },
     age: Some(Time {
         s: 0.165 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const CHARA: RealData = RealData {
     }),
     absolute_magnitude: 4.64,
     apparent_magnitude: 4.25,
-    temperature: Some(Temperature { K: 6043. }),
+    temperature: Temperature { K: 6043. },
     age: Some(Time {
         s: 3.4 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
     radius: Some(Distance {
         m: 1.90 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 8285. }),
+    temperature: Temperature { K: 8285. },
     age: Some(Time {
         s: 0.360 * BILLION_YEARS.s,
     }),

@@ -29,7 +29,7 @@ const ALPHA_INDI: RealData = RealData {
     radius: Some(Distance {
         m: 12. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4893. }),
+    temperature: Temperature { K: 4893. },
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_INDI: RealData = RealData {
     radius: Some(Distance {
         m: 55.58 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4541. }),
+    temperature: Temperature { K: 4541. },
     age: Some(Time {
         s: 0.0532 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const ETA_INDI: RealData = RealData {
     radius: Some(Distance {
         m: 2.27 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7694. }),
+    temperature: Temperature { K: 7694. },
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),

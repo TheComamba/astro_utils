@@ -24,7 +24,7 @@ const ALPHA_CAELI: RealData = RealData {
     }),
     absolute_magnitude: 2.92,
     apparent_magnitude: 4.44,
-    temperature: Some(Temperature { K: 6991. }),
+    temperature: Temperature { K: 6991. },
     age: Some(Time {
         s: 0.9 * BILLION_YEARS.s,
     }),
@@ -47,7 +47,7 @@ const GAMMA1_CAELI: RealData = RealData {
     }),
     absolute_magnitude: 0.781,
     apparent_magnitude: 4.57,
-    temperature: Some(Temperature { K: 4411. }),
+    temperature: Temperature { K: 4411. },
     age: None,
     right_ascension: RightAscension::new(5, 4, 24),
     declination: Declination::new(Sgn::Neg, 35, 28, 59),
@@ -68,7 +68,7 @@ const BETA_CAELI: RealData = RealData {
     }),
     absolute_magnitude: 2.64,
     apparent_magnitude: 5.04,
-    temperature: Some(Temperature { K: 6763. }),
+    temperature: Temperature { K: 6763. },
     age: Some(Time {
         s: 1.753 * BILLION_YEARS.s,
     }),

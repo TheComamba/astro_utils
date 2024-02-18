@@ -29,7 +29,7 @@ const ALPHA_ARAE: RealData = RealData {
     radius: Some(Distance {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 18_044. }),
+    temperature: Temperature { K: 18_044. },
     age: None,
 };
 
@@ -45,7 +45,7 @@ const BETA_ARAE: RealData = RealData {
     }),
     absolute_magnitude: -3.49,
     apparent_magnitude: 2.84,
-    temperature: Some(Temperature { K: 4197. }),
+    temperature: Temperature { K: 4197. },
     age: Some(Time {
         s: 0.05 * BILLION_YEARS.s,
     }),
@@ -73,7 +73,7 @@ const GAMMA_ARAE: RealData = RealData {
     radius: Some(Distance {
         m: 23. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 21_500. }),
+    temperature: Temperature { K: 21_500. },
     age: Some(Time {
         s: 0.0157 * BILLION_YEARS.s,
     }),
@@ -96,7 +96,7 @@ const DELTA_ARAE: RealData = RealData {
     radius: Some(Distance {
         m: 3.12 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 11_962. }),
+    temperature: Temperature { K: 11_962. },
     age: Some(Time {
         s: 0.125 * BILLION_YEARS.s,
     }),
@@ -119,7 +119,7 @@ const ZETA_ARAE: RealData = RealData {
     radius: Some(Distance {
         m: 114. * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 4246. }),
+    temperature: Temperature { K: 4246. },
     age: Some(Time {
         s: 0.045 * BILLION_YEARS.s,
     }),

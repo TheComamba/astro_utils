@@ -24,7 +24,7 @@ const ATRIA: RealData = RealData {
     }),
     absolute_magnitude: -3.62,
     apparent_magnitude: 1.91,
-    temperature: Some(Temperature { K: 4150. }),
+    temperature: Temperature { K: 4150. },
     age: Some(Time {
         s: 0.048 * BILLION_YEARS.s,
     }),
@@ -52,7 +52,7 @@ const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
     radius: Some(Distance {
         m: 1.976 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 7171. }),
+    temperature: Temperature { K: 7171. },
     age: Some(Time {
         s: 0.674 * BILLION_YEARS.s,
     }),
@@ -75,7 +75,7 @@ const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
     radius: Some(Distance {
         m: 5.86 * SOLAR_RADIUS.m,
     }),
-    temperature: Some(Temperature { K: 9306. }),
+    temperature: Temperature { K: 9306. },
     age: Some(Time {
         s: 0.260 * BILLION_YEARS.s,
     }),
