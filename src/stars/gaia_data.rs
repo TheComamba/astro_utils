@@ -6,7 +6,11 @@ use crate::{
     color::srgb::sRGBColor,
     coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates},
     error::AstroUtilError,
-    units::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
+    units::{
+        distance::DISTANCE_ZERO,
+        illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
+        temperature::TEMPERATURE_ZERO,
+    },
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
@@ -98,9 +102,9 @@ impl GaiaResponse {
                     mass: None,
                     radius: None,
                     luminous_intensity: None,
-                    temperature: parsed_data.temperature,
+                    temperature: parsed_data.temperature.unwrap_or(TEMPERATURE_ZERO),
                     age: None,
-                    distance: None,
+                    distance: DISTANCE_ZERO,
                     pos: parsed_data.pos,
                     constellation: None,
                     evolution: StarDataEvolution::NONE,

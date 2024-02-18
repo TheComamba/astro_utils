@@ -4,6 +4,7 @@ use super::star_data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
 use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::coordinates::ecliptic::EclipticCoordinates;
 use crate::error::AstroUtilError;
+use crate::units::distance::DISTANCE_ZERO;
 use crate::units::luminous_intensity::{
     luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY,
 };
@@ -266,7 +267,7 @@ impl ParsecData {
 
         let mut star = current_params.to_star_at_origin();
 
-        star.distance = Some(distance);
+        star.distance = distance;
         star.pos = pos.to_ecliptic();
 
         let past_params = ParsecData::get_closest_params(trajectory, age_in_years - 1000.);
@@ -317,9 +318,9 @@ impl ParsecLine {
             mass: Some(mass),
             age: Some(age),
             luminous_intensity: Some(luminous_intensity),
-            temperature: Some(temperature),
+            temperature: temperature,
             radius: Some(radius),
-            distance: None,
+            distance: DISTANCE_ZERO,
             pos: EclipticCoordinates::Z_DIRECTION,
             constellation: None,
             evolution: StarDataEvolution::NONE,
@@ -399,8 +400,8 @@ mod tests {
         );
         println!(
             "calculated temperature: {}, real temperature: {}",
-            calculated_sun.get_temperature_at_epoch().unwrap(),
-            real_sun.get_temperature_at_epoch().unwrap()
+            calculated_sun.get_temperature_at_epoch(),
+            real_sun.get_temperature_at_epoch()
         );
         assert!(eq_within(
             calculated_sun.get_mass_at_epoch().unwrap().kg,
@@ -418,8 +419,8 @@ mod tests {
             0.5 * SOLAR_LUMINOUS_INTENSITY.cd
         ));
         assert!(eq_within(
-            calculated_sun.get_temperature_at_epoch().unwrap().K,
-            real_sun.get_temperature_at_epoch().unwrap().K,
+            calculated_sun.get_temperature_at_epoch().K,
+            real_sun.get_temperature_at_epoch().K,
             500.
         ));
     }

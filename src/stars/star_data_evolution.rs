@@ -3,7 +3,11 @@ use simple_si_units::base::{Distance, Luminosity, Mass, Temperature};
 
 use crate::{
     color::srgb::sRGBColor,
-    units::{illuminance::IRRADIANCE_ZERO, luminous_intensity::luminous_intensity_to_illuminance},
+    units::{
+        distance::DISTANCE_ZERO,
+        luminous_intensity::{luminous_intensity_to_illuminance, LUMINOSITY_ZERO},
+        mass::MASS_ZERO,
+    },
 };
 
 use super::{
@@ -29,18 +33,14 @@ impl StarDataEvolution {
 
     pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, years: f64) -> Mass<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            if let Some(mass_per_year) = lifestage_evolution.mass_per_year {
-                return mass + mass_per_year * years;
-            }
+            return mass + lifestage_evolution.mass_per_year * years;
         }
         mass
     }
 
     pub(crate) fn apply_to_radius(&self, radius: Distance<f64>, years: f64) -> Distance<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            if let Some(radius_per_year) = lifestage_evolution.radius_per_year {
-                return radius + radius_per_year * years;
-            }
+            return radius + lifestage_evolution.radius_per_year * years;
         }
         radius
     }
@@ -51,11 +51,7 @@ impl StarDataEvolution {
         years: f64,
     ) -> Luminosity<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            if let Some(luminous_intensity_per_year) =
-                lifestage_evolution.luminous_intensity_per_year
-            {
-                return luminous_intensity + luminous_intensity_per_year * years;
-            }
+            return luminous_intensity + lifestage_evolution.luminous_intensity_per_year * years;
         }
         luminous_intensity
     }
@@ -66,9 +62,7 @@ impl StarDataEvolution {
         years: f64,
     ) -> Temperature<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            if let Some(temperature_per_year) = lifestage_evolution.temperature_per_year {
-                return temperature + temperature_per_year * years;
-            }
+            return temperature + lifestage_evolution.temperature_per_year * years;
         }
         temperature
     }
@@ -88,34 +82,29 @@ impl StarDataEvolution {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub(crate) struct StarDataLifestageEvolution {
-    mass_per_year: Option<Mass<f64>>,
-    radius_per_year: Option<Distance<f64>>,
-    luminous_intensity_per_year: Option<Luminosity<f64>>,
-    temperature_per_year: Option<Temperature<f64>>,
+    mass_per_year: Mass<f64>,
+    radius_per_year: Distance<f64>,
+    luminous_intensity_per_year: Luminosity<f64>,
+    temperature_per_year: Temperature<f64>,
 }
 
 impl StarDataLifestageEvolution {
     pub(crate) fn new(now: &StarData, then: &StarData, years: f64) -> Self {
         let mass_per_year = match (now.mass, then.mass) {
-            (Some(now_mass), Some(then_mass)) => Some((now_mass - then_mass) / years),
-            _ => None,
+            (Some(now_mass), Some(then_mass)) => (now_mass - then_mass) / years,
+            _ => MASS_ZERO,
         };
         let radius_per_year = match (now.radius, then.radius) {
-            (Some(now_radius), Some(then_radius)) => Some((now_radius - then_radius) / years),
-            _ => None,
+            (Some(now_radius), Some(then_radius)) => (now_radius - then_radius) / years,
+            _ => DISTANCE_ZERO,
         };
         let luminous_intensity_per_year = match (now.luminous_intensity, then.luminous_intensity) {
             (Some(now_luminous_intensity), Some(then_luminous_intensity)) => {
-                Some((now_luminous_intensity - then_luminous_intensity) / years)
+                (now_luminous_intensity - then_luminous_intensity) / years
             }
-            _ => None,
+            _ => LUMINOSITY_ZERO,
         };
-        let temperature_per_year = match (now.temperature, then.temperature) {
-            (Some(now_temperature), Some(then_temperature)) => {
-                Some((now_temperature - then_temperature) / years)
-            }
-            _ => None,
-        };
+        let temperature_per_year = (now.temperature - then.temperature) / years;
         Self {
             mass_per_year,
             radius_per_year,
@@ -129,20 +118,13 @@ impl StarDataLifestageEvolution {
         temperature_at_epoch: Temperature<f64>,
         distance: Distance<f64>,
     ) -> StarAppearanceLifestageEvolution {
-        let illuminance_per_year = match self.luminous_intensity_per_year {
-            Some(luminous_intensity_diff) => {
-                luminous_intensity_to_illuminance(&luminous_intensity_diff, &distance)
-            }
-            None => IRRADIANCE_ZERO,
-        };
-        let color_per_year = match self.temperature_per_year {
-            Some(temp_diff) => {
-                let color_now = sRGBColor::from_temperature(temperature_at_epoch);
-                let color_then = sRGBColor::from_temperature(temperature_at_epoch - temp_diff);
-                color_now - color_then
-            }
-            None => sRGBColor::BLACK,
-        };
+        let illuminance_per_year =
+            luminous_intensity_to_illuminance(&self.luminous_intensity_per_year, &distance);
+        let color_now = sRGBColor::from_temperature(temperature_at_epoch);
+        let color_then =
+            sRGBColor::from_temperature(temperature_at_epoch - self.temperature_per_year);
+        let color_per_year = color_now - color_then;
+
         StarAppearanceLifestageEvolution {
             illuminance_per_year,
             color_per_year,

@@ -5,7 +5,7 @@ use astro_utils::{
         star_appearance::StarAppearance,
         star_data::StarData,
     },
-    units::illuminance::illuminance_to_apparent_magnitude,
+    units::{illuminance::illuminance_to_apparent_magnitude, temperature::TEMPERATURE_ZERO},
 };
 use simple_si_units::base::Distance;
 
@@ -93,7 +93,13 @@ fn mean_temperature(data: &[StarData]) -> f64 {
     let temperatures = data
         .iter()
         .map(|s| s.get_temperature_at_epoch())
-        .filter_map(|t| *t)
+        .filter_map(|t| {
+            if t > &TEMPERATURE_ZERO {
+                Some(*t)
+            } else {
+                None
+            }
+        })
         .map(|t| t.to_K())
         .collect::<Vec<_>>();
     temperatures.iter().sum::<f64>() / temperatures.len() as f64

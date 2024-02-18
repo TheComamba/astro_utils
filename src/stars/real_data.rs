@@ -59,9 +59,9 @@ impl RealData {
             constellation,
             radius: self.radius,
             luminous_intensity: Some(luminous_intensity),
-            temperature: Some(self.temperature),
+            temperature: self.temperature,
             age: self.age,
-            distance: Some(self.distance),
+            distance: self.distance,
             pos,
             evolution: StarDataEvolution::NONE,
         }
@@ -104,7 +104,7 @@ mod tests {
             let star = star_data.to_star_data();
             let luminous_intensity = star.get_luminous_intensity_at_epoch().unwrap();
             let illuminance =
-                luminous_intensity_to_illuminance(&luminous_intensity, &star.distance.unwrap());
+                luminous_intensity_to_illuminance(&luminous_intensity, &star.distance);
             let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             assert!(

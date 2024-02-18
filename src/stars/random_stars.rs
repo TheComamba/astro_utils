@@ -3,6 +3,7 @@ use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     stars::parsec_data::PARSEC_DATA,
+    units::distance::DISTANCE_ZERO,
 };
 use rand::{
     distributions::{Uniform, WeightedIndex},
@@ -135,7 +136,7 @@ pub fn generate_random_star(
     }
     let mut star = star.unwrap();
     if max_distance.is_none() {
-        star.distance = None;
+        star.distance = DISTANCE_ZERO;
     }
     Ok(star)
 }
@@ -252,9 +253,7 @@ mod tests {
         let max_distance = Distance::from_lyr(100.);
         let stars = generate_random_stars(max_distance).unwrap();
         for star in stars {
-            if let Some(distance) = star.distance {
-                assert!(distance < max_distance * 1.01);
-            }
+            assert!(star.distance < max_distance * 1.01);
         }
     }
 }
