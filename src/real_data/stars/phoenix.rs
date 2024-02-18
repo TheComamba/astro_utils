@@ -7,10 +7,9 @@ use crate::{
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
-        time::BILLION_YEARS,
     },
 };
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Distance, Mass, Temperature};
 
 const ANKAA: RealData = RealData {
     common_name: "Ankaa",
@@ -33,4 +32,44 @@ const ANKAA: RealData = RealData {
     },
 };
 
-pub(crate) const STARS: [RealData; 0] = [];
+const BETA_PHOENICIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Phoenicis",
+    constellation: "Phoenix",
+    right_ascension: RightAscension::new(1, 6, 5),
+    declination: Declination::new(Sgn::Neg, 46, 43, 6),
+    apparent_magnitude: 3.30,
+    distance: Distance {
+        m: 198.1 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.29,
+    mass: Some(Mass {
+        kg: 2.5 * SOLAR_MASS.kg,
+    }),
+    radius: None,
+    temperature: Some(Temperature { K: 5090. }),
+    age: None,
+};
+
+const GAMMA_PHOENICIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Phoenicis",
+    constellation: "Phoenix",
+    right_ascension: RightAscension::new(1, 28, 22),
+    declination: Declination::new(Sgn::Neg, 43, 19, 6),
+    apparent_magnitude: 3.41,
+    distance: Distance {
+        m: 234. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -0.86,
+    mass: Some(Mass {
+        kg: 1.3 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 52. * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 3802. }),
+    age: None,
+};
+
+pub(crate) const STARS: [RealData; 3] = [ANKAA, BETA_PHOENICIS, GAMMA_PHOENICIS];

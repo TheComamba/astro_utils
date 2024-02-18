@@ -35,4 +35,48 @@ const HAMAL: RealData = RealData {
     },
 };
 
-pub(crate) const STARS: [RealData; 0] = [];
+const BETA_ARIETIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Arietis",
+    constellation: "Aries",
+    right_ascension: RightAscension::new(1, 54, 38),
+    declination: Declination::new(Sgn::Pos, 20, 48, 29),
+    apparent_magnitude: 2.655,
+    distance: Distance {
+        m: 59.6 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 1.55,
+    mass: Some(Mass {
+        kg: 2.34 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 23. * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 9000. }),
+    age: Some(Time {
+        s: 0.3 * BILLION_YEARS.s,
+    }),
+};
+
+const FOURTYONE_ARIETIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "41 Arietis",
+    constellation: "Aries",
+    right_ascension: RightAscension::new(2, 49, 59),
+    declination: Declination::new(Sgn::Pos, 27, 15, 38),
+    apparent_magnitude: 3.63,
+    distance: Distance {
+        m: 166. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.163,
+    mass: Some(Mass {
+        kg: 3.1 * SOLAR_MASS.kg,
+    }),
+    radius: None,
+    temperature: Some(Temperature { K: 11_900. }),
+    age: Some(Time {
+        s: 0.130 * BILLION_YEARS.s,
+    }),
+};
+
+pub(crate) const STARS: [RealData; 3] = [HAMAL, BETA_ARIETIS, FOURTYONE_ARIETIS];

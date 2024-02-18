@@ -198,6 +198,9 @@ pub fn get_many_stars() -> Vec<RealData> {
     pisces::STARS
         .into_iter()
         .for_each(|star| all_stars.push(star));
+    piscis_austrinus::STARS
+        .into_iter()
+        .for_each(|star| all_stars.push(star));
     puppis::STARS
         .into_iter()
         .for_each(|star| all_stars.push(star));

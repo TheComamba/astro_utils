@@ -35,4 +35,50 @@ const PEACOCK: RealData = RealData {
     },
 };
 
-pub(crate) const STARS: [RealData; 0] = [];
+const BETA_PAVONIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Beta Pavonis",
+    constellation: "Pavo",
+    right_ascension: RightAscension::new(20, 44, 57),
+    declination: Declination::new(Sgn::Neg, 66, 12, 12),
+    apparent_magnitude: 3.42,
+    distance: Distance {
+        m: 135.1 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 0.33,
+    mass: Some(Mass {
+        kg: 2.51 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 2.3 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 8184. }),
+    age: Some(Time {
+        s: 0.305 * BILLION_YEARS.s,
+    }),
+};
+
+const DELTA_PAVONIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Delta Pavonis",
+    constellation: "Pavo",
+    right_ascension: RightAscension::new(20, 8, 44),
+    declination: Declination::new(Sgn::Neg, 66, 10, 55),
+    apparent_magnitude: 3.56,
+    distance: Distance {
+        m: 19.89 * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: 4.62,
+    mass: Some(Mass {
+        kg: 1.051 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 1.197 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 5571. }),
+    age: Some(Time {
+        s: 6.7 * BILLION_YEARS.s,
+    }),
+};
+
+pub(crate) const STARS: [RealData; 3] = [PEACOCK, BETA_PAVONIS, DELTA_PAVONIS];

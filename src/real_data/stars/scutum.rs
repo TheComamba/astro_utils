@@ -7,10 +7,9 @@ use crate::{
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
-        time::BILLION_YEARS,
     },
 };
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Distance, Mass, Temperature};
 
 const ALPHA_SCUTI: RealData = RealData {
     common_name: "",

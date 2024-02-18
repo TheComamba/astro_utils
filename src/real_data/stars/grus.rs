@@ -56,4 +56,27 @@ const TIAKI: RealData = RealData {
     },
 };
 
-pub(crate) const STARS: [RealData; 0] = [];
+const GAMMA_GRUIS: RealData = RealData {
+    common_name: "",
+    astronomical_name: "Gamma Gruis",
+    constellation: "Grus",
+    right_ascension: RightAscension::new(21, 53, 56),
+    declination: Declination::new(Sgn::Neg, 37, 21, 53),
+    apparent_magnitude: 3.003,
+    distance: Distance {
+        m: 211. * LIGHT_YEAR.m,
+    },
+    absolute_magnitude: -1.05,
+    mass: Some(Mass {
+        kg: 3.06 * SOLAR_MASS.kg,
+    }),
+    radius: Some(Distance {
+        m: 4.5 * SOLAR_RADIUS.m,
+    }),
+    temperature: Some(Temperature { K: 12_520. }),
+    age: Some(Time {
+        s: 0.075 * BILLION_YEARS.s,
+    }),
+};
+
+pub(crate) const STARS: [RealData; 3] = [ALNAIR, TIAKI, GAMMA_GRUIS];
