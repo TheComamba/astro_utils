@@ -102,7 +102,7 @@ mod tests {
     fn calculate_apparent_magnitude() {
         for star_data in get_many_stars() {
             let star = star_data.to_star_data();
-            let luminous_intensity = star.get_luminous_intensity().unwrap();
+            let luminous_intensity = star.get_luminous_intensity_at_epoch().unwrap();
             let illuminance =
                 luminous_intensity_to_illuminance(&luminous_intensity, &star.distance.unwrap());
             let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);

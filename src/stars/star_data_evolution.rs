@@ -18,6 +18,52 @@ impl StarDataEvolution {
             lifestage_evolution,
         }
     }
+
+    pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, years: f64) -> Mass<f64> {
+        if let Some(lifestage_evolution) = &self.lifestage_evolution {
+            if let Some(mass_per_year) = lifestage_evolution.mass_per_year {
+                return mass + mass_per_year * years;
+            }
+        }
+        mass
+    }
+
+    pub(crate) fn apply_to_radius(&self, radius: Distance<f64>, years: f64) -> Distance<f64> {
+        if let Some(lifestage_evolution) = &self.lifestage_evolution {
+            if let Some(radius_per_year) = lifestage_evolution.radius_per_year {
+                return radius + radius_per_year * years;
+            }
+        }
+        radius
+    }
+
+    pub(crate) fn apply_to_luminous_intensity(
+        &self,
+        luminous_intensity: Luminosity<f64>,
+        years: f64,
+    ) -> Luminosity<f64> {
+        if let Some(lifestage_evolution) = &self.lifestage_evolution {
+            if let Some(luminous_intensity_per_year) =
+                lifestage_evolution.luminous_intensity_per_year
+            {
+                return luminous_intensity + luminous_intensity_per_year * years;
+            }
+        }
+        luminous_intensity
+    }
+
+    pub(crate) fn apply_to_temperature(
+        &self,
+        temperature: Temperature<f64>,
+        years: f64,
+    ) -> Temperature<f64> {
+        if let Some(lifestage_evolution) = &self.lifestage_evolution {
+            if let Some(temperature_per_year) = lifestage_evolution.temperature_per_year {
+                return temperature + temperature_per_year * years;
+            }
+        }
+        temperature
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

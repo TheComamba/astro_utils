@@ -92,7 +92,7 @@ fn number_of_stars_in_apparent_magnitude_range_is_similar(
 fn mean_temperature(data: &[StarData]) -> f64 {
     let temperatures = data
         .iter()
-        .map(|s| s.get_temperature())
+        .map(|s| s.get_temperature_at_epoch())
         .filter_map(|t| *t)
         .map(|t| t.to_K())
         .collect::<Vec<_>>();

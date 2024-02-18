@@ -384,42 +384,42 @@ mod tests {
         let real_sun = SUN.to_star_data();
         println!(
             "calculated mass: {}, real mass: {}",
-            calculated_sun.get_mass().unwrap(),
-            real_sun.get_mass().unwrap()
+            calculated_sun.get_mass_at_epoch().unwrap(),
+            real_sun.get_mass_at_epoch().unwrap()
         );
         println!(
             "calculated radius: {}, real radius: {}",
-            calculated_sun.get_radius().unwrap(),
-            real_sun.get_radius().unwrap()
+            calculated_sun.get_radius_at_epoch().unwrap(),
+            real_sun.get_radius_at_epoch().unwrap()
         );
         println!(
             "calculated luminous_intensity: {}, real luminous_intensity: {}",
-            calculated_sun.get_luminous_intensity().unwrap(),
-            real_sun.get_luminous_intensity().unwrap()
+            calculated_sun.get_luminous_intensity_at_epoch().unwrap(),
+            real_sun.get_luminous_intensity_at_epoch().unwrap()
         );
         println!(
             "calculated temperature: {}, real temperature: {}",
-            calculated_sun.get_temperature().unwrap(),
-            real_sun.get_temperature().unwrap()
+            calculated_sun.get_temperature_at_epoch().unwrap(),
+            real_sun.get_temperature_at_epoch().unwrap()
         );
         assert!(eq_within(
-            calculated_sun.get_mass().unwrap().kg,
-            real_sun.get_mass().unwrap().kg,
+            calculated_sun.get_mass_at_epoch().unwrap().kg,
+            real_sun.get_mass_at_epoch().unwrap().kg,
             1e-2 * SOLAR_MASS.kg
         ));
         assert!(eq_within(
-            calculated_sun.get_radius().unwrap().m,
-            real_sun.get_radius().unwrap().m,
+            calculated_sun.get_radius_at_epoch().unwrap().m,
+            real_sun.get_radius_at_epoch().unwrap().m,
             1e-1 * SOLAR_RADIUS.m
         ));
         assert!(eq_within(
-            calculated_sun.get_luminous_intensity().unwrap().cd,
-            real_sun.get_luminous_intensity().unwrap().cd,
+            calculated_sun.get_luminous_intensity_at_epoch().unwrap().cd,
+            real_sun.get_luminous_intensity_at_epoch().unwrap().cd,
             0.5 * SOLAR_LUMINOUS_INTENSITY.cd
         ));
         assert!(eq_within(
-            calculated_sun.get_temperature().unwrap().K,
-            real_sun.get_temperature().unwrap().K,
+            calculated_sun.get_temperature_at_epoch().unwrap().K,
+            real_sun.get_temperature_at_epoch().unwrap().K,
             500.
         ));
     }

@@ -33,8 +33,8 @@ impl DerivedPlanetData {
         central_body: &StarData,
         previous: Option<&DerivedPlanetData>,
     ) -> Self {
-        let central_body_mass = central_body.get_mass().unwrap();
-        let central_body_luminosity = central_body.get_luminous_intensity().unwrap();
+        let central_body_mass = central_body.get_mass_at_epoch().unwrap();
+        let central_body_luminosity = central_body.get_luminous_intensity_at_epoch().unwrap();
         let radius = data.get_radius();
 
         let surface_gravity = surface_gravity(data.get_mass(), radius);
@@ -217,14 +217,20 @@ mod tests {
 
     #[test]
     fn black_body_temperature_of_earth() {
-        let luminosity = SUN.to_star_data().get_luminous_intensity().unwrap();
+        let luminosity = SUN
+            .to_star_data()
+            .get_luminous_intensity_at_epoch()
+            .unwrap();
         let temperature = black_body_temperature(luminosity, &EARTH.to_planet_data());
         assert!(eq_within(temperature.to_K(), 255., 20.));
     }
 
     #[test]
     fn black_body_temperature_of_mercury() {
-        let luminosity = SUN.to_star_data().get_luminous_intensity().unwrap();
+        let luminosity = SUN
+            .to_star_data()
+            .get_luminous_intensity_at_epoch()
+            .unwrap();
         let temperature = black_body_temperature(luminosity, &MERCURY.to_planet_data());
         assert!(eq_within(temperature.to_K(), 442., 20.));
     }

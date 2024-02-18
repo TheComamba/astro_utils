@@ -144,7 +144,7 @@ impl PlanetData {
         observer_position: &CartesianCoordinates,
     ) -> Result<StarAppearance, AstroUtilError> {
         let central_body_luminous_intensity = central_body
-            .get_luminous_intensity()
+            .get_luminous_intensity_at_epoch()
             .unwrap_or(LUMINOSITY_ZERO);
         let brightness = planet_brightness(
             central_body_luminous_intensity,

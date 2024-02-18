@@ -59,31 +59,57 @@ impl StarData {
         &self.constellation
     }
 
-    pub const fn get_radius(&self) -> &Option<Distance<f64>> {
-        &self.radius
-    }
-
-    pub const fn get_mass(&self) -> &Option<Mass<f64>> {
+    pub const fn get_mass_at_epoch(&self) -> &Option<Mass<f64>> {
         &self.mass
     }
 
-    pub const fn get_luminous_intensity(&self) -> &Option<Luminosity<f64>> {
+    pub fn get_mass(&self, time: Time<f64>) -> Option<Mass<f64>> {
+        Some(self.evolution.apply_to_mass(self.mass?, time.to_yr()))
+    }
+
+    pub const fn get_radius_at_epoch(&self) -> &Option<Distance<f64>> {
+        &self.radius
+    }
+
+    pub fn get_radius(&self, time: Time<f64>) -> Option<Distance<f64>> {
+        Some(self.evolution.apply_to_radius(self.radius?, time.to_yr()))
+    }
+
+    pub const fn get_luminous_intensity_at_epoch(&self) -> &Option<Luminosity<f64>> {
         &self.luminous_intensity
     }
 
-    pub const fn get_temperature(&self) -> &Option<Temperature<f64>> {
+    pub fn get_luminous_intensity(&self, time: Time<f64>) -> Option<Luminosity<f64>> {
+        Some(
+            self.evolution
+                .apply_to_luminous_intensity(self.luminous_intensity?, time.to_yr()),
+        )
+    }
+
+    pub const fn get_temperature_at_epoch(&self) -> &Option<Temperature<f64>> {
         &self.temperature
     }
 
-    pub const fn get_age(&self) -> &Option<Time<f64>> {
+    pub fn get_temperature(&self, time: Time<f64>) -> Option<Temperature<f64>> {
+        Some(
+            self.evolution
+                .apply_to_temperature(self.temperature?, time.to_yr()),
+        )
+    }
+
+    pub const fn get_age_at_epoch(&self) -> &Option<Time<f64>> {
         &self.age
     }
 
-    pub const fn get_distance(&self) -> &Option<Distance<f64>> {
+    pub fn get_age(&self, time: Time<f64>) -> Option<Time<f64>> {
+        self.age.map(|age| age + time)
+    }
+
+    pub const fn get_distance_at_epoch(&self) -> &Option<Distance<f64>> {
         &self.distance
     }
 
-    pub const fn get_pos(&self) -> &EclipticCoordinates {
+    pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
         &self.pos
     }
 
@@ -95,31 +121,31 @@ impl StarData {
         self.constellation = constellation;
     }
 
-    pub fn set_mass(&mut self, mass: Option<Mass<f64>>) {
+    pub fn set_mass_at_epoch(&mut self, mass: Option<Mass<f64>>) {
         self.mass = mass;
     }
 
-    pub fn set_radius(&mut self, radius: Option<Distance<f64>>) {
+    pub fn set_radius_at_epoch(&mut self, radius: Option<Distance<f64>>) {
         self.radius = radius;
     }
 
-    pub fn set_luminous_intensity(&mut self, luminous_intensity: Option<Luminosity<f64>>) {
+    pub fn set_luminous_intensity_at_epoch(&mut self, luminous_intensity: Option<Luminosity<f64>>) {
         self.luminous_intensity = luminous_intensity;
     }
 
-    pub fn set_temperature(&mut self, temperature: Option<Temperature<f64>>) {
+    pub fn set_temperature_at_epoch(&mut self, temperature: Option<Temperature<f64>>) {
         self.temperature = temperature;
     }
 
-    pub fn set_age(&mut self, age: Option<Time<f64>>) {
+    pub fn set_age_at_epoch(&mut self, age: Option<Time<f64>>) {
         self.age = age;
     }
 
-    pub fn set_distance(&mut self, distance: Option<Distance<f64>>) {
+    pub fn set_distance_at_epoch(&mut self, distance: Option<Distance<f64>>) {
         self.distance = distance;
     }
 
-    pub fn set_pos(&mut self, pos: EclipticCoordinates) {
+    pub fn set_pos_at_epoch(&mut self, pos: EclipticCoordinates) {
         self.pos = pos;
     }
 
