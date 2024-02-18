@@ -2,7 +2,7 @@ use crate::{
     astro_display::AstroDisplay, color::srgb::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
 };
 use serde::{Deserialize, Serialize};
-use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
+use simple_si_units::{base::Time, electromagnetic::Illuminance, geometry::Angle};
 
 use super::star_appearance_evolution::StarAppearanceEvolution;
 
@@ -40,16 +40,17 @@ impl StarAppearance {
         &self.illuminance
     }
 
-    pub fn get_illuminance(&self, years: f64) -> Illuminance<f64> {
-        self.evolution.apply_to_illuminance(self.illuminance, years)
+    pub fn get_illuminance(&self, time: Time<f64>) -> Illuminance<f64> {
+        self.evolution
+            .apply_to_illuminance(self.illuminance, time.to_yr())
     }
 
     pub const fn get_color_at_epoch(&self) -> &sRGBColor {
         &self.color
     }
 
-    pub fn get_color(&self, years: f64) -> sRGBColor {
-        self.evolution.apply_to_color(self.color, years)
+    pub fn get_color(&self, time: Time<f64>) -> sRGBColor {
+        self.evolution.apply_to_color(self.color, time.to_yr())
     }
 
     pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
