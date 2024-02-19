@@ -186,4 +186,19 @@ mod tests {
             .K
             .is_finite());
     }
+
+    #[test]
+    fn mass_is_always_lost() {
+        let mass_index = ParsecData::SORTED_MASSES.len() - 1;
+        let trajectory = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            (*parsec_data.get_trajectory_via_index(mass_index)).clone()
+        };
+        let age_in_years = ParsecData::get_life_expectancy_in_years(&trajectory) as f64 / 2.;
+        let star =
+            ParsecData::get_star_data(&trajectory, age_in_years, CartesianCoordinates::ORIGIN)
+                .unwrap();
+        assert!(star.evolution.get_lifestage_mass_per_year().kg < 0.);
+    }
 }
