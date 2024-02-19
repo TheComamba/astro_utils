@@ -10,7 +10,6 @@ crate-type   = ["rlib"]
 [dependencies]
 directories = "5.0" # Standard locations on file system
 flate2 = "1.0" # Decompression
-forward_ref_generic = "0.2.0" # Auto-generating std operations on structs
 fraction = "0.15.0"
 lazy_static = "1.4"
 rand = "0.8.0" # Random number generation
