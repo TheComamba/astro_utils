@@ -1,8 +1,8 @@
-use super::{parsec_data::ParsecData, star_data::StarData};
+use super::parsec_data::ParsecData;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
-    stars::parsec_data::PARSEC_DATA,
+    stars::{random::parsec_data::PARSEC_DATA, star_data::StarData},
     units::distance::DISTANCE_ZERO,
 };
 use rand::{

@@ -1,21 +1,15 @@
+use super::parsec_line::ParsecLine;
 use super::random_stars::DIMMEST_ILLUMINANCE;
-use super::star_data::StarData;
-use super::star_data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
 use crate::coordinates::cartesian::CartesianCoordinates;
-use crate::coordinates::ecliptic::EclipticCoordinates;
 use crate::error::AstroUtilError;
-use crate::units::distance::DISTANCE_ZERO;
-use crate::units::luminous_intensity::{
-    luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY,
-};
-use crate::units::mass::SOLAR_MASS;
+use crate::stars::star_data::StarData;
+use crate::stars::star_data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
 use lazy_static::lazy_static;
 use rmp_serde;
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
-use simple_si_units::electromagnetic::Illuminance;
+use simple_si_units::base::Mass;
 use std::fs;
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
@@ -29,17 +23,8 @@ lazy_static! {
 }
 
 #[derive(Deserialize, Serialize)]
-pub(super) struct ParsecLine {
-    mass: f64,
-    age: f64,
-    log_l: f64,
-    log_te: f64,
-    log_r: f64,
-}
-
-#[derive(Deserialize, Serialize)]
 pub(super) struct ParsecData {
-    data: Vec<Vec<ParsecLine>>,
+    pub(super) data: Vec<Vec<ParsecLine>>,
 }
 
 impl ParsecData {
@@ -54,11 +39,6 @@ impl ParsecData {
         16.0, 18.0, 20.0, 24.0, 28.0, 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0, 65.0, 70.0, 75.0,
         80.0, 90.0, 95.0, 100.0, 120.0, 130.0, 200.0, 250.0, 300.0, 350.0,
     ];
-    const MASS_INDEX: usize = 1;
-    const AGE_INDEX: usize = 2;
-    const LOG_L_INDEX: usize = 3;
-    const LOG_TE_INDEX: usize = 4;
-    const LOG_R_INDEX: usize = 5;
 
     fn new() -> Result<ParsecData, AstroUtilError> {
         let project_dirs = get_project_dirs()?;
@@ -102,7 +82,7 @@ impl ParsecData {
         }
     }
 
-    fn get_closest_mass_index(mass: f64) -> usize {
+    pub(super) fn get_closest_mass_index(mass: f64) -> usize {
         let mut min_index = 0;
         let mut max_index = Self::SORTED_MASSES.len() - 1;
         while max_index - min_index > 1 {
@@ -166,60 +146,8 @@ impl ParsecData {
         let reader = BufReader::new(file);
         let mut mass_position = None;
         for line in reader.lines() {
-            Self::read_line(line, &mut mass_position, parsec_data)?;
+            ParsecLine::read(line, &mut mass_position, parsec_data)?;
         }
-        Ok(())
-    }
-
-    fn read_line(
-        line: Result<String, std::io::Error>,
-        mass_position: &mut Option<usize>,
-        parsec_data: &mut ParsecData,
-    ) -> Result<(), AstroUtilError> {
-        let line = line.map_err(AstroUtilError::Io)?;
-        let entries: Vec<&str> = line.split_whitespace().collect();
-        let mass_entry = entries
-            .get(Self::MASS_INDEX)
-            .ok_or(AstroUtilError::DataNotAvailable)?;
-        if mass_position.is_none() {
-            if let Ok(mass_value) = mass_entry.parse::<f64>() {
-                *mass_position = Some(Self::get_closest_mass_index(mass_value));
-            }
-        }
-        if let Some(mass_position) = &*mass_position {
-            let age_entry = entries
-                .get(Self::AGE_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_l_entry = entries
-                .get(Self::LOG_L_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_te_entry = entries
-                .get(Self::LOG_TE_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_r_entry = entries
-                .get(Self::LOG_R_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            if let (Ok(mass), Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
-                mass_entry.parse::<f64>(),
-                age_entry.parse::<f64>(),
-                log_l_entry.parse::<f64>(),
-                log_te_entry.parse::<f64>(),
-                log_r_entry.parse::<f64>(),
-            ) {
-                let parsec_line = ParsecLine {
-                    mass,
-                    age,
-                    log_l,
-                    log_te,
-                    log_r,
-                };
-                let data = parsec_data
-                    .data
-                    .get_mut(*mass_position)
-                    .ok_or(AstroUtilError::DataNotAvailable)?;
-                data.push(parsec_line);
-            }
-        };
         Ok(())
     }
 
@@ -306,56 +234,6 @@ impl ParsecData {
     }
 }
 
-impl ParsecLine {
-    pub(super) fn to_star_at_origin(&self) -> StarData {
-        let mass = self.get_mass();
-        let age = self.get_age();
-        let luminous_intensity = self.get_luminous_intensity();
-        let temperature = self.get_temperature();
-        let radius = self.get_radius();
-        StarData {
-            name: "".to_string(),
-            mass: Some(mass),
-            age: Some(age),
-            luminous_intensity: Some(luminous_intensity),
-            temperature: temperature,
-            radius: Some(radius),
-            distance: DISTANCE_ZERO,
-            pos: EclipticCoordinates::Z_DIRECTION,
-            constellation: None,
-            evolution: StarDataEvolution::NONE,
-        }
-    }
-
-    pub(super) fn get_mass(&self) -> Mass<f64> {
-        self.mass * SOLAR_MASS
-    }
-
-    pub(super) fn get_age(&self) -> Time<f64> {
-        Time::from_yr(self.age)
-    }
-
-    pub(super) fn get_luminous_intensity(&self) -> Luminosity<f64> {
-        let lum = 10f64.powf(self.log_l);
-        lum * SOLAR_LUMINOUS_INTENSITY
-    }
-
-    pub(super) fn get_illuminance(&self, distance: &Distance<f64>) -> Illuminance<f64> {
-        let lum = self.get_luminous_intensity();
-        luminous_intensity_to_illuminance(&lum, distance)
-    }
-
-    pub(super) fn get_temperature(&self) -> Temperature<f64> {
-        let temp = 10f64.powf(self.log_te);
-        Temperature::from_K(temp)
-    }
-
-    pub(super) fn get_radius(&self) -> Distance<f64> {
-        let radius = 10f64.powf(self.log_r);
-        Distance::from_cm(radius)
-    }
-}
-
 fn get_project_dirs() -> Result<ProjectDirs, AstroUtilError> {
     ProjectDirs::from("", "the_comamba", "astro_utils").ok_or(AstroUtilError::Io(
         std::io::Error::new(std::io::ErrorKind::Other, "Could not get project dirs"),
@@ -368,8 +246,12 @@ mod tests {
     use crate::{
         real_data::stars::{all::get_many_stars, SUN},
         tests::eq_within,
-        units::{distance::SOLAR_RADIUS, time::BILLION_YEARS},
+        units::{
+            distance::SOLAR_RADIUS, luminous_intensity::SOLAR_LUMINOUS_INTENSITY, mass::SOLAR_MASS,
+            time::BILLION_YEARS,
+        },
     };
+    use simple_si_units::base::Time;
 
     #[test]
     fn test_caluclate_sun() {

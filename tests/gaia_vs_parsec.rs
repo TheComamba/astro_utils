@@ -1,7 +1,7 @@
 use astro_utils::{
     stars::{
         gaia_data::{fetch_brightest_stars, fetch_brightest_stars_data},
-        random_stars::generate_random_stars,
+        random::random_stars::generate_random_stars,
         star_appearance::StarAppearance,
         star_data::StarData,
     },

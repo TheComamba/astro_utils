@@ -1,7 +1,9 @@
 use std::f64::consts::PI;
 
 use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
-use crate::{color::srgb::sRGBColor, real_data::planets::*, stars::random_stars::random_direction};
+use crate::{
+    color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
+};
 use rand::Rng;
 use simple_si_units::{
     base::{Distance, Time},
