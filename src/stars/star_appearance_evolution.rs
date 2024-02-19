@@ -1,4 +1,4 @@
-use crate::color::srgb::sRGBColor;
+use crate::{color::srgb::sRGBColor, units::illuminance::IRRADIANCE_ZERO};
 use serde::{Deserialize, Serialize};
 use simple_si_units::electromagnetic::Illuminance;
 
@@ -40,5 +40,19 @@ impl StarAppearanceEvolution {
             return color + &lifestage_evolution.color_per_year * years;
         }
         color
+    }
+
+    pub fn get_lifestage_illuminance_per_year(&self) -> Illuminance<f64> {
+        self.lifestage_evolution
+            .as_ref()
+            .map(|lifestage_evolution| lifestage_evolution.illuminance_per_year)
+            .unwrap_or(IRRADIANCE_ZERO)
+    }
+
+    pub fn get_lifestage_color_per_year(&self) -> sRGBColor {
+        self.lifestage_evolution
+            .as_ref()
+            .map(|lifestage_evolution| lifestage_evolution.color_per_year)
+            .unwrap_or(sRGBColor::BLACK)
     }
 }

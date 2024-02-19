@@ -7,6 +7,7 @@ use crate::{
         distance::DISTANCE_ZERO,
         luminous_intensity::{luminous_intensity_to_illuminance, LUMINOSITY_ZERO},
         mass::MASS_ZERO,
+        temperature::TEMPERATURE_ZERO,
     },
 };
 
@@ -77,6 +78,34 @@ impl StarDataEvolution {
             .as_ref()
             .map(|e| e.to_star_appearance_lifestage_evolution(temperature_at_epoch, distance));
         StarAppearanceEvolution::new(lifestage_evolution)
+    }
+
+    pub fn get_lifestage_mass_per_year(&self) -> Mass<f64> {
+        self.lifestage_evolution
+            .as_ref()
+            .map(|e| e.mass_per_year)
+            .unwrap_or(MASS_ZERO)
+    }
+
+    pub fn get_lifestage_radius_per_year(&self) -> Distance<f64> {
+        self.lifestage_evolution
+            .as_ref()
+            .map(|e| e.radius_per_year)
+            .unwrap_or(DISTANCE_ZERO)
+    }
+
+    pub fn get_lifestage_luminous_intensity_per_year(&self) -> Luminosity<f64> {
+        self.lifestage_evolution
+            .as_ref()
+            .map(|e| e.luminous_intensity_per_year)
+            .unwrap_or(LUMINOSITY_ZERO)
+    }
+
+    pub fn get_lifestage_temperature_per_year(&self) -> Temperature<f64> {
+        self.lifestage_evolution
+            .as_ref()
+            .map(|e| e.temperature_per_year)
+            .unwrap_or(TEMPERATURE_ZERO)
     }
 }
 

@@ -15,7 +15,7 @@ use simple_si_units::{
     electromagnetic::Illuminance,
 };
 
-#[derive(Deserialize, Serialize)]
+#[derive(Deserialize, Serialize, Clone)]
 pub(crate) struct ParsecLine {
     mass: f64,
     pub(super) age: f64,

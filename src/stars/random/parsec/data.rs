@@ -34,11 +34,13 @@ mod tests {
     ) -> &'a ParsecLine {
         let mut mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
         let mut trajectory = &data.data[mass_index];
-        let mut params = ParsecData::get_closest_params(trajectory, age_in_years);
+        let mut index = ParsecData::get_closest_params_index(trajectory, age_in_years);
+        let mut params = &trajectory[index];
         while params.get_mass() < *mass && mass_index < ParsecData::SORTED_MASSES.len() - 1 {
             mass_index += 1;
             trajectory = &data.data[mass_index];
-            params = ParsecData::get_closest_params(trajectory, age_in_years);
+            index = ParsecData::get_closest_params_index(trajectory, age_in_years);
+            params = &trajectory[index];
         }
         params
     }

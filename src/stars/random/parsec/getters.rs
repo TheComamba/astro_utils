@@ -58,7 +58,11 @@ impl ParsecData {
         age_in_years: f64,
         pos: CartesianCoordinates,
     ) -> Option<StarData> {
-        let current_params = ParsecData::get_current_params(trajectory, age_in_years)?;
+        if age_in_years > Self::get_life_expectancy_in_years(trajectory) as f64 {
+            return None;
+        }
+        let current_params_index = ParsecData::get_closest_params_index(trajectory, age_in_years);
+        let current_params = &trajectory[current_params_index];
 
         let distance = pos.length();
         let illuminance = current_params.get_illuminance(&distance);
@@ -71,29 +75,24 @@ impl ParsecData {
         star.distance = distance;
         star.pos = pos.to_ecliptic();
 
-        let past_params = ParsecData::get_closest_params(trajectory, age_in_years - 1000.);
-        let past_star = past_params.to_star_at_origin();
-        let years = current_params.age - past_params.age;
-        let lifestage_evolution = StarDataLifestageEvolution::new(&star, &past_star, years);
+        let other_params = if current_params_index == 0 {
+            &trajectory[current_params_index + 1]
+        } else {
+            &trajectory[current_params_index - 1]
+        };
+        let star_at_other_time = other_params.to_star_at_origin();
+        let years = current_params.age - other_params.age;
+        let lifestage_evolution =
+            StarDataLifestageEvolution::new(&star, &star_at_other_time, years);
         star.evolution = StarDataEvolution::new(Some(lifestage_evolution));
 
         Some(star)
     }
 
-    pub(super) fn get_current_params(
-        trajectory: &[ParsecLine],
-        age_in_years: f64,
-    ) -> Option<&ParsecLine> {
-        if age_in_years > Self::get_life_expectancy_in_years(trajectory) as f64 {
-            return None;
-        }
-        Some(Self::get_closest_params(trajectory, age_in_years))
-    }
-
-    pub(super) fn get_closest_params(
+    pub(super) fn get_closest_params_index(
         trajectory: &[ParsecLine],
         actual_age_in_years: f64,
-    ) -> &ParsecLine {
+    ) -> usize {
         let mut closest_age = f64::MAX;
         let mut age_index = 0;
         for (i, line) in trajectory.iter().enumerate() {
@@ -103,13 +102,14 @@ impl ParsecData {
                 age_index = i;
             }
         }
-        &trajectory[age_index]
+        age_index
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::stars::random::parsec::data::PARSEC_DATA;
 
     #[test]
     fn masses_are_mapped_to_themselves() {
@@ -133,5 +133,57 @@ mod tests {
             println!("mass: {}, mapped_mass: {}", mass, mapped_mass);
             assert!((expected_mass - mapped_mass).abs() < SMALL_OFFSET);
         }
+    }
+
+    #[test]
+    fn infant_star_has_valid_evolution() {
+        let mass_index = ParsecData::SORTED_MASSES.len() - 1;
+        let trajectory = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            (*parsec_data.get_trajectory_via_index(mass_index)).clone()
+        };
+        let age_in_years = 0.;
+        let star =
+            ParsecData::get_star_data(&trajectory, age_in_years, CartesianCoordinates::ORIGIN)
+                .unwrap();
+        assert!(star
+            .evolution
+            .get_lifestage_luminous_intensity_per_year()
+            .cd
+            .is_finite());
+        assert!(star.evolution.get_lifestage_mass_per_year().kg.is_finite());
+        assert!(star.evolution.get_lifestage_radius_per_year().m.is_finite());
+        assert!(star
+            .evolution
+            .get_lifestage_temperature_per_year()
+            .K
+            .is_finite());
+    }
+
+    #[test]
+    fn old_star_has_finite_evolution() {
+        let mass_index = ParsecData::SORTED_MASSES.len() - 1;
+        let trajectory = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            (*parsec_data.get_trajectory_via_index(mass_index)).clone()
+        };
+        let age_in_years = ParsecData::get_life_expectancy_in_years(&trajectory) as f64;
+        let star =
+            ParsecData::get_star_data(&trajectory, age_in_years, CartesianCoordinates::ORIGIN)
+                .unwrap();
+        assert!(star
+            .evolution
+            .get_lifestage_luminous_intensity_per_year()
+            .cd
+            .is_finite());
+        assert!(star.evolution.get_lifestage_mass_per_year().kg.is_finite());
+        assert!(star.evolution.get_lifestage_radius_per_year().m.is_finite());
+        assert!(star
+            .evolution
+            .get_lifestage_temperature_per_year()
+            .K
+            .is_finite());
     }
 }
