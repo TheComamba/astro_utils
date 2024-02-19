@@ -1,4 +1,4 @@
-use super::parsec_data::ParsecData;
+use super::data::ParsecData;
 use crate::{
     coordinates::ecliptic::EclipticCoordinates,
     error::AstroUtilError,
@@ -16,7 +16,7 @@ use simple_si_units::{
 };
 
 #[derive(Deserialize, Serialize)]
-pub(super) struct ParsecLine {
+pub(crate) struct ParsecLine {
     mass: f64,
     pub(super) age: f64,
     log_l: f64,

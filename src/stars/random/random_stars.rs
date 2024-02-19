@@ -1,8 +1,7 @@
-use super::parsec_data::ParsecData;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
-    stars::{random::parsec_data::PARSEC_DATA, star_data::StarData},
+    stars::{random::parsec::data::PARSEC_DATA, star_data::StarData},
     units::distance::DISTANCE_ZERO,
 };
 use rand::{
@@ -16,6 +15,8 @@ use simple_si_units::{
     electromagnetic::Illuminance,
 };
 use std::f64::consts::PI;
+
+use super::parsec::data::ParsecData;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted a little bit
