@@ -4,7 +4,6 @@ use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::random::random_stars::DIMMEST_ILLUMINANCE;
 use crate::stars::star_data::StarData;
 use crate::stars::star_data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
-use simple_si_units::base::Mass;
 
 impl ParsecData {
     pub(crate) const SORTED_MASSES: [f64; 100] = [
@@ -44,23 +43,6 @@ impl ParsecData {
 
     pub(super) fn get_life_expectancy_in_years(trajectory: &[ParsecLine]) -> u32 {
         trajectory.last().unwrap().age as u32
-    }
-
-    #[cfg(test)]
-    pub(super) fn get_params_for_current_mass_and_age(
-        &self,
-        mass: &Mass<f64>,
-        age_in_years: f64,
-    ) -> &ParsecLine {
-        let mut mass_index = Self::get_closest_mass_index(mass.to_solar_mass());
-        let mut trajectory = &self.data[mass_index];
-        let mut params = Self::get_closest_params(trajectory, age_in_years);
-        while params.get_mass() < *mass && mass_index < Self::SORTED_MASSES.len() - 1 {
-            mass_index += 1;
-            trajectory = &self.data[mass_index];
-            params = Self::get_closest_params(trajectory, age_in_years);
-        }
-        params
     }
 
     pub(super) fn is_filled(&self) -> bool {

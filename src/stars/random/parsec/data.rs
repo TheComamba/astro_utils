@@ -25,7 +25,23 @@ mod tests {
             time::BILLION_YEARS,
         },
     };
-    use simple_si_units::base::Time;
+    use simple_si_units::base::{Mass, Time};
+
+    pub(super) fn get_params_for_current_mass_and_age<'a>(
+        data: &'a ParsecData,
+        mass: &Mass<f64>,
+        age_in_years: f64,
+    ) -> &'a ParsecLine {
+        let mut mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
+        let mut trajectory = &data.data[mass_index];
+        let mut params = ParsecData::get_closest_params(trajectory, age_in_years);
+        while params.get_mass() < *mass && mass_index < ParsecData::SORTED_MASSES.len() - 1 {
+            mass_index += 1;
+            trajectory = &data.data[mass_index];
+            params = ParsecData::get_closest_params(trajectory, age_in_years);
+        }
+        params
+    }
 
     #[test]
     fn test_caluclate_sun() {
@@ -34,8 +50,7 @@ mod tests {
         let calculated_sun = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            parsec_data
-                .get_params_for_current_mass_and_age(&mass.unwrap(), age.to_yr())
+            get_params_for_current_mass_and_age(&parsec_data, &mass.unwrap(), age.to_yr())
                 .to_star_at_origin()
         };
         let real_sun = SUN.to_star_data();
@@ -101,7 +116,7 @@ mod tests {
                     }
 
                     let current_params =
-                        parsec_data.get_params_for_current_mass_and_age(&mass, age);
+                        get_params_for_current_mass_and_age(&parsec_data, &mass, age);
                     let calculated_star = current_params.to_star_at_origin();
                     let real_star = data.to_star_data();
                     if calculated_star.similar_within_order_of_magnitude(&real_star) {
