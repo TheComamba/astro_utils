@@ -65,6 +65,10 @@ impl StarAppearance {
         self.pos = direction;
     }
 
+    pub fn get_evolution(&self) -> &StarAppearanceEvolution {
+        &self.evolution
+    }
+
     pub(super) fn apparently_the_same(&self, other: &Self) -> bool {
         let angle_accuracy = Angle::from_degrees(0.03); //Rather high due to accos inaccuracy
 

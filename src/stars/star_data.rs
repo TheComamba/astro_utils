@@ -152,6 +152,10 @@ impl StarData {
         self.pos = pos;
     }
 
+    pub fn get_evolution(&self) -> &StarDataEvolution {
+        &self.evolution
+    }
+
     pub fn to_star_appearance(&self) -> StarAppearance {
         let illuminance = match self.luminous_intensity {
             Some(luminous_intensity) => {
