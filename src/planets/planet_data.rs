@@ -1,10 +1,13 @@
 use super::orbit_parameters::OrbitParameters;
 use crate::{
-    color::sRGBColor,
+    color::srgb::sRGBColor,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
-    stars::{star_appearance::StarAppearance, star_data::StarData},
+    stars::{
+        star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
+        star_data::StarData,
+    },
     units::luminous_intensity::LUMINOSITY_ZERO,
 };
 use serde::{Deserialize, Serialize};
@@ -141,7 +144,7 @@ impl PlanetData {
         observer_position: &CartesianCoordinates,
     ) -> Result<StarAppearance, AstroUtilError> {
         let central_body_luminous_intensity = central_body
-            .get_luminous_intensity()
+            .get_luminous_intensity_at_epoch()
             .unwrap_or(LUMINOSITY_ZERO);
         let brightness = planet_brightness(
             central_body_luminous_intensity,
@@ -158,6 +161,7 @@ impl PlanetData {
             illuminance: brightness,
             color: self.color.clone(),
             pos,
+            evolution: StarAppearanceEvolution::NONE,
         })
     }
 }

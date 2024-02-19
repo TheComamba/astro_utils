@@ -1,6 +1,6 @@
-use super::star_appearance::StarAppearance;
+use super::{star_appearance::StarAppearance, star_data_evolution::StarDataEvolution};
 use crate::{
-    color::sRGBColor,
+    color::srgb::sRGBColor,
     coordinates::ecliptic::EclipticCoordinates,
     units::{illuminance::IRRADIANCE_ZERO, luminous_intensity::luminous_intensity_to_illuminance},
 };
@@ -14,10 +14,11 @@ pub struct StarData {
     pub(super) mass: Option<Mass<f64>>,
     pub(super) radius: Option<Distance<f64>>,
     pub(super) luminous_intensity: Option<Luminosity<f64>>,
-    pub(super) temperature: Option<Temperature<f64>>,
+    pub(super) temperature: Temperature<f64>,
     pub(super) age: Option<Time<f64>>,
-    pub(super) distance: Option<Distance<f64>>,
+    pub(super) distance: Distance<f64>,
     pub(super) pos: EclipticCoordinates,
+    pub(super) evolution: StarDataEvolution,
 }
 
 impl StarData {
@@ -27,10 +28,11 @@ impl StarData {
         mass: Option<Mass<f64>>,
         radius: Option<Distance<f64>>,
         luminous_intensity: Option<Luminosity<f64>>,
-        temperature: Option<Temperature<f64>>,
+        temperature: Temperature<f64>,
         age: Option<Time<f64>>,
-        distance: Option<Distance<f64>>,
+        distance: Distance<f64>,
         pos: EclipticCoordinates,
+        evolution: StarDataEvolution,
     ) -> Self {
         Self {
             name,
@@ -42,6 +44,7 @@ impl StarData {
             distance,
             pos,
             constellation,
+            evolution,
         }
     }
 
@@ -53,32 +56,64 @@ impl StarData {
         &self.constellation
     }
 
-    pub const fn get_radius(&self) -> &Option<Distance<f64>> {
-        &self.radius
-    }
-
-    pub const fn get_mass(&self) -> &Option<Mass<f64>> {
+    pub const fn get_mass_at_epoch(&self) -> &Option<Mass<f64>> {
         &self.mass
     }
 
-    pub const fn get_luminous_intensity(&self) -> &Option<Luminosity<f64>> {
+    pub fn get_mass(&self, time: Time<f64>) -> Option<Mass<f64>> {
+        Some(self.evolution.apply_to_mass(self.mass?, time.to_yr()))
+    }
+
+    pub const fn get_radius_at_epoch(&self) -> &Option<Distance<f64>> {
+        &self.radius
+    }
+
+    pub fn get_radius(&self, time: Time<f64>) -> Option<Distance<f64>> {
+        Some(self.evolution.apply_to_radius(self.radius?, time.to_yr()))
+    }
+
+    pub const fn get_luminous_intensity_at_epoch(&self) -> &Option<Luminosity<f64>> {
         &self.luminous_intensity
     }
 
-    pub const fn get_temperature(&self) -> &Option<Temperature<f64>> {
+    pub fn get_luminous_intensity(&self, time: Time<f64>) -> Option<Luminosity<f64>> {
+        Some(
+            self.evolution
+                .apply_to_luminous_intensity(self.luminous_intensity?, time.to_yr()),
+        )
+    }
+
+    pub const fn get_temperature_at_epoch(&self) -> &Temperature<f64> {
         &self.temperature
     }
 
-    pub const fn get_age(&self) -> &Option<Time<f64>> {
+    pub fn get_temperature(&self, time: Time<f64>) -> Temperature<f64> {
+        self.evolution
+            .apply_to_temperature(self.temperature, time.to_yr())
+    }
+
+    pub const fn get_age_at_epoch(&self) -> &Option<Time<f64>> {
         &self.age
     }
 
-    pub const fn get_distance(&self) -> &Option<Distance<f64>> {
+    pub fn get_age(&self, time: Time<f64>) -> Option<Time<f64>> {
+        self.age.map(|age| age + time)
+    }
+
+    pub const fn get_distance_at_epoch(&self) -> &Distance<f64> {
         &self.distance
     }
 
-    pub const fn get_pos(&self) -> &EclipticCoordinates {
+    pub fn get_distance(&self, _time: Time<f64>) -> Distance<f64> {
+        self.distance
+    }
+
+    pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
         &self.pos
+    }
+
+    pub fn get_pos(&self, _time: Time<f64>) -> EclipticCoordinates {
+        self.pos.clone()
     }
 
     pub fn set_name(&mut self, name: String) {
@@ -89,50 +124,58 @@ impl StarData {
         self.constellation = constellation;
     }
 
-    pub fn set_mass(&mut self, mass: Option<Mass<f64>>) {
+    pub fn set_mass_at_epoch(&mut self, mass: Option<Mass<f64>>) {
         self.mass = mass;
     }
 
-    pub fn set_radius(&mut self, radius: Option<Distance<f64>>) {
+    pub fn set_radius_at_epoch(&mut self, radius: Option<Distance<f64>>) {
         self.radius = radius;
     }
 
-    pub fn set_luminous_intensity(&mut self, luminous_intensity: Option<Luminosity<f64>>) {
+    pub fn set_luminous_intensity_at_epoch(&mut self, luminous_intensity: Option<Luminosity<f64>>) {
         self.luminous_intensity = luminous_intensity;
     }
 
-    pub fn set_temperature(&mut self, temperature: Option<Temperature<f64>>) {
+    pub fn set_temperature_at_epoch(&mut self, temperature: Temperature<f64>) {
         self.temperature = temperature;
     }
 
-    pub fn set_age(&mut self, age: Option<Time<f64>>) {
+    pub fn set_age_at_epoch(&mut self, age: Option<Time<f64>>) {
         self.age = age;
     }
 
-    pub fn set_distance(&mut self, distance: Option<Distance<f64>>) {
+    pub fn set_distance_at_epoch(&mut self, distance: Distance<f64>) {
         self.distance = distance;
     }
 
-    pub fn set_pos(&mut self, pos: EclipticCoordinates) {
+    pub fn set_pos_at_epoch(&mut self, pos: EclipticCoordinates) {
         self.pos = pos;
     }
 
+    pub fn get_evolution(&self) -> &StarDataEvolution {
+        &self.evolution
+    }
+
     pub fn to_star_appearance(&self) -> StarAppearance {
-        let illuminance = match (self.luminous_intensity, self.distance) {
-            (Some(luminous_intensity), Some(distance)) => {
-                luminous_intensity_to_illuminance(&luminous_intensity, &distance)
+        let illuminance = match self.luminous_intensity {
+            Some(luminous_intensity) => {
+                luminous_intensity_to_illuminance(&luminous_intensity, &self.distance)
             }
             _ => IRRADIANCE_ZERO,
         };
-        let color = match self.temperature {
-            Some(temperature) => sRGBColor::from_temperature(temperature),
-            None => sRGBColor::DEFAULT,
-        };
+
+        let color = sRGBColor::from_temperature(self.temperature);
+
+        let evolution = self
+            .evolution
+            .to_star_appearance_evolution(self.temperature, self.distance);
+
         StarAppearance {
             name: self.name.clone(),
             illuminance,
             color,
             pos: self.pos.clone(),
+            evolution,
         }
     }
 
@@ -157,12 +200,7 @@ impl StarData {
                 }
                 _ => 0.0,
             };
-        let temperature_ratio = match (self.temperature, other.temperature) {
-            (Some(self_temperature), Some(other_temperature)) => {
-                self_temperature / other_temperature
-            }
-            _ => 1.0,
-        };
+        let temperature_ratio = self.temperature / other.temperature;
         let age_ratio = match (self.age, other.age) {
             (Some(self_age), Some(other_age)) => self_age / other_age,
             _ => 1.0,
@@ -198,9 +236,7 @@ impl StarData {
         if temperature_ratio < 0.1 || temperature_ratio > 10.0 {
             println!(
                 "temperature1: {}, temperature2: {}, ratio: {}",
-                self.temperature.unwrap(),
-                other.temperature.unwrap(),
-                temperature_ratio
+                self.temperature, other.temperature, temperature_ratio
             );
             result = false;
         }

@@ -1,8 +1,10 @@
 use crate::{
-    astro_display::AstroDisplay, color::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
+    astro_display::AstroDisplay, color::srgb::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
 };
 use serde::{Deserialize, Serialize};
-use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
+use simple_si_units::{base::Time, electromagnetic::Illuminance, geometry::Angle};
+
+use super::star_appearance_evolution::StarAppearanceEvolution;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
@@ -10,6 +12,7 @@ pub struct StarAppearance {
     pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
     pub(crate) pos: EclipticCoordinates,
+    pub(crate) evolution: StarAppearanceEvolution,
 }
 
 impl StarAppearance {
@@ -18,12 +21,14 @@ impl StarAppearance {
         illuminance: Illuminance<f64>,
         color: sRGBColor,
         pos: EclipticCoordinates,
+        evolution: StarAppearanceEvolution,
     ) -> Self {
         Self {
             name,
             illuminance,
             color,
             pos,
+            evolution,
         }
     }
 
@@ -31,20 +36,37 @@ impl StarAppearance {
         &self.name
     }
 
-    pub const fn get_illuminance(&self) -> &Illuminance<f64> {
+    pub const fn get_illuminance_at_epoch(&self) -> &Illuminance<f64> {
         &self.illuminance
     }
 
-    pub const fn get_color(&self) -> &sRGBColor {
+    pub fn get_illuminance(&self, time: Time<f64>) -> Illuminance<f64> {
+        self.evolution
+            .apply_to_illuminance(self.illuminance, time.to_yr())
+    }
+
+    pub const fn get_color_at_epoch(&self) -> &sRGBColor {
         &self.color
     }
 
-    pub const fn get_pos(&self) -> &EclipticCoordinates {
+    pub fn get_color(&self, time: Time<f64>) -> sRGBColor {
+        self.evolution.apply_to_color(self.color, time.to_yr())
+    }
+
+    pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
         &self.pos
     }
 
-    pub fn set_pos(&mut self, direction: EclipticCoordinates) {
+    pub fn get_pos(&self, _time: Time<f64>) -> EclipticCoordinates {
+        self.pos.clone()
+    }
+
+    pub fn set_pos_at_epoch(&mut self, direction: EclipticCoordinates) {
         self.pos = direction;
+    }
+
+    pub fn get_evolution(&self) -> &StarAppearanceEvolution {
+        &self.evolution
     }
 
     pub(super) fn apparently_the_same(&self, other: &Self) -> bool {
@@ -76,7 +98,6 @@ impl AstroDisplay for StarAppearance {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::color::sRGBColor;
 
     #[test]
     fn star_is_apparently_the_same_with_itself() {
@@ -85,6 +106,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            StarAppearanceEvolution::NONE,
         );
 
         assert!(star.apparently_the_same(&star));
@@ -97,6 +119,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            StarAppearanceEvolution::NONE,
         );
         let mut other = star.clone();
         other.pos = EclipticCoordinates::Y_DIRECTION;
@@ -111,6 +134,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            StarAppearanceEvolution::NONE,
         );
         let mut other = star.clone();
         other.illuminance = Illuminance::from_lux(100.0);

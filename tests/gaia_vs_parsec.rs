@@ -1,11 +1,11 @@
 use astro_utils::{
     stars::{
         gaia_data::{fetch_brightest_stars, fetch_brightest_stars_data},
-        random_stars::generate_random_stars,
+        random::random_stars::generate_random_stars,
         star_appearance::StarAppearance,
         star_data::StarData,
     },
-    units::illuminance::illuminance_to_apparent_magnitude,
+    units::{illuminance::illuminance_to_apparent_magnitude, temperature::TEMPERATURE_ZERO},
 };
 use simple_si_units::base::Distance;
 
@@ -62,7 +62,7 @@ fn total_number_is_similar(parsec: &[StarAppearance], gaia: &[StarAppearance]) -
 }
 
 fn apparent_magnitude_is_within(star: &StarAppearance, mag_min: f64, mag_max: f64) -> bool {
-    let app_mag = illuminance_to_apparent_magnitude(star.get_illuminance());
+    let app_mag = illuminance_to_apparent_magnitude(star.get_illuminance_at_epoch());
     app_mag < mag_min && app_mag > mag_max
 }
 
@@ -92,8 +92,14 @@ fn number_of_stars_in_apparent_magnitude_range_is_similar(
 fn mean_temperature(data: &[StarData]) -> f64 {
     let temperatures = data
         .iter()
-        .map(|s| s.get_temperature())
-        .filter_map(|t| *t)
+        .map(|s| s.get_temperature_at_epoch())
+        .filter_map(|t| {
+            if t > &TEMPERATURE_ZERO {
+                Some(*t)
+            } else {
+                None
+            }
+        })
         .map(|t| t.to_K())
         .collect::<Vec<_>>();
     temperatures.iter().sum::<f64>() / temperatures.len() as f64

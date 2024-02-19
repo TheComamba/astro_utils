@@ -1,9 +1,16 @@
-use super::{star_appearance::StarAppearance, star_data::StarData};
+use super::{
+    star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
+    star_data::StarData, star_data_evolution::StarDataEvolution,
+};
 use crate::{
-    color::sRGBColor,
+    color::srgb::sRGBColor,
     coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates},
     error::AstroUtilError,
-    units::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
+    units::{
+        distance::DISTANCE_ZERO,
+        illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
+        temperature::TEMPERATURE_ZERO,
+    },
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
@@ -95,11 +102,12 @@ impl GaiaResponse {
                     mass: None,
                     radius: None,
                     luminous_intensity: None,
-                    temperature: parsed_data.temperature,
+                    temperature: parsed_data.temperature.unwrap_or(TEMPERATURE_ZERO),
                     age: None,
-                    distance: None,
+                    distance: DISTANCE_ZERO,
                     pos: parsed_data.pos,
                     constellation: None,
+                    evolution: StarDataEvolution::NONE,
                 };
                 Ok(star)
             })
@@ -117,7 +125,7 @@ impl GaiaResponse {
                 let illuminance = apparent_magnitude_to_illuminance(parsed_data.mag);
                 let color = match parsed_data.temperature {
                     Some(temperature) => sRGBColor::from_temperature(temperature),
-                    None => sRGBColor::DEFAULT,
+                    None => sRGBColor::WHITE,
                 };
 
                 let star = StarAppearance {
@@ -125,6 +133,7 @@ impl GaiaResponse {
                     illuminance,
                     color,
                     pos: parsed_data.pos,
+                    evolution: StarAppearanceEvolution::NONE,
                 };
                 Ok(star)
             })

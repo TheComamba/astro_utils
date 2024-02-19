@@ -1,8 +1,8 @@
-use super::{parsec_data::ParsecData, star_data::StarData};
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
-    stars::parsec_data::PARSEC_DATA,
+    stars::{random::parsec::data::PARSEC_DATA, star_data::StarData},
+    units::distance::DISTANCE_ZERO,
 };
 use rand::{
     distributions::{Uniform, WeightedIndex},
@@ -16,10 +16,12 @@ use simple_si_units::{
 };
 use std::f64::consts::PI;
 
+use super::parsec::data::ParsecData;
+
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted a little bit
 const STARS_PER_LY_CUBED: f64 = 3.33e-3;
-const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
+pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
 };
@@ -135,7 +137,7 @@ pub fn generate_random_star(
     }
     let mut star = star.unwrap();
     if max_distance.is_none() {
-        star.distance = None;
+        star.distance = DISTANCE_ZERO;
     }
     Ok(star)
 }
@@ -151,17 +153,8 @@ fn generate_visible_random_star(
     let pos = random_point_in_sphere(rng, pos_distr, max_distance);
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-    let age = rng.sample(age_dist);
-    let current_params = ParsecData::get_current_params(trajectory, age)?;
-    let distance = pos.length();
-    let illuminance = current_params.get_apparent_magnitude(&distance);
-    if illuminance < DIMMEST_ILLUMINANCE {
-        return None;
-    }
-    let mut star = current_params.to_star_at_origin();
-    star.distance = Some(distance);
-    star.pos = pos.to_ecliptic();
-    Some(star)
+    let age_in_years = rng.sample(age_dist);
+    ParsecData::get_star_data(trajectory, age_in_years, pos)
 }
 
 fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f64> {
@@ -261,9 +254,7 @@ mod tests {
         let max_distance = Distance::from_lyr(100.);
         let stars = generate_random_stars(max_distance).unwrap();
         for star in stars {
-            if let Some(distance) = star.distance {
-                assert!(distance < max_distance * 1.01);
-            }
+            assert!(star.distance < max_distance * 1.01);
         }
     }
 }

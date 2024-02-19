@@ -1,6 +1,9 @@
-use super::{star_appearance::StarAppearance, star_data::StarData};
+use super::{
+    star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
+    star_data::StarData, star_data_evolution::StarDataEvolution,
+};
 use crate::{
-    color::sRGBColor,
+    color::srgb::sRGBColor,
     coordinates::{
         declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
         right_ascension::RightAscension,
@@ -56,10 +59,11 @@ impl RealData {
             constellation,
             radius: self.radius,
             luminous_intensity: Some(luminous_intensity),
-            temperature: Some(self.temperature),
+            temperature: self.temperature,
             age: self.age,
-            distance: Some(self.distance),
+            distance: self.distance,
             pos,
+            evolution: StarDataEvolution::NONE,
         }
     }
 
@@ -79,6 +83,7 @@ impl RealData {
             illuminance,
             color,
             pos,
+            evolution: StarAppearanceEvolution::NONE,
         }
     }
 }
@@ -97,9 +102,9 @@ mod tests {
     fn calculate_apparent_magnitude() {
         for star_data in get_many_stars() {
             let star = star_data.to_star_data();
-            let luminous_intensity = star.get_luminous_intensity().unwrap();
+            let luminous_intensity = star.get_luminous_intensity_at_epoch().unwrap();
             let illuminance =
-                luminous_intensity_to_illuminance(&luminous_intensity, &star.distance.unwrap());
+                luminous_intensity_to_illuminance(&luminous_intensity, &star.distance);
             let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             assert!(
