@@ -4,7 +4,6 @@ use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::random::random_stars::DIMMEST_ILLUMINANCE;
 use crate::stars::star_data::StarData;
 use crate::stars::star_data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
-use crate::units::illuminance::illuminance_to_luminous_intensity;
 
 impl ParsecData {
     pub(crate) const SORTED_MASSES: [f64; 100] = [
@@ -65,17 +64,16 @@ impl ParsecData {
         let current_params_index = ParsecData::get_closest_params_index(trajectory, age_in_years);
         let current_params = &trajectory[current_params_index];
 
-        let distance = pos.length();
-        let min_luminous_intensity =
-            illuminance_to_luminous_intensity(&DIMMEST_ILLUMINANCE, &distance);
-        let luminous_intensity = current_params.get_luminous_intensity();
-        if luminous_intensity < min_luminous_intensity {
+        let distance_squared = pos.x() * pos.x() + pos.y() * pos.y() + pos.z() * pos.z();
+        let min_luminous_intensity = DIMMEST_ILLUMINANCE * distance_squared;
+        let luminous_intensity = current_params.get_luminous_intensity().cd;
+        if luminous_intensity < min_luminous_intensity.lm {
             return None;
         }
 
         let mut star = current_params.to_star_at_origin();
 
-        star.distance = distance;
+        star.distance = pos.length();
         star.pos = pos.to_ecliptic();
 
         let other_params = if current_params_index == 0 {
