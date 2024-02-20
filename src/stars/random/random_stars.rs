@@ -87,7 +87,7 @@ fn generate_certain_number_of_random_stars(
     age_distr: Uniform<f64>,
 ) -> Vec<StarData> {
     (0..=number)
-        .into_iter()
+        .into_par_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
             generate_visible_random_star(
@@ -219,7 +219,7 @@ fn random_distance(
     max_distance: Distance<f64>,
 ) -> Distance<f64> {
     let cubed: f64 = rng.sample(unit_distance_distr);
-    max_distance * cubed.powf(1. / 3.)
+    max_distance * cubed.cbrt()
 }
 
 #[cfg(test)]
