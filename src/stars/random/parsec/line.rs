@@ -4,16 +4,11 @@ use crate::{
     error::AstroUtilError,
     stars::{star_data::StarData, star_data_evolution::StarDataEvolution},
     units::{
-        distance::DISTANCE_ZERO,
-        luminous_intensity::{luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY},
-        mass::SOLAR_MASS,
+        distance::DISTANCE_ZERO, luminous_intensity::SOLAR_LUMINOUS_INTENSITY, mass::SOLAR_MASS,
     },
 };
 use serde::{Deserialize, Serialize};
-use simple_si_units::{
-    base::{Distance, Luminosity, Mass, Temperature, Time},
-    electromagnetic::Illuminance,
-};
+use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
 #[derive(Deserialize, Serialize, Clone)]
 pub(crate) struct ParsecLine {
@@ -114,11 +109,6 @@ impl ParsecLine {
     pub(super) fn get_luminous_intensity(&self) -> Luminosity<f64> {
         let lum = 10f64.powf(self.log_l);
         lum * SOLAR_LUMINOUS_INTENSITY
-    }
-
-    pub(super) fn get_illuminance(&self, distance: &Distance<f64>) -> Illuminance<f64> {
-        let lum = self.get_luminous_intensity();
-        luminous_intensity_to_illuminance(&lum, distance)
     }
 
     pub(super) fn get_temperature(&self) -> Temperature<f64> {

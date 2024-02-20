@@ -158,7 +158,7 @@ fn query_brightest_stars(brightest: Illuminance<f64>) -> Result<GaiaResponse, As
     serde_json::from_str(&resp).map_err(AstroUtilError::Json)
 }
 
-pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[&StarAppearance]) -> bool {
+pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[StarAppearance]) -> bool {
     known_stars
         .iter()
         .any(|known_star| known_star.apparently_the_same(new_star))
@@ -190,7 +190,7 @@ mod tests {
 
     fn find_closest_star(
         gaia_star: &StarAppearance,
-        known_stars: &[&StarAppearance],
+        known_stars: &[StarAppearance],
     ) -> Option<StarAppearance> {
         let mut closest_star = None;
         let mut closest_distance = Angle::from_degrees(90.);
@@ -201,7 +201,7 @@ mod tests {
                 closest_distance = distance;
             }
         }
-        closest_star.cloned().cloned()
+        closest_star.cloned()
     }
 
     #[test]
@@ -241,7 +241,6 @@ mod tests {
         for star_data in get_many_stars() {
             known_stars.push(star_data.to_star_appearance());
         }
-        let known_stars_ref: Vec<&StarAppearance> = known_stars.iter().collect();
 
         let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(2.5)).unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
@@ -255,10 +254,10 @@ mod tests {
             if gaia_star.name == PROBLEMATIC_STAR {
                 continue;
             }
-            let is_known = star_is_already_known(gaia_star, &known_stars_ref);
+            let is_known = star_is_already_known(gaia_star, &known_stars);
             if !is_known {
                 println!("\ngaia_star is not known");
-                let closest = find_closest_star(gaia_star, &known_stars_ref).unwrap();
+                let closest = find_closest_star(gaia_star, &known_stars).unwrap();
                 println!("gaia_star: {:?}", gaia_star.name);
                 println!("closest_star: {:?}", closest.name);
                 let (gaia_ra, gaia_dec) = gaia_star.pos.get_spherical().to_ra_and_dec();
@@ -333,7 +332,6 @@ mod tests {
         ))
         .unwrap();
         let gaia_stars = gaia_response.to_star_appearances().unwrap();
-        let gaia_stars_ref: Vec<&StarAppearance> = gaia_stars.iter().collect();
 
         assert!(
             known_stars.len() > 30,
@@ -358,8 +356,8 @@ mod tests {
         );
 
         for known_star in known_stars.iter() {
-            let is_known = star_is_already_known(known_star, &gaia_stars_ref);
-            let closest_gaia_star = find_closest_star(known_star, &gaia_stars_ref).unwrap();
+            let is_known = star_is_already_known(known_star, &gaia_stars);
+            let closest_gaia_star = find_closest_star(known_star, &gaia_stars).unwrap();
             assert!(
                 is_known,
                 "A known star is not found in Gaia\n\n{}\n\nClosest gaia star:\n{}",
