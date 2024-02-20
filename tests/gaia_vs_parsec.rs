@@ -84,7 +84,7 @@ fn parsec_generates_data_similar_to_gaia() {
 }
 
 fn similar(a: f64, b: f64) -> bool {
-    if a < 10.0 || b < 10.0 {
+    if a < 1. || b < 1. {
         // Should not be called on small numbers
         return false;
     }
