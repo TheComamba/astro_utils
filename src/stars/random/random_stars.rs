@@ -20,7 +20,7 @@ use super::parsec::data::ParsecData;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted a little bit
-const STARS_PER_LY_CUBED: f64 = 3.33e-5;
+const STARS_PER_LY_CUBED: f64 = 3.33e-3;
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
@@ -40,7 +40,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
 
-    const MAX_CHUNKSIZE: usize = 1_000_000;
+    const MAX_CHUNKSIZE: usize = 10_000_000;
     let mut remaining = number_of_stars_in_sphere;
     let mut stars = Vec::new();
     while remaining > MAX_CHUNKSIZE {
@@ -233,7 +233,7 @@ mod tests {
     fn generate_random_stars_stress_test() {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
-        let max_distance = Distance::from_lyr(10000.);
+        let max_distance = Distance::from_lyr(5000.);
         let max_seconds = 60;
 
         let start = Instant::now();
