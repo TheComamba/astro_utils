@@ -87,7 +87,7 @@ fn generate_certain_number_of_random_stars(
     age_distr: Uniform<f64>,
 ) -> Vec<StarData> {
     (0..=number)
-        .into_par_iter()
+        .into_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
             generate_visible_random_star(
