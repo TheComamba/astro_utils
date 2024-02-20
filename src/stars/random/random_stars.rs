@@ -86,8 +86,8 @@ fn generate_certain_number_of_random_stars(
     mass_index_distr: WeightedIndex<f64>,
     age_distr: Uniform<f64>,
 ) -> Vec<StarData> {
-    let stars = (0..=number)
-        .into_iter()
+    (0..=number)
+        .into_par_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
             generate_visible_random_star(
@@ -99,9 +99,8 @@ fn generate_certain_number_of_random_stars(
                 &age_distr,
             )
         })
-        .collect::<Vec<Option<StarData>>>();
-
-    stars.into_iter().filter_map(|star| star).collect()
+        .filter_map(|star| star)
+        .collect::<Vec<StarData>>()
 }
 
 pub fn generate_random_star(
@@ -215,7 +214,10 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 #[cfg(test)]
 mod tests {
-    use crate::{tests::eq, units::illuminance::illuminance_to_apparent_magnitude};
+    use crate::{
+        astro_display::AstroDisplay, tests::eq,
+        units::illuminance::illuminance_to_apparent_magnitude,
+    };
 
     use super::*;
     use std::time::Instant;
@@ -231,14 +233,18 @@ mod tests {
     fn generate_random_stars_stress_test() {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
-        let max_distance = Distance::from_lyr(1000.);
-        let max_seconds = 60;
+        let max_distance = Distance::from_lyr(10000.);
+        let max_seconds = 1; //60;
 
         let start = Instant::now();
         let stars = generate_random_stars(max_distance).unwrap();
         let duration = start.elapsed();
-        println!("duration: {:?}", duration);
-        println!("stars: {}", stars.len());
+        println!(
+            "Generated {} stars within {} in {:?}",
+            stars.len(),
+            max_distance.astro_display(),
+            duration
+        );
         assert!(stars.len() > 1000);
         assert!(duration.as_secs() < max_seconds);
     }
