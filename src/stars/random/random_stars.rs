@@ -31,7 +31,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
     let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
 
-    let pos_distr = get_pos_distribution(max_distance);
+    let unit_distance_distr = get_unit_distance_distribution();
     let mass_index_distr = get_mass_distribution();
     let age_distr = get_age_distribution();
 
@@ -48,7 +48,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             MAX_CHUNKSIZE,
             parsec_data,
             max_distance,
-            pos_distr,
+            unit_distance_distr,
             mass_index_distr.clone(),
             age_distr,
         );
@@ -69,7 +69,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         remaining,
         parsec_data,
         max_distance,
-        pos_distr,
+        unit_distance_distr,
         mass_index_distr,
         age_distr,
     );
@@ -82,7 +82,7 @@ fn generate_certain_number_of_random_stars(
     number: usize,
     parsec_data: &ParsecData,
     max_distance: Distance<f64>,
-    pos_distr: Uniform<f64>,
+    unit_distance_distr: Uniform<f64>,
     mass_index_distr: WeightedIndex<f64>,
     age_distr: Uniform<f64>,
 ) -> Vec<StarData> {
@@ -94,7 +94,7 @@ fn generate_certain_number_of_random_stars(
                 parsec_data,
                 max_distance,
                 &mut rng,
-                &pos_distr,
+                &unit_distance_distr,
                 &mass_index_distr,
                 &age_distr,
             )
@@ -108,7 +108,7 @@ pub fn generate_random_star(
 ) -> Result<StarData, AstroUtilError> {
     let mut rng = rand::thread_rng();
     let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
-    let pos_distr = get_pos_distribution(max_distance_or_1);
+    let unit_distance_distr = get_unit_distance_distribution();
     let mass_index_distr = get_mass_distribution();
     let age_dist = get_age_distribution();
 
@@ -120,7 +120,7 @@ pub fn generate_random_star(
         parsec_data,
         max_distance_or_1,
         &mut rng,
-        &pos_distr,
+        &unit_distance_distr,
         &mass_index_distr,
         &age_dist,
     );
@@ -129,7 +129,7 @@ pub fn generate_random_star(
             parsec_data,
             max_distance_or_1,
             &mut rng,
-            &pos_distr,
+            &unit_distance_distr,
             &mass_index_distr,
             &age_dist,
         );
@@ -145,19 +145,19 @@ fn generate_visible_random_star(
     parsec_data: &ParsecData,
     max_distance: Distance<f64>,
     rng: &mut ThreadRng,
-    pos_distr: &Uniform<f64>,
+    unit_distance_distr: &Uniform<f64>,
     mass_index_distr: &WeightedIndex<f64>,
     age_dist: &Uniform<f64>,
 ) -> Option<StarData> {
-    let pos = random_point_in_sphere(rng, pos_distr, max_distance);
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
     let age_in_years = rng.sample(age_dist);
-    ParsecData::get_star_data_if_visible(trajectory, age_in_years, pos)
-}
-
-fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f64> {
-    Uniform::new(-max_distance.m, max_distance.m)
+    let distance = random_distance(rng, unit_distance_distr, max_distance);
+    let mut star = ParsecData::get_star_data_if_visible(trajectory, age_in_years, distance.m)?;
+    let pos = random_direction(rng).to_ecliptic();
+    star.distance = distance;
+    star.pos = pos;
+    Some(star)
 }
 
 fn get_mass_distribution() -> WeightedIndex<f64> {
@@ -186,13 +186,10 @@ fn get_age_distribution() -> Uniform<f64> {
     Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.to_yr())
 }
 
-fn random_point_in_sphere(
-    rng: &mut ThreadRng,
-    distr: &Uniform<f64>,
-    max_distance: Distance<f64>,
-) -> CartesianCoordinates {
+fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
+    let distr = Uniform::new(-1., 1.);
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
-    while x * x + y * y + z * z > max_distance.m * max_distance.m {
+    while x * x + y * y + z * z > 1. {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     }
     let x = Distance { m: x };
@@ -202,14 +199,27 @@ fn random_point_in_sphere(
 }
 
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
-    let distr = Uniform::new(-1., 1.);
-    let mut point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
+    let mut point = random_point_in_unit_sphere(rng);
     let mut dir = point.to_direction();
     while dir.is_err() {
-        point = random_point_in_sphere(rng, &distr, Distance { m: 1. });
+        point = random_point_in_unit_sphere(rng);
         dir = point.to_direction();
     }
     dir.unwrap()
+}
+
+fn get_unit_distance_distribution() -> Uniform<f64> {
+    Uniform::new(0., 1.)
+}
+
+// https://stackoverflow.com/questions/5408276/sampling-uniformly-distributed-random-points-inside-a-spherical-volume
+fn random_distance(
+    rng: &mut ThreadRng,
+    unit_distance_distr: &Uniform<f64>,
+    max_distance: Distance<f64>,
+) -> Distance<f64> {
+    let cubed: f64 = rng.sample(unit_distance_distr);
+    max_distance * cubed.powf(1. / 3.)
 }
 
 #[cfg(test)]
