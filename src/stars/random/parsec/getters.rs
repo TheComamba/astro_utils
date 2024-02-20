@@ -94,16 +94,26 @@ impl ParsecData {
         trajectory: &[ParsecLine],
         actual_age_in_years: f64,
     ) -> usize {
-        let mut closest_age = f64::MAX;
         let mut age_index = 0;
         for (i, line) in trajectory.iter().enumerate() {
-            let age_difference = (line.age - actual_age_in_years).abs();
-            if age_difference < closest_age {
-                closest_age = age_difference;
+            if line.age > actual_age_in_years || i == trajectory.len() - 1 {
                 age_index = i;
+                break;
             }
         }
-        age_index
+        if age_index == 0 {
+            0
+        } else {
+            let previous_age = trajectory[age_index - 1].age;
+            let diff_to_prev = actual_age_in_years - previous_age;
+            let next_age = trajectory[age_index].age;
+            let diff_to_next = next_age - actual_age_in_years;
+            if diff_to_prev <= diff_to_next {
+                age_index - 1
+            } else {
+                age_index
+            }
+        }
     }
 }
 
@@ -146,33 +156,30 @@ mod tests {
             };
             for (age_index, params) in trajectory.iter().enumerate() {
                 let expected_age = params.age;
-                let closest_params_index =
-                    ParsecData::get_closest_params_index(&trajectory, expected_age);
-                let received_age = trajectory[closest_params_index].age;
-                assert_eq!(
-                    age_index, closest_params_index,
-                    "Expected age: {}, received age: {}",
-                    expected_age, received_age
+                let params_index = ParsecData::get_closest_params_index(&trajectory, expected_age);
+                let received_age = trajectory[params_index].age;
+                assert!(
+                    (received_age - expected_age).abs() < 1e-8,
+                    "Expected age {} should be exactly the same as received age {} (Mass index {}, Age index {})",
+                    expected_age, received_age, mass_index, age_index
                 );
 
-                let little_less = expected_age - 0.1;
-                let closest_params_index =
-                    ParsecData::get_closest_params_index(&trajectory, little_less);
-                let received_age = trajectory[closest_params_index].age;
-                assert_eq!(
-                    age_index, closest_params_index,
-                    "Expected age: {}, received age: {}",
-                    expected_age, received_age
+                let little_less = expected_age - 0e-5;
+                let params_index = ParsecData::get_closest_params_index(&trajectory, little_less);
+                let received_age = trajectory[params_index].age;
+                assert!(
+                    (received_age - expected_age).abs() < 1e-8,
+                    "Expected age {} should be a little less than received age {} (Mass index {}, Age index {})",
+                    expected_age, received_age, mass_index, age_index
                 );
 
-                let little_more = expected_age + 0.1;
-                let closest_params_index =
-                    ParsecData::get_closest_params_index(&trajectory, little_more);
-                let received_age = trajectory[closest_params_index].age;
-                assert_eq!(
-                    age_index, closest_params_index,
-                    "Expected age: {}, received age: {}",
-                    expected_age, received_age
+                let little_more = expected_age + 0e-5;
+                let params_index = ParsecData::get_closest_params_index(&trajectory, little_more);
+                let received_age = trajectory[params_index].age;
+                assert!(
+                    (received_age - expected_age).abs() < 1e-8,
+                    "Expected age {} should be a little more than received age {} (Mass index {}, Age index {})",
+                    expected_age, received_age, mass_index, age_index
                 );
             }
         }
