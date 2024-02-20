@@ -94,25 +94,39 @@ impl ParsecData {
         trajectory: &[ParsecLine],
         actual_age_in_years: f64,
     ) -> usize {
-        let mut age_index = 0;
-        for (i, line) in trajectory.iter().enumerate() {
-            if line.age > actual_age_in_years || i == trajectory.len() - 1 {
-                age_index = i;
+        if actual_age_in_years < trajectory[0].age {
+            return Self::this_or_next_age_index(trajectory, 0, actual_age_in_years);
+        }
+
+        let mut age_index = 1;
+        while trajectory[age_index].age < actual_age_in_years {
+            age_index *= 2;
+            if age_index >= trajectory.len() {
+                age_index = trajectory.len() - 2;
                 break;
             }
         }
-        if age_index == 0 {
-            0
+
+        while trajectory[age_index].age > actual_age_in_years {
+            age_index -= 1;
+        }
+
+        Self::this_or_next_age_index(trajectory, age_index, actual_age_in_years)
+    }
+
+    fn this_or_next_age_index(
+        trajectory: &[ParsecLine],
+        age_index: usize,
+        actual_age_in_years: f64,
+    ) -> usize {
+        let this_age = trajectory[age_index].age;
+        let diff_to_this = actual_age_in_years - this_age;
+        let next_age = trajectory[age_index + 1].age;
+        let diff_to_next = next_age - actual_age_in_years;
+        if diff_to_this <= diff_to_next {
+            age_index
         } else {
-            let previous_age = trajectory[age_index - 1].age;
-            let diff_to_prev = actual_age_in_years - previous_age;
-            let next_age = trajectory[age_index].age;
-            let diff_to_next = next_age - actual_age_in_years;
-            if diff_to_prev <= diff_to_next {
-                age_index - 1
-            } else {
-                age_index
-            }
+            age_index + 1
         }
     }
 }
