@@ -4,6 +4,7 @@ use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::random::random_stars::DIMMEST_ILLUMINANCE;
 use crate::stars::star_data::StarData;
 use crate::stars::star_data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
+use crate::units::illuminance::illuminance_to_luminous_intensity;
 
 impl ParsecData {
     pub(crate) const SORTED_MASSES: [f64; 100] = [
@@ -53,7 +54,7 @@ impl ParsecData {
         is_filled
     }
 
-    pub(crate) fn get_star_data(
+    pub(crate) fn get_star_data_if_visible(
         trajectory: &[ParsecLine],
         age_in_years: f64,
         pos: CartesianCoordinates,
@@ -65,8 +66,10 @@ impl ParsecData {
         let current_params = &trajectory[current_params_index];
 
         let distance = pos.length();
-        let illuminance = current_params.get_illuminance(&distance);
-        if illuminance < DIMMEST_ILLUMINANCE {
+        let min_luminous_intensity =
+            illuminance_to_luminous_intensity(&DIMMEST_ILLUMINANCE, &distance);
+        let luminous_intensity = current_params.get_luminous_intensity();
+        if luminous_intensity < min_luminous_intensity {
             return None;
         }
 
@@ -144,9 +147,12 @@ mod tests {
             (*parsec_data.get_trajectory_via_index(mass_index)).clone()
         };
         let age_in_years = 0.;
-        let star =
-            ParsecData::get_star_data(&trajectory, age_in_years, CartesianCoordinates::ORIGIN)
-                .unwrap();
+        let star = ParsecData::get_star_data_if_visible(
+            &trajectory,
+            age_in_years,
+            CartesianCoordinates::ORIGIN,
+        )
+        .unwrap();
         assert!(star
             .evolution
             .get_lifestage_luminous_intensity_per_year()
@@ -170,9 +176,12 @@ mod tests {
             (*parsec_data.get_trajectory_via_index(mass_index)).clone()
         };
         let age_in_years = ParsecData::get_life_expectancy_in_years(&trajectory) as f64;
-        let star =
-            ParsecData::get_star_data(&trajectory, age_in_years, CartesianCoordinates::ORIGIN)
-                .unwrap();
+        let star = ParsecData::get_star_data_if_visible(
+            &trajectory,
+            age_in_years,
+            CartesianCoordinates::ORIGIN,
+        )
+        .unwrap();
         assert!(star
             .evolution
             .get_lifestage_luminous_intensity_per_year()
@@ -196,9 +205,12 @@ mod tests {
             (*parsec_data.get_trajectory_via_index(mass_index)).clone()
         };
         let age_in_years = ParsecData::get_life_expectancy_in_years(&trajectory) as f64 / 2.;
-        let star =
-            ParsecData::get_star_data(&trajectory, age_in_years, CartesianCoordinates::ORIGIN)
-                .unwrap();
+        let star = ParsecData::get_star_data_if_visible(
+            &trajectory,
+            age_in_years,
+            CartesianCoordinates::ORIGIN,
+        )
+        .unwrap();
         assert!(star.evolution.get_lifestage_mass_per_year().kg < 0.);
     }
 }

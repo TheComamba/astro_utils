@@ -153,7 +153,7 @@ fn generate_visible_random_star(
     let mass_index = rng.sample(mass_index_distr);
     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
     let age_in_years = rng.sample(age_dist);
-    ParsecData::get_star_data(trajectory, age_in_years, pos)
+    ParsecData::get_star_data_if_visible(trajectory, age_in_years, pos)
 }
 
 fn get_pos_distribution(max_distance: Distance<f64>) -> Uniform<f64> {
@@ -234,7 +234,7 @@ mod tests {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
         let max_distance = Distance::from_lyr(10000.);
-        let max_seconds = 1; //60;
+        let max_seconds = 60;
 
         let start = Instant::now();
         let stars = generate_random_stars(max_distance).unwrap();
