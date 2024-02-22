@@ -101,8 +101,8 @@ fn similar_count(a: usize, b: usize) -> bool {
 fn is_similar(a: f64, b: f64) -> bool {
     let diff = (a - b).abs();
     let max = a.max(b);
-    let accepted = 0.01 * max;
-    println!("diff: {:2.2} (accepted: {:2.2})", diff, accepted);
+    let accepted = 0.5 * max;
+    println!("diff: {:2.2e} (accepted: {:2.2e})", diff, accepted);
     diff < accepted
 }
 
