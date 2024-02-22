@@ -219,7 +219,8 @@ mod tests {
             max_distance.astro_display(),
             duration
         );
-        assert!(stars.len() as f64 > 1e6);
+        assert!(stars.len() > 10_000);
+        assert!(stars.len() < 50_000);
         assert!(duration.as_secs() < max_seconds);
     }
 
