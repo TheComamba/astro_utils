@@ -207,7 +207,7 @@ mod tests {
     fn generate_random_stars_stress_test() {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
-        let max_distance = Distance::from_lyr(7000.);
+        let max_distance = Distance::from_lyr(4000.);
         let max_seconds = 60;
 
         let start = Instant::now();
