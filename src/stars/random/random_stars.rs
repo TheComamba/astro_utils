@@ -1,7 +1,14 @@
+use super::parsec::data::ParsecData;
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
-    stars::{random::parsec::data::PARSEC_DATA, star_data::StarData},
+    stars::{
+        random::parsec::{
+            data::PARSEC_DATA,
+            distributions::{get_age_distribution, get_mass_distribution},
+        },
+        star_data::StarData,
+    },
     units::distance::DISTANCE_ZERO,
 };
 use rand::{
@@ -16,13 +23,11 @@ use simple_si_units::{
 };
 use std::f64::consts::PI;
 
-use super::parsec::data::ParsecData;
-
 // https://en.wikipedia.org/wiki/Stellar_density
-// Adjusted a little bit
+// Adjusted, because Gaia does not resolve all binaries.
 const STARS_PER_LY_CUBED: f64 = 2.9e-3;
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
-const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
+pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
 };
 
@@ -158,32 +163,6 @@ fn generate_visible_random_star(
     star.distance = distance;
     star.pos = pos;
     Some(star)
-}
-
-fn get_mass_distribution() -> WeightedIndex<f64> {
-    let mut weights = Vec::new();
-    for m in ParsecData::SORTED_MASSES {
-        let weight = kroupa_mass_distribution(m);
-        weights.push(weight);
-    }
-    WeightedIndex::new(weights).unwrap()
-}
-
-fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
-    let alpha = if m_in_solar_masses <= 0.08 {
-        0.3
-    } else if m_in_solar_masses <= 0.5 {
-        1.3
-    } else if m_in_solar_masses <= 1. {
-        2.3
-    } else {
-        2.7
-    };
-    m_in_solar_masses.powf(-alpha)
-}
-
-fn get_age_distribution() -> Uniform<f64> {
-    Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.to_yr())
 }
 
 fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
