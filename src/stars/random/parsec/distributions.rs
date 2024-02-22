@@ -1,8 +1,43 @@
-use super::data::ParsecData;
+use super::{data::ParsecData, line::ParsecLine};
 use crate::stars::random::random_stars::AGE_OF_MILKY_WAY_THIN_DISK;
-use rand::distributions::{Uniform, WeightedIndex};
+use rand::{
+    distributions::{Distribution, WeightedIndex},
+    rngs::ThreadRng,
+};
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
-pub(crate) fn get_mass_distribution() -> WeightedIndex<f64> {
+pub(crate) struct ParsecDistribution {
+    mass_distribution: WeightedIndex<f64>,
+    age_distributions: Vec<WeightedIndex<f64>>,
+}
+
+impl ParsecDistribution {
+    pub(crate) fn new(parsec: &ParsecData) -> Self {
+        let mass_distribution = get_mass_distribution();
+
+        let max_age_in_years = AGE_OF_MILKY_WAY_THIN_DISK.to_yr();
+        let age_distributions = parsec
+            .data
+            .par_iter()
+            .map(|trajectory| get_age_distribution(trajectory, max_age_in_years))
+            .collect();
+
+        ParsecDistribution {
+            mass_distribution,
+            age_distributions,
+        }
+    }
+
+    pub(crate) fn get_random_mass_index(&self, rng: &mut ThreadRng) -> usize {
+        self.mass_distribution.sample(rng)
+    }
+
+    pub(crate) fn get_random_age_index(&self, mass_index: usize, rng: &mut ThreadRng) -> usize {
+        self.age_distributions[mass_index].sample(rng)
+    }
+}
+
+fn get_mass_distribution() -> WeightedIndex<f64> {
     let mut weights = Vec::new();
     for m in ParsecData::SORTED_MASSES {
         let weight = kroupa_mass_distribution(m);
@@ -24,6 +59,19 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
     m_in_solar_masses.powf(-alpha)
 }
 
-pub(crate) fn get_age_distribution() -> Uniform<f64> {
-    Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.to_yr())
+fn get_age_distribution(trajectory: &Vec<ParsecLine>, max_age_in_years: f64) -> WeightedIndex<f64> {
+    let mut weights = Vec::new();
+    for i in 0..=trajectory.len() {
+        let previous_age = if i > 0 { trajectory[i - 1].age } else { 0. };
+        if previous_age >= max_age_in_years {
+            break;
+        }
+        let current_age = if i < trajectory.len() {
+            trajectory[i].age
+        } else {
+            max_age_in_years
+        };
+        weights.push(current_age - previous_age);
+    }
+    WeightedIndex::new(weights).unwrap()
 }

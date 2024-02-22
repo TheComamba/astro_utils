@@ -3,19 +3,12 @@ use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     stars::{
-        random::parsec::{
-            data::PARSEC_DATA,
-            distributions::{get_age_distribution, get_mass_distribution},
-        },
+        random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
         star_data::StarData,
     },
     units::distance::DISTANCE_ZERO,
 };
-use rand::{
-    distributions::{Uniform, WeightedIndex},
-    rngs::ThreadRng,
-    Rng,
-};
+use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use simple_si_units::{
     base::{Distance, Time},
@@ -36,14 +29,13 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
     let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
 
-    let unit_distance_distr = get_unit_distance_distribution();
-    let mass_index_distr = get_mass_distribution();
-    let age_distr = get_age_distribution();
-
     let parsec_data_mutex = PARSEC_DATA
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
+
+    let unit_distance_distr = get_unit_distance_distribution();
+    let parsec_distr = ParsecDistribution::new(&parsec_data);
 
     const MAX_CHUNKSIZE: usize = 10_000_000;
     let mut remaining = number_of_stars_in_sphere;
@@ -54,8 +46,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             parsec_data,
             max_distance,
             unit_distance_distr,
-            mass_index_distr.clone(),
-            age_distr,
+            &parsec_distr,
         );
         stars.extend(chunk);
         remaining -= MAX_CHUNKSIZE;
@@ -75,8 +66,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         parsec_data,
         max_distance,
         unit_distance_distr,
-        mass_index_distr,
-        age_distr,
+        &parsec_distr,
     );
     stars.extend(chunk);
 
@@ -88,8 +78,7 @@ fn generate_certain_number_of_random_stars(
     parsec_data: &ParsecData,
     max_distance: Distance<f64>,
     unit_distance_distr: Uniform<f64>,
-    mass_index_distr: WeightedIndex<f64>,
-    age_distr: Uniform<f64>,
+    parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
     (0..=number)
         .into_par_iter()
@@ -100,8 +89,7 @@ fn generate_certain_number_of_random_stars(
                 max_distance,
                 &mut rng,
                 &unit_distance_distr,
-                &mass_index_distr,
-                &age_distr,
+                parsec_distr,
             )
         })
         .filter_map(|star| star)
@@ -113,21 +101,21 @@ pub fn generate_random_star(
 ) -> Result<StarData, AstroUtilError> {
     let mut rng = rand::thread_rng();
     let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
-    let unit_distance_distr = get_unit_distance_distribution();
-    let mass_index_distr = get_mass_distribution();
-    let age_dist = get_age_distribution();
 
     let parsec_data_mutex = PARSEC_DATA
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
+
+    let unit_distance_distr = get_unit_distance_distribution();
+    let parsec_distr = ParsecDistribution::new(&parsec_data);
+
     let mut star = generate_visible_random_star(
         parsec_data,
         max_distance_or_1,
         &mut rng,
         &unit_distance_distr,
-        &mass_index_distr,
-        &age_dist,
+        &parsec_distr,
     );
     while star.is_none() {
         star = generate_visible_random_star(
@@ -135,8 +123,7 @@ pub fn generate_random_star(
             max_distance_or_1,
             &mut rng,
             &unit_distance_distr,
-            &mass_index_distr,
-            &age_dist,
+            &parsec_distr,
         );
     }
     let mut star = star.unwrap();
@@ -151,14 +138,12 @@ fn generate_visible_random_star(
     max_distance: Distance<f64>,
     rng: &mut ThreadRng,
     unit_distance_distr: &Uniform<f64>,
-    mass_index_distr: &WeightedIndex<f64>,
-    age_dist: &Uniform<f64>,
+    parsec_distr: &ParsecDistribution,
 ) -> Option<StarData> {
-    let mass_index = rng.sample(mass_index_distr);
-    let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-    let age_in_years = rng.sample(age_dist);
+    let mass_index = parsec_distr.get_random_mass_index(rng);
+    let age_index = parsec_distr.get_random_age_index(mass_index, rng);
     let distance = random_distance(rng, unit_distance_distr, max_distance);
-    let mut star = ParsecData::get_star_data_if_visible(trajectory, age_in_years, distance.m)?;
+    let mut star = parsec_data.get_star_data_if_visible(mass_index, age_index, distance.m)?;
     let pos = random_direction(rng).to_ecliptic();
     star.distance = distance;
     star.pos = pos;
@@ -222,7 +207,7 @@ mod tests {
     fn generate_random_stars_stress_test() {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
-        let max_distance = Distance::from_lyr(3000.);
+        let max_distance = Distance::from_lyr(7000.);
         let max_seconds = 60;
 
         let start = Instant::now();

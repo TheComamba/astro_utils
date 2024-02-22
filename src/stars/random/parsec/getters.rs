@@ -36,8 +36,12 @@ impl ParsecData {
         }
     }
 
-    pub(crate) fn get_trajectory_via_index(&self, i: usize) -> &Vec<ParsecLine> {
+    pub(super) fn get_trajectory_via_index(&self, i: usize) -> &Vec<ParsecLine> {
         &self.data[i]
+    }
+
+    fn get_params_via_indices(&self, mass_index: usize, age_index: usize) -> Option<&ParsecLine> {
+        self.data[mass_index].get(age_index)
     }
 
     pub(super) fn get_life_expectancy_in_years(trajectory: &[ParsecLine]) -> u32 {
@@ -53,15 +57,12 @@ impl ParsecData {
     }
 
     pub(crate) fn get_star_data_if_visible(
-        trajectory: &[ParsecLine],
-        age_in_years: f64,
+        &self,
+        mass_index: usize,
+        age_index: usize,
         distance_in_m: f64,
     ) -> Option<StarData> {
-        if age_in_years > Self::get_life_expectancy_in_years(trajectory) as f64 {
-            return None;
-        }
-        let current_params_index = ParsecData::get_closest_params_index(trajectory, age_in_years);
-        let current_params = &trajectory[current_params_index];
+        let current_params = self.get_params_via_indices(mass_index, age_index)?;
 
         let min_luminous_intensity = DIMMEST_ILLUMINANCE.lux * distance_in_m * distance_in_m;
         let luminous_intensity = current_params.get_luminous_intensity().cd;
@@ -71,10 +72,11 @@ impl ParsecData {
 
         let mut star = current_params.to_star_at_origin();
 
-        let other_params = if current_params_index == 0 {
-            &trajectory[current_params_index + 1]
+        let trajectory = self.get_trajectory_via_index(mass_index);
+        let other_params = if age_index == 0 {
+            &trajectory[age_index + 1]
         } else {
-            &trajectory[current_params_index - 1]
+            &trajectory[age_index - 1]
         };
         let star_at_other_time = other_params.to_star_at_origin();
         let years = current_params.age - other_params.age;
@@ -196,14 +198,13 @@ mod tests {
 
     #[test]
     fn infant_star_has_valid_evolution() {
+        let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+        let parsec_data = parsec_data_mutex.as_ref().unwrap();
         let mass_index = ParsecData::SORTED_MASSES.len() - 1;
-        let trajectory = {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            (*parsec_data.get_trajectory_via_index(mass_index)).clone()
-        };
-        let age_in_years = 0.;
-        let star = ParsecData::get_star_data_if_visible(&trajectory, age_in_years, 0.).unwrap();
+        let age_index = 0;
+        let star = parsec_data
+            .get_star_data_if_visible(mass_index, age_index, 0.)
+            .unwrap();
         assert!(star
             .evolution
             .get_lifestage_luminous_intensity_per_year()
@@ -220,14 +221,14 @@ mod tests {
 
     #[test]
     fn old_star_has_finite_evolution() {
+        let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+        let parsec_data = parsec_data_mutex.as_ref().unwrap();
         let mass_index = ParsecData::SORTED_MASSES.len() - 1;
-        let trajectory = {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            (*parsec_data.get_trajectory_via_index(mass_index)).clone()
-        };
-        let age_in_years = ParsecData::get_life_expectancy_in_years(&trajectory) as f64;
-        let star = ParsecData::get_star_data_if_visible(&trajectory, age_in_years, 0.).unwrap();
+        let trajectory = parsec_data.get_trajectory_via_index(mass_index);
+        let age_index = trajectory.len() - 1;
+        let star = parsec_data
+            .get_star_data_if_visible(mass_index, age_index, 0.)
+            .unwrap();
         assert!(star
             .evolution
             .get_lifestage_luminous_intensity_per_year()
@@ -244,14 +245,14 @@ mod tests {
 
     #[test]
     fn mass_is_always_lost() {
+        let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+        let parsec_data = parsec_data_mutex.as_ref().unwrap();
         let mass_index = ParsecData::SORTED_MASSES.len() - 1;
-        let trajectory = {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            (*parsec_data.get_trajectory_via_index(mass_index)).clone()
-        };
-        let age_in_years = ParsecData::get_life_expectancy_in_years(&trajectory) as f64 / 2.;
-        let star = ParsecData::get_star_data_if_visible(&trajectory, age_in_years, 0.).unwrap();
+        let trajectory = parsec_data.get_trajectory_via_index(mass_index);
+        let age_index = trajectory.len() / 2;
+        let star = parsec_data
+            .get_star_data_if_visible(mass_index, age_index, 0.)
+            .unwrap();
         assert!(star.evolution.get_lifestage_mass_per_year().kg < 0.);
     }
 }
