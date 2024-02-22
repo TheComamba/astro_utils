@@ -4,19 +4,28 @@ use crate::{
     error::AstroUtilError,
     stars::{star_data::StarData, star_data_evolution::StarDataEvolution},
     units::{
-        distance::DISTANCE_ZERO, luminous_intensity::SOLAR_LUMINOUS_INTENSITY, mass::SOLAR_MASS,
+        distance::{distance_to_sun_radii, DISTANCE_ZERO, SOLAR_RADIUS},
+        luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
     },
 };
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
+use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-#[derive(Deserialize, Serialize, Clone)]
-pub(crate) struct ParsecLine {
+pub(super) struct ParsecLine {
     mass: f64,
-    pub(super) age: f64,
+    age: f64,
     log_l: f64,
     log_te: f64,
     log_r: f64,
+}
+
+#[derive(Deserialize, Serialize, Clone)]
+pub(crate) struct ParsedParsecLine {
+    pub(super) mass_in_solar_masses: f64,
+    pub(super) age_in_years: f64,
+    pub(super) luminous_intensity_in_solar: f64,
+    pub(super) temperature_in_kelvin: f64,
+    pub(super) radius_in_solar_radii: f64,
 }
 
 impl ParsecLine {
@@ -67,7 +76,8 @@ impl ParsecLine {
                     log_l,
                     log_te,
                     log_r,
-                };
+                }
+                .parse();
                 let data = parsec_data
                     .data
                     .get_mut(*mass_position)
@@ -78,12 +88,25 @@ impl ParsecLine {
         Ok(())
     }
 
+    fn parse(self) -> ParsedParsecLine {
+        let radius = Distance::from_cm(10f64.powf(self.log_r));
+        ParsedParsecLine {
+            mass_in_solar_masses: self.mass,
+            age_in_years: self.age,
+            luminous_intensity_in_solar: 10f64.powf(self.log_l),
+            temperature_in_kelvin: 10f64.powf(self.log_te),
+            radius_in_solar_radii: distance_to_sun_radii(&radius),
+        }
+    }
+}
+
+impl ParsedParsecLine {
     pub(super) fn to_star_at_origin(&self) -> StarData {
-        let mass = self.get_mass();
-        let age = self.get_age();
-        let luminous_intensity = self.get_luminous_intensity();
-        let temperature = self.get_temperature();
-        let radius = self.get_radius();
+        let mass = Mass::from_solar_mass(self.mass_in_solar_masses);
+        let age = Time::from_yr(self.age_in_years);
+        let luminous_intensity = self.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
+        let temperature = Temperature::from_K(self.temperature_in_kelvin);
+        let radius = self.radius_in_solar_radii * SOLAR_RADIUS;
         StarData {
             name: "".to_string(),
             mass: Some(mass),
@@ -96,28 +119,5 @@ impl ParsecLine {
             constellation: None,
             evolution: StarDataEvolution::NONE,
         }
-    }
-
-    pub(super) fn get_mass(&self) -> Mass<f64> {
-        self.mass * SOLAR_MASS
-    }
-
-    pub(super) fn get_age(&self) -> Time<f64> {
-        Time::from_yr(self.age)
-    }
-
-    pub(super) fn get_luminous_intensity(&self) -> Luminosity<f64> {
-        let lum = 10f64.powf(self.log_l);
-        lum * SOLAR_LUMINOUS_INTENSITY
-    }
-
-    pub(super) fn get_temperature(&self) -> Temperature<f64> {
-        let temp = 10f64.powf(self.log_te);
-        Temperature::from_K(temp)
-    }
-
-    pub(super) fn get_radius(&self) -> Distance<f64> {
-        let radius = 10f64.powf(self.log_r);
-        Distance::from_cm(radius)
     }
 }

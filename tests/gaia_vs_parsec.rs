@@ -73,6 +73,7 @@ fn parsec_generates_data_similar_to_gaia() {
         parsec_to_gaia_ratio,
     );
     let temperature_is_similar = mean_temperature_is_similar(&parsec_data, &expected_data);
+    let age_is_similar = mean_age_is_similar(&parsec_data, &expected_data);
     assert!(total_num_is_similar);
     assert!(mag_1_stars_is_similar);
     assert!(mag_2_stars_is_similar);
@@ -81,27 +82,36 @@ fn parsec_generates_data_similar_to_gaia() {
     assert!(mag_5_stars_is_similar);
     assert!(mag_6_stars_is_similar);
     assert!(temperature_is_similar);
+    assert!(age_is_similar);
 }
 
-fn similar(a: f64, b: f64) -> bool {
-    if a < 1. || b < 1. {
+fn similar_count(a: usize, b: usize) -> bool {
+    if a < 1 || b < 1 {
         // Should not be called on small numbers
         return false;
     }
-    let max = a.max(b);
-    let min = a.min(b);
+    let max = a.max(b) as f64;
+    let min = a.min(b) as f64;
     let ratio = max / min;
     let accepted = 1. + 20. / min.sqrt();
     println!("ratio: {:2.2} (accepted: {:2.2})", ratio, accepted);
     ratio < accepted
 }
 
+fn is_similar(a: f64, b: f64) -> bool {
+    let diff = (a - b).abs();
+    let max = a.max(b);
+    let accepted = 0.5 * max;
+    println!("diff: {:2.2e} (accepted: {:2.2e})", diff, accepted);
+    diff < accepted
+}
+
 fn total_number_is_similar(parsec: &[StarAppearance], gaia: &[StarAppearance]) -> bool {
-    let parsec = parsec.len() as f64;
-    let gaia = gaia.len() as f64;
+    let parsec = parsec.len();
+    let gaia = gaia.len();
     println!("\nTotal number of stars");
     println!("parsec: {:2.2e}, gaia: {:2.2e}", parsec, gaia);
-    similar(parsec, gaia)
+    similar_count(parsec, gaia)
 }
 
 fn apparent_magnitude_is_within(star: &StarAppearance, mag_min: f64, mag_max: f64) -> bool {
@@ -120,18 +130,18 @@ fn number_of_stars_in_apparent_magnitude_range_is_similar(
     let parsec = parsec
         .iter()
         .filter(|s| apparent_magnitude_is_within(s, mag_min, mag_max))
-        .count() as f64
-        / parsec_to_gaia_ratio;
+        .count();
+    let parsec = (parsec as f64 / parsec_to_gaia_ratio) as usize;
     let gaia = gaia
         .iter()
         .filter(|s| apparent_magnitude_is_within(s, mag_min, mag_max))
-        .count() as f64;
+        .count();
     println!(
         "\nTotal number of stars with apparent magnitude between {} and {}:",
         mag_min, mag_max
     );
     println!("parsec (adjusted): {:2.2e}, gaia: {:2.2e}", parsec, gaia);
-    similar(parsec, gaia)
+    similar_count(parsec, gaia)
 }
 
 fn mean_temperature(data: &[StarData]) -> f64 {
@@ -155,5 +165,23 @@ fn mean_temperature_is_similar(parsec: &[StarData], gaia: &[StarData]) -> bool {
     let gaia = mean_temperature(gaia);
     println!("\nMean temperature");
     println!("parsec: {:2.2e}, gaia: {:2.2e}", parsec, gaia);
-    similar(parsec, gaia)
+    is_similar(parsec, gaia)
+}
+
+fn mean_age(data: &[StarData]) -> f64 {
+    let ages = data
+        .iter()
+        .map(|s| s.get_age_at_epoch())
+        .filter_map(|a| *a)
+        .map(|a| a.to_yr())
+        .collect::<Vec<_>>();
+    ages.iter().sum::<f64>() / ages.len() as f64
+}
+
+fn mean_age_is_similar(parsec: &[StarData], gaia: &[StarData]) -> bool {
+    let parsec = mean_age(parsec);
+    let gaia = mean_age(gaia);
+    println!("\nMean age");
+    println!("parsec: {:2.2e}, gaia: {:2.2e}", parsec, gaia);
+    is_similar(parsec, gaia)
 }

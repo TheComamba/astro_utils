@@ -1,4 +1,4 @@
-use super::line::ParsecLine;
+use super::line::ParsedParsecLine;
 use crate::error::AstroUtilError;
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
@@ -11,7 +11,7 @@ lazy_static! {
 
 #[derive(Deserialize, Serialize)]
 pub(crate) struct ParsecData {
-    pub(super) data: Vec<Vec<ParsecLine>>,
+    pub(super) data: Vec<Vec<ParsedParsecLine>>,
 }
 
 #[cfg(test)]
@@ -31,12 +31,14 @@ mod tests {
         data: &'a ParsecData,
         mass: &Mass<f64>,
         age_in_years: f64,
-    ) -> &'a ParsecLine {
+    ) -> &'a ParsedParsecLine {
         let mut mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
         let mut trajectory = &data.data[mass_index];
         let mut index = ParsecData::get_closest_params_index(trajectory, age_in_years);
         let mut params = &trajectory[index];
-        while params.get_mass() < *mass && mass_index < ParsecData::SORTED_MASSES.len() - 1 {
+        while params.mass_in_solar_masses < mass.to_solar_mass()
+            && mass_index < ParsecData::SORTED_MASSES.len() - 1
+        {
             mass_index += 1;
             trajectory = &data.data[mass_index];
             index = ParsecData::get_closest_params_index(trajectory, age_in_years);
