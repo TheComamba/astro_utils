@@ -40,7 +40,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let unit_distance_distr = get_unit_distance_distribution();
     let parsec_distr = ParsecDistribution::new(&parsec_data);
 
-    const MAX_CHUNKSIZE: usize = 10_000_000;
+    const MAX_CHUNKSIZE: usize = 100_000_000;
     let mut remaining = number_of_stars_in_sphere;
     let mut stars = Vec::new();
     while remaining > MAX_CHUNKSIZE {
