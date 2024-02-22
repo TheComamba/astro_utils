@@ -1,4 +1,4 @@
-use super::{data::ParsecData, line::ParsecLine};
+use super::{data::ParsecData, line::ParsedParsecLine};
 use crate::stars::random::random_stars::AGE_OF_MILKY_WAY_THIN_DISK;
 use rand::{distributions::Distribution, rngs::ThreadRng};
 use rand_distr::WeightedAliasIndex;
@@ -58,17 +58,21 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
 }
 
 fn get_age_distribution(
-    trajectory: &Vec<ParsecLine>,
+    trajectory: &Vec<ParsedParsecLine>,
     max_age_in_years: f64,
 ) -> WeightedAliasIndex<f64> {
     let mut weights = Vec::new();
     for i in 0..=trajectory.len() {
-        let previous_age = if i > 0 { trajectory[i - 1].age } else { 0. };
+        let previous_age = if i > 0 {
+            trajectory[i - 1].age_in_years
+        } else {
+            0.
+        };
         if previous_age >= max_age_in_years {
             break;
         }
         let current_age = if i < trajectory.len() {
-            trajectory[i].age
+            trajectory[i].age_in_years
         } else {
             max_age_in_years
         };
