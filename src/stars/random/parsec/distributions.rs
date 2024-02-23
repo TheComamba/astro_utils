@@ -138,7 +138,14 @@ mod tests {
     fn kroupa_weights_are_ordered() {
         let weights = kroupa_weights();
         for i in 1..weights.len() {
-            assert!(weights[i - 1] <= weights[i]);
+            assert!(
+                weights[i - 1] >= weights[i],
+                "Weight {} is larger than weight {}: {}, {}",
+                i - 1,
+                i,
+                weights[i - 1],
+                weights[i]
+            );
         }
     }
 }
