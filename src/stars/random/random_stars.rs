@@ -18,14 +18,14 @@ use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted, because Gaia does not resolve all binaries.
-const STARS_PER_LY_CUBED: f64 = 0.004; // / 1.52;
+const STARS_PER_LY_CUBED: f64 = 0.004 / 1.12;
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
-// pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
-//     s: 8.8e9 * 365.25 * 24. * 3600.,
-// };
-pub(super) const AGE_OF_UNIVERSE: Time<f64> = Time {
-    s: 1.38e10 * 365.25 * 24. * 3600.,
+pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
+    s: 8.8e9 * 365.25 * 24. * 3600.,
 };
+// pub(super) const AGE_OF_UNIVERSE: Time<f64> = Time {
+//     s: 1.38e10 * 365.25 * 24. * 3600.,
+// };
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
     let number_of_stars_in_sphere =

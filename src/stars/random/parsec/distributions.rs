@@ -1,5 +1,5 @@
 use super::{data::ParsecData, line::ParsedParsecLine};
-use crate::stars::random::random_stars::AGE_OF_UNIVERSE;
+use crate::stars::random::random_stars::AGE_OF_MILKY_WAY_THIN_DISK;
 use rand::{distributions::Distribution, rngs::ThreadRng};
 use rand_distr::WeightedAliasIndex;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
@@ -15,7 +15,7 @@ impl ParsecDistribution {
     pub(crate) fn new(parsec: &ParsecData) -> Self {
         let mass_distribution = get_mass_distribution();
 
-        let max_age_in_years = AGE_OF_UNIVERSE.to_yr();
+        let max_age_in_years = AGE_OF_MILKY_WAY_THIN_DISK.to_yr();
         let age_distributions = parsec
             .data
             .par_iter()
