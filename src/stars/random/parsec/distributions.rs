@@ -4,7 +4,7 @@ use rand::{distributions::Distribution, rngs::ThreadRng};
 use rand_distr::WeightedAliasIndex;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
-const MIN_MASS_FOR_PROPER_FUSION: f64 = 0.08;
+const MIN_MASS_FOR_HYDROGEN_FUSION: f64 = 0.08;
 
 pub(crate) struct ParsecDistribution {
     mass_distribution: WeightedAliasIndex<f64>,
@@ -38,11 +38,16 @@ impl ParsecDistribution {
 }
 
 fn get_mass_distribution() -> WeightedAliasIndex<f64> {
+    let weights = kroupa_weights();
+    WeightedAliasIndex::new(weights).unwrap()
+}
+
+fn kroupa_weights() -> Vec<f64> {
     let mut weights = Vec::new();
     let masses = &ParsecData::SORTED_MASSES;
     for m in 0..masses.len() {
         let lower_bound = if m == 0 {
-            MIN_MASS_FOR_PROPER_FUSION
+            MIN_MASS_FOR_HYDROGEN_FUSION
         } else {
             (masses[m] + masses[m - 1]) / 2.
         };
@@ -54,7 +59,7 @@ fn get_mass_distribution() -> WeightedAliasIndex<f64> {
         let weight = integrate_kroupa(lower_bound, upper_bound);
         weights.push(weight);
     }
-    WeightedAliasIndex::new(weights).unwrap()
+    weights
 }
 
 fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
@@ -70,11 +75,11 @@ fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
 
 fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
     const NORMALIZATION: f64 = 0.124969;
-    if m_in_solar_masses < MIN_MASS_FOR_PROPER_FUSION {
+    if m_in_solar_masses < MIN_MASS_FOR_HYDROGEN_FUSION {
         return 0.; // Brown dwarfs
     }
     let (alpha, prefactor) = if m_in_solar_masses <= 0.5 {
-        (1.3, 0.5f64.powf(1.3) / 0.5f64.powf(2.3))
+        (1.3, 0.5f64.powf(-2.3) / 0.5f64.powf(-1.3))
     } else if m_in_solar_masses <= 1. {
         (2.3, 1.)
     } else {
@@ -114,7 +119,7 @@ mod tests {
     #[test]
     fn kroupa_is_smooth() {
         let stepsize = 0.01;
-        let mut mass = MIN_MASS_FOR_PROPER_FUSION;
+        let mut mass = MIN_MASS_FOR_HYDROGEN_FUSION;
         let mut last = kroupa_mass_distribution(mass);
         while mass < 100. {
             mass += stepsize;
@@ -138,5 +143,21 @@ mod tests {
         let upper = 2000.;
         let integral = integrate_kroupa(lower, upper);
         assert!((integral - 1.).abs() < 0.01, "Integral is {}", integral);
+    }
+
+    #[test]
+    fn kroupa_weights_sum_to_1() {
+        let weights = kroupa_weights();
+        println!("{:?}", weights);
+        let sum: f64 = weights.iter().sum();
+        assert!((sum - 1.).abs() < 0.01, "Sum is {}", sum);
+    }
+
+    #[test]
+    fn kroupa_weights_are_ordered() {
+        let weights = kroupa_weights();
+        for i in 1..weights.len() {
+            assert!(weights[i - 1] <= weights[i]);
+        }
     }
 }
