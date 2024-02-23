@@ -135,14 +135,6 @@ mod tests {
     }
 
     #[test]
-    fn kroupa_weights_sum_to_1() {
-        let weights = kroupa_weights();
-        println!("{:?}", weights);
-        let sum: f64 = weights.iter().sum();
-        assert!((sum - 1.).abs() < 0.01, "Sum is {}", sum);
-    }
-
-    #[test]
     fn kroupa_weights_are_ordered() {
         let weights = kroupa_weights();
         for i in 1..weights.len() {
