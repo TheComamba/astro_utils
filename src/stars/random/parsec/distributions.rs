@@ -4,6 +4,8 @@ use rand::{distributions::Distribution, rngs::ThreadRng};
 use rand_distr::WeightedAliasIndex;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
+const MIN_MASS_FOR_PROPER_FUSION: f64 = 0.08;
+
 pub(crate) struct ParsecDistribution {
     mass_distribution: WeightedAliasIndex<f64>,
     age_distributions: Vec<WeightedAliasIndex<f64>>,
@@ -37,24 +39,48 @@ impl ParsecDistribution {
 
 fn get_mass_distribution() -> WeightedAliasIndex<f64> {
     let mut weights = Vec::new();
-    for m in ParsecData::SORTED_MASSES {
-        let weight = kroupa_mass_distribution(m);
+    let masses = &ParsecData::SORTED_MASSES;
+    for m in 0..masses.len() {
+        let lower_bound = if m == 0 {
+            MIN_MASS_FOR_PROPER_FUSION
+        } else {
+            (masses[m] + masses[m - 1]) / 2.
+        };
+        let upper_bound = if m == masses.len() - 1 {
+            masses[m] * 2.
+        } else {
+            (masses[m] + masses[m + 1]) / 2.
+        };
+        let weight = integrate_kroupa(lower_bound, upper_bound);
         weights.push(weight);
     }
     WeightedAliasIndex::new(weights).unwrap()
 }
 
+fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
+    let mut integral = 0.;
+    let mut x = lower;
+    while x < upper {
+        let dx = (upper - x).min(0.01);
+        integral += kroupa_mass_distribution(x) * dx;
+        x += dx;
+    }
+    integral
+}
+
 fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
-    let alpha = if m_in_solar_masses <= 0.08 {
-        0.3
-    } else if m_in_solar_masses <= 0.5 {
-        1.3
+    const NORMALIZATION: f64 = 0.124969;
+    if m_in_solar_masses < MIN_MASS_FOR_PROPER_FUSION {
+        return 0.; // Brown dwarfs
+    }
+    let (alpha, prefactor) = if m_in_solar_masses <= 0.5 {
+        (1.3, 0.5f64.powf(1.3) / 0.5f64.powf(2.3))
     } else if m_in_solar_masses <= 1. {
-        2.3
+        (2.3, 1.)
     } else {
-        2.7
+        (2.7, 1.)
     };
-    m_in_solar_masses.powf(-alpha)
+    prefactor * m_in_solar_masses.powf(-alpha) * NORMALIZATION
 }
 
 fn get_age_distribution(
@@ -79,4 +105,38 @@ fn get_age_distribution(
         weights.push(current_age - previous_age);
     }
     WeightedAliasIndex::new(weights).unwrap()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn kroupa_is_smooth() {
+        let stepsize = 0.01;
+        let mut mass = MIN_MASS_FOR_PROPER_FUSION;
+        let mut last = kroupa_mass_distribution(mass);
+        while mass < 100. {
+            mass += stepsize;
+            let current = kroupa_mass_distribution(mass);
+            let derivative = (current - last) / stepsize;
+            assert!(
+                derivative < 0.01,
+                "Kroupa is not smooth at {} solar masses:\nlast: {}\ncurrent: {}\nderivative: {}",
+                mass,
+                last,
+                current,
+                derivative
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn kroupa_integrates_to_1() {
+        let lower = 0.0;
+        let upper = 2000.;
+        let integral = integrate_kroupa(lower, upper);
+        assert!((integral - 1.).abs() < 0.01, "Integral is {}", integral);
+    }
 }
