@@ -44,33 +44,11 @@ fn get_mass_distribution() -> WeightedAliasIndex<f64> {
 
 fn kroupa_weights() -> Vec<f64> {
     let mut weights = Vec::new();
-    let masses = &ParsecData::SORTED_MASSES;
-    for m in 0..masses.len() {
-        let lower_bound = if m == 0 {
-            MIN_MASS_FOR_HYDROGEN_FUSION
-        } else {
-            (masses[m] + masses[m - 1]) / 2.
-        };
-        let upper_bound = if m == masses.len() - 1 {
-            masses[m] * 2.
-        } else {
-            (masses[m] + masses[m + 1]) / 2.
-        };
-        let weight = integrate_kroupa(lower_bound, upper_bound);
+    for m in ParsecData::SORTED_MASSES {
+        let weight = kroupa_mass_distribution(m);
         weights.push(weight);
     }
     weights
-}
-
-fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
-    let mut integral = 0.;
-    let mut x = lower;
-    while x < upper {
-        let dx = (upper - x).min(0.01);
-        integral += kroupa_mass_distribution(x) * dx;
-        x += dx;
-    }
-    integral
 }
 
 fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
@@ -115,6 +93,17 @@ fn get_age_distribution(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
+        let mut integral = 0.;
+        let mut x = lower;
+        while x < upper {
+            let dx = (upper - x).min(0.01);
+            integral += kroupa_mass_distribution(x) * dx;
+            x += dx;
+        }
+        integral
+    }
 
     #[test]
     fn kroupa_is_smooth() {
