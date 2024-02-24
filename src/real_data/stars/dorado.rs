@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -31,6 +31,10 @@ const ALPHA_DORADUS: RealData = RealData {
     }),
     temperature: Temperature { K: 11_588. },
     age: None,
+    lifetime: Time {
+        s: 0.7 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_DORADUS: RealData = RealData {
@@ -54,6 +58,10 @@ const BETA_DORADUS: RealData = RealData {
     age: Some(Time {
         s: 0.0425 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_DORADUS: RealData = RealData {
@@ -77,6 +85,10 @@ const GAMMA_DORADUS: RealData = RealData {
     age: Some(Time {
         s: 0.535 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2. * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const R_DORADUS: RealData = RealData {
@@ -95,6 +107,10 @@ const R_DORADUS: RealData = RealData {
     age: Some(Time {
         s: 10. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 10. * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(4, 36, 46),
     declination: Declination::new(Sgn::Neg, 62, 4, 38),
     distance: Distance {

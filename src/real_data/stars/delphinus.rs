@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_DELPHINI: RealData = RealData {
-    common_name: "",
+const SUALOCIN: RealData = RealData {
+    common_name: "Sualocin",
     astronomical_name: "Alpha Delphini",
     constellation: "Delphinus",
     right_ascension: RightAscension::new(20, 39, 38),
@@ -33,6 +33,10 @@ const ALPHA_DELPHINI: RealData = RealData {
     age: Some(Time {
         s: 0.227 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.49 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ROTANEV: RealData = RealData {
@@ -54,6 +58,10 @@ const ROTANEV: RealData = RealData {
     age: Some(Time {
         s: 1.79 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_DELPHINI: RealData = RealData {
@@ -77,6 +85,10 @@ const GAMMA_DELPHINI: RealData = RealData {
     age: Some(Time {
         s: 1.85 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5.6 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_DELPHINI: RealData = RealData {
@@ -100,6 +112,10 @@ const DELTA_DELPHINI: RealData = RealData {
     age: Some(Time {
         s: 0.945 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5. * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ALDULFIN: RealData = RealData {
@@ -121,12 +137,11 @@ const ALDULFIN: RealData = RealData {
     age: Some(Time {
         s: 0.220 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.5 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-pub(crate) const STARS: [RealData; 5] = [
-    ALPHA_DELPHINI,
-    ROTANEV,
-    GAMMA_DELPHINI,
-    DELTA_DELPHINI,
-    ALDULFIN,
-];
+pub(crate) const STARS: [RealData; 5] =
+    [SUALOCIN, ROTANEV, GAMMA_DELPHINI, DELTA_DELPHINI, ALDULFIN];

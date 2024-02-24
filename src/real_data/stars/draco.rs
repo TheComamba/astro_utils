@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -26,6 +26,10 @@ const ELTANIN: RealData = RealData {
     apparent_magnitude: 2.24,
     temperature: Temperature { K: 3930. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(17, 56, 36),
     declination: Declination::new(Sgn::Pos, 51, 29, 20),
     distance: Distance {
@@ -49,6 +53,10 @@ const ATHEBYNE: RealData = RealData {
     age: Some(Time {
         s: 0.55 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(16, 23, 59),
     declination: Declination::new(Sgn::Pos, 61, 30, 51),
     distance: Distance {
@@ -77,6 +85,10 @@ const THETA_DRACONIS: RealData = RealData {
     age: Some(Time {
         s: 2.03 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const KAPPA_DRACONIS: RealData = RealData {
@@ -98,10 +110,14 @@ const KAPPA_DRACONIS: RealData = RealData {
     }),
     temperature: Temperature { K: 13_982. },
     age: None,
+    lifetime: Time {
+        s: 0.1 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const EPSILON_DRACONIS: RealData = RealData {
-    common_name: "",
+const TYL: RealData = RealData {
+    common_name: "Tyl",
     astronomical_name: "Epsilon Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(19, 48, 10),
@@ -121,10 +137,14 @@ const EPSILON_DRACONIS: RealData = RealData {
     age: Some(Time {
         s: 0.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const LAMBDA_DRACONIS: RealData = RealData {
-    common_name: "",
+const GIAUSAR: RealData = RealData {
+    common_name: "Giausar",
     astronomical_name: "Lambda Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(11, 31, 24),
@@ -142,10 +162,14 @@ const LAMBDA_DRACONIS: RealData = RealData {
     }),
     temperature: Temperature { K: 3958. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const XI_DRACONIS: RealData = RealData {
-    common_name: "",
+const GRUMIUM: RealData = RealData {
+    common_name: "Grumium",
     astronomical_name: "Xi Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(17, 53, 32),
@@ -163,6 +187,10 @@ const XI_DRACONIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4445. },
     age: None,
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const THUBAN: RealData = RealData {
@@ -186,6 +214,10 @@ const THUBAN: RealData = RealData {
     age: Some(Time {
         s: 0.280 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.310 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const CHI_DRACONIS: RealData = RealData {
@@ -209,10 +241,14 @@ const CHI_DRACONIS: RealData = RealData {
     age: Some(Time {
         s: 5.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5.6 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const IOTA_DRACONIS: RealData = RealData {
-    common_name: "",
+const EDASICH: RealData = RealData {
+    common_name: "Edasich",
     astronomical_name: "Iota Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(15, 24, 56),
@@ -232,6 +268,10 @@ const IOTA_DRACONIS: RealData = RealData {
     age: Some(Time {
         s: 2.49 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ZETA_DRACONIS: RealData = RealData {
@@ -306,12 +346,12 @@ pub(crate) const STARS: [RealData; 13] = [
     ATHEBYNE,
     THETA_DRACONIS,
     KAPPA_DRACONIS,
-    EPSILON_DRACONIS,
-    LAMBDA_DRACONIS,
-    XI_DRACONIS,
+    TYL,
+    GIAUSAR,
+    GRUMIUM,
     THUBAN,
     CHI_DRACONIS,
-    IOTA_DRACONIS,
+    EDASICH,
     ZETA_DRACONIS,
     DELTA_DRACONIS,
     BETA_DRACONIS,
