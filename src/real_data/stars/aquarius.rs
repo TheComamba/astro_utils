@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,10 +28,14 @@ const SADALSUUD: RealData = RealData {
     age: Some(Time {
         s: 0.110 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.111 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(21, 31, 34),
     declination: Declination::new(Sgn::Neg, 5, 34, 16),
     distance: Distance {
-        m: 550. * LIGHT_YEAR.m,
+        m: 540. * LIGHT_YEAR.m,
     },
 };
 
@@ -51,6 +55,10 @@ const SADALMELIK: RealData = RealData {
     age: Some(Time {
         s: 0.053 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.054 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(22, 5, 47),
     declination: Declination::new(Sgn::Neg, 0, 19, 11),
     distance: Distance {
@@ -74,6 +82,10 @@ const SKAT: RealData = RealData {
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(22, 54, 39),
     declination: Declination::new(Sgn::Neg, 15, 49, 15),
     distance: Distance {

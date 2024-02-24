@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const SIRIUS: RealData = RealData {
     age: Some(Time {
         s: 0.242 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.5 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(6, 45, 9),
     declination: Declination::new(Sgn::Neg, 16, 42, 58),
     distance: Distance {
@@ -51,6 +55,10 @@ const ADHARA: RealData = RealData {
     age: Some(Time {
         s: 0.0225 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.023 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(6, 58, 38),
     declination: Declination::new(Sgn::Neg, 28, 58, 19),
     distance: Distance {
@@ -74,6 +82,10 @@ const WEZEN: RealData = RealData {
     age: Some(Time {
         s: 0.012 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.0121 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(7, 8, 23),
     declination: Declination::new(Sgn::Neg, 26, 23, 36),
     distance: Distance {
@@ -97,6 +109,10 @@ const MIRZAM: RealData = RealData {
     age: Some(Time {
         s: 0.0124 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.015 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(6, 22, 42),
     declination: Declination::new(Sgn::Neg, 17, 57, 21),
     distance: Distance {
@@ -120,6 +136,10 @@ const ALUDRA: RealData = RealData {
     age: Some(Time {
         s: 0.0083 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.01 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(7, 24, 6),
     declination: Declination::new(Sgn::Neg, 29, 18, 11),
     distance: Distance {

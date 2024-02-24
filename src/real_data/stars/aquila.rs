@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const ALTAIR: RealData = RealData {
     age: Some(Time {
         s: 0.100 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(19, 50, 47),
     declination: Declination::new(Sgn::Pos, 8, 52, 6),
     distance: Distance {
@@ -51,6 +55,10 @@ const TARAZED: RealData = RealData {
     age: Some(Time {
         s: 0.270 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.3 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(19, 46, 16),
     declination: Declination::new(Sgn::Pos, 10, 36, 48),
     distance: Distance {
@@ -58,8 +66,8 @@ const TARAZED: RealData = RealData {
     },
 };
 
-const ZETA_AQUILAE: RealData = RealData {
-    common_name: "",
+const OKAB: RealData = RealData {
+    common_name: "Okab",
     astronomical_name: "Zeta Aquilae",
     constellation: "Aquila",
     right_ascension: RightAscension::new(19, 5, 25),
@@ -79,6 +87,10 @@ const ZETA_AQUILAE: RealData = RealData {
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.7 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const THETA_AQUILAE: RealData = RealData {
@@ -102,6 +114,10 @@ const THETA_AQUILAE: RealData = RealData {
     age: Some(Time {
         s: 0.0209 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.260 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_AQUILAE: RealData = RealData {
@@ -123,6 +139,10 @@ const DELTA_AQUILAE: RealData = RealData {
     }),
     temperature: Temperature { K: 7016. },
     age: None,
+    lifetime: Time {
+        s: 1.7 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const LAMBDA_AQUILAE: RealData = RealData {
@@ -146,12 +166,16 @@ const LAMBDA_AQUILAE: RealData = RealData {
     age: Some(Time {
         s: 0.160 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.49 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 6] = [
     ALTAIR,
     TARAZED,
-    ZETA_AQUILAE,
+    OKAB,
     THETA_AQUILAE,
     DELTA_AQUILAE,
     LAMBDA_AQUILAE,

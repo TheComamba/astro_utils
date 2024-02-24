@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -33,6 +33,10 @@ const HAMAL: RealData = RealData {
     distance: Distance {
         m: 66. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_ARIETIS: RealData = RealData {
@@ -56,10 +60,14 @@ const BETA_ARIETIS: RealData = RealData {
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.8 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const FOURTYONE_ARIETIS: RealData = RealData {
-    common_name: "",
+const BHARANI: RealData = RealData {
+    common_name: "Bharani",
     astronomical_name: "41 Arietis",
     constellation: "Aries",
     right_ascension: RightAscension::new(2, 49, 59),
@@ -77,6 +85,10 @@ const FOURTYONE_ARIETIS: RealData = RealData {
     age: Some(Time {
         s: 0.130 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.360 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-pub(crate) const STARS: [RealData; 3] = [HAMAL, BETA_ARIETIS, FOURTYONE_ARIETIS];
+pub(crate) const STARS: [RealData; 3] = [HAMAL, BETA_ARIETIS, BHARANI];

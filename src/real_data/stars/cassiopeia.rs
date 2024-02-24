@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const NAVI: RealData = RealData {
     age: Some(Time {
         s: 0.008 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.019 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(0, 56, 43),
     declination: Declination::new(Sgn::Pos, 60, 43, 0),
     distance: Distance {
@@ -51,6 +55,9 @@ const SCHEDAR: RealData = RealData {
     age: Some(Time {
         s: 0.22 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.23 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(0, 40, 30),
     declination: Declination::new(Sgn::Pos, 56, 32, 14),
     distance: Distance {

@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const BETA_CAMELOPARDALIS: RealData = RealData {
     age: Some(Time {
         s: 0.053 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.06 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(5, 3, 25),
     declination: Declination::new(Sgn::Pos, 60, 26, 32),
     distance: Distance {
@@ -51,6 +55,10 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     age: Some(Time {
         s: 0.016_5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.017 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(3, 29, 4),
     declination: Declination::new(Sgn::Pos, 59, 56, 25),
     distance: Distance {
@@ -74,6 +82,10 @@ const ALPHA_CAMELOPARDALIS: RealData = RealData {
     age: Some(Time {
         s: 0.002 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.0021 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(4, 54, 3),
     declination: Declination::new(Sgn::Pos, 66, 20, 34),
     distance: Distance {

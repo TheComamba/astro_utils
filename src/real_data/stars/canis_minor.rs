@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const PROCYON: RealData = RealData {
     age: Some(Time {
         s: 1.37 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.6 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(7, 39, 18),
     declination: Declination::new(Sgn::Pos, 5, 13, 30),
     distance: Distance {
@@ -35,8 +39,8 @@ const PROCYON: RealData = RealData {
     },
 };
 
-const BETA_CANIS_MINORIS: RealData = RealData {
-    common_name: "",
+const GOMEISA: RealData = RealData {
+    common_name: "Gomeisa",
     astronomical_name: "Beta Canis Minoris",
     constellation: "Canis Minor",
     right_ascension: RightAscension::new(7, 27, 9),
@@ -54,8 +58,12 @@ const BETA_CANIS_MINORIS: RealData = RealData {
     }),
     temperature: Temperature { K: 11_772. },
     age: Some(Time {
-        s: 160. * BILLION_YEARS.s,
+        s: 0.160 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.360 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CANIS_MINORIS: RealData = RealData {
@@ -79,6 +87,10 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 1.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-pub(crate) const STARS: [RealData; 3] = [PROCYON, BETA_CANIS_MINORIS, GAMMA_CANIS_MINORIS];
+pub(crate) const STARS: [RealData; 3] = [PROCYON, GOMEISA, GAMMA_CANIS_MINORIS];

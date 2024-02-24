@@ -3,13 +3,14 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
+        time::BILLION_YEARS,
     },
 };
-use simple_si_units::base::{Distance, Mass, Temperature};
+use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_APODIS: RealData = RealData {
     common_name: "",
@@ -23,6 +24,10 @@ const ALPHA_APODIS: RealData = RealData {
     apparent_magnitude: 3.825,
     temperature: Temperature { K: 4312. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(14, 47, 52),
     declination: Declination::new(Sgn::Neg, 79, 2, 41),
     distance: Distance {
@@ -40,6 +45,10 @@ const GAMMA_APODIS: RealData = RealData {
     apparent_magnitude: 3.86,
     temperature: Temperature { K: 5040. },
     age: None,
+    lifetime: Time {
+        s: 12. * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(16, 33, 27),
     declination: Declination::new(Sgn::Neg, 78, 53, 50),
     distance: Distance {
@@ -61,6 +70,10 @@ const BETA_APODIS: RealData = RealData {
     apparent_magnitude: 4.24,
     temperature: Temperature { K: 4900. },
     age: None,
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(16, 43, 5),
     declination: Declination::new(Sgn::Neg, 77, 31, 3),
     distance: Distance {

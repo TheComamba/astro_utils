@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const BETA_CAPRICORNI: RealData = RealData {
-    common_name: "",
+const DABIH: RealData = RealData {
+    common_name: "Dabih",
     astronomical_name: "Beta Capricorni",
     constellation: "Capricornus",
     right_ascension: RightAscension::new(20, 21, 1),
@@ -23,14 +23,20 @@ const BETA_CAPRICORNI: RealData = RealData {
         m: 555.4 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3., // Not literature value
-    mass: None,
+    mass: Some(Mass {
+        kg: 3.9 * SOLAR_MASS.kg,
+    }),
     radius: None,
     temperature: Temperature { K: 4900. },
     age: None,
+    lifetime: Time {
+        s: 0.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const DELTA_CAPRICORNI: RealData = RealData {
-    common_name: "",
+const DENEB_ALGEDI: RealData = RealData {
+    common_name: "Deneb Algedi",
     astronomical_name: "Delta Capricorni",
     constellation: "Capricornus",
     right_ascension: RightAscension::new(21, 47, 2),
@@ -48,6 +54,10 @@ const DELTA_CAPRICORNI: RealData = RealData {
     }),
     temperature: Temperature { K: 7301. },
     age: None,
+    lifetime: Time {
+        s: 1.3 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const OMEGA_CAPRICORNI: RealData = RealData {
@@ -71,6 +81,10 @@ const OMEGA_CAPRICORNI: RealData = RealData {
     age: Some(Time {
         s: 0.0481 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.6 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-pub(crate) const STARS: [RealData; 3] = [BETA_CAPRICORNI, DELTA_CAPRICORNI, OMEGA_CAPRICORNI];
+pub(crate) const STARS: [RealData; 3] = [DABIH, DENEB_ALGEDI, OMEGA_CAPRICORNI];

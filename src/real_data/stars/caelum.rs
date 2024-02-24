@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const ALPHA_CAELI: RealData = RealData {
     age: Some(Time {
         s: 0.9 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.5 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(4, 40, 34),
     declination: Declination::new(Sgn::Neg, 41, 51, 50),
     distance: Distance {
@@ -49,6 +53,10 @@ const GAMMA1_CAELI: RealData = RealData {
     apparent_magnitude: 4.57,
     temperature: Temperature { K: 4411. },
     age: None,
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(5, 4, 24),
     declination: Declination::new(Sgn::Neg, 35, 28, 59),
     distance: Distance {
@@ -72,6 +80,10 @@ const BETA_CAELI: RealData = RealData {
     age: Some(Time {
         s: 1.753 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.8 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(4, 42, 3),
     declination: Declination::new(Sgn::Neg, 37, 8, 39),
     distance: Distance {

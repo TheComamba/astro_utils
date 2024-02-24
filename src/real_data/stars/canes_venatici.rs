@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const COR_CAROLI: RealData = RealData {
     age: Some(Time {
         s: 0.165 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.42 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(12, 56, 2),
     declination: Declination::new(Sgn::Pos, 38, 19, 6),
     distance: Distance {
@@ -36,7 +40,7 @@ const COR_CAROLI: RealData = RealData {
 };
 
 const CHARA: RealData = RealData {
-    common_name: "",
+    common_name: "Chara",
     astronomical_name: "Beta Canum Venaticorum",
     constellation: "Canes Venatici",
     radius: Some(Distance {
@@ -51,6 +55,10 @@ const CHARA: RealData = RealData {
     age: Some(Time {
         s: 3.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 8.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(12, 33, 45),
     declination: Declination::new(Sgn::Pos, 41, 21, 27),
     distance: Distance {
@@ -79,5 +87,9 @@ const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
     age: Some(Time {
         s: 0.360 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.8 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 pub(crate) const STARS: [RealData; 3] = [COR_CAROLI, CHARA, TWENTYFOUR_CANUM_VENATICORUM];

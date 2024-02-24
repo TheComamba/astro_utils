@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ARCTURUS: RealData = RealData {
     common_name: "Arcturus",
-    astronomical_name: "Alpha Bootis",
+    astronomical_name: "Alpha Boötis",
     constellation: "Boötes",
     radius: Some(Distance {
         m: 25.4 * SOLAR_RADIUS.m,
@@ -28,6 +28,10 @@ const ARCTURUS: RealData = RealData {
     age: Some(Time {
         s: 7.1 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(14, 15, 40),
     declination: Declination::new(Sgn::Pos, 19, 10, 56),
     distance: Distance {
@@ -37,7 +41,7 @@ const ARCTURUS: RealData = RealData {
 
 const IZAR: RealData = RealData {
     common_name: "Izar",
-    astronomical_name: "Epsilon Bootis",
+    astronomical_name: "Epsilon Boötis",
     constellation: "Boötes",
     radius: Some(Distance {
         m: 33. * SOLAR_RADIUS.m,
@@ -51,6 +55,10 @@ const IZAR: RealData = RealData {
     age: Some(Time {
         s: 0.0374 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.220 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(14, 44, 59),
     declination: Declination::new(Sgn::Pos, 27, 4, 27),
     distance: Distance {
@@ -79,6 +87,10 @@ const GAMMA_BOOTIS: RealData = RealData {
     age: Some(Time {
         s: 0.9 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.670 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_BOOTIS: RealData = RealData {
@@ -98,6 +110,10 @@ const DELTA_BOOTIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4847. },
     age: None,
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_BOOTIS: RealData = RealData {
@@ -121,10 +137,14 @@ const BETA_BOOTIS: RealData = RealData {
     age: Some(Time {
         s: 0.240 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const ETA_BOOTIS: RealData = RealData {
-    common_name: "",
+const MUPHRID: RealData = RealData {
+    common_name: "Muphrid",
     astronomical_name: "Eta Boötis",
     constellation: "Boötes",
     right_ascension: RightAscension::new(13, 54, 41),
@@ -144,6 +164,10 @@ const ETA_BOOTIS: RealData = RealData {
     age: Some(Time {
         s: 2.7 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 9.4 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 6] = [
@@ -152,5 +176,5 @@ pub(crate) const STARS: [RealData; 6] = [
     GAMMA_BOOTIS,
     DELTA_BOOTIS,
     BETA_BOOTIS,
-    ETA_BOOTIS,
+    MUPHRID,
 ];

@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -31,6 +31,10 @@ const ALPHA_ARAE: RealData = RealData {
     }),
     temperature: Temperature { K: 18_044. },
     age: None,
+    lifetime: Time {
+        s: 0.025 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
 };
 
 const BETA_ARAE: RealData = RealData {
@@ -54,6 +58,10 @@ const BETA_ARAE: RealData = RealData {
     distance: Distance {
         m: 602.6 * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.06 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::TypeIISupernova,
 };
 
 const GAMMA_ARAE: RealData = RealData {
@@ -77,6 +85,10 @@ const GAMMA_ARAE: RealData = RealData {
     age: Some(Time {
         s: 0.0157 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.02 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::TypeIISupernova,
 };
 
 const DELTA_ARAE: RealData = RealData {
@@ -100,6 +112,10 @@ const DELTA_ARAE: RealData = RealData {
     age: Some(Time {
         s: 0.125 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.360 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ZETA_ARAE: RealData = RealData {
@@ -123,6 +139,10 @@ const ZETA_ARAE: RealData = RealData {
     age: Some(Time {
         s: 0.045 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 5] = [ALPHA_ARAE, BETA_ARAE, GAMMA_ARAE, DELTA_ARAE, ZETA_ARAE];

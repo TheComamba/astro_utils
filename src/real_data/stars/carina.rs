@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const CANOPUS: RealData = RealData {
     age: Some(Time {
         s: 0.0251 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.03 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(6, 23, 57),
     declination: Declination::new(Sgn::Neg, 52, 41, 44),
     distance: Distance {
@@ -51,6 +55,10 @@ const MIAPLACIDUS: RealData = RealData {
     age: Some(Time {
         s: 0.260 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.580 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(9, 13, 12),
     declination: Declination::new(Sgn::Neg, 69, 43, 2),
     distance: Distance {
@@ -70,8 +78,12 @@ const AVIOR: RealData = RealData {
     apparent_magnitude: 1.86,
     temperature: Temperature { K: 3523. },
     age: Some(Time {
-        s: 0.020 * BILLION_YEARS.s,
+        s: 0.0312 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.032 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(8, 22, 31),
     declination: Declination::new(Sgn::Neg, 59, 30, 34),
     distance: Distance {
@@ -95,6 +107,10 @@ const ASPIDISKE: RealData = RealData {
     age: Some(Time {
         s: 0.0374 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.04 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(9, 17, 5),
     declination: Declination::new(Sgn::Neg, 59, 16, 30),
     distance: Distance {

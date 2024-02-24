@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -33,6 +33,10 @@ const CAPELLA: RealData = RealData {
     distance: Distance {
         m: 42. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const MENKALINAN: RealData = RealData {
@@ -51,6 +55,10 @@ const MENKALINAN: RealData = RealData {
     age: Some(Time {
         s: 0.570 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.970 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(5, 59, 32),
     declination: Declination::new(Sgn::Pos, 44, 56, 51),
     distance: Distance {
@@ -74,6 +82,10 @@ const HASSALEH: RealData = RealData {
     age: Some(Time {
         s: 0.04 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.180 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(4, 56, 60),
     declination: Declination::new(Sgn::Pos, 33, 9, 58),
     distance: Distance {

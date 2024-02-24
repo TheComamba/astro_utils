@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const TARF: RealData = RealData {
     age: Some(Time {
         s: 1.85 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.6 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(8, 16, 31),
     declination: Declination::new(Sgn::Pos, 9, 11, 8),
     distance: Distance {
@@ -51,6 +55,10 @@ const ASELLUS_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 2.45 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(8, 44, 41),
     declination: Declination::new(Sgn::Pos, 18, 9, 16),
     distance: Distance {
@@ -72,6 +80,10 @@ const IOTA_CANCRI: RealData = RealData {
     apparent_magnitude: 4.02,
     temperature: Temperature { K: 4954. },
     age: None,
+    lifetime: Time {
+        s: 9.7 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(8, 46, 42),
     declination: Declination::new(Sgn::Pos, 28, 45, 36),
     distance: Distance {
