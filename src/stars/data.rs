@@ -1,4 +1,4 @@
-use super::{star_appearance::StarAppearance, star_data_evolution::StarDataEvolution};
+use super::{appearance::StarAppearance, data_evolution::StarDataEvolution};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::ecliptic::EclipticCoordinates,

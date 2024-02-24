@@ -1,5 +1,5 @@
 use super::connection::{collect_connections, Connection};
-use crate::stars::{star_appearance::StarAppearance, star_data::StarData};
+use crate::stars::{appearance::StarAppearance, data::StarData};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

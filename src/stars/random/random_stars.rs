@@ -3,8 +3,8 @@ use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     stars::{
+        data::StarData,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
-        star_data::StarData,
     },
     units::distance::DISTANCE_ZERO,
 };

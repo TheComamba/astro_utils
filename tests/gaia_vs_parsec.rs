@@ -1,10 +1,10 @@
 use astro_utils::{
     real_data::stars::all::get_many_stars,
     stars::{
+        appearance::StarAppearance,
+        data::StarData,
         gaia_data::{fetch_brightest_stars, fetch_brightest_stars_data, star_is_already_known},
         random::random_stars::generate_random_stars,
-        star_appearance::StarAppearance,
-        star_data::StarData,
     },
     units::{illuminance::illuminance_to_apparent_magnitude, temperature::TEMPERATURE_ZERO},
 };

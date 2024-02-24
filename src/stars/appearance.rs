@@ -4,7 +4,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Time, electromagnetic::Illuminance, geometry::Angle};
 
-use super::star_appearance_evolution::StarAppearanceEvolution;
+use super::appearance_evolution::StarAppearanceEvolution;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {

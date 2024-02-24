@@ -12,8 +12,8 @@ use crate::{
 };
 
 use super::{
-    star_appearance_evolution::{StarAppearanceEvolution, StarAppearanceLifestageEvolution},
-    star_data::StarData,
+    appearance_evolution::{StarAppearanceEvolution, StarAppearanceLifestageEvolution},
+    data::StarData,
 };
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

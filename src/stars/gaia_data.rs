@@ -1,6 +1,6 @@
 use super::{
-    star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
-    star_data::StarData, star_data_evolution::StarDataEvolution,
+    appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
+    data_evolution::StarDataEvolution,
 };
 use crate::{
     color::srgb::sRGBColor,
