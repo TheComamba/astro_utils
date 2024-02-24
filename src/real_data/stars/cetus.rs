@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const DIPHDA: RealData = RealData {
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(0, 43, 35),
     declination: Declination::new(Sgn::Neg, 17, 59, 12),
     distance: Distance {
@@ -49,6 +53,10 @@ const MENKAR: RealData = RealData {
     apparent_magnitude: 2.54,
     temperature: Temperature { K: 3795. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(3, 2, 17),
     declination: Declination::new(Sgn::Pos, 4, 5, 23),
     distance: Distance {
@@ -77,6 +85,10 @@ const MIRA: RealData = RealData {
     age: Some(Time {
         s: 6. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const BATEN_KAITOS: RealData = RealData {
@@ -100,10 +112,14 @@ const BATEN_KAITOS: RealData = RealData {
     age: Some(Time {
         s: 1.24 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const GAMMA_CETI: RealData = RealData {
-    common_name: "",
+const KAFFALJIDHMA: RealData = RealData {
+    common_name: "Kaffaljidhma",
     astronomical_name: "Gamma Ceti",
     constellation: "Cetus",
     right_ascension: RightAscension::new(2, 43, 18),
@@ -123,6 +139,10 @@ const GAMMA_CETI: RealData = RealData {
     age: Some(Time {
         s: 0.647 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const IOTA_CETI: RealData = RealData {
@@ -146,6 +166,10 @@ const IOTA_CETI: RealData = RealData {
     age: Some(Time {
         s: 2.23 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const DENEB_ALGENUBI: RealData = RealData {
@@ -169,6 +193,10 @@ const DENEB_ALGENUBI: RealData = RealData {
     age: Some(Time {
         s: 1.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const TAU_CETI: RealData = RealData {
@@ -192,6 +220,10 @@ const TAU_CETI: RealData = RealData {
     age: Some(Time {
         s: 9. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 12. * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 8] = [
@@ -199,7 +231,7 @@ pub(crate) const STARS: [RealData; 8] = [
     MENKAR,
     MIRA,
     BATEN_KAITOS,
-    GAMMA_CETI,
+    KAFFALJIDHMA,
     IOTA_CETI,
     DENEB_ALGENUBI,
     TAU_CETI,

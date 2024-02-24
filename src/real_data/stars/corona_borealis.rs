@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const ALPHECCA: RealData = RealData {
     age: Some(Time {
         s: 0.314 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.7 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(15, 34, 41),
     declination: Declination::new(Sgn::Pos, 26, 42, 53),
     distance: Distance {
@@ -54,6 +58,10 @@ const NAUSAKAN: RealData = RealData {
     }),
     temperature: Temperature { K: 7980. },
     age: None,
+    lifetime: Time {
+        s: 1.1 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CORONAE_BOREALIS: RealData = RealData {
@@ -75,6 +83,10 @@ const GAMMA_CORONAE_BOREALIS: RealData = RealData {
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.82 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_CORONAE_BOREALIS: RealData = RealData {
@@ -98,6 +110,10 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
     age: Some(Time {
         s: 0.851 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.5 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const EPSILON_CORONAE_BOREALIS: RealData = RealData {
@@ -121,6 +137,10 @@ const EPSILON_CORONAE_BOREALIS: RealData = RealData {
     age: Some(Time {
         s: 4.13 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const IOTA_CORONAE_BOREALIS: RealData = RealData {
@@ -138,6 +158,10 @@ const IOTA_CORONAE_BOREALIS: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 10_727. },
     age: None,
+    lifetime: Time {
+        s: 0.1 * BILLION_YEARS.s, //no idea
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const THETA_CORONAE_BOREALIS: RealData = RealData {
@@ -161,6 +185,10 @@ const THETA_CORONAE_BOREALIS: RealData = RealData {
     age: Some(Time {
         s: 0.085 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.160 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 7] = [

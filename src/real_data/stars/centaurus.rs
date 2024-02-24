@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const RIGEL_KENTAURUS: RealData = RealData {
     age: Some(Time {
         s: 4.85 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 10. * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(14, 39, 36),
     declination: Declination::new(Sgn::Neg, 60, 50, 2),
     distance: Distance {
@@ -51,6 +55,10 @@ const HADAR: RealData = RealData {
     age: Some(Time {
         s: 0.0141 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(14, 3, 49),
     declination: Declination::new(Sgn::Neg, 60, 22, 23),
     distance: Distance {
@@ -72,6 +80,10 @@ const MENKENT: RealData = RealData {
     apparent_magnitude: 2.06,
     temperature: Temperature { K: 4980. },
     age: None,
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(14, 6, 41),
     declination: Declination::new(Sgn::Neg, 36, 22, 11),
     distance: Distance {
@@ -91,6 +103,10 @@ const MUHLIFAIN: RealData = RealData {
     apparent_magnitude: 2.20,
     temperature: Temperature { K: 9082. },
     age: None,
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(12, 41, 31),
     declination: Declination::new(Sgn::Neg, 48, 57, 35),
     distance: Distance {
@@ -112,6 +128,10 @@ const EPSILON_CENTAURI: RealData = RealData {
     age: Some(Time {
         s: 0.0158 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(13, 39, 53),
     declination: Declination::new(Sgn::Neg, 53, 27, 59),
     distance: Distance {
@@ -135,6 +155,10 @@ const ETA_CENTAURI: RealData = RealData {
     age: Some(Time {
         s: 0.0056 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.013 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(14, 35, 30),
     declination: Declination::new(Sgn::Neg, 42, 9, 28),
     distance: Distance {
@@ -158,6 +182,10 @@ const ZETA_CENTAURI: RealData = RealData {
     age: Some(Time {
         s: 0.04 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.041 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(13, 55, 33),
     declination: Declination::new(Sgn::Neg, 47, 17, 18),
     distance: Distance {
@@ -181,6 +209,10 @@ const MA_WEI: RealData = RealData {
     age: Some(Time {
         s: 0.02 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.021 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(12, 8, 21),
     declination: Declination::new(Sgn::Neg, 50, 43, 21),
     distance: Distance {

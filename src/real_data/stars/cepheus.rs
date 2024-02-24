@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const ALDERAMIN: RealData = RealData {
     age: Some(Time {
         s: 0.82 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.8 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(21, 18, 35),
     declination: Declination::new(Sgn::Pos, 62, 35, 8),
     distance: Distance {
@@ -56,6 +60,10 @@ const ALFIRK: RealData = RealData {
     age: Some(Time {
         s: 0.0087 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.012 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ERRAI: RealData = RealData {
@@ -79,6 +87,10 @@ const ERRAI: RealData = RealData {
     age: Some(Time {
         s: 3.25 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 12. * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_CEPHERI: RealData = RealData {
@@ -100,8 +112,12 @@ const DELTA_CEPHERI: RealData = RealData {
     }),
     temperature: Temperature { K: 6000. },
     age: Some(Time {
-        s: 0.1 * BILLION_YEARS.s,
+        s: 0.079 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.1 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ETA_CEPHEI: RealData = RealData {
@@ -125,6 +141,10 @@ const ETA_CEPHEI: RealData = RealData {
     age: Some(Time {
         s: 2.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 12. * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const IOTA_CEPHEI: RealData = RealData {
@@ -148,6 +168,10 @@ const IOTA_CEPHEI: RealData = RealData {
     age: Some(Time {
         s: 1.2 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ZETA_CEPHEI: RealData = RealData {
@@ -161,12 +185,18 @@ const ZETA_CEPHEI: RealData = RealData {
         m: 726.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.35,
-    mass: None,
+    mass: Some(Mass {
+        kg: 7.9 * SOLAR_MASS.kg,
+    }),
     radius: Some(Distance {
         m: 94. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4072. },
     age: None,
+    lifetime: Time {
+        s: 0.016 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ERAKIS: RealData = RealData {
@@ -185,6 +215,10 @@ const ERAKIS: RealData = RealData {
     age: Some(Time {
         s: 0.01 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.011 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(21, 43, 30),
     declination: Declination::new(Sgn::Pos, 58, 46, 48),
     distance: Distance {

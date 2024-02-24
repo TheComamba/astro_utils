@@ -56,8 +56,9 @@ const SCHEDAR: RealData = RealData {
         s: 0.22 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.23 * BILLION_YEARS.s,
+        s: 7.9 * BILLION_YEARS.s,
     },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(0, 40, 30),
     declination: Declination::new(Sgn::Pos, 56, 32, 14),
     distance: Distance {
@@ -81,6 +82,10 @@ const CAPH: RealData = RealData {
     age: Some(Time {
         s: 1.1 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.1 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(0, 9, 11),
     declination: Declination::new(Sgn::Pos, 59, 8, 59),
     distance: Distance {

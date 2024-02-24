@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -29,6 +29,10 @@ const DIADEM: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 6365. },
     age: None,
+    lifetime: Time {
+        s: 4.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_COMA_BERENICES: RealData = RealData {
@@ -52,6 +56,10 @@ const BETA_COMA_BERENICES: RealData = RealData {
     age: Some(Time {
         s: 2. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 8.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_COMA_BERENICES: RealData = RealData {
@@ -75,6 +83,10 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
     age: Some(Time {
         s: 2.72 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [DIADEM, BETA_COMA_BERENICES, GAMMA_COMA_BERENICES];

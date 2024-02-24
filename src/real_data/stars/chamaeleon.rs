@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -33,6 +33,10 @@ const ALPHA_CHAMAELEONTIS: RealData = RealData {
     age: Some(Time {
         s: 1.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.5 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CHAMAELEONTIS: RealData = RealData {
@@ -46,12 +50,18 @@ const GAMMA_CHAMAELEONTIS: RealData = RealData {
         m: 418. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.43,
-    mass: None,
+    mass: Some(Mass {
+        kg: 2.4 * SOLAR_MASS.kg,
+    }),
     radius: Some(Distance {
         m: 67. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4035. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_CHAMAELEONIS: RealData = RealData {
@@ -66,7 +76,7 @@ const BETA_CHAMAELEONIS: RealData = RealData {
     },
     absolute_magnitude: -0.57,
     mass: Some(Mass {
-        kg: 5. * SOLAR_MASS.kg,
+        kg: 5.9 * SOLAR_MASS.kg,
     }),
     radius: Some(Distance {
         m: 2.84 * SOLAR_RADIUS.m,
@@ -75,6 +85,10 @@ const BETA_CHAMAELEONIS: RealData = RealData {
     age: Some(Time {
         s: 0.0227 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.025 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] =

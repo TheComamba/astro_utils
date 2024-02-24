@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_COLUMBAE: RealData = RealData {
-    common_name: "",
+const PHACT: RealData = RealData {
+    common_name: "Phact",
     astronomical_name: "Alpha Columbae",
     constellation: "Columba",
     right_ascension: RightAscension::new(5, 39, 39),
@@ -33,10 +33,14 @@ const ALPHA_COLUMBAE: RealData = RealData {
     age: Some(Time {
         s: 0.093 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.17 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-const BETA_COLUMBAE: RealData = RealData {
-    common_name: "",
+const WAZN: RealData = RealData {
+    common_name: "Wazn",
     astronomical_name: "Beta Columbae",
     constellation: "Columba",
     right_ascension: RightAscension::new(5, 50, 58),
@@ -56,6 +60,10 @@ const BETA_COLUMBAE: RealData = RealData {
     age: Some(Time {
         s: 2. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.5 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_COLUMBAE: RealData = RealData {
@@ -69,10 +77,16 @@ const DELTA_COLUMBAE: RealData = RealData {
         m: 234. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.32,
-    mass: None,
+    mass: Some(Mass {
+        kg: 3.7 * SOLAR_MASS.kg,
+    }),
     radius: None,
     temperature: Temperature { K: 5136. },
     age: None,
+    lifetime: Time {
+        s: 0.380 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const EPSILON_COLUMBAE: RealData = RealData {
@@ -96,11 +110,10 @@ const EPSILON_COLUMBAE: RealData = RealData {
     age: Some(Time {
         s: 1.53 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.5 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-pub(crate) const STARS: [RealData; 4] = [
-    ALPHA_COLUMBAE,
-    BETA_COLUMBAE,
-    DELTA_COLUMBAE,
-    EPSILON_COLUMBAE,
-];
+pub(crate) const STARS: [RealData; 4] = [PHACT, WAZN, DELTA_COLUMBAE, EPSILON_COLUMBAE];

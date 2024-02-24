@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -31,6 +31,10 @@ const DENEB: RealData = RealData {
     distance: Distance {
         m: 1548. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 6.355 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
 };
 
 const SADIR: RealData = RealData {
@@ -49,6 +53,10 @@ const SADIR: RealData = RealData {
     age: Some(Time {
         s: 0.012 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.032 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(20, 22, 14),
     declination: Declination::new(Sgn::Pos, 40, 15, 24),
     distance: Distance {
@@ -72,6 +80,10 @@ const ALJANAH: RealData = RealData {
     age: Some(Time {
         s: 1.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(20, 46, 13),
     declination: Declination::new(Sgn::Pos, 33, 58, 13),
     distance: Distance {

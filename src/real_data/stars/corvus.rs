@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -31,6 +31,10 @@ const GHURAB: RealData = RealData {
     distance: Distance {
         m: 165. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.2 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const KRAZ: RealData = RealData {
@@ -54,6 +58,10 @@ const KRAZ: RealData = RealData {
     distance: Distance {
         m: 146. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.640 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const ALGORAB: RealData = RealData {
@@ -75,6 +83,10 @@ const ALGORAB: RealData = RealData {
     age: Some(Time {
         s: 0.260 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.490 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const EPSILON_CORVI: RealData = RealData {
@@ -96,6 +108,10 @@ const EPSILON_CORVI: RealData = RealData {
     }),
     temperature: Temperature { K: 4320. },
     age: None,
+    lifetime: Time {
+        s: 7.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 4] = [GHURAB, KRAZ, ALGORAB, EPSILON_CORVI];

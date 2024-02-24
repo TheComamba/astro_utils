@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -33,6 +33,10 @@ const ALPHA_CIRCINI: RealData = RealData {
     age: Some(Time {
         s: 0.012 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_CIRCINI: RealData = RealData {
@@ -54,6 +58,10 @@ const BETA_CIRCINI: RealData = RealData {
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.2 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CIRCINI: RealData = RealData {
@@ -75,6 +83,10 @@ const GAMMA_CIRCINI: RealData = RealData {
     age: Some(Time {
         s: 0.0631 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.1 * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_CIRCINI, BETA_CIRCINI, GAMMA_CIRCINI];

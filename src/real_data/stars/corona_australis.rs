@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_CORONAE_AUSTRALIS: RealData = RealData {
-    common_name: "",
+const MERIDIANA: RealData = RealData {
+    common_name: "Meridiana",
     astronomical_name: "Alpha Coronae Australis",
     constellation: "Corona Australis",
     right_ascension: RightAscension::new(19, 9, 28),
@@ -33,6 +33,10 @@ const ALPHA_CORONAE_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 0.254 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5. * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_CORONAE_AUSTRALIS: RealData = RealData {
@@ -54,6 +58,10 @@ const BETA_CORONAE_AUSTRALIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4575. },
     age: None,
+    lifetime: Time {
+        s: 0.1 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
@@ -77,10 +85,11 @@ const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 5. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5. * BILLION_YEARS.s, //guessed
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
-pub(crate) const STARS: [RealData; 3] = [
-    ALPHA_CORONAE_AUSTRALIS,
-    BETA_CORONAE_AUSTRALIS,
-    GAMMA_CORONAE_AUSTRALIS,
-];
+pub(crate) const STARS: [RealData; 3] =
+    [MERIDIANA, BETA_CORONAE_AUSTRALIS, GAMMA_CORONAE_AUSTRALIS];

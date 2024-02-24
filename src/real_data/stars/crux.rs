@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::real_data::RealData,
+    stars::{fate::StarFate, real_data::RealData},
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -28,6 +28,10 @@ const ACRUX: RealData = RealData {
     age: Some(Time {
         s: 0.0108 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.6 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(12, 26, 36),
     declination: Declination::new(Sgn::Neg, 63, 5, 57),
     distance: Distance {
@@ -56,6 +60,10 @@ const MIMOSA: RealData = RealData {
     distance: Distance {
         m: 352. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 6.6 * BILLION_YEARS.s,
+    },
+    fate: StarFate::TypeIISupernova,
 };
 
 const GACRUX: RealData = RealData {
@@ -77,6 +85,10 @@ const GACRUX: RealData = RealData {
     distance: Distance {
         m: 88. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
+    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [ACRUX, MIMOSA, GACRUX];
