@@ -112,7 +112,7 @@ mod tests {
                     let age = age.to_yr();
                     let mass_index = ParsecData::get_closest_mass_index(data.mass.to_solar_mass());
                     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-                    let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
+                    let age_expectancy = ParsecData::get_lifetime_in_years(trajectory);
                     let age_expectancy = Time::from_yr(age_expectancy as f64);
                     if age_expectancy < 0.3 * BILLION_YEARS {
                         // Numerics get really unstable for stars with short life expectancies.
