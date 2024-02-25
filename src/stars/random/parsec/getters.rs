@@ -2,9 +2,10 @@ use super::data::ParsecData;
 use super::line::ParsedParsecLine;
 use crate::stars::data::StarData;
 use crate::stars::data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
+use crate::stars::fate::StarFate;
 use crate::stars::random::random_stars::DIMMEST_ILLUMINANCE;
 use crate::units::luminous_intensity::luminous_intensity_to_solar_luminosities;
-use simple_si_units::base::{Luminosity, Time};
+use simple_si_units::base::{Luminosity, Mass, Time};
 
 impl ParsecData {
     pub(super) const SORTED_MASSES: [f64; 100] = [
@@ -83,7 +84,7 @@ impl ParsecData {
         let mut star = current_params.to_star_at_origin();
 
         let trajectory = self.get_trajectory_via_index(mass_index);
-        let lifetime = Time::from_yr(ParsecData::get_lifetime_in_years(trajectory) as f64);
+
         let other_params = if age_index == 0 {
             &trajectory[age_index + 1]
         } else {
@@ -92,8 +93,12 @@ impl ParsecData {
         let star_at_other_time = other_params.to_star_at_origin();
         let years = current_params.age_in_years - other_params.age_in_years;
         let lifestage_evolution =
-            StarDataLifestageEvolution::new(&star, &star_at_other_time, years, lifetime);
-        star.evolution = StarDataEvolution::new(Some(lifestage_evolution));
+            StarDataLifestageEvolution::new(&star, &star_at_other_time, years);
+
+        let lifetime = Time::from_yr(ParsecData::get_lifetime_in_years(trajectory) as f64);
+        let initial_mass = Mass::from_solar_mass(trajectory[0].mass_in_solar_masses);
+        let fate = StarFate::new(initial_mass);
+        star.evolution = StarDataEvolution::new(Some(lifestage_evolution), lifetime, fate);
 
         Some(star)
     }

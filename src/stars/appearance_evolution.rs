@@ -1,29 +1,40 @@
 use super::fate::StarFate;
-use crate::{color::srgb::sRGBColor, units::illuminance::IRRADIANCE_ZERO};
+use crate::{
+    color::srgb::sRGBColor,
+    units::{illuminance::IRRADIANCE_ZERO, time::TIME_ZERO},
+};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Time, electromagnetic::Illuminance};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearanceEvolution {
     lifestage_evolution: Option<StarAppearanceLifestageEvolution>,
+    pub(super) lifetime: Time<f64>,
+    pub(super) fate: StarFate,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub(crate) struct StarAppearanceLifestageEvolution {
     pub(super) illuminance_per_year: Illuminance<f64>,
     pub(super) color_per_year: sRGBColor,
-    pub(super) lifetime: Time<f64>,
-    pub(super) fate: StarFate,
 }
 
 impl StarAppearanceEvolution {
     pub const NONE: StarAppearanceEvolution = StarAppearanceEvolution {
         lifestage_evolution: None,
+        lifetime: TIME_ZERO,
+        fate: StarFate::WhiteDwarf,
     };
 
-    pub(crate) fn new(lifestage_evolution: Option<StarAppearanceLifestageEvolution>) -> Self {
+    pub(crate) fn new(
+        lifestage_evolution: Option<StarAppearanceLifestageEvolution>,
+        lifetime: Time<f64>,
+        fate: StarFate,
+    ) -> Self {
         Self {
             lifestage_evolution,
+            lifetime,
+            fate,
         }
     }
 

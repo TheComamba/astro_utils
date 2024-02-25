@@ -1,7 +1,6 @@
 use super::data::ParsecData;
 use super::line::ParsecLine;
 use crate::error::AstroUtilError;
-use crate::units::mass;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
 use rmp_serde;

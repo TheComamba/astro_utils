@@ -8,6 +8,7 @@ use crate::{
         luminous_intensity::{luminous_intensity_to_illuminance, LUMINOSITY_ZERO},
         mass::MASS_ZERO,
         temperature::TEMPERATURE_ZERO,
+        time::TIME_ZERO,
     },
 };
 
@@ -20,16 +21,26 @@ use super::{
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarDataEvolution {
     lifestage_evolution: Option<StarDataLifestageEvolution>,
+    lifetime: Time<f64>,
+    fate: StarFate,
 }
 
 impl StarDataEvolution {
     pub const NONE: StarDataEvolution = StarDataEvolution {
         lifestage_evolution: None,
+        lifetime: TIME_ZERO,
+        fate: StarFate::WhiteDwarf,
     };
 
-    pub(crate) fn new(lifestage_evolution: Option<StarDataLifestageEvolution>) -> Self {
+    pub(crate) fn new(
+        lifestage_evolution: Option<StarDataLifestageEvolution>,
+        lifetime: Time<f64>,
+        fate: StarFate,
+    ) -> Self {
         Self {
             lifestage_evolution,
+            lifetime,
+            fate,
         }
     }
 
@@ -79,7 +90,7 @@ impl StarDataEvolution {
             .lifestage_evolution
             .as_ref()
             .map(|e| e.to_star_appearance_lifestage_evolution(temperature_at_epoch, distance));
-        StarAppearanceEvolution::new(lifestage_evolution)
+        StarAppearanceEvolution::new(lifestage_evolution, self.lifetime, self.fate.clone())
     }
 
     pub fn get_lifestage_mass_per_year(&self) -> Mass<f64> {
@@ -117,12 +128,10 @@ pub(crate) struct StarDataLifestageEvolution {
     radius_per_year: Distance<f64>,
     luminous_intensity_per_year: Luminosity<f64>,
     temperature_per_year: Temperature<f64>,
-    lifetime: Time<f64>,
-    fate: StarFate,
 }
 
 impl StarDataLifestageEvolution {
-    pub(crate) fn new(now: &StarData, then: &StarData, years: f64, lifetime: Time<f64>) -> Self {
+    pub(crate) fn new(now: &StarData, then: &StarData, years: f64) -> Self {
         let mass_per_year = match (now.mass, then.mass) {
             (Some(now_mass), Some(then_mass)) => (now_mass - then_mass) / years,
             _ => MASS_ZERO,
@@ -138,18 +147,11 @@ impl StarDataLifestageEvolution {
             _ => LUMINOSITY_ZERO,
         };
         let temperature_per_year = (now.temperature - then.temperature) / years;
-        let fate = if let Some(mass) = now.mass {
-            StarFate::new(mass)
-        } else {
-            StarFate::WhiteDwarf
-        };
         Self {
             mass_per_year,
             radius_per_year,
             luminous_intensity_per_year,
             temperature_per_year,
-            lifetime,
-            fate,
         }
     }
 
@@ -168,8 +170,6 @@ impl StarDataLifestageEvolution {
         StarAppearanceLifestageEvolution {
             illuminance_per_year,
             color_per_year,
-            lifetime: self.lifetime,
-            fate: self.fate.clone(),
         }
     }
 }
