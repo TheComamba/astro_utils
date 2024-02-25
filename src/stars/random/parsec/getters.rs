@@ -82,25 +82,10 @@ impl ParsecData {
         }
 
         let mut star = current_params.to_star_at_origin();
-
         let trajectory = self.get_trajectory_via_index(mass_index);
-
-        let other_params = if age_index == 0 {
-            &trajectory[age_index + 1]
-        } else {
-            &trajectory[age_index - 1]
-        };
-        let star_at_other_time = other_params.to_star_at_origin();
-        let years = current_params.age_in_years - other_params.age_in_years;
         let lifestage_evolution =
-            StarDataLifestageEvolution::new(&star, &star_at_other_time, years);
-
-        let age_at_epoch = star.get_age_at_epoch();
-        let lifetime = Time::from_yr(ParsecData::get_lifetime_in_years(trajectory) as f64);
-        let initial_mass = Mass::from_solar_mass(trajectory[0].mass_in_solar_masses);
-        let fate = StarFate::new(initial_mass);
-        star.evolution =
-            StarDataEvolution::new(Some(lifestage_evolution), *age_at_epoch, lifetime, fate);
+            get_lifestage_evolution(age_index, trajectory, current_params, &star);
+        star.evolution = get_evolution(current_params, trajectory, lifestage_evolution);
 
         Some(star)
     }
@@ -144,6 +129,36 @@ impl ParsecData {
             age_index + 1
         }
     }
+}
+
+fn get_evolution(
+    current_params: &ParsedParsecLine,
+    trajectory: &Vec<ParsedParsecLine>,
+    lifestage_evolution: StarDataLifestageEvolution,
+) -> StarDataEvolution {
+    let age_at_epoch = Some(Time::from_yr(current_params.age_in_years));
+    let lifetime = Time::from_yr(ParsecData::get_lifetime_in_years(trajectory) as f64);
+    let initial_mass = Mass::from_solar_mass(trajectory[0].mass_in_solar_masses);
+    let fate = StarFate::new(initial_mass);
+    let evolution = StarDataEvolution::new(Some(lifestage_evolution), age_at_epoch, lifetime, fate);
+    evolution
+}
+
+fn get_lifestage_evolution(
+    age_index: usize,
+    trajectory: &Vec<ParsedParsecLine>,
+    current_params: &ParsedParsecLine,
+    star: &StarData,
+) -> StarDataLifestageEvolution {
+    let other_params = if age_index == 0 {
+        &trajectory[age_index + 1]
+    } else {
+        &trajectory[age_index - 1]
+    };
+    let star_at_other_time = other_params.to_star_at_origin();
+    let years = current_params.age_in_years - other_params.age_in_years;
+    let lifestage_evolution = StarDataLifestageEvolution::new(star, &star_at_other_time, years);
+    lifestage_evolution
 }
 
 #[cfg(test)]

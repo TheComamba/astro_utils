@@ -204,4 +204,18 @@ mod tests {
             }
         }
     }
+
+    #[test]
+    fn real_stars_age_is_passed_to_star_data() {
+        for star_data in get_many_stars() {
+            if let Some(age) = star_data.age {
+                assert_eq!(
+                    star_data.to_star_data().get_age_at_epoch().unwrap(),
+                    age,
+                    "{}",
+                    star_data.astronomical_name
+                );
+            }
+        }
+    }
 }

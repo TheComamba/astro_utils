@@ -276,4 +276,13 @@ mod tests {
             }
         }
     }
+
+    #[test]
+    fn random_stars_have_an_age() {
+        let max_distance = Distance::from_lyr(500.);
+        let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
+        for star in star_data {
+            assert!(star.get_age_at_epoch().is_some());
+        }
+    }
 }
