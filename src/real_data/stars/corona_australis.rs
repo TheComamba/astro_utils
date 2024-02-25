@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_CORONAE_AUSTRALIS: RealData = RealData {
-    common_name: "",
+const MERIDIANA: RealData = RealData {
+    common_name: "Meridiana",
     astronomical_name: "Alpha Coronae Australis",
     constellation: "Corona Australis",
     right_ascension: RightAscension::new(19, 9, 28),
@@ -23,9 +23,9 @@ const ALPHA_CORONAE_AUSTRALIS: RealData = RealData {
         m: 125. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.11,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.57 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.21 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const ALPHA_CORONAE_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 0.254 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_CORONAE_AUSTRALIS: RealData = RealData {
@@ -46,14 +49,17 @@ const BETA_CORONAE_AUSTRALIS: RealData = RealData {
         m: 470. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.71,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.17 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 38.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4575. },
     age: None,
+    lifetime: Time {
+        s: 0.10143918 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
@@ -67,9 +73,9 @@ const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
         m: 58.33 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.97,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.15 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.47 * SOLAR_RADIUS.m,
     }),
@@ -77,10 +83,10 @@ const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 5. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5.9461393 * BILLION_YEARS.s,
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [
-    ALPHA_CORONAE_AUSTRALIS,
-    BETA_CORONAE_AUSTRALIS,
-    GAMMA_CORONAE_AUSTRALIS,
-];
+pub(crate) const STARS: [RealData; 3] =
+    [MERIDIANA, BETA_CORONAE_AUSTRALIS, GAMMA_CORONAE_AUSTRALIS];

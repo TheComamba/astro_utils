@@ -36,7 +36,7 @@ pub const SUN: RealData = RealData {
     common_name: "Sun",
     astronomical_name: "Sol",
     constellation: "",
-    mass: Some(SOLAR_MASS),
+    mass: SOLAR_MASS,
     radius: Some(SOLAR_RADIUS),
     absolute_magnitude: 4.83,
     apparent_magnitude: -26.74, //seen from earth
@@ -47,6 +47,9 @@ pub const SUN: RealData = RealData {
     right_ascension: RightAscension::new(0, 0, 0),
     declination: Declination::new(Sgn::Pos, 0, 0, 0),
     distance: DISTANCE_ZERO,
+    lifetime: Time {
+        s: 10.0 * BILLION_YEARS.s,
+    },
 };
 
 pub mod all;

@@ -23,9 +23,9 @@ const ALPHA_HYDRI: RealData = RealData {
         m: 71.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.153,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.040 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const ALPHA_HYDRI: RealData = RealData {
     age: Some(Time {
         s: 0.810 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.36020165 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_HYDRI: RealData = RealData {
@@ -46,9 +49,9 @@ const BETA_HYDRI: RealData = RealData {
         m: 24.33 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.45,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.08 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.809 * SOLAR_RADIUS.m,
     }),
@@ -56,6 +59,9 @@ const BETA_HYDRI: RealData = RealData {
     age: Some(Time {
         s: 6.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_HYDRI: RealData = RealData {
@@ -65,17 +71,20 @@ const GAMMA_HYDRI: RealData = RealData {
     radius: Some(Distance {
         m: 62. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.83,
     apparent_magnitude: 3.26,
     temperature: Temperature { K: 3499. },
-    age: None,
     right_ascension: RightAscension::new(3, 47, 14),
     declination: Declination::new(Sgn::Neg, 74, 14, 20),
     distance: Distance {
         m: 214. * LIGHT_YEAR.m,
+    },
+    age: None,
+    lifetime: Time {
+        s: 9.81519157 * BILLION_YEARS.s,
     },
 };
 

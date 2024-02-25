@@ -23,9 +23,9 @@ const ALPHA_TELESCOPII: RealData = RealData {
         m: 278. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.25,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const ALPHA_TELESCOPII: RealData = RealData {
     age: Some(Time {
         s: 0.0241 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.10143918 * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_TELESCOPII: RealData = RealData {
@@ -46,19 +49,22 @@ const ZETA_TELESCOPII: RealData = RealData {
         m: 126. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.171,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.53 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 9. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4801. },
     age: None,
+    lifetime: Time {
+        s: 2.29668629 * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_TELESCOPII: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epislon Telescopii",
+    astronomical_name: "Epsilon Telescopii",
     constellation: "Telescopium",
     right_ascension: RightAscension::new(18, 11, 14),
     declination: Declination::new(Sgn::Neg, 45, 57, 16),
@@ -67,10 +73,15 @@ const EPSILON_TELESCOPII: RealData = RealData {
         m: 410. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.,
-    mass: None,
+    mass: Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    },
     radius: None,
     temperature: Temperature { K: 4996. },
     age: None,
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_TELESCOPII, ZETA_TELESCOPII, EPSILON_TELESCOPII];

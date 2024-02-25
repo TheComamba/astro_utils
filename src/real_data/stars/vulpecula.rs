@@ -23,9 +23,9 @@ const ALPHA_VULPECULAE: RealData = RealData {
         m: 291. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.36,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.97 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 43.14 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const ALPHA_VULPECULAE: RealData = RealData {
     age: Some(Time {
         s: 11.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 11.7800188 * BILLION_YEARS.s,
+    },
 };
 
 const TWENTYTHREE_VULPECULAE: RealData = RealData {
@@ -46,12 +49,15 @@ const TWENTYTHREE_VULPECULAE: RealData = RealData {
         m: 327. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.58,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 4429. },
     age: None,
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
 };
 
 const THIRTYONE_VULPECULAE: RealData = RealData {
@@ -65,9 +71,9 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
         m: 216.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.449,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 8.01 * SOLAR_RADIUS.m,
     }),
@@ -75,6 +81,9 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
     age: Some(Time {
         s: 0.7 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [

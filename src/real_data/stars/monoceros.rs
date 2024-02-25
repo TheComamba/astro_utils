@@ -23,9 +23,9 @@ const ALPHA_MONOCEROTIS: RealData = RealData {
         m: 148. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.71,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.02 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10.1 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const ALPHA_MONOCEROTIS: RealData = RealData {
     age: Some(Time {
         s: 1.18 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.36020165 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_MONOCEROTIS: RealData = RealData {
@@ -46,10 +49,15 @@ const GAMMA_MONOCEROTIS: RealData = RealData {
         m: 500. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.93,
-    mass: None,
+    mass: Mass {
+        kg: 1.2 * SOLAR_MASS.kg,
+    },
     radius: None,
     temperature: Temperature { K: 4375. },
     age: None,
+    lifetime: Time {
+        s: 5.06543331 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_MONOCEROTIS: RealData = RealData {
@@ -63,14 +71,17 @@ const DELTA_MONOCEROTIS: RealData = RealData {
         m: 384. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.20,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 9462. },
     age: Some(Time {
         s: 0.405 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_MONOCEROTIS, GAMMA_MONOCEROTIS, DELTA_MONOCEROTIS];

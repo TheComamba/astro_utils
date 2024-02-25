@@ -19,9 +19,9 @@ const ENIF: RealData = RealData {
     radius: Some(Distance {
         m: 211. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.07 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.19,
     apparent_magnitude: 2.38,
     temperature: Temperature { K: 3963. },
@@ -33,6 +33,9 @@ const ENIF: RealData = RealData {
     distance: Distance {
         m: 672. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.052267043 * BILLION_YEARS.s,
+    },
 };
 
 const SCHEAT: RealData = RealData {
@@ -42,9 +45,9 @@ const SCHEAT: RealData = RealData {
     radius: Some(Distance {
         m: 95. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.49,
     apparent_magnitude: 2.44,
     temperature: Temperature { K: 3689. },
@@ -53,6 +56,9 @@ const SCHEAT: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 28, 4, 58),
     distance: Distance {
         m: 199. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 1.17901142 * BILLION_YEARS.s,
     },
 };
 
@@ -63,9 +69,9 @@ const MARKAB: RealData = RealData {
     radius: Some(Distance {
         m: 4.62 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.67,
     apparent_magnitude: 2.49,
     temperature: Temperature { K: 10_100. },
@@ -76,6 +82,9 @@ const MARKAB: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 15, 12, 19),
     distance: Distance {
         m: 140. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 

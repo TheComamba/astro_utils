@@ -23,14 +23,17 @@ const ALPHA_DORADUS: RealData = RealData {
         m: 169. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.357,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.33 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 11_588. },
     age: None,
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_DORADUS: RealData = RealData {
@@ -44,16 +47,19 @@ const BETA_DORADUS: RealData = RealData {
         m: 1050. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.91,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 67.8 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5445. },
     age: Some(Time {
-        s: 0.0425 * BILLION_YEARS.s,
+        s: 0.04 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.040555762 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_DORADUS: RealData = RealData {
@@ -67,9 +73,9 @@ const GAMMA_DORADUS: RealData = RealData {
         m: 66.7 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.72,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.85 * SOLAR_RADIUS.m,
     }),
@@ -77,6 +83,9 @@ const GAMMA_DORADUS: RealData = RealData {
     age: Some(Time {
         s: 0.535 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.29668629 * BILLION_YEARS.s,
+    },
 };
 
 const R_DORADUS: RealData = RealData {
@@ -86,15 +95,18 @@ const R_DORADUS: RealData = RealData {
     radius: Some(Distance {
         m: 298. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.61,
     apparent_magnitude: 5.59,
     temperature: Temperature { K: 2710. },
     age: Some(Time {
-        s: 10. * BILLION_YEARS.s,
+        s: 4. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 21.4199307 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(4, 36, 46),
     declination: Declination::new(Sgn::Neg, 62, 4, 38),
     distance: Distance {

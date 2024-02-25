@@ -19,15 +19,18 @@ const ALPHERATZ: RealData = RealData {
     radius: Some(Distance {
         m: 2.7 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 13_800. },
     age: Some(Time {
         s: 0.06 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.220601963 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(0, 8, 23),
     declination: Declination::new(Sgn::Pos, 29, 5, 26),
     distance: Distance {
@@ -42,13 +45,16 @@ const MIRACH: RealData = RealData {
     radius: Some(Distance {
         m: 100. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.49 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.86,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 3842. },
     age: None,
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(1, 9, 44),
     declination: Declination::new(Sgn::Pos, 35, 37, 14),
     distance: Distance {
@@ -63,15 +69,18 @@ const ALMACH: RealData = RealData {
     radius: Some(Distance {
         m: 80. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 23.7 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.08,
     apparent_magnitude: 2.1,
     temperature: Temperature { K: 4250. },
     age: Some(Time {
         s: 0.0065 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.008063854 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(2, 3, 54),
     declination: Declination::new(Sgn::Pos, 42, 19, 47),
     distance: Distance {

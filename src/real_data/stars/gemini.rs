@@ -19,15 +19,18 @@ const POLLUX: RealData = RealData {
     radius: Some(Distance {
         m: 9.06 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.91 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.09,
     apparent_magnitude: 1.16,
     temperature: Temperature { K: 4586. },
     age: Some(Time {
         s: 0.724 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.54706939 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(7, 45, 19),
     declination: Declination::new(Sgn::Pos, 28, 1, 34),
     distance: Distance {
@@ -42,15 +45,18 @@ const CASTOR: RealData = RealData {
     radius: Some(Distance {
         m: 2.089 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.37 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.59,
     apparent_magnitude: 1.58,
     temperature: Temperature { K: 10_286. },
     age: Some(Time {
         s: 0.290 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(7, 34, 36),
     declination: Declination::new(Sgn::Pos, 31, 53, 18),
     distance: Distance {
@@ -65,13 +71,16 @@ const ALHENA: RealData = RealData {
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.81 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.60,
     apparent_magnitude: 1.93,
     temperature: Temperature { K: 9260. },
     age: None,
+    lifetime: Time {
+        s: 0.513076303 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(6, 37, 43),
     declination: Declination::new(Sgn::Pos, 16, 23, 57),
     distance: Distance {
@@ -86,13 +95,16 @@ const TEJAT: RealData = RealData {
     radius: Some(Distance {
         m: 90. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.42,
     apparent_magnitude: 2.75,
     temperature: Temperature { K: 3460. },
     age: None,
+    lifetime: Time {
+        s: 1.17901142 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(6, 22, 58),
     declination: Declination::new(Sgn::Pos, 22, 30, 49),
     distance: Distance {
@@ -107,15 +119,18 @@ const PROPUS: RealData = RealData {
     radius: Some(Distance {
         m: 275. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.84,
     apparent_magnitude: 3.31,
     temperature: Temperature { K: 3502. },
     age: Some(Time {
-        s: 0.81 * BILLION_YEARS.s,
+        s: 0.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(6, 14, 53),
     declination: Declination::new(Sgn::Pos, 22, 30, 24),
     distance: Distance {

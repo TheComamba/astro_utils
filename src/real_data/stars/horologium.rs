@@ -7,9 +7,10 @@ use crate::{
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
+        time::BILLION_YEARS,
     },
 };
-use simple_si_units::base::{Distance, Mass, Temperature};
+use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_HOROLOGII: RealData = RealData {
     common_name: "",
@@ -22,14 +23,17 @@ const ALPHA_HOROLOGII: RealData = RealData {
         m: 115. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.08,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.55 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 8. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5028. },
     age: None,
+    lifetime: Time {
+        s: 2.29668629 * BILLION_YEARS.s,
+    },
 };
 
 const R_HOROLOGII: RealData = RealData {
@@ -43,10 +47,15 @@ const R_HOROLOGII: RealData = RealData {
         m: 1003. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.221,
-    mass: None,
+    mass: Mass {
+        kg: 3.0 * SOLAR_MASS.kg,
+    },
     radius: None,
     temperature: Temperature { K: 2200. },
     age: None,
+    lifetime: Time {
+        s: 0.420724107 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_HOROLOGII: RealData = RealData {
@@ -60,12 +69,17 @@ const BETA_HOROLOGII: RealData = RealData {
         m: 312. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.2,
-    mass: None,
+    mass: Mass {
+        kg: 3.3 * SOLAR_MASS.kg,
+    },
     radius: Some(Distance {
         m: 1.4 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8303. },
     age: None,
+    lifetime: Time {
+        s: 0.351318702 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_HOROLOGII, R_HOROLOGII, BETA_HOROLOGII];

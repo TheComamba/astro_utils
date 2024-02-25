@@ -19,19 +19,22 @@ const ALPHA_LYNCIS: RealData = RealData {
     radius: Some(Distance {
         m: 54.5 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.02,
     apparent_magnitude: 3.15,
     temperature: Temperature { K: 3882. },
-    age: Some(Time {
-        s: 1.4 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(9, 21, 3),
     declination: Declination::new(Sgn::Pos, 34, 23, 33),
     distance: Distance {
         m: 221.9 * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 1.3 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 
@@ -46,9 +49,9 @@ const THIRTYEIGHT_LYNCIS: RealData = RealData {
         m: 117. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.98,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.9 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.07 * SOLAR_RADIUS.m,
     }),
@@ -56,6 +59,9 @@ const THIRTYEIGHT_LYNCIS: RealData = RealData {
     age: Some(Time {
         s: 0.213 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.54706939 * BILLION_YEARS.s,
+    },
 };
 
 const THIRTYONE_LYNCIS: RealData = RealData {
@@ -69,9 +75,9 @@ const THIRTYONE_LYNCIS: RealData = RealData {
         m: 380. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.09,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.95 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 53.27 * SOLAR_RADIUS.m,
     }),
@@ -79,6 +85,9 @@ const THIRTYONE_LYNCIS: RealData = RealData {
     age: Some(Time {
         s: 1.32 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.46316038 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_LYNCIS, THIRTYEIGHT_LYNCIS, THIRTYONE_LYNCIS];

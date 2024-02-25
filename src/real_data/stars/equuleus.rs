@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_EQUULEI: RealData = RealData {
-    common_name: "",
+const KITALPHA: RealData = RealData {
+    common_name: "Kitalpha",
     astronomical_name: "Alpha Equulei",
     constellation: "Equuleus",
     right_ascension: RightAscension::new(21, 15, 49),
@@ -23,14 +23,17 @@ const ALPHA_EQUULEI: RealData = RealData {
         m: 190. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.17,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.3 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 9.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5100. },
     age: None,
+    lifetime: Time {
+        s: 0.916355612 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_EQUULEI: RealData = RealData {
@@ -44,9 +47,9 @@ const DELTA_EQUULEI: RealData = RealData {
         m: 60.25 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.140,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.192 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.30 * SOLAR_RADIUS.m,
     }),
@@ -54,6 +57,9 @@ const DELTA_EQUULEI: RealData = RealData {
     age: Some(Time {
         s: 3. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5.06543331 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_EQUULEI: RealData = RealData {
@@ -67,9 +73,9 @@ const GAMMA_EQUULEI: RealData = RealData {
         m: 118. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.9,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.78 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.11 * SOLAR_RADIUS.m,
     }),
@@ -77,6 +83,9 @@ const GAMMA_EQUULEI: RealData = RealData {
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.46605285 * BILLION_YEARS.s,
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_EQUULEI, DELTA_EQUULEI, GAMMA_EQUULEI];
+pub(crate) const STARS: [RealData; 3] = [KITALPHA, DELTA_EQUULEI, GAMMA_EQUULEI];

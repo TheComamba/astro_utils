@@ -19,9 +19,9 @@ const PEACOCK: RealData = RealData {
     radius: Some(Distance {
         m: 4.83 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.91 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.81,
     apparent_magnitude: 1.94,
     temperature: Temperature { K: 17_711. },
@@ -32,6 +32,9 @@ const PEACOCK: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 56, 44, 6),
     distance: Distance {
         m: 183. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0.073299383 * BILLION_YEARS.s,
     },
 };
 
@@ -46,9 +49,9 @@ const BETA_PAVONIS: RealData = RealData {
         m: 135.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.33,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.51 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.3 * SOLAR_RADIUS.m,
     }),
@@ -56,6 +59,9 @@ const BETA_PAVONIS: RealData = RealData {
     age: Some(Time {
         s: 0.305 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_PAVONIS: RealData = RealData {
@@ -69,9 +75,9 @@ const DELTA_PAVONIS: RealData = RealData {
         m: 19.89 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 4.62,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.051 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.197 * SOLAR_RADIUS.m,
     }),
@@ -79,6 +85,9 @@ const DELTA_PAVONIS: RealData = RealData {
     age: Some(Time {
         s: 6.7 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 8.24015833 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [PEACOCK, BETA_PAVONIS, DELTA_PAVONIS];

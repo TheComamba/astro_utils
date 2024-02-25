@@ -1,4 +1,4 @@
-use crate::stars::star_appearance::StarAppearance;
+use crate::stars::appearance::StarAppearance;
 use serde::{Deserialize, Serialize};
 use simple_si_units::geometry::Angle;
 use std::cmp::Ordering;
@@ -211,8 +211,8 @@ mod tests {
         coordinates::spherical::SphericalCoordinates,
         real_data::stars::all::get_many_stars,
         stars::{
+            appearance_evolution::StarAppearanceEvolution,
             constellation::constellation::collect_constellations,
-            star_appearance_evolution::StarAppearanceEvolution,
         },
         units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY},
     };

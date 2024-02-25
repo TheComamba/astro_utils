@@ -23,9 +23,9 @@ const GAMMA_SAGITTAE: RealData = RealData {
         m: 288. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.11,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.88 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 55.13 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const GAMMA_SAGITTAE: RealData = RealData {
     age: Some(Time {
         s: 2.35 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 14.2493142 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_SAGITTAE: RealData = RealData {
@@ -46,14 +49,17 @@ const DELTA_SAGITTAE: RealData = RealData {
         m: 550. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.58,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.35 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 108. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 3660. },
     age: None,
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
 const ALPHA_SAGITTAE: RealData = RealData {
@@ -67,9 +73,9 @@ const ALPHA_SAGITTAE: RealData = RealData {
         m: 382. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.96,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4.11 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 21. * SOLAR_RADIUS.m,
     }),
@@ -77,6 +83,9 @@ const ALPHA_SAGITTAE: RealData = RealData {
     age: Some(Time {
         s: 0.151 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.170765802 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [GAMMA_SAGITTAE, DELTA_SAGITTAE, ALPHA_SAGITTAE];

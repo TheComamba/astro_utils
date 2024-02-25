@@ -17,15 +17,18 @@ const ALPHA_LUPI: RealData = RealData {
     astronomical_name: "Alpha Lupi",
     constellation: "Lupus",
     radius: None,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 10.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.83,
     apparent_magnitude: 2.30,
     temperature: Temperature { K: 21_820. },
     age: Some(Time {
         s: 0.018 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.026540021 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(14, 41, 56),
     declination: Declination::new(Sgn::Neg, 47, 23, 18),
     distance: Distance {
@@ -44,9 +47,9 @@ const BETA_LUPI: RealData = RealData {
         m: 523.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.35,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 8.8 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 6.6 * SOLAR_RADIUS.m,
     }),
@@ -54,6 +57,9 @@ const BETA_LUPI: RealData = RealData {
     age: Some(Time {
         s: 0.0246 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.03224554 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_LUPI: RealData = RealData {
@@ -67,14 +73,17 @@ const GAMMA_LUPI: RealData = RealData {
         m: 567. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.4,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 9.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 20_900. },
     age: Some(Time {
         s: 0.0186 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.03224554 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_LUPI, BETA_LUPI, GAMMA_LUPI];

@@ -4,7 +4,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Time, electromagnetic::Illuminance, geometry::Angle};
 
-use super::star_appearance_evolution::StarAppearanceEvolution;
+use super::appearance_evolution::StarAppearanceEvolution;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
@@ -41,8 +41,7 @@ impl StarAppearance {
     }
 
     pub fn get_illuminance(&self, time: Time<f64>) -> Illuminance<f64> {
-        self.evolution
-            .apply_to_illuminance(self.illuminance, time.to_yr())
+        self.evolution.apply_to_illuminance(self.illuminance, time)
     }
 
     pub const fn get_color_at_epoch(&self) -> &sRGBColor {
@@ -50,7 +49,7 @@ impl StarAppearance {
     }
 
     pub fn get_color(&self, time: Time<f64>) -> sRGBColor {
-        self.evolution.apply_to_color(self.color, time.to_yr())
+        self.evolution.apply_to_color(self.color, time)
     }
 
     pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
@@ -97,6 +96,12 @@ impl AstroDisplay for StarAppearance {
 
 #[cfg(test)]
 mod tests {
+    use crate::{
+        real_data::stars::all::get_many_stars,
+        tests::{eq_within, TEST_ACCURACY},
+        units::{tests::ANGLE_TEST_ACCURACY, time::TIME_ZERO},
+    };
+
     use super::*;
 
     #[test]
@@ -140,5 +145,28 @@ mod tests {
         other.illuminance = Illuminance::from_lux(100.0);
 
         assert!(!star.apparently_the_same(&other));
+    }
+
+    #[test]
+    fn comparing_getting_stuff_at_epoch() {
+        let star_data: Vec<StarAppearance> = get_many_stars()
+            .iter()
+            .map(|s| s.to_star_appearance())
+            .collect();
+        for star in star_data {
+            assert!(eq_within(
+                star.get_illuminance_at_epoch().lux,
+                star.get_illuminance(TIME_ZERO).lux,
+                TEST_ACCURACY
+            ));
+            let color1 = star.get_color_at_epoch().maximized_sRGB_tuple();
+            let color2 = star.get_color(TIME_ZERO).maximized_sRGB_tuple();
+            assert!(eq_within(color1.0, color2.0, TEST_ACCURACY));
+            assert!(eq_within(color1.1, color2.1, TEST_ACCURACY));
+            assert!(eq_within(color1.2, color2.2, TEST_ACCURACY));
+            assert!(star
+                .get_pos_at_epoch()
+                .eq_within(&star.get_pos(TIME_ZERO), ANGLE_TEST_ACCURACY));
+        }
     }
 }

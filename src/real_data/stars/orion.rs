@@ -19,9 +19,9 @@ const RIGEL: RealData = RealData {
     radius: Some(Distance {
         m: 78.9 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 21. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -6.69,
     apparent_magnitude: 0.18,
     temperature: Temperature { K: 12_100. },
@@ -33,6 +33,9 @@ const RIGEL: RealData = RealData {
     distance: Distance {
         m: 773. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.009767659 * BILLION_YEARS.s,
+    },
 };
 
 const BETELGEUSE: RealData = RealData {
@@ -42,19 +45,22 @@ const BETELGEUSE: RealData = RealData {
     radius: Some(Distance {
         m: 887. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 16.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -5.14,
     apparent_magnitude: 0.9,
     temperature: Temperature { K: 3600. },
-    age: Some(Time {
-        s: 0.008 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(5, 55, 10),
     declination: Declination::new(Sgn::Pos, 7, 24, 25),
     distance: Distance {
         m: 522. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.012799766 * BILLION_YEARS.s - 100. * 365.25 * 24. * 60. * 60.,
+    }),
+    lifetime: Time {
+        s: 0.012799766 * BILLION_YEARS.s,
     },
 };
 
@@ -65,9 +71,9 @@ const BELLATRIX: RealData = RealData {
     radius: Some(Distance {
         m: 5.75 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.7 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -2.72,
     apparent_magnitude: 1.64,
     temperature: Temperature { K: 21_800. },
@@ -79,6 +85,9 @@ const BELLATRIX: RealData = RealData {
     distance: Distance {
         m: 243. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.040555762 * BILLION_YEARS.s,
+    },
 };
 
 const ALNILAM: RealData = RealData {
@@ -88,19 +97,22 @@ const ALNILAM: RealData = RealData {
     radius: Some(Distance {
         m: 42. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
-        kg: 64.5 * SOLAR_MASS.kg,
-    }),
+    mass: Mass {
+        kg: 34.6 * SOLAR_MASS.kg,
+    },
     absolute_magnitude: -6.38,
     apparent_magnitude: 1.69,
     temperature: Temperature { K: 27_000. },
-    age: Some(Time {
-        s: 0.0057 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(5, 36, 13),
     declination: Declination::new(Sgn::Neg, 1, 12, 7),
     distance: Distance {
         m: 1342. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.0057 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.005807621 * BILLION_YEARS.s,
     },
 };
 
@@ -111,19 +123,22 @@ const ALNITAK: RealData = RealData {
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
-        kg: 33.0 * SOLAR_MASS.kg,
-    }),
+    mass: Mass {
+        kg: 31.0 * SOLAR_MASS.kg,
+    },
     absolute_magnitude: -5.26,
     apparent_magnitude: 1.74,
     temperature: Temperature { K: 29_500. },
-    age: Some(Time {
-        s: 0.0064 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(5, 40, 46),
     declination: Declination::new(Sgn::Neg, 1, 56, 34),
     distance: Distance {
         m: 817. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.0064 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.006573099 * BILLION_YEARS.s,
     },
 };
 
@@ -134,9 +149,9 @@ const SAIPH: RealData = RealData {
     radius: Some(Distance {
         m: 22.2 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 15.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.65,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 26_500. },
@@ -148,6 +163,9 @@ const SAIPH: RealData = RealData {
     distance: Distance {
         m: 721.2 * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.012799766 * BILLION_YEARS.s,
+    },
 };
 
 const MINTAKA: RealData = RealData {
@@ -157,17 +175,22 @@ const MINTAKA: RealData = RealData {
     radius: Some(Distance {
         m: 16.5 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 24. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.99,
     apparent_magnitude: 2.25,
     temperature: Temperature { K: 29_500. },
-    age: None,
     right_ascension: RightAscension::new(5, 32, 0),
     declination: Declination::new(Sgn::Neg, 0, 17, 57),
     distance: Distance {
         m: 916. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.008 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.008063854 * BILLION_YEARS.s,
     },
 };
 

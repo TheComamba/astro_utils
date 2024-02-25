@@ -19,19 +19,22 @@ const HAMAL: RealData = RealData {
     radius: Some(Distance {
         m: 14.9 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.48,
     apparent_magnitude: 2.01,
     temperature: Temperature { K: 4480. },
-    age: Some(Time {
-        s: 3.4 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(2, 7, 10),
     declination: Declination::new(Sgn::Pos, 23, 27, 45),
     distance: Distance {
         m: 66. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 2.5 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 2.54186931 * BILLION_YEARS.s,
     },
 };
 
@@ -46,9 +49,9 @@ const BETA_ARIETIS: RealData = RealData {
         m: 59.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.55,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.34 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 23. * SOLAR_RADIUS.m,
     }),
@@ -56,10 +59,13 @@ const BETA_ARIETIS: RealData = RealData {
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.916355612 * BILLION_YEARS.s,
+    },
 };
 
-const FOURTYONE_ARIETIS: RealData = RealData {
-    common_name: "",
+const BHARANI: RealData = RealData {
+    common_name: "Bharani",
     astronomical_name: "41 Arietis",
     constellation: "Aries",
     right_ascension: RightAscension::new(2, 49, 59),
@@ -69,14 +75,17 @@ const FOURTYONE_ARIETIS: RealData = RealData {
         m: 166. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.163,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 11_900. },
     age: Some(Time {
         s: 0.130 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.420724107 * BILLION_YEARS.s,
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [HAMAL, BETA_ARIETIS, FOURTYONE_ARIETIS];
+pub(crate) const STARS: [RealData; 3] = [HAMAL, BETA_ARIETIS, BHARANI];

@@ -23,14 +23,19 @@ const ALPHA_ARAE: RealData = RealData {
         m: 270. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.72,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 9.6 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 18_044. },
-    age: None,
+    age: Some(Time {
+        s: 0.026 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.026540021 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_ARAE: RealData = RealData {
@@ -40,19 +45,22 @@ const BETA_ARAE: RealData = RealData {
     radius: Some(Distance {
         m: 142. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 8.21 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.49,
     apparent_magnitude: 2.84,
     temperature: Temperature { K: 4197. },
-    age: Some(Time {
-        s: 0.05 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(17, 25, 18),
     declination: Declination::new(Sgn::Neg, 55, 31, 48),
     distance: Distance {
         m: 602.6 * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.035 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.040555762 * BILLION_YEARS.s,
     },
 };
 
@@ -67,16 +75,19 @@ const GAMMA_ARAE: RealData = RealData {
         m: 1136. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -4.4,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 20. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 23. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 21_500. },
     age: Some(Time {
-        s: 0.0157 * BILLION_YEARS.s,
+        s: 0.009 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.009767659 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_ARAE: RealData = RealData {
@@ -90,9 +101,9 @@ const DELTA_ARAE: RealData = RealData {
         m: 198. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.31,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.12 * SOLAR_RADIUS.m,
     }),
@@ -100,6 +111,9 @@ const DELTA_ARAE: RealData = RealData {
     age: Some(Time {
         s: 0.125 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.254814649 * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_ARAE: RealData = RealData {
@@ -113,9 +127,9 @@ const ZETA_ARAE: RealData = RealData {
         m: 573.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.11,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 114. * SOLAR_RADIUS.m,
     }),
@@ -123,6 +137,9 @@ const ZETA_ARAE: RealData = RealData {
     age: Some(Time {
         s: 0.045 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.052267043 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 5] = [ALPHA_ARAE, BETA_ARAE, GAMMA_ARAE, DELTA_ARAE, ZETA_ARAE];

@@ -19,9 +19,9 @@ const ATRIA: RealData = RealData {
     radius: Some(Distance {
         m: 143. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.62,
     apparent_magnitude: 1.91,
     temperature: Temperature { K: 4150. },
@@ -32,6 +32,9 @@ const ATRIA: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 69, 1, 40),
     distance: Distance {
         m: 415. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 
@@ -46,9 +49,9 @@ const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
         m: 40.37 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.37,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.976 * SOLAR_RADIUS.m,
     }),
@@ -56,6 +59,9 @@ const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 0.674 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.29668629 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
@@ -69,9 +75,9 @@ const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
         m: 184. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.89,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.99 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.86 * SOLAR_RADIUS.m,
     }),
@@ -79,6 +85,9 @@ const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 0.260 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.36020165 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] =

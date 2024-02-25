@@ -19,9 +19,9 @@ const ALIOTH: RealData = RealData {
     radius: Some(Distance {
         m: 4.14 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.91 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.21,
     apparent_magnitude: 1.76,
     temperature: Temperature { K: 9_020. },
@@ -33,6 +33,9 @@ const ALIOTH: RealData = RealData {
     distance: Distance {
         m: 81. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.420724107 * BILLION_YEARS.s,
+    },
 };
 
 const DUBHE: RealData = RealData {
@@ -42,9 +45,9 @@ const DUBHE: RealData = RealData {
     radius: Some(Distance {
         m: 17.03 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.44 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.08,
     apparent_magnitude: 1.81,
     temperature: Temperature { K: 5012. },
@@ -56,6 +59,9 @@ const DUBHE: RealData = RealData {
     distance: Distance {
         m: 124. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
 const ALKAID: RealData = RealData {
@@ -65,9 +71,9 @@ const ALKAID: RealData = RealData {
     radius: Some(Distance {
         m: 3.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.60,
     apparent_magnitude: 1.85,
     temperature: Temperature { K: 15_540. },
@@ -79,6 +85,9 @@ const ALKAID: RealData = RealData {
     distance: Distance {
         m: 101. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.073299383 * BILLION_YEARS.s,
+    },
 };
 
 const MIZAR: RealData = RealData {
@@ -88,9 +97,9 @@ const MIZAR: RealData = RealData {
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.33,
     apparent_magnitude: 2.23,
     temperature: Temperature { K: 9000. },
@@ -102,6 +111,9 @@ const MIZAR: RealData = RealData {
     distance: Distance {
         m: 78. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 1.03650581 * BILLION_YEARS.s,
+    },
 };
 
 const MERAK: RealData = RealData {
@@ -111,9 +123,9 @@ const MERAK: RealData = RealData {
     radius: Some(Distance {
         m: 3.021 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.7 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.41,
     apparent_magnitude: 2.34,
     temperature: Temperature { K: 9377. },
@@ -125,6 +137,9 @@ const MERAK: RealData = RealData {
     distance: Distance {
         m: 79. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const PHECDA: RealData = RealData {
@@ -134,9 +149,9 @@ const PHECDA: RealData = RealData {
     radius: Some(Distance {
         m: 3.04 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.94 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.36,
     apparent_magnitude: 2.41,
     temperature: Temperature { K: 9355. },
@@ -148,6 +163,9 @@ const PHECDA: RealData = RealData {
     distance: Distance {
         m: 84. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.420724107 * BILLION_YEARS.s,
+    },
 };
 
 const TANIA_AUSTRALIS: RealData = RealData {
@@ -157,9 +175,9 @@ const TANIA_AUSTRALIS: RealData = RealData {
     radius: Some(Distance {
         m: 75. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6.3 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.2,
     apparent_magnitude: 3.06,
     temperature: Temperature { K: 3899. },
@@ -168,6 +186,9 @@ const TANIA_AUSTRALIS: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 41, 29, 58),
     distance: Distance {
         m: 230.0 * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0.067960505 * BILLION_YEARS.s,
     },
 };
 
@@ -178,9 +199,9 @@ const MEGREZ: RealData = RealData {
     radius: Some(Distance {
         m: 1.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.63 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.39,
     apparent_magnitude: 3.312,
     temperature: Temperature { K: 9480. },
@@ -191,6 +212,9 @@ const MEGREZ: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 57, 1, 57),
     distance: Distance {
         m: 80.5 * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 1.89665739 * BILLION_YEARS.s,
     },
 };
 

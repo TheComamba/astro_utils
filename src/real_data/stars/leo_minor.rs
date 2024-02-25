@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const FOURTYSIX_LEONIS_MINORIS: RealData = RealData {
-    common_name: "",
+const PRAECIPUA: RealData = RealData {
+    common_name: "Praecipua",
     astronomical_name: "46 Leonis Minoris",
     constellation: "Leo Minor",
     right_ascension: RightAscension::new(10, 53, 19),
@@ -23,16 +23,19 @@ const FOURTYSIX_LEONIS_MINORIS: RealData = RealData {
         m: 94.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.45,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.69 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 8.22 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4670. },
     age: Some(Time {
-        s: 6.76 * BILLION_YEARS.s,
+        s: 1.7 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.73766023 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_LEONIS_MINORIS: RealData = RealData {
@@ -46,16 +49,19 @@ const BETA_LEONIS_MINORIS: RealData = RealData {
         m: 154. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.85,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.98 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 9.4 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4097. },
     age: Some(Time {
-        s: 1.2 * BILLION_YEARS.s,
+        s: 0.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.420724107 * BILLION_YEARS.s,
+    },
 };
 
 const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
@@ -69,9 +75,9 @@ const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
         m: 92.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.43,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.75 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.75 * SOLAR_RADIUS.m,
     }),
@@ -79,10 +85,9 @@ const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 0.390 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.59501327 * BILLION_YEARS.s,
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [
-    BETA_LEONIS_MINORIS,
-    FOURTYSIX_LEONIS_MINORIS,
-    TWENTYFOUR_LEONIS_MINORIS,
-];
+pub(crate) const STARS: [RealData; 3] = [BETA_LEONIS_MINORIS, PRAECIPUA, TWENTYFOUR_LEONIS_MINORIS];

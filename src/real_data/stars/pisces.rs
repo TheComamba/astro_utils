@@ -23,14 +23,17 @@ const ALPHA_PISCIUM: RealData = RealData {
         m: 151. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.5,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.55 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.45 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 10_233. },
     age: None,
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_PISCIUM: RealData = RealData {
@@ -44,9 +47,9 @@ const DELTA_PISCIUM: RealData = RealData {
         m: 311. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.46,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.65 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 44. * SOLAR_RADIUS.m,
     }),
@@ -54,6 +57,9 @@ const DELTA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 0.00298 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.89665739 * BILLION_YEARS.s,
+    },
 };
 
 const NU_PISCIUM: RealData = RealData {
@@ -67,16 +73,19 @@ const NU_PISCIUM: RealData = RealData {
         m: 363. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.78,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.66 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 34. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4154. },
     age: Some(Time {
-        s: 3.41 * BILLION_YEARS.s,
+        s: 1.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.89665739 * BILLION_YEARS.s,
+    },
 };
 
 const IOTA_PISCIUM: RealData = RealData {
@@ -90,14 +99,19 @@ const IOTA_PISCIUM: RealData = RealData {
         m: 44.73 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.43,
-    mass: None,
+    mass: Mass {
+        kg: 1.3 * SOLAR_MASS.kg,
+    },
     radius: Some(Distance {
         m: 1.595 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6288. },
     age: Some(Time {
-        s: 5.2 * BILLION_YEARS.s,
+        s: 3.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.9126515 * BILLION_YEARS.s,
+    },
 };
 
 const OMICRON_PISCIUM: RealData = RealData {
@@ -111,9 +125,9 @@ const OMICRON_PISCIUM: RealData = RealData {
         m: 280. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.22,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.03 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 14.57 * SOLAR_RADIUS.m,
     }),
@@ -121,6 +135,9 @@ const OMICRON_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 0.390 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.420724107 * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_PISCIUM: RealData = RealData {
@@ -134,16 +151,19 @@ const EPSILON_PISCIUM: RealData = RealData {
         m: 182. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.44,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.27 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10.9 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4814. },
     age: Some(Time {
-        s: 2.56 * BILLION_YEARS.s,
+        s: 0.9 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.964406929 * BILLION_YEARS.s,
+    },
 };
 
 const THETA_PISCIUM: RealData = RealData {
@@ -157,9 +177,9 @@ const THETA_PISCIUM: RealData = RealData {
         m: 149. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.83,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.58 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
@@ -167,6 +187,9 @@ const THETA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 0.00245 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.08398753 * BILLION_YEARS.s,
+    },
 };
 
 const ETA_PISCIUM: RealData = RealData {
@@ -180,9 +203,9 @@ const ETA_PISCIUM: RealData = RealData {
         m: 350. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.52,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.78 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 26.48 * SOLAR_RADIUS.m,
     }),
@@ -190,6 +213,9 @@ const ETA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 0.220 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.220601963 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_PISCIUM: RealData = RealData {
@@ -203,9 +229,9 @@ const GAMMA_PISCIUM: RealData = RealData {
         m: 135. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.68,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.97 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.28 * SOLAR_RADIUS.m,
     }),
@@ -213,6 +239,9 @@ const GAMMA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 4.58 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 11.7800188 * BILLION_YEARS.s,
+    },
 };
 
 const OMEGA_PISCIUM: RealData = RealData {
@@ -226,14 +255,17 @@ const OMEGA_PISCIUM: RealData = RealData {
         m: 104.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.51,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.22 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 6641. },
     age: Some(Time {
         s: 1.337 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5.06543331 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 10] = [

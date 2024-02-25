@@ -23,16 +23,19 @@ const ALPHA_MUSCAE: RealData = RealData {
         m: 315. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.2,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 8.8 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.8 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 21_400. },
     age: Some(Time {
-        s: 18.3 * BILLION_YEARS.s,
+        s: 0.0183 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.03224554 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_MUSCAE: RealData = RealData {
@@ -46,14 +49,17 @@ const BETA_MUSCAE: RealData = RealData {
         m: 340. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.06,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.35 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 21_000. },
     age: Some(Time {
         s: 0.0151 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.052267043 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_MUSCAE: RealData = RealData {
@@ -67,10 +73,15 @@ const DELTA_MUSCAE: RealData = RealData {
         m: 91. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.38,
-    mass: None,
+    mass: Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    },
     radius: None,
     temperature: Temperature { K: 4_400. },
     age: None,
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_MUSCAE, BETA_MUSCAE, DELTA_MUSCAE];

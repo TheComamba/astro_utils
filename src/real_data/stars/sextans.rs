@@ -23,9 +23,9 @@ const ALPHA_SEXTANTIS: RealData = RealData {
         m: 280. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.29,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.57 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.07 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const ALPHA_SEXTANTIS: RealData = RealData {
     age: Some(Time {
         s: 0.385 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_SEXTANTIS: RealData = RealData {
@@ -46,14 +49,17 @@ const GAMMA_SEXTANTIS: RealData = RealData {
         m: 280. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.43,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.60 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 9825. },
     age: Some(Time {
         s: 0.401 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_SEXTANTIS: RealData = RealData {
@@ -67,12 +73,17 @@ const BETA_SEXTANTIS: RealData = RealData {
         m: 364. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.38,
-    mass: None,
+    mass: Mass {
+        kg: 5.1 * SOLAR_MASS.kg,
+    },
     radius: Some(Distance {
         m: 3.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 14_570. },
     age: None,
+    lifetime: Time {
+        s: 0.111319448 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_SEXTANTIS, GAMMA_SEXTANTIS, BETA_SEXTANTIS];

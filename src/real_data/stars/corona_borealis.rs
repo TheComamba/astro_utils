@@ -19,15 +19,18 @@ const ALPHECCA: RealData = RealData {
     radius: Some(Distance {
         m: 3. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.58 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.42,
     apparent_magnitude: 2.22,
     temperature: Temperature { K: 9700. },
     age: Some(Time {
         s: 0.314 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(15, 34, 41),
     declination: Declination::new(Sgn::Pos, 26, 42, 53),
     distance: Distance {
@@ -46,14 +49,17 @@ const NAUSAKAN: RealData = RealData {
         m: 112. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.942,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.09 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.63 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 7980. },
     age: None,
+    lifetime: Time {
+        s: 1.17901142 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_CORONAE_BOREALIS: RealData = RealData {
@@ -67,14 +73,17 @@ const GAMMA_CORONAE_BOREALIS: RealData = RealData {
         m: 146. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.56,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.51 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 7649. },
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_CORONAE_BOREALIS: RealData = RealData {
@@ -88,16 +97,19 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
         m: 165. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.18,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 7.4 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5180. },
     age: Some(Time {
-        s: 0.851 * BILLION_YEARS.s,
+        s: 0.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_CORONAE_BOREALIS: RealData = RealData {
@@ -111,16 +123,19 @@ const EPSILON_CORONAE_BOREALIS: RealData = RealData {
         m: 242. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.02,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.44 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 21. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4365. },
     age: Some(Time {
-        s: 4.13 * BILLION_YEARS.s,
+        s: 2.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.82957282 * BILLION_YEARS.s,
+    },
 };
 
 const IOTA_CORONAE_BOREALIS: RealData = RealData {
@@ -134,10 +149,15 @@ const IOTA_CORONAE_BOREALIS: RealData = RealData {
         m: 312. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.08,
-    mass: None,
+    mass: Mass {
+        kg: 3. * SOLAR_MASS.kg,
+    },
     radius: None,
     temperature: Temperature { K: 10_727. },
     age: None,
+    lifetime: Time {
+        s: 0.420724107 * BILLION_YEARS.s, //no idea
+    },
 };
 
 const THETA_CORONAE_BOREALIS: RealData = RealData {
@@ -151,9 +171,9 @@ const THETA_CORONAE_BOREALIS: RealData = RealData {
         m: 380. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.16,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
     }),
@@ -161,6 +181,9 @@ const THETA_CORONAE_BOREALIS: RealData = RealData {
     age: Some(Time {
         s: 0.085 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.170765802 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 7] = [

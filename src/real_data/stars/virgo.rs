@@ -19,9 +19,9 @@ const SPICA: RealData = RealData {
     radius: Some(Distance {
         m: 7.47 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 11.43 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.55,
     apparent_magnitude: 0.98,
     temperature: Temperature { K: 22_300. },
@@ -33,6 +33,9 @@ const SPICA: RealData = RealData {
     distance: Distance {
         m: 262. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.019450199 * BILLION_YEARS.s,
+    },
 };
 
 const MINELAUVA: RealData = RealData {
@@ -42,9 +45,9 @@ const MINELAUVA: RealData = RealData {
     radius: Some(Distance {
         m: 48. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.4 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.575,
     apparent_magnitude: 3.39,
     temperature: Temperature { K: 3999. },
@@ -53,6 +56,9 @@ const MINELAUVA: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 3, 23, 51),
     distance: Distance {
         m: 202.4 * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 3.10253119 * BILLION_YEARS.s,
     },
 };
 
@@ -67,9 +73,9 @@ const ZAVIJAVA: RealData = RealData {
         m: 35.65 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.413 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.681 * SOLAR_RADIUS.m,
     }),
@@ -77,6 +83,9 @@ const ZAVIJAVA: RealData = RealData {
     age: Some(Time {
         s: 2.9 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.10253119 * BILLION_YEARS.s,
+    },
 };
 
 const SYRMA: RealData = RealData {
@@ -90,14 +99,17 @@ const SYRMA: RealData = RealData {
         m: 72.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.4,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6282. },
     age: None,
+    lifetime: Time {
+        s: 2.54186931 * BILLION_YEARS.s,
+    },
 };
 
 const HEZE: RealData = RealData {
@@ -111,9 +123,9 @@ const HEZE: RealData = RealData {
         m: 74.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.64,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.041 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.079 * SOLAR_RADIUS.m,
     }),
@@ -121,6 +133,9 @@ const HEZE: RealData = RealData {
     age: Some(Time {
         s: 0.51 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.25731981 * BILLION_YEARS.s,
+    },
 };
 
 const VINDEMIATRIX: RealData = RealData {
@@ -134,9 +149,9 @@ const VINDEMIATRIX: RealData = RealData {
         m: 109.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.37,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.64 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10.6 * SOLAR_RADIUS.m,
     }),
@@ -144,6 +159,9 @@ const VINDEMIATRIX: RealData = RealData {
     age: Some(Time {
         s: 0.560 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const PORRIMA: RealData = RealData {
@@ -157,14 +175,17 @@ const PORRIMA: RealData = RealData {
         m: 38.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 6757. },
     age: Some(Time {
         s: 1.14 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.29668629 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 7] = [

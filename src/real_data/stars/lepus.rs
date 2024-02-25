@@ -19,15 +19,18 @@ const ARNEB: RealData = RealData {
     radius: Some(Distance {
         m: 75. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 13.9 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -5.40,
     apparent_magnitude: 2.58,
     temperature: Temperature { K: 6_850. },
     age: Some(Time {
         s: 0.013 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.015362858 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(5, 32, 44),
     declination: Declination::new(Sgn::Neg, 17, 49, 20),
     distance: Distance {
@@ -46,9 +49,9 @@ const BETA_LEPORIS: RealData = RealData {
         m: 160. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.65,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 16. * SOLAR_RADIUS.m,
     }),
@@ -56,6 +59,9 @@ const BETA_LEPORIS: RealData = RealData {
     age: Some(Time {
         s: 0.240 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_LEPORIS: RealData = RealData {
@@ -69,9 +75,9 @@ const EPSILON_LEPORIS: RealData = RealData {
         m: 209. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.02,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 40.1 * SOLAR_RADIUS.m,
     }),
@@ -79,6 +85,9 @@ const EPSILON_LEPORIS: RealData = RealData {
     age: Some(Time {
         s: 1.72 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.73766023 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ARNEB, BETA_LEPORIS, EPSILON_LEPORIS];

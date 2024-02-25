@@ -23,12 +23,15 @@ const DIADEM: RealData = RealData {
         m: 46.7 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.54,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.237 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 6365. },
     age: None,
+    lifetime: Time {
+        s: 4.45521207 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_COMA_BERENICES: RealData = RealData {
@@ -42,9 +45,9 @@ const BETA_COMA_BERENICES: RealData = RealData {
         m: 29.95 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 4.46,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.15 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.106 * SOLAR_RADIUS.m,
     }),
@@ -52,6 +55,9 @@ const BETA_COMA_BERENICES: RealData = RealData {
     age: Some(Time {
         s: 2. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5.9461393 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_COMA_BERENICES: RealData = RealData {
@@ -65,16 +71,19 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
         m: 169. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.76,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.65 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.76 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4652. },
     age: Some(Time {
-        s: 2.72 * BILLION_YEARS.s,
+        s: 1.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.89665739 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [DIADEM, BETA_COMA_BERENICES, GAMMA_COMA_BERENICES];

@@ -19,9 +19,9 @@ const POLARIS: RealData = RealData {
     radius: Some(Distance {
         m: 37.5 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.4 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.64,
     apparent_magnitude: 1.97,
     temperature: Temperature { K: 6015. },
@@ -33,6 +33,9 @@ const POLARIS: RealData = RealData {
     distance: Distance {
         m: 431. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.093024309 * BILLION_YEARS.s,
+    },
 };
 
 const KOCHAB: RealData = RealData {
@@ -42,9 +45,9 @@ const KOCHAB: RealData = RealData {
     radius: Some(Distance {
         m: 42.06 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.87,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 4030. },
@@ -53,6 +56,9 @@ const KOCHAB: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 74, 9, 20),
     distance: Distance {
         m: 126. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 1.03650581 * BILLION_YEARS.s,
     },
 };
 
@@ -67,9 +73,9 @@ const ZETA_URSAE_MINORIS: RealData = RealData {
         m: 369. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.98,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 6.15 * SOLAR_RADIUS.m,
     }),
@@ -77,6 +83,9 @@ const ZETA_URSAE_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 0.180 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_URSAE_MINORIS: RealData = RealData {
@@ -90,9 +99,9 @@ const DELTA_URSAE_MINORIS: RealData = RealData {
         m: 172. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.62,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.35 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.8 * SOLAR_RADIUS.m,
     }),
@@ -100,6 +109,9 @@ const DELTA_URSAE_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 0.327 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.916355612 * BILLION_YEARS.s,
+    },
 };
 
 const ETA_URSAE_MINORIS: RealData = RealData {
@@ -113,9 +125,9 @@ const ETA_URSAE_MINORIS: RealData = RealData {
         m: 97.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.61,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.35 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.0 * SOLAR_RADIUS.m,
     }),
@@ -123,10 +135,13 @@ const ETA_URSAE_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 1.061 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.46068223 * BILLION_YEARS.s,
+    },
 };
 
-const GAMMA_URSAE_MINORIS: RealData = RealData {
-    common_name: "",
+const PHERKAD: RealData = RealData {
+    common_name: "Pherkad",
     astronomical_name: "Gamma Ursae Minoris",
     constellation: "Ursa Minor",
     right_ascension: RightAscension::new(15, 20, 44),
@@ -136,12 +151,19 @@ const GAMMA_URSAE_MINORIS: RealData = RealData {
         m: 487. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.84,
-    mass: None,
+    mass: Mass {
+        kg: 9. * SOLAR_MASS.kg,
+    },
     radius: Some(Distance {
         m: 15. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8280. },
-    age: None,
+    age: Some(Time {
+        s: 0.032 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.03224554 * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_URSAE_MINORIS: RealData = RealData {
@@ -155,10 +177,15 @@ const EPSILON_URSAE_MINORIS: RealData = RealData {
         m: 300. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.922,
-    mass: None,
+    mass: Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    },
     radius: None,
     temperature: Temperature { K: 5215. },
     age: None,
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 7] = [
@@ -167,6 +194,6 @@ pub(crate) const STARS: [RealData; 7] = [
     ZETA_URSAE_MINORIS,
     DELTA_URSAE_MINORIS,
     ETA_URSAE_MINORIS,
-    GAMMA_URSAE_MINORIS,
+    PHERKAD,
     EPSILON_URSAE_MINORIS,
 ];

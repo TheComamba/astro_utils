@@ -19,19 +19,22 @@ const ALDEBARAN: RealData = RealData {
     radius: Some(Distance {
         m: 45.1 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.16 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.63,
     apparent_magnitude: 0.87,
     temperature: Temperature { K: 3900. },
     age: Some(Time {
-        s: 6.4 * BILLION_YEARS.s,
+        s: 5.5 * BILLION_YEARS.s,
     }),
     right_ascension: RightAscension::new(4, 35, 55),
     declination: Declination::new(Sgn::Pos, 16, 30, 33),
     distance: Distance {
         m: 65. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 5.9461393 * BILLION_YEARS.s,
     },
 };
 
@@ -42,9 +45,9 @@ const ALNATH: RealData = RealData {
     radius: Some(Distance {
         m: 4.2 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.0 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.37,
     apparent_magnitude: 1.65,
     temperature: Temperature { K: 13_824. },
@@ -55,6 +58,9 @@ const ALNATH: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 28, 36, 27),
     distance: Distance {
         m: 131. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0.111319448 * BILLION_YEARS.s,
     },
 };
 
@@ -69,9 +75,9 @@ const GAMMA_TAURI: RealData = RealData {
         m: 154. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.22,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 13.4 * SOLAR_RADIUS.m,
     }),
@@ -79,6 +85,9 @@ const GAMMA_TAURI: RealData = RealData {
     age: Some(Time {
         s: 0.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_TAURI: RealData = RealData {
@@ -92,9 +101,9 @@ const EPSILON_TAURI: RealData = RealData {
         m: 146. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.145,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.57 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 12.35 * SOLAR_RADIUS.m,
     }),
@@ -102,6 +111,9 @@ const EPSILON_TAURI: RealData = RealData {
     age: Some(Time {
         s: 0.625 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const LAMBDA_TAURI: RealData = RealData {
@@ -115,9 +127,9 @@ const LAMBDA_TAURI: RealData = RealData {
         m: 480. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.45,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.18 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 6.4 * SOLAR_RADIUS.m,
     }),
@@ -125,6 +137,9 @@ const LAMBDA_TAURI: RealData = RealData {
     age: Some(Time {
         s: 0.0332 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.052267043 * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_TAURI: RealData = RealData {
@@ -138,16 +153,19 @@ const ZETA_TAURI: RealData = RealData {
         m: 440. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.67,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 11.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 15_500. },
     age: Some(Time {
-        s: 22.5 * BILLION_YEARS.s,
+        s: 0.019 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.019450199 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 6] = [

@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_COLUMBAE: RealData = RealData {
-    common_name: "",
+const PHACT: RealData = RealData {
+    common_name: "Phact",
     astronomical_name: "Alpha Columbae",
     constellation: "Columba",
     right_ascension: RightAscension::new(5, 39, 39),
@@ -23,9 +23,9 @@ const ALPHA_COLUMBAE: RealData = RealData {
         m: 261. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.87,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.8 * SOLAR_RADIUS.m,
     }),
@@ -33,10 +33,13 @@ const ALPHA_COLUMBAE: RealData = RealData {
     age: Some(Time {
         s: 0.093 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.151849866 * BILLION_YEARS.s,
+    },
 };
 
-const BETA_COLUMBAE: RealData = RealData {
-    common_name: "",
+const WAZN: RealData = RealData {
+    common_name: "Wazn",
     astronomical_name: "Beta Columbae",
     constellation: "Columba",
     right_ascension: RightAscension::new(5, 50, 58),
@@ -46,9 +49,9 @@ const BETA_COLUMBAE: RealData = RealData {
         m: 87.41 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.01,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.5 * SOLAR_RADIUS.m,
     }),
@@ -56,6 +59,9 @@ const BETA_COLUMBAE: RealData = RealData {
     age: Some(Time {
         s: 2. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_COLUMBAE: RealData = RealData {
@@ -69,10 +75,15 @@ const DELTA_COLUMBAE: RealData = RealData {
         m: 234. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.32,
-    mass: None,
+    mass: Mass {
+        kg: 3.7 * SOLAR_MASS.kg,
+    },
     radius: None,
     temperature: Temperature { K: 5136. },
     age: None,
+    lifetime: Time {
+        s: 0.254814649 * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_COLUMBAE: RealData = RealData {
@@ -86,21 +97,19 @@ const EPSILON_COLUMBAE: RealData = RealData {
         m: 262. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.67,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.47 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 25.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4575. },
     age: Some(Time {
-        s: 1.53 * BILLION_YEARS.s,
+        s: 0.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
 };
 
-pub(crate) const STARS: [RealData; 4] = [
-    ALPHA_COLUMBAE,
-    BETA_COLUMBAE,
-    DELTA_COLUMBAE,
-    EPSILON_COLUMBAE,
-];
+pub(crate) const STARS: [RealData; 4] = [PHACT, WAZN, DELTA_COLUMBAE, EPSILON_COLUMBAE];

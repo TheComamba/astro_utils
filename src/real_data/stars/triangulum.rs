@@ -23,14 +23,17 @@ const BETA_TRIANGULI: RealData = RealData {
         m: 127. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.05,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 8186. },
     age: Some(Time {
-        s: 0.73 * BILLION_YEARS.s,
+        s: 0.29 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
 const ALPHA_TRIANGULI: RealData = RealData {
@@ -44,9 +47,9 @@ const ALPHA_TRIANGULI: RealData = RealData {
         m: 63.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.98,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.70 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.22 * SOLAR_RADIUS.m,
     }),
@@ -54,6 +57,9 @@ const ALPHA_TRIANGULI: RealData = RealData {
     age: Some(Time {
         s: 1.6 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.73766023 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_TRIANGULI: RealData = RealData {
@@ -67,9 +73,9 @@ const GAMMA_TRIANGULI: RealData = RealData {
         m: 112.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.35,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.96 * SOLAR_RADIUS.m,
     }),
@@ -77,6 +83,9 @@ const GAMMA_TRIANGULI: RealData = RealData {
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [BETA_TRIANGULI, ALPHA_TRIANGULI, GAMMA_TRIANGULI];

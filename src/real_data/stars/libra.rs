@@ -23,12 +23,15 @@ const ZUBENELGENUBI: RealData = RealData {
         m: 75.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.879,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.95 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 8128. },
     age: None,
+    lifetime: Time {
+        s: 1.46316038 * BILLION_YEARS.s,
+    },
 };
 
 const ZUBENESCHAMALI: RealData = RealData {
@@ -42,9 +45,9 @@ const ZUBENESCHAMALI: RealData = RealData {
         m: 185. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.16,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.9 * SOLAR_RADIUS.m,
     }),
@@ -52,6 +55,9 @@ const ZUBENESCHAMALI: RealData = RealData {
     age: Some(Time {
         s: 0.08 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
 const BRACHIUM: RealData = RealData {
@@ -61,13 +67,16 @@ const BRACHIUM: RealData = RealData {
     radius: Some(Distance {
         m: 108. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.5,
     apparent_magnitude: 3.21,
     temperature: Temperature { K: 3596. },
     age: None,
+    lifetime: Time {
+        s: 1.03650581 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(15, 4, 4),
     declination: Declination::new(Sgn::Neg, 25, 16, 55),
     distance: Distance {

@@ -19,13 +19,16 @@ const ALPHA_ANTLIAE: RealData = RealData {
     radius: Some(Distance {
         m: 41. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.973,
     apparent_magnitude: 4.28,
     temperature: Temperature { K: 4070. },
     age: None,
+    lifetime: Time {
+        s: 1.03650581 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(10, 27, 9),
     declination: Declination::new(Sgn::Neg, 31, 4, 4),
     distance: Distance {
@@ -40,11 +43,16 @@ const EPSILON_ANTLIAE: RealData = RealData {
     radius: Some(Distance {
         m: 56.3 * SOLAR_RADIUS.m,
     }),
-    mass: None,
+    mass: Mass {
+        kg: 2. * SOLAR_MASS.kg,
+    },
     absolute_magnitude: -2.15,
     apparent_magnitude: 4.51,
     temperature: Temperature { K: 4237. },
     age: None,
+    lifetime: Time {
+        s: 1.36020165 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(9, 29, 15),
     declination: Declination::new(Sgn::Neg, 35, 57, 5),
     distance: Distance {
@@ -59,15 +67,18 @@ const IOTA_ANTLIAE: RealData = RealData {
     radius: Some(Distance {
         m: 12.1 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.55 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.674,
     apparent_magnitude: 4.60,
     temperature: Temperature { K: 4892. },
     age: Some(Time {
-        s: 3.32 * BILLION_YEARS.s,
+        s: 2.2 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.29668629 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(10, 56, 43),
     declination: Declination::new(Sgn::Neg, 37, 8, 16),
     distance: Distance {

@@ -23,16 +23,19 @@ const ALKES: RealData = RealData {
         m: 174.2 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.44,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.81 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 12.32 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4691. },
     age: Some(Time {
-        s: 2.06 * BILLION_YEARS.s,
+        s: 1.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.46605285 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_CRATERIS: RealData = RealData {
@@ -46,10 +49,15 @@ const BETA_CRATERIS: RealData = RealData {
         m: 296. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.62,
-    mass: None,
+    mass: Mass {
+        kg: 2.6 * SOLAR_MASS.kg,
+    },
     radius: None,
     temperature: Temperature { K: 8830. },
     age: None,
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_CRATERIS: RealData = RealData {
@@ -63,9 +71,9 @@ const GAMMA_CRATERIS: RealData = RealData {
         m: 85.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.05,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.81 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
@@ -73,6 +81,9 @@ const GAMMA_CRATERIS: RealData = RealData {
     age: Some(Time {
         s: 0.757 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.46605285 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_CRATERIS: RealData = RealData {
@@ -86,16 +97,19 @@ const DELTA_CRATERIS: RealData = RealData {
         m: 194.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.321,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 22.44 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4510. },
     age: Some(Time {
-        s: 2.89 * BILLION_YEARS.s,
+        s: 2.2 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.29668629 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 4] = [ALKES, BETA_CRATERIS, GAMMA_CRATERIS, DELTA_CRATERIS];

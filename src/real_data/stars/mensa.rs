@@ -23,9 +23,9 @@ const ALPHA_MENSAE: RealData = RealData {
         m: 33.31 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 5.03,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.964 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 0.960 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const ALPHA_MENSAE: RealData = RealData {
     age: Some(Time {
         s: 6.2 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 11.7800188 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_MENSAE: RealData = RealData {
@@ -46,16 +49,19 @@ const BETA_MENSAE: RealData = RealData {
         m: 641.7 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.17,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.58 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 25.85 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5088. },
     age: Some(Time {
-        s: 0.270 * BILLION_YEARS.s,
+        s: 0.250 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.254814649 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_MENSAE: RealData = RealData {
@@ -69,16 +75,19 @@ const GAMMA_MENSAE: RealData = RealData {
         m: 104.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.70,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.04 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.99 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4491. },
     age: Some(Time {
-        s: 10.60 * BILLION_YEARS.s,
+        s: 8. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 8.24015833 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_MENSAE, BETA_MENSAE, GAMMA_MENSAE];

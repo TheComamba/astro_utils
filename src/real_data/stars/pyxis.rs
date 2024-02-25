@@ -23,14 +23,19 @@ const ALPHA_PYXIDIS: RealData = RealData {
         m: 880. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.47,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 10.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 6.3 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 24_300. },
-    age: None,
+    age: Some(Time {
+        s: 0.026 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.026540021 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_PYXIDIS: RealData = RealData {
@@ -44,14 +49,17 @@ const BETA_PYXIDIS: RealData = RealData {
         m: 388.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 24. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5124. },
     age: None,
+    lifetime: Time {
+        s: 5.06543331 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_PYXIDIS: RealData = RealData {
@@ -65,16 +73,19 @@ const GAMMA_PYXIDIS: RealData = RealData {
         m: 207. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.64 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 21.87 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4270. },
     age: Some(Time {
-        s: 4.29 * BILLION_YEARS.s,
+        s: 1.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.89665739 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_PYXIDIS, BETA_PYXIDIS, GAMMA_PYXIDIS];

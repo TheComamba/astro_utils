@@ -5,8 +5,7 @@ use crate::{
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
     stars::{
-        star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
-        star_data::StarData,
+        appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
     },
     units::luminous_intensity::LUMINOSITY_ZERO,
 };

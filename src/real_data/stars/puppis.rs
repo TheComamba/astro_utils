@@ -19,9 +19,9 @@ const NAOS: RealData = RealData {
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 56.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -5.95,
     apparent_magnitude: 2.21,
     temperature: Temperature { K: 40_000. },
@@ -33,6 +33,9 @@ const NAOS: RealData = RealData {
     distance: Distance {
         m: 1399. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.00435 * BILLION_YEARS.s,
+    },
 };
 
 const AHADI: RealData = RealData {
@@ -42,19 +45,22 @@ const AHADI: RealData = RealData {
     radius: Some(Distance {
         m: 235. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 11.7 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.92,
     apparent_magnitude: 2.71,
     temperature: Temperature { K: 4000. },
-    age: Some(Time {
-        s: 0.02 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(7, 17, 9),
     declination: Declination::new(Sgn::Neg, 37, 5, 51),
     distance: Distance {
         m: 1094. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.019 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.019450199 * BILLION_YEARS.s,
     },
 };
 
@@ -69,16 +75,19 @@ const RHO_PUPPIS: RealData = RealData {
         m: 63.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.85 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.41 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6920. },
     age: Some(Time {
-        s: 2. * BILLION_YEARS.s,
+        s: 1.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.65092742 * BILLION_YEARS.s,
+    },
 };
 
 const TAU_PUPPIS: RealData = RealData {
@@ -92,16 +101,19 @@ const TAU_PUPPIS: RealData = RealData {
         m: 174. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.80,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.19 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 27. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4489. },
     age: Some(Time {
-        s: 0.540 * BILLION_YEARS.s,
+        s: 0.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.351318702 * BILLION_YEARS.s,
+    },
 };
 
 const NU_PUPPIS: RealData = RealData {
@@ -115,12 +127,17 @@ const NU_PUPPIS: RealData = RealData {
         m: 370. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.11,
-    mass: None,
+    mass: Mass {
+        kg: 5.2 * SOLAR_MASS.kg,
+    },
     radius: Some(Distance {
         m: 4.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 12_120. },
     age: None,
+    lifetime: Time {
+        s: 0.10143918 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 5] = [NAOS, AHADI, RHO_PUPPIS, TAU_PUPPIS, NU_PUPPIS];

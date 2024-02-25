@@ -2,7 +2,7 @@ use super::data::ParsecData;
 use crate::{
     coordinates::ecliptic::EclipticCoordinates,
     error::AstroUtilError,
-    stars::{star_data::StarData, star_data_evolution::StarDataEvolution},
+    stars::{data::StarData, data_evolution::StarDataEvolution},
     units::{
         distance::{distance_to_sun_radii, DISTANCE_ZERO, SOLAR_RADIUS},
         luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
@@ -83,6 +83,8 @@ impl ParsecLine {
                     .get_mut(*mass_position)
                     .ok_or(AstroUtilError::DataNotAvailable)?;
                 data.push(parsec_line);
+            } else {
+                return Err(AstroUtilError::DataNotAvailable);
             }
         };
         Ok(())
@@ -107,10 +109,11 @@ impl ParsedParsecLine {
         let luminous_intensity = self.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
         let temperature = Temperature::from_K(self.temperature_in_kelvin);
         let radius = self.radius_in_solar_radii * SOLAR_RADIUS;
+        let mut evolution = StarDataEvolution::NONE;
+        evolution.age = Some(age);
         StarData {
             name: "".to_string(),
             mass: Some(mass),
-            age: Some(age),
             luminous_intensity: Some(luminous_intensity),
             temperature: temperature,
             radius: Some(radius),

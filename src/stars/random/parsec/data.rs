@@ -54,7 +54,7 @@ mod tests {
         let calculated_sun = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            get_params_for_current_mass_and_age(&parsec_data, &mass.unwrap(), age.to_yr())
+            get_params_for_current_mass_and_age(&parsec_data, &mass, age.to_yr())
                 .to_star_at_origin()
         };
         let real_sun = SUN.to_star_data();
@@ -108,11 +108,11 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             for data in get_many_stars().iter() {
-                if let (Some(age), Some(mass)) = (data.age, data.mass) {
+                if let Some(age) = data.age {
                     let age = age.to_yr();
-                    let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
+                    let mass_index = ParsecData::get_closest_mass_index(data.mass.to_solar_mass());
                     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-                    let age_expectancy = ParsecData::get_life_expectancy_in_years(trajectory);
+                    let age_expectancy = ParsecData::get_lifetime_in_years(trajectory);
                     let age_expectancy = Time::from_yr(age_expectancy as f64);
                     if age_expectancy < 0.3 * BILLION_YEARS {
                         // Numerics get really unstable for stars with short life expectancies.
@@ -120,7 +120,7 @@ mod tests {
                     }
 
                     let current_params =
-                        get_params_for_current_mass_and_age(&parsec_data, &mass, age);
+                        get_params_for_current_mass_and_age(&parsec_data, &data.mass, age);
                     let calculated_star = current_params.to_star_at_origin();
                     let real_star = data.to_star_data();
                     if calculated_star.similar_within_order_of_magnitude(&real_star) {

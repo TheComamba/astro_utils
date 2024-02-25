@@ -23,9 +23,9 @@ const ALPHA_LACERTAE: RealData = RealData {
         m: 102.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.27,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.194 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.1432 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const ALPHA_LACERTAE: RealData = RealData {
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.03650581 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_LACERTAE: RealData = RealData {
@@ -46,9 +49,9 @@ const BETA_LACERTAE: RealData = RealData {
         m: 170. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.67,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.97 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10.96 * SOLAR_RADIUS.m,
     }),
@@ -56,6 +59,9 @@ const BETA_LACERTAE: RealData = RealData {
     age: Some(Time {
         s: 6.76 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 11.7800188 * BILLION_YEARS.s,
+    },
 };
 
 const FIVE_LACERTAE: RealData = RealData {
@@ -69,16 +75,19 @@ const FIVE_LACERTAE: RealData = RealData {
         m: 1164. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.42,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.11 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 319.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 3713. },
     age: Some(Time {
-        s: 110. * BILLION_YEARS.s,
+        s: 0.1 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.10143918 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_LACERTAE, BETA_LACERTAE, FIVE_LACERTAE];

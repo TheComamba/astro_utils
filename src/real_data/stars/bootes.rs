@@ -14,47 +14,53 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ARCTURUS: RealData = RealData {
     common_name: "Arcturus",
-    astronomical_name: "Alpha Bootis",
+    astronomical_name: "Alpha Boötis",
     constellation: "Boötes",
     radius: Some(Distance {
         m: 25.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.08 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.31,
     apparent_magnitude: -0.05,
     temperature: Temperature { K: 4286. },
-    age: Some(Time {
-        s: 7.1 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(14, 15, 40),
     declination: Declination::new(Sgn::Pos, 19, 10, 56),
     distance: Distance {
         m: 37. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 6.9 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
+    },
 };
 
 const IZAR: RealData = RealData {
     common_name: "Izar",
-    astronomical_name: "Epsilon Bootis",
+    astronomical_name: "Epsilon Boötis",
     constellation: "Boötes",
     radius: Some(Distance {
         m: 33. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4.6 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.69,
     apparent_magnitude: 2.35,
     temperature: Temperature { K: 4550. },
-    age: Some(Time {
-        s: 0.0374 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(14, 44, 59),
     declination: Declination::new(Sgn::Pos, 27, 4, 27),
     distance: Distance {
         m: 210. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.0374 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.136126994 * BILLION_YEARS.s,
     },
 };
 
@@ -69,9 +75,9 @@ const GAMMA_BOOTIS: RealData = RealData {
         m: 86.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.93,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.10 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.16 * SOLAR_RADIUS.m,
     }),
@@ -79,6 +85,9 @@ const GAMMA_BOOTIS: RealData = RealData {
     age: Some(Time {
         s: 0.9 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.17901142 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_BOOTIS: RealData = RealData {
@@ -92,12 +101,17 @@ const DELTA_BOOTIS: RealData = RealData {
         m: 121.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.7,
-    mass: None,
+    mass: Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    },
     radius: Some(Distance {
         m: 10.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4847. },
     age: None,
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_BOOTIS: RealData = RealData {
@@ -111,9 +125,9 @@ const BETA_BOOTIS: RealData = RealData {
         m: 225. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.7,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 21.5 * SOLAR_RADIUS.m,
     }),
@@ -121,10 +135,13 @@ const BETA_BOOTIS: RealData = RealData {
     age: Some(Time {
         s: 0.240 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
-const ETA_BOOTIS: RealData = RealData {
-    common_name: "",
+const MUPHRID: RealData = RealData {
+    common_name: "Muphrid",
     astronomical_name: "Eta Boötis",
     constellation: "Boötes",
     right_ascension: RightAscension::new(13, 54, 41),
@@ -134,16 +151,19 @@ const ETA_BOOTIS: RealData = RealData {
         m: 37.2 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.71 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.672 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6100. },
     age: Some(Time {
-        s: 2.7 * BILLION_YEARS.s,
+        s: 1.6 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.73766023 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 6] = [
@@ -152,5 +172,5 @@ pub(crate) const STARS: [RealData; 6] = [
     GAMMA_BOOTIS,
     DELTA_BOOTIS,
     BETA_BOOTIS,
-    ETA_BOOTIS,
+    MUPHRID,
 ];

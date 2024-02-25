@@ -19,9 +19,9 @@ const REGOR: RealData = RealData {
     radius: Some(Distance {
         m: 17. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 28.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -5.31,
     apparent_magnitude: 1.75,
     temperature: Temperature { K: 35_000. },
@@ -33,6 +33,9 @@ const REGOR: RealData = RealData {
     distance: Distance {
         m: 840. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.006972406 * BILLION_YEARS.s,
+    },
 };
 
 const ALSEPHINA: RealData = RealData {
@@ -42,9 +45,9 @@ const ALSEPHINA: RealData = RealData {
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.27 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.01,
     apparent_magnitude: 1.93,
     temperature: Temperature { K: 9440. },
@@ -56,6 +59,9 @@ const ALSEPHINA: RealData = RealData {
     distance: Distance {
         m: 80. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.964406929 * BILLION_YEARS.s,
+    },
 };
 
 const SUHAIL: RealData = RealData {
@@ -65,9 +71,9 @@ const SUHAIL: RealData = RealData {
     radius: Some(Distance {
         m: 210. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.99,
     apparent_magnitude: 2.23,
     temperature: Temperature { K: 3900. },
@@ -79,6 +85,9 @@ const SUHAIL: RealData = RealData {
     distance: Distance {
         m: 573. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0.052267043 * BILLION_YEARS.s,
+    },
 };
 
 const MARKEB: RealData = RealData {
@@ -88,9 +97,9 @@ const MARKEB: RealData = RealData {
     radius: Some(Distance {
         m: 9.1 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 10.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.62,
     apparent_magnitude: 2.47,
     temperature: Temperature { K: 23_000. },
@@ -101,6 +110,9 @@ const MARKEB: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 55, 0, 38),
     distance: Distance {
         m: 539. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0.026540021 * BILLION_YEARS.s,
     },
 };
 

@@ -1,6 +1,6 @@
 use super::{
-    star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
-    star_data::StarData, star_data_evolution::StarDataEvolution,
+    appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
+    data_evolution::StarDataEvolution, fate::StarFate,
 };
 use crate::{
     color::srgb::sRGBColor,
@@ -20,12 +20,13 @@ pub struct RealData {
     pub common_name: &'static str,
     pub astronomical_name: &'static str,
     pub constellation: &'static str,
-    pub mass: Option<Mass<f64>>,
+    pub mass: Mass<f64>,
     pub radius: Option<Distance<f64>>,
     pub absolute_magnitude: f64,
     pub apparent_magnitude: f64,
     pub temperature: Temperature<f64>,
     pub age: Option<Time<f64>>,
+    pub lifetime: Time<f64>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
     pub distance: Distance<f64>,
@@ -53,17 +54,18 @@ impl RealData {
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
+        let evolution =
+            StarDataEvolution::new(None, self.age, self.lifetime, StarFate::new(self.mass));
         StarData {
             name: name.to_string(),
-            mass: self.mass,
+            mass: Some(self.mass),
             constellation,
             radius: self.radius,
             luminous_intensity: Some(luminous_intensity),
             temperature: self.temperature,
-            age: self.age,
             distance: self.distance,
             pos,
-            evolution: StarDataEvolution::NONE,
+            evolution: evolution,
         }
     }
 
@@ -90,11 +92,13 @@ impl RealData {
 
 #[cfg(test)]
 mod tests {
+    use simple_si_units::base::Mass;
+
     use crate::{
         real_data::stars::all::get_many_stars,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
-            luminous_intensity::luminous_intensity_to_illuminance,
+            luminous_intensity::luminous_intensity_to_illuminance, time::TIME_ZERO,
         },
     };
 
@@ -155,6 +159,63 @@ mod tests {
                 star_data.astronomical_name
             );
             names.push(star_data.astronomical_name);
+        }
+    }
+
+    #[test]
+    fn no_star_is_older_than_the_universe() {
+        for star_data in get_many_stars() {
+            if let Some(age) = star_data.age {
+                assert!(
+                    age.to_yr() < 13.8e9,
+                    "{} is older than the universe",
+                    star_data.astronomical_name
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn no_star_is_older_than_its_lifetime() {
+        for star_data in get_many_stars() {
+            assert!(star_data.lifetime > TIME_ZERO);
+            if let Some(age) = star_data.age {
+                assert!(
+                    age < star_data.lifetime,
+                    "{} is older than its lifetime",
+                    star_data.astronomical_name
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn all_supernova_stars_have_a_time_until_death() {
+        for star_data in get_many_stars() {
+            if star_data.mass > Mass::from_solar_mass(8.) {
+                assert!(
+                    star_data
+                        .to_star_data()
+                        .get_time_until_death(TIME_ZERO)
+                        .is_some(),
+                    "{} is a supernova star without a time until death",
+                    star_data.astronomical_name
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn real_stars_age_is_passed_to_star_data() {
+        for star_data in get_many_stars() {
+            if let Some(age) = star_data.age {
+                assert_eq!(
+                    star_data.to_star_data().get_age_at_epoch().unwrap(),
+                    age,
+                    "{}",
+                    star_data.astronomical_name
+                );
+            }
         }
     }
 }

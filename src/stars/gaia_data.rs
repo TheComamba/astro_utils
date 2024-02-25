@@ -1,6 +1,6 @@
 use super::{
-    star_appearance::StarAppearance, star_appearance_evolution::StarAppearanceEvolution,
-    star_data::StarData, star_data_evolution::StarDataEvolution,
+    appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
+    data_evolution::StarDataEvolution,
 };
 use crate::{
     color::srgb::sRGBColor,
@@ -103,7 +103,6 @@ impl GaiaResponse {
                     radius: None,
                     luminous_intensity: None,
                     temperature: parsed_data.temperature.unwrap_or(TEMPERATURE_ZERO),
-                    age: None,
                     distance: DISTANCE_ZERO,
                     pos: parsed_data.pos,
                     constellation: None,
@@ -346,7 +345,7 @@ mod tests {
 
         let brightest_gaia_star = gaia_stars
             .iter()
-            .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u32)
+            .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u64)
             .unwrap();
         assert!(
             illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)

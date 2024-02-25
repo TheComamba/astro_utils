@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Luminosity, Mass, Temperature};
+use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
 use crate::{
     color::srgb::sRGBColor,
@@ -8,40 +8,74 @@ use crate::{
         luminous_intensity::{luminous_intensity_to_illuminance, LUMINOSITY_ZERO},
         mass::MASS_ZERO,
         temperature::TEMPERATURE_ZERO,
+        time::TIME_ZERO,
     },
 };
 
 use super::{
-    star_appearance_evolution::{StarAppearanceEvolution, StarAppearanceLifestageEvolution},
-    star_data::StarData,
+    appearance_evolution::{StarAppearanceEvolution, StarAppearanceLifestageEvolution},
+    data::StarData,
+    fate::StarFate,
 };
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarDataEvolution {
     lifestage_evolution: Option<StarDataLifestageEvolution>,
+    pub(super) age: Option<Time<f64>>,
+    pub(super) lifetime: Time<f64>,
+    pub(super) fate: StarFate,
 }
 
 impl StarDataEvolution {
     pub const NONE: StarDataEvolution = StarDataEvolution {
         lifestage_evolution: None,
+        age: None,
+        lifetime: TIME_ZERO,
+        fate: StarFate::WhiteDwarf,
     };
 
-    pub(crate) fn new(lifestage_evolution: Option<StarDataLifestageEvolution>) -> Self {
+    pub(crate) fn new(
+        lifestage_evolution: Option<StarDataLifestageEvolution>,
+        age: Option<Time<f64>>,
+        lifetime: Time<f64>,
+        fate: StarFate,
+    ) -> Self {
         Self {
             lifestage_evolution,
+            age,
+            lifetime,
+            fate,
         }
     }
 
-    pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, years: f64) -> Mass<f64> {
+    pub(super) fn time_until_death(&self, time_since_epoch: Time<f64>) -> Option<Time<f64>> {
+        self.age.map(|age| self.lifetime - age - time_since_epoch)
+    }
+
+    pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, time_since_epoch: Time<f64>) -> Mass<f64> {
+        if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
+            if time_until_death < TIME_ZERO {
+                return self.fate.apply_to_mass(mass, -time_until_death);
+            }
+        }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return mass + lifestage_evolution.mass_per_year * years;
+            return mass + lifestage_evolution.mass_per_year * time_since_epoch.to_yr();
         }
         mass
     }
 
-    pub(crate) fn apply_to_radius(&self, radius: Distance<f64>, years: f64) -> Distance<f64> {
+    pub(crate) fn apply_to_radius(
+        &self,
+        radius: Distance<f64>,
+        time_since_epoch: Time<f64>,
+    ) -> Distance<f64> {
+        if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
+            if time_until_death < TIME_ZERO {
+                return self.fate.apply_to_radius(radius, -time_until_death);
+            }
+        }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return radius + lifestage_evolution.radius_per_year * years;
+            return radius + lifestage_evolution.radius_per_year * time_since_epoch.to_yr();
         }
         radius
     }
@@ -49,10 +83,18 @@ impl StarDataEvolution {
     pub(crate) fn apply_to_luminous_intensity(
         &self,
         luminous_intensity: Luminosity<f64>,
-        years: f64,
+        time_since_epoch: Time<f64>,
     ) -> Luminosity<f64> {
+        if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
+            if time_until_death < TIME_ZERO {
+                return self
+                    .fate
+                    .apply_to_luminous_intensity(luminous_intensity, -time_until_death);
+            }
+        }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return luminous_intensity + lifestage_evolution.luminous_intensity_per_year * years;
+            return luminous_intensity
+                + lifestage_evolution.luminous_intensity_per_year * time_since_epoch.to_yr();
         }
         luminous_intensity
     }
@@ -60,10 +102,18 @@ impl StarDataEvolution {
     pub(crate) fn apply_to_temperature(
         &self,
         temperature: Temperature<f64>,
-        years: f64,
+        time_since_epoch: Time<f64>,
     ) -> Temperature<f64> {
+        if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
+            if time_until_death < TIME_ZERO {
+                return self
+                    .fate
+                    .apply_to_temperature(temperature, -time_until_death);
+            }
+        }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return temperature + lifestage_evolution.temperature_per_year * years;
+            return temperature
+                + lifestage_evolution.temperature_per_year * time_since_epoch.to_yr();
         }
         temperature
     }
@@ -77,7 +127,12 @@ impl StarDataEvolution {
             .lifestage_evolution
             .as_ref()
             .map(|e| e.to_star_appearance_lifestage_evolution(temperature_at_epoch, distance));
-        StarAppearanceEvolution::new(lifestage_evolution)
+        StarAppearanceEvolution::new(
+            lifestage_evolution,
+            self.age,
+            self.lifetime,
+            self.fate.clone(),
+        )
     }
 
     pub fn get_lifestage_mass_per_year(&self) -> Mass<f64> {

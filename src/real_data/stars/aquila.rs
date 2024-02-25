@@ -19,19 +19,22 @@ const ALTAIR: RealData = RealData {
     radius: Some(Distance {
         m: 1.63 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.86 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 2.20,
     apparent_magnitude: 0.76,
     temperature: Temperature { K: 7670. },
-    age: Some(Time {
-        s: 0.100 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(19, 50, 47),
     declination: Declination::new(Sgn::Pos, 8, 52, 6),
     distance: Distance {
         m: 17. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.100 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 1.65092742 * BILLION_YEARS.s,
     },
 };
 
@@ -42,24 +45,27 @@ const TARAZED: RealData = RealData {
     radius: Some(Distance {
         m: 91.82 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.51 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.03,
     apparent_magnitude: 2.72,
     temperature: Temperature { K: 4098. },
-    age: Some(Time {
-        s: 0.270 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(19, 46, 16),
     declination: Declination::new(Sgn::Pos, 10, 36, 48),
     distance: Distance {
         m: 460.5 * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.250 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.254814649 * BILLION_YEARS.s,
+    },
 };
 
-const ZETA_AQUILAE: RealData = RealData {
-    common_name: "",
+const OKAB: RealData = RealData {
+    common_name: "Okab",
     astronomical_name: "Zeta Aquilae",
     constellation: "Aquila",
     right_ascension: RightAscension::new(19, 5, 25),
@@ -69,9 +75,9 @@ const ZETA_AQUILAE: RealData = RealData {
         m: 83.0 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.96,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.37 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.27 * SOLAR_RADIUS.m,
     }),
@@ -79,6 +85,9 @@ const ZETA_AQUILAE: RealData = RealData {
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
 };
 
 const THETA_AQUILAE: RealData = RealData {
@@ -92,9 +101,9 @@ const THETA_AQUILAE: RealData = RealData {
         m: 286. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.39,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.564 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.76 * SOLAR_RADIUS.m,
     }),
@@ -102,6 +111,9 @@ const THETA_AQUILAE: RealData = RealData {
     age: Some(Time {
         s: 0.0209 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.254814649 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_AQUILAE: RealData = RealData {
@@ -115,14 +127,17 @@ const DELTA_AQUILAE: RealData = RealData {
         m: 50.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.46,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.65 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.04 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 7016. },
     age: None,
+    lifetime: Time {
+        s: 1.89665739 * BILLION_YEARS.s,
+    },
 };
 
 const LAMBDA_AQUILAE: RealData = RealData {
@@ -136,9 +151,9 @@ const LAMBDA_AQUILAE: RealData = RealData {
         m: 125. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.54,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.9 * SOLAR_RADIUS.m,
     }),
@@ -146,12 +161,15 @@ const LAMBDA_AQUILAE: RealData = RealData {
     age: Some(Time {
         s: 0.160 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.420724107 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 6] = [
     ALTAIR,
     TARAZED,
-    ZETA_AQUILAE,
+    OKAB,
     THETA_AQUILAE,
     DELTA_AQUILAE,
     LAMBDA_AQUILAE,

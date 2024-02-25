@@ -23,9 +23,9 @@ const NU_OCTANTIS: RealData = RealData {
         m: 63.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.10,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.04 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.9 * SOLAR_RADIUS.m,
     }),
@@ -33,6 +33,9 @@ const NU_OCTANTIS: RealData = RealData {
     age: Some(Time {
         s: 2.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 8.24015833 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_OCTANTIS: RealData = RealData {
@@ -46,16 +49,19 @@ const BETA_OCTANTIS: RealData = RealData {
         m: 149. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.83,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.27 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8006. },
     age: Some(Time {
-        s: 496. * BILLION_YEARS.s,
+        s: 0.496 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.964406929 * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_OCTANTIS: RealData = RealData {
@@ -69,14 +75,17 @@ const DELTA_OCTANTIS: RealData = RealData {
         m: 299. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.35,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.06 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 24.61 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4311. },
     age: None,
+    lifetime: Time {
+        s: 8.24015833 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [NU_OCTANTIS, BETA_OCTANTIS, DELTA_OCTANTIS];

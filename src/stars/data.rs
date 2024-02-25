@@ -1,4 +1,4 @@
-use super::{star_appearance::StarAppearance, star_data_evolution::StarDataEvolution};
+use super::{appearance::StarAppearance, data_evolution::StarDataEvolution, fate::StarFate};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::ecliptic::EclipticCoordinates,
@@ -15,7 +15,6 @@ pub struct StarData {
     pub(super) radius: Option<Distance<f64>>,
     pub(super) luminous_intensity: Option<Luminosity<f64>>,
     pub(super) temperature: Temperature<f64>,
-    pub(super) age: Option<Time<f64>>,
     pub(super) distance: Distance<f64>,
     pub(super) pos: EclipticCoordinates,
     pub(super) evolution: StarDataEvolution,
@@ -29,7 +28,6 @@ impl StarData {
         radius: Option<Distance<f64>>,
         luminous_intensity: Option<Luminosity<f64>>,
         temperature: Temperature<f64>,
-        age: Option<Time<f64>>,
         distance: Distance<f64>,
         pos: EclipticCoordinates,
         evolution: StarDataEvolution,
@@ -40,7 +38,6 @@ impl StarData {
             radius,
             luminous_intensity,
             temperature,
-            age,
             distance,
             pos,
             constellation,
@@ -61,7 +58,7 @@ impl StarData {
     }
 
     pub fn get_mass(&self, time: Time<f64>) -> Option<Mass<f64>> {
-        Some(self.evolution.apply_to_mass(self.mass?, time.to_yr()))
+        Some(self.evolution.apply_to_mass(self.mass?, time))
     }
 
     pub const fn get_radius_at_epoch(&self) -> &Option<Distance<f64>> {
@@ -69,7 +66,7 @@ impl StarData {
     }
 
     pub fn get_radius(&self, time: Time<f64>) -> Option<Distance<f64>> {
-        Some(self.evolution.apply_to_radius(self.radius?, time.to_yr()))
+        Some(self.evolution.apply_to_radius(self.radius?, time))
     }
 
     pub const fn get_luminous_intensity_at_epoch(&self) -> &Option<Luminosity<f64>> {
@@ -79,7 +76,7 @@ impl StarData {
     pub fn get_luminous_intensity(&self, time: Time<f64>) -> Option<Luminosity<f64>> {
         Some(
             self.evolution
-                .apply_to_luminous_intensity(self.luminous_intensity?, time.to_yr()),
+                .apply_to_luminous_intensity(self.luminous_intensity?, time),
         )
     }
 
@@ -88,16 +85,15 @@ impl StarData {
     }
 
     pub fn get_temperature(&self, time: Time<f64>) -> Temperature<f64> {
-        self.evolution
-            .apply_to_temperature(self.temperature, time.to_yr())
+        self.evolution.apply_to_temperature(self.temperature, time)
     }
 
     pub const fn get_age_at_epoch(&self) -> &Option<Time<f64>> {
-        &self.age
+        &self.evolution.age
     }
 
     pub fn get_age(&self, time: Time<f64>) -> Option<Time<f64>> {
-        self.age.map(|age| age + time)
+        self.evolution.age.map(|age| age + time)
     }
 
     pub const fn get_distance_at_epoch(&self) -> &Distance<f64> {
@@ -114,6 +110,18 @@ impl StarData {
 
     pub fn get_pos(&self, _time: Time<f64>) -> EclipticCoordinates {
         self.pos.clone()
+    }
+
+    pub fn get_time_until_death(&self, time_since_epoch: Time<f64>) -> Option<Time<f64>> {
+        self.evolution.time_until_death(time_since_epoch)
+    }
+
+    pub fn get_lifetime(&self) -> Time<f64> {
+        self.evolution.lifetime
+    }
+
+    pub fn get_fate(&self) -> &StarFate {
+        &self.evolution.fate
     }
 
     pub fn set_name(&mut self, name: String) {
@@ -141,7 +149,7 @@ impl StarData {
     }
 
     pub fn set_age_at_epoch(&mut self, age: Option<Time<f64>>) {
-        self.age = age;
+        self.evolution.age = age;
     }
 
     pub fn set_distance_at_epoch(&mut self, distance: Distance<f64>) {
@@ -201,7 +209,7 @@ impl StarData {
                 _ => 0.0,
             };
         let temperature_ratio = self.temperature / other.temperature;
-        let age_ratio = match (self.age, other.age) {
+        let age_ratio = match (self.evolution.age, other.evolution.age) {
             (Some(self_age), Some(other_age)) => self_age / other_age,
             _ => 1.0,
         };
@@ -243,12 +251,151 @@ impl StarData {
         if age_ratio < 0.1 || age_ratio > 10.0 {
             println!(
                 "age1: {}, age2: {}, ratio: {}",
-                self.age.unwrap(),
-                other.age.unwrap(),
+                self.evolution.age.unwrap(),
+                other.evolution.age.unwrap(),
                 age_ratio
             );
             result = false;
         }
         result
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{real_data::stars::all::get_many_stars, units::time::TIME_ZERO};
+
+    #[test]
+    fn real_stars_have_a_non_vanishing_lifetime() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            assert!(star.get_lifetime() > TIME_ZERO);
+        }
+    }
+
+    #[test]
+    fn real_stars_have_not_died_yet() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            if let Some(time_until_death) = star.get_time_until_death(TIME_ZERO) {
+                assert!(time_until_death > TIME_ZERO);
+            }
+        }
+    }
+
+    #[test]
+    fn stars_below_8_sun_masses_become_white_dwarfs() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            if star.mass.unwrap() < Mass::from_solar_mass(8.0) {
+                assert_eq!(star.get_fate(), &StarFate::WhiteDwarf);
+            }
+        }
+    }
+
+    #[test]
+    fn stars_above_8_sun_masses_go_supernova() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            if star.mass.unwrap() > Mass::from_solar_mass(8.0) {
+                assert_eq!(star.get_fate(), &StarFate::TypeIISupernova);
+            }
+        }
+    }
+
+    fn kinda_equal(a: Option<f64>, b: Option<f64>) -> bool {
+        match (a, b) {
+            (Some(a), Some(b)) => (a - b).abs() < 1e-6,
+            (None, None) => true,
+            _ => false,
+        }
+    }
+
+    #[test]
+    fn comparing_getting_stuff_at_epoch() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            assert!(
+                kinda_equal(
+                    star.get_mass_at_epoch().map(|m| m.kg),
+                    star.get_mass(TIME_ZERO).map(|m| m.kg),
+                ),
+                "Star {}\nMass {:?}\nMass {:?}",
+                star.get_name(),
+                star.get_mass_at_epoch(),
+                star.get_mass(TIME_ZERO)
+            );
+            assert!(
+                kinda_equal(
+                    star.get_radius_at_epoch().map(|r| r.m),
+                    star.get_radius(TIME_ZERO).map(|r| r.m)
+                ),
+                "Star {}\nRadius {:?}\nRadius {:?}",
+                star.get_name(),
+                star.get_radius_at_epoch(),
+                star.get_radius(TIME_ZERO)
+            );
+            assert!(
+                kinda_equal(
+                    star.get_luminous_intensity_at_epoch().map(|l| l.cd),
+                    star.get_luminous_intensity(TIME_ZERO).map(|l| l.cd)
+                ),
+                "Star {}\nLuminous intensity {:?}\nLuminous intensity {:?}",
+                star.get_name(),
+                star.get_luminous_intensity_at_epoch(),
+                star.get_luminous_intensity(TIME_ZERO)
+            );
+            assert!(
+                kinda_equal(
+                    Some(star.get_temperature_at_epoch().K),
+                    Some(star.get_temperature(TIME_ZERO).K)
+                ),
+                "Star {}\nTemperature {:?}\nTemperature {:?}",
+                star.get_name(),
+                star.get_temperature_at_epoch(),
+                star.get_temperature(TIME_ZERO)
+            );
+            assert!(
+                kinda_equal(
+                    star.get_age_at_epoch().map(|t| t.s),
+                    star.get_age(TIME_ZERO).map(|t| t.s)
+                ),
+                "Star {}\nAge {:?}\nAge {:?}",
+                star.get_name(),
+                star.get_age_at_epoch(),
+                star.get_age(TIME_ZERO)
+            );
+            assert!(
+                kinda_equal(
+                    Some(star.get_distance_at_epoch().m),
+                    Some(star.get_distance(TIME_ZERO).m)
+                ),
+                "Star {}\nDistance {:?}\nDistance {:?}",
+                star.get_name(),
+                star.get_distance_at_epoch(),
+                star.get_distance(TIME_ZERO)
+            );
+            assert!(
+                kinda_equal(
+                    Some(star.get_pos_at_epoch().get_longitude().rad),
+                    Some(star.get_pos(TIME_ZERO).get_longitude().rad)
+                ),
+                "Star {}\nLongitude {:?}\nLongitude {:?}",
+                star.get_name(),
+                star.get_pos_at_epoch(),
+                star.get_pos(TIME_ZERO)
+            );
+            assert!(
+                kinda_equal(
+                    Some(star.get_pos_at_epoch().get_latitude().rad),
+                    Some(star.get_pos(TIME_ZERO).get_latitude().rad)
+                ),
+                "Star {}\nLatitude {:?}\nLatitude {:?}",
+                star.get_name(),
+                star.get_pos_at_epoch(),
+                star.get_pos(TIME_ZERO)
+            );
+        }
     }
 }

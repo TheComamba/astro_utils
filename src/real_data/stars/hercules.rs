@@ -23,18 +23,21 @@ const RASALGETHI: RealData = RealData {
         m: 360. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.57,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 284. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 3155. },
     age: None,
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
 };
 
-const BETA_HERCULIS: RealData = RealData {
-    common_name: "",
+const KORNEPHOROS: RealData = RealData {
+    common_name: "Kornephoros",
     astronomical_name: "Beta Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(16, 30, 13),
@@ -44,18 +47,21 @@ const BETA_HERCULIS: RealData = RealData {
         m: 139. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.49,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.9 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 17. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4887. },
     age: None,
+    lifetime: Time {
+        s: 0.513076303 * BILLION_YEARS.s,
+    },
 };
 
-const DELTA_HERCULIS: RealData = RealData {
-    common_name: "",
+const SARIN: RealData = RealData {
+    common_name: "Sarin",
     astronomical_name: "Delta Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(17, 15, 2),
@@ -65,9 +71,9 @@ const DELTA_HERCULIS: RealData = RealData {
         m: 75.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.31,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.2 * SOLAR_RADIUS.m,
     }),
@@ -75,6 +81,9 @@ const DELTA_HERCULIS: RealData = RealData {
     age: Some(Time {
         s: 0.370 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.800458342 * BILLION_YEARS.s,
+    },
 };
 
 const ETA_HERCULIS: RealData = RealData {
@@ -88,9 +97,9 @@ const ETA_HERCULIS: RealData = RealData {
         m: 112. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.84,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.13 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 8.9 * SOLAR_RADIUS.m,
     }),
@@ -98,6 +107,9 @@ const ETA_HERCULIS: RealData = RealData {
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.09929685 * BILLION_YEARS.s,
+    },
 };
 
 const MU_HERCULIS: RealData = RealData {
@@ -111,16 +123,19 @@ const MU_HERCULIS: RealData = RealData {
         m: 27.11 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.82,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.11 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.73 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5560. },
     age: Some(Time {
-        s: 7.8 * BILLION_YEARS.s,
+        s: 6.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_HERCULIS: RealData = RealData {
@@ -134,16 +149,19 @@ const ZETA_HERCULIS: RealData = RealData {
         m: 35. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.65,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.45 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.56 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5820. },
     age: Some(Time {
-        s: 6.2 * BILLION_YEARS.s,
+        s: 2.7 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.82957282 * BILLION_YEARS.s,
+    },
 };
 
 const PI_HERCULIS: RealData = RealData {
@@ -157,20 +175,23 @@ const PI_HERCULIS: RealData = RealData {
         m: 377. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.1,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 72. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4170. },
     age: None,
+    lifetime: Time {
+        s: 0.193156929 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 7] = [
     RASALGETHI,
-    BETA_HERCULIS,
-    DELTA_HERCULIS,
+    KORNEPHOROS,
+    SARIN,
     ETA_HERCULIS,
     MU_HERCULIS,
     ZETA_HERCULIS,

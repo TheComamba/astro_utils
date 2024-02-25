@@ -23,14 +23,17 @@ const GAMMA1_VOLANTIS: RealData = RealData {
         m: 143. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.51,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.69 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 6541. },
     age: Some(Time {
         s: 1.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.73766023 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_VOLANTIS: RealData = RealData {
@@ -44,12 +47,15 @@ const BETA_VOLANTIS: RealData = RealData {
         m: 107.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.18,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.62 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 4546. },
     age: None,
+    lifetime: Time {
+        s: 2.08398753 * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_VOLANTIS: RealData = RealData {
@@ -63,16 +69,19 @@ const ZETA_VOLANTIS: RealData = RealData {
         m: 141. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.75,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.74 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4721. },
     age: Some(Time {
-        s: 5.27 * BILLION_YEARS.s,
+        s: 1.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.59501327 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [GAMMA1_VOLANTIS, BETA_VOLANTIS, ZETA_VOLANTIS];

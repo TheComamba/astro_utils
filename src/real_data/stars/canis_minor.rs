@@ -19,24 +19,27 @@ const PROCYON: RealData = RealData {
     radius: Some(Distance {
         m: 2.048 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.499 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 2.68,
     apparent_magnitude: 0.40,
     temperature: Temperature { K: 6530. },
-    age: Some(Time {
-        s: 1.37 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(7, 39, 18),
     declination: Declination::new(Sgn::Pos, 5, 13, 30),
     distance: Distance {
         m: 11. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 1.37 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 2.54186931 * BILLION_YEARS.s,
+    },
 };
 
-const BETA_CANIS_MINORIS: RealData = RealData {
-    common_name: "",
+const GOMEISA: RealData = RealData {
+    common_name: "Gomeisa",
     astronomical_name: "Beta Canis Minoris",
     constellation: "Canis Minor",
     right_ascension: RightAscension::new(7, 27, 9),
@@ -46,16 +49,19 @@ const BETA_CANIS_MINORIS: RealData = RealData {
         m: 160. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.59,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 11_772. },
     age: Some(Time {
-        s: 160. * BILLION_YEARS.s,
+        s: 0.160 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.297402042 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_CANIS_MINORIS: RealData = RealData {
@@ -69,9 +75,9 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
         m: 320. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.5,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.88 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 36.8 * SOLAR_RADIUS.m,
     }),
@@ -79,6 +85,9 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 1.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1.54706939 * BILLION_YEARS.s,
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [PROCYON, BETA_CANIS_MINORIS, GAMMA_CANIS_MINORIS];
+pub(crate) const STARS: [RealData; 3] = [PROCYON, GOMEISA, GAMMA_CANIS_MINORIS];

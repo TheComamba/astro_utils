@@ -1,7 +1,7 @@
 use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
 use crate::{
     astro_display::AstroDisplay,
-    stars::star_data::StarData,
+    stars::data::StarData,
     units::{
         acceleration::EARTH_SURFACE_GRAVITY, distance::distance_to_earth_radii,
         luminosity::luminous_intensity_to_luminosity,
