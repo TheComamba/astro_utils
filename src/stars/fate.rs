@@ -4,7 +4,12 @@ use simple_si_units::{
     electromagnetic::Illuminance,
 };
 
-use crate::color::srgb::sRGBColor;
+use crate::{
+    color::srgb::sRGBColor,
+    units::{
+        distance::DISTANCE_ZERO, illuminance::IRRADIANCE_ZERO, luminous_intensity::LUMINOSITY_ZERO,
+    },
+};
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub enum StarFate {
@@ -22,7 +27,7 @@ impl StarFate {
     }
 
     pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, time_since_death: Time<f64>) -> Mass<f64> {
-        todo!()
+        mass
     }
 
     pub(crate) fn apply_to_radius(
@@ -30,7 +35,7 @@ impl StarFate {
         radius: Distance<f64>,
         time_since_death: Time<f64>,
     ) -> Distance<f64> {
-        todo!()
+        DISTANCE_ZERO
     }
 
     pub(crate) fn apply_to_luminous_intensity(
@@ -38,7 +43,7 @@ impl StarFate {
         luminous_intensity: Luminosity<f64>,
         time_since_death: Time<f64>,
     ) -> Luminosity<f64> {
-        todo!()
+        LUMINOSITY_ZERO
     }
 
     pub(crate) fn apply_to_temperature(
@@ -46,7 +51,7 @@ impl StarFate {
         temperature: Temperature<f64>,
         time_since_death: Time<f64>,
     ) -> Temperature<f64> {
-        todo!()
+        temperature
     }
 
     pub(crate) fn apply_to_illuminance(
@@ -54,7 +59,7 @@ impl StarFate {
         illuminance: Illuminance<f64>,
         time_since_death: Time<f64>,
     ) -> Illuminance<f64> {
-        todo!()
+        IRRADIANCE_ZERO
     }
 
     pub(crate) fn apply_to_color(
@@ -62,6 +67,6 @@ impl StarFate {
         color: sRGBColor,
         time_since_death: Time<f64>,
     ) -> sRGBColor {
-        todo!()
+        color
     }
 }
