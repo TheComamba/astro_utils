@@ -113,8 +113,7 @@ impl StarData {
     }
 
     pub fn get_time_until_death(&self, time_since_epoch: Time<f64>) -> Option<Time<f64>> {
-        self.get_age(time_since_epoch)
-            .map(|age| self.evolution.lifetime - age)
+        self.evolution.time_until_death(time_since_epoch)
     }
 
     pub fn get_fate(&self) -> &StarFate {

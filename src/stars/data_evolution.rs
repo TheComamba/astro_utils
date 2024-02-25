@@ -48,7 +48,14 @@ impl StarDataEvolution {
         }
     }
 
+    pub(super) fn time_until_death(&self, time_since_epoch: Time<f64>) -> Option<Time<f64>> {
+        self.age.map(|age| self.lifetime - age - time_since_epoch)
+    }
+
     pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, time_since_epoch: Time<f64>) -> Mass<f64> {
+        if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
+            return self.fate.apply_to_mass(mass, -time_until_death);
+        }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return mass + lifestage_evolution.mass_per_year * time_since_epoch.to_yr();
         }
@@ -60,6 +67,9 @@ impl StarDataEvolution {
         radius: Distance<f64>,
         time_since_epoch: Time<f64>,
     ) -> Distance<f64> {
+        if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
+            return self.fate.apply_to_radius(radius, -time_until_death);
+        }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return radius + lifestage_evolution.radius_per_year * time_since_epoch.to_yr();
         }
@@ -71,6 +81,11 @@ impl StarDataEvolution {
         luminous_intensity: Luminosity<f64>,
         time_since_epoch: Time<f64>,
     ) -> Luminosity<f64> {
+        if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
+            return self
+                .fate
+                .apply_to_luminous_intensity(luminous_intensity, -time_until_death);
+        }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return luminous_intensity
                 + lifestage_evolution.luminous_intensity_per_year * time_since_epoch.to_yr();
@@ -83,6 +98,11 @@ impl StarDataEvolution {
         temperature: Temperature<f64>,
         time_since_epoch: Time<f64>,
     ) -> Temperature<f64> {
+        if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
+            return self
+                .fate
+                .apply_to_temperature(temperature, -time_until_death);
+        }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return temperature
                 + lifestage_evolution.temperature_per_year * time_since_epoch.to_yr();
