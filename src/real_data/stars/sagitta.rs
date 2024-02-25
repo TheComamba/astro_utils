@@ -34,7 +34,7 @@ const GAMMA_SAGITTAE: RealData = RealData {
         s: 2.35 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 14.2493142 * BILLION_YEARS.s,
     },
 };
 

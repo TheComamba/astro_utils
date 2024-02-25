@@ -34,7 +34,7 @@ const ALDEBARAN: RealData = RealData {
         m: 65. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 5.9461393 * BILLION_YEARS.s,
     },
 };
 

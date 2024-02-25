@@ -58,7 +58,7 @@ const NAUSAKAN: RealData = RealData {
     temperature: Temperature { K: 7980. },
     age: None,
     lifetime: Time {
-        s: 1.17901142 * BILLION_YEARS.s, //guessed
+        s: 1.17901142 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
         s: 0.851 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s, //guessed
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -150,7 +150,7 @@ const IOTA_CORONAE_BOREALIS: RealData = RealData {
     },
     absolute_magnitude: 0.08,
     mass: Mass {
-        kg: 3. * SOLAR_MASS.kg, //guessed
+        kg: 3. * SOLAR_MASS.kg,
     },
     radius: None,
     temperature: Temperature { K: 10_727. },

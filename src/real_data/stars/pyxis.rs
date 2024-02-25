@@ -56,7 +56,7 @@ const BETA_PYXIDIS: RealData = RealData {
     temperature: Temperature { K: 5124. },
     age: None,
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 5.06543331 * BILLION_YEARS.s,
     },
 };
 

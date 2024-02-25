@@ -30,7 +30,7 @@ const DABIH: RealData = RealData {
     temperature: Temperature { K: 4900. },
     age: None,
     lifetime: Time {
-        s: 0.2 * BILLION_YEARS.s,
+        s: 0.220601963 * BILLION_YEARS.s,
     },
 };
 
@@ -54,7 +54,7 @@ const DENEB_ALGEDI: RealData = RealData {
     temperature: Temperature { K: 7301. },
     age: None,
     lifetime: Time {
-        s: 1.3 * BILLION_YEARS.s, //guessed
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 
@@ -80,7 +80,7 @@ const OMEGA_CAPRICORNI: RealData = RealData {
         s: 0.0481 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.6 * BILLION_YEARS.s,
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 

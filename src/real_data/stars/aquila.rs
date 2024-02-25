@@ -25,16 +25,16 @@ const ALTAIR: RealData = RealData {
     absolute_magnitude: 2.20,
     apparent_magnitude: 0.76,
     temperature: Temperature { K: 7670. },
-    age: Some(Time {
-        s: 0.100 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 2.2 * BILLION_YEARS.s,
-    },
     right_ascension: RightAscension::new(19, 50, 47),
     declination: Declination::new(Sgn::Pos, 8, 52, 6),
     distance: Distance {
         m: 17. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.100 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 1.65092742 * BILLION_YEARS.s,
     },
 };
 
@@ -51,16 +51,16 @@ const TARAZED: RealData = RealData {
     absolute_magnitude: -3.03,
     apparent_magnitude: 2.72,
     temperature: Temperature { K: 4098. },
-    age: Some(Time {
-        s: 0.270 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.3 * BILLION_YEARS.s, //guessed
-    },
     right_ascension: RightAscension::new(19, 46, 16),
     declination: Declination::new(Sgn::Pos, 10, 36, 48),
     distance: Distance {
         m: 460.5 * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.270 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.254814649 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const OKAB: RealData = RealData {
         s: 0.1 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.7 * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -112,7 +112,7 @@ const THETA_AQUILAE: RealData = RealData {
         s: 0.0209 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.260 * BILLION_YEARS.s,
+        s: 0.254814649 * BILLION_YEARS.s,
     },
 };
 
@@ -136,7 +136,7 @@ const DELTA_AQUILAE: RealData = RealData {
     temperature: Temperature { K: 7016. },
     age: None,
     lifetime: Time {
-        s: 1.7 * BILLION_YEARS.s,
+        s: 1.89665739 * BILLION_YEARS.s,
     },
 };
 
@@ -162,7 +162,7 @@ const LAMBDA_AQUILAE: RealData = RealData {
         s: 0.160 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.49 * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 

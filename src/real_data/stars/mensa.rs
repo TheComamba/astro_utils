@@ -34,7 +34,7 @@ const ALPHA_MENSAE: RealData = RealData {
         s: 6.2 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 11.7800188 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const GAMMA_MENSAE: RealData = RealData {
         s: 10.60 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 8.24015833 * BILLION_YEARS.s,
     },
 };
 

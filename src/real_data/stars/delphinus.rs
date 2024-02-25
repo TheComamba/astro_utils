@@ -110,7 +110,7 @@ const DELTA_DELPHINI: RealData = RealData {
         s: 0.945 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1.46605285 * BILLION_YEARS.s, //guessed
+        s: 1.46605285 * BILLION_YEARS.s,
     },
 };
 
@@ -136,7 +136,7 @@ const ALDULFIN: RealData = RealData {
         s: 0.220 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.063411557 * BILLION_YEARS.s, //guessed
+        s: 0.063411557 * BILLION_YEARS.s,
     },
 };
 

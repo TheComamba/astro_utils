@@ -152,7 +152,7 @@ const PHERKAD: RealData = RealData {
     },
     absolute_magnitude: -2.84,
     mass: Mass {
-        kg: 9. * SOLAR_MASS.kg, //guessed
+        kg: 9. * SOLAR_MASS.kg,
     },
     radius: Some(Distance {
         m: 15. * SOLAR_RADIUS.m,
@@ -182,7 +182,7 @@ const EPSILON_URSAE_MINORIS: RealData = RealData {
     temperature: Temperature { K: 5215. },
     age: None,
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 6.97272616 * BILLION_YEARS.s,
     },
 };
 

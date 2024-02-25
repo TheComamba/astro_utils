@@ -25,17 +25,16 @@ const NAVI: RealData = RealData {
     absolute_magnitude: -4.22,
     apparent_magnitude: 2.20,
     temperature: Temperature { K: 25_000. },
-    age: Some(Time {
-        s: 0.008 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.019 * BILLION_YEARS.s, //guessed
-    },
-
     right_ascension: RightAscension::new(0, 56, 43),
     declination: Declination::new(Sgn::Pos, 60, 43, 0),
     distance: Distance {
         m: 613. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.008 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.019450199 * BILLION_YEARS.s,
     },
 };
 
@@ -52,17 +51,16 @@ const SCHEDAR: RealData = RealData {
     absolute_magnitude: -1.99,
     apparent_magnitude: 2.24,
     temperature: Temperature { K: 4552. },
-    age: Some(Time {
-        s: 0.22 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(0, 40, 30),
     declination: Declination::new(Sgn::Pos, 56, 32, 14),
     distance: Distance {
         m: 228. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.22 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.193156929 * BILLION_YEARS.s,
     },
 };
 
@@ -79,17 +77,16 @@ const CAPH: RealData = RealData {
     absolute_magnitude: 1.17,
     apparent_magnitude: 2.28,
     temperature: Temperature { K: 7079. },
-    age: Some(Time {
-        s: 1.1 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 2.1 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(0, 9, 11),
     declination: Declination::new(Sgn::Pos, 59, 8, 59),
     distance: Distance {
         m: 54. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 1.1 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 1.54706939 * BILLION_YEARS.s,
     },
 };
 

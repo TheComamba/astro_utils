@@ -80,7 +80,7 @@ const DELTA_MUSCAE: RealData = RealData {
     temperature: Temperature { K: 4_400. },
     age: None,
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 6.97272616 * BILLION_YEARS.s,
     },
 };
 

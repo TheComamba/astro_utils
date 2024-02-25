@@ -29,7 +29,7 @@ const SADALSUUD: RealData = RealData {
         s: 0.110 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.111 * BILLION_YEARS.s, //guessed
+        s: 0.111 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(21, 31, 34),
     declination: Declination::new(Sgn::Neg, 5, 34, 16),
@@ -51,16 +51,16 @@ const SADALMELIK: RealData = RealData {
     absolute_magnitude: -3.882,
     apparent_magnitude: 2.942,
     temperature: Temperature { K: 5383. },
-    age: Some(Time {
-        s: 0.053 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.054 * BILLION_YEARS.s, //guessed
-    },
     right_ascension: RightAscension::new(22, 5, 47),
     declination: Declination::new(Sgn::Neg, 0, 19, 11),
     distance: Distance {
         m: 758.1 * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.053 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.10143918 * BILLION_YEARS.s,
     },
 };
 
@@ -77,16 +77,16 @@ const SKAT: RealData = RealData {
     absolute_magnitude: -0.178,
     apparent_magnitude: 3.27,
     temperature: Temperature { K: 8650. },
-    age: Some(Time {
-        s: 0.3 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 1.2 * BILLION_YEARS.s,
-    },
     right_ascension: RightAscension::new(22, 54, 39),
     declination: Declination::new(Sgn::Neg, 15, 49, 15),
     distance: Distance {
         m: 159.5 * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.3 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 

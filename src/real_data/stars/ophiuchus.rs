@@ -123,16 +123,16 @@ const CEBALRAI: RealData = RealData {
     absolute_magnitude: 0.77,
     apparent_magnitude: 2.76,
     temperature: Temperature { K: 4467. },
-    age: Some(Time {
-        s: 3.82 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
-    },
     right_ascension: RightAscension::new(17, 43, 28),
     declination: Declination::new(Sgn::Pos, 4, 34, 2),
     distance: Distance {
         m: 81.8 * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 3.82 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 5.9461393 * BILLION_YEARS.s,
     },
 };
 

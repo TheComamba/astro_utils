@@ -51,14 +51,14 @@ const ALGIEBA: RealData = RealData {
     absolute_magnitude: -0.92,
     apparent_magnitude: 2.01,
     temperature: Temperature { K: 4470. },
-    age: None,
-    lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
-    },
     right_ascension: RightAscension::new(10, 19, 58),
     declination: Declination::new(Sgn::Pos, 19, 50, 29),
     distance: Distance {
         m: 126. * LIGHT_YEAR.m,
+    },
+    age: None,
+    lifetime: Time {
+        s: 4.45521207 * BILLION_YEARS.s,
     },
 };
 

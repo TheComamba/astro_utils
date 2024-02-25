@@ -84,7 +84,7 @@ const BETA_CHAMAELEONIS: RealData = RealData {
         s: 0.0227 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.078916095 * BILLION_YEARS.s, //guessed
+        s: 0.078916095 * BILLION_YEARS.s,
     },
 };
 

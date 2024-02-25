@@ -60,7 +60,7 @@ const BETA_RETICULI: RealData = RealData {
         s: 5. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 5.06543331 * BILLION_YEARS.s,
     },
 };
 

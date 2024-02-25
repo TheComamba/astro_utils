@@ -84,7 +84,7 @@ const GAMMA_CIRCINI: RealData = RealData {
         s: 0.0631 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.073299383 * BILLION_YEARS.s, //guessed
+        s: 0.073299383 * BILLION_YEARS.s,
     },
 };
 

@@ -82,7 +82,7 @@ const NU_FORNACIS: RealData = RealData {
     temperature: Temperature { K: 13_400. },
     age: None,
     lifetime: Time {
-        s: 0.254814649 * BILLION_YEARS.s, //guessed
+        s: 0.254814649 * BILLION_YEARS.s,
     },
 };
 

@@ -82,7 +82,7 @@ const NAMALWARID: RealData = RealData {
         m: 149.1 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 5.06543331 * BILLION_YEARS.s,
     },
 };
 

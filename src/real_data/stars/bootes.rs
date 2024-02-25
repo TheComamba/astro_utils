@@ -25,17 +25,16 @@ const ARCTURUS: RealData = RealData {
     absolute_magnitude: -0.31,
     apparent_magnitude: -0.05,
     temperature: Temperature { K: 4286. },
-    age: Some(Time {
-        s: 7.1 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 7.2 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(14, 15, 40),
     declination: Declination::new(Sgn::Pos, 19, 10, 56),
     distance: Distance {
         m: 37. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 7.1 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 6.97272616 * BILLION_YEARS.s,
     },
 };
 
@@ -52,17 +51,16 @@ const IZAR: RealData = RealData {
     absolute_magnitude: -1.69,
     apparent_magnitude: 2.35,
     temperature: Temperature { K: 4550. },
-    age: Some(Time {
-        s: 0.0374 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.220 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(14, 44, 59),
     declination: Declination::new(Sgn::Pos, 27, 4, 27),
     distance: Distance {
         m: 210. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.0374 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.136126994 * BILLION_YEARS.s,
     },
 };
 
@@ -88,7 +86,7 @@ const GAMMA_BOOTIS: RealData = RealData {
         s: 0.9 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.670 * BILLION_YEARS.s,
+        s: 1.17901142 * BILLION_YEARS.s,
     },
 };
 
@@ -112,7 +110,7 @@ const DELTA_BOOTIS: RealData = RealData {
     temperature: Temperature { K: 4847. },
     age: None,
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 6.97272616 * BILLION_YEARS.s,
     },
 };
 
@@ -138,7 +136,7 @@ const BETA_BOOTIS: RealData = RealData {
         s: 0.240 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 
@@ -164,7 +162,7 @@ const MUPHRID: RealData = RealData {
         s: 2.7 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 9.4 * BILLION_YEARS.s,
+        s: 1.73766023 * BILLION_YEARS.s,
     },
 };
 

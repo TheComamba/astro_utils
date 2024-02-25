@@ -34,7 +34,7 @@ const MERIDIANA: RealData = RealData {
         s: 0.254 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.63513384 * BILLION_YEARS.s, //guessed
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
         s: 5. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s, //guessed
+        s: 5.9461393 * BILLION_YEARS.s,
     },
 };
 

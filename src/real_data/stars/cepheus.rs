@@ -25,17 +25,16 @@ const ALDERAMIN: RealData = RealData {
     absolute_magnitude: 1.58,
     apparent_magnitude: 2.45,
     temperature: Temperature { K: 7700. },
-    age: Some(Time {
-        s: 0.82 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 2.8 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(21, 18, 35),
     declination: Declination::new(Sgn::Pos, 62, 35, 8),
     distance: Distance {
         m: 49. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.82 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 
@@ -61,7 +60,7 @@ const ALFIRK: RealData = RealData {
         s: 0.0087 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.012 * BILLION_YEARS.s,
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 
@@ -87,7 +86,7 @@ const ERRAI: RealData = RealData {
         s: 3.25 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 12. * BILLION_YEARS.s,
+        s: 3.9126515 * BILLION_YEARS.s,
     },
 };
 
@@ -113,7 +112,7 @@ const DELTA_CEPHERI: RealData = RealData {
         s: 0.079 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.1 * BILLION_YEARS.s,
+        s: 0.151849866 * BILLION_YEARS.s,
     },
 };
 
@@ -139,7 +138,7 @@ const ETA_CEPHEI: RealData = RealData {
         s: 2.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 12. * BILLION_YEARS.s,
+        s: 2.08398753 * BILLION_YEARS.s,
     },
 };
 
@@ -165,7 +164,7 @@ const IOTA_CEPHEI: RealData = RealData {
         s: 1.2 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 1.09929685 * BILLION_YEARS.s,
     },
 };
 
@@ -189,7 +188,7 @@ const ZETA_CEPHEI: RealData = RealData {
     temperature: Temperature { K: 4072. },
     age: None,
     lifetime: Time {
-        s: 0.016 * BILLION_YEARS.s,
+        s: 0.040555762 * BILLION_YEARS.s,
     },
 };
 
@@ -206,17 +205,16 @@ const ERAKIS: RealData = RealData {
     absolute_magnitude: -6.5,
     apparent_magnitude: 3.43,
     temperature: Temperature { K: 3551. },
-    age: Some(Time {
-        s: 0.01 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.011 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(21, 43, 30),
     declination: Declination::new(Sgn::Pos, 58, 46, 48),
     distance: Distance {
         m: 3066. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.01 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.009767659 * BILLION_YEARS.s,
     },
 };
 

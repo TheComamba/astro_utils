@@ -84,7 +84,7 @@ const THETA_DRACONIS: RealData = RealData {
         s: 2.03 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 2.29668629 * BILLION_YEARS.s, //guessed
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 
@@ -234,7 +234,7 @@ const CHI_DRACONIS: RealData = RealData {
         s: 5.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 8.24015833 * BILLION_YEARS.s,
     },
 };
 

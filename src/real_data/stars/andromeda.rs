@@ -29,7 +29,7 @@ const ALPHERATZ: RealData = RealData {
         s: 0.06 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.230 * BILLION_YEARS.s,
+        s: 0.220601963 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(0, 8, 23),
     declination: Declination::new(Sgn::Pos, 29, 5, 26),
@@ -53,7 +53,7 @@ const MIRACH: RealData = RealData {
     temperature: Temperature { K: 3842. },
     age: None,
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(1, 9, 44),
     declination: Declination::new(Sgn::Pos, 35, 37, 14),
@@ -79,7 +79,7 @@ const ALMACH: RealData = RealData {
         s: 0.0065 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.190 * BILLION_YEARS.s,
+        s: 0.008063854 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(2, 3, 54),
     declination: Declination::new(Sgn::Pos, 42, 19, 47),

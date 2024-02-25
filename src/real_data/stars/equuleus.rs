@@ -32,7 +32,7 @@ const KITALPHA: RealData = RealData {
     temperature: Temperature { K: 5100. },
     age: None,
     lifetime: Time {
-        s: 0.916355612 * BILLION_YEARS.s, //guessed
+        s: 0.916355612 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const DELTA_EQUULEI: RealData = RealData {
         s: 3. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.3 * BILLION_YEARS.s, //guessed
+        s: 5.06543331 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const GAMMA_EQUULEI: RealData = RealData {
         s: 1. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1.46605285 * BILLION_YEARS.s, //guessed
+        s: 1.46605285 * BILLION_YEARS.s,
     },
 };
 

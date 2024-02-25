@@ -27,7 +27,7 @@ const ALPHA_ANTLIAE: RealData = RealData {
     temperature: Temperature { K: 4070. },
     age: None,
     lifetime: Time {
-        s: 6.6 * BILLION_YEARS.s,
+        s: 1.03650581 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(10, 27, 9),
     declination: Declination::new(Sgn::Neg, 31, 4, 4),
@@ -44,14 +44,14 @@ const EPSILON_ANTLIAE: RealData = RealData {
         m: 56.3 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
-        kg: 2. * SOLAR_MASS.kg, //guessed
+        kg: 2. * SOLAR_MASS.kg,
     },
     absolute_magnitude: -2.15,
     apparent_magnitude: 4.51,
     temperature: Temperature { K: 4237. },
     age: None,
     lifetime: Time {
-        s: 6.9 * BILLION_YEARS.s,
+        s: 1.36020165 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(9, 29, 15),
     declination: Declination::new(Sgn::Neg, 35, 57, 5),
@@ -77,7 +77,7 @@ const IOTA_ANTLIAE: RealData = RealData {
         s: 3.32 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(10, 56, 43),
     declination: Declination::new(Sgn::Neg, 37, 8, 16),

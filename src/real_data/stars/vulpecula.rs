@@ -34,7 +34,7 @@ const ALPHA_VULPECULAE: RealData = RealData {
         s: 11.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 11.7800188 * BILLION_YEARS.s,
     },
 };
 

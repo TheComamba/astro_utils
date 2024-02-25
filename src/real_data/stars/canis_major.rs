@@ -25,17 +25,16 @@ const SIRIUS: RealData = RealData {
     absolute_magnitude: 1.45,
     apparent_magnitude: -1.44,
     temperature: Temperature { K: 9940. },
-    age: Some(Time {
-        s: 0.242 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 1.5 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(6, 45, 9),
     declination: Declination::new(Sgn::Neg, 16, 42, 58),
     distance: Distance {
         m: 9. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.242 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 1.25731981 * BILLION_YEARS.s,
     },
 };
 
@@ -52,17 +51,16 @@ const ADHARA: RealData = RealData {
     absolute_magnitude: -4.10,
     apparent_magnitude: 1.5,
     temperature: Temperature { K: 22_900. },
-    age: Some(Time {
-        s: 0.0225 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.023 * BILLION_YEARS.s, //guessed
-    },
-
     right_ascension: RightAscension::new(6, 58, 38),
     declination: Declination::new(Sgn::Neg, 28, 58, 19),
     distance: Distance {
         m: 431. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.0225 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.019450199 * BILLION_YEARS.s,
     },
 };
 
@@ -79,17 +77,16 @@ const WEZEN: RealData = RealData {
     absolute_magnitude: -6.87,
     apparent_magnitude: 1.83,
     temperature: Temperature { K: 6390. },
-    age: Some(Time {
-        s: 0.012 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.0121 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(7, 8, 23),
     declination: Declination::new(Sgn::Neg, 26, 23, 36),
     distance: Distance {
         m: 1791. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.012 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.012799766 * BILLION_YEARS.s,
     },
 };
 
@@ -106,17 +103,16 @@ const MIRZAM: RealData = RealData {
     absolute_magnitude: -3.95,
     apparent_magnitude: 1.98,
     temperature: Temperature { K: 25_000. },
-    age: Some(Time {
-        s: 0.0124 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.015 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(6, 22, 42),
     declination: Declination::new(Sgn::Neg, 17, 57, 21),
     distance: Distance {
         m: 499. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.0124 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.015362858 * BILLION_YEARS.s,
     },
 };
 
@@ -133,17 +129,16 @@ const ALUDRA: RealData = RealData {
     absolute_magnitude: -7.51,
     apparent_magnitude: 2.45,
     temperature: Temperature { K: 15_500. },
-    age: Some(Time {
-        s: 0.0083 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.01 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(7, 24, 6),
     declination: Declination::new(Sgn::Neg, 29, 18, 11),
     distance: Distance {
         m: 3196. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 0.0083 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.011037517 * BILLION_YEARS.s,
     },
 };
 

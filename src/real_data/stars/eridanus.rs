@@ -51,14 +51,14 @@ const ZAURAK: RealData = RealData {
     absolute_magnitude: -1.19,
     apparent_magnitude: 2.97,
     temperature: Temperature { K: 3811. },
-    age: None,
-    lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
-    },
     right_ascension: RightAscension::new(3, 58, 2),
     declination: Declination::new(Sgn::Neg, 13, 30, 31),
     distance: Distance {
         m: 221. * LIGHT_YEAR.m,
+    },
+    age: None,
+    lifetime: Time {
+        s: 5.06543331 * BILLION_YEARS.s,
     },
 };
 

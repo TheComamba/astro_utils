@@ -60,7 +60,7 @@ const WAZN: RealData = RealData {
         s: 2. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 6.97272616 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const EPSILON_COLUMBAE: RealData = RealData {
         s: 1.53 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s, //guessed
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 

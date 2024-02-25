@@ -64,7 +64,7 @@ const ZETA_TELESCOPII: RealData = RealData {
 
 const EPSILON_TELESCOPII: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epislon Telescopii",
+    astronomical_name: "Epsilon Telescopii",
     constellation: "Telescopium",
     right_ascension: RightAscension::new(18, 11, 14),
     declination: Declination::new(Sgn::Neg, 45, 57, 16),
@@ -80,7 +80,7 @@ const EPSILON_TELESCOPII: RealData = RealData {
     temperature: Temperature { K: 4996. },
     age: None,
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 6.97272616 * BILLION_YEARS.s,
     },
 };
 

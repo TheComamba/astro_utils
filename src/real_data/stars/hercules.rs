@@ -32,7 +32,7 @@ const RASALGETHI: RealData = RealData {
     temperature: Temperature { K: 3155. },
     age: None,
     lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s, //guessed
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const ETA_HERCULIS: RealData = RealData {
         s: 1. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1.09929685 * BILLION_YEARS.s, //guessed
+        s: 1.09929685 * BILLION_YEARS.s,
     },
 };
 
@@ -134,7 +134,7 @@ const MU_HERCULIS: RealData = RealData {
         s: 7.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 6.97272616 * BILLION_YEARS.s,
     },
 };
 
@@ -184,7 +184,7 @@ const PI_HERCULIS: RealData = RealData {
     temperature: Temperature { K: 4170. },
     age: None,
     lifetime: Time {
-        s: 0.193156929 * BILLION_YEARS.s, //guessed
+        s: 0.193156929 * BILLION_YEARS.s,
     },
 };
 

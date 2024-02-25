@@ -105,7 +105,7 @@ const R_DORADUS: RealData = RealData {
         s: 4. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s, //guessed
+        s: 21.4199307 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(4, 36, 46),
     declination: Declination::new(Sgn::Neg, 62, 4, 38),

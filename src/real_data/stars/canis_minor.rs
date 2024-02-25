@@ -25,17 +25,16 @@ const PROCYON: RealData = RealData {
     absolute_magnitude: 2.68,
     apparent_magnitude: 0.40,
     temperature: Temperature { K: 6530. },
-    age: Some(Time {
-        s: 1.37 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 3.6 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(7, 39, 18),
     declination: Declination::new(Sgn::Pos, 5, 13, 30),
     distance: Distance {
         m: 11. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 1.37 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 2.54186931 * BILLION_YEARS.s,
     },
 };
 
@@ -61,7 +60,7 @@ const GOMEISA: RealData = RealData {
         s: 0.160 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.360 * BILLION_YEARS.s,
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 
@@ -87,7 +86,7 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
         s: 1.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.9 * BILLION_YEARS.s,
+        s: 1.54706939 * BILLION_YEARS.s,
     },
 };
 

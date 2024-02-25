@@ -60,7 +60,7 @@ const GAMMA_HYDRAE: RealData = RealData {
         s: 0.372 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.420724107 * BILLION_YEARS.s, //guessed
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const ZETA_HYDRAE: RealData = RealData {
         s: 0.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.170765802 * BILLION_YEARS.s, //guessed
+        s: 0.170765802 * BILLION_YEARS.s,
     },
 };
 
@@ -110,7 +110,7 @@ const NU_HYDRAE: RealData = RealData {
     temperature: Temperature { K: 4335. },
     age: None,
     lifetime: Time {
-        s: 1.36020165 * BILLION_YEARS.s, //guessed
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 

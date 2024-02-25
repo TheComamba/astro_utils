@@ -29,7 +29,7 @@ const COR_CAROLI: RealData = RealData {
         s: 0.165 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.42 * BILLION_YEARS.s, //guessed
+        s: 0.42 * BILLION_YEARS.s,
     },
 
     right_ascension: RightAscension::new(12, 56, 2),
@@ -52,17 +52,16 @@ const CHARA: RealData = RealData {
     absolute_magnitude: 4.64,
     apparent_magnitude: 4.25,
     temperature: Temperature { K: 6043. },
-    age: Some(Time {
-        s: 3.4 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 8.9 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(12, 33, 45),
     declination: Declination::new(Sgn::Pos, 41, 21, 27),
     distance: Distance {
         m: 27.63 * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 3.4 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 11.7800188 * BILLION_YEARS.s,
     },
 };
 
@@ -88,7 +87,7 @@ const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
         s: 0.360 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1.8 * BILLION_YEARS.s,
+        s: 1.59501327 * BILLION_YEARS.s,
     },
 };
 pub(crate) const STARS: [RealData; 3] = [COR_CAROLI, CHARA, TWENTYFOUR_CANUM_VENATICORUM];

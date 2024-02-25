@@ -25,17 +25,16 @@ const DIPHDA: RealData = RealData {
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.04,
     temperature: Temperature { K: 4797. },
-    age: Some(Time {
-        s: 1. * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(0, 43, 35),
     declination: Declination::new(Sgn::Neg, 17, 59, 12),
     distance: Distance {
         m: 96. * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 1. * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0.513076303 * BILLION_YEARS.s,
     },
 };
 
@@ -52,15 +51,14 @@ const MENKAR: RealData = RealData {
     absolute_magnitude: -1.61,
     apparent_magnitude: 2.54,
     temperature: Temperature { K: 3795. },
-    age: None,
-    lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
-    },
-
     right_ascension: RightAscension::new(3, 2, 17),
     declination: Declination::new(Sgn::Pos, 4, 5, 23),
     distance: Distance {
         m: 220. * LIGHT_YEAR.m,
+    },
+    age: None,
+    lifetime: Time {
+        s: 0.916355612 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +84,7 @@ const MIRA: RealData = RealData {
         s: 6. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 5.06543331 * BILLION_YEARS.s,
     },
 };
 
@@ -112,7 +110,7 @@ const BATEN_KAITOS: RealData = RealData {
         s: 1.24 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.2 * BILLION_YEARS.s,
+        s: 0.916355612 * BILLION_YEARS.s,
     },
 };
 
@@ -138,7 +136,7 @@ const KAFFALJIDHMA: RealData = RealData {
         s: 0.647 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1.2 * BILLION_YEARS.s,
+        s: 1.54706939 * BILLION_YEARS.s,
     },
 };
 
@@ -164,7 +162,7 @@ const IOTA_CETI: RealData = RealData {
         s: 2.23 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.2 * BILLION_YEARS.s,
+        s: 0.513076303 * BILLION_YEARS.s,
     },
 };
 
@@ -190,7 +188,7 @@ const DENEB_ALGENUBI: RealData = RealData {
         s: 1.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.2 * BILLION_YEARS.s,
+        s: 1.65092742 * BILLION_YEARS.s,
     },
 };
 
@@ -216,7 +214,7 @@ const TAU_CETI: RealData = RealData {
         s: 9. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 21.4199307 * BILLION_YEARS.s,
     },
 };
 

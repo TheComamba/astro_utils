@@ -30,7 +30,7 @@ const DIADEM: RealData = RealData {
     temperature: Temperature { K: 6365. },
     age: None,
     lifetime: Time {
-        s: 4.3 * BILLION_YEARS.s,
+        s: 4.45521207 * BILLION_YEARS.s,
     },
 };
 
@@ -56,7 +56,7 @@ const BETA_COMA_BERENICES: RealData = RealData {
         s: 2. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 5.9461393 * BILLION_YEARS.s,
     },
 };
 

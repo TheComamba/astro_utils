@@ -86,7 +86,7 @@ const ETA_INDI: RealData = RealData {
         s: 0.1 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 2.08398753 * BILLION_YEARS.s, //guessed
+        s: 2.08398753 * BILLION_YEARS.s,
     },
 };
 

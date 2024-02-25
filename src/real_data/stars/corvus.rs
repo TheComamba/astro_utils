@@ -32,7 +32,7 @@ const GHURAB: RealData = RealData {
         m: 165. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0.170765802 * BILLION_YEARS.s, //guessed
+        s: 0.170765802 * BILLION_YEARS.s,
     },
 };
 

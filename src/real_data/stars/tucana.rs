@@ -84,7 +84,7 @@ const ZETA_TUCANAE: RealData = RealData {
         s: 2.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 9.81519157 * BILLION_YEARS.s,
     },
 };
 

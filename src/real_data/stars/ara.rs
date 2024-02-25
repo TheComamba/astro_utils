@@ -32,7 +32,7 @@ const ALPHA_ARAE: RealData = RealData {
     temperature: Temperature { K: 18_044. },
     age: None,
     lifetime: Time {
-        s: 0.025 * BILLION_YEARS.s,
+        s: 0.026540021 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const BETA_ARAE: RealData = RealData {
         m: 602.6 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0.06 * BILLION_YEARS.s, //guessed
+        s: 0.040555762 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const GAMMA_ARAE: RealData = RealData {
         s: 0.0157 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.02 * BILLION_YEARS.s, //guessed
+        s: 0.009767659 * BILLION_YEARS.s,
     },
 };
 
@@ -110,7 +110,7 @@ const DELTA_ARAE: RealData = RealData {
         s: 0.125 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.360 * BILLION_YEARS.s, //guessed
+        s: 0.254814649 * BILLION_YEARS.s,
     },
 };
 
@@ -136,7 +136,7 @@ const ZETA_ARAE: RealData = RealData {
         s: 0.045 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s, //guessed
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 

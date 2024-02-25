@@ -34,7 +34,7 @@ const HAMAL: RealData = RealData {
         m: 66. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 7.2 * BILLION_YEARS.s,
+        s: 2.54186931 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_ARIETIS: RealData = RealData {
         s: 0.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1.8 * BILLION_YEARS.s,
+        s: 0.916355612 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const BHARANI: RealData = RealData {
         s: 0.130 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.360 * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 

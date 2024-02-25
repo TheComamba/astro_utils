@@ -48,13 +48,13 @@ const R_HOROLOGII: RealData = RealData {
     },
     absolute_magnitude: -0.221,
     mass: Mass {
-        kg: 3.0 * SOLAR_MASS.kg, //guessed
+        kg: 3.0 * SOLAR_MASS.kg,
     },
     radius: None,
     temperature: Temperature { K: 2200. },
     age: None,
     lifetime: Time {
-        s: 0.420724107 * BILLION_YEARS.s, //guessed
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -70,7 +70,7 @@ const BETA_HOROLOGII: RealData = RealData {
     },
     absolute_magnitude: 0.2,
     mass: Mass {
-        kg: 3.3 * SOLAR_MASS.kg, //guessed
+        kg: 3.3 * SOLAR_MASS.kg,
     },
     radius: Some(Distance {
         m: 1.4 * SOLAR_RADIUS.m,

@@ -240,7 +240,7 @@ const GAMMA_PISCIUM: RealData = RealData {
         s: 4.58 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 11.7800188 * BILLION_YEARS.s,
     },
 };
 
@@ -264,7 +264,7 @@ const OMEGA_PISCIUM: RealData = RealData {
         s: 1.337 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 4.294967295 * BILLION_YEARS.s,
+        s: 5.06543331 * BILLION_YEARS.s,
     },
 };
 
