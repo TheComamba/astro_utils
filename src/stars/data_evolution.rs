@@ -50,10 +50,11 @@ impl StarDataEvolution {
     pub(crate) fn apply_to_luminous_intensity(
         &self,
         luminous_intensity: Luminosity<f64>,
-        years: f64,
+        time: Time<f64>,
     ) -> Luminosity<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return luminous_intensity + lifestage_evolution.luminous_intensity_per_year * years;
+            return luminous_intensity
+                + lifestage_evolution.luminous_intensity_per_year * time.to_yr();
         }
         luminous_intensity
     }
@@ -61,10 +62,10 @@ impl StarDataEvolution {
     pub(crate) fn apply_to_temperature(
         &self,
         temperature: Temperature<f64>,
-        years: f64,
+        time: Time<f64>,
     ) -> Temperature<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return temperature + lifestage_evolution.temperature_per_year * years;
+            return temperature + lifestage_evolution.temperature_per_year * time.to_yr();
         }
         temperature
     }

@@ -41,8 +41,7 @@ impl StarAppearance {
     }
 
     pub fn get_illuminance(&self, time: Time<f64>) -> Illuminance<f64> {
-        self.evolution
-            .apply_to_illuminance(self.illuminance, time.to_yr())
+        self.evolution.apply_to_illuminance(self.illuminance, time)
     }
 
     pub const fn get_color_at_epoch(&self) -> &sRGBColor {
@@ -50,7 +49,7 @@ impl StarAppearance {
     }
 
     pub fn get_color(&self, time: Time<f64>) -> sRGBColor {
-        self.evolution.apply_to_color(self.color, time.to_yr())
+        self.evolution.apply_to_color(self.color, time)
     }
 
     pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
