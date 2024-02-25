@@ -34,7 +34,7 @@ const GAMMA_MICROSCOPII: RealData = RealData {
         s: 0.620 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const EPSILON_MICROSCOPII: RealData = RealData {
         s: 0.525 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.03650581 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const THETA1_MICROSCOPII: RealData = RealData {
         s: 0.437 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.916355612 * BILLION_YEARS.s,
     },
 };
 

@@ -34,7 +34,7 @@ const RASALHAGUE: RealData = RealData {
         m: 47. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -56,7 +56,7 @@ const SABIK: RealData = RealData {
         m: 84. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const HAN: RealData = RealData {
         m: 458. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.009767659 * BILLION_YEARS.s,
     },
 };
 
@@ -106,7 +106,7 @@ const YED_PRIOR: RealData = RealData {
         m: 171. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.54186931 * BILLION_YEARS.s,
     },
 };
 
@@ -127,7 +127,7 @@ const CEBALRAI: RealData = RealData {
         s: 3.82 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(17, 43, 28),
     declination: Declination::new(Sgn::Pos, 4, 34, 2),

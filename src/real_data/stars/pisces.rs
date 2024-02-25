@@ -32,7 +32,7 @@ const ALPHA_PISCIUM: RealData = RealData {
     temperature: Temperature { K: 10_233. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const DELTA_PISCIUM: RealData = RealData {
         s: 0.00298 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.89665739 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const NU_PISCIUM: RealData = RealData {
         s: 3.41 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.89665739 * BILLION_YEARS.s,
     },
 };
 
@@ -110,7 +110,7 @@ const IOTA_PISCIUM: RealData = RealData {
         s: 5.2 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 3.9126515 * BILLION_YEARS.s,
     },
 };
 
@@ -136,7 +136,7 @@ const OMICRON_PISCIUM: RealData = RealData {
         s: 0.390 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -162,7 +162,7 @@ const EPSILON_PISCIUM: RealData = RealData {
         s: 2.56 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.964406929 * BILLION_YEARS.s,
     },
 };
 
@@ -188,7 +188,7 @@ const THETA_PISCIUM: RealData = RealData {
         s: 0.00245 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.08398753 * BILLION_YEARS.s,
     },
 };
 
@@ -214,7 +214,7 @@ const ETA_PISCIUM: RealData = RealData {
         s: 0.220 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.220601963 * BILLION_YEARS.s,
     },
 };
 
@@ -240,7 +240,7 @@ const GAMMA_PISCIUM: RealData = RealData {
         s: 4.58 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -264,7 +264,7 @@ const OMEGA_PISCIUM: RealData = RealData {
         s: 1.337 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 

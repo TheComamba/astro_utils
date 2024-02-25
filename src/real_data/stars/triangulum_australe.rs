@@ -34,7 +34,7 @@ const ATRIA: RealData = RealData {
         m: 415. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
         s: 0.674 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
         s: 0.260 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 

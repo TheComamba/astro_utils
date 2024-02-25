@@ -29,7 +29,7 @@ const VEGA: RealData = RealData {
         s: 0.455 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.09929685 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(18, 36, 56),
     declination: Declination::new(Sgn::Pos, 38, 47, 1),
@@ -51,7 +51,7 @@ const R_LYRAE: RealData = RealData {
     temperature: Temperature { K: 3313. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.46605285 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(18, 55, 20),
     declination: Declination::new(Sgn::Pos, 43, 56, 46),
@@ -80,7 +80,7 @@ const GAMMA_LYRAE: RealData = RealData {
     temperature: Temperature { K: 10_000. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.078916095 * BILLION_YEARS.s,
     },
 };
 
@@ -106,7 +106,7 @@ const BETA_LYRAE: RealData = RealData {
         s: 0.023 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 

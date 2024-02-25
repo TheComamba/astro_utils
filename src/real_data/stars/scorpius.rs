@@ -34,7 +34,7 @@ const ANTARES: RealData = RealData {
         m: 604. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.015362858 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const SHAULA: RealData = RealData {
         m: 600. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.026540021 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const SARGAS: RealData = RealData {
         m: 272. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const DSCHUBBA: RealData = RealData {
         m: 401.5 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.019450199 * BILLION_YEARS.s,
     },
 };
 
@@ -132,7 +132,7 @@ const LARAWAG: RealData = RealData {
         m: 65. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -158,7 +158,7 @@ const GIRTAB: RealData = RealData {
         m: 464. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.012799766 * BILLION_YEARS.s,
     },
 };
 
@@ -182,7 +182,7 @@ const ACRAB: RealData = RealData {
         m: 530. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.015362858 * BILLION_YEARS.s,
     },
 };
 

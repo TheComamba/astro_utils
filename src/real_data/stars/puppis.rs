@@ -34,7 +34,7 @@ const NAOS: RealData = RealData {
         m: 1399. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.00435 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const AHADI: RealData = RealData {
         m: 1094. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.019450199 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const RHO_PUPPIS: RealData = RealData {
         s: 2. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.65092742 * BILLION_YEARS.s,
     },
 };
 
@@ -112,7 +112,7 @@ const TAU_PUPPIS: RealData = RealData {
         s: 0.540 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.351318702 * BILLION_YEARS.s,
     },
 };
 
@@ -136,7 +136,7 @@ const NU_PUPPIS: RealData = RealData {
     temperature: Temperature { K: 12_120. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.10143918 * BILLION_YEARS.s,
     },
 };
 

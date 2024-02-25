@@ -32,7 +32,7 @@ const ALPHA_HOROLOGII: RealData = RealData {
     temperature: Temperature { K: 5028. },
     age: None,
     lifetime: Time {
-        s: 7.5 * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 
@@ -54,7 +54,7 @@ const R_HOROLOGII: RealData = RealData {
     temperature: Temperature { K: 2200. },
     age: None,
     lifetime: Time {
-        s: 1. * BILLION_YEARS.s, //guessed
+        s: 0.420724107 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -78,7 +78,7 @@ const BETA_HOROLOGII: RealData = RealData {
     temperature: Temperature { K: 8303. },
     age: None,
     lifetime: Time {
-        s: 0.530 * BILLION_YEARS.s,
+        s: 0.351318702 * BILLION_YEARS.s,
     },
 };
 

@@ -29,9 +29,8 @@ const ACRUX: RealData = RealData {
         s: 0.0108 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.6 * BILLION_YEARS.s,
+        s: 0.011037517 * BILLION_YEARS.s,
     },
-
     right_ascension: RightAscension::new(12, 26, 36),
     declination: Declination::new(Sgn::Neg, 63, 5, 57),
     distance: Distance {
@@ -61,7 +60,7 @@ const MIMOSA: RealData = RealData {
         m: 352. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 6.6 * BILLION_YEARS.s,
+        s: 0.012799766 * BILLION_YEARS.s,
     },
 };
 
@@ -85,7 +84,7 @@ const GACRUX: RealData = RealData {
         m: 88. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 2.54186931 * BILLION_YEARS.s,
     },
 };
 

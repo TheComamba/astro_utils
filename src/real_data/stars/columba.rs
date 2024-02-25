@@ -34,7 +34,7 @@ const PHACT: RealData = RealData {
         s: 0.093 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.17 * BILLION_YEARS.s,
+        s: 0.151849866 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const WAZN: RealData = RealData {
         s: 2. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.5 * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const DELTA_COLUMBAE: RealData = RealData {
     temperature: Temperature { K: 5136. },
     age: None,
     lifetime: Time {
-        s: 0.380 * BILLION_YEARS.s,
+        s: 0.254814649 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const EPSILON_COLUMBAE: RealData = RealData {
         s: 1.53 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.5 * BILLION_YEARS.s, //guessed
+        s: 0.800458342 * BILLION_YEARS.s, //guessed
     },
 };
 

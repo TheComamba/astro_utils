@@ -34,7 +34,7 @@ const ALPHA_SEXTANTIS: RealData = RealData {
         s: 0.385 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const GAMMA_SEXTANTIS: RealData = RealData {
         s: 0.401 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const BETA_SEXTANTIS: RealData = RealData {
     temperature: Temperature { K: 14_570. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.111319448 * BILLION_YEARS.s,
     },
 };
 

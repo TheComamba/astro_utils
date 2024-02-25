@@ -29,7 +29,7 @@ const POLLUX: RealData = RealData {
         s: 0.724 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 1.54706939 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(7, 45, 19),
     declination: Declination::new(Sgn::Pos, 28, 1, 34),
@@ -55,7 +55,7 @@ const CASTOR: RealData = RealData {
         s: 0.290 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.970 * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(7, 34, 36),
     declination: Declination::new(Sgn::Pos, 31, 53, 18),
@@ -79,7 +79,7 @@ const ALHENA: RealData = RealData {
     temperature: Temperature { K: 9260. },
     age: None,
     lifetime: Time {
-        s: 0.450 * BILLION_YEARS.s,
+        s: 0.513076303 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(6, 37, 43),
     declination: Declination::new(Sgn::Pos, 16, 23, 57),
@@ -103,7 +103,7 @@ const TEJAT: RealData = RealData {
     temperature: Temperature { K: 3460. },
     age: None,
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 1.17901142 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(6, 22, 58),
     declination: Declination::new(Sgn::Pos, 22, 30, 49),
@@ -129,7 +129,7 @@ const PROPUS: RealData = RealData {
         s: 0.81 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(6, 14, 53),
     declination: Declination::new(Sgn::Pos, 22, 30, 24),

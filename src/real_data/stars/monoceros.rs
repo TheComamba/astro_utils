@@ -34,7 +34,7 @@ const ALPHA_MONOCEROTIS: RealData = RealData {
         s: 1.18 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 
@@ -56,7 +56,7 @@ const GAMMA_MONOCEROTIS: RealData = RealData {
     temperature: Temperature { K: 4375. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -80,7 +80,7 @@ const DELTA_MONOCEROTIS: RealData = RealData {
         s: 0.405 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 

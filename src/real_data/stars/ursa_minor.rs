@@ -34,7 +34,7 @@ const POLARIS: RealData = RealData {
         m: 431. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.093024309 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const KOCHAB: RealData = RealData {
         m: 126. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.03650581 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const ZETA_URSAE_MINORIS: RealData = RealData {
         s: 0.180 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 
@@ -110,7 +110,7 @@ const DELTA_URSAE_MINORIS: RealData = RealData {
         s: 0.327 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.916355612 * BILLION_YEARS.s,
     },
 };
 
@@ -136,7 +136,7 @@ const ETA_URSAE_MINORIS: RealData = RealData {
         s: 1.061 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 3.46068223 * BILLION_YEARS.s,
     },
 };
 
@@ -160,7 +160,7 @@ const PHERKAD: RealData = RealData {
     temperature: Temperature { K: 8280. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.03224554 * BILLION_YEARS.s,
     },
 };
 
@@ -182,7 +182,7 @@ const EPSILON_URSAE_MINORIS: RealData = RealData {
     temperature: Temperature { K: 5215. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 

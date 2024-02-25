@@ -34,7 +34,7 @@ const ALPHA_RETICULI: RealData = RealData {
         s: 0.33 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.351318702 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_RETICULI: RealData = RealData {
         s: 5. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const EPSILON_RETICULI: RealData = RealData {
         s: 2.89 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.82957282 * BILLION_YEARS.s,
     },
 };
 

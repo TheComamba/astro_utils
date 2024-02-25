@@ -26,7 +26,7 @@ const GAMMA2_NORMAE: RealData = RealData {
     temperature: Temperature { K: 4699. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.09929685 * BILLION_YEARS.s,
     },
 };
 
@@ -50,7 +50,7 @@ const EPSILON_NORMAE: RealData = RealData {
         s: 0.0501 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.063411557 * BILLION_YEARS.s,
     },
 };
 
@@ -74,7 +74,7 @@ const IOTA1_NORMAE: RealData = RealData {
         s: 0.731 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.46316038 * BILLION_YEARS.s,
     },
 };
 

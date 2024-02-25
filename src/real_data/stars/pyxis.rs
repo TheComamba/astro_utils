@@ -32,7 +32,7 @@ const ALPHA_PYXIDIS: RealData = RealData {
     temperature: Temperature { K: 24_300. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.026540021 * BILLION_YEARS.s,
     },
 };
 
@@ -56,7 +56,7 @@ const BETA_PYXIDIS: RealData = RealData {
     temperature: Temperature { K: 5124. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const GAMMA_PYXIDIS: RealData = RealData {
         s: 4.29 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.89665739 * BILLION_YEARS.s,
     },
 };
 

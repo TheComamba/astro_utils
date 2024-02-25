@@ -29,7 +29,7 @@ const ALPHARD: RealData = RealData {
         s: 0.42 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.9 * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(9, 27, 35),
     declination: Declination::new(Sgn::Neg, 8, 39, 30),
@@ -60,7 +60,7 @@ const GAMMA_HYDRAE: RealData = RealData {
         s: 0.372 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s, //guessed
+        s: 0.420724107 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -86,7 +86,7 @@ const ZETA_HYDRAE: RealData = RealData {
         s: 0.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1. * BILLION_YEARS.s, //guessed
+        s: 0.170765802 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -110,7 +110,7 @@ const NU_HYDRAE: RealData = RealData {
     temperature: Temperature { K: 4335. },
     age: None,
     lifetime: Time {
-        s: 6.0 * BILLION_YEARS.s, //guessed
+        s: 1.36020165 * BILLION_YEARS.s, //guessed
     },
 };
 

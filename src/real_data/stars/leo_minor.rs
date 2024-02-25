@@ -34,7 +34,7 @@ const PRAECIPUA: RealData = RealData {
         s: 6.76 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 8.5 * BILLION_YEARS.s, //guessed
+        s: 1.73766023 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_LEONIS_MINORIS: RealData = RealData {
         s: 1.2 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.5 * BILLION_YEARS.s, //guessed
+        s: 0.420724107 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -86,7 +86,7 @@ const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
         s: 0.390 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 2.2 * BILLION_YEARS.s,
+        s: 1.59501327 * BILLION_YEARS.s,
     },
 };
 

@@ -34,7 +34,7 @@ const ALPHA_CIRCINI: RealData = RealData {
         s: 0.012 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 3.3 * BILLION_YEARS.s,
+        s: 2.08398753 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_CIRCINI: RealData = RealData {
         s: 0.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1.2 * BILLION_YEARS.s,
+        s: 1.03650581 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const GAMMA_CIRCINI: RealData = RealData {
         s: 0.0631 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.1 * BILLION_YEARS.s, //guessed
+        s: 0.073299383 * BILLION_YEARS.s, //guessed
     },
 };
 

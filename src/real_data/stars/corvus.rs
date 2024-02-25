@@ -32,7 +32,7 @@ const GHURAB: RealData = RealData {
         m: 165. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0.2 * BILLION_YEARS.s, //guessed
+        s: 0.170765802 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -58,7 +58,7 @@ const KRAZ: RealData = RealData {
         m: 146. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0.640 * BILLION_YEARS.s,
+        s: 0.254814649 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const ALGORAB: RealData = RealData {
         s: 0.260 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.490 * BILLION_YEARS.s,
+        s: 0.513076303 * BILLION_YEARS.s,
     },
 };
 
@@ -106,7 +106,7 @@ const EPSILON_CORVI: RealData = RealData {
     temperature: Temperature { K: 4320. },
     age: None,
     lifetime: Time {
-        s: 7.2 * BILLION_YEARS.s,
+        s: 0.351318702 * BILLION_YEARS.s,
     },
 };
 

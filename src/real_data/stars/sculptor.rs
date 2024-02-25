@@ -34,7 +34,7 @@ const ALPHA_SCULPTORIS: RealData = RealData {
         s: 0.093 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.111319448 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const BETA_SCULPTORIS: RealData = RealData {
     temperature: Temperature { K: 12_110. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const GAMMA_SULPTORIS: RealData = RealData {
         s: 2.47 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.08398753 * BILLION_YEARS.s,
     },
 };
 

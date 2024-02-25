@@ -56,7 +56,7 @@ const BETA_COMA_BERENICES: RealData = RealData {
         s: 2. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 8.9 * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
         s: 2.72 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.2 * BILLION_YEARS.s,
+        s: 1.89665739 * BILLION_YEARS.s,
     },
 };
 

@@ -34,7 +34,7 @@ const ALPHA_LACERTAE: RealData = RealData {
         s: 0.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.820 * BILLION_YEARS.s,
+        s: 1.03650581 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_LACERTAE: RealData = RealData {
         s: 6.76 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const FIVE_LACERTAE: RealData = RealData {
         s: 110. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.180 * BILLION_YEARS.s,
+        s: 0.10143918 * BILLION_YEARS.s,
     },
 };
 

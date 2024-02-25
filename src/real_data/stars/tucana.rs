@@ -32,7 +32,7 @@ const ALPHA_TUCANAE: RealData = RealData {
         m: 198.5 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const GAMMA_TUCANAE: RealData = RealData {
         s: 1.414 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const ZETA_TUCANAE: RealData = RealData {
         s: 2.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 

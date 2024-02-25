@@ -34,7 +34,7 @@ const REGOR: RealData = RealData {
         m: 840. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.006972406 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const ALSEPHINA: RealData = RealData {
         m: 80. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.964406929 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const SUHAIL: RealData = RealData {
         m: 573. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 
@@ -112,7 +112,7 @@ const MARKEB: RealData = RealData {
         m: 539. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.026540021 * BILLION_YEARS.s,
     },
 };
 

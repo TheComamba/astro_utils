@@ -34,7 +34,7 @@ const PEACOCK: RealData = RealData {
         m: 183. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.073299383 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_PAVONIS: RealData = RealData {
         s: 0.305 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const DELTA_PAVONIS: RealData = RealData {
         s: 6.7 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 

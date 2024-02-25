@@ -34,7 +34,7 @@ const GAMMA_SAGITTAE: RealData = RealData {
         s: 2.35 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const DELTA_SAGITTAE: RealData = RealData {
     temperature: Temperature { K: 3660. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const ALPHA_SAGITTAE: RealData = RealData {
         s: 0.151 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.170765802 * BILLION_YEARS.s,
     },
 };
 

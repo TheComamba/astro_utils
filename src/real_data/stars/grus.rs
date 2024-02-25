@@ -29,7 +29,7 @@ const ALNAIR: RealData = RealData {
         s: 0.1 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.170 * BILLION_YEARS.s,
+        s: 0.193156929 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(22, 8, 14),
     declination: Declination::new(Sgn::Neg, 46, 57, 40),
@@ -53,7 +53,7 @@ const TIAKI: RealData = RealData {
     temperature: Temperature { K: 3480. },
     age: None,
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(22, 42, 40),
     declination: Declination::new(Sgn::Neg, 46, 53, 4),
@@ -84,7 +84,7 @@ const ALDHANAB: RealData = RealData {
         s: 0.075 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.160 * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 

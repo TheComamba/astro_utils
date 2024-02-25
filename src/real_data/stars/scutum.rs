@@ -32,7 +32,7 @@ const ALPHA_SCUTI: RealData = RealData {
     temperature: Temperature { K: 4315. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 3.46068223 * BILLION_YEARS.s,
     },
 };
 
@@ -54,7 +54,7 @@ const BETA_SCUTI: RealData = RealData {
     temperature: Temperature { K: 4622. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -78,7 +78,7 @@ const ZETA_SCUTI: RealData = RealData {
     temperature: Temperature { K: 4750. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 3.9126515 * BILLION_YEARS.s,
     },
 };
 

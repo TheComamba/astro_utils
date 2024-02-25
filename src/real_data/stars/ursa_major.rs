@@ -34,7 +34,7 @@ const ALIOTH: RealData = RealData {
         m: 81. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const DUBHE: RealData = RealData {
         m: 124. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const ALKAID: RealData = RealData {
         m: 101. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.073299383 * BILLION_YEARS.s,
     },
 };
 
@@ -112,7 +112,7 @@ const MIZAR: RealData = RealData {
         m: 78. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.03650581 * BILLION_YEARS.s,
     },
 };
 
@@ -138,7 +138,7 @@ const MERAK: RealData = RealData {
         m: 79. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -164,7 +164,7 @@ const PHECDA: RealData = RealData {
         m: 84. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 
@@ -188,7 +188,7 @@ const TANIA_AUSTRALIS: RealData = RealData {
         m: 230.0 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.067960505 * BILLION_YEARS.s,
     },
 };
 
@@ -214,7 +214,7 @@ const MEGREZ: RealData = RealData {
         m: 80.5 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.89665739 * BILLION_YEARS.s,
     },
 };
 

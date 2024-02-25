@@ -34,7 +34,7 @@ const NU_OCTANTIS: RealData = RealData {
         s: 2.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_OCTANTIS: RealData = RealData {
         s: 496. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.964406929 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const DELTA_OCTANTIS: RealData = RealData {
     temperature: Temperature { K: 4311. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 

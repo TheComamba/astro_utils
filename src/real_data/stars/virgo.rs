@@ -34,7 +34,7 @@ const SPICA: RealData = RealData {
         m: 262. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.019450199 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const MINELAUVA: RealData = RealData {
         m: 202.4 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 3.10253119 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const ZAVIJAVA: RealData = RealData {
         s: 2.9 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 3.10253119 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const SYRMA: RealData = RealData {
     temperature: Temperature { K: 6282. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.54186931 * BILLION_YEARS.s,
     },
 };
 
@@ -134,7 +134,7 @@ const HEZE: RealData = RealData {
         s: 0.51 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.25731981 * BILLION_YEARS.s,
     },
 };
 
@@ -160,7 +160,7 @@ const VINDEMIATRIX: RealData = RealData {
         s: 0.560 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -184,7 +184,7 @@ const PORRIMA: RealData = RealData {
         s: 1.14 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 

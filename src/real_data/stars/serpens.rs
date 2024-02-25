@@ -32,7 +32,7 @@ const UNUKALHAI: RealData = RealData {
         m: 74. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.89665739 * BILLION_YEARS.s,
     },
 };
 
@@ -56,7 +56,7 @@ const BETA_SERPENTIS: RealData = RealData {
         s: 0.267 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.46316038 * BILLION_YEARS.s,
     },
 };
 
@@ -78,7 +78,7 @@ const MU_SERPENTIS: RealData = RealData {
     temperature: Temperature { K: 9487. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 

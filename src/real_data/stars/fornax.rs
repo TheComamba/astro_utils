@@ -34,7 +34,7 @@ const DALIM: RealData = RealData {
         s: 2.9 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.5 * BILLION_YEARS.s,
+        s: 3.46068223 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const BETA_FORNACIS: RealData = RealData {
     temperature: Temperature { K: 4820. },
     age: None,
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const NU_FORNACIS: RealData = RealData {
     temperature: Temperature { K: 13_400. },
     age: None,
     lifetime: Time {
-        s: 1.0 * BILLION_YEARS.s, //guessed
+        s: 0.254814649 * BILLION_YEARS.s, //guessed
     },
 };
 

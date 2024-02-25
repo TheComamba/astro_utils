@@ -32,7 +32,7 @@ const GAMMA1_VOLANTIS: RealData = RealData {
         s: 1.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.73766023 * BILLION_YEARS.s,
     },
 };
 
@@ -54,7 +54,7 @@ const BETA_VOLANTIS: RealData = RealData {
     temperature: Temperature { K: 4546. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.08398753 * BILLION_YEARS.s,
     },
 };
 
@@ -80,7 +80,7 @@ const ZETA_VOLANTIS: RealData = RealData {
         s: 5.27 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.59501327 * BILLION_YEARS.s,
     },
 };
 

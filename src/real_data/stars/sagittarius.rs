@@ -34,7 +34,7 @@ const KAUS_AUSTRALIS: RealData = RealData {
         m: 145. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.254814649 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const NUNKI: RealData = RealData {
         m: 224. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.040555762 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const NAMALWARID: RealData = RealData {
         m: 149.1 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const KAUS_MEDIA: RealData = RealData {
         m: 305.5 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.351318702 * BILLION_YEARS.s,
     },
 };
 

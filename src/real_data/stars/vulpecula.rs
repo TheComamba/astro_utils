@@ -34,7 +34,7 @@ const ALPHA_VULPECULAE: RealData = RealData {
         s: 11.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -56,7 +56,7 @@ const TWENTYTHREE_VULPECULAE: RealData = RealData {
     temperature: Temperature { K: 4429. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
         s: 0.7 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 

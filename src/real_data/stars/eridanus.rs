@@ -29,7 +29,7 @@ const ACHERNAR: RealData = RealData {
         s: 0.063 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.07 * BILLION_YEARS.s,
+        s: 0.073299383 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(1, 37, 43),
     declination: Declination::new(Sgn::Neg, 57, 14, 12),
@@ -53,7 +53,7 @@ const ZAURAK: RealData = RealData {
     temperature: Temperature { K: 3811. },
     age: None,
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(3, 58, 2),
     declination: Declination::new(Sgn::Neg, 13, 30, 31),
@@ -82,7 +82,7 @@ const CURSA: RealData = RealData {
     temperature: Temperature { K: 8360. },
     age: None,
     lifetime: Time {
-        s: 0.420 * BILLION_YEARS.s,
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 
@@ -106,7 +106,7 @@ const ACAMAR: RealData = RealData {
     temperature: Temperature { K: 8200. },
     age: None,
     lifetime: Time {
-        s: 0.470 * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 

@@ -32,7 +32,7 @@ const DENEB: RealData = RealData {
         m: 1548. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 6.355 * BILLION_YEARS.s,
+        s: 0.011037517 * BILLION_YEARS.s,
     },
 };
 
@@ -53,9 +53,8 @@ const SADIR: RealData = RealData {
         s: 0.012 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.032 * BILLION_YEARS.s,
+        s: 0.019450199 * BILLION_YEARS.s,
     },
-
     right_ascension: RightAscension::new(20, 22, 14),
     declination: Declination::new(Sgn::Pos, 40, 15, 24),
     distance: Distance {
@@ -80,9 +79,8 @@ const ALJANAH: RealData = RealData {
         s: 1.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 1.36020165 * BILLION_YEARS.s,
     },
-
     right_ascension: RightAscension::new(20, 46, 13),
     declination: Declination::new(Sgn::Pos, 33, 58, 13),
     distance: Distance {

@@ -34,7 +34,7 @@ const ALDEBARAN: RealData = RealData {
         m: 65. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const ALNATH: RealData = RealData {
         m: 131. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.111319448 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const GAMMA_TAURI: RealData = RealData {
         s: 0.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -112,7 +112,7 @@ const EPSILON_TAURI: RealData = RealData {
         s: 0.625 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -138,7 +138,7 @@ const LAMBDA_TAURI: RealData = RealData {
         s: 0.0332 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 
@@ -164,7 +164,7 @@ const ZETA_TAURI: RealData = RealData {
         s: 22.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.019450199 * BILLION_YEARS.s,
     },
 };
 

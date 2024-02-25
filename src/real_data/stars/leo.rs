@@ -29,7 +29,7 @@ const REGULUS: RealData = RealData {
         s: 0.100 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.260 * BILLION_YEARS.s,
+        s: 0.220601963 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(10, 8, 22),
     declination: Declination::new(Sgn::Pos, 11, 58, 2),
@@ -53,7 +53,7 @@ const ALGIEBA: RealData = RealData {
     temperature: Temperature { K: 4470. },
     age: None,
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(10, 19, 58),
     declination: Declination::new(Sgn::Pos, 19, 50, 29),
@@ -79,7 +79,7 @@ const DENEBOLA: RealData = RealData {
         s: 0.25 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 1.2 * BILLION_YEARS.s,
+        s: 1.46605285 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(11, 49, 3),
     declination: Declination::new(Sgn::Pos, 14, 34, 19),
@@ -110,7 +110,7 @@ const ZOSMA: RealData = RealData {
         m: 58. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 1.4 * BILLION_YEARS.s,
+        s: 1.03650581 * BILLION_YEARS.s,
     },
 };
 

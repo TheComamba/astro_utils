@@ -34,7 +34,7 @@ const ALPHA_PICTORIS: RealData = RealData {
         s: 0.660 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.25731981 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_PICTORIS: RealData = RealData {
         s: 0.023 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.59501327 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const GAMMA_PICTORIS: RealData = RealData {
     temperature: Temperature { K: 4600. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.08398753 * BILLION_YEARS.s,
     },
 };
 

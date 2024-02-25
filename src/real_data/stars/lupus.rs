@@ -27,7 +27,7 @@ const ALPHA_LUPI: RealData = RealData {
         s: 0.018 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.02 * BILLION_YEARS.s,
+        s: 0.026540021 * BILLION_YEARS.s,
     },
     right_ascension: RightAscension::new(14, 41, 56),
     declination: Declination::new(Sgn::Neg, 47, 23, 18),
@@ -58,7 +58,7 @@ const BETA_LUPI: RealData = RealData {
         s: 0.0246 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.025 * BILLION_YEARS.s,
+        s: 0.03224554 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const GAMMA_LUPI: RealData = RealData {
         s: 0.0186 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.02 * BILLION_YEARS.s,
+        s: 0.03224554 * BILLION_YEARS.s,
     },
 };
 

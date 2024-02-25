@@ -34,7 +34,7 @@ const MIRPHAK: RealData = RealData {
         m: 592. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.040555762 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const ALGOL: RealData = RealData {
         m: 93. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.351318702 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const GORGONEA_TERTIA: RealData = RealData {
         m: 325. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.54706939 * BILLION_YEARS.s,
     },
 };
 

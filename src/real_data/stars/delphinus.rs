@@ -34,7 +34,7 @@ const SUALOCIN: RealData = RealData {
         s: 0.227 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.49 * BILLION_YEARS.s,
+        s: 0.220601963 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const ROTANEV: RealData = RealData {
         s: 1.79 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 3.2 * BILLION_YEARS.s,
+        s: 1.59501327 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const GAMMA_DELPHINI: RealData = RealData {
         s: 1.85 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 5.6 * BILLION_YEARS.s,
+        s: 2.08398753 * BILLION_YEARS.s,
     },
 };
 
@@ -110,7 +110,7 @@ const DELTA_DELPHINI: RealData = RealData {
         s: 0.945 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 5. * BILLION_YEARS.s, //guessed
+        s: 1.46605285 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -136,7 +136,7 @@ const ALDULFIN: RealData = RealData {
         s: 0.220 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.5 * BILLION_YEARS.s, //guessed
+        s: 0.063411557 * BILLION_YEARS.s, //guessed
     },
 };
 

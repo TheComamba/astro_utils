@@ -34,7 +34,7 @@ const FORMALHAUT: RealData = RealData {
         m: 25. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.54706939 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const DELTA_PISCIS_AUSTRINI: RealData = RealData {
         s: 3.74 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 3.10253119 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
     temperature: Temperature { K: 11_066. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.193156929 * BILLION_YEARS.s,
     },
 };
 
@@ -104,7 +104,7 @@ const IOTA_PISCIS_AUSTRINI: RealData = RealData {
     temperature: Temperature { K: 9330. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.420724107 * BILLION_YEARS.s,
     },
 };
 

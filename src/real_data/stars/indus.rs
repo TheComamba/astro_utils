@@ -34,7 +34,7 @@ const ALPHA_INDI: RealData = RealData {
         s: 1. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETA_INDI: RealData = RealData {
         s: 0.0532 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 0.063411557 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const ETA_INDI: RealData = RealData {
         s: 0.1 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 9. * BILLION_YEARS.s, //guessed
+        s: 2.08398753 * BILLION_YEARS.s, //guessed
     },
 };
 

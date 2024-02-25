@@ -34,7 +34,7 @@ const RIGEL: RealData = RealData {
         m: 773. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.009767659 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const BETELGEUSE: RealData = RealData {
         m: 522. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.012799766 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const BELLATRIX: RealData = RealData {
         m: 243. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.040555762 * BILLION_YEARS.s,
     },
 };
 
@@ -112,7 +112,7 @@ const ALNILAM: RealData = RealData {
         m: 1342. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.003990497 * BILLION_YEARS.s,
     },
 };
 
@@ -138,7 +138,7 @@ const ALNITAK: RealData = RealData {
         m: 817. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.005807621 * BILLION_YEARS.s,
     },
 };
 
@@ -164,7 +164,7 @@ const SAIPH: RealData = RealData {
         m: 721.2 * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.012799766 * BILLION_YEARS.s,
     },
 };
 
@@ -188,7 +188,7 @@ const MINTAKA: RealData = RealData {
         m: 916. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.008063854 * BILLION_YEARS.s,
     },
 };
 

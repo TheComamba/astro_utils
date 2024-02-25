@@ -216,7 +216,7 @@ const TAU_CETI: RealData = RealData {
         s: 9. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 12. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 

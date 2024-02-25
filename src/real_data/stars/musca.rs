@@ -34,7 +34,7 @@ const ALPHA_MUSCAE: RealData = RealData {
         s: 18.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.03224554 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const BETA_MUSCAE: RealData = RealData {
         s: 0.0151 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 
@@ -80,7 +80,7 @@ const DELTA_MUSCAE: RealData = RealData {
     temperature: Temperature { K: 4_400. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 

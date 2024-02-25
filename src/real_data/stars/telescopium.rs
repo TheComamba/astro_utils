@@ -34,7 +34,7 @@ const ALPHA_TELESCOPII: RealData = RealData {
         s: 0.0241 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.10143918 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const ZETA_TELESCOPII: RealData = RealData {
     temperature: Temperature { K: 4801. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 
@@ -80,7 +80,7 @@ const EPSILON_TELESCOPII: RealData = RealData {
     temperature: Temperature { K: 4996. },
     age: None,
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 

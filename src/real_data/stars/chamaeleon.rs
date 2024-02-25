@@ -34,7 +34,7 @@ const ALPHA_CHAMAELEONTIS: RealData = RealData {
         s: 1.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 2.5 * BILLION_YEARS.s,
+        s: 3.10253119 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const GAMMA_CHAMAELEONTIS: RealData = RealData {
     temperature: Temperature { K: 4035. },
     age: None,
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const BETA_CHAMAELEONIS: RealData = RealData {
         s: 0.0227 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.025 * BILLION_YEARS.s, //guessed
+        s: 0.078916095 * BILLION_YEARS.s, //guessed
     },
 };
 

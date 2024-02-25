@@ -34,7 +34,7 @@ const ALKES: RealData = RealData {
         s: 2.06 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.5 * BILLION_YEARS.s,
+        s: 1.46605285 * BILLION_YEARS.s,
     },
 };
 
@@ -56,7 +56,7 @@ const BETA_CRATERIS: RealData = RealData {
     temperature: Temperature { K: 8830. },
     age: None,
     lifetime: Time {
-        s: 0.820 * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const GAMMA_CRATERIS: RealData = RealData {
         s: 0.757 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 2.7 * BILLION_YEARS.s,
+        s: 1.46605285 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const DELTA_CRATERIS: RealData = RealData {
         s: 2.89 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 

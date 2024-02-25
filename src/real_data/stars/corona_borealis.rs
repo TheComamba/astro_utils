@@ -29,9 +29,8 @@ const ALPHECCA: RealData = RealData {
         s: 0.314 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.7 * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
-
     right_ascension: RightAscension::new(15, 34, 41),
     declination: Declination::new(Sgn::Pos, 26, 42, 53),
     distance: Distance {
@@ -59,7 +58,7 @@ const NAUSAKAN: RealData = RealData {
     temperature: Temperature { K: 7980. },
     age: None,
     lifetime: Time {
-        s: 1.1 * BILLION_YEARS.s, //guessed
+        s: 1.17901142 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -83,7 +82,7 @@ const GAMMA_CORONAE_BOREALIS: RealData = RealData {
         s: 0.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.82 * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -109,7 +108,7 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
         s: 0.851 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 2.5 * BILLION_YEARS.s, //guessed
+        s: 0.800458342 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -135,7 +134,7 @@ const EPSILON_CORONAE_BOREALIS: RealData = RealData {
         s: 4.13 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 6.9 * BILLION_YEARS.s,
+        s: 2.82957282 * BILLION_YEARS.s,
     },
 };
 
@@ -157,7 +156,7 @@ const IOTA_CORONAE_BOREALIS: RealData = RealData {
     temperature: Temperature { K: 10_727. },
     age: None,
     lifetime: Time {
-        s: 0.1 * BILLION_YEARS.s, //no idea
+        s: 0.420724107 * BILLION_YEARS.s, //no idea
     },
 };
 
@@ -183,7 +182,7 @@ const THETA_CORONAE_BOREALIS: RealData = RealData {
         s: 0.085 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.160 * BILLION_YEARS.s,
+        s: 0.170765802 * BILLION_YEARS.s,
     },
 };
 

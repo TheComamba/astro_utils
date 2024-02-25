@@ -32,7 +32,7 @@ const ALPHA_DORADUS: RealData = RealData {
     temperature: Temperature { K: 11_588. },
     age: None,
     lifetime: Time {
-        s: 0.7 * BILLION_YEARS.s,
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const BETA_DORADUS: RealData = RealData {
         s: 0.0425 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 0.040555762 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const GAMMA_DORADUS: RealData = RealData {
         s: 0.535 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 2. * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 
@@ -102,12 +102,11 @@ const R_DORADUS: RealData = RealData {
     apparent_magnitude: 5.59,
     temperature: Temperature { K: 2710. },
     age: Some(Time {
-        s: 10. * BILLION_YEARS.s,
+        s: 4. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 10. * BILLION_YEARS.s, //guessed
+        s: 4.294967295 * BILLION_YEARS.s, //guessed
     },
-
     right_ascension: RightAscension::new(4, 36, 46),
     declination: Declination::new(Sgn::Neg, 62, 4, 38),
     distance: Distance {

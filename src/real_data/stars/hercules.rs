@@ -32,7 +32,7 @@ const RASALGETHI: RealData = RealData {
     temperature: Temperature { K: 3155. },
     age: None,
     lifetime: Time {
-        s: 5. * BILLION_YEARS.s, //guessed
+        s: 0.800458342 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -56,7 +56,7 @@ const KORNEPHOROS: RealData = RealData {
     temperature: Temperature { K: 4887. },
     age: None,
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 0.513076303 * BILLION_YEARS.s,
     },
 };
 
@@ -82,7 +82,7 @@ const SARIN: RealData = RealData {
         s: 0.370 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.670 * BILLION_YEARS.s,
+        s: 0.800458342 * BILLION_YEARS.s,
     },
 };
 
@@ -108,7 +108,7 @@ const ETA_HERCULIS: RealData = RealData {
         s: 1. * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 5.5 * BILLION_YEARS.s, //guessed
+        s: 1.09929685 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -134,7 +134,7 @@ const MU_HERCULIS: RealData = RealData {
         s: 7.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 9.8 * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -160,7 +160,7 @@ const ZETA_HERCULIS: RealData = RealData {
         s: 6.2 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.3 * BILLION_YEARS.s,
+        s: 2.82957282 * BILLION_YEARS.s,
     },
 };
 
@@ -184,7 +184,7 @@ const PI_HERCULIS: RealData = RealData {
     temperature: Temperature { K: 4170. },
     age: None,
     lifetime: Time {
-        s: 0.180 * BILLION_YEARS.s, //guessed
+        s: 0.193156929 * BILLION_YEARS.s, //guessed
     },
 };
 

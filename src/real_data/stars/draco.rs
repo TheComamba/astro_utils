@@ -27,9 +27,8 @@ const ELTANIN: RealData = RealData {
     temperature: Temperature { K: 3930. },
     age: None,
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 1.73766023 * BILLION_YEARS.s,
     },
-
     right_ascension: RightAscension::new(17, 56, 36),
     declination: Declination::new(Sgn::Pos, 51, 29, 20),
     distance: Distance {
@@ -54,9 +53,8 @@ const ATHEBYNE: RealData = RealData {
         s: 0.55 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
-
     right_ascension: RightAscension::new(16, 23, 59),
     declination: Declination::new(Sgn::Pos, 61, 30, 51),
     distance: Distance {
@@ -86,7 +84,7 @@ const THETA_DRACONIS: RealData = RealData {
         s: 2.03 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s, //guessed
+        s: 2.29668629 * BILLION_YEARS.s, //guessed
     },
 };
 
@@ -110,7 +108,7 @@ const KAPPA_DRACONIS: RealData = RealData {
     temperature: Temperature { K: 13_982. },
     age: None,
     lifetime: Time {
-        s: 0.1 * BILLION_YEARS.s,
+        s: 0.254814649 * BILLION_YEARS.s,
     },
 };
 
@@ -136,7 +134,7 @@ const TYL: RealData = RealData {
         s: 0.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 0.63513384 * BILLION_YEARS.s,
     },
 };
 
@@ -160,7 +158,7 @@ const GIAUSAR: RealData = RealData {
     temperature: Temperature { K: 3958. },
     age: None,
     lifetime: Time {
-        s: 6.3 * BILLION_YEARS.s,
+        s: 1.73766023 * BILLION_YEARS.s,
     },
 };
 
@@ -184,7 +182,7 @@ const GRUMIUM: RealData = RealData {
     temperature: Temperature { K: 4445. },
     age: None,
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 2.82957282 * BILLION_YEARS.s,
     },
 };
 
@@ -210,7 +208,7 @@ const THUBAN: RealData = RealData {
         s: 0.280 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.310 * BILLION_YEARS.s,
+        s: 0.351318702 * BILLION_YEARS.s,
     },
 };
 
@@ -236,7 +234,7 @@ const CHI_DRACONIS: RealData = RealData {
         s: 5.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 5.6 * BILLION_YEARS.s,
+        s: 4.294967295 * BILLION_YEARS.s,
     },
 };
 
@@ -262,7 +260,7 @@ const EDASICH: RealData = RealData {
         s: 2.49 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.2 * BILLION_YEARS.s,
+        s: 2.29668629 * BILLION_YEARS.s,
     },
 };
 
@@ -286,7 +284,7 @@ const ALDHIBAH: RealData = RealData {
     temperature: Temperature { K: 13_397. },
     age: None,
     lifetime: Time {
-        s: 0.97 * BILLION_YEARS.s,
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 
@@ -312,7 +310,7 @@ const ALTAIS: RealData = RealData {
         s: 0.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 7.9 * BILLION_YEARS.s,
+        s: 0.916355612 * BILLION_YEARS.s,
     },
 };
 
@@ -338,7 +336,7 @@ const RASTABAN: RealData = RealData {
         s: 0.062 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0.55 * BILLION_YEARS.s,
+        s: 0.073299383 * BILLION_YEARS.s,
     },
 };
 

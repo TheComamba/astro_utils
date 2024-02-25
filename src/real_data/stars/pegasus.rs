@@ -34,7 +34,7 @@ const ENIF: RealData = RealData {
         m: 672. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.052267043 * BILLION_YEARS.s,
     },
 };
 
@@ -58,7 +58,7 @@ const SCHEAT: RealData = RealData {
         m: 199. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.17901142 * BILLION_YEARS.s,
     },
 };
 
@@ -84,7 +84,7 @@ const MARKAB: RealData = RealData {
         m: 140. * LIGHT_YEAR.m,
     },
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 0.297402042 * BILLION_YEARS.s,
     },
 };
 

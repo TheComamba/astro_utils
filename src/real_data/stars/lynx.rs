@@ -34,7 +34,7 @@ const ALPHA_LYNCIS: RealData = RealData {
         s: 1.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.36020165 * BILLION_YEARS.s,
     },
 };
 
@@ -60,7 +60,7 @@ const THIRTYEIGHT_LYNCIS: RealData = RealData {
         s: 0.213 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.54706939 * BILLION_YEARS.s,
     },
 };
 
@@ -86,7 +86,7 @@ const THIRTYONE_LYNCIS: RealData = RealData {
         s: 1.32 * BILLION_YEARS.s,
     }),
     lifetime: Time {
-        s: 0. * BILLION_YEARS.s,
+        s: 1.46316038 * BILLION_YEARS.s,
     },
 };
 
