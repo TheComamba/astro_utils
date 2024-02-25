@@ -303,4 +303,50 @@ mod tests {
             }
         }
     }
+
+    fn kinda_equal(a: Option<f64>, b: Option<f64>) -> bool {
+        match (a, b) {
+            (Some(a), Some(b)) => (a - b).abs() < 1e-6,
+            _ => false,
+        }
+    }
+
+    #[test]
+    fn comparing_getting_stuff_at_epoch() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            assert!(kinda_equal(
+                star.get_mass_at_epoch().map(|m| m.kg),
+                star.get_mass(TIME_ZERO).map(|m| m.kg)
+            ));
+            assert!(kinda_equal(
+                star.get_radius_at_epoch().map(|r| r.m),
+                star.get_radius(TIME_ZERO).map(|r| r.m)
+            ));
+            assert!(kinda_equal(
+                star.get_luminous_intensity_at_epoch().map(|l| l.cd),
+                star.get_luminous_intensity(TIME_ZERO).map(|l| l.cd)
+            ));
+            assert!(kinda_equal(
+                Some(star.get_temperature_at_epoch().K),
+                Some(star.get_temperature(TIME_ZERO).K)
+            ));
+            assert!(kinda_equal(
+                star.get_age_at_epoch().map(|t| t.s),
+                star.get_age(TIME_ZERO).map(|t| t.s)
+            ));
+            assert!(kinda_equal(
+                Some(star.get_distance_at_epoch().m),
+                Some(star.get_distance(TIME_ZERO).m)
+            ));
+            assert!(kinda_equal(
+                Some(star.get_pos_at_epoch().get_longitude().rad),
+                Some(star.get_pos(TIME_ZERO).get_longitude().rad)
+            ));
+            assert!(kinda_equal(
+                Some(star.get_pos_at_epoch().get_latitude().rad),
+                Some(star.get_pos(TIME_ZERO).get_latitude().rad)
+            ));
+        }
+    }
 }
