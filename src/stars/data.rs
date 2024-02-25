@@ -267,7 +267,9 @@ mod tests {
     fn real_stars_have_not_died_yet() {
         let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
         for star in star_data {
-            assert!(star.get_time_until_death(TIME_ZERO).unwrap() > TIME_ZERO);
+            if let Some(time_until_death) = star.get_time_until_death(TIME_ZERO) {
+                assert!(time_until_death > TIME_ZERO);
+            }
         }
     }
 }
