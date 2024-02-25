@@ -1,4 +1,4 @@
-use super::{appearance::StarAppearance, data_evolution::StarDataEvolution};
+use super::{appearance::StarAppearance, data_evolution::StarDataEvolution, fate::StarFate};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::ecliptic::EclipticCoordinates,
@@ -113,6 +113,15 @@ impl StarData {
 
     pub fn get_pos(&self, _time: Time<f64>) -> EclipticCoordinates {
         self.pos.clone()
+    }
+
+    pub fn get_time_until_death(&self, time_since_epoch: Time<f64>) -> Option<Time<f64>> {
+        self.get_age(time_since_epoch)
+            .map(|age| self.evolution.lifetime - age)
+    }
+
+    pub fn get_fate(&self) -> &StarFate {
+        &self.evolution.fate
     }
 
     pub fn set_name(&mut self, name: String) {
@@ -249,5 +258,19 @@ impl StarData {
             result = false;
         }
         result
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{real_data::stars::all::get_many_stars, units::time::TIME_ZERO};
+
+    #[test]
+    fn real_stars_have_not_died_yet() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            assert!(star.get_time_until_death(TIME_ZERO).unwrap() > TIME_ZERO);
+        }
     }
 }

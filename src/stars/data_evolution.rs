@@ -21,8 +21,8 @@ use super::{
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarDataEvolution {
     lifestage_evolution: Option<StarDataLifestageEvolution>,
-    lifetime: Time<f64>,
-    fate: StarFate,
+    pub(super) lifetime: Time<f64>,
+    pub(super) fate: StarFate,
 }
 
 impl StarDataEvolution {
