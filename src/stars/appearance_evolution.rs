@@ -1,6 +1,7 @@
+use super::fate::StarFate;
 use crate::{color::srgb::sRGBColor, units::illuminance::IRRADIANCE_ZERO};
 use serde::{Deserialize, Serialize};
-use simple_si_units::electromagnetic::Illuminance;
+use simple_si_units::{base::Time, electromagnetic::Illuminance};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearanceEvolution {
@@ -11,6 +12,8 @@ pub struct StarAppearanceEvolution {
 pub(crate) struct StarAppearanceLifestageEvolution {
     pub(super) illuminance_per_year: Illuminance<f64>,
     pub(super) color_per_year: sRGBColor,
+    pub(super) lifetime: Time<f64>,
+    pub(super) fate: StarFate,
 }
 
 impl StarAppearanceEvolution {

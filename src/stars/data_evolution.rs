@@ -167,6 +167,8 @@ impl StarDataLifestageEvolution {
         StarAppearanceLifestageEvolution {
             illuminance_per_year,
             color_per_year,
+            lifetime: self.lifetime,
+            fate: self.fate.clone(),
         }
     }
 }
