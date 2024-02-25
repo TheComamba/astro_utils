@@ -33,6 +33,9 @@ const ALPHA_TELESCOPII: RealData = RealData {
     age: Some(Time {
         s: 0.0241 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_TELESCOPII: RealData = RealData {
@@ -54,6 +57,9 @@ const ZETA_TELESCOPII: RealData = RealData {
     }),
     temperature: Temperature { K: 4801. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_TELESCOPII: RealData = RealData {
@@ -73,6 +79,9 @@ const EPSILON_TELESCOPII: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 4996. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_TELESCOPII, ZETA_TELESCOPII, EPSILON_TELESCOPII];

@@ -33,6 +33,9 @@ const ALDEBARAN: RealData = RealData {
     distance: Distance {
         m: 65. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ALNATH: RealData = RealData {
@@ -55,6 +58,9 @@ const ALNATH: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 28, 36, 27),
     distance: Distance {
         m: 131. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -79,6 +85,9 @@ const GAMMA_TAURI: RealData = RealData {
     age: Some(Time {
         s: 0.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_TAURI: RealData = RealData {
@@ -102,6 +111,9 @@ const EPSILON_TAURI: RealData = RealData {
     age: Some(Time {
         s: 0.625 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const LAMBDA_TAURI: RealData = RealData {
@@ -125,6 +137,9 @@ const LAMBDA_TAURI: RealData = RealData {
     age: Some(Time {
         s: 0.0332 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_TAURI: RealData = RealData {
@@ -148,6 +163,9 @@ const ZETA_TAURI: RealData = RealData {
     age: Some(Time {
         s: 22.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 6] = [

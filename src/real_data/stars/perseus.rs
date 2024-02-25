@@ -33,6 +33,9 @@ const MIRPHAK: RealData = RealData {
     distance: Distance {
         m: 592. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ALGOL: RealData = RealData {
@@ -56,6 +59,9 @@ const ALGOL: RealData = RealData {
     distance: Distance {
         m: 93. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GORGONEA_TERTIA: RealData = RealData {
@@ -78,6 +84,9 @@ const GORGONEA_TERTIA: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 38, 50, 25),
     distance: Distance {
         m: 325. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 

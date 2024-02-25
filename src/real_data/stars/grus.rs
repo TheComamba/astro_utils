@@ -28,6 +28,9 @@ const ALNAIR: RealData = RealData {
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.170 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(22, 8, 14),
     declination: Declination::new(Sgn::Neg, 46, 57, 40),
     distance: Distance {
@@ -49,6 +52,9 @@ const TIAKI: RealData = RealData {
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 3480. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(22, 42, 40),
     declination: Declination::new(Sgn::Neg, 46, 53, 4),
     distance: Distance {
@@ -56,8 +62,8 @@ const TIAKI: RealData = RealData {
     },
 };
 
-const GAMMA_GRUIS: RealData = RealData {
-    common_name: "",
+const ALDHANAB: RealData = RealData {
+    common_name: "Aldhanab",
     astronomical_name: "Gamma Gruis",
     constellation: "Grus",
     right_ascension: RightAscension::new(21, 53, 56),
@@ -77,6 +83,9 @@ const GAMMA_GRUIS: RealData = RealData {
     age: Some(Time {
         s: 0.075 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.160 * BILLION_YEARS.s,
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [ALNAIR, TIAKI, GAMMA_GRUIS];
+pub(crate) const STARS: [RealData; 3] = [ALNAIR, TIAKI, ALDHANAB];

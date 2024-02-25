@@ -33,6 +33,9 @@ const ALPHA_SCULPTORIS: RealData = RealData {
     age: Some(Time {
         s: 0.093 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_SCULPTORIS: RealData = RealData {
@@ -54,6 +57,9 @@ const BETA_SCULPTORIS: RealData = RealData {
     }),
     temperature: Temperature { K: 12_110. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_SULPTORIS: RealData = RealData {
@@ -77,6 +83,9 @@ const GAMMA_SULPTORIS: RealData = RealData {
     age: Some(Time {
         s: 2.47 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_SCULPTORIS, BETA_SCULPTORIS, GAMMA_SULPTORIS];

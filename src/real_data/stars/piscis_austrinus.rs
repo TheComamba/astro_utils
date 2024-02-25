@@ -33,6 +33,9 @@ const FORMALHAUT: RealData = RealData {
     distance: Distance {
         m: 25. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_PISCIS_AUSTRINI: RealData = RealData {
@@ -54,6 +57,9 @@ const DELTA_PISCIS_AUSTRINI: RealData = RealData {
     age: Some(Time {
         s: 3.74 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
@@ -75,6 +81,9 @@ const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
     }),
     temperature: Temperature { K: 11_066. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const IOTA_PISCIS_AUSTRINI: RealData = RealData {
@@ -94,6 +103,9 @@ const IOTA_PISCIS_AUSTRINI: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 9330. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 4] = [

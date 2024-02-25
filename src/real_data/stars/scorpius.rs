@@ -33,6 +33,9 @@ const ANTARES: RealData = RealData {
     distance: Distance {
         m: 604. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const SHAULA: RealData = RealData {
@@ -54,6 +57,9 @@ const SHAULA: RealData = RealData {
     distance: Distance {
         m: 600. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const SARGAS: RealData = RealData {
@@ -74,6 +80,9 @@ const SARGAS: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 42, 59, 52),
     distance: Distance {
         m: 272. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -98,6 +107,9 @@ const DSCHUBBA: RealData = RealData {
     distance: Distance {
         m: 401.5 * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const LARAWAG: RealData = RealData {
@@ -118,6 +130,9 @@ const LARAWAG: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 34, 17, 36),
     distance: Distance {
         m: 65. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -142,6 +157,9 @@ const GIRTAB: RealData = RealData {
     distance: Distance {
         m: 464. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ACRAB: RealData = RealData {
@@ -162,6 +180,9 @@ const ACRAB: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 19, 48, 20),
     distance: Distance {
         m: 530. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 

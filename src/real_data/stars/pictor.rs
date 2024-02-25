@@ -33,6 +33,9 @@ const ALPHA_PICTORIS: RealData = RealData {
     age: Some(Time {
         s: 0.660 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_PICTORIS: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_PICTORIS: RealData = RealData {
     age: Some(Time {
         s: 0.023 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_PICTORIS: RealData = RealData {
@@ -77,6 +83,9 @@ const GAMMA_PICTORIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4600. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_PICTORIS, BETA_PICTORIS, GAMMA_PICTORIS];

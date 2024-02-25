@@ -33,6 +33,9 @@ const POLARIS: RealData = RealData {
     distance: Distance {
         m: 431. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const KOCHAB: RealData = RealData {
@@ -53,6 +56,9 @@ const KOCHAB: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 74, 9, 20),
     distance: Distance {
         m: 126. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -77,6 +83,9 @@ const ZETA_URSAE_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 0.180 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_URSAE_MINORIS: RealData = RealData {
@@ -100,6 +109,9 @@ const DELTA_URSAE_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 0.327 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ETA_URSAE_MINORIS: RealData = RealData {
@@ -123,6 +135,9 @@ const ETA_URSAE_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 1.061 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const PHERKAD: RealData = RealData {
@@ -144,6 +159,9 @@ const PHERKAD: RealData = RealData {
     }),
     temperature: Temperature { K: 8280. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_URSAE_MINORIS: RealData = RealData {
@@ -163,6 +181,9 @@ const EPSILON_URSAE_MINORIS: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 5215. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 7] = [

@@ -31,6 +31,9 @@ const UNUKALHAI: RealData = RealData {
     distance: Distance {
         m: 74. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_SERPENTIS: RealData = RealData {
@@ -52,6 +55,9 @@ const BETA_SERPENTIS: RealData = RealData {
     age: Some(Time {
         s: 0.267 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const MU_SERPENTIS: RealData = RealData {
@@ -71,6 +77,9 @@ const MU_SERPENTIS: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 9487. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [UNUKALHAI, BETA_SERPENTIS, MU_SERPENTIS];

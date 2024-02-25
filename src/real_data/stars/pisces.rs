@@ -31,6 +31,9 @@ const ALPHA_PISCIUM: RealData = RealData {
     }),
     temperature: Temperature { K: 10_233. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_PISCIUM: RealData = RealData {
@@ -54,6 +57,9 @@ const DELTA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 0.00298 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const NU_PISCIUM: RealData = RealData {
@@ -77,6 +83,9 @@ const NU_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 3.41 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const IOTA_PISCIUM: RealData = RealData {
@@ -100,6 +109,9 @@ const IOTA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 5.2 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const OMICRON_PISCIUM: RealData = RealData {
@@ -123,6 +135,9 @@ const OMICRON_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 0.390 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_PISCIUM: RealData = RealData {
@@ -146,6 +161,9 @@ const EPSILON_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 2.56 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const THETA_PISCIUM: RealData = RealData {
@@ -169,6 +187,9 @@ const THETA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 0.00245 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ETA_PISCIUM: RealData = RealData {
@@ -192,6 +213,9 @@ const ETA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 0.220 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_PISCIUM: RealData = RealData {
@@ -215,6 +239,9 @@ const GAMMA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 4.58 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const OMEGA_PISCIUM: RealData = RealData {
@@ -236,6 +263,9 @@ const OMEGA_PISCIUM: RealData = RealData {
     age: Some(Time {
         s: 1.337 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 10] = [

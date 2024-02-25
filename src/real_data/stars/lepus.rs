@@ -28,6 +28,9 @@ const ARNEB: RealData = RealData {
     age: Some(Time {
         s: 0.013 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.020 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(5, 32, 44),
     declination: Declination::new(Sgn::Neg, 17, 49, 20),
     distance: Distance {
@@ -56,6 +59,9 @@ const BETA_LEPORIS: RealData = RealData {
     age: Some(Time {
         s: 0.240 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.640 * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_LEPORIS: RealData = RealData {
@@ -79,6 +85,9 @@ const EPSILON_LEPORIS: RealData = RealData {
     age: Some(Time {
         s: 1.72 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.6 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ARNEB, BETA_LEPORIS, EPSILON_LEPORIS];

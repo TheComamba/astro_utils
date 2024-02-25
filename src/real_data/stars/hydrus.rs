@@ -33,6 +33,9 @@ const ALPHA_HYDRI: RealData = RealData {
     age: Some(Time {
         s: 0.810 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 3.1 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_HYDRI: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_HYDRI: RealData = RealData {
     age: Some(Time {
         s: 6.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 9.5 * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_HYDRI: RealData = RealData {
@@ -72,6 +78,9 @@ const GAMMA_HYDRI: RealData = RealData {
     apparent_magnitude: 3.26,
     temperature: Temperature { K: 3499. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(3, 47, 14),
     declination: Declination::new(Sgn::Neg, 74, 14, 20),
     distance: Distance {

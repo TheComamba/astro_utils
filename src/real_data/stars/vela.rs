@@ -33,6 +33,9 @@ const REGOR: RealData = RealData {
     distance: Distance {
         m: 840. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ALSEPHINA: RealData = RealData {
@@ -55,6 +58,9 @@ const ALSEPHINA: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 54, 42, 32),
     distance: Distance {
         m: 80. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -79,6 +85,9 @@ const SUHAIL: RealData = RealData {
     distance: Distance {
         m: 573. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const MARKEB: RealData = RealData {
@@ -101,6 +110,9 @@ const MARKEB: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 55, 0, 38),
     distance: Distance {
         m: 539. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 

@@ -33,6 +33,9 @@ const NU_OCTANTIS: RealData = RealData {
     age: Some(Time {
         s: 2.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_OCTANTIS: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_OCTANTIS: RealData = RealData {
     age: Some(Time {
         s: 496. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_OCTANTIS: RealData = RealData {
@@ -77,6 +83,9 @@ const DELTA_OCTANTIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4311. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [NU_OCTANTIS, BETA_OCTANTIS, DELTA_OCTANTIS];

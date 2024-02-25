@@ -31,6 +31,9 @@ const GAMMA1_VOLANTIS: RealData = RealData {
     age: Some(Time {
         s: 1.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_VOLANTIS: RealData = RealData {
@@ -50,6 +53,9 @@ const BETA_VOLANTIS: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 4546. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_VOLANTIS: RealData = RealData {
@@ -73,6 +79,9 @@ const ZETA_VOLANTIS: RealData = RealData {
     age: Some(Time {
         s: 5.27 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [GAMMA1_VOLANTIS, BETA_VOLANTIS, ZETA_VOLANTIS];

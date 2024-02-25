@@ -28,6 +28,9 @@ const VEGA: RealData = RealData {
     age: Some(Time {
         s: 0.455 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(18, 36, 56),
     declination: Declination::new(Sgn::Pos, 38, 47, 1),
     distance: Distance {
@@ -47,6 +50,9 @@ const R_LYRAE: RealData = RealData {
     apparent_magnitude: 4.08,
     temperature: Temperature { K: 3313. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(18, 55, 20),
     declination: Declination::new(Sgn::Pos, 43, 56, 46),
     distance: Distance {
@@ -73,6 +79,9 @@ const GAMMA_LYRAE: RealData = RealData {
     }),
     temperature: Temperature { K: 10_000. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_LYRAE: RealData = RealData {
@@ -96,6 +105,9 @@ const BETA_LYRAE: RealData = RealData {
     age: Some(Time {
         s: 0.023 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 4] = [VEGA, R_LYRAE, GAMMA_LYRAE, BETA_LYRAE];

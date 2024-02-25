@@ -33,6 +33,9 @@ const GAMMA_SAGITTAE: RealData = RealData {
     age: Some(Time {
         s: 2.35 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_SAGITTAE: RealData = RealData {
@@ -54,6 +57,9 @@ const DELTA_SAGITTAE: RealData = RealData {
     }),
     temperature: Temperature { K: 3660. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ALPHA_SAGITTAE: RealData = RealData {
@@ -77,6 +83,9 @@ const ALPHA_SAGITTAE: RealData = RealData {
     age: Some(Time {
         s: 0.151 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [GAMMA_SAGITTAE, DELTA_SAGITTAE, ALPHA_SAGITTAE];

@@ -7,9 +7,10 @@ use crate::{
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
+        time::BILLION_YEARS,
     },
 };
-use simple_si_units::base::{Distance, Mass, Temperature};
+use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ANKAA: RealData = RealData {
     common_name: "Ankaa",
@@ -30,6 +31,9 @@ const ANKAA: RealData = RealData {
     distance: Distance {
         m: 77. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_PHOENICIS: RealData = RealData {
@@ -49,6 +53,9 @@ const BETA_PHOENICIS: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 5090. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_PHOENICIS: RealData = RealData {
@@ -70,6 +77,9 @@ const GAMMA_PHOENICIS: RealData = RealData {
     }),
     temperature: Temperature { K: 3802. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ANKAA, BETA_PHOENICIS, GAMMA_PHOENICIS];

@@ -25,13 +25,16 @@ const ALPHA_LYNCIS: RealData = RealData {
     absolute_magnitude: -1.02,
     apparent_magnitude: 3.15,
     temperature: Temperature { K: 3882. },
-    age: Some(Time {
-        s: 1.4 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(9, 21, 3),
     declination: Declination::new(Sgn::Pos, 34, 23, 33),
     distance: Distance {
         m: 221.9 * LIGHT_YEAR.m,
+    },
+    age: Some(Time {
+        s: 1.4 * BILLION_YEARS.s,
+    }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -56,6 +59,9 @@ const THIRTYEIGHT_LYNCIS: RealData = RealData {
     age: Some(Time {
         s: 0.213 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const THIRTYONE_LYNCIS: RealData = RealData {
@@ -79,6 +85,9 @@ const THIRTYONE_LYNCIS: RealData = RealData {
     age: Some(Time {
         s: 1.32 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_LYNCIS, THIRTYEIGHT_LYNCIS, THIRTYONE_LYNCIS];

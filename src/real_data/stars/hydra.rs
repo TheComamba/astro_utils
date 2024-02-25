@@ -28,6 +28,9 @@ const ALPHARD: RealData = RealData {
     age: Some(Time {
         s: 0.42 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.9 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(9, 27, 35),
     declination: Declination::new(Sgn::Neg, 8, 39, 30),
     distance: Distance {
@@ -56,6 +59,9 @@ const GAMMA_HYDRAE: RealData = RealData {
     age: Some(Time {
         s: 0.372 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s, //guessed
+    },
 };
 
 const ZETA_HYDRAE: RealData = RealData {
@@ -79,6 +85,9 @@ const ZETA_HYDRAE: RealData = RealData {
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 1. * BILLION_YEARS.s, //guessed
+    },
 };
 
 const NU_HYDRAE: RealData = RealData {
@@ -100,6 +109,9 @@ const NU_HYDRAE: RealData = RealData {
     }),
     temperature: Temperature { K: 4335. },
     age: None,
+    lifetime: Time {
+        s: 6.0 * BILLION_YEARS.s, //guessed
+    },
 };
 
 pub(crate) const STARS: [RealData; 4] = [ALPHARD, GAMMA_HYDRAE, ZETA_HYDRAE, NU_HYDRAE];

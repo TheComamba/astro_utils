@@ -33,6 +33,9 @@ const ALPHA_SEXTANTIS: RealData = RealData {
     age: Some(Time {
         s: 0.385 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_SEXTANTIS: RealData = RealData {
@@ -54,6 +57,9 @@ const GAMMA_SEXTANTIS: RealData = RealData {
     age: Some(Time {
         s: 0.401 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_SEXTANTIS: RealData = RealData {
@@ -75,6 +81,9 @@ const BETA_SEXTANTIS: RealData = RealData {
     }),
     temperature: Temperature { K: 14_570. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_SEXTANTIS, GAMMA_SEXTANTIS, BETA_SEXTANTIS];

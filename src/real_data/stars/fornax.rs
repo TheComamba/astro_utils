@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_FORNACIS: RealData = RealData {
-    common_name: "",
+const DALIM: RealData = RealData {
+    common_name: "Dalim",
     astronomical_name: "Alpha Fornacis",
     constellation: "Fornax",
     right_ascension: RightAscension::new(3, 12, 5),
@@ -33,6 +33,9 @@ const ALPHA_FORNACIS: RealData = RealData {
     age: Some(Time {
         s: 2.9 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.5 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_FORNACIS: RealData = RealData {
@@ -54,6 +57,9 @@ const BETA_FORNACIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4820. },
     age: None,
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
 };
 
 const NU_FORNACIS: RealData = RealData {
@@ -75,6 +81,9 @@ const NU_FORNACIS: RealData = RealData {
     }),
     temperature: Temperature { K: 13_400. },
     age: None,
+    lifetime: Time {
+        s: 1.0 * BILLION_YEARS.s, //guessed
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_FORNACIS, BETA_FORNACIS, NU_FORNACIS];
+pub(crate) const STARS: [RealData; 3] = [DALIM, BETA_FORNACIS, NU_FORNACIS];

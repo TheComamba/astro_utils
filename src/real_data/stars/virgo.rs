@@ -33,6 +33,9 @@ const SPICA: RealData = RealData {
     distance: Distance {
         m: 262. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const MINELAUVA: RealData = RealData {
@@ -53,6 +56,9 @@ const MINELAUVA: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 3, 23, 51),
     distance: Distance {
         m: 202.4 * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -77,6 +83,9 @@ const ZAVIJAVA: RealData = RealData {
     age: Some(Time {
         s: 2.9 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const SYRMA: RealData = RealData {
@@ -98,6 +107,9 @@ const SYRMA: RealData = RealData {
     }),
     temperature: Temperature { K: 6282. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const HEZE: RealData = RealData {
@@ -121,6 +133,9 @@ const HEZE: RealData = RealData {
     age: Some(Time {
         s: 0.51 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const VINDEMIATRIX: RealData = RealData {
@@ -144,6 +159,9 @@ const VINDEMIATRIX: RealData = RealData {
     age: Some(Time {
         s: 0.560 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const PORRIMA: RealData = RealData {
@@ -165,6 +183,9 @@ const PORRIMA: RealData = RealData {
     age: Some(Time {
         s: 1.14 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 7] = [

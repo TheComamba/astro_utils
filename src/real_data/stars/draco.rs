@@ -266,8 +266,8 @@ const EDASICH: RealData = RealData {
     },
 };
 
-const ZETA_DRACONIS: RealData = RealData {
-    common_name: "",
+const ALDHIBAH: RealData = RealData {
+    common_name: "Aldhibah",
     astronomical_name: "Zeta Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(17, 8, 47),
@@ -285,10 +285,13 @@ const ZETA_DRACONIS: RealData = RealData {
     }),
     temperature: Temperature { K: 13_397. },
     age: None,
+    lifetime: Time {
+        s: 0.97 * BILLION_YEARS.s,
+    },
 };
 
-const DELTA_DRACONIS: RealData = RealData {
-    common_name: "",
+const ALTAIS: RealData = RealData {
+    common_name: "Altais",
     astronomical_name: "Delta Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(19, 12, 33),
@@ -308,10 +311,13 @@ const DELTA_DRACONIS: RealData = RealData {
     age: Some(Time {
         s: 0.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
 };
 
-const BETA_DRACONIS: RealData = RealData {
-    common_name: "",
+const RASTABAN: RealData = RealData {
+    common_name: "Rastaban",
     astronomical_name: "Beta Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(17, 30, 26),
@@ -331,6 +337,9 @@ const BETA_DRACONIS: RealData = RealData {
     age: Some(Time {
         s: 0.062 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.55 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 13] = [
@@ -344,7 +353,7 @@ pub(crate) const STARS: [RealData; 13] = [
     THUBAN,
     CHI_DRACONIS,
     EDASICH,
-    ZETA_DRACONIS,
-    DELTA_DRACONIS,
-    BETA_DRACONIS,
+    ALDHIBAH,
+    ALTAIS,
+    RASTABAN,
 ];

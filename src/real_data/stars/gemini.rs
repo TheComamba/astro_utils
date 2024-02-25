@@ -28,6 +28,9 @@ const POLLUX: RealData = RealData {
     age: Some(Time {
         s: 0.724 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(7, 45, 19),
     declination: Declination::new(Sgn::Pos, 28, 1, 34),
     distance: Distance {
@@ -51,6 +54,9 @@ const CASTOR: RealData = RealData {
     age: Some(Time {
         s: 0.290 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.970 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(7, 34, 36),
     declination: Declination::new(Sgn::Pos, 31, 53, 18),
     distance: Distance {
@@ -72,6 +78,9 @@ const ALHENA: RealData = RealData {
     apparent_magnitude: 1.93,
     temperature: Temperature { K: 9260. },
     age: None,
+    lifetime: Time {
+        s: 0.450 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(6, 37, 43),
     declination: Declination::new(Sgn::Pos, 16, 23, 57),
     distance: Distance {
@@ -93,6 +102,9 @@ const TEJAT: RealData = RealData {
     apparent_magnitude: 2.75,
     temperature: Temperature { K: 3460. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(6, 22, 58),
     declination: Declination::new(Sgn::Pos, 22, 30, 49),
     distance: Distance {
@@ -116,6 +128,9 @@ const PROPUS: RealData = RealData {
     age: Some(Time {
         s: 0.81 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(6, 14, 53),
     declination: Declination::new(Sgn::Pos, 22, 30, 24),
     distance: Distance {

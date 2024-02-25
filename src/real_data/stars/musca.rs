@@ -33,6 +33,9 @@ const ALPHA_MUSCAE: RealData = RealData {
     age: Some(Time {
         s: 18.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_MUSCAE: RealData = RealData {
@@ -54,6 +57,9 @@ const BETA_MUSCAE: RealData = RealData {
     age: Some(Time {
         s: 0.0151 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_MUSCAE: RealData = RealData {
@@ -73,6 +79,9 @@ const DELTA_MUSCAE: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 4_400. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_MUSCAE, BETA_MUSCAE, DELTA_MUSCAE];

@@ -31,6 +31,9 @@ const BETA_TRIANGULI: RealData = RealData {
     age: Some(Time {
         s: 0.73 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ALPHA_TRIANGULI: RealData = RealData {
@@ -54,6 +57,9 @@ const ALPHA_TRIANGULI: RealData = RealData {
     age: Some(Time {
         s: 1.6 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_TRIANGULI: RealData = RealData {
@@ -77,6 +83,9 @@ const GAMMA_TRIANGULI: RealData = RealData {
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [BETA_TRIANGULI, ALPHA_TRIANGULI, GAMMA_TRIANGULI];

@@ -33,6 +33,9 @@ const KAUS_AUSTRALIS: RealData = RealData {
     distance: Distance {
         m: 145. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const NUNKI: RealData = RealData {
@@ -56,6 +59,9 @@ const NUNKI: RealData = RealData {
     distance: Distance {
         m: 224. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const NAMALWARID: RealData = RealData {
@@ -74,6 +80,9 @@ const NAMALWARID: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 36, 45, 42),
     distance: Distance {
         m: 149.1 * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -97,6 +106,9 @@ const KAUS_MEDIA: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 29, 49, 41),
     distance: Distance {
         m: 305.5 * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 

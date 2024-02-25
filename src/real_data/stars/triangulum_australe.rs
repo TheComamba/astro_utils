@@ -33,6 +33,9 @@ const ATRIA: RealData = RealData {
     distance: Distance {
         m: 415. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 0.674 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
@@ -79,6 +85,9 @@ const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
     age: Some(Time {
         s: 0.260 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] =

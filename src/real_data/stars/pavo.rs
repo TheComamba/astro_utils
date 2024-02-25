@@ -33,6 +33,9 @@ const PEACOCK: RealData = RealData {
     distance: Distance {
         m: 183. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_PAVONIS: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_PAVONIS: RealData = RealData {
     age: Some(Time {
         s: 0.305 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_PAVONIS: RealData = RealData {
@@ -79,6 +85,9 @@ const DELTA_PAVONIS: RealData = RealData {
     age: Some(Time {
         s: 6.7 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [PEACOCK, BETA_PAVONIS, DELTA_PAVONIS];

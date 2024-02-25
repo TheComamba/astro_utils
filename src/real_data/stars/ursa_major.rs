@@ -33,6 +33,9 @@ const ALIOTH: RealData = RealData {
     distance: Distance {
         m: 81. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DUBHE: RealData = RealData {
@@ -55,6 +58,9 @@ const DUBHE: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 61, 45, 4),
     distance: Distance {
         m: 124. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -79,6 +85,9 @@ const ALKAID: RealData = RealData {
     distance: Distance {
         m: 101. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const MIZAR: RealData = RealData {
@@ -101,6 +110,9 @@ const MIZAR: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 54, 55, 31),
     distance: Distance {
         m: 78. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -125,6 +137,9 @@ const MERAK: RealData = RealData {
     distance: Distance {
         m: 79. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const PHECDA: RealData = RealData {
@@ -148,6 +163,9 @@ const PHECDA: RealData = RealData {
     distance: Distance {
         m: 84. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const TANIA_AUSTRALIS: RealData = RealData {
@@ -168,6 +186,9 @@ const TANIA_AUSTRALIS: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 41, 29, 58),
     distance: Distance {
         m: 230.0 * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -191,6 +212,9 @@ const MEGREZ: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 57, 1, 57),
     distance: Distance {
         m: 80.5 * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 

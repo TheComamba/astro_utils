@@ -29,6 +29,9 @@ const ZUBENELGENUBI: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 8128. },
     age: None,
+    lifetime: Time {
+        s: 0.670 * BILLION_YEARS.s,
+    },
 };
 
 const ZUBENESCHAMALI: RealData = RealData {
@@ -52,6 +55,9 @@ const ZUBENESCHAMALI: RealData = RealData {
     age: Some(Time {
         s: 0.08 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.360 * BILLION_YEARS.s,
+    },
 };
 
 const BRACHIUM: RealData = RealData {
@@ -68,6 +74,9 @@ const BRACHIUM: RealData = RealData {
     apparent_magnitude: 3.21,
     temperature: Temperature { K: 3596. },
     age: None,
+    lifetime: Time {
+        s: 6.3 * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(15, 4, 4),
     declination: Declination::new(Sgn::Neg, 25, 16, 55),
     distance: Distance {

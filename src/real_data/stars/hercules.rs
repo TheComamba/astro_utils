@@ -31,10 +31,13 @@ const RASALGETHI: RealData = RealData {
     }),
     temperature: Temperature { K: 3155. },
     age: None,
+    lifetime: Time {
+        s: 5. * BILLION_YEARS.s, //guessed
+    },
 };
 
-const BETA_HERCULIS: RealData = RealData {
-    common_name: "",
+const KORNEPHOROS: RealData = RealData {
+    common_name: "Kornephoros",
     astronomical_name: "Beta Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(16, 30, 13),
@@ -52,10 +55,13 @@ const BETA_HERCULIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4887. },
     age: None,
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
 };
 
-const DELTA_HERCULIS: RealData = RealData {
-    common_name: "",
+const SARIN: RealData = RealData {
+    common_name: "Sarin",
     astronomical_name: "Delta Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(17, 15, 2),
@@ -75,6 +81,9 @@ const DELTA_HERCULIS: RealData = RealData {
     age: Some(Time {
         s: 0.370 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.670 * BILLION_YEARS.s,
+    },
 };
 
 const ETA_HERCULIS: RealData = RealData {
@@ -98,6 +107,9 @@ const ETA_HERCULIS: RealData = RealData {
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5.5 * BILLION_YEARS.s, //guessed
+    },
 };
 
 const MU_HERCULIS: RealData = RealData {
@@ -121,6 +133,9 @@ const MU_HERCULIS: RealData = RealData {
     age: Some(Time {
         s: 7.8 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 9.8 * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_HERCULIS: RealData = RealData {
@@ -144,6 +159,9 @@ const ZETA_HERCULIS: RealData = RealData {
     age: Some(Time {
         s: 6.2 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.3 * BILLION_YEARS.s,
+    },
 };
 
 const PI_HERCULIS: RealData = RealData {
@@ -165,12 +183,15 @@ const PI_HERCULIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4170. },
     age: None,
+    lifetime: Time {
+        s: 0.180 * BILLION_YEARS.s, //guessed
+    },
 };
 
 pub(crate) const STARS: [RealData; 7] = [
     RASALGETHI,
-    BETA_HERCULIS,
-    DELTA_HERCULIS,
+    KORNEPHOROS,
+    SARIN,
     ETA_HERCULIS,
     MU_HERCULIS,
     ZETA_HERCULIS,

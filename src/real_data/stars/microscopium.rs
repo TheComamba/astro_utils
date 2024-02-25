@@ -33,6 +33,9 @@ const GAMMA_MICROSCOPII: RealData = RealData {
     age: Some(Time {
         s: 0.620 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_MICROSCOPII: RealData = RealData {
@@ -56,6 +59,9 @@ const EPSILON_MICROSCOPII: RealData = RealData {
     age: Some(Time {
         s: 0.525 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const THETA1_MICROSCOPII: RealData = RealData {
@@ -79,6 +85,9 @@ const THETA1_MICROSCOPII: RealData = RealData {
     age: Some(Time {
         s: 0.437 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] =

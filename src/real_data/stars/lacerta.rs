@@ -33,6 +33,9 @@ const ALPHA_LACERTAE: RealData = RealData {
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.820 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_LACERTAE: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_LACERTAE: RealData = RealData {
     age: Some(Time {
         s: 6.76 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
 };
 
 const FIVE_LACERTAE: RealData = RealData {
@@ -79,6 +85,9 @@ const FIVE_LACERTAE: RealData = RealData {
     age: Some(Time {
         s: 110. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.180 * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_LACERTAE, BETA_LACERTAE, FIVE_LACERTAE];

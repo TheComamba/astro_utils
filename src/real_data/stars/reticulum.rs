@@ -33,6 +33,9 @@ const ALPHA_RETICULI: RealData = RealData {
     age: Some(Time {
         s: 0.33 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_RETICULI: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_RETICULI: RealData = RealData {
     age: Some(Time {
         s: 5. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_RETICULI: RealData = RealData {
@@ -79,6 +85,9 @@ const EPSILON_RETICULI: RealData = RealData {
     age: Some(Time {
         s: 2.89 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_RETICULI, BETA_RETICULI, EPSILON_RETICULI];

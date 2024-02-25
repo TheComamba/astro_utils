@@ -33,6 +33,9 @@ const ALPHA_VULPECULAE: RealData = RealData {
     age: Some(Time {
         s: 11.3 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const TWENTYTHREE_VULPECULAE: RealData = RealData {
@@ -52,6 +55,9 @@ const TWENTYTHREE_VULPECULAE: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 4429. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const THIRTYONE_VULPECULAE: RealData = RealData {
@@ -75,6 +81,9 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
     age: Some(Time {
         s: 0.7 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [

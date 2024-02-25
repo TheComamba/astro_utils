@@ -25,6 +25,9 @@ const GAMMA2_NORMAE: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 4699. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const EPSILON_NORMAE: RealData = RealData {
@@ -46,6 +49,9 @@ const EPSILON_NORMAE: RealData = RealData {
     age: Some(Time {
         s: 0.0501 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const IOTA1_NORMAE: RealData = RealData {
@@ -67,6 +73,9 @@ const IOTA1_NORMAE: RealData = RealData {
     age: Some(Time {
         s: 0.731 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [GAMMA2_NORMAE, EPSILON_NORMAE, IOTA1_NORMAE];

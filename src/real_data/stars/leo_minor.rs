@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const FOURTYSIX_LEONIS_MINORIS: RealData = RealData {
-    common_name: "",
+const PRAECIPUA: RealData = RealData {
+    common_name: "Praecipua",
     astronomical_name: "46 Leonis Minoris",
     constellation: "Leo Minor",
     right_ascension: RightAscension::new(10, 53, 19),
@@ -33,6 +33,9 @@ const FOURTYSIX_LEONIS_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 6.76 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 8.5 * BILLION_YEARS.s, //guessed
+    },
 };
 
 const BETA_LEONIS_MINORIS: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_LEONIS_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 1.2 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0.5 * BILLION_YEARS.s, //guessed
+    },
 };
 
 const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
@@ -79,10 +85,9 @@ const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
     age: Some(Time {
         s: 0.390 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 2.2 * BILLION_YEARS.s,
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [
-    BETA_LEONIS_MINORIS,
-    FOURTYSIX_LEONIS_MINORIS,
-    TWENTYFOUR_LEONIS_MINORIS,
-];
+pub(crate) const STARS: [RealData; 3] = [BETA_LEONIS_MINORIS, PRAECIPUA, TWENTYFOUR_LEONIS_MINORIS];

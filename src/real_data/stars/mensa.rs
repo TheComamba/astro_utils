@@ -33,6 +33,9 @@ const ALPHA_MENSAE: RealData = RealData {
     age: Some(Time {
         s: 6.2 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_MENSAE: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_MENSAE: RealData = RealData {
     age: Some(Time {
         s: 0.270 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_MENSAE: RealData = RealData {
@@ -79,6 +85,9 @@ const GAMMA_MENSAE: RealData = RealData {
     age: Some(Time {
         s: 10.60 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_MENSAE, BETA_MENSAE, GAMMA_MENSAE];

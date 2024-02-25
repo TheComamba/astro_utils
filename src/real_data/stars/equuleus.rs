@@ -12,8 +12,8 @@ use crate::{
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
-const ALPHA_EQUULEI: RealData = RealData {
-    common_name: "",
+const KITALPHA: RealData = RealData {
+    common_name: "Kitalpha",
     astronomical_name: "Alpha Equulei",
     constellation: "Equuleus",
     right_ascension: RightAscension::new(21, 15, 49),
@@ -31,6 +31,9 @@ const ALPHA_EQUULEI: RealData = RealData {
     }),
     temperature: Temperature { K: 5100. },
     age: None,
+    lifetime: Time {
+        s: 10. * BILLION_YEARS.s, //guessed
+    },
 };
 
 const DELTA_EQUULEI: RealData = RealData {
@@ -54,6 +57,9 @@ const DELTA_EQUULEI: RealData = RealData {
     age: Some(Time {
         s: 3. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 4.3 * BILLION_YEARS.s, //guessed
+    },
 };
 
 const GAMMA_EQUULEI: RealData = RealData {
@@ -77,6 +83,9 @@ const GAMMA_EQUULEI: RealData = RealData {
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 5.6 * BILLION_YEARS.s, //guessed
+    },
 };
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_EQUULEI, DELTA_EQUULEI, GAMMA_EQUULEI];
+pub(crate) const STARS: [RealData; 3] = [KITALPHA, DELTA_EQUULEI, GAMMA_EQUULEI];

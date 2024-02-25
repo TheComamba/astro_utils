@@ -33,6 +33,9 @@ const ALPHA_MONOCEROTIS: RealData = RealData {
     age: Some(Time {
         s: 1.18 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_MONOCEROTIS: RealData = RealData {
@@ -52,6 +55,9 @@ const GAMMA_MONOCEROTIS: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 4375. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const DELTA_MONOCEROTIS: RealData = RealData {
@@ -73,6 +79,9 @@ const DELTA_MONOCEROTIS: RealData = RealData {
     age: Some(Time {
         s: 0.405 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_MONOCEROTIS, GAMMA_MONOCEROTIS, DELTA_MONOCEROTIS];

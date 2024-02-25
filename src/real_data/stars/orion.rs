@@ -33,6 +33,9 @@ const RIGEL: RealData = RealData {
     distance: Distance {
         m: 773. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETELGEUSE: RealData = RealData {
@@ -55,6 +58,9 @@ const BETELGEUSE: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 7, 24, 25),
     distance: Distance {
         m: 522. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -79,6 +85,9 @@ const BELLATRIX: RealData = RealData {
     distance: Distance {
         m: 243. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ALNILAM: RealData = RealData {
@@ -101,6 +110,9 @@ const ALNILAM: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 1, 12, 7),
     distance: Distance {
         m: 1342. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -125,6 +137,9 @@ const ALNITAK: RealData = RealData {
     distance: Distance {
         m: 817. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const SAIPH: RealData = RealData {
@@ -148,6 +163,9 @@ const SAIPH: RealData = RealData {
     distance: Distance {
         m: 721.2 * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const MINTAKA: RealData = RealData {
@@ -168,6 +186,9 @@ const MINTAKA: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 0, 17, 57),
     distance: Distance {
         m: 916. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 

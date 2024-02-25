@@ -31,6 +31,9 @@ const ALPHA_PYXIDIS: RealData = RealData {
     }),
     temperature: Temperature { K: 24_300. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const BETA_PYXIDIS: RealData = RealData {
@@ -52,6 +55,9 @@ const BETA_PYXIDIS: RealData = RealData {
     }),
     temperature: Temperature { K: 5124. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_PYXIDIS: RealData = RealData {
@@ -75,6 +81,9 @@ const GAMMA_PYXIDIS: RealData = RealData {
     age: Some(Time {
         s: 4.29 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_PYXIDIS, BETA_PYXIDIS, GAMMA_PYXIDIS];

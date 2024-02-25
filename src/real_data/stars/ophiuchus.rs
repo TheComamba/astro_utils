@@ -33,6 +33,9 @@ const RASALHAGUE: RealData = RealData {
     distance: Distance {
         m: 47. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const SABIK: RealData = RealData {
@@ -51,6 +54,9 @@ const SABIK: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 15, 43, 30),
     distance: Distance {
         m: 84. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -75,6 +81,9 @@ const HAN: RealData = RealData {
     distance: Distance {
         m: 458. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const YED_PRIOR: RealData = RealData {
@@ -96,6 +105,9 @@ const YED_PRIOR: RealData = RealData {
     distance: Distance {
         m: 171. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const CEBALRAI: RealData = RealData {
@@ -114,6 +126,9 @@ const CEBALRAI: RealData = RealData {
     age: Some(Time {
         s: 3.82 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
     right_ascension: RightAscension::new(17, 43, 28),
     declination: Declination::new(Sgn::Pos, 4, 34, 2),
     distance: Distance {

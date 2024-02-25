@@ -33,6 +33,9 @@ const NAOS: RealData = RealData {
     distance: Distance {
         m: 1399. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const AHADI: RealData = RealData {
@@ -55,6 +58,9 @@ const AHADI: RealData = RealData {
     declination: Declination::new(Sgn::Neg, 37, 5, 51),
     distance: Distance {
         m: 1094. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -79,6 +85,9 @@ const RHO_PUPPIS: RealData = RealData {
     age: Some(Time {
         s: 2. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const TAU_PUPPIS: RealData = RealData {
@@ -102,6 +111,9 @@ const TAU_PUPPIS: RealData = RealData {
     age: Some(Time {
         s: 0.540 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const NU_PUPPIS: RealData = RealData {
@@ -123,6 +135,9 @@ const NU_PUPPIS: RealData = RealData {
     }),
     temperature: Temperature { K: 12_120. },
     age: None,
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 5] = [NAOS, AHADI, RHO_PUPPIS, TAU_PUPPIS, NU_PUPPIS];

@@ -33,6 +33,9 @@ const ENIF: RealData = RealData {
     distance: Distance {
         m: 672. * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const SCHEAT: RealData = RealData {
@@ -53,6 +56,9 @@ const SCHEAT: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 28, 4, 58),
     distance: Distance {
         m: 199. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 
@@ -76,6 +82,9 @@ const MARKAB: RealData = RealData {
     declination: Declination::new(Sgn::Pos, 15, 12, 19),
     distance: Distance {
         m: 140. * LIGHT_YEAR.m,
+    },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
     },
 };
 

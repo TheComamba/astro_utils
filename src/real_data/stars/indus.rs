@@ -33,6 +33,9 @@ const ALPHA_INDI: RealData = RealData {
     age: Some(Time {
         s: 1. * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
 };
 
 const BETA_INDI: RealData = RealData {
@@ -56,6 +59,9 @@ const BETA_INDI: RealData = RealData {
     age: Some(Time {
         s: 0.0532 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 7.9 * BILLION_YEARS.s,
+    },
 };
 
 const ETA_INDI: RealData = RealData {
@@ -79,6 +85,9 @@ const ETA_INDI: RealData = RealData {
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 9. * BILLION_YEARS.s, //guessed
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_INDI, BETA_INDI, ETA_INDI];

@@ -31,6 +31,9 @@ const ALPHA_TUCANAE: RealData = RealData {
     distance: Distance {
         m: 198.5 * LIGHT_YEAR.m,
     },
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const GAMMA_TUCANAE: RealData = RealData {
@@ -54,6 +57,9 @@ const GAMMA_TUCANAE: RealData = RealData {
     age: Some(Time {
         s: 1.414 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 const ZETA_TUCANAE: RealData = RealData {
@@ -77,6 +83,9 @@ const ZETA_TUCANAE: RealData = RealData {
     age: Some(Time {
         s: 2.5 * BILLION_YEARS.s,
     }),
+    lifetime: Time {
+        s: 0. * BILLION_YEARS.s,
+    },
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_TUCANAE, GAMMA_TUCANAE, ZETA_TUCANAE];
