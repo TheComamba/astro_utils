@@ -5,6 +5,7 @@ use simple_si_units::{
 };
 
 use crate::{
+    astro_display::AstroDisplay,
     color::srgb::sRGBColor,
     units::{
         distance::DISTANCE_ZERO, illuminance::IRRADIANCE_ZERO, luminous_intensity::LUMINOSITY_ZERO,
@@ -68,5 +69,14 @@ impl StarFate {
         time_since_death: Time<f64>,
     ) -> sRGBColor {
         color
+    }
+}
+
+impl AstroDisplay for StarFate {
+    fn astro_display(&self) -> String {
+        match self {
+            StarFate::WhiteDwarf => "White Dwarf".to_string(),
+            StarFate::TypeIISupernova => "Type II Supernova".to_string(),
+        }
     }
 }
