@@ -92,6 +92,8 @@ impl RealData {
 
 #[cfg(test)]
 mod tests {
+    use simple_si_units::base::Mass;
+
     use crate::{
         real_data::stars::all::get_many_stars,
         units::{
@@ -181,6 +183,22 @@ mod tests {
                 assert!(
                     age < star_data.lifetime,
                     "{} is older than its lifetime",
+                    star_data.astronomical_name
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn all_supernova_stars_have_a_time_until_death() {
+        for star_data in get_many_stars() {
+            if star_data.mass > Mass::from_solar_mass(8.) {
+                assert!(
+                    star_data
+                        .to_star_data()
+                        .get_time_until_death(TIME_ZERO)
+                        .is_some(),
+                    "{} is a supernova star without a time until death",
                     star_data.astronomical_name
                 );
             }

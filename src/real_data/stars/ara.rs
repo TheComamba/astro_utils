@@ -30,7 +30,9 @@ const ALPHA_ARAE: RealData = RealData {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 18_044. },
-    age: None,
+    age: Some(Time {
+        s: 0.026 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.026540021 * BILLION_YEARS.s,
     },

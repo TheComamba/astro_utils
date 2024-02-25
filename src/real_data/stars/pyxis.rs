@@ -30,7 +30,9 @@ const ALPHA_PYXIDIS: RealData = RealData {
         m: 6.3 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 24_300. },
-    age: None,
+    age: Some(Time {
+        s: 0.026 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.026540021 * BILLION_YEARS.s,
     },

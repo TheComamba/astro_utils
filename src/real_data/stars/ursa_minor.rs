@@ -158,7 +158,9 @@ const PHERKAD: RealData = RealData {
         m: 15. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8280. },
-    age: None,
+    age: Some(Time {
+        s: 0.032 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.03224554 * BILLION_YEARS.s,
     },

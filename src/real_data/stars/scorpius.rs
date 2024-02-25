@@ -51,12 +51,14 @@ const SHAULA: RealData = RealData {
     absolute_magnitude: -4.8,
     apparent_magnitude: 1.62,
     temperature: Temperature { K: 25_000. },
-    age: None,
     right_ascension: RightAscension::new(17, 33, 37),
     declination: Declination::new(Sgn::Neg, 37, 6, 14),
     distance: Distance {
         m: 600. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.026 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.026540021 * BILLION_YEARS.s,
     },
@@ -175,12 +177,14 @@ const ACRAB: RealData = RealData {
     absolute_magnitude: -3.50,
     apparent_magnitude: 2.56,
     temperature: Temperature { K: 28_000. },
-    age: None,
     right_ascension: RightAscension::new(16, 5, 26),
     declination: Declination::new(Sgn::Neg, 19, 48, 20),
     distance: Distance {
         m: 530. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.015 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.015362858 * BILLION_YEARS.s,
     },

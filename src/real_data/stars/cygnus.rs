@@ -25,12 +25,14 @@ const DENEB: RealData = RealData {
     absolute_magnitude: -7.13,
     apparent_magnitude: 1.25,
     temperature: Temperature { K: 8515. },
-    age: None,
     right_ascension: RightAscension::new(20, 41, 26),
     declination: Declination::new(Sgn::Pos, 45, 16, 49),
     distance: Distance {
         m: 1548. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.011 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.011037517 * BILLION_YEARS.s,
     },
