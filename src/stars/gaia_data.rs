@@ -103,7 +103,6 @@ impl GaiaResponse {
                     radius: None,
                     luminous_intensity: None,
                     temperature: parsed_data.temperature.unwrap_or(TEMPERATURE_ZERO),
-                    age: None,
                     distance: DISTANCE_ZERO,
                     pos: parsed_data.pos,
                     constellation: None,

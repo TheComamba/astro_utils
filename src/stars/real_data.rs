@@ -54,6 +54,8 @@ impl RealData {
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
+        let mut evolution = StarDataEvolution::NONE;
+        evolution.age = self.age;
         StarData {
             name: name.to_string(),
             mass: Some(self.mass),
@@ -61,7 +63,6 @@ impl RealData {
             radius: self.radius,
             luminous_intensity: Some(luminous_intensity),
             temperature: self.temperature,
-            age: self.age,
             distance: self.distance,
             pos,
             evolution: StarDataEvolution::NONE,

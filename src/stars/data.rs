@@ -15,7 +15,6 @@ pub struct StarData {
     pub(super) radius: Option<Distance<f64>>,
     pub(super) luminous_intensity: Option<Luminosity<f64>>,
     pub(super) temperature: Temperature<f64>,
-    pub(super) age: Option<Time<f64>>,
     pub(super) distance: Distance<f64>,
     pub(super) pos: EclipticCoordinates,
     pub(super) evolution: StarDataEvolution,
@@ -29,7 +28,6 @@ impl StarData {
         radius: Option<Distance<f64>>,
         luminous_intensity: Option<Luminosity<f64>>,
         temperature: Temperature<f64>,
-        age: Option<Time<f64>>,
         distance: Distance<f64>,
         pos: EclipticCoordinates,
         evolution: StarDataEvolution,
@@ -40,7 +38,6 @@ impl StarData {
             radius,
             luminous_intensity,
             temperature,
-            age,
             distance,
             pos,
             constellation,
@@ -92,11 +89,11 @@ impl StarData {
     }
 
     pub const fn get_age_at_epoch(&self) -> &Option<Time<f64>> {
-        &self.age
+        &self.evolution.age
     }
 
     pub fn get_age(&self, time: Time<f64>) -> Option<Time<f64>> {
-        self.age.map(|age| age + time)
+        self.evolution.age.map(|age| age + time)
     }
 
     pub const fn get_distance_at_epoch(&self) -> &Distance<f64> {
@@ -149,7 +146,7 @@ impl StarData {
     }
 
     pub fn set_age_at_epoch(&mut self, age: Option<Time<f64>>) {
-        self.age = age;
+        self.evolution.age = age;
     }
 
     pub fn set_distance_at_epoch(&mut self, distance: Distance<f64>) {
@@ -209,7 +206,7 @@ impl StarData {
                 _ => 0.0,
             };
         let temperature_ratio = self.temperature / other.temperature;
-        let age_ratio = match (self.age, other.age) {
+        let age_ratio = match (self.evolution.age, other.evolution.age) {
             (Some(self_age), Some(other_age)) => self_age / other_age,
             _ => 1.0,
         };
@@ -251,8 +248,8 @@ impl StarData {
         if age_ratio < 0.1 || age_ratio > 10.0 {
             println!(
                 "age1: {}, age2: {}, ratio: {}",
-                self.age.unwrap(),
-                other.age.unwrap(),
+                self.evolution.age.unwrap(),
+                other.evolution.age.unwrap(),
                 age_ratio
             );
             result = false;

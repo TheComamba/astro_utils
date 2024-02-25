@@ -109,10 +109,11 @@ impl ParsedParsecLine {
         let luminous_intensity = self.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
         let temperature = Temperature::from_K(self.temperature_in_kelvin);
         let radius = self.radius_in_solar_radii * SOLAR_RADIUS;
+        let mut evolution = StarDataEvolution::NONE;
+        evolution.age = Some(age);
         StarData {
             name: "".to_string(),
             mass: Some(mass),
-            age: Some(age),
             luminous_intensity: Some(luminous_intensity),
             temperature: temperature,
             radius: Some(radius),

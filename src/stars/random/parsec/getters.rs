@@ -95,10 +95,12 @@ impl ParsecData {
         let lifestage_evolution =
             StarDataLifestageEvolution::new(&star, &star_at_other_time, years);
 
+        let age_at_epoch = star.get_age_at_epoch();
         let lifetime = Time::from_yr(ParsecData::get_lifetime_in_years(trajectory) as f64);
         let initial_mass = Mass::from_solar_mass(trajectory[0].mass_in_solar_masses);
         let fate = StarFate::new(initial_mass);
-        star.evolution = StarDataEvolution::new(Some(lifestage_evolution), lifetime, fate);
+        star.evolution =
+            StarDataEvolution::new(Some(lifestage_evolution), *age_at_epoch, lifetime, fate);
 
         Some(star)
     }
