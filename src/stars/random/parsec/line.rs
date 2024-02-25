@@ -83,6 +83,8 @@ impl ParsecLine {
                     .get_mut(*mass_position)
                     .ok_or(AstroUtilError::DataNotAvailable)?;
                 data.push(parsec_line);
+            } else {
+                return Err(AstroUtilError::DataNotAvailable);
             }
         };
         Ok(())

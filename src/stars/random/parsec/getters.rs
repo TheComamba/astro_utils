@@ -51,8 +51,8 @@ impl ParsecData {
     }
 
     #[cfg(test)]
-    pub(super) fn get_lifetime_in_years(trajectory: &[ParsedParsecLine]) -> u32 {
-        trajectory.last().unwrap().age_in_years as u32
+    pub(super) fn get_lifetime_in_years(trajectory: &[ParsedParsecLine]) -> u64 {
+        trajectory.last().unwrap().age_in_years as u64
     }
 
     pub(super) fn is_filled(&self) -> bool {
@@ -289,14 +289,38 @@ mod tests {
             };
             let expected_gyrs = expected_years as f64 / 1e9;
             let ratio = lifetime_in_gyrs / expected_gyrs as f64;
-            if !(0.9..1.1).contains(&ratio) {
+            if !(0.99..1.01).contains(&ratio) {
                 println!(
-                    "Star {} has lifetime {} Gyr, expected lifetime {} Gyr, ratio {}",
+                    "Star {} is deviant\nlifetime: {} Gyr,\nexpected lifetime: {} Gyr,\nratio: {:.2}\n",
                     star.astronomical_name, lifetime_in_gyrs, expected_gyrs, ratio
                 );
                 something_failed = true;
             }
         }
         assert!(!something_failed);
+    }
+
+    #[test]
+    fn lifetime_decreases_with_mass() {
+        let trajectories = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            parsec_data.data.clone()
+        };
+        for (i, trajectory) in trajectories.iter().enumerate() {
+            if i == 0 {
+                continue;
+            }
+            let lifetime = ParsecData::get_lifetime_in_years(trajectory);
+            let previous_lifetime = ParsecData::get_lifetime_in_years(&trajectories[i - 1]);
+            assert!(
+                lifetime < previous_lifetime,
+                "Lifetime of star {} is {} years, while lifetime of star {} is {} years",
+                i,
+                lifetime,
+                i - 1,
+                previous_lifetime
+            );
+        }
     }
 }

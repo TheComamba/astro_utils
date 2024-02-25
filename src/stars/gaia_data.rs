@@ -346,7 +346,7 @@ mod tests {
 
         let brightest_gaia_star = gaia_stars
             .iter()
-            .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u32)
+            .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u64)
             .unwrap();
         assert!(
             illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
