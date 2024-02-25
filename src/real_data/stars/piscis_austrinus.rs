@@ -55,7 +55,7 @@ const DELTA_PISCIS_AUSTRINI: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 4828. },
     age: Some(Time {
-        s: 3.74 * BILLION_YEARS.s,
+        s: 3.1 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 3.10253119 * BILLION_YEARS.s,

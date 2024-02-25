@@ -25,14 +25,14 @@ const HAMAL: RealData = RealData {
     absolute_magnitude: 0.48,
     apparent_magnitude: 2.01,
     temperature: Temperature { K: 4480. },
-    age: Some(Time {
-        s: 3.4 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(2, 7, 10),
     declination: Declination::new(Sgn::Pos, 23, 27, 45),
     distance: Distance {
         m: 66. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 2.5 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 2.54186931 * BILLION_YEARS.s,
     },

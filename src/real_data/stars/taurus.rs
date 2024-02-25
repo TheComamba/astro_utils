@@ -26,7 +26,7 @@ const ALDEBARAN: RealData = RealData {
     apparent_magnitude: 0.87,
     temperature: Temperature { K: 3900. },
     age: Some(Time {
-        s: 6.4 * BILLION_YEARS.s,
+        s: 5.5 * BILLION_YEARS.s,
     }),
     right_ascension: RightAscension::new(4, 35, 55),
     declination: Declination::new(Sgn::Pos, 16, 30, 33),
@@ -161,7 +161,7 @@ const ZETA_TAURI: RealData = RealData {
     }),
     temperature: Temperature { K: 15_500. },
     age: Some(Time {
-        s: 22.5 * BILLION_YEARS.s,
+        s: 0.019 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.019450199 * BILLION_YEARS.s,

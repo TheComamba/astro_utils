@@ -98,21 +98,21 @@ const ALNILAM: RealData = RealData {
         m: 42. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
-        kg: 64.5 * SOLAR_MASS.kg,
+        kg: 34.6 * SOLAR_MASS.kg,
     },
     absolute_magnitude: -6.38,
     apparent_magnitude: 1.69,
     temperature: Temperature { K: 27_000. },
-    age: Some(Time {
-        s: 0.0057 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(5, 36, 13),
     declination: Declination::new(Sgn::Neg, 1, 12, 7),
     distance: Distance {
         m: 1342. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.0057 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
-        s: 0.003990497 * BILLION_YEARS.s,
+        s: 0.005807621 * BILLION_YEARS.s,
     },
 };
 
@@ -124,21 +124,21 @@ const ALNITAK: RealData = RealData {
         m: 20. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
-        kg: 33.0 * SOLAR_MASS.kg,
+        kg: 31.0 * SOLAR_MASS.kg,
     },
     absolute_magnitude: -5.26,
     apparent_magnitude: 1.74,
     temperature: Temperature { K: 29_500. },
-    age: Some(Time {
-        s: 0.0064 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(5, 40, 46),
     declination: Declination::new(Sgn::Neg, 1, 56, 34),
     distance: Distance {
         m: 817. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.0064 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
-        s: 0.005807621 * BILLION_YEARS.s,
+        s: 0.006573099 * BILLION_YEARS.s,
     },
 };
 

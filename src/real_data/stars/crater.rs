@@ -31,7 +31,7 @@ const ALKES: RealData = RealData {
     }),
     temperature: Temperature { K: 4691. },
     age: Some(Time {
-        s: 2.06 * BILLION_YEARS.s,
+        s: 1.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.46605285 * BILLION_YEARS.s,
@@ -105,7 +105,7 @@ const DELTA_CRATERIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4510. },
     age: Some(Time {
-        s: 2.89 * BILLION_YEARS.s,
+        s: 2.2 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 2.29668629 * BILLION_YEARS.s,

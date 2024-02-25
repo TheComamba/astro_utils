@@ -83,7 +83,7 @@ const FIVE_LACERTAE: RealData = RealData {
     }),
     temperature: Temperature { K: 3713. },
     age: Some(Time {
-        s: 110. * BILLION_YEARS.s,
+        s: 0.1 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.10143918 * BILLION_YEARS.s,

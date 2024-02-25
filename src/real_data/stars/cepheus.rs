@@ -135,7 +135,7 @@ const ETA_CEPHEI: RealData = RealData {
     }),
     temperature: Temperature { K: 4950. },
     age: Some(Time {
-        s: 2.5 * BILLION_YEARS.s,
+        s: 1.9 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 2.08398753 * BILLION_YEARS.s,
@@ -161,7 +161,7 @@ const IOTA_CEPHEI: RealData = RealData {
     }),
     temperature: Temperature { K: 4768. },
     age: Some(Time {
-        s: 1.2 * BILLION_YEARS.s,
+        s: 1.0 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.09929685 * BILLION_YEARS.s,
@@ -211,7 +211,7 @@ const ERAKIS: RealData = RealData {
         m: 3066. * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 0.01 * BILLION_YEARS.s,
+        s: 0.0097 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.009767659 * BILLION_YEARS.s,

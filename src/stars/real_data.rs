@@ -163,7 +163,11 @@ mod tests {
     fn no_star_is_older_than_the_universe() {
         for star_data in get_many_stars() {
             if let Some(age) = star_data.age {
-                assert!(age.s < 13.8e9);
+                assert!(
+                    age.to_yr() < 13.8e9,
+                    "{} is older than the universe",
+                    star_data.astronomical_name
+                );
             }
         }
     }
@@ -173,7 +177,11 @@ mod tests {
         for star_data in get_many_stars() {
             assert!(star_data.lifetime > TIME_ZERO);
             if let Some(age) = star_data.age {
-                assert!(age < star_data.lifetime);
+                assert!(
+                    age < star_data.lifetime,
+                    "{} is older than its lifetime",
+                    star_data.astronomical_name
+                );
             }
         }
     }

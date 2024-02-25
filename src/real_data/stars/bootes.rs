@@ -31,7 +31,7 @@ const ARCTURUS: RealData = RealData {
         m: 37. * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 7.1 * BILLION_YEARS.s,
+        s: 6.9 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 6.97272616 * BILLION_YEARS.s,
@@ -159,7 +159,7 @@ const MUPHRID: RealData = RealData {
     }),
     temperature: Temperature { K: 6100. },
     age: Some(Time {
-        s: 2.7 * BILLION_YEARS.s,
+        s: 1.6 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.73766023 * BILLION_YEARS.s,

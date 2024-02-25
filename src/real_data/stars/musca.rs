@@ -31,7 +31,7 @@ const ALPHA_MUSCAE: RealData = RealData {
     }),
     temperature: Temperature { K: 21_400. },
     age: Some(Time {
-        s: 18.3 * BILLION_YEARS.s,
+        s: 0.0183 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.03224554 * BILLION_YEARS.s,

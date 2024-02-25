@@ -31,7 +31,7 @@ const TARF: RealData = RealData {
         m: 290. * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 1.85 * BILLION_YEARS.s,
+        s: 1.7 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.73766023 * BILLION_YEARS.s,
@@ -57,7 +57,7 @@ const ASELLUS_AUSTRALIS: RealData = RealData {
         m: 131. * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 2.45 * BILLION_YEARS.s,
+        s: 1.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.73766023 * BILLION_YEARS.s,

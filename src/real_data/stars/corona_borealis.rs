@@ -105,7 +105,7 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
     }),
     temperature: Temperature { K: 5180. },
     age: Some(Time {
-        s: 0.851 * BILLION_YEARS.s,
+        s: 0.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.800458342 * BILLION_YEARS.s,
@@ -131,7 +131,7 @@ const EPSILON_CORONAE_BOREALIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4365. },
     age: Some(Time {
-        s: 4.13 * BILLION_YEARS.s,
+        s: 2.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 2.82957282 * BILLION_YEARS.s,

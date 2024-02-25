@@ -149,14 +149,14 @@ const GIRTAB: RealData = RealData {
     absolute_magnitude: -3.38,
     apparent_magnitude: 2.39,
     temperature: Temperature { K: 23_400. },
-    age: Some(Time {
-        s: 0.0251 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(17, 42, 29),
     declination: Declination::new(Sgn::Neg, 39, 1, 48),
     distance: Distance {
         m: 464. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.012 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.012799766 * BILLION_YEARS.s,
     },

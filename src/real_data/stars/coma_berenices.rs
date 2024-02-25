@@ -79,7 +79,7 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
     }),
     temperature: Temperature { K: 4652. },
     age: Some(Time {
-        s: 2.72 * BILLION_YEARS.s,
+        s: 1.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.89665739 * BILLION_YEARS.s,

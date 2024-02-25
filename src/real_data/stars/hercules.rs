@@ -131,7 +131,7 @@ const MU_HERCULIS: RealData = RealData {
     }),
     temperature: Temperature { K: 5560. },
     age: Some(Time {
-        s: 7.8 * BILLION_YEARS.s,
+        s: 6.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 6.97272616 * BILLION_YEARS.s,
@@ -157,7 +157,7 @@ const ZETA_HERCULIS: RealData = RealData {
     }),
     temperature: Temperature { K: 5820. },
     age: Some(Time {
-        s: 6.2 * BILLION_YEARS.s,
+        s: 2.7 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 2.82957282 * BILLION_YEARS.s,

@@ -57,7 +57,7 @@ const BETA_MENSAE: RealData = RealData {
     }),
     temperature: Temperature { K: 5088. },
     age: Some(Time {
-        s: 0.270 * BILLION_YEARS.s,
+        s: 0.250 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.254814649 * BILLION_YEARS.s,
@@ -83,7 +83,7 @@ const GAMMA_MENSAE: RealData = RealData {
     }),
     temperature: Temperature { K: 4491. },
     age: Some(Time {
-        s: 10.60 * BILLION_YEARS.s,
+        s: 8. * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 8.24015833 * BILLION_YEARS.s,

@@ -105,7 +105,7 @@ const EPSILON_COLUMBAE: RealData = RealData {
     }),
     temperature: Temperature { K: 4575. },
     age: Some(Time {
-        s: 1.53 * BILLION_YEARS.s,
+        s: 0.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.800458342 * BILLION_YEARS.s,

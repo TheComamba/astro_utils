@@ -55,7 +55,7 @@ const BETA_DORADUS: RealData = RealData {
     }),
     temperature: Temperature { K: 5445. },
     age: Some(Time {
-        s: 0.0425 * BILLION_YEARS.s,
+        s: 0.04 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.040555762 * BILLION_YEARS.s,

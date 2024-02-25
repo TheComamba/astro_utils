@@ -31,7 +31,7 @@ const ALPHA_LYNCIS: RealData = RealData {
         m: 221.9 * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 1.4 * BILLION_YEARS.s,
+        s: 1.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.36020165 * BILLION_YEARS.s,

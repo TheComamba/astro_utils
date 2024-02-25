@@ -74,7 +74,7 @@ const IOTA_ANTLIAE: RealData = RealData {
     apparent_magnitude: 4.60,
     temperature: Temperature { K: 4892. },
     age: Some(Time {
-        s: 3.32 * BILLION_YEARS.s,
+        s: 2.2 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 2.29668629 * BILLION_YEARS.s,

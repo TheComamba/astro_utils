@@ -31,7 +31,7 @@ const SUALOCIN: RealData = RealData {
     }),
     temperature: Temperature { K: 11_643. },
     age: Some(Time {
-        s: 0.227 * BILLION_YEARS.s,
+        s: 0.22 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.220601963 * BILLION_YEARS.s,
@@ -55,7 +55,7 @@ const ROTANEV: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 6587. },
     age: Some(Time {
-        s: 1.79 * BILLION_YEARS.s,
+        s: 1.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.59501327 * BILLION_YEARS.s,
@@ -133,7 +133,7 @@ const ALDULFIN: RealData = RealData {
     }),
     temperature: Temperature { K: 13_614. },
     age: Some(Time {
-        s: 0.220 * BILLION_YEARS.s,
+        s: 0.06 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.063411557 * BILLION_YEARS.s,

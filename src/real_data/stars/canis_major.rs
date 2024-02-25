@@ -57,7 +57,7 @@ const ADHARA: RealData = RealData {
         m: 431. * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 0.0225 * BILLION_YEARS.s,
+        s: 0.019 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.019450199 * BILLION_YEARS.s,

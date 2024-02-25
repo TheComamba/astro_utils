@@ -31,7 +31,7 @@ const PRAECIPUA: RealData = RealData {
     }),
     temperature: Temperature { K: 4670. },
     age: Some(Time {
-        s: 6.76 * BILLION_YEARS.s,
+        s: 1.7 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.73766023 * BILLION_YEARS.s,
@@ -57,7 +57,7 @@ const BETA_LEONIS_MINORIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4097. },
     age: Some(Time {
-        s: 1.2 * BILLION_YEARS.s,
+        s: 0.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.420724107 * BILLION_YEARS.s,

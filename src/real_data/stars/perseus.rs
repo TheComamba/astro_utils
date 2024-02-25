@@ -25,14 +25,14 @@ const MIRPHAK: RealData = RealData {
     absolute_magnitude: -4.50,
     apparent_magnitude: 1.79,
     temperature: Temperature { K: 6350. },
-    age: Some(Time {
-        s: 0.041 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(3, 24, 19),
     declination: Declination::new(Sgn::Pos, 49, 51, 40),
     distance: Distance {
         m: 592. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.040 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.040555762 * BILLION_YEARS.s,
     },
@@ -51,14 +51,14 @@ const ALGOL: RealData = RealData {
     absolute_magnitude: -0.18,
     apparent_magnitude: 2.09,
     temperature: Temperature { K: 13_000. },
-    age: Some(Time {
-        s: 0.57 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(3, 8, 10),
     declination: Declination::new(Sgn::Pos, 40, 57, 20),
     distance: Distance {
         m: 93. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.3 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.351318702 * BILLION_YEARS.s,
     },

@@ -83,7 +83,7 @@ const ZETA_HYDRAE: RealData = RealData {
     }),
     temperature: Temperature { K: 4925. },
     age: Some(Time {
-        s: 0.4 * BILLION_YEARS.s,
+        s: 0.17 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.170765802 * BILLION_YEARS.s,

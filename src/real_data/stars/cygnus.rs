@@ -76,7 +76,7 @@ const ALJANAH: RealData = RealData {
     apparent_magnitude: 2.48,
     temperature: Temperature { K: 4710. },
     age: Some(Time {
-        s: 1.5 * BILLION_YEARS.s,
+        s: 1.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.36020165 * BILLION_YEARS.s,

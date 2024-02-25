@@ -81,7 +81,7 @@ const GAMMA_SULPTORIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4578. },
     age: Some(Time {
-        s: 2.47 * BILLION_YEARS.s,
+        s: 2. * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 2.08398753 * BILLION_YEARS.s,

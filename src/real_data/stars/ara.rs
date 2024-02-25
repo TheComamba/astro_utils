@@ -49,14 +49,14 @@ const BETA_ARAE: RealData = RealData {
     absolute_magnitude: -3.49,
     apparent_magnitude: 2.84,
     temperature: Temperature { K: 4197. },
-    age: Some(Time {
-        s: 0.05 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(17, 25, 18),
     declination: Declination::new(Sgn::Neg, 55, 31, 48),
     distance: Distance {
         m: 602.6 * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.035 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.040555762 * BILLION_YEARS.s,
     },
@@ -81,7 +81,7 @@ const GAMMA_ARAE: RealData = RealData {
     }),
     temperature: Temperature { K: 21_500. },
     age: Some(Time {
-        s: 0.0157 * BILLION_YEARS.s,
+        s: 0.009 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.009767659 * BILLION_YEARS.s,

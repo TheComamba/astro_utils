@@ -257,7 +257,7 @@ const EDASICH: RealData = RealData {
     }),
     temperature: Temperature { K: 4504. },
     age: Some(Time {
-        s: 2.49 * BILLION_YEARS.s,
+        s: 2.2 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 2.29668629 * BILLION_YEARS.s,

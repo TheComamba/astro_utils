@@ -83,7 +83,7 @@ const EPSILON_RETICULI: RealData = RealData {
     }),
     temperature: Temperature { K: 4961. },
     age: Some(Time {
-        s: 2.89 * BILLION_YEARS.s,
+        s: 2.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 2.82957282 * BILLION_YEARS.s,

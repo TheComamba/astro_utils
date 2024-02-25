@@ -57,7 +57,7 @@ const SCHEDAR: RealData = RealData {
         m: 228. * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 0.22 * BILLION_YEARS.s,
+        s: 0.19 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.193156929 * BILLION_YEARS.s,

@@ -29,7 +29,7 @@ const BETA_TRIANGULI: RealData = RealData {
     radius: None,
     temperature: Temperature { K: 8186. },
     age: Some(Time {
-        s: 0.73 * BILLION_YEARS.s,
+        s: 0.29 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.297402042 * BILLION_YEARS.s,

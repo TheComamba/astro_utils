@@ -51,14 +51,14 @@ const AHADI: RealData = RealData {
     absolute_magnitude: -4.92,
     apparent_magnitude: 2.71,
     temperature: Temperature { K: 4000. },
-    age: Some(Time {
-        s: 0.02 * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(7, 17, 9),
     declination: Declination::new(Sgn::Neg, 37, 5, 51),
     distance: Distance {
         m: 1094. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.019 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.019450199 * BILLION_YEARS.s,
     },
@@ -83,7 +83,7 @@ const RHO_PUPPIS: RealData = RealData {
     }),
     temperature: Temperature { K: 6920. },
     age: Some(Time {
-        s: 2. * BILLION_YEARS.s,
+        s: 1.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.65092742 * BILLION_YEARS.s,
@@ -109,7 +109,7 @@ const TAU_PUPPIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4489. },
     age: Some(Time {
-        s: 0.540 * BILLION_YEARS.s,
+        s: 0.3 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.351318702 * BILLION_YEARS.s,

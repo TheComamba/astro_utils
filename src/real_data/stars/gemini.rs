@@ -126,7 +126,7 @@ const PROPUS: RealData = RealData {
     apparent_magnitude: 3.31,
     temperature: Temperature { K: 3502. },
     age: Some(Time {
-        s: 0.81 * BILLION_YEARS.s,
+        s: 0.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.800458342 * BILLION_YEARS.s,

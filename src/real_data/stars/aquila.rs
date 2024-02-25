@@ -57,7 +57,7 @@ const TARAZED: RealData = RealData {
         m: 460.5 * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 0.270 * BILLION_YEARS.s,
+        s: 0.250 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.254814649 * BILLION_YEARS.s,

@@ -276,7 +276,6 @@ mod tests {
     #[test]
     fn lifetimes_of_real_stars_are_within_limits() {
         let stars = get_many_stars();
-        let mut something_failed = false;
         for star in stars {
             let mass = star.mass;
             let lifetime_in_gyrs = star.lifetime.to_Gyr();
@@ -289,15 +288,15 @@ mod tests {
             };
             let expected_gyrs = expected_years as f64 / 1e9;
             let ratio = lifetime_in_gyrs / expected_gyrs as f64;
-            if !(0.99..1.01).contains(&ratio) {
-                println!(
-                    "Star {} is deviant\nlifetime: {} Gyr,\nexpected lifetime: {} Gyr,\nratio: {:.2}\n",
-                    star.astronomical_name, lifetime_in_gyrs, expected_gyrs, ratio
-                );
-                something_failed = true;
-            }
+            assert!(
+                (0.99..1.01).contains(&ratio),
+                "Star {} is deviant\nlifetime: {} Gyr,\nexpected lifetime: {} Gyr,\nratio: {:.2}\n",
+                star.astronomical_name,
+                lifetime_in_gyrs,
+                expected_gyrs,
+                ratio
+            );
         }
-        assert!(!something_failed);
     }
 
     #[test]

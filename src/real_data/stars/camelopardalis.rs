@@ -57,7 +57,7 @@ const CS_CAMELOPARDALIS: RealData = RealData {
         m: 4289. * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 0.016_5 * BILLION_YEARS.s,
+        s: 0.011 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.011037517 * BILLION_YEARS.s,

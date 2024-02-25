@@ -31,7 +31,7 @@ const DIPHDA: RealData = RealData {
         m: 96. * LIGHT_YEAR.m,
     },
     age: Some(Time {
-        s: 1. * BILLION_YEARS.s,
+        s: 0.4 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.513076303 * BILLION_YEARS.s,
@@ -81,7 +81,7 @@ const MIRA: RealData = RealData {
     }),
     temperature: Temperature { K: 3000. },
     age: Some(Time {
-        s: 6. * BILLION_YEARS.s,
+        s: 4.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 5.06543331 * BILLION_YEARS.s,
@@ -107,7 +107,7 @@ const BATEN_KAITOS: RealData = RealData {
     }),
     temperature: Temperature { K: 4581. },
     age: Some(Time {
-        s: 1.24 * BILLION_YEARS.s,
+        s: 0.9 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.916355612 * BILLION_YEARS.s,
@@ -159,7 +159,7 @@ const IOTA_CETI: RealData = RealData {
     }),
     temperature: Temperature { K: 4446. },
     age: Some(Time {
-        s: 2.23 * BILLION_YEARS.s,
+        s: 0.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.513076303 * BILLION_YEARS.s,
@@ -185,7 +185,7 @@ const DENEB_ALGENUBI: RealData = RealData {
     }),
     temperature: Temperature { K: 4543. },
     age: Some(Time {
-        s: 1.8 * BILLION_YEARS.s,
+        s: 1.6 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.65092742 * BILLION_YEARS.s,

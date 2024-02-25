@@ -81,7 +81,7 @@ const NU_PISCIUM: RealData = RealData {
     }),
     temperature: Temperature { K: 4154. },
     age: Some(Time {
-        s: 3.41 * BILLION_YEARS.s,
+        s: 1.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.89665739 * BILLION_YEARS.s,
@@ -107,7 +107,7 @@ const IOTA_PISCIUM: RealData = RealData {
     }),
     temperature: Temperature { K: 6288. },
     age: Some(Time {
-        s: 5.2 * BILLION_YEARS.s,
+        s: 3.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 3.9126515 * BILLION_YEARS.s,
@@ -159,7 +159,7 @@ const EPSILON_PISCIUM: RealData = RealData {
     }),
     temperature: Temperature { K: 4814. },
     age: Some(Time {
-        s: 2.56 * BILLION_YEARS.s,
+        s: 0.9 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.964406929 * BILLION_YEARS.s,

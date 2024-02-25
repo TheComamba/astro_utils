@@ -79,7 +79,7 @@ const GAMMA_PYXIDIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4270. },
     age: Some(Time {
-        s: 4.29 * BILLION_YEARS.s,
+        s: 1.8 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.89665739 * BILLION_YEARS.s,

@@ -73,14 +73,14 @@ const HAN: RealData = RealData {
     absolute_magnitude: -3.20,
     apparent_magnitude: 2.54,
     temperature: Temperature { K: 34_300. },
-    age: Some(Time {
-        s: 3. * BILLION_YEARS.s,
-    }),
     right_ascension: RightAscension::new(16, 37, 10),
     declination: Declination::new(Sgn::Neg, 10, 34, 2),
     distance: Distance {
         m: 458. * LIGHT_YEAR.m,
     },
+    age: Some(Time {
+        s: 0.003 * BILLION_YEARS.s,
+    }),
     lifetime: Time {
         s: 0.009767659 * BILLION_YEARS.s,
     },

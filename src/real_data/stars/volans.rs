@@ -77,7 +77,7 @@ const ZETA_VOLANTIS: RealData = RealData {
     }),
     temperature: Temperature { K: 4721. },
     age: Some(Time {
-        s: 5.27 * BILLION_YEARS.s,
+        s: 1.5 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 1.59501327 * BILLION_YEARS.s,

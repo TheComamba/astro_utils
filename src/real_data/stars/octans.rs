@@ -57,7 +57,7 @@ const BETA_OCTANTIS: RealData = RealData {
     }),
     temperature: Temperature { K: 8006. },
     age: Some(Time {
-        s: 496. * BILLION_YEARS.s,
+        s: 0.496 * BILLION_YEARS.s,
     }),
     lifetime: Time {
         s: 0.964406929 * BILLION_YEARS.s,
