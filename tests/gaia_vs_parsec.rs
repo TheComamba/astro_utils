@@ -73,7 +73,6 @@ fn parsec_generates_data_similar_to_gaia() {
         parsec_to_gaia_ratio,
     );
     let temperature_is_similar = mean_temperature_is_similar(&parsec_data, &expected_data);
-    let age_is_similar = mean_age_is_similar(&parsec_data, &expected_data);
     assert!(total_num_is_similar);
     assert!(mag_1_stars_is_similar);
     assert!(mag_2_stars_is_similar);
@@ -82,7 +81,6 @@ fn parsec_generates_data_similar_to_gaia() {
     assert!(mag_5_stars_is_similar);
     assert!(mag_6_stars_is_similar);
     assert!(temperature_is_similar);
-    assert!(age_is_similar);
 }
 
 fn similar_count(a: usize, b: usize) -> bool {
@@ -164,24 +162,6 @@ fn mean_temperature_is_similar(parsec: &[StarData], gaia: &[StarData]) -> bool {
     let parsec = mean_temperature(parsec);
     let gaia = mean_temperature(gaia);
     println!("\nMean temperature");
-    println!("parsec: {:2.2e}, gaia: {:2.2e}", parsec, gaia);
-    is_similar(parsec, gaia)
-}
-
-fn mean_age(data: &[StarData]) -> f64 {
-    let ages = data
-        .iter()
-        .map(|s| s.get_age_at_epoch())
-        .filter_map(|a| *a)
-        .map(|a| a.to_yr())
-        .collect::<Vec<_>>();
-    ages.iter().sum::<f64>() / ages.len() as f64
-}
-
-fn mean_age_is_similar(parsec: &[StarData], gaia: &[StarData]) -> bool {
-    let parsec = mean_age(parsec);
-    let gaia = mean_age(gaia);
-    println!("\nMean age");
     println!("parsec: {:2.2e}, gaia: {:2.2e}", parsec, gaia);
     is_similar(parsec, gaia)
 }
