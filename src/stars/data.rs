@@ -61,7 +61,7 @@ impl StarData {
     }
 
     pub fn get_mass(&self, time: Time<f64>) -> Option<Mass<f64>> {
-        Some(self.evolution.apply_to_mass(self.mass?, time.to_yr()))
+        Some(self.evolution.apply_to_mass(self.mass?, time))
     }
 
     pub const fn get_radius_at_epoch(&self) -> &Option<Distance<f64>> {
@@ -69,7 +69,7 @@ impl StarData {
     }
 
     pub fn get_radius(&self, time: Time<f64>) -> Option<Distance<f64>> {
-        Some(self.evolution.apply_to_radius(self.radius?, time.to_yr()))
+        Some(self.evolution.apply_to_radius(self.radius?, time))
     }
 
     pub const fn get_luminous_intensity_at_epoch(&self) -> &Option<Luminosity<f64>> {

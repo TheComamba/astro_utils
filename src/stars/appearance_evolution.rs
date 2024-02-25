@@ -41,17 +41,22 @@ impl StarAppearanceEvolution {
     pub(crate) fn apply_to_illuminance(
         &self,
         illuminance: Illuminance<f64>,
-        time: Time<f64>,
+        time_since_epoch: Time<f64>,
     ) -> Illuminance<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return illuminance + lifestage_evolution.illuminance_per_year * time.to_yr();
+            return illuminance
+                + lifestage_evolution.illuminance_per_year * time_since_epoch.to_yr();
         }
         illuminance
     }
 
-    pub(crate) fn apply_to_color(&self, color: sRGBColor, time: Time<f64>) -> sRGBColor {
+    pub(crate) fn apply_to_color(
+        &self,
+        color: sRGBColor,
+        time_since_epoch: Time<f64>,
+    ) -> sRGBColor {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return color + &lifestage_evolution.color_per_year * time.to_yr();
+            return color + &lifestage_evolution.color_per_year * time_since_epoch.to_yr();
         }
         color
     }

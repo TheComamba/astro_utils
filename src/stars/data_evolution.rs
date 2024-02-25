@@ -44,16 +44,20 @@ impl StarDataEvolution {
         }
     }
 
-    pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, years: f64) -> Mass<f64> {
+    pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, time_since_epoch: Time<f64>) -> Mass<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return mass + lifestage_evolution.mass_per_year * years;
+            return mass + lifestage_evolution.mass_per_year * time_since_epoch.to_yr();
         }
         mass
     }
 
-    pub(crate) fn apply_to_radius(&self, radius: Distance<f64>, years: f64) -> Distance<f64> {
+    pub(crate) fn apply_to_radius(
+        &self,
+        radius: Distance<f64>,
+        time_since_epoch: Time<f64>,
+    ) -> Distance<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return radius + lifestage_evolution.radius_per_year * years;
+            return radius + lifestage_evolution.radius_per_year * time_since_epoch.to_yr();
         }
         radius
     }
@@ -61,11 +65,11 @@ impl StarDataEvolution {
     pub(crate) fn apply_to_luminous_intensity(
         &self,
         luminous_intensity: Luminosity<f64>,
-        time: Time<f64>,
+        time_since_epoch: Time<f64>,
     ) -> Luminosity<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return luminous_intensity
-                + lifestage_evolution.luminous_intensity_per_year * time.to_yr();
+                + lifestage_evolution.luminous_intensity_per_year * time_since_epoch.to_yr();
         }
         luminous_intensity
     }
@@ -73,10 +77,11 @@ impl StarDataEvolution {
     pub(crate) fn apply_to_temperature(
         &self,
         temperature: Temperature<f64>,
-        time: Time<f64>,
+        time_since_epoch: Time<f64>,
     ) -> Temperature<f64> {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return temperature + lifestage_evolution.temperature_per_year * time.to_yr();
+            return temperature
+                + lifestage_evolution.temperature_per_year * time_since_epoch.to_yr();
         }
         temperature
     }
