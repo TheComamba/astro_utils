@@ -23,9 +23,9 @@ const ALPHA_PISCIUM: RealData = RealData {
         m: 151. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.5,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.55 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.45 * SOLAR_RADIUS.m,
     }),
@@ -44,9 +44,9 @@ const DELTA_PISCIUM: RealData = RealData {
         m: 311. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.46,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.65 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 44. * SOLAR_RADIUS.m,
     }),
@@ -67,9 +67,9 @@ const NU_PISCIUM: RealData = RealData {
         m: 363. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.78,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.66 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 34. * SOLAR_RADIUS.m,
     }),
@@ -90,9 +90,9 @@ const IOTA_PISCIUM: RealData = RealData {
         m: 44.73 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.43,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.3 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.595 * SOLAR_RADIUS.m,
     }),
@@ -113,9 +113,9 @@ const OMICRON_PISCIUM: RealData = RealData {
         m: 280. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.22,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.03 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 14.57 * SOLAR_RADIUS.m,
     }),
@@ -136,9 +136,9 @@ const EPSILON_PISCIUM: RealData = RealData {
         m: 182. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.44,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.27 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10.9 * SOLAR_RADIUS.m,
     }),
@@ -159,9 +159,9 @@ const THETA_PISCIUM: RealData = RealData {
         m: 149. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.83,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.58 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
@@ -182,9 +182,9 @@ const ETA_PISCIUM: RealData = RealData {
         m: 350. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.52,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.78 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 26.48 * SOLAR_RADIUS.m,
     }),
@@ -205,9 +205,9 @@ const GAMMA_PISCIUM: RealData = RealData {
         m: 135. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.68,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.97 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.28 * SOLAR_RADIUS.m,
     }),
@@ -228,9 +228,9 @@ const OMEGA_PISCIUM: RealData = RealData {
         m: 104.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.51,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.22 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 6641. },
     age: Some(Time {

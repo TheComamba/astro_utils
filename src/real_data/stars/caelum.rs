@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ALPHA_CAELI: RealData = RealData {
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.48 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 2.92,
     apparent_magnitude: 4.44,
     temperature: Temperature { K: 6991. },
@@ -31,7 +31,7 @@ const ALPHA_CAELI: RealData = RealData {
     lifetime: Time {
         s: 3.5 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(4, 40, 34),
     declination: Declination::new(Sgn::Neg, 41, 51, 50),
     distance: Distance {
@@ -46,9 +46,9 @@ const GAMMA1_CAELI: RealData = RealData {
     radius: Some(Distance {
         m: 14.31 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.4 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.781,
     apparent_magnitude: 4.57,
     temperature: Temperature { K: 4411. },
@@ -56,7 +56,7 @@ const GAMMA1_CAELI: RealData = RealData {
     lifetime: Time {
         s: 7.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(5, 4, 24),
     declination: Declination::new(Sgn::Neg, 35, 28, 59),
     distance: Distance {
@@ -71,9 +71,9 @@ const BETA_CAELI: RealData = RealData {
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.32 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 2.64,
     apparent_magnitude: 5.04,
     temperature: Temperature { K: 6763. },
@@ -83,7 +83,7 @@ const BETA_CAELI: RealData = RealData {
     lifetime: Time {
         s: 3.8 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(4, 42, 3),
     declination: Declination::new(Sgn::Neg, 37, 8, 39),
     distance: Distance {

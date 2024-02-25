@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -23,9 +23,9 @@ const ALPHA_CHAMAELEONTIS: RealData = RealData {
         m: 63.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.59,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.42 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.11 * SOLAR_RADIUS.m,
     }),
@@ -36,7 +36,6 @@ const ALPHA_CHAMAELEONTIS: RealData = RealData {
     lifetime: Time {
         s: 2.5 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CHAMAELEONTIS: RealData = RealData {
@@ -50,9 +49,9 @@ const GAMMA_CHAMAELEONTIS: RealData = RealData {
         m: 418. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.43,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 67. * SOLAR_RADIUS.m,
     }),
@@ -61,7 +60,6 @@ const GAMMA_CHAMAELEONTIS: RealData = RealData {
     lifetime: Time {
         s: 6.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_CHAMAELEONIS: RealData = RealData {
@@ -75,9 +73,9 @@ const BETA_CHAMAELEONIS: RealData = RealData {
         m: 298. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.57,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.9 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.84 * SOLAR_RADIUS.m,
     }),
@@ -88,7 +86,6 @@ const BETA_CHAMAELEONIS: RealData = RealData {
     lifetime: Time {
         s: 0.025 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] =

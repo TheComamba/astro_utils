@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const DIPHDA: RealData = RealData {
     radius: Some(Distance {
         m: 16.78 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.04,
     temperature: Temperature { K: 4797. },
@@ -31,7 +31,7 @@ const DIPHDA: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(0, 43, 35),
     declination: Declination::new(Sgn::Neg, 17, 59, 12),
     distance: Distance {
@@ -46,9 +46,9 @@ const MENKAR: RealData = RealData {
     radius: Some(Distance {
         m: 89. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.3 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.61,
     apparent_magnitude: 2.54,
     temperature: Temperature { K: 3795. },
@@ -56,7 +56,7 @@ const MENKAR: RealData = RealData {
     lifetime: Time {
         s: 6.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(3, 2, 17),
     declination: Declination::new(Sgn::Pos, 4, 5, 23),
     distance: Distance {
@@ -75,9 +75,9 @@ const MIRA: RealData = RealData {
         m: 418.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.928,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.18 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 350. * SOLAR_RADIUS.m,
     }),
@@ -88,7 +88,6 @@ const MIRA: RealData = RealData {
     lifetime: Time {
         s: 6.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BATEN_KAITOS: RealData = RealData {
@@ -102,9 +101,9 @@ const BATEN_KAITOS: RealData = RealData {
         m: 235. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.54,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.34 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 25. * SOLAR_RADIUS.m,
     }),
@@ -115,7 +114,6 @@ const BATEN_KAITOS: RealData = RealData {
     lifetime: Time {
         s: 7.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const KAFFALJIDHMA: RealData = RealData {
@@ -129,9 +127,9 @@ const KAFFALJIDHMA: RealData = RealData {
         m: 80. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.53,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.88 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.9 * SOLAR_RADIUS.m,
     }),
@@ -142,7 +140,6 @@ const KAFFALJIDHMA: RealData = RealData {
     lifetime: Time {
         s: 1.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const IOTA_CETI: RealData = RealData {
@@ -156,9 +153,9 @@ const IOTA_CETI: RealData = RealData {
         m: 275. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.2,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.78 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 34. * SOLAR_RADIUS.m,
     }),
@@ -169,7 +166,6 @@ const IOTA_CETI: RealData = RealData {
     lifetime: Time {
         s: 7.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const DENEB_ALGENUBI: RealData = RealData {
@@ -183,9 +179,9 @@ const DENEB_ALGENUBI: RealData = RealData {
         m: 123.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.68,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.84 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 15.10 * SOLAR_RADIUS.m,
     }),
@@ -196,7 +192,6 @@ const DENEB_ALGENUBI: RealData = RealData {
     lifetime: Time {
         s: 7.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const TAU_CETI: RealData = RealData {
@@ -210,9 +205,9 @@ const TAU_CETI: RealData = RealData {
         m: 11.912 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 5.69,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.783 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 0.793 * SOLAR_RADIUS.m,
     }),
@@ -223,7 +218,6 @@ const TAU_CETI: RealData = RealData {
     lifetime: Time {
         s: 12. * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 8] = [

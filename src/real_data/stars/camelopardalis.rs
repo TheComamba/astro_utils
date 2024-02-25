@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const BETA_CAMELOPARDALIS: RealData = RealData {
     radius: Some(Distance {
         m: 58. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.1,
     apparent_magnitude: 4.02,
     temperature: Temperature { K: 5300. },
@@ -31,7 +31,7 @@ const BETA_CAMELOPARDALIS: RealData = RealData {
     lifetime: Time {
         s: 0.06 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(5, 3, 25),
     declination: Declination::new(Sgn::Pos, 60, 26, 32),
     distance: Distance {
@@ -46,9 +46,9 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     radius: Some(Distance {
         m: 85.7 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 19. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -6.39,
     apparent_magnitude: 4.21,
     temperature: Temperature { K: 10_800. },
@@ -58,7 +58,7 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     lifetime: Time {
         s: 0.017 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::TypeIISupernova,
+
     right_ascension: RightAscension::new(3, 29, 4),
     declination: Declination::new(Sgn::Pos, 59, 56, 25),
     distance: Distance {
@@ -73,9 +73,9 @@ const ALPHA_CAMELOPARDALIS: RealData = RealData {
     radius: Some(Distance {
         m: 32.5 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 37.6 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -7.1,
     apparent_magnitude: 4.29,
     temperature: Temperature { K: 29_000. },
@@ -85,7 +85,7 @@ const ALPHA_CAMELOPARDALIS: RealData = RealData {
     lifetime: Time {
         s: 0.0021 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::TypeIISupernova,
+
     right_ascension: RightAscension::new(4, 54, 3),
     declination: Declination::new(Sgn::Pos, 66, 20, 34),
     distance: Distance {

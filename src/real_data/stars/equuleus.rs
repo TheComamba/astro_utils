@@ -23,9 +23,9 @@ const ALPHA_EQUULEI: RealData = RealData {
         m: 190. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.17,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.3 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 9.2 * SOLAR_RADIUS.m,
     }),
@@ -44,9 +44,9 @@ const DELTA_EQUULEI: RealData = RealData {
         m: 60.25 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.140,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.192 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.30 * SOLAR_RADIUS.m,
     }),
@@ -67,9 +67,9 @@ const GAMMA_EQUULEI: RealData = RealData {
         m: 118. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.9,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.78 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.11 * SOLAR_RADIUS.m,
     }),

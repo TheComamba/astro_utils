@@ -23,9 +23,9 @@ const ALPHA_HYDRI: RealData = RealData {
         m: 71.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.153,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.040 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_HYDRI: RealData = RealData {
         m: 24.33 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.45,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.08 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.809 * SOLAR_RADIUS.m,
     }),
@@ -65,9 +65,9 @@ const GAMMA_HYDRI: RealData = RealData {
     radius: Some(Distance {
         m: 62. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.83,
     apparent_magnitude: 3.26,
     temperature: Temperature { K: 3499. },

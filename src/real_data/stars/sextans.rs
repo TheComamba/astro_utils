@@ -23,9 +23,9 @@ const ALPHA_SEXTANTIS: RealData = RealData {
         m: 280. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.29,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.57 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.07 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const GAMMA_SEXTANTIS: RealData = RealData {
         m: 280. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.43,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.60 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 9825. },
     age: Some(Time {
@@ -67,9 +67,9 @@ const BETA_SEXTANTIS: RealData = RealData {
         m: 364. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.38,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.2 * SOLAR_RADIUS.m,
     }),

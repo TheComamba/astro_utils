@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -23,9 +23,9 @@ const SUALOCIN: RealData = RealData {
         m: 254. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.4,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.83 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.92 * SOLAR_RADIUS.m,
     }),
@@ -36,7 +36,6 @@ const SUALOCIN: RealData = RealData {
     lifetime: Time {
         s: 0.49 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const ROTANEV: RealData = RealData {
@@ -50,9 +49,9 @@ const ROTANEV: RealData = RealData {
         m: 97.34 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.26,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.75 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 6587. },
     age: Some(Time {
@@ -61,7 +60,6 @@ const ROTANEV: RealData = RealData {
     lifetime: Time {
         s: 3.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_DELPHINI: RealData = RealData {
@@ -75,9 +73,9 @@ const GAMMA_DELPHINI: RealData = RealData {
         m: 114.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.24,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.61 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.6 * SOLAR_RADIUS.m,
     }),
@@ -88,7 +86,6 @@ const GAMMA_DELPHINI: RealData = RealData {
     lifetime: Time {
         s: 5.6 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_DELPHINI: RealData = RealData {
@@ -102,9 +99,9 @@ const DELTA_DELPHINI: RealData = RealData {
         m: 223. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.25,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.78 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.43 * SOLAR_RADIUS.m,
     }),
@@ -115,7 +112,6 @@ const DELTA_DELPHINI: RealData = RealData {
     lifetime: Time {
         s: 5. * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const ALDULFIN: RealData = RealData {
@@ -129,9 +125,9 @@ const ALDULFIN: RealData = RealData {
         m: 358.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.18,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.6 * SOLAR_RADIUS.m,
     }),
@@ -142,7 +138,6 @@ const ALDULFIN: RealData = RealData {
     lifetime: Time {
         s: 0.5 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 5] =

@@ -19,9 +19,9 @@ const ACHERNAR: RealData = RealData {
     radius: Some(Distance {
         m: 6.78 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6.0 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -2.77,
     apparent_magnitude: 0.45,
     temperature: Temperature { K: 14_000. },
@@ -42,9 +42,9 @@ const ZAURAK: RealData = RealData {
     radius: Some(Distance {
         m: 80. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.19,
     apparent_magnitude: 2.97,
     temperature: Temperature { K: 3811. },
@@ -67,9 +67,9 @@ const BETA_ERIDANI: RealData = RealData {
         m: 90. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.59,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
@@ -88,9 +88,9 @@ const THETA_ERIDANI: RealData = RealData {
         m: 164. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.59,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.6 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.85 * SOLAR_RADIUS.m,
     }),

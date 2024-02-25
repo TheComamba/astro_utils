@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -23,9 +23,9 @@ const ALPHA_ARAE: RealData = RealData {
         m: 270. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.72,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 9.6 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
@@ -34,7 +34,6 @@ const ALPHA_ARAE: RealData = RealData {
     lifetime: Time {
         s: 0.025 * BILLION_YEARS.s,
     },
-    fate: StarFate::TypeIISupernova,
 };
 
 const BETA_ARAE: RealData = RealData {
@@ -44,9 +43,9 @@ const BETA_ARAE: RealData = RealData {
     radius: Some(Distance {
         m: 142. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 8.21 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.49,
     apparent_magnitude: 2.84,
     temperature: Temperature { K: 4197. },
@@ -61,7 +60,6 @@ const BETA_ARAE: RealData = RealData {
     lifetime: Time {
         s: 0.06 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::TypeIISupernova,
 };
 
 const GAMMA_ARAE: RealData = RealData {
@@ -75,9 +73,9 @@ const GAMMA_ARAE: RealData = RealData {
         m: 1136. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -4.4,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 20. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 23. * SOLAR_RADIUS.m,
     }),
@@ -88,7 +86,6 @@ const GAMMA_ARAE: RealData = RealData {
     lifetime: Time {
         s: 0.02 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::TypeIISupernova,
 };
 
 const DELTA_ARAE: RealData = RealData {
@@ -102,9 +99,9 @@ const DELTA_ARAE: RealData = RealData {
         m: 198. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.31,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.12 * SOLAR_RADIUS.m,
     }),
@@ -115,7 +112,6 @@ const DELTA_ARAE: RealData = RealData {
     lifetime: Time {
         s: 0.360 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const ZETA_ARAE: RealData = RealData {
@@ -129,9 +125,9 @@ const ZETA_ARAE: RealData = RealData {
         m: 573.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.11,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 114. * SOLAR_RADIUS.m,
     }),
@@ -142,7 +138,6 @@ const ZETA_ARAE: RealData = RealData {
     lifetime: Time {
         s: 6.3 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 5] = [ALPHA_ARAE, BETA_ARAE, GAMMA_ARAE, DELTA_ARAE, ZETA_ARAE];

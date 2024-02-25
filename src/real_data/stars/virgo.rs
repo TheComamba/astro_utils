@@ -19,9 +19,9 @@ const SPICA: RealData = RealData {
     radius: Some(Distance {
         m: 7.47 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 11.43 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.55,
     apparent_magnitude: 0.98,
     temperature: Temperature { K: 22_300. },
@@ -42,9 +42,9 @@ const MINELAUVA: RealData = RealData {
     radius: Some(Distance {
         m: 48. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.4 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.575,
     apparent_magnitude: 3.39,
     temperature: Temperature { K: 3999. },
@@ -67,9 +67,9 @@ const ZAVIJAVA: RealData = RealData {
         m: 35.65 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.413 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.681 * SOLAR_RADIUS.m,
     }),
@@ -90,9 +90,9 @@ const SYRMA: RealData = RealData {
         m: 72.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.4,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.5 * SOLAR_RADIUS.m,
     }),
@@ -111,9 +111,9 @@ const HEZE: RealData = RealData {
         m: 74.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.64,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.041 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.079 * SOLAR_RADIUS.m,
     }),
@@ -134,9 +134,9 @@ const VINDEMIATRIX: RealData = RealData {
         m: 109.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.37,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.64 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10.6 * SOLAR_RADIUS.m,
     }),
@@ -157,9 +157,9 @@ const PORRIMA: RealData = RealData {
         m: 38.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 6757. },
     age: Some(Time {

@@ -18,9 +18,9 @@ const ANKAA: RealData = RealData {
     radius: Some(Distance {
         m: 15. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.57 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.52,
     apparent_magnitude: 2.4,
     temperature: Temperature { K: 4436. },
@@ -43,9 +43,9 @@ const BETA_PHOENICIS: RealData = RealData {
         m: 198.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.598,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 5090. },
     age: None,
@@ -62,9 +62,9 @@ const GAMMA_PHOENICIS: RealData = RealData {
         m: 234. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.86,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.3 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 52. * SOLAR_RADIUS.m,
     }),

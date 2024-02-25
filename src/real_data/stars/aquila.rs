@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ALTAIR: RealData = RealData {
     radius: Some(Distance {
         m: 1.63 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.86 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 2.20,
     apparent_magnitude: 0.76,
     temperature: Temperature { K: 7670. },
@@ -31,7 +31,6 @@ const ALTAIR: RealData = RealData {
     lifetime: Time {
         s: 2.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(19, 50, 47),
     declination: Declination::new(Sgn::Pos, 8, 52, 6),
     distance: Distance {
@@ -46,9 +45,9 @@ const TARAZED: RealData = RealData {
     radius: Some(Distance {
         m: 91.82 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.51 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.03,
     apparent_magnitude: 2.72,
     temperature: Temperature { K: 4098. },
@@ -58,7 +57,6 @@ const TARAZED: RealData = RealData {
     lifetime: Time {
         s: 0.3 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(19, 46, 16),
     declination: Declination::new(Sgn::Pos, 10, 36, 48),
     distance: Distance {
@@ -77,9 +75,9 @@ const OKAB: RealData = RealData {
         m: 83.0 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.96,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.37 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.27 * SOLAR_RADIUS.m,
     }),
@@ -90,7 +88,6 @@ const OKAB: RealData = RealData {
     lifetime: Time {
         s: 0.7 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const THETA_AQUILAE: RealData = RealData {
@@ -104,9 +101,9 @@ const THETA_AQUILAE: RealData = RealData {
         m: 286. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.39,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.564 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.76 * SOLAR_RADIUS.m,
     }),
@@ -117,7 +114,6 @@ const THETA_AQUILAE: RealData = RealData {
     lifetime: Time {
         s: 0.260 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_AQUILAE: RealData = RealData {
@@ -131,9 +127,9 @@ const DELTA_AQUILAE: RealData = RealData {
         m: 50.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.46,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.65 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.04 * SOLAR_RADIUS.m,
     }),
@@ -142,7 +138,6 @@ const DELTA_AQUILAE: RealData = RealData {
     lifetime: Time {
         s: 1.7 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const LAMBDA_AQUILAE: RealData = RealData {
@@ -156,9 +151,9 @@ const LAMBDA_AQUILAE: RealData = RealData {
         m: 125. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.54,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.9 * SOLAR_RADIUS.m,
     }),
@@ -169,7 +164,6 @@ const LAMBDA_AQUILAE: RealData = RealData {
     lifetime: Time {
         s: 0.49 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 6] = [

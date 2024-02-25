@@ -23,9 +23,9 @@ const ALPHA_MENSAE: RealData = RealData {
         m: 33.31 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 5.03,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.964 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 0.960 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_MENSAE: RealData = RealData {
         m: 641.7 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.17,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.58 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 25.85 * SOLAR_RADIUS.m,
     }),
@@ -69,9 +69,9 @@ const GAMMA_MENSAE: RealData = RealData {
         m: 104.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.70,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.04 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.99 * SOLAR_RADIUS.m,
     }),

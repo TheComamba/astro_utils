@@ -23,9 +23,9 @@ const ALPHA_INDI: RealData = RealData {
         m: 98.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.65,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.0 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 12. * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_INDI: RealData = RealData {
         m: 600. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.664,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 55.58 * SOLAR_RADIUS.m,
     }),
@@ -69,9 +69,9 @@ const ETA_INDI: RealData = RealData {
         m: 78.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.59,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.6 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.27 * SOLAR_RADIUS.m,
     }),

@@ -23,9 +23,9 @@ const ALPHA_LACERTAE: RealData = RealData {
         m: 102.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.27,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.194 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.1432 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_LACERTAE: RealData = RealData {
         m: 170. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.67,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.97 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10.96 * SOLAR_RADIUS.m,
     }),
@@ -69,9 +69,9 @@ const FIVE_LACERTAE: RealData = RealData {
         m: 1164. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.42,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.11 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 319.2 * SOLAR_RADIUS.m,
     }),

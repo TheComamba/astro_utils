@@ -23,9 +23,9 @@ const ALPHA_FORNACIS: RealData = RealData {
         m: 45.66 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.08,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.33 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.04 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_FORNACIS: RealData = RealData {
         m: 178. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.894,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.53 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.02 * SOLAR_RADIUS.m,
     }),
@@ -67,9 +67,9 @@ const NU_FORNACIS: RealData = RealData {
         m: 370. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.6,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.65 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.44 * SOLAR_RADIUS.m,
     }),

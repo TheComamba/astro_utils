@@ -23,9 +23,9 @@ const RASALGETHI: RealData = RealData {
         m: 360. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.57,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 284. * SOLAR_RADIUS.m,
     }),
@@ -44,9 +44,9 @@ const BETA_HERCULIS: RealData = RealData {
         m: 139. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.49,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.9 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 17. * SOLAR_RADIUS.m,
     }),
@@ -65,9 +65,9 @@ const DELTA_HERCULIS: RealData = RealData {
         m: 75.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.31,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.2 * SOLAR_RADIUS.m,
     }),
@@ -88,9 +88,9 @@ const ETA_HERCULIS: RealData = RealData {
         m: 112. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.84,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.13 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 8.9 * SOLAR_RADIUS.m,
     }),
@@ -111,9 +111,9 @@ const MU_HERCULIS: RealData = RealData {
         m: 27.11 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.82,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.11 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.73 * SOLAR_RADIUS.m,
     }),
@@ -134,9 +134,9 @@ const ZETA_HERCULIS: RealData = RealData {
         m: 35. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.65,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.45 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.56 * SOLAR_RADIUS.m,
     }),
@@ -157,9 +157,9 @@ const PI_HERCULIS: RealData = RealData {
         m: 377. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.1,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 72. * SOLAR_RADIUS.m,
     }),

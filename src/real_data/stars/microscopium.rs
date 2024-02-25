@@ -23,9 +23,9 @@ const GAMMA_MICROSCOPII: RealData = RealData {
         m: 223. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.49,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10. * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const EPSILON_MICROSCOPII: RealData = RealData {
         m: 166. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.97,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.18 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.2 * SOLAR_RADIUS.m,
     }),
@@ -69,9 +69,9 @@ const THETA1_MICROSCOPII: RealData = RealData {
         m: 179. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.03,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.32 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.35 * SOLAR_RADIUS.m,
     }),

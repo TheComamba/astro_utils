@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ARCTURUS: RealData = RealData {
     radius: Some(Distance {
         m: 25.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.08 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.31,
     apparent_magnitude: -0.05,
     temperature: Temperature { K: 4286. },
@@ -31,7 +31,7 @@ const ARCTURUS: RealData = RealData {
     lifetime: Time {
         s: 7.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(14, 15, 40),
     declination: Declination::new(Sgn::Pos, 19, 10, 56),
     distance: Distance {
@@ -46,9 +46,9 @@ const IZAR: RealData = RealData {
     radius: Some(Distance {
         m: 33. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4.6 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.69,
     apparent_magnitude: 2.35,
     temperature: Temperature { K: 4550. },
@@ -58,7 +58,7 @@ const IZAR: RealData = RealData {
     lifetime: Time {
         s: 0.220 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(14, 44, 59),
     declination: Declination::new(Sgn::Pos, 27, 4, 27),
     distance: Distance {
@@ -77,9 +77,9 @@ const GAMMA_BOOTIS: RealData = RealData {
         m: 86.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.93,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.10 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.16 * SOLAR_RADIUS.m,
     }),
@@ -90,7 +90,6 @@ const GAMMA_BOOTIS: RealData = RealData {
     lifetime: Time {
         s: 0.670 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_BOOTIS: RealData = RealData {
@@ -104,9 +103,9 @@ const DELTA_BOOTIS: RealData = RealData {
         m: 121.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.7,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 10.5 * SOLAR_RADIUS.m,
     }),
@@ -115,7 +114,6 @@ const DELTA_BOOTIS: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_BOOTIS: RealData = RealData {
@@ -129,9 +127,9 @@ const BETA_BOOTIS: RealData = RealData {
         m: 225. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.7,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 21.5 * SOLAR_RADIUS.m,
     }),
@@ -142,7 +140,6 @@ const BETA_BOOTIS: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const MUPHRID: RealData = RealData {
@@ -156,9 +153,9 @@ const MUPHRID: RealData = RealData {
         m: 37.2 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.71 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.672 * SOLAR_RADIUS.m,
     }),
@@ -169,7 +166,6 @@ const MUPHRID: RealData = RealData {
     lifetime: Time {
         s: 9.4 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 6] = [

@@ -19,9 +19,9 @@ const REGOR: RealData = RealData {
     radius: Some(Distance {
         m: 17. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 28.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -5.31,
     apparent_magnitude: 1.75,
     temperature: Temperature { K: 35_000. },
@@ -42,9 +42,9 @@ const ALSEPHINA: RealData = RealData {
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.27 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.01,
     apparent_magnitude: 1.93,
     temperature: Temperature { K: 9440. },
@@ -65,9 +65,9 @@ const SUHAIL: RealData = RealData {
     radius: Some(Distance {
         m: 210. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.99,
     apparent_magnitude: 2.23,
     temperature: Temperature { K: 3900. },
@@ -88,9 +88,9 @@ const MARKEB: RealData = RealData {
     radius: Some(Distance {
         m: 9.1 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 10.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.62,
     apparent_magnitude: 2.47,
     temperature: Temperature { K: 23_000. },

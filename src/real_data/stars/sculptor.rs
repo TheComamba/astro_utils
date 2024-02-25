@@ -23,9 +23,9 @@ const ALPHA_SCULPTORIS: RealData = RealData {
         m: 780. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.58,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.01 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 7.52 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_SCULPTORIS: RealData = RealData {
         m: 174. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.74,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.98 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.0 * SOLAR_RADIUS.m,
     }),
@@ -67,9 +67,9 @@ const GAMMA_SULPTORIS: RealData = RealData {
         m: 182. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.67,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.6 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 12. * SOLAR_RADIUS.m,
     }),

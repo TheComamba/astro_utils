@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const HAMAL: RealData = RealData {
     radius: Some(Distance {
         m: 14.9 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.48,
     apparent_magnitude: 2.01,
     temperature: Temperature { K: 4480. },
@@ -36,7 +36,6 @@ const HAMAL: RealData = RealData {
     lifetime: Time {
         s: 7.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_ARIETIS: RealData = RealData {
@@ -50,9 +49,9 @@ const BETA_ARIETIS: RealData = RealData {
         m: 59.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.55,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.34 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 23. * SOLAR_RADIUS.m,
     }),
@@ -63,7 +62,6 @@ const BETA_ARIETIS: RealData = RealData {
     lifetime: Time {
         s: 1.8 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BHARANI: RealData = RealData {
@@ -77,9 +75,9 @@ const BHARANI: RealData = RealData {
         m: 166. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.163,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 11_900. },
     age: Some(Time {
@@ -88,7 +86,6 @@ const BHARANI: RealData = RealData {
     lifetime: Time {
         s: 0.360 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [HAMAL, BETA_ARIETIS, BHARANI];

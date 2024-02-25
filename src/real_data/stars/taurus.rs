@@ -19,9 +19,9 @@ const ALDEBARAN: RealData = RealData {
     radius: Some(Distance {
         m: 45.1 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.16 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.63,
     apparent_magnitude: 0.87,
     temperature: Temperature { K: 3900. },
@@ -42,9 +42,9 @@ const ALNATH: RealData = RealData {
     radius: Some(Distance {
         m: 4.2 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.0 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.37,
     apparent_magnitude: 1.65,
     temperature: Temperature { K: 13_824. },
@@ -69,9 +69,9 @@ const GAMMA_TAURI: RealData = RealData {
         m: 154. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.22,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 13.4 * SOLAR_RADIUS.m,
     }),
@@ -92,9 +92,9 @@ const EPSILON_TAURI: RealData = RealData {
         m: 146. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.145,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.57 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 12.35 * SOLAR_RADIUS.m,
     }),
@@ -115,9 +115,9 @@ const LAMBDA_TAURI: RealData = RealData {
         m: 480. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.45,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.18 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 6.4 * SOLAR_RADIUS.m,
     }),
@@ -138,9 +138,9 @@ const ZETA_TAURI: RealData = RealData {
         m: 440. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.67,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 11.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.5 * SOLAR_RADIUS.m,
     }),

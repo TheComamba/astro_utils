@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const PROCYON: RealData = RealData {
     radius: Some(Distance {
         m: 2.048 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.499 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 2.68,
     apparent_magnitude: 0.40,
     temperature: Temperature { K: 6530. },
@@ -31,7 +31,7 @@ const PROCYON: RealData = RealData {
     lifetime: Time {
         s: 3.6 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(7, 39, 18),
     declination: Declination::new(Sgn::Pos, 5, 13, 30),
     distance: Distance {
@@ -50,9 +50,9 @@ const GOMEISA: RealData = RealData {
         m: 160. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.59,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
@@ -63,7 +63,6 @@ const GOMEISA: RealData = RealData {
     lifetime: Time {
         s: 0.360 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CANIS_MINORIS: RealData = RealData {
@@ -77,9 +76,9 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
         m: 320. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.5,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.88 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 36.8 * SOLAR_RADIUS.m,
     }),
@@ -90,7 +89,6 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
     lifetime: Time {
         s: 6.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [PROCYON, GOMEISA, GAMMA_CANIS_MINORIS];

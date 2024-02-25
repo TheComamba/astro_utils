@@ -19,9 +19,9 @@ const RASALHAGUE: RealData = RealData {
     radius: Some(Distance {
         m: 2.6 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.30,
     apparent_magnitude: 2.08,
     temperature: Temperature { K: 8000. },
@@ -40,9 +40,9 @@ const SABIK: RealData = RealData {
     astronomical_name: "Eta Ophiuchi",
     constellation: "Ophiuchus",
     radius: None,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.966 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.37,
     apparent_magnitude: 2.43,
     temperature: Temperature { K: 8900. },
@@ -61,9 +61,9 @@ const HAN: RealData = RealData {
     radius: Some(Distance {
         m: 8.5 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 20.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.20,
     apparent_magnitude: 2.54,
     temperature: Temperature { K: 34_300. },
@@ -84,9 +84,9 @@ const YED_PRIOR: RealData = RealData {
     radius: Some(Distance {
         m: 59. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.90,
     apparent_magnitude: 2.73,
     temperature: Temperature { K: 3679. },
@@ -105,9 +105,9 @@ const CEBALRAI: RealData = RealData {
     radius: Some(Distance {
         m: 12.42 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.13 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.77,
     apparent_magnitude: 2.76,
     temperature: Temperature { K: 4467. },

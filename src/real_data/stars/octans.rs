@@ -23,9 +23,9 @@ const NU_OCTANTIS: RealData = RealData {
         m: 63.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.10,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.04 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.9 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_OCTANTIS: RealData = RealData {
         m: 149. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.83,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.27 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.2 * SOLAR_RADIUS.m,
     }),
@@ -69,9 +69,9 @@ const DELTA_OCTANTIS: RealData = RealData {
         m: 299. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.35,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.06 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 24.61 * SOLAR_RADIUS.m,
     }),

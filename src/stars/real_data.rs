@@ -1,6 +1,6 @@
 use super::{
     appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
-    data_evolution::StarDataEvolution, fate::StarFate,
+    data_evolution::StarDataEvolution,
 };
 use crate::{
     color::srgb::sRGBColor,
@@ -20,14 +20,13 @@ pub struct RealData {
     pub common_name: &'static str,
     pub astronomical_name: &'static str,
     pub constellation: &'static str,
-    pub mass: Option<Mass<f64>>,
+    pub mass: Mass<f64>,
     pub radius: Option<Distance<f64>>,
     pub absolute_magnitude: f64,
     pub apparent_magnitude: f64,
     pub temperature: Temperature<f64>,
     pub age: Option<Time<f64>>,
     pub lifetime: Time<f64>,
-    pub fate: StarFate,
     pub right_ascension: RightAscension,
     pub declination: Declination,
     pub distance: Distance<f64>,
@@ -57,7 +56,7 @@ impl RealData {
         let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
         StarData {
             name: name.to_string(),
-            mass: self.mass,
+            mass: Some(self.mass),
             constellation,
             radius: self.radius,
             luminous_intensity: Some(luminous_intensity),
@@ -92,11 +91,8 @@ impl RealData {
 
 #[cfg(test)]
 mod tests {
-    use simple_si_units::base::Mass;
-
     use crate::{
         real_data::stars::all::get_many_stars,
-        stars::fate::StarFate,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
             luminous_intensity::luminous_intensity_to_illuminance, time::TIME_ZERO,
@@ -179,32 +175,6 @@ mod tests {
             if let Some(age) = star_data.age {
                 assert!(age < star_data.lifetime);
             }
-        }
-    }
-
-    #[test]
-    fn all_stars_below_8_sol_become_white_dwarfs() {
-        for star_data in get_many_stars().iter().filter(|s| {
-            if let Some(mass) = s.mass {
-                mass < Mass::from_solar_mass(8.)
-            } else {
-                false
-            }
-        }) {
-            assert_eq!(star_data.fate, StarFate::WhiteDwarf);
-        }
-    }
-
-    #[test]
-    fn all_stars_above_8_sol_becomae_supernovae() {
-        for star_data in get_many_stars().iter().filter(|s| {
-            if let Some(mass) = s.mass {
-                mass > Mass::from_solar_mass(8.)
-            } else {
-                false
-            }
-        }) {
-            assert_eq!(star_data.fate, StarFate::TypeIISupernova);
         }
     }
 }

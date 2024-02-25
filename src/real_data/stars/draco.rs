@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ELTANIN: RealData = RealData {
     radius: Some(Distance {
         m: 48.15 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.72 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.04,
     apparent_magnitude: 2.24,
     temperature: Temperature { K: 3930. },
@@ -29,7 +29,7 @@ const ELTANIN: RealData = RealData {
     lifetime: Time {
         s: 6.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(17, 56, 36),
     declination: Declination::new(Sgn::Pos, 51, 29, 20),
     distance: Distance {
@@ -44,9 +44,9 @@ const ATHEBYNE: RealData = RealData {
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.55 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.58,
     apparent_magnitude: 2.73,
     temperature: Temperature { K: 5055. },
@@ -56,7 +56,7 @@ const ATHEBYNE: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(16, 23, 59),
     declination: Declination::new(Sgn::Pos, 61, 30, 51),
     distance: Distance {
@@ -75,9 +75,9 @@ const THETA_DRACONIS: RealData = RealData {
         m: 68.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.39,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.53 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.83 * SOLAR_RADIUS.m,
     }),
@@ -88,7 +88,6 @@ const THETA_DRACONIS: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const KAPPA_DRACONIS: RealData = RealData {
@@ -102,9 +101,9 @@ const KAPPA_DRACONIS: RealData = RealData {
         m: 460. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.95,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.65 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.85 * SOLAR_RADIUS.m,
     }),
@@ -113,7 +112,6 @@ const KAPPA_DRACONIS: RealData = RealData {
     lifetime: Time {
         s: 0.1 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const TYL: RealData = RealData {
@@ -127,9 +125,9 @@ const TYL: RealData = RealData {
         m: 153. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.71,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.15 * SOLAR_RADIUS.m,
     }),
@@ -140,7 +138,6 @@ const TYL: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GIAUSAR: RealData = RealData {
@@ -154,9 +151,9 @@ const GIAUSAR: RealData = RealData {
         m: 333. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.14,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 71. * SOLAR_RADIUS.m,
     }),
@@ -165,7 +162,6 @@ const GIAUSAR: RealData = RealData {
     lifetime: Time {
         s: 6.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GRUMIUM: RealData = RealData {
@@ -179,9 +175,9 @@ const GRUMIUM: RealData = RealData {
         m: 112.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.06,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.45 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 12. * SOLAR_RADIUS.m,
     }),
@@ -190,7 +186,6 @@ const GRUMIUM: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const THUBAN: RealData = RealData {
@@ -204,9 +199,9 @@ const THUBAN: RealData = RealData {
         m: 303. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.2,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.186 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.932 * SOLAR_RADIUS.m,
     }),
@@ -217,7 +212,6 @@ const THUBAN: RealData = RealData {
     lifetime: Time {
         s: 0.310 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const CHI_DRACONIS: RealData = RealData {
@@ -231,9 +225,9 @@ const CHI_DRACONIS: RealData = RealData {
         m: 27.17 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 4.04,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.029 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.2 * SOLAR_RADIUS.m,
     }),
@@ -244,7 +238,6 @@ const CHI_DRACONIS: RealData = RealData {
     lifetime: Time {
         s: 5.6 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const EDASICH: RealData = RealData {
@@ -258,9 +251,9 @@ const EDASICH: RealData = RealData {
         m: 101.2 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.99,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.99 * SOLAR_RADIUS.m,
     }),
@@ -271,7 +264,6 @@ const EDASICH: RealData = RealData {
     lifetime: Time {
         s: 7.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const ZETA_DRACONIS: RealData = RealData {
@@ -285,9 +277,9 @@ const ZETA_DRACONIS: RealData = RealData {
         m: 330. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.88,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.3 * SOLAR_RADIUS.m,
     }),
@@ -306,9 +298,9 @@ const DELTA_DRACONIS: RealData = RealData {
         m: 97.4 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.62,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.32 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
@@ -329,9 +321,9 @@ const BETA_DRACONIS: RealData = RealData {
         m: 380. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.457,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 40. * SOLAR_RADIUS.m,
     }),

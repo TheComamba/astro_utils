@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ALPHA_ANTLIAE: RealData = RealData {
     radius: Some(Distance {
         m: 41. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.973,
     apparent_magnitude: 4.28,
     temperature: Temperature { K: 4070. },
@@ -29,7 +29,6 @@ const ALPHA_ANTLIAE: RealData = RealData {
     lifetime: Time {
         s: 6.6 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(10, 27, 9),
     declination: Declination::new(Sgn::Neg, 31, 4, 4),
     distance: Distance {
@@ -44,9 +43,9 @@ const EPSILON_ANTLIAE: RealData = RealData {
     radius: Some(Distance {
         m: 56.3 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2. * SOLAR_MASS.kg, //guessed
-    }),
+    },
     absolute_magnitude: -2.15,
     apparent_magnitude: 4.51,
     temperature: Temperature { K: 4237. },
@@ -54,7 +53,6 @@ const EPSILON_ANTLIAE: RealData = RealData {
     lifetime: Time {
         s: 6.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(9, 29, 15),
     declination: Declination::new(Sgn::Neg, 35, 57, 5),
     distance: Distance {
@@ -69,9 +67,9 @@ const IOTA_ANTLIAE: RealData = RealData {
     radius: Some(Distance {
         m: 12.1 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.55 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.674,
     apparent_magnitude: 4.60,
     temperature: Temperature { K: 4892. },
@@ -81,7 +79,6 @@ const IOTA_ANTLIAE: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(10, 56, 43),
     declination: Declination::new(Sgn::Neg, 37, 8, 16),
     distance: Distance {

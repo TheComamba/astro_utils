@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const DENEB: RealData = RealData {
     radius: Some(Distance {
         m: 203. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 19. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -7.13,
     apparent_magnitude: 1.25,
     temperature: Temperature { K: 8515. },
@@ -34,7 +34,6 @@ const DENEB: RealData = RealData {
     lifetime: Time {
         s: 6.355 * BILLION_YEARS.s,
     },
-    fate: StarFate::TypeIISupernova,
 };
 
 const SADIR: RealData = RealData {
@@ -44,9 +43,9 @@ const SADIR: RealData = RealData {
     radius: Some(Distance {
         m: 150. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 12.11 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -6.12,
     apparent_magnitude: 2.23,
     temperature: Temperature { K: 5790. },
@@ -56,7 +55,7 @@ const SADIR: RealData = RealData {
     lifetime: Time {
         s: 0.032 * BILLION_YEARS.s,
     },
-    fate: StarFate::TypeIISupernova,
+
     right_ascension: RightAscension::new(20, 22, 14),
     declination: Declination::new(Sgn::Pos, 40, 15, 24),
     distance: Distance {
@@ -71,9 +70,9 @@ const ALJANAH: RealData = RealData {
     radius: Some(Distance {
         m: 10.82 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.76,
     apparent_magnitude: 2.48,
     temperature: Temperature { K: 4710. },
@@ -83,7 +82,7 @@ const ALJANAH: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(20, 46, 13),
     declination: Declination::new(Sgn::Pos, 33, 58, 13),
     distance: Distance {

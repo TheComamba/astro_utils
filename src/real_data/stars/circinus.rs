@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -23,9 +23,9 @@ const ALPHA_CIRCINI: RealData = RealData {
         m: 54. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.18,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.6 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.967 * SOLAR_RADIUS.m,
     }),
@@ -36,7 +36,6 @@ const ALPHA_CIRCINI: RealData = RealData {
     lifetime: Time {
         s: 3.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_CIRCINI: RealData = RealData {
@@ -50,9 +49,9 @@ const BETA_CIRCINI: RealData = RealData {
         m: 93. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.64,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
@@ -63,7 +62,6 @@ const BETA_CIRCINI: RealData = RealData {
     lifetime: Time {
         s: 1.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CIRCINI: RealData = RealData {
@@ -77,9 +75,9 @@ const GAMMA_CIRCINI: RealData = RealData {
         m: 450. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.18,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6. * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 15_135. },
     age: Some(Time {
@@ -88,7 +86,6 @@ const GAMMA_CIRCINI: RealData = RealData {
     lifetime: Time {
         s: 0.1 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [ALPHA_CIRCINI, BETA_CIRCINI, GAMMA_CIRCINI];

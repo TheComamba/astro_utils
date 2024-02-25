@@ -22,9 +22,9 @@ const ALPHA_SCUTI: RealData = RealData {
         m: 199. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.08,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.33 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
     }),
@@ -43,9 +43,9 @@ const BETA_SCUTI: RealData = RealData {
         m: 900. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.99,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.0 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 4622. },
     age: None,
@@ -62,9 +62,9 @@ const ZETA_SCUTI: RealData = RealData {
         m: 210. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.66,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.29 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 9.3 * SOLAR_RADIUS.m,
     }),

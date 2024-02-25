@@ -19,9 +19,9 @@ const POLARIS: RealData = RealData {
     radius: Some(Distance {
         m: 37.5 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.4 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.64,
     apparent_magnitude: 1.97,
     temperature: Temperature { K: 6015. },
@@ -42,9 +42,9 @@ const KOCHAB: RealData = RealData {
     radius: Some(Distance {
         m: 42.06 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.87,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 4030. },
@@ -67,9 +67,9 @@ const ZETA_URSAE_MINORIS: RealData = RealData {
         m: 369. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.98,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 6.15 * SOLAR_RADIUS.m,
     }),
@@ -90,9 +90,9 @@ const DELTA_URSAE_MINORIS: RealData = RealData {
         m: 172. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.62,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.35 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.8 * SOLAR_RADIUS.m,
     }),
@@ -113,9 +113,9 @@ const ETA_URSAE_MINORIS: RealData = RealData {
         m: 97.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.61,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.35 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.0 * SOLAR_RADIUS.m,
     }),
@@ -136,9 +136,9 @@ const PHERKAD: RealData = RealData {
         m: 487. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.84,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 9. * SOLAR_MASS.kg, //guessed
-    }),
+    },
     radius: Some(Distance {
         m: 15. * SOLAR_RADIUS.m,
     }),
@@ -157,9 +157,9 @@ const EPSILON_URSAE_MINORIS: RealData = RealData {
         m: 300. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.922,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 5215. },
     age: None,

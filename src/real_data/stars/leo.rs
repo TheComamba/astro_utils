@@ -19,9 +19,9 @@ const REGULUS: RealData = RealData {
     radius: Some(Distance {
         m: 4.35 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.52,
     apparent_magnitude: 1.36,
     temperature: Temperature { K: 11_668. },
@@ -42,9 +42,9 @@ const ALGIEBA: RealData = RealData {
     radius: Some(Distance {
         m: 31.88 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.23 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.92,
     apparent_magnitude: 2.01,
     temperature: Temperature { K: 4470. },
@@ -63,9 +63,9 @@ const DENEBOLA: RealData = RealData {
     radius: Some(Distance {
         m: 1.728 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.78 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.92,
     apparent_magnitude: 2.14,
     temperature: Temperature { K: 8500. },
@@ -86,9 +86,9 @@ const ZOSMA: RealData = RealData {
     radius: Some(Distance {
         m: 2.14 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.32,
     apparent_magnitude: 2.56,
     temperature: Temperature { K: 8_296. },

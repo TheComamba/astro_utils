@@ -23,9 +23,9 @@ const ALPHA_PYXIDIS: RealData = RealData {
         m: 880. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.47,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 10.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 6.3 * SOLAR_RADIUS.m,
     }),
@@ -44,9 +44,9 @@ const BETA_PYXIDIS: RealData = RealData {
         m: 388.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 24. * SOLAR_RADIUS.m,
     }),
@@ -65,9 +65,9 @@ const GAMMA_PYXIDIS: RealData = RealData {
         m: 207. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.64 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 21.87 * SOLAR_RADIUS.m,
     }),

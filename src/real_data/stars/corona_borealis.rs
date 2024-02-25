@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ALPHECCA: RealData = RealData {
     radius: Some(Distance {
         m: 3. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.58 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.42,
     apparent_magnitude: 2.22,
     temperature: Temperature { K: 9700. },
@@ -31,7 +31,7 @@ const ALPHECCA: RealData = RealData {
     lifetime: Time {
         s: 0.7 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(15, 34, 41),
     declination: Declination::new(Sgn::Pos, 26, 42, 53),
     distance: Distance {
@@ -50,9 +50,9 @@ const NAUSAKAN: RealData = RealData {
         m: 112. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.942,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.09 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.63 * SOLAR_RADIUS.m,
     }),
@@ -61,7 +61,6 @@ const NAUSAKAN: RealData = RealData {
     lifetime: Time {
         s: 1.1 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CORONAE_BOREALIS: RealData = RealData {
@@ -75,9 +74,9 @@ const GAMMA_CORONAE_BOREALIS: RealData = RealData {
         m: 146. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.56,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.51 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 7649. },
     age: Some(Time {
@@ -86,7 +85,6 @@ const GAMMA_CORONAE_BOREALIS: RealData = RealData {
     lifetime: Time {
         s: 0.82 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_CORONAE_BOREALIS: RealData = RealData {
@@ -100,9 +98,9 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
         m: 165. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.18,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 7.4 * SOLAR_RADIUS.m,
     }),
@@ -113,7 +111,6 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
     lifetime: Time {
         s: 2.5 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const EPSILON_CORONAE_BOREALIS: RealData = RealData {
@@ -127,9 +124,9 @@ const EPSILON_CORONAE_BOREALIS: RealData = RealData {
         m: 242. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.02,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.44 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 21. * SOLAR_RADIUS.m,
     }),
@@ -140,7 +137,6 @@ const EPSILON_CORONAE_BOREALIS: RealData = RealData {
     lifetime: Time {
         s: 6.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const IOTA_CORONAE_BOREALIS: RealData = RealData {
@@ -154,16 +150,15 @@ const IOTA_CORONAE_BOREALIS: RealData = RealData {
         m: 312. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.08,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3. * SOLAR_MASS.kg, //guessed
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 10_727. },
     age: None,
     lifetime: Time {
         s: 0.1 * BILLION_YEARS.s, //no idea
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const THETA_CORONAE_BOREALIS: RealData = RealData {
@@ -177,9 +172,9 @@ const THETA_CORONAE_BOREALIS: RealData = RealData {
         m: 380. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.16,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
     }),
@@ -190,7 +185,6 @@ const THETA_CORONAE_BOREALIS: RealData = RealData {
     lifetime: Time {
         s: 0.160 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 7] = [

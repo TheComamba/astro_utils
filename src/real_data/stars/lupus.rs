@@ -17,9 +17,9 @@ const ALPHA_LUPI: RealData = RealData {
     astronomical_name: "Alpha Lupi",
     constellation: "Lupus",
     radius: None,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 10.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.83,
     apparent_magnitude: 2.30,
     temperature: Temperature { K: 21_820. },
@@ -44,9 +44,9 @@ const BETA_LUPI: RealData = RealData {
         m: 523.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.35,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 8.8 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 6.6 * SOLAR_RADIUS.m,
     }),
@@ -67,9 +67,9 @@ const GAMMA_LUPI: RealData = RealData {
         m: 567. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.4,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 9.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 20_900. },
     age: Some(Time {

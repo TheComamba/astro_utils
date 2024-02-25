@@ -19,9 +19,9 @@ const UNUKALHAI: RealData = RealData {
     radius: Some(Distance {
         m: 13.48 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.66 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.88,
     apparent_magnitude: 2.63,
     temperature: Temperature { K: 4498. },
@@ -44,9 +44,9 @@ const BETA_SERPENTIS: RealData = RealData {
         m: 155. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.30,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.94 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 8928. },
     age: Some(Time {
@@ -65,9 +65,9 @@ const MU_SERPENTIS: RealData = RealData {
         m: 170. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.04,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 9487. },
     age: None,

@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ACRUX: RealData = RealData {
     radius: Some(Distance {
         m: 7.8 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 17.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.19,
     apparent_magnitude: 0.77,
     temperature: Temperature { K: 24_000. },
@@ -31,7 +31,7 @@ const ACRUX: RealData = RealData {
     lifetime: Time {
         s: 6.6 * BILLION_YEARS.s,
     },
-    fate: StarFate::TypeIISupernova,
+
     right_ascension: RightAscension::new(12, 26, 36),
     declination: Declination::new(Sgn::Neg, 63, 5, 57),
     distance: Distance {
@@ -46,9 +46,9 @@ const MIMOSA: RealData = RealData {
     radius: Some(Distance {
         m: 8.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 16. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.92,
     apparent_magnitude: 1.25,
     temperature: Temperature { K: 27_000. },
@@ -63,7 +63,6 @@ const MIMOSA: RealData = RealData {
     lifetime: Time {
         s: 6.6 * BILLION_YEARS.s,
     },
-    fate: StarFate::TypeIISupernova,
 };
 
 const GACRUX: RealData = RealData {
@@ -73,9 +72,9 @@ const GACRUX: RealData = RealData {
     radius: Some(Distance {
         m: 120. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.56,
     apparent_magnitude: 1.59,
     temperature: Temperature { K: 3689. },
@@ -88,7 +87,6 @@ const GACRUX: RealData = RealData {
     lifetime: Time {
         s: 6.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [ACRUX, MIMOSA, GACRUX];

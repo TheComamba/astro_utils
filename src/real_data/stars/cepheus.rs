@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ALDERAMIN: RealData = RealData {
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.58,
     apparent_magnitude: 2.45,
     temperature: Temperature { K: 7700. },
@@ -31,7 +31,7 @@ const ALDERAMIN: RealData = RealData {
     lifetime: Time {
         s: 2.8 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(21, 18, 35),
     declination: Declination::new(Sgn::Pos, 62, 35, 8),
     distance: Distance {
@@ -50,9 +50,9 @@ const ALFIRK: RealData = RealData {
         m: 594.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.08,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 5.6 * SOLAR_RADIUS.m,
     }),
@@ -63,7 +63,6 @@ const ALFIRK: RealData = RealData {
     lifetime: Time {
         s: 0.012 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const ERRAI: RealData = RealData {
@@ -77,9 +76,9 @@ const ERRAI: RealData = RealData {
         m: 44.98 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.62,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.294 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.93 * SOLAR_RADIUS.m,
     }),
@@ -90,7 +89,6 @@ const ERRAI: RealData = RealData {
     lifetime: Time {
         s: 12. * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_CEPHERI: RealData = RealData {
@@ -104,9 +102,9 @@ const DELTA_CEPHERI: RealData = RealData {
         m: 981.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.32,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4.5 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 44.5 * SOLAR_RADIUS.m,
     }),
@@ -117,7 +115,6 @@ const DELTA_CEPHERI: RealData = RealData {
     lifetime: Time {
         s: 0.1 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const ETA_CEPHEI: RealData = RealData {
@@ -131,9 +128,9 @@ const ETA_CEPHEI: RealData = RealData {
         m: 46.53 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.631,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.6 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.12 * SOLAR_RADIUS.m,
     }),
@@ -144,7 +141,6 @@ const ETA_CEPHEI: RealData = RealData {
     lifetime: Time {
         s: 12. * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const IOTA_CEPHEI: RealData = RealData {
@@ -158,9 +154,9 @@ const IOTA_CEPHEI: RealData = RealData {
         m: 115.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.76,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.15 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.08 * SOLAR_RADIUS.m,
     }),
@@ -171,7 +167,6 @@ const IOTA_CEPHEI: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const ZETA_CEPHEI: RealData = RealData {
@@ -185,9 +180,9 @@ const ZETA_CEPHEI: RealData = RealData {
         m: 726.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.35,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.9 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 94. * SOLAR_RADIUS.m,
     }),
@@ -196,7 +191,6 @@ const ZETA_CEPHEI: RealData = RealData {
     lifetime: Time {
         s: 0.016 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const ERAKIS: RealData = RealData {
@@ -206,9 +200,9 @@ const ERAKIS: RealData = RealData {
     radius: Some(Distance {
         m: 972. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 19.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -6.5,
     apparent_magnitude: 3.43,
     temperature: Temperature { K: 3551. },
@@ -218,7 +212,7 @@ const ERAKIS: RealData = RealData {
     lifetime: Time {
         s: 0.011 * BILLION_YEARS.s,
     },
-    fate: StarFate::TypeIISupernova,
+
     right_ascension: RightAscension::new(21, 43, 30),
     declination: Declination::new(Sgn::Pos, 58, 46, 48),
     distance: Distance {

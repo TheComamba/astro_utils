@@ -19,9 +19,9 @@ const GAMMA2_NORMAE: RealData = RealData {
         m: 129. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.057,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.16 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 4699. },
     age: None,
@@ -38,9 +38,9 @@ const EPSILON_NORMAE: RealData = RealData {
         m: 399.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.982,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6.4 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 10_888. },
     age: Some(Time {
@@ -59,9 +59,9 @@ const IOTA1_NORMAE: RealData = RealData {
         m: 128. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.46,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.94 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 7842. },
     age: Some(Time {

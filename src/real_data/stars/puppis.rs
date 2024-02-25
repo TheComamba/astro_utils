@@ -19,9 +19,9 @@ const NAOS: RealData = RealData {
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 56.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -5.95,
     apparent_magnitude: 2.21,
     temperature: Temperature { K: 40_000. },
@@ -42,9 +42,9 @@ const AHADI: RealData = RealData {
     radius: Some(Distance {
         m: 235. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 11.7 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.92,
     apparent_magnitude: 2.71,
     temperature: Temperature { K: 4000. },
@@ -69,9 +69,9 @@ const RHO_PUPPIS: RealData = RealData {
         m: 63.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.41,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.85 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.41 * SOLAR_RADIUS.m,
     }),
@@ -92,9 +92,9 @@ const TAU_PUPPIS: RealData = RealData {
         m: 174. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.80,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.19 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 27. * SOLAR_RADIUS.m,
     }),
@@ -115,9 +115,9 @@ const NU_PUPPIS: RealData = RealData {
         m: 370. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.11,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.2 * SOLAR_RADIUS.m,
     }),

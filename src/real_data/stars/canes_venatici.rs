@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const COR_CAROLI: RealData = RealData {
     radius: Some(Distance {
         m: 2.49 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.97 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.246,
     apparent_magnitude: 2.89,
     temperature: Temperature { K: 11_600. },
@@ -31,7 +31,7 @@ const COR_CAROLI: RealData = RealData {
     lifetime: Time {
         s: 0.42 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(12, 56, 2),
     declination: Declination::new(Sgn::Pos, 38, 19, 6),
     distance: Distance {
@@ -46,9 +46,9 @@ const CHARA: RealData = RealData {
     radius: Some(Distance {
         m: 1.123 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.97 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 4.64,
     apparent_magnitude: 4.25,
     temperature: Temperature { K: 6043. },
@@ -58,7 +58,7 @@ const CHARA: RealData = RealData {
     lifetime: Time {
         s: 8.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(12, 33, 45),
     declination: Declination::new(Sgn::Pos, 41, 21, 27),
     distance: Distance {
@@ -77,9 +77,9 @@ const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
         m: 180. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.85,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.74 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.90 * SOLAR_RADIUS.m,
     }),
@@ -90,6 +90,5 @@ const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
     lifetime: Time {
         s: 1.8 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 pub(crate) const STARS: [RealData; 3] = [COR_CAROLI, CHARA, TWENTYFOUR_CANUM_VENATICORUM];

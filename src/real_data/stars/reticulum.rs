@@ -23,9 +23,9 @@ const ALPHA_RETICULI: RealData = RealData {
         m: 161.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.17,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.11 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 12.8 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_RETICULI: RealData = RealData {
         m: 97. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.46,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 9.3 * SOLAR_RADIUS.m,
     }),
@@ -69,9 +69,9 @@ const EPSILON_RETICULI: RealData = RealData {
         m: 60.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.1,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.46 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.18 * SOLAR_RADIUS.m,
     }),

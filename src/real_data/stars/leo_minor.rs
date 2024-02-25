@@ -23,9 +23,9 @@ const FOURTYSIX_LEONIS_MINORIS: RealData = RealData {
         m: 94.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.45,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.69 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 8.22 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_LEONIS_MINORIS: RealData = RealData {
         m: 154. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.85,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.98 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 9.4 * SOLAR_RADIUS.m,
     }),
@@ -69,9 +69,9 @@ const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
         m: 92.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.43,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.75 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.75 * SOLAR_RADIUS.m,
     }),

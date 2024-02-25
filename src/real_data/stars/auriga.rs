@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const CAPELLA: RealData = RealData {
     radius: Some(Distance {
         m: 11.98 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.5687 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.48,
     apparent_magnitude: 0.08,
     temperature: Temperature { K: 4970. },
@@ -36,7 +36,6 @@ const CAPELLA: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const MENKALINAN: RealData = RealData {
@@ -46,9 +45,9 @@ const MENKALINAN: RealData = RealData {
     radius: Some(Distance {
         m: 2.77 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.389 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.10,
     apparent_magnitude: 1.9,
     temperature: Temperature { K: 9350. },
@@ -58,7 +57,7 @@ const MENKALINAN: RealData = RealData {
     lifetime: Time {
         s: 0.970 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(5, 59, 32),
     declination: Declination::new(Sgn::Pos, 44, 56, 51),
     distance: Distance {
@@ -73,9 +72,9 @@ const HASSALEH: RealData = RealData {
     radius: Some(Distance {
         m: 127. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.20,
     apparent_magnitude: 2.69,
     temperature: Temperature { K: 4160. },
@@ -85,7 +84,7 @@ const HASSALEH: RealData = RealData {
     lifetime: Time {
         s: 0.180 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(4, 56, 60),
     declination: Declination::new(Sgn::Pos, 33, 9, 58),
     distance: Distance {

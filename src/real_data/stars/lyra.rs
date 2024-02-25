@@ -19,9 +19,9 @@ const VEGA: RealData = RealData {
     radius: Some(Distance {
         m: 2.362 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.135 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.58,
     apparent_magnitude: 0.03,
     temperature: Temperature { K: 9602. },
@@ -40,9 +40,9 @@ const R_LYRAE: RealData = RealData {
     astronomical_name: "R Lyrae",
     constellation: "Lyra",
     radius: None,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.07,
     apparent_magnitude: 4.08,
     temperature: Temperature { K: 3313. },
@@ -65,9 +65,9 @@ const GAMMA_LYRAE: RealData = RealData {
         m: 620. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.140,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.76 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 15.40 * SOLAR_RADIUS.m,
     }),
@@ -86,9 +86,9 @@ const BETA_LYRAE: RealData = RealData {
         m: 960. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.82,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.97 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 15.2 * SOLAR_RADIUS.m,
     }),

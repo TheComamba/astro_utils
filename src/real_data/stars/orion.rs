@@ -19,9 +19,9 @@ const RIGEL: RealData = RealData {
     radius: Some(Distance {
         m: 78.9 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 21. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -6.69,
     apparent_magnitude: 0.18,
     temperature: Temperature { K: 12_100. },
@@ -42,9 +42,9 @@ const BETELGEUSE: RealData = RealData {
     radius: Some(Distance {
         m: 887. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 16.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -5.14,
     apparent_magnitude: 0.9,
     temperature: Temperature { K: 3600. },
@@ -65,9 +65,9 @@ const BELLATRIX: RealData = RealData {
     radius: Some(Distance {
         m: 5.75 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.7 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -2.72,
     apparent_magnitude: 1.64,
     temperature: Temperature { K: 21_800. },
@@ -88,9 +88,9 @@ const ALNILAM: RealData = RealData {
     radius: Some(Distance {
         m: 42. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 64.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -6.38,
     apparent_magnitude: 1.69,
     temperature: Temperature { K: 27_000. },
@@ -111,9 +111,9 @@ const ALNITAK: RealData = RealData {
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 33.0 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -5.26,
     apparent_magnitude: 1.74,
     temperature: Temperature { K: 29_500. },
@@ -134,9 +134,9 @@ const SAIPH: RealData = RealData {
     radius: Some(Distance {
         m: 22.2 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 15.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.65,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 26_500. },
@@ -157,9 +157,9 @@ const MINTAKA: RealData = RealData {
     radius: Some(Distance {
         m: 16.5 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 24. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.99,
     apparent_magnitude: 2.25,
     temperature: Temperature { K: 29_500. },

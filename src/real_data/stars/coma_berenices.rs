@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -23,16 +23,15 @@ const DIADEM: RealData = RealData {
         m: 46.7 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.54,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.237 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 6365. },
     age: None,
     lifetime: Time {
         s: 4.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_COMA_BERENICES: RealData = RealData {
@@ -46,9 +45,9 @@ const BETA_COMA_BERENICES: RealData = RealData {
         m: 29.95 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 4.46,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.15 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.106 * SOLAR_RADIUS.m,
     }),
@@ -59,7 +58,6 @@ const BETA_COMA_BERENICES: RealData = RealData {
     lifetime: Time {
         s: 8.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_COMA_BERENICES: RealData = RealData {
@@ -73,9 +71,9 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
         m: 169. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.76,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.65 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11.76 * SOLAR_RADIUS.m,
     }),
@@ -86,7 +84,6 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
     lifetime: Time {
         s: 7.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [DIADEM, BETA_COMA_BERENICES, GAMMA_COMA_BERENICES];

@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -23,9 +23,9 @@ const ALKES: RealData = RealData {
         m: 174.2 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.44,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.81 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 12.32 * SOLAR_RADIUS.m,
     }),
@@ -36,7 +36,6 @@ const ALKES: RealData = RealData {
     lifetime: Time {
         s: 7.5 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_CRATERIS: RealData = RealData {
@@ -50,16 +49,15 @@ const BETA_CRATERIS: RealData = RealData {
         m: 296. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.62,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.6 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 8830. },
     age: None,
     lifetime: Time {
         s: 0.820 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_CRATERIS: RealData = RealData {
@@ -73,9 +71,9 @@ const GAMMA_CRATERIS: RealData = RealData {
         m: 85.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.05,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.81 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
@@ -86,7 +84,6 @@ const GAMMA_CRATERIS: RealData = RealData {
     lifetime: Time {
         s: 2.7 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const DELTA_CRATERIS: RealData = RealData {
@@ -100,9 +97,9 @@ const DELTA_CRATERIS: RealData = RealData {
         m: 194.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.321,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 22.44 * SOLAR_RADIUS.m,
     }),
@@ -113,7 +110,6 @@ const DELTA_CRATERIS: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 4] = [ALKES, BETA_CRATERIS, GAMMA_CRATERIS, DELTA_CRATERIS];

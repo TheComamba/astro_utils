@@ -19,9 +19,9 @@ const MIRPHAK: RealData = RealData {
     radius: Some(Distance {
         m: 68. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 8.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.50,
     apparent_magnitude: 1.79,
     temperature: Temperature { K: 6350. },
@@ -42,9 +42,9 @@ const ALGOL: RealData = RealData {
     radius: Some(Distance {
         m: 2.73 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.17 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.18,
     apparent_magnitude: 2.09,
     temperature: Temperature { K: 13_000. },
@@ -65,9 +65,9 @@ const GORGONEA_TERTIA: RealData = RealData {
     radius: Some(Distance {
         m: 143. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.9 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.67,
     apparent_magnitude: 3.32,
     temperature: Temperature { K: 3479. },

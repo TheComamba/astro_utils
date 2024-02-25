@@ -19,9 +19,9 @@ const ALNAIR: RealData = RealData {
     radius: Some(Distance {
         m: 3.4 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 4. * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.73,
     apparent_magnitude: 1.73,
     temperature: Temperature { K: 13_920. },
@@ -42,9 +42,9 @@ const TIAKI: RealData = RealData {
     radius: Some(Distance {
         m: 180. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.4 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.52,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 3480. },
@@ -67,9 +67,9 @@ const GAMMA_GRUIS: RealData = RealData {
         m: 211. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.05,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.06 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 4.5 * SOLAR_RADIUS.m,
     }),

@@ -19,9 +19,9 @@ const ALPHA_TUCANAE: RealData = RealData {
     radius: Some(Distance {
         m: 37. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.05,
     apparent_magnitude: 2.87,
     temperature: Temperature { K: 4300. },
@@ -44,9 +44,9 @@ const GAMMA_TUCANAE: RealData = RealData {
         m: 75. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.18,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.55 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 2.2 * SOLAR_RADIUS.m,
     }),
@@ -67,9 +67,9 @@ const ZETA_TUCANAE: RealData = RealData {
         m: 28.01 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 4.67,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.99 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.08 * SOLAR_RADIUS.m,
     }),

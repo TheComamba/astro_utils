@@ -19,9 +19,9 @@ const ENIF: RealData = RealData {
     radius: Some(Distance {
         m: 211. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.07 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -4.19,
     apparent_magnitude: 2.38,
     temperature: Temperature { K: 3963. },
@@ -42,9 +42,9 @@ const SCHEAT: RealData = RealData {
     radius: Some(Distance {
         m: 95. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.49,
     apparent_magnitude: 2.44,
     temperature: Temperature { K: 3689. },
@@ -63,9 +63,9 @@ const MARKAB: RealData = RealData {
     radius: Some(Distance {
         m: 4.62 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.67,
     apparent_magnitude: 2.49,
     temperature: Temperature { K: 10_100. },

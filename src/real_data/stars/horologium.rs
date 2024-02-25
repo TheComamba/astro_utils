@@ -22,9 +22,9 @@ const ALPHA_HOROLOGII: RealData = RealData {
         m: 115. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.08,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.55 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 8. * SOLAR_RADIUS.m,
     }),
@@ -43,9 +43,9 @@ const R_HOROLOGII: RealData = RealData {
         m: 1003. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.221,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.0 * SOLAR_MASS.kg, //guessed
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 2200. },
     age: None,
@@ -62,9 +62,9 @@ const BETA_HOROLOGII: RealData = RealData {
         m: 312. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.2,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.3 * SOLAR_MASS.kg, //guessed
-    }),
+    },
     radius: Some(Distance {
         m: 1.4 * SOLAR_RADIUS.m,
     }),

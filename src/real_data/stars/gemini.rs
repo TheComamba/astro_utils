@@ -19,9 +19,9 @@ const POLLUX: RealData = RealData {
     radius: Some(Distance {
         m: 9.06 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.91 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.09,
     apparent_magnitude: 1.16,
     temperature: Temperature { K: 4586. },
@@ -42,9 +42,9 @@ const CASTOR: RealData = RealData {
     radius: Some(Distance {
         m: 2.089 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.37 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 0.59,
     apparent_magnitude: 1.58,
     temperature: Temperature { K: 10_286. },
@@ -65,9 +65,9 @@ const ALHENA: RealData = RealData {
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.81 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.60,
     apparent_magnitude: 1.93,
     temperature: Temperature { K: 9260. },
@@ -86,9 +86,9 @@ const TEJAT: RealData = RealData {
     radius: Some(Distance {
         m: 90. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.1 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.42,
     apparent_magnitude: 2.75,
     temperature: Temperature { K: 3460. },
@@ -107,9 +107,9 @@ const PROPUS: RealData = RealData {
     radius: Some(Distance {
         m: 275. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.5 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.84,
     apparent_magnitude: 3.31,
     temperature: Temperature { K: 3502. },

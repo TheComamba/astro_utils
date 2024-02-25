@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -19,9 +19,9 @@ const ALPHERATZ: RealData = RealData {
     radius: Some(Distance {
         m: 2.7 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 13_800. },
@@ -31,7 +31,6 @@ const ALPHERATZ: RealData = RealData {
     lifetime: Time {
         s: 0.230 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(0, 8, 23),
     declination: Declination::new(Sgn::Pos, 29, 5, 26),
     distance: Distance {
@@ -46,9 +45,9 @@ const MIRACH: RealData = RealData {
     radius: Some(Distance {
         m: 100. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.49 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.86,
     apparent_magnitude: 2.07,
     temperature: Temperature { K: 3842. },
@@ -56,7 +55,6 @@ const MIRACH: RealData = RealData {
     lifetime: Time {
         s: 6.3 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
     right_ascension: RightAscension::new(1, 9, 44),
     declination: Declination::new(Sgn::Pos, 35, 37, 14),
     distance: Distance {
@@ -71,9 +69,9 @@ const ALMACH: RealData = RealData {
     radius: Some(Distance {
         m: 80. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 23.7 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -3.08,
     apparent_magnitude: 2.1,
     temperature: Temperature { K: 4250. },
@@ -83,7 +81,6 @@ const ALMACH: RealData = RealData {
     lifetime: Time {
         s: 0.190 * BILLION_YEARS.s,
     },
-    fate: StarFate::TypeIISupernova,
     right_ascension: RightAscension::new(2, 3, 54),
     declination: Declination::new(Sgn::Pos, 42, 19, 47),
     distance: Distance {

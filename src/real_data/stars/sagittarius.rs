@@ -19,9 +19,9 @@ const KAUS_AUSTRALIS: RealData = RealData {
     radius: Some(Distance {
         m: 6.8 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.515 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -1.44,
     apparent_magnitude: 1.79,
     temperature: Temperature { K: 9960. },
@@ -42,9 +42,9 @@ const NUNKI: RealData = RealData {
     radius: Some(Distance {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -2.14,
     apparent_magnitude: 2.05,
     temperature: Temperature { K: 18_890. },
@@ -63,9 +63,9 @@ const NAMALWARID: RealData = RealData {
     astronomical_name: "Eta Sagittarii",
     constellation: "Sagittarius",
     radius: None,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.2 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -0.201,
     apparent_magnitude: 3.1,
     temperature: Temperature { K: 3300. },
@@ -84,9 +84,9 @@ const KAUS_MEDIA: RealData = RealData {
     radius: Some(Distance {
         m: 16. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.21 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: -2.14,
     apparent_magnitude: 2.72,
     temperature: Temperature { K: 4203. },

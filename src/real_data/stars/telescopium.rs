@@ -23,9 +23,9 @@ const ALPHA_TELESCOPII: RealData = RealData {
         m: 278. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.25,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 5.2 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const ZETA_TELESCOPII: RealData = RealData {
         m: 126. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.171,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.53 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 9. * SOLAR_RADIUS.m,
     }),
@@ -67,9 +67,9 @@ const EPSILON_TELESCOPII: RealData = RealData {
         m: 410. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.1 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 4996. },
     age: None,

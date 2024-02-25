@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -23,16 +23,15 @@ const DABIH: RealData = RealData {
         m: 555.4 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3., // Not literature value
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.9 * SOLAR_MASS.kg,
-    }),
+    },
     radius: None,
     temperature: Temperature { K: 4900. },
     age: None,
     lifetime: Time {
         s: 0.2 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const DENEB_ALGEDI: RealData = RealData {
@@ -46,9 +45,9 @@ const DENEB_ALGEDI: RealData = RealData {
         m: 38.7 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.48,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.91 * SOLAR_RADIUS.m,
     }),
@@ -57,7 +56,6 @@ const DENEB_ALGEDI: RealData = RealData {
     lifetime: Time {
         s: 1.3 * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const OMEGA_CAPRICORNI: RealData = RealData {
@@ -71,9 +69,9 @@ const OMEGA_CAPRICORNI: RealData = RealData {
         m: 628.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.3,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 6.8 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 172.1 * SOLAR_RADIUS.m,
     }),
@@ -84,7 +82,6 @@ const OMEGA_CAPRICORNI: RealData = RealData {
     lifetime: Time {
         s: 6.6 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 pub(crate) const STARS: [RealData; 3] = [DABIH, DENEB_ALGEDI, OMEGA_CAPRICORNI];

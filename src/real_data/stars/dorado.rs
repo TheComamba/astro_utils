@@ -3,7 +3,7 @@ use crate::{
         declination::{Declination, Sgn},
         right_ascension::RightAscension,
     },
-    stars::{fate::StarFate, real_data::RealData},
+    stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
@@ -23,9 +23,9 @@ const ALPHA_DORADUS: RealData = RealData {
         m: 169. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.357,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 3.33 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
@@ -34,7 +34,6 @@ const ALPHA_DORADUS: RealData = RealData {
     lifetime: Time {
         s: 0.7 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const BETA_DORADUS: RealData = RealData {
@@ -48,9 +47,9 @@ const BETA_DORADUS: RealData = RealData {
         m: 1050. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.91,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 7.7 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 67.8 * SOLAR_RADIUS.m,
     }),
@@ -61,7 +60,6 @@ const BETA_DORADUS: RealData = RealData {
     lifetime: Time {
         s: 7.9 * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const GAMMA_DORADUS: RealData = RealData {
@@ -75,9 +73,9 @@ const GAMMA_DORADUS: RealData = RealData {
         m: 66.7 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.72,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.85 * SOLAR_RADIUS.m,
     }),
@@ -88,7 +86,6 @@ const GAMMA_DORADUS: RealData = RealData {
     lifetime: Time {
         s: 2. * BILLION_YEARS.s,
     },
-    fate: StarFate::WhiteDwarf,
 };
 
 const R_DORADUS: RealData = RealData {
@@ -98,9 +95,9 @@ const R_DORADUS: RealData = RealData {
     radius: Some(Distance {
         m: 298. * SOLAR_RADIUS.m,
     }),
-    mass: Some(Mass {
+    mass: Mass {
         kg: 0.8 * SOLAR_MASS.kg,
-    }),
+    },
     absolute_magnitude: 1.61,
     apparent_magnitude: 5.59,
     temperature: Temperature { K: 2710. },
@@ -110,7 +107,7 @@ const R_DORADUS: RealData = RealData {
     lifetime: Time {
         s: 10. * BILLION_YEARS.s, //guessed
     },
-    fate: StarFate::WhiteDwarf,
+
     right_ascension: RightAscension::new(4, 36, 46),
     declination: Declination::new(Sgn::Neg, 62, 4, 38),
     distance: Distance {

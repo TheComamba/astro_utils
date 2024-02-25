@@ -23,9 +23,9 @@ const ALPHA_PICTORIS: RealData = RealData {
         m: 97. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.86,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 2.04 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.6 * SOLAR_RADIUS.m,
     }),
@@ -46,9 +46,9 @@ const BETA_PICTORIS: RealData = RealData {
         m: 63.4 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.402,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.75 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 1.8 * SOLAR_RADIUS.m,
     }),
@@ -69,9 +69,9 @@ const GAMMA_PICTORIS: RealData = RealData {
         m: 177. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.83,
-    mass: Some(Mass {
+    mass: Mass {
         kg: 1.59 * SOLAR_MASS.kg,
-    }),
+    },
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
     }),
