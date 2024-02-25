@@ -191,9 +191,13 @@ fn random_distance(
 
 #[cfg(test)]
 mod tests {
+    use simple_si_units::base::Mass;
+
     use crate::{
-        astro_display::AstroDisplay, tests::eq,
-        units::illuminance::illuminance_to_apparent_magnitude,
+        astro_display::AstroDisplay,
+        stars::fate::StarFate,
+        tests::eq,
+        units::{illuminance::illuminance_to_apparent_magnitude, time::TIME_ZERO},
     };
 
     use super::*;
@@ -239,6 +243,37 @@ mod tests {
         let stars = generate_random_stars(max_distance).unwrap();
         for star in stars {
             assert!(star.distance < max_distance * 1.01);
+        }
+    }
+
+    #[test]
+    fn random_stars_have_a_non_vanishing_lifetime() {
+        let max_distance = Distance::from_lyr(500.);
+        let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
+        for star in star_data {
+            assert!(star.get_lifetime() > TIME_ZERO);
+        }
+    }
+
+    #[test]
+    fn random_stars_below_8_sun_masses_become_white_dwarfs() {
+        let max_distance = Distance::from_lyr(500.);
+        let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
+        for star in star_data {
+            if star.mass.unwrap() < Mass::from_solar_mass(8.0) {
+                assert_eq!(star.get_fate(), &StarFate::WhiteDwarf);
+            }
+        }
+    }
+
+    #[test]
+    fn random_stars_above_8_sun_masses_go_supernova() {
+        let max_distance = Distance::from_lyr(500.);
+        let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
+        for star in star_data {
+            if star.mass.unwrap() > Mass::from_solar_mass(8.0) {
+                assert_eq!(star.get_fate(), &StarFate::TypeIISupernova);
+            }
         }
     }
 }

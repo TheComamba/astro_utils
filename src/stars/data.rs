@@ -267,11 +267,39 @@ mod tests {
     use crate::{real_data::stars::all::get_many_stars, units::time::TIME_ZERO};
 
     #[test]
+    fn real_stars_have_a_non_vanishing_lifetime() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            assert!(star.get_lifetime() > TIME_ZERO);
+        }
+    }
+
+    #[test]
     fn real_stars_have_not_died_yet() {
         let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
         for star in star_data {
             if let Some(time_until_death) = star.get_time_until_death(TIME_ZERO) {
                 assert!(time_until_death > TIME_ZERO);
+            }
+        }
+    }
+
+    #[test]
+    fn stars_below_8_sun_masses_become_white_dwarfs() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            if star.mass.unwrap() < Mass::from_solar_mass(8.0) {
+                assert_eq!(star.get_fate(), &StarFate::WhiteDwarf);
+            }
+        }
+    }
+
+    #[test]
+    fn stars_above_8_sun_masses_go_supernova() {
+        let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
+        for star in star_data {
+            if star.mass.unwrap() > Mass::from_solar_mass(8.0) {
+                assert_eq!(star.get_fate(), &StarFate::TypeIISupernova);
             }
         }
     }
