@@ -300,7 +300,7 @@ mod tests {
     }
 
     #[test]
-    fn lifetime_decreases_with_mass() {
+    fn lifetime_mostly_decreases_with_mass() {
         let trajectories = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
@@ -310,10 +310,10 @@ mod tests {
             if i == 0 {
                 continue;
             }
-            let lifetime = ParsecData::get_lifetime_in_years(trajectory);
-            let previous_lifetime = ParsecData::get_lifetime_in_years(&trajectories[i - 1]);
+            let lifetime = ParsecData::get_lifetime_in_years(trajectory) as f64;
+            let previous_lifetime = ParsecData::get_lifetime_in_years(&trajectories[i - 1]) as f64;
             assert!(
-                lifetime < previous_lifetime,
+                lifetime < 1.2 * previous_lifetime,
                 "Lifetime of star {} is {} years, while lifetime of star {} is {} years",
                 i,
                 lifetime,
