@@ -116,6 +116,10 @@ impl StarData {
         self.evolution.time_until_death(time_since_epoch)
     }
 
+    pub fn get_lifetime(&self) -> Time<f64> {
+        self.evolution.lifetime
+    }
+
     pub fn get_fate(&self) -> &StarFate {
         &self.evolution.fate
     }
