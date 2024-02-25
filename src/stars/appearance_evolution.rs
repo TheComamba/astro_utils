@@ -52,9 +52,11 @@ impl StarAppearanceEvolution {
         time_since_epoch: Time<f64>,
     ) -> Illuminance<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
-            return self
-                .fate
-                .apply_to_illuminance(illuminance, -time_until_death);
+            if time_until_death < TIME_ZERO {
+                return self
+                    .fate
+                    .apply_to_illuminance(illuminance, -time_until_death);
+            }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return illuminance
@@ -69,7 +71,9 @@ impl StarAppearanceEvolution {
         time_since_epoch: Time<f64>,
     ) -> sRGBColor {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
-            return self.fate.apply_to_color(color, -time_until_death);
+            if time_until_death < TIME_ZERO {
+                return self.fate.apply_to_color(color, -time_until_death);
+            }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return color + &lifestage_evolution.color_per_year * time_since_epoch.to_yr();
