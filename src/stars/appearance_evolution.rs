@@ -9,6 +9,7 @@ use simple_si_units::{base::Time, electromagnetic::Illuminance};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearanceEvolution {
     lifestage_evolution: Option<StarAppearanceLifestageEvolution>,
+    pub(super) age: Option<Time<f64>>,
     pub(super) lifetime: Time<f64>,
     pub(super) fate: StarFate,
 }
@@ -22,17 +23,20 @@ pub(crate) struct StarAppearanceLifestageEvolution {
 impl StarAppearanceEvolution {
     pub const NONE: StarAppearanceEvolution = StarAppearanceEvolution {
         lifestage_evolution: None,
+        age: None,
         lifetime: TIME_ZERO,
         fate: StarFate::WhiteDwarf,
     };
 
     pub(crate) fn new(
         lifestage_evolution: Option<StarAppearanceLifestageEvolution>,
+        age: Option<Time<f64>>,
         lifetime: Time<f64>,
         fate: StarFate,
     ) -> Self {
         Self {
             lifestage_evolution,
+            age,
             lifetime,
             fate,
         }

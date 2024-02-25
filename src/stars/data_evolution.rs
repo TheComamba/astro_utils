@@ -99,7 +99,12 @@ impl StarDataEvolution {
             .lifestage_evolution
             .as_ref()
             .map(|e| e.to_star_appearance_lifestage_evolution(temperature_at_epoch, distance));
-        StarAppearanceEvolution::new(lifestage_evolution, self.lifetime, self.fate.clone())
+        StarAppearanceEvolution::new(
+            lifestage_evolution,
+            self.age,
+            self.lifetime,
+            self.fate.clone(),
+        )
     }
 
     pub fn get_lifestage_mass_per_year(&self) -> Mass<f64> {
