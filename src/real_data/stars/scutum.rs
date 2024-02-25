@@ -43,7 +43,9 @@ const BETA_SCUTI: RealData = RealData {
         m: 900. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.99,
-    mass: None,
+    mass: Some(Mass {
+        kg: 3.0 * SOLAR_MASS.kg,
+    }),
     radius: None,
     temperature: Temperature { K: 4622. },
     age: None,

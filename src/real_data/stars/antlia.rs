@@ -44,7 +44,9 @@ const EPSILON_ANTLIAE: RealData = RealData {
     radius: Some(Distance {
         m: 56.3 * SOLAR_RADIUS.m,
     }),
-    mass: None,
+    mass: Some(Mass {
+        kg: 2. * SOLAR_MASS.kg, //guessed
+    }),
     absolute_magnitude: -2.15,
     apparent_magnitude: 4.51,
     temperature: Temperature { K: 4237. },

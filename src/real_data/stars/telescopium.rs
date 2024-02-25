@@ -67,7 +67,9 @@ const EPSILON_TELESCOPII: RealData = RealData {
         m: 410. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.,
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    }),
     radius: None,
     temperature: Temperature { K: 4996. },
     age: None,

@@ -115,7 +115,9 @@ const NU_PUPPIS: RealData = RealData {
         m: 370. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.11,
-    mass: None,
+    mass: Some(Mass {
+        kg: 5.2 * SOLAR_MASS.kg,
+    }),
     radius: Some(Distance {
         m: 4.2 * SOLAR_RADIUS.m,
     }),

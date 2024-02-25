@@ -50,7 +50,9 @@ const BETA_CIRCINI: RealData = RealData {
         m: 93. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.64,
-    mass: None,
+    mass: Some(Mass {
+        kg: 2.2 * SOLAR_MASS.kg,
+    }),
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
     }),

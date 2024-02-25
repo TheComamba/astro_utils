@@ -154,7 +154,9 @@ const IOTA_CORONAE_BOREALIS: RealData = RealData {
         m: 312. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.08,
-    mass: None,
+    mass: Some(Mass {
+        kg: 3. * SOLAR_MASS.kg, //guessed
+    }),
     radius: None,
     temperature: Temperature { K: 10_727. },
     age: None,

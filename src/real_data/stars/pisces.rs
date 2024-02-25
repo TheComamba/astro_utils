@@ -90,7 +90,9 @@ const IOTA_PISCIUM: RealData = RealData {
         m: 44.73 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.43,
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.3 * SOLAR_MASS.kg,
+    }),
     radius: Some(Distance {
         m: 1.595 * SOLAR_RADIUS.m,
     }),

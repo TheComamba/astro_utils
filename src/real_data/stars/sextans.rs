@@ -67,7 +67,9 @@ const BETA_SEXTANTIS: RealData = RealData {
         m: 364. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.38,
-    mass: None,
+    mass: Some(Mass {
+        kg: 5.1 * SOLAR_MASS.kg,
+    }),
     radius: Some(Distance {
         m: 3.2 * SOLAR_RADIUS.m,
     }),

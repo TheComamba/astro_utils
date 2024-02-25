@@ -46,7 +46,9 @@ const GAMMA_MONOCEROTIS: RealData = RealData {
         m: 500. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.93,
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.2 * SOLAR_MASS.kg,
+    }),
     radius: None,
     temperature: Temperature { K: 4375. },
     age: None,

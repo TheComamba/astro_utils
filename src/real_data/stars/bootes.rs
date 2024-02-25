@@ -104,7 +104,9 @@ const DELTA_BOOTIS: RealData = RealData {
         m: 121.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.7,
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    }),
     radius: Some(Distance {
         m: 10.5 * SOLAR_RADIUS.m,
     }),

@@ -67,7 +67,9 @@ const DELTA_MUSCAE: RealData = RealData {
         m: 91. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.38,
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    }),
     radius: None,
     temperature: Temperature { K: 4_400. },
     age: None,

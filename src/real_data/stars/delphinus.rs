@@ -129,7 +129,9 @@ const ALDULFIN: RealData = RealData {
         m: 358.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.18,
-    mass: None,
+    mass: Some(Mass {
+        kg: 6.4 * SOLAR_MASS.kg,
+    }),
     radius: Some(Distance {
         m: 4.6 * SOLAR_RADIUS.m,
     }),

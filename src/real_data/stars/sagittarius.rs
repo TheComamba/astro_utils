@@ -63,7 +63,9 @@ const NAMALWARID: RealData = RealData {
     astronomical_name: "Eta Sagittarii",
     constellation: "Sagittarius",
     radius: None,
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.2 * SOLAR_MASS.kg,
+    }),
     absolute_magnitude: -0.201,
     apparent_magnitude: 3.1,
     temperature: Temperature { K: 3300. },

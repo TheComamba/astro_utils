@@ -88,7 +88,9 @@ const IOTA_PISCIS_AUSTRINI: RealData = RealData {
         m: 204. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.37,
-    mass: None,
+    mass: Some(Mass {
+        kg: 3.1 * SOLAR_MASS.kg,
+    }),
     radius: None,
     temperature: Temperature { K: 9330. },
     age: None,

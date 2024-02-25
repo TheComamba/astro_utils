@@ -19,7 +19,9 @@ const ALPHA_APODIS: RealData = RealData {
     radius: Some(Distance {
         m: 48. * SOLAR_RADIUS.m,
     }),
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.2 * SOLAR_MASS.kg,
+    }),
     absolute_magnitude: -1.67,
     apparent_magnitude: 3.825,
     temperature: Temperature { K: 4312. },
@@ -40,7 +42,9 @@ const GAMMA_APODIS: RealData = RealData {
     astronomical_name: "Gamma Apodis",
     constellation: "Apus",
     radius: None,
-    mass: None,
+    mass: Some(Mass {
+        kg: 0.95 * SOLAR_MASS.kg,
+    }),
     absolute_magnitude: 0.41,
     apparent_magnitude: 3.86,
     temperature: Temperature { K: 5040. },

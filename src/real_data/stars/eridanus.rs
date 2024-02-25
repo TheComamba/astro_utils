@@ -42,7 +42,9 @@ const ZAURAK: RealData = RealData {
     radius: Some(Distance {
         m: 80. * SOLAR_RADIUS.m,
     }),
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.2 * SOLAR_MASS.kg,
+    }),
     absolute_magnitude: -1.19,
     apparent_magnitude: 2.97,
     temperature: Temperature { K: 3811. },

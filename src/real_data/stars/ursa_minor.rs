@@ -125,8 +125,8 @@ const ETA_URSAE_MINORIS: RealData = RealData {
     }),
 };
 
-const GAMMA_URSAE_MINORIS: RealData = RealData {
-    common_name: "",
+const PHERKAD: RealData = RealData {
+    common_name: "Pherkad",
     astronomical_name: "Gamma Ursae Minoris",
     constellation: "Ursa Minor",
     right_ascension: RightAscension::new(15, 20, 44),
@@ -136,7 +136,9 @@ const GAMMA_URSAE_MINORIS: RealData = RealData {
         m: 487. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.84,
-    mass: None,
+    mass: Some(Mass {
+        kg: 9. * SOLAR_MASS.kg, //guessed
+    }),
     radius: Some(Distance {
         m: 15. * SOLAR_RADIUS.m,
     }),
@@ -155,7 +157,9 @@ const EPSILON_URSAE_MINORIS: RealData = RealData {
         m: 300. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.922,
-    mass: None,
+    mass: Some(Mass {
+        kg: 1.1 * SOLAR_MASS.kg,
+    }),
     radius: None,
     temperature: Temperature { K: 5215. },
     age: None,
@@ -167,6 +171,6 @@ pub(crate) const STARS: [RealData; 7] = [
     ZETA_URSAE_MINORIS,
     DELTA_URSAE_MINORIS,
     ETA_URSAE_MINORIS,
-    GAMMA_URSAE_MINORIS,
+    PHERKAD,
     EPSILON_URSAE_MINORIS,
 ];
