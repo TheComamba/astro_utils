@@ -1,6 +1,6 @@
 use super::{
     appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
-    data_evolution::StarDataEvolution,
+    data_evolution::StarDataEvolution, fate::StarFate,
 };
 use crate::{
     color::srgb::sRGBColor,
@@ -54,8 +54,8 @@ impl RealData {
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
-        let mut evolution = StarDataEvolution::NONE;
-        evolution.age = self.age;
+        let evolution =
+            StarDataEvolution::new(None, self.age, self.lifetime, StarFate::new(self.mass));
         StarData {
             name: name.to_string(),
             mass: Some(self.mass),
@@ -65,7 +65,7 @@ impl RealData {
             temperature: self.temperature,
             distance: self.distance,
             pos,
-            evolution: StarDataEvolution::NONE,
+            evolution: evolution,
         }
     }
 
