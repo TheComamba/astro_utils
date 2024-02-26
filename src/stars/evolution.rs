@@ -38,6 +38,29 @@ impl StarDataEvolution {
         }
     }
 
+    pub(super) fn has_changed(&self, then: Time<f64>, now: Time<f64>) -> bool {
+        const EVOLUTION_TIMESCALE: Time<f64> = Time {
+            s: 1_000. * 365.25 * 24. * 60. * 60.,
+        }; // 1_000 years
+        const DEATH_TIMESCALE: Time<f64> = Time {
+            s: 365.25 * 24. * 60. * 60.,
+        }; // 1 year
+
+        if let Some(time_until_death) = self.time_until_death(now) {
+            if time_until_death < TIME_ZERO && time_until_death.s.abs() < DEATH_TIMESCALE.s {
+                return true;
+            }
+        }
+
+        let diff = Time {
+            s: (then.s - now.s).abs(),
+        };
+        if self.lifestage_evolution.is_some() && diff > EVOLUTION_TIMESCALE {
+            return true;
+        }
+        false
+    }
+
     pub(super) fn time_until_death(&self, time_since_epoch: Time<f64>) -> Option<Time<f64>> {
         self.age.map(|age| self.lifetime - age - time_since_epoch)
     }

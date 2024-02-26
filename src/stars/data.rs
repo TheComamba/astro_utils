@@ -164,6 +164,10 @@ impl StarData {
         &self.evolution
     }
 
+    pub fn has_changed(&self, then: Time<f64>, now: Time<f64>) -> bool {
+        self.evolution.has_changed(then, now)
+    }
+
     pub fn to_star_appearance(&self, time_since_epoch: Time<f64>) -> StarAppearance {
         let illuminance = match self.get_luminous_intensity(time_since_epoch) {
             Some(luminous_intensity) => {
