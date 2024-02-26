@@ -39,15 +39,18 @@ impl StarDataEvolution {
     }
 
     pub(super) fn has_changed(&self, then: Time<f64>, now: Time<f64>) -> bool {
-        const EVOLUTION_TIMESCALE: Time<f64> = Time {
-            s: 1_000. * 365.25 * 24. * 60. * 60.,
-        }; // 1_000 years
-        const DEATH_TIMESCALE: Time<f64> = Time {
-            s: 365.25 * 24. * 60. * 60.,
-        }; // 1 year
+        if let (Some(until_death_then), Some(until_death_now)) =
+            (self.time_until_death(then), self.time_until_death(now))
+        {
+            const DEATH_TIMESCALE: Time<f64> = Time {
+                s: -365.25 * 24. * 60. * 60.,
+            }; // 1 year (negative because it counts time until death)
 
-        if let Some(time_until_death) = self.time_until_death(now) {
-            if time_until_death < TIME_ZERO && time_until_death.s.abs() < DEATH_TIMESCALE.s {
+            let has_crossed_death = until_death_then.s.signum() != until_death_now.s.signum();
+            let shortly_after_death = DEATH_TIMESCALE.s..0.;
+            let then_was_shortly_after_death = shortly_after_death.contains(&until_death_then.s);
+            let now_is_shortly_after_death = shortly_after_death.contains(&until_death_now.s);
+            if has_crossed_death || then_was_shortly_after_death || now_is_shortly_after_death {
                 return true;
             }
         }
@@ -55,6 +58,10 @@ impl StarDataEvolution {
         let diff = Time {
             s: (then.s - now.s).abs(),
         };
+        const EVOLUTION_TIMESCALE: Time<f64> = Time {
+            s: 1_000. * 365.25 * 24. * 60. * 60.,
+        }; // 1_000 years
+
         if self.lifestage_evolution.is_some() && diff > EVOLUTION_TIMESCALE {
             return true;
         }
@@ -196,8 +203,6 @@ impl StarDataLifestageEvolution {
 
 #[cfg(test)]
 mod tests {
-    use rayon::vec;
-
     use super::*;
 
     #[test]
@@ -231,8 +236,18 @@ mod tests {
     fn star_has_changed_if_2000_years_have_passed() {
         let then = Time::from_yr(0.);
         let now = Time::from_yr(2000.);
-        let evolution =
-            StarDataEvolution::new(None, None, Time::from_yr(10_000.), StarFate::WhiteDwarf);
+        let lifestage_evolution = StarDataLifestageEvolution {
+            mass_per_year: MASS_ZERO,
+            radius_per_year: DISTANCE_ZERO,
+            luminous_intensity_per_year: LUMINOSITY_ZERO,
+            temperature_per_year: TEMPERATURE_ZERO,
+        };
+        let evolution = StarDataEvolution::new(
+            Some(lifestage_evolution),
+            None,
+            Time::from_yr(10_000.),
+            StarFate::WhiteDwarf,
+        );
         assert!(evolution.has_changed(then, now));
         assert!(evolution.has_changed(now, then));
     }
@@ -261,8 +276,8 @@ mod tests {
         let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
         for step1 in small_steps.clone().into_iter() {
             for step2 in small_steps.clone().into_iter() {
-                let now = lifetime + step1;
-                let then = lifetime + step1 + step2;
+                let now = step1;
+                let then = step1 + step2;
                 assert!(evolution.has_changed(then, now));
                 assert!(evolution.has_changed(now, then));
             }
