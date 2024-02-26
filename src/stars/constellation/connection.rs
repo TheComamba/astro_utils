@@ -220,6 +220,7 @@ mod tests {
                 Illuminance::from_lux(1.0),
                 sRGBColor::WHITE,
                 pos,
+                TIME_ZERO,
             ));
         }
         stars

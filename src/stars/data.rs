@@ -185,6 +185,7 @@ impl StarData {
             illuminance,
             color,
             pos,
+            time_since_epoch,
         }
     }
 

@@ -2,7 +2,7 @@ use crate::{
     astro_display::AstroDisplay, color::srgb::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
 };
 use serde::{Deserialize, Serialize};
-use simple_si_units::{electromagnetic::Illuminance, geometry::Angle};
+use simple_si_units::{base::Time, electromagnetic::Illuminance, geometry::Angle};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
@@ -10,6 +10,7 @@ pub struct StarAppearance {
     pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
     pub(crate) pos: EclipticCoordinates,
+    pub(crate) time_since_epoch: Time<f64>,
 }
 
 impl StarAppearance {
@@ -18,12 +19,14 @@ impl StarAppearance {
         illuminance: Illuminance<f64>,
         color: sRGBColor,
         pos: EclipticCoordinates,
+        time_since_epoch: Time<f64>,
     ) -> Self {
         Self {
             name,
             illuminance,
             color,
             pos,
+            time_since_epoch,
         }
     }
 
@@ -75,6 +78,8 @@ impl AstroDisplay for StarAppearance {
 
 #[cfg(test)]
 mod tests {
+    use crate::units::time::TIME_ZERO;
+
     use super::*;
 
     #[test]
@@ -84,6 +89,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            TIME_ZERO,
         );
 
         assert!(star.apparently_the_same(&star));
@@ -96,6 +102,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            TIME_ZERO,
         );
         let mut other = star.clone();
         other.pos = EclipticCoordinates::Y_DIRECTION;
@@ -110,6 +117,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             EclipticCoordinates::X_DIRECTION,
+            TIME_ZERO,
         );
         let mut other = star.clone();
         other.illuminance = Illuminance::from_lux(100.0);

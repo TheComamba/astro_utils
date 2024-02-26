@@ -7,6 +7,7 @@ use crate::{
         distance::DISTANCE_ZERO,
         illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
         temperature::TEMPERATURE_ZERO,
+        time::TIME_ZERO,
     },
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
@@ -129,6 +130,7 @@ impl GaiaResponse {
                     illuminance,
                     color,
                     pos: parsed_data.pos,
+                    time_since_epoch: TIME_ZERO,
                 };
                 Ok(star)
             })

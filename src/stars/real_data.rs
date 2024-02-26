@@ -9,7 +9,7 @@ use crate::{
     },
     units::{
         illuminance::apparent_magnitude_to_illuminance,
-        luminous_intensity::absolute_magnitude_to_luminous_intensity,
+        luminous_intensity::absolute_magnitude_to_luminous_intensity, time::TIME_ZERO,
     },
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
@@ -84,6 +84,7 @@ impl RealData {
             illuminance,
             color,
             pos,
+            time_since_epoch: TIME_ZERO,
         }
     }
 }

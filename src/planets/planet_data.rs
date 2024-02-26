@@ -139,6 +139,7 @@ impl PlanetData {
         central_body: &StarData,
         planet_pos: &CartesianCoordinates,
         observer_position: &CartesianCoordinates,
+        time_since_epoch: Time<f64>,
     ) -> Result<StarAppearance, AstroUtilError> {
         let central_body_luminous_intensity = central_body
             .get_luminous_intensity_at_epoch()
@@ -158,6 +159,7 @@ impl PlanetData {
             illuminance: brightness,
             color: self.color.clone(),
             pos,
+            time_since_epoch,
         })
     }
 }
