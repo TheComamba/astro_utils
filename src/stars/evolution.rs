@@ -193,3 +193,79 @@ impl StarDataLifestageEvolution {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use rayon::vec;
+
+    use super::*;
+
+    #[test]
+    fn has_changed_is_symmetric() {
+        let times = vec![
+            Time::from_yr(0.),
+            Time::from_yr(1.),
+            Time::from_yr(10.),
+            Time::from_yr(100.),
+            Time::from_yr(1_000.),
+            Time::from_yr(10_000.),
+            Time::from_yr(-1.),
+            Time::from_yr(-10.),
+            Time::from_yr(-100.),
+            Time::from_yr(-1_000.),
+            Time::from_yr(-10_000.),
+        ];
+        let evolution =
+            StarDataEvolution::new(None, None, Time::from_yr(10_000.), StarFate::WhiteDwarf);
+        for now in times.clone().into_iter() {
+            for then in times.clone().into_iter() {
+                assert_eq!(
+                    evolution.has_changed(then, now),
+                    evolution.has_changed(now, then)
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn star_has_changed_if_2000_years_have_passed() {
+        let then = Time::from_yr(0.);
+        let now = Time::from_yr(2000.);
+        let evolution =
+            StarDataEvolution::new(None, None, Time::from_yr(10_000.), StarFate::WhiteDwarf);
+        assert!(evolution.has_changed(then, now));
+        assert!(evolution.has_changed(now, then));
+    }
+
+    #[test]
+    fn star_has_changed_when_it_crosses_death() {
+        let then = Time::from_yr(0.);
+        let now = Time::from_yr(10_000.);
+        let age = Some(Time::from_yr(1_000.));
+        let lifetime = Time::from_yr(5_000.);
+        let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
+        assert!(evolution.has_changed(then, now));
+        assert!(evolution.has_changed(now, then));
+    }
+
+    #[test]
+    fn star_changes_rapidly_shortly_after_death() {
+        let lifetime = Time::from_Gyr(1.);
+        let small_steps = vec![
+            Time::from_s(1.),
+            Time::from_min(1.),
+            Time::from_hr(1.),
+            Time::from_days(1.),
+        ];
+        let age = Some(lifetime);
+        let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
+        for step1 in small_steps.clone().into_iter() {
+            for step2 in small_steps.clone().into_iter() {
+                let now = lifetime + step1;
+                let then = lifetime + step1 + step2;
+                assert!(evolution.has_changed(then, now));
+                assert!(evolution.has_changed(now, then));
+            }
+        }
+    }
+}
