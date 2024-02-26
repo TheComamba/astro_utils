@@ -46,6 +46,10 @@ impl StarAppearance {
         &self.pos
     }
 
+    pub const fn get_time_since_epoch(&self) -> &Time<f64> {
+        &self.time_since_epoch
+    }
+
     pub fn set_pos(&mut self, direction: EclipticCoordinates) {
         self.pos = direction;
     }
