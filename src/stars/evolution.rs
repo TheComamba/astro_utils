@@ -1,22 +1,12 @@
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
-use crate::{
-    color::srgb::sRGBColor,
-    units::{
-        distance::DISTANCE_ZERO,
-        luminous_intensity::{luminous_intensity_to_illuminance, LUMINOSITY_ZERO},
-        mass::MASS_ZERO,
-        temperature::TEMPERATURE_ZERO,
-        time::TIME_ZERO,
-    },
+use crate::units::{
+    distance::DISTANCE_ZERO, luminous_intensity::LUMINOSITY_ZERO, mass::MASS_ZERO,
+    temperature::TEMPERATURE_ZERO, time::TIME_ZERO,
 };
 
-use super::{
-    appearance_evolution::{StarAppearanceEvolution, StarAppearanceLifestageEvolution},
-    data::StarData,
-    fate::StarFate,
-};
+use super::{data::StarData, fate::StarFate};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarDataEvolution {
@@ -46,6 +36,36 @@ impl StarDataEvolution {
             lifetime,
             fate,
         }
+    }
+
+    pub(super) fn has_changed(&self, then: Time<f64>, now: Time<f64>) -> bool {
+        if let (Some(until_death_then), Some(until_death_now)) =
+            (self.time_until_death(then), self.time_until_death(now))
+        {
+            const DEATH_TIMESCALE: Time<f64> = Time {
+                s: -365.25 * 24. * 60. * 60.,
+            }; // 1 year (negative because it counts time until death)
+
+            let has_crossed_death = until_death_then.s.signum() != until_death_now.s.signum();
+            let shortly_after_death = DEATH_TIMESCALE.s..0.;
+            let then_was_shortly_after_death = shortly_after_death.contains(&until_death_then.s);
+            let now_is_shortly_after_death = shortly_after_death.contains(&until_death_now.s);
+            if has_crossed_death || then_was_shortly_after_death || now_is_shortly_after_death {
+                return true;
+            }
+        }
+
+        let diff = Time {
+            s: (then.s - now.s).abs(),
+        };
+        const EVOLUTION_TIMESCALE: Time<f64> = Time {
+            s: 1_000. * 365.25 * 24. * 60. * 60.,
+        }; // 1_000 years
+
+        if self.lifestage_evolution.is_some() && diff > EVOLUTION_TIMESCALE {
+            return true;
+        }
+        false
     }
 
     pub(super) fn time_until_death(&self, time_since_epoch: Time<f64>) -> Option<Time<f64>> {
@@ -118,23 +138,6 @@ impl StarDataEvolution {
         temperature
     }
 
-    pub(crate) fn to_star_appearance_evolution(
-        &self,
-        temperature_at_epoch: Temperature<f64>,
-        distance: Distance<f64>,
-    ) -> StarAppearanceEvolution {
-        let lifestage_evolution = self
-            .lifestage_evolution
-            .as_ref()
-            .map(|e| e.to_star_appearance_lifestage_evolution(temperature_at_epoch, distance));
-        StarAppearanceEvolution::new(
-            lifestage_evolution,
-            self.age,
-            self.lifetime,
-            self.fate.clone(),
-        )
-    }
-
     pub fn get_lifestage_mass_per_year(&self) -> Mass<f64> {
         self.lifestage_evolution
             .as_ref()
@@ -196,22 +199,88 @@ impl StarDataLifestageEvolution {
             temperature_per_year,
         }
     }
+}
 
-    fn to_star_appearance_lifestage_evolution(
-        &self,
-        temperature_at_epoch: Temperature<f64>,
-        distance: Distance<f64>,
-    ) -> StarAppearanceLifestageEvolution {
-        let illuminance_per_year =
-            luminous_intensity_to_illuminance(&self.luminous_intensity_per_year, &distance);
-        let color_now = sRGBColor::from_temperature(temperature_at_epoch);
-        let color_then =
-            sRGBColor::from_temperature(temperature_at_epoch - self.temperature_per_year);
-        let color_per_year = color_now - color_then;
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-        StarAppearanceLifestageEvolution {
-            illuminance_per_year,
-            color_per_year,
+    #[test]
+    fn has_changed_is_symmetric() {
+        let times = vec![
+            Time::from_yr(0.),
+            Time::from_yr(1.),
+            Time::from_yr(10.),
+            Time::from_yr(100.),
+            Time::from_yr(1_000.),
+            Time::from_yr(10_000.),
+            Time::from_yr(-1.),
+            Time::from_yr(-10.),
+            Time::from_yr(-100.),
+            Time::from_yr(-1_000.),
+            Time::from_yr(-10_000.),
+        ];
+        let evolution =
+            StarDataEvolution::new(None, None, Time::from_yr(10_000.), StarFate::WhiteDwarf);
+        for now in times.clone().into_iter() {
+            for then in times.clone().into_iter() {
+                assert_eq!(
+                    evolution.has_changed(then, now),
+                    evolution.has_changed(now, then)
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn star_has_changed_if_2000_years_have_passed() {
+        let then = Time::from_yr(0.);
+        let now = Time::from_yr(2000.);
+        let lifestage_evolution = StarDataLifestageEvolution {
+            mass_per_year: MASS_ZERO,
+            radius_per_year: DISTANCE_ZERO,
+            luminous_intensity_per_year: LUMINOSITY_ZERO,
+            temperature_per_year: TEMPERATURE_ZERO,
+        };
+        let evolution = StarDataEvolution::new(
+            Some(lifestage_evolution),
+            None,
+            Time::from_yr(10_000.),
+            StarFate::WhiteDwarf,
+        );
+        assert!(evolution.has_changed(then, now));
+        assert!(evolution.has_changed(now, then));
+    }
+
+    #[test]
+    fn star_has_changed_when_it_crosses_death() {
+        let then = Time::from_yr(0.);
+        let now = Time::from_yr(10_000.);
+        let age = Some(Time::from_yr(1_000.));
+        let lifetime = Time::from_yr(5_000.);
+        let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
+        assert!(evolution.has_changed(then, now));
+        assert!(evolution.has_changed(now, then));
+    }
+
+    #[test]
+    fn star_changes_rapidly_shortly_after_death() {
+        let lifetime = Time::from_Gyr(1.);
+        let small_steps = vec![
+            Time::from_s(1.),
+            Time::from_min(1.),
+            Time::from_hr(1.),
+            Time::from_days(1.),
+        ];
+        let age = Some(lifetime);
+        let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
+        for step1 in small_steps.clone().into_iter() {
+            for step2 in small_steps.clone().into_iter() {
+                let now = step1;
+                let then = step1 + step2;
+                assert!(evolution.has_changed(then, now));
+                assert!(evolution.has_changed(now, then));
+            }
         }
     }
 }

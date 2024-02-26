@@ -1,4 +1,4 @@
-use super::{appearance::StarAppearance, data_evolution::StarDataEvolution, fate::StarFate};
+use super::{appearance::StarAppearance, evolution::StarDataEvolution, fate::StarFate};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::ecliptic::EclipticCoordinates,
@@ -164,26 +164,28 @@ impl StarData {
         &self.evolution
     }
 
-    pub fn to_star_appearance(&self) -> StarAppearance {
-        let illuminance = match self.luminous_intensity {
+    pub fn has_changed(&self, then: Time<f64>, now: Time<f64>) -> bool {
+        self.evolution.has_changed(then, now)
+    }
+
+    pub fn to_star_appearance(&self, time_since_epoch: Time<f64>) -> StarAppearance {
+        let illuminance = match self.get_luminous_intensity(time_since_epoch) {
             Some(luminous_intensity) => {
                 luminous_intensity_to_illuminance(&luminous_intensity, &self.distance)
             }
             _ => IRRADIANCE_ZERO,
         };
 
-        let color = sRGBColor::from_temperature(self.temperature);
+        let color = sRGBColor::from_temperature(self.get_temperature(time_since_epoch));
 
-        let evolution = self
-            .evolution
-            .to_star_appearance_evolution(self.temperature, self.distance);
+        let pos = self.get_pos(time_since_epoch);
 
         StarAppearance {
             name: self.name.clone(),
             illuminance,
             color,
-            pos: self.pos.clone(),
-            evolution,
+            pos,
+            time_since_epoch,
         }
     }
 

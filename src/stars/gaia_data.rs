@@ -1,7 +1,4 @@
-use super::{
-    appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
-    data_evolution::StarDataEvolution,
-};
+use super::{appearance::StarAppearance, data::StarData, evolution::StarDataEvolution};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates},
@@ -10,6 +7,7 @@ use crate::{
         distance::DISTANCE_ZERO,
         illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
         temperature::TEMPERATURE_ZERO,
+        time::TIME_ZERO,
     },
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
@@ -132,7 +130,7 @@ impl GaiaResponse {
                     illuminance,
                     color,
                     pos: parsed_data.pos,
-                    evolution: StarAppearanceEvolution::NONE,
+                    time_since_epoch: TIME_ZERO,
                 };
                 Ok(star)
             })

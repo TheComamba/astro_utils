@@ -1,6 +1,5 @@
 use super::{
-    appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
-    data_evolution::StarDataEvolution, fate::StarFate,
+    appearance::StarAppearance, data::StarData, evolution::StarDataEvolution, fate::StarFate,
 };
 use crate::{
     color::srgb::sRGBColor,
@@ -10,7 +9,7 @@ use crate::{
     },
     units::{
         illuminance::apparent_magnitude_to_illuminance,
-        luminous_intensity::absolute_magnitude_to_luminous_intensity,
+        luminous_intensity::absolute_magnitude_to_luminous_intensity, time::TIME_ZERO,
     },
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
@@ -85,7 +84,7 @@ impl RealData {
             illuminance,
             color,
             pos,
-            evolution: StarAppearanceEvolution::NONE,
+            time_since_epoch: TIME_ZERO,
         }
     }
 }
@@ -127,7 +126,7 @@ mod tests {
         for star_data in get_many_stars() {
             let star_data = star_data.to_star_data();
             assert!(!star_data.name.is_empty());
-            let star_appearance = star_data.to_star_appearance();
+            let star_appearance = star_data.to_star_appearance(TIME_ZERO);
             assert!(!star_appearance.name.is_empty());
         }
     }

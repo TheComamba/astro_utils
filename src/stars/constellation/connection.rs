@@ -12,9 +12,7 @@ pub struct Connection {
 
 impl Connection {
     fn new(from: usize, to: usize, stars: &[StarAppearance]) -> Self {
-        let distance = stars[from]
-            .get_pos_at_epoch()
-            .angle_to(stars[to].get_pos_at_epoch());
+        let distance = stars[from].get_pos().angle_to(stars[to].get_pos());
         Connection { from, to, distance }
     }
 
@@ -92,13 +90,9 @@ fn nearest_neighbours(i: usize, stars: &[StarAppearance]) -> Vec<usize> {
     }
     neighbours.sort_by(|a, b| {
         stars[i]
-            .get_pos_at_epoch()
-            .angle_to(stars[*a].get_pos_at_epoch())
-            .partial_cmp(
-                &stars[i]
-                    .get_pos_at_epoch()
-                    .angle_to(stars[*b].get_pos_at_epoch()),
-            )
+            .get_pos()
+            .angle_to(stars[*a].get_pos())
+            .partial_cmp(&stars[i].get_pos().angle_to(stars[*b].get_pos()))
             .unwrap_or(Ordering::Equal)
     });
     neighbours
@@ -153,12 +147,12 @@ fn find_nearest_neighbour(
     excluding: &Vec<usize>,
 ) -> Option<usize> {
     let mut nearest_neighbour = None;
-    let pos = stars[index].get_pos_at_epoch();
+    let pos = stars[index].get_pos();
     for j in 0..stars.len() {
         if index != j && !excluding.contains(&j) {
-            let distance = stars[j].get_pos_at_epoch().angle_to(pos);
+            let distance = stars[j].get_pos().angle_to(pos);
             if let Some(nn) = nearest_neighbour {
-                let nn_distance = stars[nn as usize].get_pos_at_epoch().angle_to(pos);
+                let nn_distance = stars[nn as usize].get_pos().angle_to(pos);
                 if distance < nn_distance {
                     nearest_neighbour = Some(j);
                 }
@@ -210,11 +204,8 @@ mod tests {
         color::srgb::sRGBColor,
         coordinates::spherical::SphericalCoordinates,
         real_data::stars::all::get_many_stars,
-        stars::{
-            appearance_evolution::StarAppearanceEvolution,
-            constellation::constellation::collect_constellations,
-        },
-        units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY},
+        stars::constellation::constellation::collect_constellations,
+        units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY, time::TIME_ZERO},
     };
 
     fn stars_in_line(size: usize) -> Vec<StarAppearance> {
@@ -229,7 +220,7 @@ mod tests {
                 Illuminance::from_lux(1.0),
                 sRGBColor::WHITE,
                 pos,
-                StarAppearanceEvolution::NONE,
+                TIME_ZERO,
             ));
         }
         stars
@@ -300,7 +291,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..]);
+        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
         for constellation in all_consteallations {
             let mst = minimum_spanning_tree(&constellation.get_stars());
             assert!(mst.len() == constellation.get_stars().len() - 1);
@@ -313,7 +304,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..]);
+        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
         for constellation in all_consteallations {
             println!("\nChecking {}", constellation.get_name());
             let connections = constellation.get_connections();
@@ -330,10 +321,10 @@ mod tests {
         con2: &Connection,
         stars2: &[StarAppearance],
     ) -> bool {
-        let pos_1_1 = stars1[con1.from].get_pos_at_epoch();
-        let pos_1_2 = stars1[con1.to].get_pos_at_epoch();
-        let pos_2_1 = stars2[con2.from].get_pos_at_epoch();
-        let pos_2_2 = stars2[con2.to].get_pos_at_epoch();
+        let pos_1_1 = stars1[con1.from].get_pos();
+        let pos_1_2 = stars1[con1.to].get_pos();
+        let pos_2_1 = stars2[con2.from].get_pos();
+        let pos_2_2 = stars2[con2.to].get_pos();
         let case1 = pos_1_1.eq_within(pos_2_1, ANGLE_TEST_ACCURACY)
             && pos_1_2.eq_within(pos_2_2, ANGLE_TEST_ACCURACY);
         let case2 = pos_1_1.eq_within(pos_2_2, ANGLE_TEST_ACCURACY)
@@ -359,7 +350,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..]);
+        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
         for constellation in all_consteallations {
             println!("\nChecking {}", constellation.get_name());
             let connections = constellation.get_connections();
