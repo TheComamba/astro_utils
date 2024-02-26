@@ -1,6 +1,7 @@
 use super::connection::{collect_connections, Connection};
 use crate::stars::{appearance::StarAppearance, data::StarData};
 use serde::{Deserialize, Serialize};
+use simple_si_units::base::Time;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Constellation {
@@ -50,14 +51,17 @@ fn collect_stars_in_constellation<'a>(
     stars_in_constellation
 }
 
-pub fn collect_constellations(all_stars: &[StarData]) -> Vec<Constellation> {
+pub fn collect_constellations(
+    all_stars: &[StarData],
+    time_since_epoch: Time<f64>,
+) -> Vec<Constellation> {
     let constellation_names = collect_constellation_names(all_stars);
     let mut constellations: Vec<Constellation> = Vec::new();
     for constellation_name in constellation_names {
         let stars_in_constellation = collect_stars_in_constellation(&constellation_name, all_stars);
         let mut stars: Vec<StarAppearance> = Vec::new();
         for star in stars_in_constellation {
-            stars.push(star.to_star_appearance());
+            stars.push(star.to_star_appearance(time_since_epoch));
         }
         let connections = collect_connections(&stars[..]);
         constellations.push(Constellation {
@@ -71,7 +75,7 @@ pub fn collect_constellations(all_stars: &[StarData]) -> Vec<Constellation> {
 
 #[cfg(test)]
 mod tests {
-    use crate::real_data::stars::all::get_many_stars;
+    use crate::{real_data::stars::all::get_many_stars, units::time::TIME_ZERO};
 
     use super::*;
 
@@ -173,7 +177,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let constellations = collect_constellations(&all_stars);
+        let constellations = collect_constellations(&all_stars, TIME_ZERO);
         let mut constellation_names = constellations
             .iter()
             .map(|constellation| constellation.get_name())
@@ -202,7 +206,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let constellations = collect_constellations(&all_stars);
+        let constellations = collect_constellations(&all_stars, TIME_ZERO);
         for constellation in constellations {
             assert!(
                 constellation.get_stars().len() >= 3,

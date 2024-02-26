@@ -6,7 +6,10 @@ use astro_utils::{
         gaia_data::{fetch_brightest_stars, fetch_brightest_stars_data, star_is_already_known},
         random::random_stars::generate_random_stars,
     },
-    units::{illuminance::illuminance_to_apparent_magnitude, temperature::TEMPERATURE_ZERO},
+    units::{
+        illuminance::illuminance_to_apparent_magnitude, temperature::TEMPERATURE_ZERO,
+        time::TIME_ZERO,
+    },
 };
 use simple_si_units::base::Distance;
 
@@ -18,13 +21,15 @@ fn parsec_generates_data_similar_to_gaia() {
     let parsec_data = generate_random_stars(max_distance).unwrap();
     let parsec_stars = parsec_data
         .iter()
-        .map(|s| s.to_star_appearance())
+        .map(|s| s.to_star_appearance(TIME_ZERO))
         .collect::<Vec<_>>();
     let mut gaia_data = fetch_brightest_stars_data().unwrap();
     let gaia_stars = fetch_brightest_stars().unwrap();
     let manual_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
-    let manual_stars: Vec<StarAppearance> =
-        manual_data.iter().map(|s| s.to_star_appearance()).collect();
+    let manual_stars: Vec<StarAppearance> = manual_data
+        .iter()
+        .map(|s| s.to_star_appearance(TIME_ZERO))
+        .collect();
     let mut expected_data = manual_data.clone();
     expected_data.append(&mut gaia_data); //The few duplicates are ok for average temperature
     let mut expected_stars = manual_stars.clone();
@@ -113,7 +118,7 @@ fn total_number_is_similar(parsec: &[StarAppearance], gaia: &[StarAppearance]) -
 }
 
 fn apparent_magnitude_is_within(star: &StarAppearance, mag_min: f64, mag_max: f64) -> bool {
-    let app_mag = illuminance_to_apparent_magnitude(star.get_illuminance_at_epoch());
+    let app_mag = illuminance_to_apparent_magnitude(star.get_illuminance());
     app_mag < mag_min && app_mag > mag_max
 }
 

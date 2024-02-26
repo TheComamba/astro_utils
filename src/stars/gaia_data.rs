@@ -1,7 +1,4 @@
-use super::{
-    appearance::StarAppearance, appearance_evolution::StarAppearanceEvolution, data::StarData,
-    data_evolution::StarDataEvolution,
-};
+use super::{appearance::StarAppearance, data::StarData, evolution::StarDataEvolution};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates},
@@ -132,7 +129,6 @@ impl GaiaResponse {
                     illuminance,
                     color,
                     pos: parsed_data.pos,
-                    evolution: StarAppearanceEvolution::NONE,
                 };
                 Ok(star)
             })

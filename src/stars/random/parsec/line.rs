@@ -2,7 +2,7 @@ use super::data::ParsecData;
 use crate::{
     coordinates::ecliptic::EclipticCoordinates,
     error::AstroUtilError,
-    stars::{data::StarData, data_evolution::StarDataEvolution},
+    stars::{data::StarData, evolution::StarDataEvolution},
     units::{
         distance::{distance_to_sun_radii, DISTANCE_ZERO, SOLAR_RADIUS},
         luminous_intensity::SOLAR_LUMINOUS_INTENSITY,

@@ -1,7 +1,7 @@
 use super::data::ParsecData;
 use super::line::ParsedParsecLine;
 use crate::stars::data::StarData;
-use crate::stars::data_evolution::{StarDataEvolution, StarDataLifestageEvolution};
+use crate::stars::evolution::{StarDataEvolution, StarDataLifestageEvolution};
 use crate::stars::fate::StarFate;
 use crate::stars::random::random_stars::DIMMEST_ILLUMINANCE;
 use crate::units::luminous_intensity::luminous_intensity_to_solar_luminosities;

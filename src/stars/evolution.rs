@@ -1,22 +1,12 @@
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
-use crate::{
-    color::srgb::sRGBColor,
-    units::{
-        distance::DISTANCE_ZERO,
-        luminous_intensity::{luminous_intensity_to_illuminance, LUMINOSITY_ZERO},
-        mass::MASS_ZERO,
-        temperature::TEMPERATURE_ZERO,
-        time::TIME_ZERO,
-    },
+use crate::units::{
+    distance::DISTANCE_ZERO, luminous_intensity::LUMINOSITY_ZERO, mass::MASS_ZERO,
+    temperature::TEMPERATURE_ZERO, time::TIME_ZERO,
 };
 
-use super::{
-    appearance_evolution::{StarAppearanceEvolution, StarAppearanceLifestageEvolution},
-    data::StarData,
-    fate::StarFate,
-};
+use super::{data::StarData, fate::StarFate};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarDataEvolution {
@@ -118,23 +108,6 @@ impl StarDataEvolution {
         temperature
     }
 
-    pub(crate) fn to_star_appearance_evolution(
-        &self,
-        temperature_at_epoch: Temperature<f64>,
-        distance: Distance<f64>,
-    ) -> StarAppearanceEvolution {
-        let lifestage_evolution = self
-            .lifestage_evolution
-            .as_ref()
-            .map(|e| e.to_star_appearance_lifestage_evolution(temperature_at_epoch, distance));
-        StarAppearanceEvolution::new(
-            lifestage_evolution,
-            self.age,
-            self.lifetime,
-            self.fate.clone(),
-        )
-    }
-
     pub fn get_lifestage_mass_per_year(&self) -> Mass<f64> {
         self.lifestage_evolution
             .as_ref()
@@ -194,24 +167,6 @@ impl StarDataLifestageEvolution {
             radius_per_year,
             luminous_intensity_per_year,
             temperature_per_year,
-        }
-    }
-
-    fn to_star_appearance_lifestage_evolution(
-        &self,
-        temperature_at_epoch: Temperature<f64>,
-        distance: Distance<f64>,
-    ) -> StarAppearanceLifestageEvolution {
-        let illuminance_per_year =
-            luminous_intensity_to_illuminance(&self.luminous_intensity_per_year, &distance);
-        let color_now = sRGBColor::from_temperature(temperature_at_epoch);
-        let color_then =
-            sRGBColor::from_temperature(temperature_at_epoch - self.temperature_per_year);
-        let color_per_year = color_now - color_then;
-
-        StarAppearanceLifestageEvolution {
-            illuminance_per_year,
-            color_per_year,
         }
     }
 }
