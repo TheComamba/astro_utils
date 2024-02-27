@@ -107,7 +107,7 @@ fn type_2_supernova_luminous_intensity(
         absolute_magnitude_to_luminous_intensity(PLATEAU_MAGNITUDE)
     } else {
         let offset = PLATEAU_MAGNITUDE;
-        let slope = -1. / 60.;
+        let slope = 1. / 60.;
         let mag = offset + slope * days;
         absolute_magnitude_to_luminous_intensity(mag)
     }
