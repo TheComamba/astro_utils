@@ -85,23 +85,28 @@ fn type_2_supernova_luminous_intensity(
     time_since_death: Time<f64>,
     data: &StarData,
 ) -> Luminosity<f64> {
+    const PEAK_MAGNITUDE: f64 = -16.8;
+    const PLATEAU_MAGNITUDE: f64 = -16.3;
+
     let days = time_since_death.to_days();
     if days < 0. {
         LUMINOSITY_ZERO
     } else if SN_PHASE_1_INCREASE.contains(&days) {
         let offset = luminous_intensity_to_absolute_magnitude(data.luminous_intensity);
-        let slope = (16.8 - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
+        let slope =
+            (PEAK_MAGNITUDE - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
         let mag = offset + slope * days;
         absolute_magnitude_to_luminous_intensity(mag)
     } else if SN_PHASE_2_DECREASE.contains(&days) {
-        let offset = 16.8;
-        let slope = (16.3 - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
+        let offset = PEAK_MAGNITUDE;
+        let slope =
+            (PLATEAU_MAGNITUDE - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
         let mag = offset + slope * days;
         absolute_magnitude_to_luminous_intensity(mag)
     } else if SN_PHASE_3_PLATEAU.contains(&days) {
-        absolute_magnitude_to_luminous_intensity(16.3)
+        absolute_magnitude_to_luminous_intensity(PLATEAU_MAGNITUDE)
     } else {
-        let offset = 16.3;
+        let offset = PLATEAU_MAGNITUDE;
         let slope = -1. / 60.;
         let mag = offset + slope * days;
         absolute_magnitude_to_luminous_intensity(mag)
@@ -109,24 +114,27 @@ fn type_2_supernova_luminous_intensity(
 }
 
 fn type_2_supernova_temperature(time_since_death: Time<f64>, data: &StarData) -> Temperature<f64> {
+    const PEAK_TEMPERATURE: Temperature<f64> = Temperature { K: 100_000. };
+    const PLATEAU_TEMPERATURE: Temperature<f64> = Temperature { K: 4_500. };
+
     let days = time_since_death.to_days();
     if days < 0. {
         data.temperature
     } else if SN_PHASE_1_INCREASE.contains(&days) {
         let offset = data.temperature;
-        let slope = (Temperature { K: 100_000. } - offset)
-            / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
+        let slope =
+            (PEAK_TEMPERATURE - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
         offset + slope * days
     } else if SN_PHASE_2_DECREASE.contains(&days) {
-        let offset = Temperature { K: 100_000. };
-        let slope = (Temperature { K: 4_500. } - offset)
-            / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
+        let offset = PEAK_TEMPERATURE;
+        let slope =
+            (PLATEAU_TEMPERATURE - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
         offset + slope * days
     } else if SN_PHASE_3_PLATEAU.contains(&days) {
-        Temperature { K: 4_500. }
+        PLATEAU_TEMPERATURE
     } else {
-        let offset = Temperature { K: 4_500. };
-        let slope = Temperature { K: 4_500. } / Time::from_kyr(10.).to_days();
+        let offset = PLATEAU_TEMPERATURE;
+        let slope = -PLATEAU_TEMPERATURE / Time::from_kyr(10.).to_days();
         let t = offset + slope * days;
         if t > TEMPERATURE_ZERO {
             t
