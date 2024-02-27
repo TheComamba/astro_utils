@@ -75,7 +75,7 @@ impl StarDataEvolution {
     pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, time_since_epoch: Time<f64>) -> Mass<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
-                return self.fate.apply_to_mass(mass, -time_until_death);
+                return self.fate.apply_to_mass(mass);
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
@@ -91,7 +91,7 @@ impl StarDataEvolution {
     ) -> Distance<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
-                return self.fate.apply_to_radius(radius, -time_until_death);
+                return self.fate.apply_to_radius();
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
@@ -102,40 +102,38 @@ impl StarDataEvolution {
 
     pub(crate) fn apply_to_luminous_intensity(
         &self,
-        luminous_intensity: Luminosity<f64>,
+        data: &StarData,
         time_since_epoch: Time<f64>,
     ) -> Luminosity<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
                 return self
                     .fate
-                    .apply_to_luminous_intensity(luminous_intensity, -time_until_death);
+                    .apply_to_luminous_intensity(data, -time_until_death);
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return luminous_intensity
+            return data.luminous_intensity.unwrap()
                 + lifestage_evolution.luminous_intensity_per_year * time_since_epoch.to_yr();
         }
-        luminous_intensity
+        data.luminous_intensity.unwrap()
     }
 
     pub(crate) fn apply_to_temperature(
         &self,
-        temperature: Temperature<f64>,
+        data: &StarData,
         time_since_epoch: Time<f64>,
     ) -> Temperature<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
-                return self
-                    .fate
-                    .apply_to_temperature(temperature, -time_until_death);
+                return self.fate.apply_to_temperature(data, -time_until_death);
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return temperature
+            return data.temperature
                 + lifestage_evolution.temperature_per_year * time_since_epoch.to_yr();
         }
-        temperature
+        data.temperature
     }
 
     pub fn get_lifestage_mass_per_year(&self) -> Mass<f64> {

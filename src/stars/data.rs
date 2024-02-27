@@ -74,10 +74,7 @@ impl StarData {
     }
 
     pub fn get_luminous_intensity(&self, time: Time<f64>) -> Option<Luminosity<f64>> {
-        Some(
-            self.evolution
-                .apply_to_luminous_intensity(self.luminous_intensity?, time),
-        )
+        Some(self.evolution.apply_to_luminous_intensity(self, time))
     }
 
     pub const fn get_temperature_at_epoch(&self) -> &Temperature<f64> {
@@ -85,7 +82,7 @@ impl StarData {
     }
 
     pub fn get_temperature(&self, time: Time<f64>) -> Temperature<f64> {
-        self.evolution.apply_to_temperature(self.temperature, time)
+        self.evolution.apply_to_temperature(self, time)
     }
 
     pub const fn get_age_at_epoch(&self) -> &Option<Time<f64>> {
