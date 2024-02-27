@@ -1,9 +1,18 @@
+use std::ops::Range;
+
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
 use crate::{
     astro_display::AstroDisplay,
-    units::{distance::SOLAR_RADIUS, luminous_intensity::absolute_magnitude_to_luminous_intensity},
+    units::{
+        distance::SOLAR_RADIUS,
+        luminous_intensity::{
+            absolute_magnitude_to_luminous_intensity, luminous_intensity_to_absolute_magnitude,
+            LUMINOSITY_ZERO,
+        },
+        temperature::TEMPERATURE_ZERO,
+    },
 };
 
 use super::data::StarData;
@@ -68,15 +77,63 @@ impl StarFate {
     }
 }
 
+const SN_PHASE_1_INCREASE: Range<f64> = 0.0..10.0;
+const SN_PHASE_2_DECREASE: Range<f64> = 10.0..20.0;
+const SN_PHASE_3_PLATEAU: Range<f64> = 20.0..110.0;
+
 fn type_2_supernova_luminous_intensity(
     time_since_death: Time<f64>,
     data: &StarData,
 ) -> Luminosity<f64> {
-    todo!()
+    let days = time_since_death.to_days();
+    if days < 0. {
+        LUMINOSITY_ZERO
+    } else if SN_PHASE_1_INCREASE.contains(&days) {
+        let offset = luminous_intensity_to_absolute_magnitude(data.luminous_intensity);
+        let slope = (16.8 - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
+        let mag = offset + slope * days;
+        absolute_magnitude_to_luminous_intensity(mag)
+    } else if SN_PHASE_2_DECREASE.contains(&days) {
+        let offset = 16.8;
+        let slope = (16.3 - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
+        let mag = offset + slope * days;
+        absolute_magnitude_to_luminous_intensity(mag)
+    } else if SN_PHASE_3_PLATEAU.contains(&days) {
+        absolute_magnitude_to_luminous_intensity(16.3)
+    } else {
+        let offset = 16.3;
+        let slope = -1. / 60.;
+        let mag = offset + slope * days;
+        absolute_magnitude_to_luminous_intensity(mag)
+    }
 }
 
 fn type_2_supernova_temperature(time_since_death: Time<f64>, data: &StarData) -> Temperature<f64> {
-    todo!()
+    let days = time_since_death.to_days();
+    if days < 0. {
+        data.temperature
+    } else if SN_PHASE_1_INCREASE.contains(&days) {
+        let offset = data.temperature;
+        let slope = (Temperature { K: 100_000. } - offset)
+            / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
+        offset + slope * days
+    } else if SN_PHASE_2_DECREASE.contains(&days) {
+        let offset = Temperature { K: 100_000. };
+        let slope = (Temperature { K: 4_500. } - offset)
+            / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
+        offset + slope * days
+    } else if SN_PHASE_3_PLATEAU.contains(&days) {
+        Temperature { K: 4_500. }
+    } else {
+        let offset = Temperature { K: 4_500. };
+        let slope = Temperature { K: 4_500. } / Time::from_kyr(10.).to_days();
+        let t = offset + slope * days;
+        if t > TEMPERATURE_ZERO {
+            t
+        } else {
+            TEMPERATURE_ZERO
+        }
+    }
 }
 
 impl AstroDisplay for StarFate {
