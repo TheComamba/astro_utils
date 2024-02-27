@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const NAVI: RealData = RealData {
     common_name: "Navi",
-    astronomical_name: "Gamma Cassiopeiae",
+    astronomical_name: "γ Cassiopeiae",
     constellation: "Cassiopeia",
     radius: Some(Distance {
         m: 10. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const NAVI: RealData = RealData {
 
 const SCHEDAR: RealData = RealData {
     common_name: "Schedar",
-    astronomical_name: "Alpha Cassiopeiae",
+    astronomical_name: "α Cassiopeiae",
     constellation: "Cassiopeia",
     radius: Some(Distance {
         m: 45.39 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const SCHEDAR: RealData = RealData {
 
 const CAPH: RealData = RealData {
     common_name: "Caph",
-    astronomical_name: "Beta Cassiopeiae",
+    astronomical_name: "β Cassiopeiae",
     constellation: "Cassiopeia",
     radius: Some(Distance {
         m: 3.5 * SOLAR_RADIUS.m,

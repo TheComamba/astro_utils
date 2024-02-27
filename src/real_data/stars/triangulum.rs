@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const BETA_TRIANGULI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Trianguli",
+    astronomical_name: "β Trianguli",
     constellation: "Triangulum",
     right_ascension: RightAscension::new(2, 9, 33),
     declination: Declination::new(Sgn::Pos, 34, 59, 14),
@@ -38,7 +38,7 @@ const BETA_TRIANGULI: RealData = RealData {
 
 const ALPHA_TRIANGULI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Trianguli",
+    astronomical_name: "α Trianguli",
     constellation: "Triangulum",
     right_ascension: RightAscension::new(1, 53, 5),
     declination: Declination::new(Sgn::Pos, 29, 34, 44),
@@ -64,7 +64,7 @@ const ALPHA_TRIANGULI: RealData = RealData {
 
 const GAMMA_TRIANGULI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Trianguli",
+    astronomical_name: "γ Trianguli",
     constellation: "Triangulum",
     right_ascension: RightAscension::new(2, 17, 19),
     declination: Declination::new(Sgn::Pos, 33, 50, 50),

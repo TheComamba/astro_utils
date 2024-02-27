@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const REGULUS: RealData = RealData {
     common_name: "Regulus",
-    astronomical_name: "Alpha Leonis",
+    astronomical_name: "α Leonis",
     constellation: "Leo",
     radius: Some(Distance {
         m: 4.35 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const REGULUS: RealData = RealData {
 
 const ALGIEBA: RealData = RealData {
     common_name: "Algieba",
-    astronomical_name: "Gamma Leonis",
+    astronomical_name: "γ Leonis",
     constellation: "Leo",
     radius: Some(Distance {
         m: 31.88 * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const ALGIEBA: RealData = RealData {
 
 const DENEBOLA: RealData = RealData {
     common_name: "Denebola",
-    astronomical_name: "Beta Leonis",
+    astronomical_name: "β Leonis",
     constellation: "Leo",
     radius: Some(Distance {
         m: 1.728 * SOLAR_RADIUS.m,
@@ -90,7 +90,7 @@ const DENEBOLA: RealData = RealData {
 
 const ZOSMA: RealData = RealData {
     common_name: "Zosma",
-    astronomical_name: "Delta Leonis",
+    astronomical_name: "δ Leonis",
     constellation: "Leo",
     radius: Some(Distance {
         m: 2.14 * SOLAR_RADIUS.m,

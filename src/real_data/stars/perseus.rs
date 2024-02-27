@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const MIRPHAK: RealData = RealData {
     common_name: "Mirphak",
-    astronomical_name: "Alpha Persei",
+    astronomical_name: "α Persei",
     constellation: "Perseus",
     radius: Some(Distance {
         m: 68. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const MIRPHAK: RealData = RealData {
 
 const ALGOL: RealData = RealData {
     common_name: "Algol",
-    astronomical_name: "Beta Persei",
+    astronomical_name: "β Persei",
     constellation: "Perseus",
     radius: Some(Distance {
         m: 2.73 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const ALGOL: RealData = RealData {
 
 const GORGONEA_TERTIA: RealData = RealData {
     common_name: "Gorgonea Tertia",
-    astronomical_name: "Rho Persei",
+    astronomical_name: "ρ Persei",
     constellation: "Perseus",
     radius: Some(Distance {
         m: 143. * SOLAR_RADIUS.m,

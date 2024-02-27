@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const KAUS_AUSTRALIS: RealData = RealData {
     common_name: "Kaus Australis",
-    astronomical_name: "Epsilon Sagittarii",
+    astronomical_name: "ε Sagittarii",
     constellation: "Sagittarius",
     radius: Some(Distance {
         m: 6.8 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const KAUS_AUSTRALIS: RealData = RealData {
 
 const NUNKI: RealData = RealData {
     common_name: "Nunki",
-    astronomical_name: "Sigma Sagittarii",
+    astronomical_name: "σ Sagittarii",
     constellation: "Sagittarius",
     radius: Some(Distance {
         m: 4.5 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const NUNKI: RealData = RealData {
 
 const NAMALWARID: RealData = RealData {
     common_name: "Namalwarid",
-    astronomical_name: "Eta Sagittarii",
+    astronomical_name: "η Sagittarii",
     constellation: "Sagittarius",
     radius: None,
     mass: Mass {
@@ -88,7 +88,7 @@ const NAMALWARID: RealData = RealData {
 
 const KAUS_MEDIA: RealData = RealData {
     common_name: "Kaus Media",
-    astronomical_name: "Delta Sagittarii",
+    astronomical_name: "δ Sagittarii",
     constellation: "Sagittarius",
     radius: Some(Distance {
         m: 16. * SOLAR_RADIUS.m,

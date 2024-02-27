@@ -40,7 +40,7 @@ const PRAECIPUA: RealData = RealData {
 
 const BETA_LEONIS_MINORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Leonis Minoris",
+    astronomical_name: "β Leonis Minoris",
     constellation: "Leo Minor",
     right_ascension: RightAscension::new(10, 27, 53),
     declination: Declination::new(Sgn::Pos, 36, 42, 26),

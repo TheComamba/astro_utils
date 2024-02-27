@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ANKAA: RealData = RealData {
     common_name: "Ankaa",
-    astronomical_name: "Alpha Phoenicis",
+    astronomical_name: "α Phoenicis",
     constellation: "Phoenix",
     radius: Some(Distance {
         m: 15. * SOLAR_RADIUS.m,
@@ -38,7 +38,7 @@ const ANKAA: RealData = RealData {
 
 const BETA_PHOENICIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Phoenicis",
+    astronomical_name: "β Phoenicis",
     constellation: "Phoenix",
     right_ascension: RightAscension::new(1, 6, 5),
     declination: Declination::new(Sgn::Neg, 46, 43, 6),
@@ -60,7 +60,7 @@ const BETA_PHOENICIS: RealData = RealData {
 
 const GAMMA_PHOENICIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Phoenicis",
+    astronomical_name: "γ Phoenicis",
     constellation: "Phoenix",
     right_ascension: RightAscension::new(1, 28, 22),
     declination: Declination::new(Sgn::Neg, 43, 19, 6),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_ANTLIAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Antliae",
+    astronomical_name: "α Antliae",
     constellation: "Antlia",
     radius: Some(Distance {
         m: 41. * SOLAR_RADIUS.m,
@@ -38,7 +38,7 @@ const ALPHA_ANTLIAE: RealData = RealData {
 
 const EPSILON_ANTLIAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Antliae",
+    astronomical_name: "ε Antliae",
     constellation: "Antlia",
     radius: Some(Distance {
         m: 56.3 * SOLAR_RADIUS.m,
@@ -62,7 +62,7 @@ const EPSILON_ANTLIAE: RealData = RealData {
 
 const IOTA_ANTLIAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Iota Antliae",
+    astronomical_name: "ι Antliae",
     constellation: "Antlia",
     radius: Some(Distance {
         m: 12.1 * SOLAR_RADIUS.m,

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const RASALHAGUE: RealData = RealData {
     common_name: "Rasalhague",
-    astronomical_name: "Alpha Ophiuchi",
+    astronomical_name: "α Ophiuchi",
     constellation: "Ophiuchus",
     radius: Some(Distance {
         m: 2.6 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const RASALHAGUE: RealData = RealData {
 
 const SABIK: RealData = RealData {
     common_name: "Sabik",
-    astronomical_name: "Eta Ophiuchi",
+    astronomical_name: "η Ophiuchi",
     constellation: "Ophiuchus",
     radius: None,
     mass: Mass {
@@ -62,7 +62,7 @@ const SABIK: RealData = RealData {
 
 const HAN: RealData = RealData {
     common_name: "Han",
-    astronomical_name: "Zeta Ophiuchi",
+    astronomical_name: "ζ Ophiuchi",
     constellation: "Ophiuchus",
     radius: Some(Distance {
         m: 8.5 * SOLAR_RADIUS.m,
@@ -88,7 +88,7 @@ const HAN: RealData = RealData {
 
 const YED_PRIOR: RealData = RealData {
     common_name: "Yed Prior",
-    astronomical_name: "Delta Ophiuchi",
+    astronomical_name: "δ Ophiuchi",
     constellation: "Ophiuchus",
     radius: Some(Distance {
         m: 59. * SOLAR_RADIUS.m,
@@ -112,7 +112,7 @@ const YED_PRIOR: RealData = RealData {
 
 const CEBALRAI: RealData = RealData {
     common_name: "Cebalrai",
-    astronomical_name: "Beta Ophiuchi",
+    astronomical_name: "β Ophiuchi",
     constellation: "Ophiuchus",
     radius: Some(Distance {
         m: 12.42 * SOLAR_RADIUS.m,

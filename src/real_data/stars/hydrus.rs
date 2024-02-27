@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_HYDRI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Hydri",
+    astronomical_name: "α Hydri",
     constellation: "Hydrus",
     right_ascension: RightAscension::new(1, 58, 46),
     declination: Declination::new(Sgn::Neg, 61, 34, 11),
@@ -40,7 +40,7 @@ const ALPHA_HYDRI: RealData = RealData {
 
 const BETA_HYDRI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Hydri",
+    astronomical_name: "β Hydri",
     constellation: "Hydrus",
     right_ascension: RightAscension::new(0, 25, 45),
     declination: Declination::new(Sgn::Neg, 77, 15, 15),
@@ -66,7 +66,7 @@ const BETA_HYDRI: RealData = RealData {
 
 const GAMMA_HYDRI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Hydri",
+    astronomical_name: "γ Hydri",
     constellation: "Hydrus",
     radius: Some(Distance {
         m: 62. * SOLAR_RADIUS.m,

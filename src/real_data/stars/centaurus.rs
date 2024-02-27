@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const RIGEL_KENTAURUS: RealData = RealData {
     common_name: "Rigel Kentaurus",
-    astronomical_name: "Alpha Centauri",
+    astronomical_name: "α Centauri",
     constellation: "Centaurus",
     radius: Some(Distance {
         m: 1.2175 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const RIGEL_KENTAURUS: RealData = RealData {
 
 const HADAR: RealData = RealData {
     common_name: "Hadar",
-    astronomical_name: "Beta Centauri",
+    astronomical_name: "β Centauri",
     constellation: "Centaurus",
     radius: Some(Distance {
         m: 9. * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const HADAR: RealData = RealData {
 
 const MENKENT: RealData = RealData {
     common_name: "Menkent",
-    astronomical_name: "Theta Centauri",
+    astronomical_name: "θ Centauri",
     constellation: "Centaurus",
     radius: Some(Distance {
         m: 10.6 * SOLAR_RADIUS.m,
@@ -90,7 +90,7 @@ const MENKENT: RealData = RealData {
 
 const MUHLIFAIN: RealData = RealData {
     common_name: "Muhlifain",
-    astronomical_name: "Gamma Centauri",
+    astronomical_name: "γ Centauri",
     constellation: "Centaurus",
     radius: None,
     mass: Mass {
@@ -112,7 +112,7 @@ const MUHLIFAIN: RealData = RealData {
 
 const EPSILON_CENTAURI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Centauri",
+    astronomical_name: "ε Centauri",
     constellation: "Centaurus",
     radius: None,
     mass: Mass {
@@ -136,7 +136,7 @@ const EPSILON_CENTAURI: RealData = RealData {
 
 const ETA_CENTAURI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Eta Centauri",
+    astronomical_name: "η Centauri",
     constellation: "Centaurus",
     radius: Some(Distance {
         m: 6.1 * SOLAR_RADIUS.m,
@@ -162,7 +162,7 @@ const ETA_CENTAURI: RealData = RealData {
 
 const ZETA_CENTAURI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Centauri",
+    astronomical_name: "ζ Centauri",
     constellation: "Centaurus",
     radius: Some(Distance {
         m: 5.8 * SOLAR_RADIUS.m,
@@ -188,7 +188,7 @@ const ZETA_CENTAURI: RealData = RealData {
 
 const MA_WEI: RealData = RealData {
     common_name: "Ma Wei",
-    astronomical_name: "Delta Centauri",
+    astronomical_name: "δ Centauri",
     constellation: "Centaurus",
     radius: Some(Distance {
         m: 6.5 * SOLAR_RADIUS.m,

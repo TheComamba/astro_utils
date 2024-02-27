@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_TELESCOPII: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Telescopii",
+    astronomical_name: "α Telescopii",
     constellation: "Telescopium",
     right_ascension: RightAscension::new(18, 26, 58),
     declination: Declination::new(Sgn::Neg, 45, 58, 6),
@@ -40,7 +40,7 @@ const ALPHA_TELESCOPII: RealData = RealData {
 
 const ZETA_TELESCOPII: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Telescopii",
+    astronomical_name: "ζ Telescopii",
     constellation: "Telescopium",
     right_ascension: RightAscension::new(18, 28, 50),
     declination: Declination::new(Sgn::Neg, 49, 4, 14),
@@ -64,7 +64,7 @@ const ZETA_TELESCOPII: RealData = RealData {
 
 const EPSILON_TELESCOPII: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Telescopii",
+    astronomical_name: "ε Telescopii",
     constellation: "Telescopium",
     right_ascension: RightAscension::new(18, 11, 14),
     declination: Declination::new(Sgn::Neg, 45, 57, 16),

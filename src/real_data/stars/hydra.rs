@@ -13,8 +13,8 @@ use crate::{
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHARD: RealData = RealData {
-    common_name: "Alphard",
-    astronomical_name: "Alpha Hydrae",
+    common_name: "αrd",
+    astronomical_name: "α Hydrae",
     constellation: "Hydra",
     radius: Some(Distance {
         m: 50.5 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALPHARD: RealData = RealData {
 
 const GAMMA_HYDRAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Hydrae",
+    astronomical_name: "γ Hydrae",
     constellation: "Hydra",
     right_ascension: RightAscension::new(13, 18, 55),
     declination: Declination::new(Sgn::Neg, 23, 10, 17),
@@ -66,7 +66,7 @@ const GAMMA_HYDRAE: RealData = RealData {
 
 const ZETA_HYDRAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Hydrae",
+    astronomical_name: "ζ Hydrae",
     constellation: "Hydra",
     right_ascension: RightAscension::new(8, 55, 24),
     declination: Declination::new(Sgn::Pos, 5, 56, 44),
@@ -92,7 +92,7 @@ const ZETA_HYDRAE: RealData = RealData {
 
 const NU_HYDRAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Nu Hydrae",
+    astronomical_name: "ν Hydrae",
     constellation: "Hydra",
     right_ascension: RightAscension::new(10, 49, 37),
     declination: Declination::new(Sgn::Neg, 16, 11, 37),

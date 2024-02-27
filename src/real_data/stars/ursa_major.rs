@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALIOTH: RealData = RealData {
     common_name: "Alioth",
-    astronomical_name: "Epsilon Ursae Majoris",
+    astronomical_name: "ε Ursae Majoris",
     constellation: "Ursa Major",
     radius: Some(Distance {
         m: 4.14 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALIOTH: RealData = RealData {
 
 const DUBHE: RealData = RealData {
     common_name: "Dubhe",
-    astronomical_name: "Alpha Ursae Majoris",
+    astronomical_name: "α Ursae Majoris",
     constellation: "Ursa Major",
     radius: Some(Distance {
         m: 17.03 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const DUBHE: RealData = RealData {
 
 const ALKAID: RealData = RealData {
     common_name: "Alkaid",
-    astronomical_name: "Eta Ursae Majoris",
+    astronomical_name: "η Ursae Majoris",
     constellation: "Ursa Major",
     radius: Some(Distance {
         m: 3.4 * SOLAR_RADIUS.m,
@@ -92,7 +92,7 @@ const ALKAID: RealData = RealData {
 
 const MIZAR: RealData = RealData {
     common_name: "Mizar",
-    astronomical_name: "Zeta Ursae Majoris",
+    astronomical_name: "ζ Ursae Majoris",
     constellation: "Ursa Major",
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
@@ -118,7 +118,7 @@ const MIZAR: RealData = RealData {
 
 const MERAK: RealData = RealData {
     common_name: "Merak",
-    astronomical_name: "Beta Ursae Majoris",
+    astronomical_name: "β Ursae Majoris",
     constellation: "Ursa Major",
     radius: Some(Distance {
         m: 3.021 * SOLAR_RADIUS.m,
@@ -144,7 +144,7 @@ const MERAK: RealData = RealData {
 
 const PHECDA: RealData = RealData {
     common_name: "Phecda",
-    astronomical_name: "Gamma Ursae Majoris",
+    astronomical_name: "γ Ursae Majoris",
     constellation: "Ursa Major",
     radius: Some(Distance {
         m: 3.04 * SOLAR_RADIUS.m,
@@ -170,7 +170,7 @@ const PHECDA: RealData = RealData {
 
 const TANIA_AUSTRALIS: RealData = RealData {
     common_name: "Tania Australis",
-    astronomical_name: "Mu Ursae Majoris",
+    astronomical_name: "μ Ursae Majoris",
     constellation: "Ursa Major",
     radius: Some(Distance {
         m: 75. * SOLAR_RADIUS.m,
@@ -194,7 +194,7 @@ const TANIA_AUSTRALIS: RealData = RealData {
 
 const MEGREZ: RealData = RealData {
     common_name: "Megrez",
-    astronomical_name: "Delta Ursae Majoris",
+    astronomical_name: "δ Ursae Majoris",
     constellation: "Ursa Major",
     radius: Some(Distance {
         m: 1.4 * SOLAR_RADIUS.m,

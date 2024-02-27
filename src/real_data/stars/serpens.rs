@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const UNUKALHAI: RealData = RealData {
     common_name: "Unukalhai",
-    astronomical_name: "Alpha Serpentis",
+    astronomical_name: "α Serpentis",
     constellation: "Serpens",
     radius: Some(Distance {
         m: 13.48 * SOLAR_RADIUS.m,
@@ -38,7 +38,7 @@ const UNUKALHAI: RealData = RealData {
 
 const BETA_SERPENTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Serpentis",
+    astronomical_name: "β Serpentis",
     constellation: "Serpens",
     right_ascension: RightAscension::new(15, 46, 11),
     declination: Declination::new(Sgn::Pos, 15, 25, 19),
@@ -62,7 +62,7 @@ const BETA_SERPENTIS: RealData = RealData {
 
 const MU_SERPENTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Mu Serpentis",
+    astronomical_name: "μ Serpentis",
     constellation: "Serpens",
     right_ascension: RightAscension::new(15, 49, 37),
     declination: Declination::new(Sgn::Neg, 3, 25, 49),

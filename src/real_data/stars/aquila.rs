@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALTAIR: RealData = RealData {
     common_name: "Altair",
-    astronomical_name: "Alpha Aquilae",
+    astronomical_name: "α Aquilae",
     constellation: "Aquila",
     radius: Some(Distance {
         m: 1.63 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALTAIR: RealData = RealData {
 
 const TARAZED: RealData = RealData {
     common_name: "Tarazed",
-    astronomical_name: "Gamma Aquilae",
+    astronomical_name: "γ Aquilae",
     constellation: "Aquila",
     radius: Some(Distance {
         m: 91.82 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const TARAZED: RealData = RealData {
 
 const OKAB: RealData = RealData {
     common_name: "Okab",
-    astronomical_name: "Zeta Aquilae",
+    astronomical_name: "ζ Aquilae",
     constellation: "Aquila",
     right_ascension: RightAscension::new(19, 5, 25),
     declination: Declination::new(Sgn::Pos, 13, 51, 49),
@@ -92,7 +92,7 @@ const OKAB: RealData = RealData {
 
 const THETA_AQUILAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Theta Aquilae",
+    astronomical_name: "θ Aquilae",
     constellation: "Aquila",
     right_ascension: RightAscension::new(20, 11, 18),
     declination: Declination::new(Sgn::Neg, 0, 49, 17),
@@ -118,7 +118,7 @@ const THETA_AQUILAE: RealData = RealData {
 
 const DELTA_AQUILAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Aquilae",
+    astronomical_name: "δ Aquilae",
     constellation: "Aquila",
     right_ascension: RightAscension::new(19, 25, 30),
     declination: Declination::new(Sgn::Pos, 3, 6, 53),
@@ -142,7 +142,7 @@ const DELTA_AQUILAE: RealData = RealData {
 
 const LAMBDA_AQUILAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Lambda Aquilae",
+    astronomical_name: "λ Aquilae",
     constellation: "Aquila",
     right_ascension: RightAscension::new(19, 6, 15),
     declination: Declination::new(Sgn::Neg, 4, 52, 57),

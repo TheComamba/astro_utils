@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const VEGA: RealData = RealData {
     common_name: "Vega",
-    astronomical_name: "Alpha Lyrae",
+    astronomical_name: "α Lyrae",
     constellation: "Lyra",
     radius: Some(Distance {
         m: 2.362 * SOLAR_RADIUS.m,
@@ -62,7 +62,7 @@ const R_LYRAE: RealData = RealData {
 
 const GAMMA_LYRAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Lyrae",
+    astronomical_name: "γ Lyrae",
     constellation: "Lyra",
     right_ascension: RightAscension::new(18, 58, 57),
     declination: Declination::new(Sgn::Pos, 32, 41, 22),
@@ -86,7 +86,7 @@ const GAMMA_LYRAE: RealData = RealData {
 
 const BETA_LYRAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Lyrae",
+    astronomical_name: "β Lyrae",
     constellation: "Lyra",
     right_ascension: RightAscension::new(18, 50, 5),
     declination: Declination::new(Sgn::Pos, 33, 21, 46),

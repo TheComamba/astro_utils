@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_LACERTAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Lacertae",
+    astronomical_name: "α Lacertae",
     constellation: "Lacerta",
     right_ascension: RightAscension::new(22, 31, 18),
     declination: Declination::new(Sgn::Pos, 50, 16, 57),
@@ -40,7 +40,7 @@ const ALPHA_LACERTAE: RealData = RealData {
 
 const BETA_LACERTAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Lacertae",
+    astronomical_name: "β Lacertae",
     constellation: "Lacerta",
     right_ascension: RightAscension::new(22, 23, 34),
     declination: Declination::new(Sgn::Pos, 52, 13, 45),

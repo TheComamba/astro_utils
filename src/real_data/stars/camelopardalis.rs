@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const BETA_CAMELOPARDALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Camelopardalis",
+    astronomical_name: "β Camelopardalis",
     constellation: "Camelopardalis",
     radius: Some(Distance {
         m: 58. * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const CS_CAMELOPARDALIS: RealData = RealData {
 
 const ALPHA_CAMELOPARDALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Camelopardalis",
+    astronomical_name: "α Camelopardalis",
     constellation: "Camelopardalis",
     radius: Some(Distance {
         m: 32.5 * SOLAR_RADIUS.m,

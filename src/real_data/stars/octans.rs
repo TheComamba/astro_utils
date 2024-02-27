@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const NU_OCTANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Nu Octantis",
+    astronomical_name: "ν Octantis",
     constellation: "Octans",
     right_ascension: RightAscension::new(21, 41, 29),
     declination: Declination::new(Sgn::Neg, 77, 23, 24),
@@ -40,7 +40,7 @@ const NU_OCTANTIS: RealData = RealData {
 
 const BETA_OCTANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Octantis",
+    astronomical_name: "β Octantis",
     constellation: "Octans",
     right_ascension: RightAscension::new(22, 46, 4),
     declination: Declination::new(Sgn::Neg, 81, 22, 54),
@@ -66,7 +66,7 @@ const BETA_OCTANTIS: RealData = RealData {
 
 const DELTA_OCTANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Octantis",
+    astronomical_name: "δ Octantis",
     constellation: "Octans",
     right_ascension: RightAscension::new(14, 26, 55),
     declination: Declination::new(Sgn::Neg, 83, 40, 4),

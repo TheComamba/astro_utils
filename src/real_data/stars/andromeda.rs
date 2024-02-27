@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHERATZ: RealData = RealData {
     common_name: "Alpheratz",
-    astronomical_name: "Alpha Andromedae",
+    astronomical_name: "α Andromedae",
     constellation: "Andromeda",
     radius: Some(Distance {
         m: 2.7 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALPHERATZ: RealData = RealData {
 
 const MIRACH: RealData = RealData {
     common_name: "Mirach",
-    astronomical_name: "Beta Andromedae",
+    astronomical_name: "β Andromedae",
     constellation: "Andromeda",
     radius: Some(Distance {
         m: 100. * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const MIRACH: RealData = RealData {
 
 const ALMACH: RealData = RealData {
     common_name: "Almach",
-    astronomical_name: "Gamma Andromedae",
+    astronomical_name: "γ Andromedae",
     constellation: "Andromeda",
     radius: Some(Distance {
         m: 80. * SOLAR_RADIUS.m,

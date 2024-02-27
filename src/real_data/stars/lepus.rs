@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ARNEB: RealData = RealData {
     common_name: "Arneb",
-    astronomical_name: "Alpha Leporis",
+    astronomical_name: "α Leporis",
     constellation: "Lepus",
     radius: Some(Distance {
         m: 75. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ARNEB: RealData = RealData {
 
 const BETA_LEPORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Leporis",
+    astronomical_name: "β Leporis",
     constellation: "Lepus",
     right_ascension: RightAscension::new(5, 28, 15),
     declination: Declination::new(Sgn::Neg, 20, 45, 34),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const PHACT: RealData = RealData {
     common_name: "Phact",
-    astronomical_name: "Alpha Columbae",
+    astronomical_name: "α Columbae",
     constellation: "Columba",
     right_ascension: RightAscension::new(5, 39, 39),
     declination: Declination::new(Sgn::Neg, 34, 4, 27),
@@ -40,7 +40,7 @@ const PHACT: RealData = RealData {
 
 const WAZN: RealData = RealData {
     common_name: "Wazn",
-    astronomical_name: "Beta Columbae",
+    astronomical_name: "β Columbae",
     constellation: "Columba",
     right_ascension: RightAscension::new(5, 50, 58),
     declination: Declination::new(Sgn::Neg, 35, 46, 6),
@@ -66,7 +66,7 @@ const WAZN: RealData = RealData {
 
 const DELTA_COLUMBAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Columbae",
+    astronomical_name: "δ Columbae",
     constellation: "Columba",
     right_ascension: RightAscension::new(6, 22, 7),
     declination: Declination::new(Sgn::Neg, 33, 26, 11),
@@ -88,7 +88,7 @@ const DELTA_COLUMBAE: RealData = RealData {
 
 const EPSILON_COLUMBAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Columbae",
+    astronomical_name: "ε Columbae",
     constellation: "Columba",
     right_ascension: RightAscension::new(5, 31, 13),
     declination: Declination::new(Sgn::Neg, 35, 28, 14),

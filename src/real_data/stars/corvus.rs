@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const GHURAB: RealData = RealData {
     common_name: "Ghurab",
-    astronomical_name: "Gamma Corvi",
+    astronomical_name: "γ Corvi",
     constellation: "Corvus",
     radius: None,
     mass: Mass {
@@ -38,7 +38,7 @@ const GHURAB: RealData = RealData {
 
 const KRAZ: RealData = RealData {
     common_name: "Kraz",
-    astronomical_name: "Beta Corvi",
+    astronomical_name: "β Corvi",
     constellation: "Corvus",
     radius: Some(Distance {
         m: 16. * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const KRAZ: RealData = RealData {
 
 const ALGORAB: RealData = RealData {
     common_name: "Algorab",
-    astronomical_name: "Delta Corvi",
+    astronomical_name: "δ Corvi",
     constellation: "Corvus",
     right_ascension: RightAscension::new(12, 29, 52),
     declination: Declination::new(Sgn::Neg, 16, 30, 56),
@@ -88,7 +88,7 @@ const ALGORAB: RealData = RealData {
 
 const EPSILON_CORVI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Corvi",
+    astronomical_name: "ε Corvi",
     constellation: "Corvus",
     right_ascension: RightAscension::new(12, 10, 7),
     declination: Declination::new(Sgn::Neg, 22, 37, 11),

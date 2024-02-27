@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const KITALPHA: RealData = RealData {
     common_name: "Kitalpha",
-    astronomical_name: "Alpha Equulei",
+    astronomical_name: "α Equulei",
     constellation: "Equuleus",
     right_ascension: RightAscension::new(21, 15, 49),
     declination: Declination::new(Sgn::Pos, 5, 14, 52),
@@ -38,7 +38,7 @@ const KITALPHA: RealData = RealData {
 
 const DELTA_EQUULEI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Equulei",
+    astronomical_name: "δ Equulei",
     constellation: "Equuleus",
     right_ascension: RightAscension::new(21, 14, 29),
     declination: Declination::new(Sgn::Pos, 10, 0, 25),
@@ -64,7 +64,7 @@ const DELTA_EQUULEI: RealData = RealData {
 
 const GAMMA_EQUULEI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Equulei",
+    astronomical_name: "γ Equulei",
     constellation: "Equuleus",
     right_ascension: RightAscension::new(21, 10, 21),
     declination: Declination::new(Sgn::Pos, 10, 7, 54),

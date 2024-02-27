@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_SCUTI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Scuti",
+    astronomical_name: "α Scuti",
     constellation: "Scutum",
     right_ascension: RightAscension::new(18, 35, 12),
     declination: Declination::new(Sgn::Neg, 8, 14, 39),
@@ -38,7 +38,7 @@ const ALPHA_SCUTI: RealData = RealData {
 
 const BETA_SCUTI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Scuti",
+    astronomical_name: "β Scuti",
     constellation: "Scutum",
     right_ascension: RightAscension::new(18, 47, 10),
     declination: Declination::new(Sgn::Neg, 4, 44, 52),
@@ -60,7 +60,7 @@ const BETA_SCUTI: RealData = RealData {
 
 const ZETA_SCUTI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Scuti",
+    astronomical_name: "ζ Scuti",
     constellation: "Scutum",
     right_ascension: RightAscension::new(18, 23, 40),
     declination: Declination::new(Sgn::Neg, 8, 56, 4),

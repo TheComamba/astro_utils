@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_CIRCINI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Circini",
+    astronomical_name: "α Circini",
     constellation: "Circinus",
     right_ascension: RightAscension::new(14, 42, 30),
     declination: Declination::new(Sgn::Neg, 64, 58, 30),
@@ -40,7 +40,7 @@ const ALPHA_CIRCINI: RealData = RealData {
 
 const BETA_CIRCINI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Circini",
+    astronomical_name: "β Circini",
     constellation: "Circinus",
     right_ascension: RightAscension::new(15, 17, 31),
     declination: Declination::new(Sgn::Neg, 58, 48, 4),
@@ -66,7 +66,7 @@ const BETA_CIRCINI: RealData = RealData {
 
 const GAMMA_CIRCINI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Circini",
+    astronomical_name: "γ Circini",
     constellation: "Circinus",
     right_ascension: RightAscension::new(15, 23, 23),
     declination: Declination::new(Sgn::Neg, 59, 19, 15),

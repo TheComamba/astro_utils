@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const TARF: RealData = RealData {
     common_name: "Tarf",
-    astronomical_name: "Beta Cancri",
+    astronomical_name: "β Cancri",
     constellation: "Cancer",
     radius: Some(Distance {
         m: 47.2 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const TARF: RealData = RealData {
 
 const ASELLUS_AUSTRALIS: RealData = RealData {
     common_name: "Asellus Australis",
-    astronomical_name: "Delta Cancri",
+    astronomical_name: "δ Cancri",
     constellation: "Cancer",
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const ASELLUS_AUSTRALIS: RealData = RealData {
 
 const IOTA_CANCRI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Iota Cancri",
+    astronomical_name: "ι Cancri",
     constellation: "Cancer",
     radius: Some(Distance {
         m: 21. * SOLAR_RADIUS.m,

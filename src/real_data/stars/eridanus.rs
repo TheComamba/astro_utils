@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ACHERNAR: RealData = RealData {
     common_name: "Achernar",
-    astronomical_name: "Alpha Eridani",
+    astronomical_name: "α Eridani",
     constellation: "Eridanus",
     radius: Some(Distance {
         m: 6.78 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ACHERNAR: RealData = RealData {
 
 const ZAURAK: RealData = RealData {
     common_name: "Zaurak",
-    astronomical_name: "Gamma Eridani",
+    astronomical_name: "γ Eridani",
     constellation: "Eridanus",
     radius: Some(Distance {
         m: 80. * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const ZAURAK: RealData = RealData {
 
 const CURSA: RealData = RealData {
     common_name: "Cursa",
-    astronomical_name: "Beta Eridani",
+    astronomical_name: "β Eridani",
     constellation: "Eridanus",
     right_ascension: RightAscension::new(5, 7, 51),
     declination: Declination::new(Sgn::Neg, 5, 5, 11),
@@ -88,7 +88,7 @@ const CURSA: RealData = RealData {
 
 const ACAMAR: RealData = RealData {
     common_name: "Acamar",
-    astronomical_name: "Theta Eridani",
+    astronomical_name: "θ Eridani",
     constellation: "Eridanus",
     right_ascension: RightAscension::new(2, 58, 16),
     declination: Declination::new(Sgn::Neg, 40, 18, 17),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_MONOCEROTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Monocerotis",
+    astronomical_name: "α Monocerotis",
     constellation: "Monoceros",
     right_ascension: RightAscension::new(7, 41, 15),
     declination: Declination::new(Sgn::Neg, 9, 33, 4),
@@ -40,7 +40,7 @@ const ALPHA_MONOCEROTIS: RealData = RealData {
 
 const GAMMA_MONOCEROTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Monocerotis",
+    astronomical_name: "γ Monocerotis",
     constellation: "Monoceros",
     right_ascension: RightAscension::new(6, 14, 51),
     declination: Declination::new(Sgn::Neg, 6, 16, 29),
@@ -62,7 +62,7 @@ const GAMMA_MONOCEROTIS: RealData = RealData {
 
 const DELTA_MONOCEROTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Monocerotis",
+    astronomical_name: "δ Monocerotis",
     constellation: "Monoceros",
     right_ascension: RightAscension::new(7, 11, 52),
     declination: Declination::new(Sgn::Neg, 0, 29, 34),

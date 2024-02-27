@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_RETICULI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Reticuli",
+    astronomical_name: "α Reticuli",
     constellation: "Reticulum",
     right_ascension: RightAscension::new(4, 14, 25),
     declination: Declination::new(Sgn::Neg, 62, 28, 26),
@@ -40,7 +40,7 @@ const ALPHA_RETICULI: RealData = RealData {
 
 const BETA_RETICULI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Reticuli",
+    astronomical_name: "β Reticuli",
     constellation: "Reticulum",
     right_ascension: RightAscension::new(3, 44, 12),
     declination: Declination::new(Sgn::Neg, 64, 48, 25),
@@ -66,7 +66,7 @@ const BETA_RETICULI: RealData = RealData {
 
 const EPSILON_RETICULI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Reticuli",
+    astronomical_name: "ε Reticuli",
     constellation: "Reticulum",
     right_ascension: RightAscension::new(4, 16, 29),
     declination: Declination::new(Sgn::Neg, 59, 18, 8),

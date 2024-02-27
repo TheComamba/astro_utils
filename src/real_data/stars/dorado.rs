@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_DORADUS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Doradus",
+    astronomical_name: "α Doradus",
     constellation: "Dorado",
     right_ascension: RightAscension::new(4, 33, 60),
     declination: Declination::new(Sgn::Neg, 55, 2, 42),
@@ -38,7 +38,7 @@ const ALPHA_DORADUS: RealData = RealData {
 
 const BETA_DORADUS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Doradus",
+    astronomical_name: "β Doradus",
     constellation: "Dorado",
     right_ascension: RightAscension::new(5, 33, 38),
     declination: Declination::new(Sgn::Neg, 62, 29, 23),
@@ -64,7 +64,7 @@ const BETA_DORADUS: RealData = RealData {
 
 const GAMMA_DORADUS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Doradus",
+    astronomical_name: "γ Doradus",
     constellation: "Dorado",
     right_ascension: RightAscension::new(4, 16, 2),
     declination: Declination::new(Sgn::Neg, 51, 29, 12),

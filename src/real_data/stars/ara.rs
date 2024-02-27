@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_ARAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Arae",
+    astronomical_name: "α Arae",
     constellation: "Ara",
     right_ascension: RightAscension::new(17, 31, 50),
     declination: Declination::new(Sgn::Neg, 49, 52, 34),
@@ -40,7 +40,7 @@ const ALPHA_ARAE: RealData = RealData {
 
 const BETA_ARAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Arae",
+    astronomical_name: "β Arae",
     constellation: "Ara",
     radius: Some(Distance {
         m: 142. * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const BETA_ARAE: RealData = RealData {
 
 const GAMMA_ARAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Arae",
+    astronomical_name: "γ Arae",
     constellation: "Ara",
     right_ascension: RightAscension::new(17, 25, 24),
     declination: Declination::new(Sgn::Neg, 56, 22, 40),
@@ -92,7 +92,7 @@ const GAMMA_ARAE: RealData = RealData {
 
 const DELTA_ARAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Arae",
+    astronomical_name: "δ Arae",
     constellation: "Ara",
     right_ascension: RightAscension::new(17, 31, 6),
     declination: Declination::new(Sgn::Neg, 60, 41, 2),
@@ -118,7 +118,7 @@ const DELTA_ARAE: RealData = RealData {
 
 const ZETA_ARAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Arae",
+    astronomical_name: "ζ Arae",
     constellation: "Ara",
     right_ascension: RightAscension::new(16, 58, 37),
     declination: Declination::new(Sgn::Neg, 55, 59, 25),

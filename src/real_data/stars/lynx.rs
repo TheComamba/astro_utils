@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_LYNCIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Lyncis",
+    astronomical_name: "α Lyncis",
     constellation: "Lynx",
     radius: Some(Distance {
         m: 54.5 * SOLAR_RADIUS.m,

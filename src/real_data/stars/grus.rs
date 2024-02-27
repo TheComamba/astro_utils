@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALNAIR: RealData = RealData {
     common_name: "Alnair",
-    astronomical_name: "Alpha Gruis",
+    astronomical_name: "α Gruis",
     constellation: "Grus",
     radius: Some(Distance {
         m: 3.4 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALNAIR: RealData = RealData {
 
 const TIAKI: RealData = RealData {
     common_name: "Tiaki",
-    astronomical_name: "Beta Gruis",
+    astronomical_name: "β Gruis",
     constellation: "Grus",
     radius: Some(Distance {
         m: 180. * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const TIAKI: RealData = RealData {
 
 const ALDHANAB: RealData = RealData {
     common_name: "Aldhanab",
-    astronomical_name: "Gamma Gruis",
+    astronomical_name: "γ Gruis",
     constellation: "Grus",
     right_ascension: RightAscension::new(21, 53, 56),
     declination: Declination::new(Sgn::Neg, 37, 21, 53),

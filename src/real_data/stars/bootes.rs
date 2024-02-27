@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ARCTURUS: RealData = RealData {
     common_name: "Arcturus",
-    astronomical_name: "Alpha Boötis",
+    astronomical_name: "α Boötis",
     constellation: "Boötes",
     radius: Some(Distance {
         m: 25.4 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ARCTURUS: RealData = RealData {
 
 const IZAR: RealData = RealData {
     common_name: "Izar",
-    astronomical_name: "Epsilon Boötis",
+    astronomical_name: "ε Boötis",
     constellation: "Boötes",
     radius: Some(Distance {
         m: 33. * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const IZAR: RealData = RealData {
 
 const GAMMA_BOOTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Boötis",
+    astronomical_name: "γ Boötis",
     constellation: "Boötes",
     right_ascension: RightAscension::new(14, 32, 5),
     declination: Declination::new(Sgn::Pos, 38, 18, 30),
@@ -92,7 +92,7 @@ const GAMMA_BOOTIS: RealData = RealData {
 
 const DELTA_BOOTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Boötis",
+    astronomical_name: "δ Boötis",
     constellation: "Boötes",
     right_ascension: RightAscension::new(15, 15, 30),
     declination: Declination::new(Sgn::Pos, 33, 18, 53),
@@ -116,7 +116,7 @@ const DELTA_BOOTIS: RealData = RealData {
 
 const BETA_BOOTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Boötis",
+    astronomical_name: "β Boötis",
     constellation: "Boötes",
     right_ascension: RightAscension::new(15, 1, 57),
     declination: Declination::new(Sgn::Pos, 40, 23, 26),
@@ -142,7 +142,7 @@ const BETA_BOOTIS: RealData = RealData {
 
 const MUPHRID: RealData = RealData {
     common_name: "Muphrid",
-    astronomical_name: "Eta Boötis",
+    astronomical_name: "η Boötis",
     constellation: "Boötes",
     right_ascension: RightAscension::new(13, 54, 41),
     declination: Declination::new(Sgn::Pos, 18, 23, 52),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_LUPI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Lupi",
+    astronomical_name: "α Lupi",
     constellation: "Lupus",
     radius: None,
     mass: Mass {
@@ -38,7 +38,7 @@ const ALPHA_LUPI: RealData = RealData {
 
 const BETA_LUPI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Lupi",
+    astronomical_name: "β Lupi",
     constellation: "Lupus",
     right_ascension: RightAscension::new(14, 58, 32),
     declination: Declination::new(Sgn::Neg, 43, 8, 2),
@@ -64,7 +64,7 @@ const BETA_LUPI: RealData = RealData {
 
 const GAMMA_LUPI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Lupi",
+    astronomical_name: "γ Lupi",
     constellation: "Lupus",
     right_ascension: RightAscension::new(15, 35, 8),
     declination: Declination::new(Sgn::Neg, 41, 10, 0),

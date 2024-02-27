@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const GAMMA_SAGITTAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Sagittae",
+    astronomical_name: "γ Sagittae",
     constellation: "Sagitta",
     right_ascension: RightAscension::new(19, 58, 45),
     declination: Declination::new(Sgn::Pos, 19, 29, 32),
@@ -40,7 +40,7 @@ const GAMMA_SAGITTAE: RealData = RealData {
 
 const DELTA_SAGITTAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Sagittae",
+    astronomical_name: "δ Sagittae",
     constellation: "Sagitta",
     right_ascension: RightAscension::new(19, 47, 23),
     declination: Declination::new(Sgn::Pos, 18, 32, 4),
@@ -64,7 +64,7 @@ const DELTA_SAGITTAE: RealData = RealData {
 
 const ALPHA_SAGITTAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Sagittae",
+    astronomical_name: "α Sagittae",
     constellation: "Sagitta",
     right_ascension: RightAscension::new(19, 40, 6),
     declination: Declination::new(Sgn::Pos, 18, 0, 50),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const DIPHDA: RealData = RealData {
     common_name: "Diphda",
-    astronomical_name: "Beta Ceti",
+    astronomical_name: "β Ceti",
     constellation: "Cetus",
     radius: Some(Distance {
         m: 16.78 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const DIPHDA: RealData = RealData {
 
 const MENKAR: RealData = RealData {
     common_name: "Menkar",
-    astronomical_name: "Alpha Ceti",
+    astronomical_name: "α Ceti",
     constellation: "Cetus",
     radius: Some(Distance {
         m: 89. * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const MENKAR: RealData = RealData {
 
 const MIRA: RealData = RealData {
     common_name: "Mira",
-    astronomical_name: "Omicron Ceti",
+    astronomical_name: "ο Ceti",
     constellation: "Cetus",
     right_ascension: RightAscension::new(2, 19, 21),
     declination: Declination::new(Sgn::Neg, 2, 58, 39),
@@ -90,7 +90,7 @@ const MIRA: RealData = RealData {
 
 const BATEN_KAITOS: RealData = RealData {
     common_name: "Baten Kaitos",
-    astronomical_name: "Zeta Ceti",
+    astronomical_name: "ζ Ceti",
     constellation: "Cetus",
     right_ascension: RightAscension::new(1, 51, 28),
     declination: Declination::new(Sgn::Neg, 10, 20, 6),
@@ -116,7 +116,7 @@ const BATEN_KAITOS: RealData = RealData {
 
 const KAFFALJIDHMA: RealData = RealData {
     common_name: "Kaffaljidhma",
-    astronomical_name: "Gamma Ceti",
+    astronomical_name: "γ Ceti",
     constellation: "Cetus",
     right_ascension: RightAscension::new(2, 43, 18),
     declination: Declination::new(Sgn::Pos, 3, 14, 9),
@@ -142,7 +142,7 @@ const KAFFALJIDHMA: RealData = RealData {
 
 const IOTA_CETI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Iota Ceti",
+    astronomical_name: "ι Ceti",
     constellation: "Cetus",
     right_ascension: RightAscension::new(0, 19, 26),
     declination: Declination::new(Sgn::Neg, 8, 49, 26),
@@ -168,7 +168,7 @@ const IOTA_CETI: RealData = RealData {
 
 const DENEB_ALGENUBI: RealData = RealData {
     common_name: "Deneb Algenubi",
-    astronomical_name: "Eta Ceti",
+    astronomical_name: "η Ceti",
     constellation: "Cetus",
     right_ascension: RightAscension::new(1, 8, 35),
     declination: Declination::new(Sgn::Neg, 10, 10, 56),
@@ -194,7 +194,7 @@ const DENEB_ALGENUBI: RealData = RealData {
 
 const TAU_CETI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Tau Ceti",
+    astronomical_name: "τ Ceti",
     constellation: "Cetus",
     right_ascension: RightAscension::new(1, 44, 4),
     declination: Declination::new(Sgn::Neg, 15, 56, 15),

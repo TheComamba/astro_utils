@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const POLARIS: RealData = RealData {
     common_name: "Polaris",
-    astronomical_name: "Alpha Ursae Minoris",
+    astronomical_name: "α Ursae Minoris",
     constellation: "Ursa Minor",
     radius: Some(Distance {
         m: 37.5 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const POLARIS: RealData = RealData {
 
 const KOCHAB: RealData = RealData {
     common_name: "Kochab",
-    astronomical_name: "Beta Ursae Minoris",
+    astronomical_name: "β Ursae Minoris",
     constellation: "Ursa Minor",
     radius: Some(Distance {
         m: 42.06 * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const KOCHAB: RealData = RealData {
 
 const ZETA_URSAE_MINORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Ursae Minoris",
+    astronomical_name: "ζ Ursae Minoris",
     constellation: "Ursa Minor",
     right_ascension: RightAscension::new(15, 44, 4),
     declination: Declination::new(Sgn::Pos, 77, 47, 40),
@@ -90,7 +90,7 @@ const ZETA_URSAE_MINORIS: RealData = RealData {
 
 const DELTA_URSAE_MINORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Ursae Minoris",
+    astronomical_name: "δ Ursae Minoris",
     constellation: "Ursa Minor",
     right_ascension: RightAscension::new(17, 32, 13),
     declination: Declination::new(Sgn::Pos, 86, 35, 11),
@@ -116,7 +116,7 @@ const DELTA_URSAE_MINORIS: RealData = RealData {
 
 const ETA_URSAE_MINORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Eta Ursae Minoris",
+    astronomical_name: "η Ursae Minoris",
     constellation: "Ursa Minor",
     right_ascension: RightAscension::new(16, 17, 30),
     declination: Declination::new(Sgn::Pos, 75, 45, 19),
@@ -142,7 +142,7 @@ const ETA_URSAE_MINORIS: RealData = RealData {
 
 const PHERKAD: RealData = RealData {
     common_name: "Pherkad",
-    astronomical_name: "Gamma Ursae Minoris",
+    astronomical_name: "γ Ursae Minoris",
     constellation: "Ursa Minor",
     right_ascension: RightAscension::new(15, 20, 44),
     declination: Declination::new(Sgn::Pos, 71, 50, 2),
@@ -168,7 +168,7 @@ const PHERKAD: RealData = RealData {
 
 const EPSILON_URSAE_MINORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Ursae Minoris",
+    astronomical_name: "ε Ursae Minoris",
     constellation: "Ursa Minor",
     right_ascension: RightAscension::new(16, 45, 58),
     declination: Declination::new(Sgn::Pos, 82, 2, 14),
