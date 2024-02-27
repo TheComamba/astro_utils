@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const REGOR: RealData = RealData {
     common_name: "Regor",
-    astronomical_name: "Gamma Velorum",
+    astronomical_name: "γ Velorum",
     constellation: "Vela",
     radius: Some(Distance {
         m: 17. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const REGOR: RealData = RealData {
 
 const ALSEPHINA: RealData = RealData {
     common_name: "Alsephina",
-    astronomical_name: "Delta Velorum",
+    astronomical_name: "δ Velorum",
     constellation: "Vela",
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const ALSEPHINA: RealData = RealData {
 
 const SUHAIL: RealData = RealData {
     common_name: "Suhail",
-    astronomical_name: "Lambda Velorum",
+    astronomical_name: "λ Velorum",
     constellation: "Vela",
     radius: Some(Distance {
         m: 210. * SOLAR_RADIUS.m,
@@ -92,7 +92,7 @@ const SUHAIL: RealData = RealData {
 
 const MARKEB: RealData = RealData {
     common_name: "Markeb",
-    astronomical_name: "Kappa Velorum",
+    astronomical_name: "κ Velorum",
     constellation: "Vela",
     radius: Some(Distance {
         m: 9.1 * SOLAR_RADIUS.m,

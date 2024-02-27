@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const CANOPUS: RealData = RealData {
     common_name: "Canopus",
-    astronomical_name: "Alpha Carinae",
+    astronomical_name: "α Carinae",
     constellation: "Carina",
     radius: Some(Distance {
         m: 72. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const CANOPUS: RealData = RealData {
 
 const MIAPLACIDUS: RealData = RealData {
     common_name: "Miaplacidus",
-    astronomical_name: "Beta Carinae",
+    astronomical_name: "β Carinae",
     constellation: "Carina",
     radius: Some(Distance {
         m: 6.8 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const MIAPLACIDUS: RealData = RealData {
 
 const AVIOR: RealData = RealData {
     common_name: "Avior",
-    astronomical_name: "Epsilon Carinae",
+    astronomical_name: "ε Carinae",
     constellation: "Carina",
     radius: None,
     mass: Mass {
@@ -90,7 +90,7 @@ const AVIOR: RealData = RealData {
 
 const ASPIDISKE: RealData = RealData {
     common_name: "Aspidiske",
-    astronomical_name: "Iota Carinae",
+    astronomical_name: "ι Carinae",
     constellation: "Carina",
     radius: Some(Distance {
         m: 43. * SOLAR_RADIUS.m,

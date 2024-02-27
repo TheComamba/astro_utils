@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const SIRIUS: RealData = RealData {
     common_name: "Sirius",
-    astronomical_name: "Alpha Canis Majoris",
+    astronomical_name: "α Canis Majoris",
     constellation: "Canis Major",
     radius: Some(Distance {
         m: 1.711 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const SIRIUS: RealData = RealData {
 
 const ADHARA: RealData = RealData {
     common_name: "Adhara",
-    astronomical_name: "Epsilon Canis Majoris",
+    astronomical_name: "ε Canis Majoris",
     constellation: "Canis Major",
     radius: Some(Distance {
         m: 13.9 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const ADHARA: RealData = RealData {
 
 const WEZEN: RealData = RealData {
     common_name: "Wezen",
-    astronomical_name: "Delta Canis Majoris",
+    astronomical_name: "δ Canis Majoris",
     constellation: "Canis Major",
     radius: Some(Distance {
         m: 215. * SOLAR_RADIUS.m,
@@ -92,7 +92,7 @@ const WEZEN: RealData = RealData {
 
 const MIRZAM: RealData = RealData {
     common_name: "Mirzam",
-    astronomical_name: "Beta Canis Majoris",
+    astronomical_name: "β Canis Majoris",
     constellation: "Canis Major",
     radius: Some(Distance {
         m: 9.7 * SOLAR_RADIUS.m,
@@ -118,7 +118,7 @@ const MIRZAM: RealData = RealData {
 
 const ALUDRA: RealData = RealData {
     common_name: "Aludra",
-    astronomical_name: "Eta Canis Majoris",
+    astronomical_name: "η Canis Majoris",
     constellation: "Canis Major",
     radius: Some(Distance {
         m: 54. * SOLAR_RADIUS.m,

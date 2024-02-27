@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_CHAMAELEONTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Chamaeleontis",
+    astronomical_name: "α Chamaeleontis",
     constellation: "Chamaeleon",
     right_ascension: RightAscension::new(8, 18, 32),
     declination: Declination::new(Sgn::Neg, 76, 55, 11),
@@ -40,7 +40,7 @@ const ALPHA_CHAMAELEONTIS: RealData = RealData {
 
 const GAMMA_CHAMAELEONTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Chamaeleontis",
+    astronomical_name: "γ Chamaeleontis",
     constellation: "Chamaeleon",
     right_ascension: RightAscension::new(10, 35, 28),
     declination: Declination::new(Sgn::Neg, 78, 36, 28),
@@ -64,7 +64,7 @@ const GAMMA_CHAMAELEONTIS: RealData = RealData {
 
 const BETA_CHAMAELEONIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Chamaeleontis",
+    astronomical_name: "β Chamaeleontis",
     constellation: "Chamaeleon",
     right_ascension: RightAscension::new(12, 18, 21),
     declination: Declination::new(Sgn::Neg, 79, 18, 44),

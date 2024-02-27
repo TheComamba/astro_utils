@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const SADALSUUD: RealData = RealData {
     common_name: "Sadalsuud",
-    astronomical_name: "Beta Aquarii",
+    astronomical_name: "β Aquarii",
     constellation: "Aquarius",
     radius: Some(Distance {
         m: 47.88 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const SADALSUUD: RealData = RealData {
 
 const SADALMELIK: RealData = RealData {
     common_name: "Sadalmelik",
-    astronomical_name: "Alpha Aquarii",
+    astronomical_name: "α Aquarii",
     constellation: "Aquarius",
     radius: Some(Distance {
         m: 53.89 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const SADALMELIK: RealData = RealData {
 
 const SKAT: RealData = RealData {
     common_name: "Skat",
-    astronomical_name: "Delta Aquarii",
+    astronomical_name: "δ Aquarii",
     constellation: "Aquarius",
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,

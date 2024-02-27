@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ATRIA: RealData = RealData {
     common_name: "Atria",
-    astronomical_name: "Alpha Trianguli Australis",
+    astronomical_name: "α Trianguli Australis",
     constellation: "Triangulum Australe",
     radius: Some(Distance {
         m: 143. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ATRIA: RealData = RealData {
 
 const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Trianguli Australis",
+    astronomical_name: "β Trianguli Australis",
     constellation: "Triangulum Australe",
     right_ascension: RightAscension::new(15, 55, 9),
     declination: Declination::new(Sgn::Neg, 63, 25, 51),
@@ -66,7 +66,7 @@ const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
 
 const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Trianguli Australis",
+    astronomical_name: "γ Trianguli Australis",
     constellation: "Triangulum Australe",
     right_ascension: RightAscension::new(15, 18, 55),
     declination: Declination::new(Sgn::Neg, 68, 40, 46),

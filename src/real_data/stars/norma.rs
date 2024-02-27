@@ -10,7 +10,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const GAMMA2_NORMAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma2 Normae",
+    astronomical_name: "γ2 Normae",
     constellation: "Norma",
     right_ascension: RightAscension::new(16, 19, 50),
     declination: Declination::new(Sgn::Neg, 50, 9, 20),
@@ -32,7 +32,7 @@ const GAMMA2_NORMAE: RealData = RealData {
 
 const EPSILON_NORMAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Normae",
+    astronomical_name: "ε Normae",
     constellation: "Norma",
     right_ascension: RightAscension::new(16, 27, 11),
     declination: Declination::new(Sgn::Neg, 47, 33, 17),
@@ -56,7 +56,7 @@ const EPSILON_NORMAE: RealData = RealData {
 
 const IOTA1_NORMAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Iota1 Normae",
+    astronomical_name: "ι1 Normae",
     constellation: "Norma",
     right_ascension: RightAscension::new(16, 3, 32),
     declination: Declination::new(Sgn::Neg, 57, 46, 30),

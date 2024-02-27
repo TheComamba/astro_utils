@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALKES: RealData = RealData {
     common_name: "Alkes",
-    astronomical_name: "Alpha Crateris",
+    astronomical_name: "α Crateris",
     constellation: "Crater",
     right_ascension: RightAscension::new(10, 59, 46),
     declination: Declination::new(Sgn::Neg, 18, 17, 56),
@@ -40,7 +40,7 @@ const ALKES: RealData = RealData {
 
 const BETA_CRATERIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Crateris",
+    astronomical_name: "β Crateris",
     constellation: "Crater",
     right_ascension: RightAscension::new(11, 11, 39),
     declination: Declination::new(Sgn::Neg, 22, 49, 33),
@@ -62,7 +62,7 @@ const BETA_CRATERIS: RealData = RealData {
 
 const GAMMA_CRATERIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Crateris",
+    astronomical_name: "γ Crateris",
     constellation: "Crater",
     right_ascension: RightAscension::new(11, 24, 53),
     declination: Declination::new(Sgn::Neg, 17, 41, 2),
@@ -88,7 +88,7 @@ const GAMMA_CRATERIS: RealData = RealData {
 
 const DELTA_CRATERIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Crateris",
+    astronomical_name: "δ Crateris",
     constellation: "Crater",
     right_ascension: RightAscension::new(11, 19, 20),
     declination: Declination::new(Sgn::Neg, 14, 46, 42),

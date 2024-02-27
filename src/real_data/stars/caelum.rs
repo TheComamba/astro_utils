@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_CAELI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Caeli",
+    astronomical_name: "α Caeli",
     constellation: "Caelum",
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALPHA_CAELI: RealData = RealData {
 
 const GAMMA1_CAELI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma1 Caeli",
+    astronomical_name: "γ1 Caeli",
     constellation: "Caelum",
     radius: Some(Distance {
         m: 14.31 * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const GAMMA1_CAELI: RealData = RealData {
 
 const BETA_CAELI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Caeli",
+    astronomical_name: "β Caeli",
     constellation: "Caelum",
     radius: Some(Distance {
         m: 1.3 * SOLAR_RADIUS.m,

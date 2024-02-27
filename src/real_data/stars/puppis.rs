@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const NAOS: RealData = RealData {
     common_name: "Naos",
-    astronomical_name: "Zeta Puppis",
+    astronomical_name: "ζ Puppis",
     constellation: "Puppis",
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const NAOS: RealData = RealData {
 
 const AHADI: RealData = RealData {
     common_name: "Ahadi",
-    astronomical_name: "Pi Puppis",
+    astronomical_name: "π Puppis",
     constellation: "Puppis",
     radius: Some(Distance {
         m: 235. * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const AHADI: RealData = RealData {
 
 const RHO_PUPPIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Rho Puppis",
+    astronomical_name: "ρ Puppis",
     constellation: "Puppis",
     right_ascension: RightAscension::new(8, 7, 33),
     declination: Declination::new(Sgn::Neg, 24, 18, 16),
@@ -92,7 +92,7 @@ const RHO_PUPPIS: RealData = RealData {
 
 const TAU_PUPPIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Tau Puppis",
+    astronomical_name: "τ Puppis",
     constellation: "Puppis",
     right_ascension: RightAscension::new(6, 49, 56),
     declination: Declination::new(Sgn::Neg, 50, 36, 52),
@@ -118,7 +118,7 @@ const TAU_PUPPIS: RealData = RealData {
 
 const NU_PUPPIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Nu Puppis",
+    astronomical_name: "ν Puppis",
     constellation: "Puppis",
     right_ascension: RightAscension::new(6, 37, 46),
     declination: Declination::new(Sgn::Neg, 43, 11, 45),

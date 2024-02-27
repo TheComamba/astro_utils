@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ZUBENELGENUBI: RealData = RealData {
     common_name: "Zubenelgenubi",
-    astronomical_name: "Alpha2 Librae",
+    astronomical_name: "α2 Librae",
     constellation: "Libra",
     right_ascension: RightAscension::new(14, 50, 53),
     declination: Declination::new(Sgn::Neg, 16, 2, 30),
@@ -36,7 +36,7 @@ const ZUBENELGENUBI: RealData = RealData {
 
 const ZUBENESCHAMALI: RealData = RealData {
     common_name: "Zubeneschamali",
-    astronomical_name: "Beta Librae",
+    astronomical_name: "β Librae",
     constellation: "Libra",
     right_ascension: RightAscension::new(15, 17, 0),
     declination: Declination::new(Sgn::Neg, 9, 22, 58),
@@ -62,7 +62,7 @@ const ZUBENESCHAMALI: RealData = RealData {
 
 const BRACHIUM: RealData = RealData {
     common_name: "Brachium",
-    astronomical_name: "Sigma Librae",
+    astronomical_name: "σ Librae",
     constellation: "Libra",
     radius: Some(Distance {
         m: 108. * SOLAR_RADIUS.m,

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const GAMMA1_VOLANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma1 Volantis",
+    astronomical_name: "γ1 Volantis",
     constellation: "Volans",
     right_ascension: RightAscension::new(7, 8, 42),
     declination: Declination::new(Sgn::Neg, 70, 29, 50),
@@ -38,7 +38,7 @@ const GAMMA1_VOLANTIS: RealData = RealData {
 
 const BETA_VOLANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Volantis",
+    astronomical_name: "β Volantis",
     constellation: "Volans",
     right_ascension: RightAscension::new(8, 25, 44),
     declination: Declination::new(Sgn::Neg, 66, 8, 13),
@@ -60,7 +60,7 @@ const BETA_VOLANTIS: RealData = RealData {
 
 const ZETA_VOLANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Volantis",
+    astronomical_name: "ζ Volantis",
     constellation: "Volans",
     right_ascension: RightAscension::new(7, 41, 49),
     declination: Declination::new(Sgn::Neg, 72, 36, 22),

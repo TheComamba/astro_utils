@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ACRUX: RealData = RealData {
     common_name: "Acrux",
-    astronomical_name: "Alpha Crucis",
+    astronomical_name: "α Crucis",
     constellation: "Crux",
     radius: Some(Distance {
         m: 7.8 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ACRUX: RealData = RealData {
 
 const MIMOSA: RealData = RealData {
     common_name: "Mimosa",
-    astronomical_name: "Beta Crucis",
+    astronomical_name: "β Crucis",
     constellation: "Crux",
     radius: Some(Distance {
         m: 8.4 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const MIMOSA: RealData = RealData {
 
 const GACRUX: RealData = RealData {
     common_name: "Gacrux",
-    astronomical_name: "Gamma Crucis",
+    astronomical_name: "γ Crucis",
     constellation: "Crux",
     radius: Some(Distance {
         m: 120. * SOLAR_RADIUS.m,

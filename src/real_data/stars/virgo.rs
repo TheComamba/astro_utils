@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const SPICA: RealData = RealData {
     common_name: "Spica",
-    astronomical_name: "Alpha Virginis",
+    astronomical_name: "α Virginis",
     constellation: "Virgo",
     radius: Some(Distance {
         m: 7.47 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const SPICA: RealData = RealData {
 
 const MINELAUVA: RealData = RealData {
     common_name: "Minelauva",
-    astronomical_name: "Delta Virginis",
+    astronomical_name: "δ Virginis",
     constellation: "Virgo",
     radius: Some(Distance {
         m: 48. * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const MINELAUVA: RealData = RealData {
 
 const ZAVIJAVA: RealData = RealData {
     common_name: "Zavijava",
-    astronomical_name: "Beta Virginis",
+    astronomical_name: "β Virginis",
     constellation: "Virgo",
     right_ascension: RightAscension::new(11, 50, 42),
     declination: Declination::new(Sgn::Pos, 1, 45, 53),
@@ -90,7 +90,7 @@ const ZAVIJAVA: RealData = RealData {
 
 const SYRMA: RealData = RealData {
     common_name: "Syrma",
-    astronomical_name: "Iota Virginis",
+    astronomical_name: "ι Virginis",
     constellation: "Virgo",
     right_ascension: RightAscension::new(14, 16, 1),
     declination: Declination::new(Sgn::Neg, 6, 0, 2),
@@ -114,7 +114,7 @@ const SYRMA: RealData = RealData {
 
 const HEZE: RealData = RealData {
     common_name: "Heze",
-    astronomical_name: "Zeta Virginis",
+    astronomical_name: "ζ Virginis",
     constellation: "Virgo",
     right_ascension: RightAscension::new(13, 34, 42),
     declination: Declination::new(Sgn::Neg, 0, 35, 45),
@@ -140,7 +140,7 @@ const HEZE: RealData = RealData {
 
 const VINDEMIATRIX: RealData = RealData {
     common_name: "Vindemiatrix",
-    astronomical_name: "Epsilon Virginis",
+    astronomical_name: "ε Virginis",
     constellation: "Virgo",
     right_ascension: RightAscension::new(13, 2, 11),
     declination: Declination::new(Sgn::Pos, 10, 57, 33),
@@ -166,7 +166,7 @@ const VINDEMIATRIX: RealData = RealData {
 
 const PORRIMA: RealData = RealData {
     common_name: "Porrima",
-    astronomical_name: "Gamma Virginis",
+    astronomical_name: "γ Virginis",
     constellation: "Virgo",
     right_ascension: RightAscension::new(12, 41, 40),
     declination: Declination::new(Sgn::Neg, 1, 26, 58),

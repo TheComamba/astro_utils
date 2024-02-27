@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const HAMAL: RealData = RealData {
     common_name: "Hamal",
-    astronomical_name: "Alpha Arietis",
+    astronomical_name: "α Arietis",
     constellation: "Aries",
     radius: Some(Distance {
         m: 14.9 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const HAMAL: RealData = RealData {
 
 const BETA_ARIETIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Arietis",
+    astronomical_name: "β Arietis",
     constellation: "Aries",
     right_ascension: RightAscension::new(1, 54, 38),
     declination: Declination::new(Sgn::Pos, 20, 48, 29),

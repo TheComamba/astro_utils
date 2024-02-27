@@ -298,16 +298,16 @@ mod tests {
             "Suhail",
             "Eltanin",
             "Dschubba",
-            "Epsilon Centauri",
+            "ε Centauri",
             "Menkar",
             "Ghurab",
-            "Zeta Centauri",
-            "Eta Centauri",    // Only in Gaia DR2
-            "Enif",            // Only in Gaia DR2
-            "Epsilon Antliae", // Only in Gaia DR2
-            "Beta Arietis",
-            "Omicron Ceti", // Only in Gaia DR2
-            "Gamma Circini",
+            "ζ Centauri",
+            "η Centauri", // Only in Gaia DR2
+            "Enif",       // Only in Gaia DR2
+            "ε Antliae",  // Only in Gaia DR2
+            "β Arietis",
+            "ο Ceti", // Only in Gaia DR2
+            "γ Circini",
             "Rasalgethi",
         ];
 

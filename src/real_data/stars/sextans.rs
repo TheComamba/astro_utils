@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_SEXTANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Sextantis",
+    astronomical_name: "α Sextantis",
     constellation: "Sextans",
     right_ascension: RightAscension::new(10, 7, 56),
     declination: Declination::new(Sgn::Neg, 0, 22, 18),
@@ -40,7 +40,7 @@ const ALPHA_SEXTANTIS: RealData = RealData {
 
 const GAMMA_SEXTANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Sextantis",
+    astronomical_name: "γ Sextantis",
     constellation: "Sextans",
     right_ascension: RightAscension::new(9, 52, 30),
     declination: Declination::new(Sgn::Neg, 8, 6, 18),
@@ -64,7 +64,7 @@ const GAMMA_SEXTANTIS: RealData = RealData {
 
 const BETA_SEXTANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Sextantis",
+    astronomical_name: "β Sextantis",
     constellation: "Sextans",
     right_ascension: RightAscension::new(10, 30, 17),
     declination: Declination::new(Sgn::Neg, 0, 38, 13),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const POLLUX: RealData = RealData {
     common_name: "Pollux",
-    astronomical_name: "Beta Geminorum",
+    astronomical_name: "β Geminorum",
     constellation: "Gemini",
     radius: Some(Distance {
         m: 9.06 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const POLLUX: RealData = RealData {
 
 const CASTOR: RealData = RealData {
     common_name: "Castor",
-    astronomical_name: "Alpha Geminorum",
+    astronomical_name: "α Geminorum",
     constellation: "Gemini",
     radius: Some(Distance {
         m: 2.089 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const CASTOR: RealData = RealData {
 
 const ALHENA: RealData = RealData {
     common_name: "Alhena",
-    astronomical_name: "Gamma Geminorum",
+    astronomical_name: "γ Geminorum",
     constellation: "Gemini",
     radius: Some(Distance {
         m: 3.3 * SOLAR_RADIUS.m,
@@ -90,7 +90,7 @@ const ALHENA: RealData = RealData {
 
 const TEJAT: RealData = RealData {
     common_name: "Tejat",
-    astronomical_name: "Mu Geminorum",
+    astronomical_name: "μ Geminorum",
     constellation: "Gemini",
     radius: Some(Distance {
         m: 90. * SOLAR_RADIUS.m,
@@ -114,7 +114,7 @@ const TEJAT: RealData = RealData {
 
 const PROPUS: RealData = RealData {
     common_name: "Propus",
-    astronomical_name: "Eta Geminorum",
+    astronomical_name: "η Geminorum",
     constellation: "Gemini",
     radius: Some(Distance {
         m: 275. * SOLAR_RADIUS.m,

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_PYXIDIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Pyxidis",
+    astronomical_name: "α Pyxidis",
     constellation: "Pyxis",
     right_ascension: RightAscension::new(8, 43, 36),
     declination: Declination::new(Sgn::Neg, 33, 11, 11),
@@ -40,7 +40,7 @@ const ALPHA_PYXIDIS: RealData = RealData {
 
 const BETA_PYXIDIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Pyxidis",
+    astronomical_name: "β Pyxidis",
     constellation: "Pyxis",
     right_ascension: RightAscension::new(8, 40, 6),
     declination: Declination::new(Sgn::Neg, 35, 18, 30),
@@ -64,7 +64,7 @@ const BETA_PYXIDIS: RealData = RealData {
 
 const GAMMA_PYXIDIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Pyxidis",
+    astronomical_name: "γ Pyxidis",
     constellation: "Pyxis",
     right_ascension: RightAscension::new(8, 50, 32),
     declination: Declination::new(Sgn::Neg, 27, 42, 35),

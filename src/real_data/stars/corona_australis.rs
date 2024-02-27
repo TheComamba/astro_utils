@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const MERIDIANA: RealData = RealData {
     common_name: "Meridiana",
-    astronomical_name: "Alpha Coronae Australis",
+    astronomical_name: "α Coronae Australis",
     constellation: "Corona Australis",
     right_ascension: RightAscension::new(19, 9, 28),
     declination: Declination::new(Sgn::Neg, 37, 54, 16),
@@ -40,7 +40,7 @@ const MERIDIANA: RealData = RealData {
 
 const BETA_CORONAE_AUSTRALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Coronae Australis",
+    astronomical_name: "β Coronae Australis",
     constellation: "Corona Australis",
     right_ascension: RightAscension::new(19, 10, 2),
     declination: Declination::new(Sgn::Neg, 39, 20, 27),
@@ -64,7 +64,7 @@ const BETA_CORONAE_AUSTRALIS: RealData = RealData {
 
 const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma1 Coronae Australis",
+    astronomical_name: "γ1 Coronae Australis",
     constellation: "Corona Australis",
     right_ascension: RightAscension::new(19, 6, 25),
     declination: Declination::new(Sgn::Neg, 37, 3, 48),

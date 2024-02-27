@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const DABIH: RealData = RealData {
     common_name: "Dabih",
-    astronomical_name: "Beta Capricorni",
+    astronomical_name: "β Capricorni",
     constellation: "Capricornus",
     right_ascension: RightAscension::new(20, 21, 1),
     declination: Declination::new(Sgn::Neg, 14, 46, 53),
@@ -36,7 +36,7 @@ const DABIH: RealData = RealData {
 
 const DENEB_ALGEDI: RealData = RealData {
     common_name: "Deneb Algedi",
-    astronomical_name: "Delta Capricorni",
+    astronomical_name: "δ Capricorni",
     constellation: "Capricornus",
     right_ascension: RightAscension::new(21, 47, 2),
     declination: Declination::new(Sgn::Neg, 16, 7, 38),
@@ -60,7 +60,7 @@ const DENEB_ALGEDI: RealData = RealData {
 
 const OMEGA_CAPRICORNI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Omega Capricorni",
+    astronomical_name: "ω Capricorni",
     constellation: "Capricornus",
     right_ascension: RightAscension::new(20, 51, 49),
     declination: Declination::new(Sgn::Neg, 26, 55, 9),

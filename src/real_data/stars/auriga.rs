@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const CAPELLA: RealData = RealData {
     common_name: "Capella",
-    astronomical_name: "Alpha Aurigae",
+    astronomical_name: "α Aurigae",
     constellation: "Auriga",
     radius: Some(Distance {
         m: 11.98 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const CAPELLA: RealData = RealData {
 
 const MENKALINAN: RealData = RealData {
     common_name: "Menkalinan",
-    astronomical_name: "Beta Aurigae",
+    astronomical_name: "β Aurigae",
     constellation: "Auriga",
     radius: Some(Distance {
         m: 2.77 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const MENKALINAN: RealData = RealData {
 
 const HASSALEH: RealData = RealData {
     common_name: "Hassaleh",
-    astronomical_name: "Iota Aurigae",
+    astronomical_name: "ι Aurigae",
     constellation: "Auriga",
     radius: Some(Distance {
         m: 127. * SOLAR_RADIUS.m,

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const RIGEL: RealData = RealData {
     common_name: "Rigel",
-    astronomical_name: "Beta Orionis",
+    astronomical_name: "β Orionis",
     constellation: "Orion",
     radius: Some(Distance {
         m: 78.9 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const RIGEL: RealData = RealData {
 
 const BETELGEUSE: RealData = RealData {
     common_name: "Betelgeuse",
-    astronomical_name: "Alpha Orionis",
+    astronomical_name: "α Orionis",
     constellation: "Orion",
     radius: Some(Distance {
         m: 887. * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const BETELGEUSE: RealData = RealData {
 
 const BELLATRIX: RealData = RealData {
     common_name: "Bellatrix",
-    astronomical_name: "Gamma Orionis",
+    astronomical_name: "γ Orionis",
     constellation: "Orion",
     radius: Some(Distance {
         m: 5.75 * SOLAR_RADIUS.m,
@@ -92,7 +92,7 @@ const BELLATRIX: RealData = RealData {
 
 const ALNILAM: RealData = RealData {
     common_name: "Alnilam",
-    astronomical_name: "Epsilon Orionis",
+    astronomical_name: "ε Orionis",
     constellation: "Orion",
     radius: Some(Distance {
         m: 42. * SOLAR_RADIUS.m,
@@ -118,7 +118,7 @@ const ALNILAM: RealData = RealData {
 
 const ALNITAK: RealData = RealData {
     common_name: "Alnitak",
-    astronomical_name: "Zeta Orionis",
+    astronomical_name: "ζ Orionis",
     constellation: "Orion",
     radius: Some(Distance {
         m: 20. * SOLAR_RADIUS.m,
@@ -144,7 +144,7 @@ const ALNITAK: RealData = RealData {
 
 const SAIPH: RealData = RealData {
     common_name: "Saiph",
-    astronomical_name: "Kappa Orionis",
+    astronomical_name: "κ Orionis",
     constellation: "Orion",
     radius: Some(Distance {
         m: 22.2 * SOLAR_RADIUS.m,
@@ -170,7 +170,7 @@ const SAIPH: RealData = RealData {
 
 const MINTAKA: RealData = RealData {
     common_name: "Mintaka",
-    astronomical_name: "Delta Orionis",
+    astronomical_name: "δ Orionis",
     constellation: "Orion",
     radius: Some(Distance {
         m: 16.5 * SOLAR_RADIUS.m,

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_APODIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Apodis",
+    astronomical_name: "α Apodis",
     constellation: "Apus",
     radius: Some(Distance {
         m: 48. * SOLAR_RADIUS.m,
@@ -38,7 +38,7 @@ const ALPHA_APODIS: RealData = RealData {
 
 const GAMMA_APODIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Apodis",
+    astronomical_name: "γ Apodis",
     constellation: "Apus",
     radius: None,
     mass: Mass {
@@ -60,7 +60,7 @@ const GAMMA_APODIS: RealData = RealData {
 
 const BETA_APODIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Apodis",
+    astronomical_name: "β Apodis",
     constellation: "Apus",
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,

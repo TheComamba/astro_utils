@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHECCA: RealData = RealData {
     common_name: "Alphecca",
-    astronomical_name: "Alpha Coronae Borealis",
+    astronomical_name: "α Coronae Borealis",
     constellation: "Corona Borealis",
     radius: Some(Distance {
         m: 3. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALPHECCA: RealData = RealData {
 
 const NAUSAKAN: RealData = RealData {
     common_name: "Nausakan",
-    astronomical_name: "Beta Coronae Borealis",
+    astronomical_name: "β Coronae Borealis",
     constellation: "Corona Borealis",
     right_ascension: RightAscension::new(15, 27, 50),
     declination: Declination::new(Sgn::Pos, 29, 6, 21),
@@ -64,7 +64,7 @@ const NAUSAKAN: RealData = RealData {
 
 const GAMMA_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Coronae Borealis",
+    astronomical_name: "γ Coronae Borealis",
     constellation: "Corona Borealis",
     right_ascension: RightAscension::new(15, 42, 45),
     declination: Declination::new(Sgn::Pos, 26, 17, 44),
@@ -88,7 +88,7 @@ const GAMMA_CORONAE_BOREALIS: RealData = RealData {
 
 const DELTA_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Coronae Borealis",
+    astronomical_name: "δ Coronae Borealis",
     constellation: "Corona Borealis",
     right_ascension: RightAscension::new(15, 49, 36),
     declination: Declination::new(Sgn::Pos, 26, 4, 6),
@@ -140,7 +140,7 @@ const EPSILON_CORONAE_BOREALIS: RealData = RealData {
 
 const IOTA_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Iota Coronae Borealis",
+    astronomical_name: "ι Coronae Borealis",
     constellation: "Corona Borealis",
     right_ascension: RightAscension::new(16, 1, 27),
     declination: Declination::new(Sgn::Pos, 29, 51, 4),
@@ -162,7 +162,7 @@ const IOTA_CORONAE_BOREALIS: RealData = RealData {
 
 const THETA_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Theta Coronae Borealis",
+    astronomical_name: "θ Coronae Borealis",
     constellation: "Corona Borealis",
     right_ascension: RightAscension::new(15, 32, 56),
     declination: Declination::new(Sgn::Pos, 31, 21, 33),

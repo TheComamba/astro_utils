@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const DIADEM: RealData = RealData {
     common_name: "Diadem",
-    astronomical_name: "Alpha Comae Berenices",
+    astronomical_name: "α Comae Berenices",
     constellation: "Coma Berenices",
     right_ascension: RightAscension::new(13, 9, 59),
     declination: Declination::new(Sgn::Pos, 17, 31, 46),
@@ -36,7 +36,7 @@ const DIADEM: RealData = RealData {
 
 const BETA_COMA_BERENICES: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Comae Berenices",
+    astronomical_name: "β Comae Berenices",
     constellation: "Coma Berenices",
     right_ascension: RightAscension::new(13, 11, 53),
     declination: Declination::new(Sgn::Pos, 27, 52, 41),
@@ -62,7 +62,7 @@ const BETA_COMA_BERENICES: RealData = RealData {
 
 const GAMMA_COMA_BERENICES: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Comae Berenices",
+    astronomical_name: "γ Comae Berenices",
     constellation: "Coma Berenices",
     right_ascension: RightAscension::new(12, 26, 56),
     declination: Declination::new(Sgn::Pos, 28, 16, 6),

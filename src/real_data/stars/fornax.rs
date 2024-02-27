@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const DALIM: RealData = RealData {
     common_name: "Dalim",
-    astronomical_name: "Alpha Fornacis",
+    astronomical_name: "α Fornacis",
     constellation: "Fornax",
     right_ascension: RightAscension::new(3, 12, 5),
     declination: Declination::new(Sgn::Neg, 28, 59, 15),
@@ -40,7 +40,7 @@ const DALIM: RealData = RealData {
 
 const BETA_FORNACIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Fornacis",
+    astronomical_name: "β Fornacis",
     constellation: "Fornax",
     right_ascension: RightAscension::new(2, 49, 5),
     declination: Declination::new(Sgn::Neg, 32, 24, 21),
@@ -64,7 +64,7 @@ const BETA_FORNACIS: RealData = RealData {
 
 const NU_FORNACIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Nu Fornacis",
+    astronomical_name: "ν Fornacis",
     constellation: "Fornax",
     right_ascension: RightAscension::new(2, 4, 29),
     declination: Declination::new(Sgn::Neg, 29, 17, 49),

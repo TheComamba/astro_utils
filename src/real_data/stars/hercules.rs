@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const RASALGETHI: RealData = RealData {
     common_name: "Rasalgethi",
-    astronomical_name: "Alpha Herculis",
+    astronomical_name: "α Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(17, 14, 39),
     declination: Declination::new(Sgn::Pos, 14, 23, 25),
@@ -38,7 +38,7 @@ const RASALGETHI: RealData = RealData {
 
 const KORNEPHOROS: RealData = RealData {
     common_name: "Kornephoros",
-    astronomical_name: "Beta Herculis",
+    astronomical_name: "β Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(16, 30, 13),
     declination: Declination::new(Sgn::Pos, 21, 29, 23),
@@ -62,7 +62,7 @@ const KORNEPHOROS: RealData = RealData {
 
 const SARIN: RealData = RealData {
     common_name: "Sarin",
-    astronomical_name: "Delta Herculis",
+    astronomical_name: "δ Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(17, 15, 2),
     declination: Declination::new(Sgn::Pos, 24, 50, 21),
@@ -88,7 +88,7 @@ const SARIN: RealData = RealData {
 
 const ETA_HERCULIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Eta Herculis",
+    astronomical_name: "η Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(16, 42, 54),
     declination: Declination::new(Sgn::Pos, 38, 55, 20),
@@ -114,7 +114,7 @@ const ETA_HERCULIS: RealData = RealData {
 
 const MU_HERCULIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Mu Herculis",
+    astronomical_name: "μ Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(17, 46, 28),
     declination: Declination::new(Sgn::Pos, 27, 43, 14),
@@ -140,7 +140,7 @@ const MU_HERCULIS: RealData = RealData {
 
 const ZETA_HERCULIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Herculis",
+    astronomical_name: "ζ Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(16, 41, 17),
     declination: Declination::new(Sgn::Pos, 31, 36, 10),
@@ -166,7 +166,7 @@ const ZETA_HERCULIS: RealData = RealData {
 
 const PI_HERCULIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Pi Herculis",
+    astronomical_name: "π Herculis",
     constellation: "Hercules",
     right_ascension: RightAscension::new(17, 15, 3),
     declination: Declination::new(Sgn::Pos, 36, 48, 33),

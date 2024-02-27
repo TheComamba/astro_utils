@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ENIF: RealData = RealData {
     common_name: "Enif",
-    astronomical_name: "Epsilon Pegasi",
+    astronomical_name: "ε Pegasi",
     constellation: "Pegasus",
     radius: Some(Distance {
         m: 211. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ENIF: RealData = RealData {
 
 const SCHEAT: RealData = RealData {
     common_name: "Scheat",
-    astronomical_name: "Beta Pegasi",
+    astronomical_name: "β Pegasi",
     constellation: "Pegasus",
     radius: Some(Distance {
         m: 95. * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const SCHEAT: RealData = RealData {
 
 const MARKAB: RealData = RealData {
     common_name: "Markab",
-    astronomical_name: "Alpha Pegasi",
+    astronomical_name: "α Pegasi",
     constellation: "Pegasus",
     radius: Some(Distance {
         m: 4.62 * SOLAR_RADIUS.m,

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_HOROLOGII: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Horologii",
+    astronomical_name: "α Horologii",
     constellation: "Horologium",
     right_ascension: RightAscension::new(4, 14, 0),
     declination: Declination::new(Sgn::Neg, 42, 17, 40),
@@ -60,7 +60,7 @@ const R_HOROLOGII: RealData = RealData {
 
 const BETA_HOROLOGII: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Horologii",
+    astronomical_name: "β Horologii",
     constellation: "Horologium",
     right_ascension: RightAscension::new(2, 58, 48),
     declination: Declination::new(Sgn::Neg, 64, 4, 17),

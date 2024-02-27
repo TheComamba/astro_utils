@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_SCULPTORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Sculptoris",
+    astronomical_name: "α Sculptoris",
     constellation: "Sculptor",
     right_ascension: RightAscension::new(0, 58, 36),
     declination: Declination::new(Sgn::Neg, 29, 21, 27),
@@ -40,7 +40,7 @@ const ALPHA_SCULPTORIS: RealData = RealData {
 
 const BETA_SCULPTORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Sculptoris",
+    astronomical_name: "β Sculptoris",
     constellation: "Sculptor",
     right_ascension: RightAscension::new(23, 32, 58),
     declination: Declination::new(Sgn::Neg, 37, 49, 6),
@@ -64,7 +64,7 @@ const BETA_SCULPTORIS: RealData = RealData {
 
 const GAMMA_SULPTORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Sculptoris",
+    astronomical_name: "γ Sculptoris",
     constellation: "Sculptor",
     right_ascension: RightAscension::new(23, 18, 49),
     declination: Declination::new(Sgn::Neg, 32, 31, 55),

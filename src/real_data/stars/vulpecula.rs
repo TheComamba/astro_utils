@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_VULPECULAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Vulpeculae",
+    astronomical_name: "α Vulpeculae",
     constellation: "Vulpecula",
     right_ascension: RightAscension::new(19, 28, 42),
     declination: Declination::new(Sgn::Pos, 24, 39, 54),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_INDI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Indi",
+    astronomical_name: "α Indi",
     constellation: "Indus",
     right_ascension: RightAscension::new(20, 37, 34),
     declination: Declination::new(Sgn::Neg, 47, 17, 29),
@@ -40,7 +40,7 @@ const ALPHA_INDI: RealData = RealData {
 
 const BETA_INDI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Indi",
+    astronomical_name: "β Indi",
     constellation: "Indus",
     right_ascension: RightAscension::new(20, 54, 49),
     declination: Declination::new(Sgn::Neg, 58, 27, 15),
@@ -66,7 +66,7 @@ const BETA_INDI: RealData = RealData {
 
 const ETA_INDI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Eta Indi",
+    astronomical_name: "η Indi",
     constellation: "Indus",
     right_ascension: RightAscension::new(20, 44, 2),
     declination: Declination::new(Sgn::Neg, 51, 55, 15),

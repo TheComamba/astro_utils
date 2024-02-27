@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const FORMALHAUT: RealData = RealData {
     common_name: "Formalhaut",
-    astronomical_name: "Alpha Piscis Austrini",
+    astronomical_name: "α Piscis Austrini",
     constellation: "Piscis Austrinus",
     radius: Some(Distance {
         m: 1.842 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const FORMALHAUT: RealData = RealData {
 
 const DELTA_PISCIS_AUSTRINI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Piscis Austrini",
+    astronomical_name: "δ Piscis Austrini",
     constellation: "Piscis Austrinus",
     right_ascension: RightAscension::new(22, 55, 57),
     declination: Declination::new(Sgn::Neg, 32, 32, 23),
@@ -64,7 +64,7 @@ const DELTA_PISCIS_AUSTRINI: RealData = RealData {
 
 const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epsilon Piscis Austrini",
+    astronomical_name: "ε Piscis Austrini",
     constellation: "Piscis Austrinus",
     right_ascension: RightAscension::new(22, 40, 39),
     declination: Declination::new(Sgn::Neg, 27, 2, 37),
@@ -88,7 +88,7 @@ const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
 
 const IOTA_PISCIS_AUSTRINI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Iota Piscis Austrini",
+    astronomical_name: "ι Piscis Austrini",
     constellation: "Piscis Austrinus",
     right_ascension: RightAscension::new(21, 44, 57),
     declination: Declination::new(Sgn::Neg, 33, 1, 33),

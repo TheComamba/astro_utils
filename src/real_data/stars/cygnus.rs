@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const DENEB: RealData = RealData {
     common_name: "Deneb",
-    astronomical_name: "Alpha Cygni",
+    astronomical_name: "α Cygni",
     constellation: "Cygnus",
     radius: Some(Distance {
         m: 203. * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const DENEB: RealData = RealData {
 
 const SADIR: RealData = RealData {
     common_name: "Sadir",
-    astronomical_name: "Gamma Cygni",
+    astronomical_name: "γ Cygni",
     constellation: "Cygnus",
     radius: Some(Distance {
         m: 150. * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const SADIR: RealData = RealData {
 
 const ALJANAH: RealData = RealData {
     common_name: "Aljanah",
-    astronomical_name: "Epsilon Cygni",
+    astronomical_name: "ε Cygni",
     constellation: "Cygnus",
     radius: Some(Distance {
         m: 10.82 * SOLAR_RADIUS.m,

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Piscium",
+    astronomical_name: "α Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(2, 2, 3),
     declination: Declination::new(Sgn::Pos, 2, 45, 50),
@@ -38,7 +38,7 @@ const ALPHA_PISCIUM: RealData = RealData {
 
 const DELTA_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Piscium",
+    astronomical_name: "δ Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(0, 48, 41),
     declination: Declination::new(Sgn::Pos, 7, 35, 6),
@@ -64,7 +64,7 @@ const DELTA_PISCIUM: RealData = RealData {
 
 const NU_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Nu Piscium",
+    astronomical_name: "ν Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(1, 41, 26),
     declination: Declination::new(Sgn::Pos, 5, 29, 15),
@@ -90,7 +90,7 @@ const NU_PISCIUM: RealData = RealData {
 
 const IOTA_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Iota Piscium",
+    astronomical_name: "ι Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(23, 39, 57),
     declination: Declination::new(Sgn::Pos, 5, 37, 35),
@@ -116,7 +116,7 @@ const IOTA_PISCIUM: RealData = RealData {
 
 const OMICRON_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Omicron Piscium",
+    astronomical_name: "ο Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(1, 45, 24),
     declination: Declination::new(Sgn::Pos, 9, 9, 28),
@@ -168,7 +168,7 @@ const EPSILON_PISCIUM: RealData = RealData {
 
 const THETA_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Theta Piscium",
+    astronomical_name: "θ Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(23, 27, 58),
     declination: Declination::new(Sgn::Pos, 6, 22, 44),
@@ -194,7 +194,7 @@ const THETA_PISCIUM: RealData = RealData {
 
 const ETA_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Eta Piscium",
+    astronomical_name: "η Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(1, 31, 29),
     declination: Declination::new(Sgn::Pos, 15, 20, 45),
@@ -220,7 +220,7 @@ const ETA_PISCIUM: RealData = RealData {
 
 const GAMMA_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Piscium",
+    astronomical_name: "γ Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(23, 17, 10),
     declination: Declination::new(Sgn::Pos, 3, 16, 56),
@@ -246,7 +246,7 @@ const GAMMA_PISCIUM: RealData = RealData {
 
 const OMEGA_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Omega Piscium",
+    astronomical_name: "ω Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(23, 59, 19),
     declination: Declination::new(Sgn::Pos, 6, 51, 48),

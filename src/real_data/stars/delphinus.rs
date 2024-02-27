@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const SUALOCIN: RealData = RealData {
     common_name: "Sualocin",
-    astronomical_name: "Alpha Delphini",
+    astronomical_name: "α Delphini",
     constellation: "Delphinus",
     right_ascension: RightAscension::new(20, 39, 38),
     declination: Declination::new(Sgn::Pos, 15, 54, 43),
@@ -40,7 +40,7 @@ const SUALOCIN: RealData = RealData {
 
 const ROTANEV: RealData = RealData {
     common_name: "Rotanev",
-    astronomical_name: "Beta Delphini",
+    astronomical_name: "β Delphini",
     constellation: "Delphinus",
     right_ascension: RightAscension::new(20, 37, 33),
     declination: Declination::new(Sgn::Pos, 14, 35, 42),
@@ -64,7 +64,7 @@ const ROTANEV: RealData = RealData {
 
 const GAMMA_DELPHINI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Delphini",
+    astronomical_name: "γ Delphini",
     constellation: "Delphinus",
     right_ascension: RightAscension::new(20, 46, 39),
     declination: Declination::new(Sgn::Pos, 16, 7, 27),
@@ -90,7 +90,7 @@ const GAMMA_DELPHINI: RealData = RealData {
 
 const DELTA_DELPHINI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Delphini",
+    astronomical_name: "δ Delphini",
     constellation: "Delphinus",
     right_ascension: RightAscension::new(20, 43, 28),
     declination: Declination::new(Sgn::Pos, 15, 4, 28),
@@ -116,7 +116,7 @@ const DELTA_DELPHINI: RealData = RealData {
 
 const ALDULFIN: RealData = RealData {
     common_name: "Aldulfin",
-    astronomical_name: "Epsilon Delphini",
+    astronomical_name: "ε Delphini",
     constellation: "Delphinus",
     right_ascension: RightAscension::new(20, 33, 13),
     declination: Declination::new(Sgn::Pos, 11, 18, 12),

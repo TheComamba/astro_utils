@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const PROCYON: RealData = RealData {
     common_name: "Procyon",
-    astronomical_name: "Alpha Canis Minoris",
+    astronomical_name: "α Canis Minoris",
     constellation: "Canis Minor",
     radius: Some(Distance {
         m: 2.048 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const PROCYON: RealData = RealData {
 
 const GOMEISA: RealData = RealData {
     common_name: "Gomeisa",
-    astronomical_name: "Beta Canis Minoris",
+    astronomical_name: "β Canis Minoris",
     constellation: "Canis Minor",
     right_ascension: RightAscension::new(7, 27, 9),
     declination: Declination::new(Sgn::Pos, 8, 17, 22),
@@ -66,7 +66,7 @@ const GOMEISA: RealData = RealData {
 
 const GAMMA_CANIS_MINORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Canis Minoris",
+    astronomical_name: "γ Canis Minoris",
     constellation: "Canis Minor",
     right_ascension: RightAscension::new(7, 28, 10),
     declination: Declination::new(Sgn::Pos, 8, 55, 32),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALDERAMIN: RealData = RealData {
     common_name: "Alderamin",
-    astronomical_name: "Alpha Cephei",
+    astronomical_name: "α Cephei",
     constellation: "Cepheus",
     radius: Some(Distance {
         m: 2.4 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALDERAMIN: RealData = RealData {
 
 const ALFIRK: RealData = RealData {
     common_name: "Alfirk",
-    astronomical_name: "Beta Cephei",
+    astronomical_name: "β Cephei",
     constellation: "Cepheus",
     right_ascension: RightAscension::new(21, 28, 40),
     declination: Declination::new(Sgn::Pos, 70, 33, 39),
@@ -66,7 +66,7 @@ const ALFIRK: RealData = RealData {
 
 const ERRAI: RealData = RealData {
     common_name: "Errai",
-    astronomical_name: "Gamma Cephei",
+    astronomical_name: "γ Cephei",
     constellation: "Cepheus",
     right_ascension: RightAscension::new(23, 39, 21),
     declination: Declination::new(Sgn::Pos, 77, 37, 57),
@@ -92,7 +92,7 @@ const ERRAI: RealData = RealData {
 
 const DELTA_CEPHERI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Cephei",
+    astronomical_name: "δ Cephei",
     constellation: "Cepheus",
     right_ascension: RightAscension::new(22, 29, 10),
     declination: Declination::new(Sgn::Pos, 58, 24, 55),
@@ -118,7 +118,7 @@ const DELTA_CEPHERI: RealData = RealData {
 
 const ETA_CEPHEI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Eta Cephei",
+    astronomical_name: "η Cephei",
     constellation: "Cepheus",
     right_ascension: RightAscension::new(20, 45, 17),
     declination: Declination::new(Sgn::Pos, 61, 50, 20),
@@ -144,7 +144,7 @@ const ETA_CEPHEI: RealData = RealData {
 
 const IOTA_CEPHEI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Iota Cephei",
+    astronomical_name: "ι Cephei",
     constellation: "Cepheus",
     right_ascension: RightAscension::new(22, 49, 41),
     declination: Declination::new(Sgn::Pos, 66, 12, 1),
@@ -170,7 +170,7 @@ const IOTA_CEPHEI: RealData = RealData {
 
 const ZETA_CEPHEI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Cephei",
+    astronomical_name: "ζ Cephei",
     constellation: "Cepheus",
     right_ascension: RightAscension::new(22, 10, 51),
     declination: Declination::new(Sgn::Pos, 58, 12, 5),
@@ -194,7 +194,7 @@ const ZETA_CEPHEI: RealData = RealData {
 
 const ERAKIS: RealData = RealData {
     common_name: "Erakis",
-    astronomical_name: "Mu Cephei",
+    astronomical_name: "μ Cephei",
     constellation: "Cepheus",
     radius: Some(Distance {
         m: 972. * SOLAR_RADIUS.m,

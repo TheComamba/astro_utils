@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const COR_CAROLI: RealData = RealData {
     common_name: "Cor Caroli",
-    astronomical_name: "Alpha2 Canum Venaticorum",
+    astronomical_name: "α2 Canum Venaticorum",
     constellation: "Canes Venatici",
     radius: Some(Distance {
         m: 2.49 * SOLAR_RADIUS.m,
@@ -41,7 +41,7 @@ const COR_CAROLI: RealData = RealData {
 
 const CHARA: RealData = RealData {
     common_name: "Chara",
-    astronomical_name: "Beta Canum Venaticorum",
+    astronomical_name: "β Canum Venaticorum",
     constellation: "Canes Venatici",
     radius: Some(Distance {
         m: 1.123 * SOLAR_RADIUS.m,

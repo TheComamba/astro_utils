@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALDEBARAN: RealData = RealData {
     common_name: "Aldebaran",
-    astronomical_name: "Alpha Tauri",
+    astronomical_name: "α Tauri",
     constellation: "Taurus",
     radius: Some(Distance {
         m: 45.1 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const ALDEBARAN: RealData = RealData {
 
 const ALNATH: RealData = RealData {
     common_name: "Alnath",
-    astronomical_name: "Beta Tauri",
+    astronomical_name: "β Tauri",
     constellation: "Taurus",
     radius: Some(Distance {
         m: 4.2 * SOLAR_RADIUS.m,
@@ -66,7 +66,7 @@ const ALNATH: RealData = RealData {
 
 const GAMMA_TAURI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Tauri",
+    astronomical_name: "γ Tauri",
     constellation: "Taurus",
     right_ascension: RightAscension::new(4, 19, 48),
     declination: Declination::new(Sgn::Pos, 15, 37, 40),
@@ -118,7 +118,7 @@ const EPSILON_TAURI: RealData = RealData {
 
 const LAMBDA_TAURI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Lambda Tauri",
+    astronomical_name: "λ Tauri",
     constellation: "Taurus",
     right_ascension: RightAscension::new(4, 0, 41),
     declination: Declination::new(Sgn::Pos, 12, 29, 25),
@@ -144,7 +144,7 @@ const LAMBDA_TAURI: RealData = RealData {
 
 const ZETA_TAURI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Tauri",
+    astronomical_name: "ζ Tauri",
     constellation: "Taurus",
     right_ascension: RightAscension::new(5, 37, 39),
     declination: Declination::new(Sgn::Pos, 21, 8, 33),

@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const PEACOCK: RealData = RealData {
     common_name: "Peacock",
-    astronomical_name: "Alpha Pavonis",
+    astronomical_name: "α Pavonis",
     constellation: "Pavo",
     radius: Some(Distance {
         m: 4.83 * SOLAR_RADIUS.m,
@@ -40,7 +40,7 @@ const PEACOCK: RealData = RealData {
 
 const BETA_PAVONIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Beta Pavonis",
+    astronomical_name: "β Pavonis",
     constellation: "Pavo",
     right_ascension: RightAscension::new(20, 44, 57),
     declination: Declination::new(Sgn::Neg, 66, 12, 12),
@@ -66,7 +66,7 @@ const BETA_PAVONIS: RealData = RealData {
 
 const DELTA_PAVONIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Delta Pavonis",
+    astronomical_name: "δ Pavonis",
     constellation: "Pavo",
     right_ascension: RightAscension::new(20, 8, 44),
     declination: Declination::new(Sgn::Neg, 66, 10, 55),

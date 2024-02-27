@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ELTANIN: RealData = RealData {
     common_name: "Eltanin",
-    astronomical_name: "Gamma Draconis",
+    astronomical_name: "γ Draconis",
     constellation: "Draco",
     radius: Some(Distance {
         m: 48.15 * SOLAR_RADIUS.m,
@@ -38,7 +38,7 @@ const ELTANIN: RealData = RealData {
 
 const ATHEBYNE: RealData = RealData {
     common_name: "Athebyne",
-    astronomical_name: "Eta Draconis",
+    astronomical_name: "η Draconis",
     constellation: "Draco",
     radius: Some(Distance {
         m: 11. * SOLAR_RADIUS.m,
@@ -64,7 +64,7 @@ const ATHEBYNE: RealData = RealData {
 
 const THETA_DRACONIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Theta Draconis",
+    astronomical_name: "θ Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(16, 1, 53),
     declination: Declination::new(Sgn::Pos, 58, 33, 55),
@@ -90,7 +90,7 @@ const THETA_DRACONIS: RealData = RealData {
 
 const KAPPA_DRACONIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Kappa Draconis",
+    astronomical_name: "κ Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(12, 33, 29),
     declination: Declination::new(Sgn::Pos, 69, 47, 18),
@@ -114,7 +114,7 @@ const KAPPA_DRACONIS: RealData = RealData {
 
 const TYL: RealData = RealData {
     common_name: "Tyl",
-    astronomical_name: "Epsilon Draconis",
+    astronomical_name: "ε Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(19, 48, 10),
     declination: Declination::new(Sgn::Pos, 70, 16, 5),
@@ -140,7 +140,7 @@ const TYL: RealData = RealData {
 
 const GIAUSAR: RealData = RealData {
     common_name: "Giausar",
-    astronomical_name: "Lambda Draconis",
+    astronomical_name: "λ Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(11, 31, 24),
     declination: Declination::new(Sgn::Pos, 69, 19, 52),
@@ -164,7 +164,7 @@ const GIAUSAR: RealData = RealData {
 
 const GRUMIUM: RealData = RealData {
     common_name: "Grumium",
-    astronomical_name: "Xi Draconis",
+    astronomical_name: "ξ Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(17, 53, 32),
     declination: Declination::new(Sgn::Pos, 56, 52, 22),
@@ -188,7 +188,7 @@ const GRUMIUM: RealData = RealData {
 
 const THUBAN: RealData = RealData {
     common_name: "Thuban",
-    astronomical_name: "Alpha Draconis",
+    astronomical_name: "α Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(14, 4, 23),
     declination: Declination::new(Sgn::Pos, 64, 22, 33),
@@ -214,7 +214,7 @@ const THUBAN: RealData = RealData {
 
 const CHI_DRACONIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Chi Draconis",
+    astronomical_name: "χ Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(18, 21, 3),
     declination: Declination::new(Sgn::Pos, 72, 43, 58),
@@ -240,7 +240,7 @@ const CHI_DRACONIS: RealData = RealData {
 
 const EDASICH: RealData = RealData {
     common_name: "Edasich",
-    astronomical_name: "Iota Draconis",
+    astronomical_name: "ι Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(15, 24, 56),
     declination: Declination::new(Sgn::Pos, 58, 57, 58),
@@ -266,7 +266,7 @@ const EDASICH: RealData = RealData {
 
 const ALDHIBAH: RealData = RealData {
     common_name: "Aldhibah",
-    astronomical_name: "Zeta Draconis",
+    astronomical_name: "ζ Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(17, 8, 47),
     declination: Declination::new(Sgn::Pos, 65, 42, 53),
@@ -290,7 +290,7 @@ const ALDHIBAH: RealData = RealData {
 
 const ALTAIS: RealData = RealData {
     common_name: "Altais",
-    astronomical_name: "Delta Draconis",
+    astronomical_name: "δ Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(19, 12, 33),
     declination: Declination::new(Sgn::Pos, 67, 39, 42),
@@ -316,7 +316,7 @@ const ALTAIS: RealData = RealData {
 
 const RASTABAN: RealData = RealData {
     common_name: "Rastaban",
-    astronomical_name: "Beta Draconis",
+    astronomical_name: "β Draconis",
     constellation: "Draco",
     right_ascension: RightAscension::new(17, 30, 26),
     declination: Declination::new(Sgn::Pos, 52, 18, 5),

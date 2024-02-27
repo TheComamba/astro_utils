@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_TUCANAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Alpha Tucanae",
+    astronomical_name: "α Tucanae",
     constellation: "Tucana",
     radius: Some(Distance {
         m: 37. * SOLAR_RADIUS.m,
@@ -38,7 +38,7 @@ const ALPHA_TUCANAE: RealData = RealData {
 
 const GAMMA_TUCANAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Gamma Tucanae",
+    astronomical_name: "γ Tucanae",
     constellation: "Tucana",
     right_ascension: RightAscension::new(23, 17, 26),
     declination: Declination::new(Sgn::Neg, 58, 14, 9),
@@ -64,7 +64,7 @@ const GAMMA_TUCANAE: RealData = RealData {
 
 const ZETA_TUCANAE: RealData = RealData {
     common_name: "",
-    astronomical_name: "Zeta Tucanae",
+    astronomical_name: "ζ Tucanae",
     constellation: "Tucana",
     right_ascension: RightAscension::new(0, 20, 4),
     declination: Declination::new(Sgn::Neg, 64, 52, 29),
