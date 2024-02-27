@@ -13,7 +13,7 @@ use crate::{
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHARD: RealData = RealData {
-    common_name: "αrd",
+    common_name: "Alphard",
     astronomical_name: "α Hydrae",
     constellation: "Hydra",
     radius: Some(Distance {

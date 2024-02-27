@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ZUBENELGENUBI: RealData = RealData {
     common_name: "Zubenelgenubi",
-    astronomical_name: "α2 Librae",
+    astronomical_name: "α² Librae",
     constellation: "Libra",
     right_ascension: RightAscension::new(14, 50, 53),
     declination: Declination::new(Sgn::Neg, 16, 2, 30),

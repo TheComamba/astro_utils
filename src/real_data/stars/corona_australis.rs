@@ -64,7 +64,7 @@ const BETA_CORONAE_AUSTRALIS: RealData = RealData {
 
 const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "γ1 Coronae Australis",
+    astronomical_name: "γ¹ Coronae Australis",
     constellation: "Corona Australis",
     right_ascension: RightAscension::new(19, 6, 25),
     declination: Declination::new(Sgn::Neg, 37, 3, 48),

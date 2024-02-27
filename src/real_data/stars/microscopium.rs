@@ -66,7 +66,7 @@ const EPSILON_MICROSCOPII: RealData = RealData {
 
 const THETA1_MICROSCOPII: RealData = RealData {
     common_name: "",
-    astronomical_name: "θ1 Microscopii",
+    astronomical_name: "θ¹ Microscopii",
     constellation: "Microscopium",
     right_ascension: RightAscension::new(21, 20, 46),
     declination: Declination::new(Sgn::Neg, 40, 48, 34),

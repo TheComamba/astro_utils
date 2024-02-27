@@ -40,7 +40,7 @@ const ALPHA_CAELI: RealData = RealData {
 
 const GAMMA1_CAELI: RealData = RealData {
     common_name: "",
-    astronomical_name: "γ1 Caeli",
+    astronomical_name: "γ¹ Caeli",
     constellation: "Caelum",
     radius: Some(Distance {
         m: 14.31 * SOLAR_RADIUS.m,
