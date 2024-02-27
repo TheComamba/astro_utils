@@ -113,10 +113,10 @@ impl StarDataEvolution {
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return data.luminous_intensity.unwrap()
+            return data.luminous_intensity
                 + lifestage_evolution.luminous_intensity_per_year * time_since_epoch.to_yr();
         }
-        data.luminous_intensity.unwrap()
+        data.luminous_intensity
     }
 
     pub(crate) fn apply_to_temperature(
@@ -183,12 +183,9 @@ impl StarDataLifestageEvolution {
             (Some(now_radius), Some(then_radius)) => (now_radius - then_radius) / years,
             _ => DISTANCE_ZERO,
         };
-        let luminous_intensity_per_year = match (now.luminous_intensity, then.luminous_intensity) {
-            (Some(now_luminous_intensity), Some(then_luminous_intensity)) => {
-                (now_luminous_intensity - then_luminous_intensity) / years
-            }
-            _ => LUMINOSITY_ZERO,
-        };
+        let luminous_intensity_per_year =
+            (now.luminous_intensity - then.luminous_intensity) / years;
+
         let temperature_per_year = (now.temperature - then.temperature) / years;
         Self {
             mass_per_year,

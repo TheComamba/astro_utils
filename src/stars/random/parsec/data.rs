@@ -70,8 +70,8 @@ mod tests {
         );
         println!(
             "calculated luminous_intensity: {}, real luminous_intensity: {}",
-            calculated_sun.get_luminous_intensity_at_epoch().unwrap(),
-            real_sun.get_luminous_intensity_at_epoch().unwrap()
+            calculated_sun.get_luminous_intensity_at_epoch(),
+            real_sun.get_luminous_intensity_at_epoch()
         );
         println!(
             "calculated temperature: {}, real temperature: {}",
@@ -89,8 +89,8 @@ mod tests {
             1e-1 * SOLAR_RADIUS.m
         ));
         assert!(eq_within(
-            calculated_sun.get_luminous_intensity_at_epoch().unwrap().cd,
-            real_sun.get_luminous_intensity_at_epoch().unwrap().cd,
+            calculated_sun.get_luminous_intensity_at_epoch().cd,
+            real_sun.get_luminous_intensity_at_epoch().cd,
             0.5 * SOLAR_LUMINOUS_INTENSITY.cd
         ));
         assert!(eq_within(

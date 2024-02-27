@@ -114,7 +114,7 @@ impl ParsedParsecLine {
         StarData {
             name: "".to_string(),
             mass: Some(mass),
-            luminous_intensity: Some(luminous_intensity),
+            luminous_intensity: luminous_intensity,
             temperature: temperature,
             radius: Some(radius),
             distance: DISTANCE_ZERO,

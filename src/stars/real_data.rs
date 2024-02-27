@@ -60,7 +60,7 @@ impl RealData {
             mass: Some(self.mass),
             constellation,
             radius: self.radius,
-            luminous_intensity: Some(luminous_intensity),
+            luminous_intensity: luminous_intensity,
             temperature: self.temperature,
             distance: self.distance,
             pos,
@@ -105,7 +105,7 @@ mod tests {
     fn calculate_apparent_magnitude() {
         for star_data in get_many_stars() {
             let star = star_data.to_star_data();
-            let luminous_intensity = star.get_luminous_intensity_at_epoch().unwrap();
+            let luminous_intensity = star.get_luminous_intensity_at_epoch();
             let illuminance =
                 luminous_intensity_to_illuminance(&luminous_intensity, &star.distance);
             let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);

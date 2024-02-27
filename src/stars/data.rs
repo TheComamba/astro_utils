@@ -1,8 +1,7 @@
 use super::{appearance::StarAppearance, evolution::StarDataEvolution, fate::StarFate};
 use crate::{
-    color::srgb::sRGBColor,
-    coordinates::ecliptic::EclipticCoordinates,
-    units::{illuminance::IRRADIANCE_ZERO, luminous_intensity::luminous_intensity_to_illuminance},
+    color::srgb::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
+    units::luminous_intensity::luminous_intensity_to_illuminance,
 };
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
@@ -13,7 +12,7 @@ pub struct StarData {
     pub(super) constellation: Option<String>,
     pub(super) mass: Option<Mass<f64>>,
     pub(super) radius: Option<Distance<f64>>,
-    pub(super) luminous_intensity: Option<Luminosity<f64>>,
+    pub(super) luminous_intensity: Luminosity<f64>,
     pub(super) temperature: Temperature<f64>,
     pub(super) distance: Distance<f64>,
     pub(super) pos: EclipticCoordinates,
@@ -26,7 +25,7 @@ impl StarData {
         constellation: Option<String>,
         mass: Option<Mass<f64>>,
         radius: Option<Distance<f64>>,
-        luminous_intensity: Option<Luminosity<f64>>,
+        luminous_intensity: Luminosity<f64>,
         temperature: Temperature<f64>,
         distance: Distance<f64>,
         pos: EclipticCoordinates,
@@ -53,48 +52,48 @@ impl StarData {
         &self.constellation
     }
 
-    pub const fn get_mass_at_epoch(&self) -> &Option<Mass<f64>> {
-        &self.mass
+    pub const fn get_mass_at_epoch(&self) -> Option<Mass<f64>> {
+        self.mass
     }
 
     pub fn get_mass(&self, time: Time<f64>) -> Option<Mass<f64>> {
         Some(self.evolution.apply_to_mass(self.mass?, time))
     }
 
-    pub const fn get_radius_at_epoch(&self) -> &Option<Distance<f64>> {
-        &self.radius
+    pub const fn get_radius_at_epoch(&self) -> Option<Distance<f64>> {
+        self.radius
     }
 
     pub fn get_radius(&self, time: Time<f64>) -> Option<Distance<f64>> {
         Some(self.evolution.apply_to_radius(self.radius?, time))
     }
 
-    pub const fn get_luminous_intensity_at_epoch(&self) -> &Option<Luminosity<f64>> {
-        &self.luminous_intensity
+    pub const fn get_luminous_intensity_at_epoch(&self) -> Luminosity<f64> {
+        self.luminous_intensity
     }
 
-    pub fn get_luminous_intensity(&self, time: Time<f64>) -> Option<Luminosity<f64>> {
-        Some(self.evolution.apply_to_luminous_intensity(self, time))
+    pub fn get_luminous_intensity(&self, time: Time<f64>) -> Luminosity<f64> {
+        self.evolution.apply_to_luminous_intensity(self, time)
     }
 
-    pub const fn get_temperature_at_epoch(&self) -> &Temperature<f64> {
-        &self.temperature
+    pub const fn get_temperature_at_epoch(&self) -> Temperature<f64> {
+        self.temperature
     }
 
     pub fn get_temperature(&self, time: Time<f64>) -> Temperature<f64> {
         self.evolution.apply_to_temperature(self, time)
     }
 
-    pub const fn get_age_at_epoch(&self) -> &Option<Time<f64>> {
-        &self.evolution.age
+    pub const fn get_age_at_epoch(&self) -> Option<Time<f64>> {
+        self.evolution.age
     }
 
     pub fn get_age(&self, time: Time<f64>) -> Option<Time<f64>> {
         self.evolution.age.map(|age| age + time)
     }
 
-    pub const fn get_distance_at_epoch(&self) -> &Distance<f64> {
-        &self.distance
+    pub const fn get_distance_at_epoch(&self) -> Distance<f64> {
+        self.distance
     }
 
     pub fn get_distance(&self, _time: Time<f64>) -> Distance<f64> {
@@ -137,7 +136,7 @@ impl StarData {
         self.radius = radius;
     }
 
-    pub fn set_luminous_intensity_at_epoch(&mut self, luminous_intensity: Option<Luminosity<f64>>) {
+    pub fn set_luminous_intensity_at_epoch(&mut self, luminous_intensity: Luminosity<f64>) {
         self.luminous_intensity = luminous_intensity;
     }
 
@@ -166,12 +165,8 @@ impl StarData {
     }
 
     pub fn to_star_appearance(&self, time_since_epoch: Time<f64>) -> StarAppearance {
-        let illuminance = match self.get_luminous_intensity(time_since_epoch) {
-            Some(luminous_intensity) => {
-                luminous_intensity_to_illuminance(&luminous_intensity, &self.distance)
-            }
-            _ => IRRADIANCE_ZERO,
-        };
+        let luminous_intensity = self.get_luminous_intensity(time_since_epoch);
+        let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &self.distance);
 
         let color = sRGBColor::from_temperature(self.get_temperature(time_since_epoch));
 
@@ -199,14 +194,9 @@ impl StarData {
             _ => 1.0,
         };
         let luminous_intensity_difference =
-            match (self.luminous_intensity, other.luminous_intensity) {
-                (Some(self_luminous_intensity), Some(other_luminous_intensity)) => {
-                    (luminous_intensity_to_absolute_magnitude(self_luminous_intensity)
-                        - luminous_intensity_to_absolute_magnitude(other_luminous_intensity))
-                    .abs()
-                }
-                _ => 0.0,
-            };
+            (luminous_intensity_to_absolute_magnitude(self.luminous_intensity)
+                - luminous_intensity_to_absolute_magnitude(other.luminous_intensity))
+            .abs();
         let temperature_ratio = self.temperature / other.temperature;
         let age_ratio = match (self.evolution.age, other.evolution.age) {
             (Some(self_age), Some(other_age)) => self_age / other_age,
@@ -234,9 +224,7 @@ impl StarData {
         if luminous_intensity_difference > 1.0 {
             println!(
                 "luminous_intensity1: {}, luminous_intensity2: {}, difference: {}",
-                self.luminous_intensity.unwrap(),
-                other.luminous_intensity.unwrap(),
-                luminous_intensity_difference
+                self.luminous_intensity, other.luminous_intensity, luminous_intensity_difference
             );
             result = false;
         }
@@ -337,8 +325,8 @@ mod tests {
             );
             assert!(
                 kinda_equal(
-                    star.get_luminous_intensity_at_epoch().map(|l| l.cd),
-                    star.get_luminous_intensity(TIME_ZERO).map(|l| l.cd)
+                    Some(star.get_luminous_intensity_at_epoch().cd),
+                    Some(star.get_luminous_intensity(TIME_ZERO).cd)
                 ),
                 "Star {}\nLuminous intensity {:?}\nLuminous intensity {:?}",
                 star.get_name(),
