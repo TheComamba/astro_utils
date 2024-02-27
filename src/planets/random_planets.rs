@@ -1,10 +1,10 @@
-use std::f64::consts::PI;
+use std::{f64::consts::PI, time::SystemTime};
 
 use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
 use crate::{
     color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
 };
-use rand::Rng;
+use rand::{rngs::SmallRng, Rng, SeedableRng};
 use simple_si_units::{
     base::{Distance, Time},
     geometry::Angle,
@@ -12,7 +12,11 @@ use simple_si_units::{
 };
 
 pub fn generate_random_planet() -> PlanetData {
-    let mut rng = rand::thread_rng();
+    let seed = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+    let mut rng = SmallRng::seed_from_u64(seed);
 
     let name = String::new();
 

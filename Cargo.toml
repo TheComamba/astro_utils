@@ -12,12 +12,12 @@ directories = { version = "5.0", default-features = false } # Standard locations
 flate2 = { version = "1.0", default-features = false, features = ["zlib-ng-compat"] } # Decompression
 fraction = { version = "0.15.0", default-features = false }
 lazy_static = { version = "1.4", default-features = false }
-rand = { version = "0.8.0", default-features = false } # Random number generation
-rand_distr = { version = "0.4.0", default-features = false } # WeightedAliasIndex
+rand = { version = "0.8.0", default-features = false, features = ["small_rng"] } # Random number generation
+rand_distr = { version = "0.4.0", default-features = false, features = ["alloc"] } # WeightedAliasIndex
 rayon = { version = "1.8", default-features = false } # Parallelism
 reqwest = { version = "0.11.0", default-features = false, features = ["blocking"] } # Downloading files
 rmp-serde = { version = "1.1", default-features = false }
 serde = { version = "1.0", default-features = false, features = ["derive"] } # (De)Serialization
-serde_json = { version = "1.0", default-features = false }
+serde_json = { version = "1.0", default-features = false, features = ["std"] }
 simple-si-units = { version = "1.1", default-features = false, features = ["serde"] }
 tar = { version = "0.4.0", default-features = false } # Decompression
