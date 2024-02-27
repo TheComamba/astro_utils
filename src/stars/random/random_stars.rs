@@ -8,13 +8,13 @@ use crate::{
     },
     units::distance::DISTANCE_ZERO,
 };
-use rand::{distributions::Uniform, rngs::SmallRng, Rng, SeedableRng};
+use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use simple_si_units::{
     base::{Distance, Time},
     electromagnetic::Illuminance,
 };
-use std::{f64::consts::PI, time::SystemTime};
+use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted, because Gaia does not resolve all binaries.
@@ -43,10 +43,6 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     const MAX_CHUNKSIZE: usize = 100_000_000;
     let mut remaining = number_of_stars_in_sphere;
     let mut stars = Vec::new();
-    let mut seed = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap()
-        .as_secs();
     while remaining > MAX_CHUNKSIZE {
         let chunk = generate_certain_number_of_random_stars(
             MAX_CHUNKSIZE,
@@ -54,11 +50,9 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             max_distance,
             unit_distance_distr,
             &parsec_distr,
-            seed,
         );
         stars.extend(chunk);
         remaining -= MAX_CHUNKSIZE;
-        seed += 1;
 
         let finished = number_of_stars_in_sphere - remaining;
         let fraction = finished as f64 / number_of_stars_in_sphere as f64;
@@ -76,7 +70,6 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         max_distance,
         unit_distance_distr,
         &parsec_distr,
-        seed,
     );
     stars.extend(chunk);
 
@@ -89,12 +82,11 @@ fn generate_certain_number_of_random_stars(
     max_distance: Distance<f64>,
     unit_distance_distr: Uniform<f64>,
     parsec_distr: &ParsecDistribution,
-    seed: u64,
 ) -> Vec<StarData> {
     (0..=number)
         .into_par_iter()
         .map(|_| {
-            let mut rng = SmallRng::seed_from_u64(seed);
+            let mut rng = rand::thread_rng();
             generate_visible_random_star(
                 parsec_data,
                 max_distance,
@@ -110,11 +102,7 @@ fn generate_certain_number_of_random_stars(
 pub fn generate_random_star(
     max_distance: Option<Distance<f64>>,
 ) -> Result<StarData, AstroUtilError> {
-    let seed = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap()
-        .as_secs();
-    let mut rng = SmallRng::seed_from_u64(seed);
+    let mut rng = rand::thread_rng();
     let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
 
     let parsec_data_mutex = PARSEC_DATA
@@ -151,7 +139,7 @@ pub fn generate_random_star(
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
     max_distance: Distance<f64>,
-    rng: &mut SmallRng,
+    rng: &mut ThreadRng,
     unit_distance_distr: &Uniform<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Option<StarData> {
@@ -165,7 +153,7 @@ fn generate_visible_random_star(
     Some(star)
 }
 
-fn random_point_in_unit_sphere(rng: &mut SmallRng) -> CartesianCoordinates {
+fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
     let distr = Uniform::new(-1., 1.);
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     while x * x + y * y + z * z > 1. {
@@ -177,7 +165,7 @@ fn random_point_in_unit_sphere(rng: &mut SmallRng) -> CartesianCoordinates {
     CartesianCoordinates::new(x, y, z)
 }
 
-pub(crate) fn random_direction(rng: &mut SmallRng) -> Direction {
+pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
     let mut point = random_point_in_unit_sphere(rng);
     let mut dir = point.to_direction();
     while dir.is_err() {
@@ -193,7 +181,7 @@ fn get_unit_distance_distribution() -> Uniform<f64> {
 
 // https://stackoverflow.com/questions/5408276/sampling-uniformly-distributed-random-points-inside-a-spherical-volume
 fn random_distance(
-    rng: &mut SmallRng,
+    rng: &mut ThreadRng,
     unit_distance_distr: &Uniform<f64>,
     max_distance: Distance<f64>,
 ) -> Distance<f64> {

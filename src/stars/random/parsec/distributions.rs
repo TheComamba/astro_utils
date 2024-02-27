@@ -1,6 +1,6 @@
 use super::{data::ParsecData, line::ParsedParsecLine};
 use crate::stars::random::random_stars::AGE_OF_MILKY_WAY_THIN_DISK;
-use rand::{distributions::Distribution, rngs::SmallRng};
+use rand::{distributions::Distribution, rngs::ThreadRng};
 use rand_distr::WeightedAliasIndex;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
@@ -28,11 +28,11 @@ impl ParsecDistribution {
         }
     }
 
-    pub(crate) fn get_random_mass_index(&self, rng: &mut SmallRng) -> usize {
+    pub(crate) fn get_random_mass_index(&self, rng: &mut ThreadRng) -> usize {
         self.mass_distribution.sample(rng)
     }
 
-    pub(crate) fn get_random_age_index(&self, mass_index: usize, rng: &mut SmallRng) -> usize {
+    pub(crate) fn get_random_age_index(&self, mass_index: usize, rng: &mut ThreadRng) -> usize {
         self.age_distributions[mass_index].sample(rng)
     }
 }
