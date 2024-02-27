@@ -14,7 +14,7 @@ use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const GAMMA1_VOLANTIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "γ1 Volantis",
+    astronomical_name: "γ¹ Volantis",
     constellation: "Volans",
     right_ascension: RightAscension::new(7, 8, 42),
     declination: Declination::new(Sgn::Neg, 70, 29, 50),
