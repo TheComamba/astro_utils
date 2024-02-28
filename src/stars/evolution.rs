@@ -102,38 +102,40 @@ impl StarDataEvolution {
 
     pub(crate) fn apply_to_luminous_intensity(
         &self,
-        data: &StarData,
+        luminous_intensity: Luminosity<f64>,
         time_since_epoch: Time<f64>,
     ) -> Luminosity<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
                 return self
                     .fate
-                    .apply_to_luminous_intensity(data, -time_until_death);
+                    .apply_to_luminous_intensity(luminous_intensity, -time_until_death);
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return data.luminous_intensity
+            return luminous_intensity
                 + lifestage_evolution.luminous_intensity_per_year * time_since_epoch.to_yr();
         }
-        data.luminous_intensity
+        luminous_intensity
     }
 
     pub(crate) fn apply_to_temperature(
         &self,
-        data: &StarData,
+        temperature: Temperature<f64>,
         time_since_epoch: Time<f64>,
     ) -> Temperature<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
-                return self.fate.apply_to_temperature(data, -time_until_death);
+                return self
+                    .fate
+                    .apply_to_temperature(temperature, -time_until_death);
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return data.temperature
+            return temperature
                 + lifestage_evolution.temperature_per_year * time_since_epoch.to_yr();
         }
-        data.temperature
+        temperature
     }
 
     pub fn get_lifestage_mass_per_year(&self) -> Mass<f64> {

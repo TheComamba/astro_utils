@@ -15,8 +15,6 @@ use crate::{
     },
 };
 
-use super::data::StarData;
-
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub enum StarFate {
     WhiteDwarf,
@@ -54,25 +52,27 @@ impl StarFate {
 
     pub(crate) fn apply_to_luminous_intensity(
         &self,
-        data: &StarData,
+        luminous_intensity: Luminosity<f64>,
         time_since_death: Time<f64>,
     ) -> Luminosity<f64> {
         match self {
             StarFate::WhiteDwarf => absolute_magnitude_to_luminous_intensity(11.18), // Sirius B
             StarFate::TypeIISupernova => {
-                type_2_supernova_luminous_intensity(time_since_death, data)
+                type_2_supernova_luminous_intensity(luminous_intensity, time_since_death)
             }
         }
     }
 
     pub(crate) fn apply_to_temperature(
         &self,
-        data: &StarData,
+        temperature: Temperature<f64>,
         time_since_death: Time<f64>,
     ) -> Temperature<f64> {
         match self {
             StarFate::WhiteDwarf => Temperature::from_celsius(25_000.), // Sirius B
-            StarFate::TypeIISupernova => type_2_supernova_temperature(time_since_death, data),
+            StarFate::TypeIISupernova => {
+                type_2_supernova_temperature(temperature, time_since_death)
+            }
         }
     }
 }
@@ -82,8 +82,8 @@ const SN_PHASE_2_DECREASE: Range<f64> = 10.0..20.0;
 const SN_PHASE_3_PLATEAU: Range<f64> = 20.0..110.0;
 
 fn type_2_supernova_luminous_intensity(
+    initial: Luminosity<f64>,
     time_since_death: Time<f64>,
-    data: &StarData,
 ) -> Luminosity<f64> {
     const PEAK_MAGNITUDE: f64 = -16.8;
     const PLATEAU_MAGNITUDE: f64 = -16.3;
@@ -92,7 +92,7 @@ fn type_2_supernova_luminous_intensity(
     if days < 0. {
         LUMINOSITY_ZERO
     } else if SN_PHASE_1_INCREASE.contains(&days) {
-        let offset = luminous_intensity_to_absolute_magnitude(data.luminous_intensity);
+        let offset = luminous_intensity_to_absolute_magnitude(initial);
         let slope =
             (PEAK_MAGNITUDE - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
         let mag = offset + slope * days;
@@ -113,15 +113,18 @@ fn type_2_supernova_luminous_intensity(
     }
 }
 
-fn type_2_supernova_temperature(time_since_death: Time<f64>, data: &StarData) -> Temperature<f64> {
+fn type_2_supernova_temperature(
+    initial: Temperature<f64>,
+    time_since_death: Time<f64>,
+) -> Temperature<f64> {
     const PEAK_TEMPERATURE: Temperature<f64> = Temperature { K: 100_000. };
     const PLATEAU_TEMPERATURE: Temperature<f64> = Temperature { K: 4_500. };
 
     let days = time_since_death.to_days();
     if days < 0. {
-        data.temperature
+        initial
     } else if SN_PHASE_1_INCREASE.contains(&days) {
-        let offset = data.temperature;
+        let offset = initial;
         let slope =
             (PEAK_TEMPERATURE - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
         offset + slope * days
@@ -151,4 +154,9 @@ impl AstroDisplay for StarFate {
             StarFate::TypeIISupernova => "Type II Supernova".to_string(),
         }
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
 }
