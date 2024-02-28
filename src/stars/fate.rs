@@ -90,25 +90,25 @@ fn type_2_supernova_luminous_intensity(
 
     let days = time_since_death.to_days();
     if days < 0. {
-        LUMINOSITY_ZERO
+        initial
     } else if SN_PHASE_1_INCREASE.contains(&days) {
         let offset = luminous_intensity_to_absolute_magnitude(initial);
         let slope =
             (PEAK_MAGNITUDE - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
-        let mag = offset + slope * days;
+        let mag = offset + slope * (days - SN_PHASE_1_INCREASE.start);
         absolute_magnitude_to_luminous_intensity(mag)
     } else if SN_PHASE_2_DECREASE.contains(&days) {
         let offset = PEAK_MAGNITUDE;
         let slope =
             (PLATEAU_MAGNITUDE - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
-        let mag = offset + slope * days;
+        let mag = offset + slope * (days - SN_PHASE_2_DECREASE.start);
         absolute_magnitude_to_luminous_intensity(mag)
     } else if SN_PHASE_3_PLATEAU.contains(&days) {
         absolute_magnitude_to_luminous_intensity(PLATEAU_MAGNITUDE)
     } else {
         let offset = PLATEAU_MAGNITUDE;
         let slope = 1. / 60.;
-        let mag = offset + slope * days;
+        let mag = offset + slope * (days - SN_PHASE_3_PLATEAU.end);
         absolute_magnitude_to_luminous_intensity(mag)
     }
 }
@@ -127,18 +127,18 @@ fn type_2_supernova_temperature(
         let offset = initial;
         let slope =
             (PEAK_TEMPERATURE - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
-        offset + slope * days
+        offset + slope * (days - SN_PHASE_1_INCREASE.start)
     } else if SN_PHASE_2_DECREASE.contains(&days) {
         let offset = PEAK_TEMPERATURE;
         let slope =
             (PLATEAU_TEMPERATURE - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
-        offset + slope * days
+        offset + slope * (days - SN_PHASE_2_DECREASE.start)
     } else if SN_PHASE_3_PLATEAU.contains(&days) {
         PLATEAU_TEMPERATURE
     } else {
         let offset = PLATEAU_TEMPERATURE;
         let slope = -PLATEAU_TEMPERATURE / Time::from_kyr(10.).to_days();
-        let t = offset + slope * days;
+        let t = offset + slope * (days - SN_PHASE_3_PLATEAU.end);
         if t > TEMPERATURE_ZERO {
             t
         } else {
@@ -158,5 +158,197 @@ impl AstroDisplay for StarFate {
 
 #[cfg(test)]
 mod tests {
+    use crate::units::luminous_intensity::SOLAR_LUMINOUS_INTENSITY;
+
     use super::*;
+
+    #[test]
+    fn type_2_supernova_luminous_intensity_is_smooth() {
+        let initial = absolute_magnitude_to_luminous_intensity(-16.);
+        let mut last = initial;
+        for count in -3..20_000 {
+            let time_since_death = Time::from_days(count as f64 / 25.);
+            let current = type_2_supernova_luminous_intensity(initial, time_since_death);
+            let diff = current - last;
+            assert!(
+                diff.cd.abs() < 1e-1 * current.cd.abs(),
+                "days: {} current: {} last: {}",
+                time_since_death.astro_display(),
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_luminous_intensity_increases_during_phase_1() {
+        let initial = 10. * SOLAR_LUMINOUS_INTENSITY;
+        let mut last = initial;
+        for days in (SN_PHASE_1_INCREASE.start as i32 + 1)..=SN_PHASE_1_INCREASE.end as i32 {
+            let time_since_death = Time::from_days(days as f64);
+            let current = type_2_supernova_luminous_intensity(initial, time_since_death);
+            assert!(
+                current > last,
+                "days: {} current: {} last: {}",
+                days,
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_luminous_intensity_decreases_during_phase_2() {
+        let initial = 10. * SOLAR_LUMINOUS_INTENSITY;
+        let last_time = Time::from_days(SN_PHASE_2_DECREASE.start);
+        let mut last = type_2_supernova_luminous_intensity(initial, last_time);
+        for days in (SN_PHASE_2_DECREASE.start as i32 + 1)..=SN_PHASE_2_DECREASE.end as i32 {
+            let time_since_death = Time::from_days(days as f64);
+            let current = type_2_supernova_luminous_intensity(initial, time_since_death);
+            assert!(
+                current < last,
+                "days: {} current: {} last: {}",
+                days,
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_luminous_intensity_plateaus_during_phase_3() {
+        let initial = 10. * SOLAR_LUMINOUS_INTENSITY;
+        let last_time = Time::from_days(SN_PHASE_3_PLATEAU.start);
+        let mut last = type_2_supernova_luminous_intensity(initial, last_time);
+        for days in (SN_PHASE_3_PLATEAU.start as i32 + 1)..=SN_PHASE_3_PLATEAU.end as i32 {
+            let time_since_death = Time::from_days(days as f64);
+            let current = type_2_supernova_luminous_intensity(initial, time_since_death);
+            let diff = current - last;
+            assert!(
+                diff.cd < 1.,
+                "days: {} current: {} last: {}",
+                days,
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_luminous_intensity_decreases_after_phase_3() {
+        let initial = 10. * SOLAR_LUMINOUS_INTENSITY;
+        let last_time = Time::from_days(SN_PHASE_2_DECREASE.end);
+        let mut last = type_2_supernova_luminous_intensity(initial, last_time);
+        for days in (SN_PHASE_3_PLATEAU.end as i32 + 1)..(SN_PHASE_3_PLATEAU.end as i32 + 100) {
+            let time_since_death = Time::from_days(days as f64);
+            let current = type_2_supernova_luminous_intensity(initial, time_since_death);
+            assert!(
+                current < last,
+                "days: {} current: {} last: {}",
+                days,
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_temperature_is_smooth() {
+        let initial = Temperature::from_celsius(50_000.);
+        let mut last = initial;
+        for count in -3..20_000 {
+            let time_since_death = Time::from_days(count as f64 / 25.);
+            let current = type_2_supernova_temperature(initial, time_since_death);
+            let diff = current - last;
+            assert!(
+                diff.K.abs() < 1e-1 * current.K.abs(),
+                "days: {} current: {} last: {}",
+                time_since_death.astro_display(),
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_temperature_increases_during_phase_1() {
+        let initial = Temperature::from_celsius(5_000.);
+        let mut last = initial;
+        for days in (SN_PHASE_1_INCREASE.start as i32 + 1)..=SN_PHASE_1_INCREASE.end as i32 {
+            let time_since_death = Time::from_days(days as f64);
+            let current = type_2_supernova_temperature(initial, time_since_death);
+            assert!(
+                current > last,
+                "days: {} current: {} last: {}",
+                days,
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_temperature_decreases_during_phase_2() {
+        let initial = Temperature::from_celsius(5_000.);
+        let last_time = Time::from_days(SN_PHASE_2_DECREASE.start);
+        let mut last = type_2_supernova_temperature(initial, last_time);
+        for days in (SN_PHASE_2_DECREASE.start as i32 + 1)..=SN_PHASE_2_DECREASE.end as i32 {
+            let time_since_death = Time::from_days(days as f64);
+            let current = type_2_supernova_temperature(initial, time_since_death);
+            assert!(
+                current < last,
+                "days: {} current: {} last: {}",
+                days,
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_temperature_plateaus_during_phase_3() {
+        let initial = Temperature::from_celsius(5_000.);
+        let last_time = Time::from_days(SN_PHASE_3_PLATEAU.start);
+        let mut last = type_2_supernova_temperature(initial, last_time);
+        for days in (SN_PHASE_3_PLATEAU.start as i32 + 1)..=SN_PHASE_3_PLATEAU.end as i32 {
+            let time_since_death = Time::from_days(days as f64);
+            let current = type_2_supernova_temperature(initial, time_since_death);
+            let diff = current - last;
+            assert!(
+                diff.K < 1.,
+                "days: {} current: {} last: {}",
+                days,
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
+
+    #[test]
+    fn type_2_supernova_temperature_decreases_after_phase_3() {
+        let initial = Temperature::from_celsius(5_000.);
+        let last_time = Time::from_days(SN_PHASE_3_PLATEAU.end);
+        let mut last = type_2_supernova_temperature(initial, last_time);
+        for days in (SN_PHASE_3_PLATEAU.end as i32 + 1)..(SN_PHASE_3_PLATEAU.end as i32 + 100) {
+            let time_since_death = Time::from_days(days as f64);
+            let current = type_2_supernova_temperature(initial, time_since_death);
+            assert!(
+                current < last,
+                "days: {} current: {} last: {}",
+                days,
+                current.astro_display(),
+                last.astro_display()
+            );
+            last = current;
+        }
+    }
 }
