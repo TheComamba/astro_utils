@@ -43,14 +43,14 @@ impl StarDataEvolution {
             (self.time_until_death(then), self.time_until_death(now))
         {
             const DEATH_TIMESCALE: Time<f64> = Time {
-                s: -365.25 * 24. * 60. * 60.,
+                s: -10_000. * 365.25 * 24. * 60. * 60.,
             }; // 1 year (negative because it counts time until death)
 
             let has_crossed_death = until_death_then.s.signum() != until_death_now.s.signum();
-            let shortly_after_death = DEATH_TIMESCALE.s..0.;
-            let then_was_shortly_after_death = shortly_after_death.contains(&until_death_then.s);
-            let now_is_shortly_after_death = shortly_after_death.contains(&until_death_now.s);
-            if has_crossed_death || then_was_shortly_after_death || now_is_shortly_after_death {
+            let millenia_after_death = DEATH_TIMESCALE.s..0.;
+            let then_was_millenia_after_death = millenia_after_death.contains(&until_death_then.s);
+            let now_is_millenia_after_death = millenia_after_death.contains(&until_death_now.s);
+            if has_crossed_death || then_was_millenia_after_death || now_is_millenia_after_death {
                 return true;
             }
         }
@@ -261,13 +261,15 @@ mod tests {
     }
 
     #[test]
-    fn star_changes_rapidly_shortly_after_death() {
+    fn star_changes_rapidly_in_the_millenia_after_death() {
         let lifetime = Time::from_Gyr(1.);
         let small_steps = vec![
             Time::from_s(1.),
             Time::from_min(1.),
             Time::from_hr(1.),
             Time::from_days(1.),
+            Time::from_yr(1.),
+            Time::from_kyr(1.),
         ];
         let age = Some(lifetime);
         let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
