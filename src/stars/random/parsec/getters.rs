@@ -2,9 +2,7 @@ use super::data::ParsecData;
 use super::line::ParsedParsecLine;
 use super::trajectory::Trajectory;
 use crate::stars::data::StarData;
-use crate::stars::random::random_stars::{set_random_time_of_death, DIMMEST_ILLUMINANCE};
-use crate::units::luminous_intensity::luminous_intensity_to_solar_luminosities;
-use simple_si_units::base::Luminosity;
+use crate::stars::random::random_stars::set_random_time_of_death;
 
 impl ParsecData {
     pub(super) const SORTED_MASSES: [f64; 100] = [
@@ -66,7 +64,12 @@ impl ParsecData {
         age_index: usize,
         distance_in_m: f64,
     ) -> Option<StarData> {
-        let params = self.get_params_via_indices(mass_index, age_index);
+        let trajectory = self.get_trajectory_via_index(mass_index);
+        if !trajectory.is_ever_visible(distance_in_m) {
+            return None;
+        }
+
+        let params = trajectory.get_params_by_index(age_index);
         let is_supernova_progenitor = mass_index >= Self::MASS_INDEX_FOR_SUPERNOVA;
         let has_exploded = is_supernova_progenitor && params.is_none();
         let params = if has_exploded {
@@ -74,12 +77,8 @@ impl ParsecData {
         } else {
             params?
         };
-        if !is_supernova_progenitor && !is_visible(distance_in_m, params) {
-            return None;
-        }
 
         let mut star = params.to_star_at_origin();
-        let trajectory = self.get_trajectory_via_index(mass_index);
         let lifestage_evolution = trajectory.get_lifestage_evolution(age_index, params, &star);
         star.evolution = trajectory.get_evolution(params, lifestage_evolution);
 
@@ -89,16 +88,6 @@ impl ParsecData {
 
         Some(star)
     }
-}
-
-fn is_visible(distance_in_m: f64, current_params: &ParsedParsecLine) -> bool {
-    let min_luminous_intensity = Luminosity {
-        cd: DIMMEST_ILLUMINANCE.lux * distance_in_m * distance_in_m,
-    };
-    let min_luminous_intensity = luminous_intensity_to_solar_luminosities(min_luminous_intensity);
-    let luminous_intensity = current_params.luminous_intensity_in_solar;
-    let is_visible = luminous_intensity >= min_luminous_intensity;
-    is_visible
 }
 
 #[cfg(test)]

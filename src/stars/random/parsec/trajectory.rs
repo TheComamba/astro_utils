@@ -7,6 +7,7 @@ use crate::{
         data::StarData,
         evolution::{StarDataEvolution, StarDataLifestageEvolution},
         fate::{StarFate, TYPE_II_SUPERNOVA_PEAK_MAGNITUDE},
+        random::random_stars::DIMMEST_ILLUMINANCE,
     },
     units::{
         luminous_intensity::{
@@ -150,6 +151,13 @@ impl Trajectory {
 
     pub(super) fn is_empty(&self) -> bool {
         self.params.is_empty()
+    }
+
+    pub(super) fn is_ever_visible(&self, distance_in_m: f64) -> bool {
+        let min_luminous_intensity = Luminosity {
+            cd: DIMMEST_ILLUMINANCE.lux * distance_in_m * distance_in_m,
+        };
+        self.peak_lifetime_luminous_intensity >= min_luminous_intensity
     }
 }
 
