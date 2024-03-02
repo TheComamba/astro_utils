@@ -18,6 +18,8 @@ impl ParsecData {
         80.0, 90.0, 95.0, 100.0, 120.0, 130.0, 200.0, 250.0, 300.0, 350.0,
     ];
 
+    const MASS_INDEX_FOR_SUPERNOVA: usize = 70;
+
     pub(super) fn get_closest_mass_index(mass: f64) -> usize {
         let mut min_index = 0;
         let mut max_index = Self::SORTED_MASSES.len() - 1;
@@ -71,13 +73,8 @@ impl ParsecData {
     ) -> Option<StarData> {
         let current_params = self.get_params_via_indices(mass_index, age_index)?;
 
-        let min_luminous_intensity = Luminosity {
-            cd: DIMMEST_ILLUMINANCE.lux * distance_in_m * distance_in_m,
-        };
-        let min_luminous_intensity =
-            luminous_intensity_to_solar_luminosities(min_luminous_intensity);
-        let luminous_intensity = current_params.luminous_intensity_in_solar;
-        if luminous_intensity < min_luminous_intensity {
+        if mass_index < Self::MASS_INDEX_FOR_SUPERNOVA && !is_visible(distance_in_m, current_params)
+        {
             return None;
         }
 
@@ -129,6 +126,16 @@ impl ParsecData {
             age_index + 1
         }
     }
+}
+
+fn is_visible(distance_in_m: f64, current_params: &ParsedParsecLine) -> bool {
+    let min_luminous_intensity = Luminosity {
+        cd: DIMMEST_ILLUMINANCE.lux * distance_in_m * distance_in_m,
+    };
+    let min_luminous_intensity = luminous_intensity_to_solar_luminosities(min_luminous_intensity);
+    let luminous_intensity = current_params.luminous_intensity_in_solar;
+    let is_visible = luminous_intensity >= min_luminous_intensity;
+    is_visible
 }
 
 fn get_evolution(
@@ -343,5 +350,17 @@ mod tests {
                 previous_lifetime
             );
         }
+    }
+
+    #[test]
+    fn mass_index_for_supernova_corresponds_to_8_sol() {
+        let mass_index = ParsecData::MASS_INDEX_FOR_SUPERNOVA;
+        let mass = ParsecData::SORTED_MASSES[mass_index];
+        assert!(
+            (mass - 8.).abs() < 1e-8,
+            "Mass at index {} is {}",
+            ParsecData::MASS_INDEX_FOR_SUPERNOVA,
+            mass
+        );
     }
 }
