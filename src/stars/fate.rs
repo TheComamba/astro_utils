@@ -9,7 +9,6 @@ use crate::{
         distance::SOLAR_RADIUS,
         luminous_intensity::{
             absolute_magnitude_to_luminous_intensity, luminous_intensity_to_absolute_magnitude,
-            LUMINOSITY_ZERO,
         },
         temperature::TEMPERATURE_ZERO,
     },
