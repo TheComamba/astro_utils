@@ -1,4 +1,4 @@
-use super::line::ParsedParsecLine;
+use super::trajectory::Trajectory;
 use crate::error::AstroUtilError;
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
@@ -11,7 +11,7 @@ lazy_static! {
 
 #[derive(Deserialize, Serialize)]
 pub(crate) struct ParsecData {
-    pub(super) data: Vec<Vec<ParsedParsecLine>>,
+    pub(super) data: Vec<Trajectory>,
 }
 
 #[cfg(test)]
@@ -19,13 +19,14 @@ mod tests {
     use super::*;
     use crate::{
         real_data::stars::{all::get_many_stars, SUN},
+        stars::random::parsec::line::ParsedParsecLine,
         tests::eq_within,
         units::{
             distance::SOLAR_RADIUS, luminous_intensity::SOLAR_LUMINOUS_INTENSITY, mass::SOLAR_MASS,
             time::BILLION_YEARS,
         },
     };
-    use simple_si_units::base::{Mass, Time};
+    use simple_si_units::base::Mass;
 
     pub(super) fn get_params_for_current_mass_and_age<'a>(
         data: &'a ParsecData,
@@ -34,15 +35,15 @@ mod tests {
     ) -> &'a ParsedParsecLine {
         let mut mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
         let mut trajectory = &data.data[mass_index];
-        let mut index = ParsecData::get_closest_params_index(trajectory, age_in_years);
-        let mut params = &trajectory[index];
+        let mut index = trajectory.get_closest_params_index(age_in_years);
+        let mut params = trajectory.get_params_by_index_unchecked(index);
         while params.mass_in_solar_masses < mass.to_solar_mass()
             && mass_index < ParsecData::SORTED_MASSES.len() - 1
         {
             mass_index += 1;
             trajectory = &data.data[mass_index];
-            index = ParsecData::get_closest_params_index(trajectory, age_in_years);
-            params = &trajectory[index];
+            index = trajectory.get_closest_params_index(age_in_years);
+            params = trajectory.get_params_by_index_unchecked(index);
         }
         params
     }
@@ -112,8 +113,7 @@ mod tests {
                     let age = age.to_yr();
                     let mass_index = ParsecData::get_closest_mass_index(data.mass.to_solar_mass());
                     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-                    let age_expectancy = ParsecData::get_lifetime_in_years(trajectory);
-                    let age_expectancy = Time::from_yr(age_expectancy as f64);
+                    let age_expectancy = trajectory.lifetime;
                     if age_expectancy < 0.3 * BILLION_YEARS {
                         // Numerics get really unstable for stars with short life expectancies.
                         continue;

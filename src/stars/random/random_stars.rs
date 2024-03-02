@@ -73,8 +73,6 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     );
     stars.extend(chunk);
 
-    let past_supernovae = collect_past_supernovae(&stars);
-
     Ok(stars)
 }
 

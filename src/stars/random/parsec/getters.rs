@@ -1,11 +1,10 @@
 use super::data::ParsecData;
 use super::line::ParsedParsecLine;
+use super::trajectory::Trajectory;
 use crate::stars::data::StarData;
-use crate::stars::evolution::{StarDataEvolution, StarDataLifestageEvolution};
-use crate::stars::fate::StarFate;
 use crate::stars::random::random_stars::{set_random_time_of_death, DIMMEST_ILLUMINANCE};
 use crate::units::luminous_intensity::luminous_intensity_to_solar_luminosities;
-use simple_si_units::base::{Luminosity, Mass, Time};
+use simple_si_units::base::Luminosity;
 
 impl ParsecData {
     pub(super) const SORTED_MASSES: [f64; 100] = [
@@ -41,7 +40,7 @@ impl ParsecData {
         }
     }
 
-    pub(super) fn get_trajectory_via_index(&self, i: usize) -> &Vec<ParsedParsecLine> {
+    pub(super) fn get_trajectory_via_index(&self, i: usize) -> &Trajectory {
         &self.data[i]
     }
 
@@ -50,7 +49,7 @@ impl ParsecData {
         mass_index: usize,
         age_index: usize,
     ) -> Option<&ParsedParsecLine> {
-        self.data[mass_index].get(age_index)
+        self.data[mass_index].get_params_by_index(age_index)
     }
 
     pub(super) fn get_lifetime_in_years(trajectory: &[ParsedParsecLine]) -> u64 {
@@ -85,54 +84,14 @@ impl ParsecData {
 
         let mut star = params.to_star_at_origin();
         let trajectory = self.get_trajectory_via_index(mass_index);
-        let lifestage_evolution = get_lifestage_evolution(age_index, trajectory, params, &star);
-        star.evolution = get_evolution(params, trajectory, lifestage_evolution);
+        let lifestage_evolution = trajectory.get_lifestage_evolution(age_index, params, &star);
+        star.evolution = trajectory.get_evolution(params, lifestage_evolution);
 
         if has_exploded {
             set_random_time_of_death(&mut star);
         }
 
         Some(star)
-    }
-
-    pub(super) fn get_closest_params_index(
-        trajectory: &[ParsedParsecLine],
-        actual_age_in_years: f64,
-    ) -> usize {
-        if actual_age_in_years < trajectory[0].age_in_years {
-            return Self::this_or_next_age_index(trajectory, 0, actual_age_in_years);
-        }
-
-        let mut age_index = 1;
-        while trajectory[age_index].age_in_years < actual_age_in_years {
-            age_index *= 2;
-            if age_index >= trajectory.len() {
-                age_index = trajectory.len() - 2;
-                break;
-            }
-        }
-
-        while trajectory[age_index].age_in_years > actual_age_in_years {
-            age_index -= 1;
-        }
-
-        Self::this_or_next_age_index(trajectory, age_index, actual_age_in_years)
-    }
-
-    fn this_or_next_age_index(
-        trajectory: &[ParsedParsecLine],
-        age_index: usize,
-        actual_age_in_years: f64,
-    ) -> usize {
-        let this_age = trajectory[age_index].age_in_years;
-        let diff_to_this = actual_age_in_years - this_age;
-        let next_age = trajectory[age_index + 1].age_in_years;
-        let diff_to_next = next_age - actual_age_in_years;
-        if diff_to_this <= diff_to_next {
-            age_index
-        } else {
-            age_index + 1
-        }
     }
 }
 
@@ -146,40 +105,13 @@ fn is_visible(distance_in_m: f64, current_params: &ParsedParsecLine) -> bool {
     is_visible
 }
 
-fn get_evolution(
-    current_params: &ParsedParsecLine,
-    trajectory: &Vec<ParsedParsecLine>,
-    lifestage_evolution: StarDataLifestageEvolution,
-) -> StarDataEvolution {
-    let age_at_epoch = Some(Time::from_yr(current_params.age_in_years));
-    let lifetime = Time::from_yr(ParsecData::get_lifetime_in_years(trajectory) as f64);
-    let initial_mass = Mass::from_solar_mass(trajectory[0].mass_in_solar_masses);
-    let fate = StarFate::new(initial_mass);
-    let evolution = StarDataEvolution::new(Some(lifestage_evolution), age_at_epoch, lifetime, fate);
-    evolution
-}
-
-fn get_lifestage_evolution(
-    age_index: usize,
-    trajectory: &Vec<ParsedParsecLine>,
-    current_params: &ParsedParsecLine,
-    star: &StarData,
-) -> StarDataLifestageEvolution {
-    let other_params = if age_index == 0 {
-        &trajectory[age_index + 1]
-    } else {
-        &trajectory[age_index - 1]
-    };
-    let star_at_other_time = other_params.to_star_at_origin();
-    let years = current_params.age_in_years - other_params.age_in_years;
-    let lifestage_evolution = StarDataLifestageEvolution::new(star, &star_at_other_time, years);
-    lifestage_evolution
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{real_data::stars::all::get_many_stars, stars::random::parsec::data::PARSEC_DATA};
+    use crate::{
+        astro_display::AstroDisplay, real_data::stars::all::get_many_stars,
+        stars::random::parsec::data::PARSEC_DATA,
+    };
 
     #[test]
     fn masses_are_mapped_to_themselves() {
@@ -213,10 +145,10 @@ mod tests {
                 let parsec_data = parsec_data_mutex.as_ref().unwrap();
                 (*parsec_data.get_trajectory_via_index(mass_index)).clone()
             };
-            for (age_index, params) in trajectory.iter().enumerate() {
+            for (age_index, params) in trajectory.get_params().iter().enumerate() {
                 let expected_age = params.age_in_years;
-                let params_index = ParsecData::get_closest_params_index(&trajectory, expected_age);
-                let received_age = trajectory[params_index].age_in_years;
+                let params_index = trajectory.get_closest_params_index(expected_age);
+                let received_age = trajectory.get_params()[params_index].age_in_years;
                 assert!(
                     (received_age - expected_age).abs() < 1e-8,
                     "Expected age {} should be exactly the same as received age {} (Mass index {}, Age index {})",
@@ -224,8 +156,8 @@ mod tests {
                 );
 
                 let little_less = expected_age - 0e-5;
-                let params_index = ParsecData::get_closest_params_index(&trajectory, little_less);
-                let received_age = trajectory[params_index].age_in_years;
+                let params_index = trajectory.get_closest_params_index(little_less);
+                let received_age = trajectory.get_params()[params_index].age_in_years;
                 assert!(
                     (received_age - expected_age).abs() < 1e-8,
                     "Expected age {} should be a little less than received age {} (Mass index {}, Age index {})",
@@ -233,8 +165,8 @@ mod tests {
                 );
 
                 let little_more = expected_age + 0e-5;
-                let params_index = ParsecData::get_closest_params_index(&trajectory, little_more);
-                let received_age = trajectory[params_index].age_in_years;
+                let params_index = trajectory.get_closest_params_index(little_more);
+                let received_age = trajectory.get_params()[params_index].age_in_years;
                 assert!(
                     (received_age - expected_age).abs() < 1e-8,
                     "Expected age {} should be a little more than received age {} (Mass index {}, Age index {})",
@@ -275,8 +207,10 @@ mod tests {
         let star = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-            let age_index = trajectory.len() - 1;
+            let params = parsec_data
+                .get_trajectory_via_index(mass_index)
+                .get_params();
+            let age_index = params.len() - 1;
             parsec_data
                 .get_star_data_if_visible(mass_index, age_index, 0.)
                 .unwrap()
@@ -301,8 +235,10 @@ mod tests {
         let star = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-            let age_index = trajectory.len() / 2;
+            let params = parsec_data
+                .get_trajectory_via_index(mass_index)
+                .get_params();
+            let age_index = params.len() / 2;
             parsec_data
                 .get_star_data_if_visible(mass_index, age_index, 0.)
                 .unwrap()
@@ -315,22 +251,21 @@ mod tests {
         let stars = get_many_stars();
         for star in stars {
             let mass = star.mass;
-            let lifetime_in_gyrs = star.lifetime.to_Gyr();
+            let lifetime = star.lifetime;
             let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
-            let expected_years = {
+            let expected_lifetime = {
                 let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
                 let parsec_data = parsec_data_mutex.as_ref().unwrap();
                 let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-                ParsecData::get_lifetime_in_years(trajectory)
+                trajectory.lifetime
             };
-            let expected_gyrs = expected_years as f64 / 1e9;
-            let ratio = lifetime_in_gyrs / expected_gyrs as f64;
+            let ratio = lifetime / expected_lifetime;
             assert!(
                 (0.99..1.01).contains(&ratio),
                 "Star {} is deviant\nlifetime: {} Gyr,\nexpected lifetime: {} Gyr,\nratio: {:.2}\n",
                 star.astronomical_name,
-                lifetime_in_gyrs,
-                expected_gyrs,
+                lifetime.astro_display(),
+                expected_lifetime.astro_display(),
                 ratio
             );
         }
@@ -347,15 +282,15 @@ mod tests {
             if i == 0 {
                 continue;
             }
-            let lifetime = ParsecData::get_lifetime_in_years(trajectory) as f64;
-            let previous_lifetime = ParsecData::get_lifetime_in_years(&trajectories[i - 1]) as f64;
+            let lifetime = trajectory.lifetime;
+            let previous_lifetime = trajectories[i - 1].lifetime;
             assert!(
                 lifetime < 1.2 * previous_lifetime,
                 "Lifetime of star {} is {} years, while lifetime of star {} is {} years",
                 i,
-                lifetime,
+                lifetime.astro_display(),
                 i - 1,
-                previous_lifetime
+                previous_lifetime.astro_display()
             );
         }
     }
