@@ -102,7 +102,7 @@ impl ParsecLine {
 }
 
 impl ParsedParsecLine {
-    pub(super) fn to_star_at_origin(&self) -> StarData {
+    pub(super) fn to_star(&self, pos: CartesianCoordinates) -> StarData {
         let mass = Mass::from_solar_mass(self.mass_in_solar_masses);
         let age = Time::from_yr(self.age_in_years);
         let luminous_intensity = self.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
@@ -116,7 +116,7 @@ impl ParsedParsecLine {
             luminous_intensity,
             temperature: temperature,
             radius: Some(radius),
-            pos: CartesianCoordinates::ORIGIN,
+            pos,
             constellation: None,
             evolution: StarDataEvolution::NONE,
         }

@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Luminosity, Mass, Time};
 
 use crate::{
+    coordinates::cartesian::CartesianCoordinates,
     stars::{
         data::StarData,
         evolution::{StarDataEvolution, StarDataLifestageEvolution},
@@ -126,7 +127,7 @@ impl Trajectory {
         } else {
             &self.params[age_index - 1]
         };
-        let star_at_other_time = other_params.to_star_at_origin();
+        let star_at_other_time = other_params.to_star(star.pos.clone());
         let years = current_params.age_in_years - other_params.age_in_years;
         let lifestage_evolution = StarDataLifestageEvolution::new(star, &star_at_other_time, years);
         lifestage_evolution
@@ -153,9 +154,9 @@ impl Trajectory {
         self.params.is_empty()
     }
 
-    pub(super) fn is_ever_visible(&self, distance_in_m: f64) -> bool {
+    pub(super) fn is_ever_visible(&self, pos: &CartesianCoordinates) -> bool {
         let min_luminous_intensity = Luminosity {
-            cd: DIMMEST_ILLUMINANCE.lux * distance_in_m * distance_in_m,
+            cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
         };
         self.peak_lifetime_luminous_intensity >= min_luminous_intensity
     }

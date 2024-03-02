@@ -160,9 +160,8 @@ fn generate_visible_random_star(
 ) -> Option<StarData> {
     let mass_index = parsec_distr.get_random_mass_index(rng);
     let age_index = parsec_distr.get_random_age_index(mass_index, rng);
-    let distance = random_distance(rng, unit_distance_distr, max_distance);
-    let mut star = parsec_data.get_star_data_if_visible(mass_index, age_index, distance.m)?;
-    star.pos = random_direction(rng).to_cartesian(distance);
+    let pos = random_point_in_sphere(rng, max_distance);
+    let star = parsec_data.get_star_data_if_visible(mass_index, age_index, pos)?;
     Some(star)
 }
 
@@ -187,6 +186,14 @@ fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
     let y = Distance { m: y };
     let z = Distance { m: z };
     CartesianCoordinates::new(x, y, z)
+}
+
+fn random_point_in_sphere(
+    rng: &mut ThreadRng,
+    max_distance: Distance<f64>,
+) -> CartesianCoordinates {
+    let point = random_point_in_unit_sphere(rng);
+    point * max_distance.m
 }
 
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {

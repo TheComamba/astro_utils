@@ -18,6 +18,7 @@ pub(crate) struct ParsecData {
 mod tests {
     use super::*;
     use crate::{
+        coordinates::cartesian::CartesianCoordinates,
         real_data::stars::{all::get_many_stars, SUN},
         stars::random::parsec::line::ParsedParsecLine,
         tests::eq_within,
@@ -56,7 +57,7 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             get_params_for_current_mass_and_age(&parsec_data, &mass, age.to_yr())
-                .to_star_at_origin()
+                .to_star(CartesianCoordinates::ORIGIN)
         };
         let real_sun = SUN.to_star_data();
         println!(
@@ -121,7 +122,7 @@ mod tests {
 
                     let current_params =
                         get_params_for_current_mass_and_age(&parsec_data, &data.mass, age);
-                    let calculated_star = current_params.to_star_at_origin();
+                    let calculated_star = current_params.to_star(CartesianCoordinates::ORIGIN);
                     let real_star = data.to_star_data();
                     if calculated_star.similar_within_order_of_magnitude(&real_star) {
                         num_success += 1;

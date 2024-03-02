@@ -1,6 +1,7 @@
 use super::data::ParsecData;
 use super::line::ParsedParsecLine;
 use super::trajectory::Trajectory;
+use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::data::StarData;
 use crate::stars::random::random_stars::set_random_time_of_death;
 
@@ -62,10 +63,10 @@ impl ParsecData {
         &self,
         mass_index: usize,
         age_index: usize,
-        distance_in_m: f64,
+        pos: CartesianCoordinates,
     ) -> Option<StarData> {
         let trajectory = self.get_trajectory_via_index(mass_index);
-        if !trajectory.is_ever_visible(distance_in_m) {
+        if !trajectory.is_ever_visible(&pos) {
             return None;
         }
 
@@ -78,7 +79,7 @@ impl ParsecData {
             params?
         };
 
-        let mut star = params.to_star_at_origin();
+        let mut star = params.to_star(pos);
         let lifestage_evolution = trajectory.get_lifestage_evolution(age_index, params, &star);
         star.evolution = trajectory.get_evolution(params, lifestage_evolution);
 
@@ -169,7 +170,7 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             parsec_data
-                .get_star_data_if_visible(mass_index, age_index, 0.)
+                .get_star_data_if_visible(mass_index, age_index, CartesianCoordinates::ORIGIN)
                 .unwrap()
         };
         assert!(star
@@ -197,7 +198,7 @@ mod tests {
                 .get_params();
             let age_index = params.len() - 1;
             parsec_data
-                .get_star_data_if_visible(mass_index, age_index, 0.)
+                .get_star_data_if_visible(mass_index, age_index, CartesianCoordinates::ORIGIN)
                 .unwrap()
         };
         assert!(star
@@ -225,7 +226,7 @@ mod tests {
                 .get_params();
             let age_index = params.len() / 2;
             parsec_data
-                .get_star_data_if_visible(mass_index, age_index, 0.)
+                .get_star_data_if_visible(mass_index, age_index, CartesianCoordinates::ORIGIN)
                 .unwrap()
         };
         assert!(star.evolution.get_lifestage_mass_per_year().kg < 0.);
