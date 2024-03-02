@@ -47,10 +47,10 @@ impl StarDataEvolution {
             }; // 10 years (negative because it counts time until death)
 
             let has_crossed_death = until_death_then.s.signum() != until_death_now.s.signum();
-            let millenia_after_death = DEATH_TIMESCALE.s..0.;
-            let then_was_millenia_after_death = millenia_after_death.contains(&until_death_then.s);
-            let now_is_millenia_after_death = millenia_after_death.contains(&until_death_now.s);
-            if has_crossed_death || then_was_millenia_after_death || now_is_millenia_after_death {
+            let shortly_after_death = DEATH_TIMESCALE.s..0.;
+            let then_was_shortly_after_death = shortly_after_death.contains(&until_death_then.s);
+            let now_is_shortly_after_death = shortly_after_death.contains(&until_death_now.s);
+            if has_crossed_death || then_was_shortly_after_death || now_is_shortly_after_death {
                 return true;
             }
         }
