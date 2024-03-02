@@ -130,7 +130,10 @@ impl Trajectory {
         self.params.is_empty()
     }
 
-    pub(super) fn is_ever_visible(&self, pos: &CartesianCoordinates) -> bool {
+    pub(super) fn is_visible_supernova(&self, pos: &CartesianCoordinates) -> bool {
+        if self.initial_mass < Mass::from_solar_mass(8.) {
+            return false;
+        }
         let min_luminous_intensity = Luminosity {
             cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
         };
