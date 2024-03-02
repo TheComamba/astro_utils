@@ -3,8 +3,9 @@ use super::line::ParsedParsecLine;
 use crate::stars::data::StarData;
 use crate::stars::evolution::{StarDataEvolution, StarDataLifestageEvolution};
 use crate::stars::fate::StarFate;
-use crate::stars::random::random_stars::DIMMEST_ILLUMINANCE;
+use crate::stars::random::random_stars::{AGE_OF_MILKY_WAY_THIN_DISK, DIMMEST_ILLUMINANCE};
 use crate::units::luminous_intensity::luminous_intensity_to_solar_luminosities;
+use rand_distr::{Distribution, Uniform};
 use simple_si_units::base::{Luminosity, Mass, Time};
 
 impl ParsecData {
@@ -71,18 +72,33 @@ impl ParsecData {
         age_index: usize,
         distance_in_m: f64,
     ) -> Option<StarData> {
-        let current_params = self.get_params_via_indices(mass_index, age_index)?;
-
-        if mass_index < Self::MASS_INDEX_FOR_SUPERNOVA && !is_visible(distance_in_m, current_params)
-        {
+        let params = self.get_params_via_indices(mass_index, age_index);
+        let is_supernova_progenitor = mass_index >= Self::MASS_INDEX_FOR_SUPERNOVA;
+        let has_exploded = is_supernova_progenitor && params.is_none();
+        let params = if has_exploded {
+            self.get_params_via_indices(mass_index, age_index - 1)?
+        } else {
+            params?
+        };
+        if !is_supernova_progenitor && !is_visible(distance_in_m, params) {
             return None;
         }
 
-        let mut star = current_params.to_star_at_origin();
+        let mut star = params.to_star_at_origin();
         let trajectory = self.get_trajectory_via_index(mass_index);
-        let lifestage_evolution =
-            get_lifestage_evolution(age_index, trajectory, current_params, &star);
-        star.evolution = get_evolution(current_params, trajectory, lifestage_evolution);
+        let lifestage_evolution = get_lifestage_evolution(age_index, trajectory, params, &star);
+        star.evolution = get_evolution(params, trajectory, lifestage_evolution);
+
+        if has_exploded {
+            let mut rng = rand::thread_rng();
+            let distribution =
+                Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s - star.evolution.lifetime.s);
+            let time_since_death = distribution.sample(&mut rng);
+            let time_since_death = Time {
+                s: time_since_death,
+            };
+            star.evolution.age = Some(time_since_death + star.evolution.lifetime);
+        }
 
         Some(star)
     }
