@@ -2,16 +2,11 @@ use super::data::ParsecData;
 use crate::{
     coordinates::cartesian::CartesianCoordinates,
     error::AstroUtilError,
-    stars::{
-        data::StarData, evolution::StarDataEvolution, random::random_stars::DIMMEST_ILLUMINANCE,
-    },
-    units::{
-        distance::{distance_to_sun_radii, SOLAR_RADIUS},
-        luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
-    },
+    stars::random::random_stars::DIMMEST_ILLUMINANCE,
+    units::{distance::distance_to_sun_radii, luminous_intensity::SOLAR_LUMINOUS_INTENSITY},
 };
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
+use simple_si_units::base::{Distance, Luminosity};
 
 pub(super) struct ParsecLine {
     mass: f64,
@@ -104,26 +99,6 @@ impl ParsecLine {
 }
 
 impl ParsedParsecLine {
-    pub(super) fn to_star(&self, pos: CartesianCoordinates) -> StarData {
-        let mass = Mass::from_solar_mass(self.mass_in_solar_masses);
-        let age = Time::from_yr(self.age_in_years);
-        let luminous_intensity = self.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
-        let temperature = Temperature::from_K(self.temperature_in_kelvin);
-        let radius = self.radius_in_solar_radii * SOLAR_RADIUS;
-        let mut evolution = StarDataEvolution::NONE;
-        evolution.age = Some(age);
-        StarData {
-            name: "".to_string(),
-            mass: Some(mass),
-            luminous_intensity,
-            temperature: temperature,
-            radius: Some(radius),
-            pos,
-            constellation: None,
-            evolution: StarDataEvolution::NONE,
-        }
-    }
-
     pub(super) fn is_visible(&self, pos: &CartesianCoordinates) -> bool {
         let min_luminous_intensity = Luminosity {
             cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,

@@ -1,11 +1,9 @@
 use simple_si_units::base::Time;
 
 use super::data::ParsecData;
-use super::line::ParsedParsecLine;
 use super::trajectory::Trajectory;
 use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::data::StarData;
-use crate::stars::random::random_stars::set_random_time_of_death;
 
 impl ParsecData {
     pub(super) const SORTED_MASSES: [f64; 100] = [
@@ -43,14 +41,6 @@ impl ParsecData {
         &self.data[i]
     }
 
-    fn get_params_via_indices(
-        &self,
-        mass_index: usize,
-        age_index: usize,
-    ) -> Option<&ParsedParsecLine> {
-        self.data[mass_index].get_params_by_index(age_index)
-    }
-
     pub(super) fn is_filled(&self) -> bool {
         let mut is_filled = !self.data.is_empty();
         for trajectory in self.data.iter() {
@@ -66,31 +56,21 @@ impl ParsecData {
         pos: CartesianCoordinates,
     ) -> Option<StarData> {
         let trajectory = self.get_trajectory_via_index(mass_index);
-        let age_index = trajectory.get_closest_params_index(age.to_yr());
-        let params = trajectory.get_params_by_index(age_index);
-
         let is_supernova_progenitor = trajectory.is_visible_supernova(&pos);
-        let has_exploded = is_supernova_progenitor && params.is_none();
-        let params = if has_exploded {
-            self.get_params_via_indices(mass_index, age_index - 1)?
-        } else {
-            params?
-        };
-
-        let is_currently_visible = params.is_visible(&pos);
-        if !is_currently_visible && !has_exploded {
+        let is_still_alive = age < trajectory.lifetime;
+        if !is_still_alive && !is_supernova_progenitor {
             return None;
         }
 
-        let mut star = params.to_star(pos);
-        let lifestage_evolution = trajectory.get_lifestage_evolution(age_index, params, &star);
-        star.evolution = trajectory.get_evolution(params, lifestage_evolution);
-
-        if has_exploded {
-            set_random_time_of_death(&mut star);
+        let has_exploded = is_supernova_progenitor && !is_still_alive;
+        if !has_exploded {
+            let age_index = trajectory.get_closest_params_index(age.to_yr());
+            let params = trajectory.get_params_by_index(age_index)?;
+            if !params.is_visible(&pos) {
+                return None;
+            }
         }
-
-        Some(star)
+        Some(trajectory.to_star(age, pos))
     }
 }
 

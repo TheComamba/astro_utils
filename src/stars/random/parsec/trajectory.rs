@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Luminosity, Mass, Time};
+use simple_si_units::base::{Luminosity, Mass, Temperature, Time};
 
 use crate::{
     coordinates::cartesian::CartesianCoordinates,
@@ -10,6 +10,7 @@ use crate::{
         random::random_stars::DIMMEST_ILLUMINANCE,
     },
     units::{
+        distance::SOLAR_RADIUS,
         luminous_intensity::{
             absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
         },
@@ -54,7 +55,6 @@ impl Trajectory {
         self.params.get(index)
     }
 
-    #[cfg(test)]
     pub(super) fn get_params_by_index_unchecked(&self, index: usize) -> &ParsedParsecLine {
         &self.params[index]
     }
@@ -92,35 +92,6 @@ impl Trajectory {
         }
     }
 
-    pub(super) fn get_lifestage_evolution(
-        &self,
-        age_index: usize,
-        current_params: &ParsedParsecLine,
-        star: &StarData,
-    ) -> StarDataLifestageEvolution {
-        let other_params = if age_index == 0 {
-            &self.params[age_index + 1]
-        } else {
-            &self.params[age_index - 1]
-        };
-        let star_at_other_time = other_params.to_star(star.pos.clone());
-        let years = current_params.age_in_years - other_params.age_in_years;
-        let lifestage_evolution = StarDataLifestageEvolution::new(star, &star_at_other_time, years);
-        lifestage_evolution
-    }
-
-    pub(super) fn get_evolution(
-        &self,
-        current_params: &ParsedParsecLine,
-        lifestage_evolution: StarDataLifestageEvolution,
-    ) -> StarDataEvolution {
-        let age_at_epoch = Some(Time::from_yr(current_params.age_in_years));
-        let fate = StarFate::new(self.initial_mass);
-        let evolution =
-            StarDataEvolution::new(Some(lifestage_evolution), age_at_epoch, self.lifetime, fate);
-        evolution
-    }
-
     #[cfg(test)]
     pub(super) fn get_params(&self) -> &Vec<ParsedParsecLine> {
         &self.params
@@ -138,6 +109,46 @@ impl Trajectory {
             cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
         };
         self.peak_lifetime_luminous_intensity >= min_luminous_intensity
+    }
+
+    pub(super) fn to_star(&self, age: Time<f64>, pos: CartesianCoordinates) -> StarData {
+        let age_index = self.get_closest_params_index(age.to_yr());
+        let mut star = self.to_star_without_evolution(age_index, pos.clone());
+        let other_age_index = if age_index == 0 {
+            age_index + 1
+        } else {
+            age_index - 1
+        };
+        let other_star = self.to_star_without_evolution(other_age_index, pos);
+
+        let year_difference =
+            star.evolution.age.unwrap().to_yr() - other_star.evolution.age.unwrap().to_yr();
+        let lifestage_evolution =
+            StarDataLifestageEvolution::new(&star, &other_star, year_difference);
+        let fate = StarFate::new(self.initial_mass);
+        star.evolution =
+            StarDataEvolution::new(Some(lifestage_evolution), Some(age), self.lifetime, fate);
+        star
+    }
+
+    fn to_star_without_evolution(&self, age_index: usize, pos: CartesianCoordinates) -> StarData {
+        let params = self.get_params_by_index_unchecked(age_index);
+        let mass = Mass::from_solar_mass(params.mass_in_solar_masses);
+        let luminous_intensity = params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
+        let temperature = Temperature::from_K(params.temperature_in_kelvin);
+        let radius = params.radius_in_solar_radii * SOLAR_RADIUS;
+        let mut evolution = StarDataEvolution::NONE;
+        evolution.age = Some(Time::from_yr(params.age_in_years));
+        StarData {
+            name: "".to_string(),
+            mass: Some(mass),
+            luminous_intensity,
+            temperature: temperature,
+            radius: Some(radius),
+            pos,
+            constellation: None,
+            evolution: evolution,
+        }
     }
 }
 
