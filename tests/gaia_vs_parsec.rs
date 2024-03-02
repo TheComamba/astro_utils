@@ -18,7 +18,11 @@ use simple_si_units::base::Distance;
 fn parsec_generates_data_similar_to_gaia() {
     let max_distance: Distance<f64> = Distance::from_lyr(10_000.);
 
-    let parsec_data = generate_random_stars(max_distance).unwrap();
+    let parsec_data: Vec<StarData> = generate_random_stars(max_distance)
+        .unwrap()
+        .into_iter()
+        .filter(|s| s.get_age_at_epoch().unwrap() < s.get_lifetime())
+        .collect();
     let parsec_stars = parsec_data
         .iter()
         .map(|s| s.to_star_appearance(TIME_ZERO))
