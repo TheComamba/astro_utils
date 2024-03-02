@@ -30,8 +30,6 @@ pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
 // };
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
-    let number_of_stars_in_sphere = number_of_stars_in_sphere(max_distance);
-
     let parsec_data_mutex = PARSEC_DATA
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
@@ -40,7 +38,23 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let unit_distance_distr = get_unit_distance_distribution();
     let parsec_distr = ParsecDistribution::new(&parsec_data);
 
+    generate_random_stars_in_sphere(
+        parsec_data,
+        max_distance,
+        unit_distance_distr,
+        parsec_distr,
+    )
+}
+
+fn generate_random_stars_in_sphere(
+    parsec_data: &ParsecData,
+    max_distance: Distance<f64>,
+    unit_distance_distr: Uniform<f64>,
+    parsec_distr: ParsecDistribution,
+) -> Result<Vec<StarData>, AstroUtilError> {
     const MAX_CHUNKSIZE: usize = 100_000_000;
+
+    let number_of_stars_in_sphere = number_of_stars_in_sphere(max_distance);
     let mut remaining = number_of_stars_in_sphere;
     let mut stars = Vec::new();
     while remaining > MAX_CHUNKSIZE {
