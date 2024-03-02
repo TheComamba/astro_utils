@@ -148,4 +148,14 @@ mod tests {
             );
         }
     }
+
+    #[test]
+    fn about_2_permille_of_stars_explode() {
+        let integral = integrate_kroupa(8.0, 80.);
+        assert!(
+            integral > 0.0020 && integral < 0.0022,
+            "Integral is {}",
+            integral
+        );
+    }
 }

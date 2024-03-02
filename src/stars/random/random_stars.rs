@@ -4,6 +4,7 @@ use crate::{
     error::AstroUtilError,
     stars::{
         data::StarData,
+        fate::StarFate,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
     },
     units::distance::DISTANCE_ZERO,
@@ -73,6 +74,8 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         &parsec_distr,
     );
     stars.extend(chunk);
+
+    let past_supernovae = collect_past_supernovae(&stars);
 
     Ok(stars)
 }
@@ -152,6 +155,17 @@ fn generate_visible_random_star(
     star.distance = distance;
     star.pos = pos;
     Some(star)
+}
+
+fn collect_past_supernovae(stars: &Vec<StarData>) -> Vec<StarData> {
+    stars
+        .iter()
+        .filter(|s| {
+            s.get_fate() == &StarFate::TypeIISupernova
+                && s.get_age_at_epoch().unwrap() > s.get_lifetime()
+        })
+        .cloned()
+        .collect()
 }
 
 fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
@@ -298,17 +312,17 @@ mod tests {
     }
 
     #[test]
-    fn some_random_stars_have_gone_supernova() {
-        let max_distance = Distance::from_lyr(500.);
+    fn about_2_permille_of_random_stars_have_gone_supernova() {
+        let max_distance = Distance::from_lyr(5000.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
-        let supernova_stars = star_data
-            .iter()
-            .filter(|s| {
-                s.get_fate() == &StarFate::TypeIISupernova
-                    && s.get_age_at_epoch().unwrap() > s.get_lifetime()
-            })
-            .count();
-        println!("Supernova stars: {}", supernova_stars);
-        assert!(supernova_stars > 0);
+        let supernova_stars = collect_past_supernovae(&star_data).len();
+        let portion = supernova_stars as f64 / star_data.len() as f64;
+        assert!(
+            (0.001..0.003).contains(&portion),
+            "Generated {} stars, {} of which have gone supernova. This corresponds to {}%",
+            star_data.len(),
+            supernova_stars,
+            portion * 100.
+        );
     }
 }
