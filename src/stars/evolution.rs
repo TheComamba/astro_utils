@@ -43,8 +43,8 @@ impl StarDataEvolution {
             (self.time_until_death(then), self.time_until_death(now))
         {
             const DEATH_TIMESCALE: Time<f64> = Time {
-                s: -10_000. * 365.25 * 24. * 60. * 60.,
-            }; // 1 year (negative because it counts time until death)
+                s: -10. * 365.25 * 24. * 60. * 60.,
+            }; // 10 years (negative because it counts time until death)
 
             let has_crossed_death = until_death_then.s.signum() != until_death_now.s.signum();
             let millenia_after_death = DEATH_TIMESCALE.s..0.;
