@@ -6,10 +6,12 @@ use crate::{
     stars::{
         data::StarData,
         evolution::{StarDataEvolution, StarDataLifestageEvolution},
-        fate::StarFate,
+        fate::{StarFate, TYPE_II_SUPERNOVA_PEAK_MAGNITUDE},
     },
     units::{
-        luminous_intensity::{LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY},
+        luminous_intensity::{
+            absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
+        },
         mass::MASS_ZERO,
         time::TIME_ZERO,
     },
@@ -34,17 +36,10 @@ impl Trajectory {
     };
 
     pub(super) fn new(params: Vec<ParsedParsecLine>) -> Self {
-        let peak_lifetime_luminous_intensity = params
-            .iter()
-            .map(|p| p.luminous_intensity_in_solar)
-            .max_by(|a, b| a.partial_cmp(b).unwrap())
-            .unwrap();
-        let peak_lifetime_luminous_intensity =
-            peak_lifetime_luminous_intensity * SOLAR_LUMINOUS_INTENSITY;
-
         let initial_mass = Mass::from_solar_mass(params[0].mass_in_solar_masses);
-
         let lifetime = Time::from_yr(params.last().unwrap().age_in_years);
+        let peak_lifetime_luminous_intensity =
+            get_peak_lifetime_luminous_intensity(&params, initial_mass);
 
         Self {
             params,
@@ -155,5 +150,21 @@ impl Trajectory {
 
     pub(super) fn is_empty(&self) -> bool {
         self.params.is_empty()
+    }
+}
+
+fn get_peak_lifetime_luminous_intensity(
+    params: &Vec<ParsedParsecLine>,
+    initial_mass: Mass<f64>,
+) -> Luminosity<f64> {
+    let peak_lifetime_luminous_intensity = params
+        .iter()
+        .map(|p| p.luminous_intensity_in_solar)
+        .max_by(|a, b| a.partial_cmp(b).unwrap())
+        .unwrap();
+    if initial_mass < Mass::from_solar_mass(8.) {
+        peak_lifetime_luminous_intensity * SOLAR_LUMINOUS_INTENSITY
+    } else {
+        absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE)
     }
 }

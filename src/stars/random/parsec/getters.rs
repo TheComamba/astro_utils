@@ -17,7 +17,7 @@ impl ParsecData {
         80.0, 90.0, 95.0, 100.0, 120.0, 130.0, 200.0, 250.0, 300.0, 350.0,
     ];
 
-    const MASS_INDEX_FOR_SUPERNOVA: usize = 70;
+    pub(super) const MASS_INDEX_FOR_SUPERNOVA: usize = 70;
 
     pub(super) fn get_closest_mass_index(mass: f64) -> usize {
         let mut min_index = 0;
