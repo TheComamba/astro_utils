@@ -92,7 +92,7 @@ const GAMMA_TAURI: RealData = RealData {
 
 const EPSILON_TAURI: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epislon Tauri",
+    astronomical_name: "ε Tauri",
     constellation: "Taurus",
     right_ascension: RightAscension::new(4, 28, 37),
     declination: Declination::new(Sgn::Pos, 19, 10, 50),
