@@ -1,3 +1,5 @@
+use simple_si_units::base::Time;
+
 use super::data::ParsecData;
 use super::line::ParsedParsecLine;
 use super::trajectory::Trajectory;
@@ -62,7 +64,7 @@ impl ParsecData {
     pub(crate) fn get_star_data_if_visible(
         &self,
         mass_index: usize,
-        age_index: usize,
+        age: Time<f64>,
         pos: CartesianCoordinates,
     ) -> Option<StarData> {
         let trajectory = self.get_trajectory_via_index(mass_index);
@@ -70,6 +72,7 @@ impl ParsecData {
             return None;
         }
 
+        let age_index = trajectory.get_closest_params_index(age.to_yr());
         let params = trajectory.get_params_by_index(age_index);
         let is_supernova_progenitor = mass_index >= Self::MASS_INDEX_FOR_SUPERNOVA;
         let has_exploded = is_supernova_progenitor && params.is_none();
@@ -95,8 +98,10 @@ impl ParsecData {
 mod tests {
     use super::*;
     use crate::{
-        astro_display::AstroDisplay, real_data::stars::all::get_many_stars,
-        stars::random::parsec::data::PARSEC_DATA,
+        astro_display::AstroDisplay,
+        real_data::stars::all::get_many_stars,
+        stars::random::{parsec::data::PARSEC_DATA, random_stars::AGE_OF_MILKY_WAY_THIN_DISK},
+        units::time::TIME_ZERO,
     };
 
     #[test]
@@ -165,12 +170,11 @@ mod tests {
     #[test]
     fn infant_star_has_valid_evolution() {
         let mass_index = ParsecData::SORTED_MASSES.len() - 1;
-        let age_index = 0;
         let star = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             parsec_data
-                .get_star_data_if_visible(mass_index, age_index, CartesianCoordinates::ORIGIN)
+                .get_star_data_if_visible(mass_index, TIME_ZERO, CartesianCoordinates::ORIGIN)
                 .unwrap()
         };
         assert!(star
@@ -193,12 +197,12 @@ mod tests {
         let star = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            let params = parsec_data
-                .get_trajectory_via_index(mass_index)
-                .get_params();
-            let age_index = params.len() - 1;
             parsec_data
-                .get_star_data_if_visible(mass_index, age_index, CartesianCoordinates::ORIGIN)
+                .get_star_data_if_visible(
+                    mass_index,
+                    AGE_OF_MILKY_WAY_THIN_DISK,
+                    CartesianCoordinates::ORIGIN,
+                )
                 .unwrap()
         };
         assert!(star
@@ -221,12 +225,10 @@ mod tests {
         let star = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            let params = parsec_data
-                .get_trajectory_via_index(mass_index)
-                .get_params();
-            let age_index = params.len() / 2;
+            let trajectory = &parsec_data.get_trajectory_via_index(mass_index);
+            let age = trajectory.lifetime / 2.;
             parsec_data
-                .get_star_data_if_visible(mass_index, age_index, CartesianCoordinates::ORIGIN)
+                .get_star_data_if_visible(mass_index, age, CartesianCoordinates::ORIGIN)
                 .unwrap()
         };
         assert!(star.evolution.get_lifestage_mass_per_year().kg < 0.);

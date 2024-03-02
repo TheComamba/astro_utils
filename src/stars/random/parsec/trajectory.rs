@@ -1,4 +1,3 @@
-use rand_distr::WeightedAliasIndex;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Luminosity, Mass, Time};
 
@@ -60,7 +59,6 @@ impl Trajectory {
         &self.params[index]
     }
 
-    #[cfg(test)]
     pub(super) fn get_closest_params_index(&self, actual_age_in_years: f64) -> usize {
         if actual_age_in_years < self.params[0].age_in_years {
             return Self::this_or_next_age_index(self, 0, actual_age_in_years);
@@ -82,7 +80,6 @@ impl Trajectory {
         Self::this_or_next_age_index(self, age_index, actual_age_in_years)
     }
 
-    #[cfg(test)]
     fn this_or_next_age_index(&self, age_index: usize, actual_age_in_years: f64) -> usize {
         let this_age = self.params[age_index].age_in_years;
         let diff_to_this = actual_age_in_years - this_age;
@@ -93,27 +90,6 @@ impl Trajectory {
         } else {
             age_index + 1
         }
-    }
-
-    pub(super) fn get_age_distribution(&self, max_age_in_years: f64) -> WeightedAliasIndex<f64> {
-        let mut weights = Vec::new();
-        for i in 0..=self.params.len() {
-            let previous_age = if i > 0 {
-                self.params[i - 1].age_in_years
-            } else {
-                0.
-            };
-            if previous_age >= max_age_in_years {
-                break;
-            }
-            let current_age = if i < self.params.len() {
-                self.params[i].age_in_years
-            } else {
-                max_age_in_years
-            };
-            weights.push(current_age - previous_age);
-        }
-        WeightedAliasIndex::new(weights).unwrap()
     }
 
     pub(super) fn get_lifestage_evolution(
