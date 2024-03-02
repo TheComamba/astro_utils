@@ -35,11 +35,51 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let parsec_data = parsec_data_mutex.as_ref()?;
     let parsec_distr = ParsecDistribution::new();
 
-    generate_random_stars_in_sphere(
+    let mut stars = vec![];
+    let mut new_stars = generate_random_stars_in_sphere(
         parsec_data,
         &CartesianCoordinates::ORIGIN,
         max_distance,
         AGE_OF_MILKY_WAY_THIN_DISK,
+        &parsec_distr,
+    )?;
+
+    loop {
+        let past_supernovae = collect_past_supernovae(&new_stars);
+        stars.append(&mut new_stars);
+        if past_supernovae.is_empty() {
+            break;
+        }
+        for supernova in past_supernovae {
+            let mut stars_near_remnant =
+                generate_stars_around_supernova_remnant(&supernova, parsec_data, &parsec_distr)?;
+            new_stars.append(&mut stars_near_remnant);
+        }
+    }
+    Ok(stars)
+}
+
+fn generate_stars_around_supernova_remnant(
+    remnant: &StarData,
+    parsec_data: &ParsecData,
+    parsec_distr: &ParsecDistribution,
+) -> Result<Vec<StarData>, AstroUtilError> {
+    const TIME_UNTIL_STAR_FORMATION: Time<f64> = Time {
+        s: 10_000. * 365.25 * 24. * 60. * 60.,
+    }; // 10_000 years
+    const DISTANCE_OF_STAR_FORMATION: Distance<f64> = Distance { m: 100. * 9.461e15 }; // 100 lyr
+
+    let origin = remnant.pos.clone();
+    let age =
+        remnant.get_age_at_epoch().unwrap() - remnant.get_lifetime() - TIME_UNTIL_STAR_FORMATION;
+    if age < -TIME_UNTIL_STAR_FORMATION {
+        return Ok(vec![]);
+    }
+    generate_random_stars_in_sphere(
+        parsec_data,
+        &origin,
+        DISTANCE_OF_STAR_FORMATION,
+        age,
         parsec_distr,
     )
 }
@@ -49,7 +89,7 @@ fn generate_random_stars_in_sphere(
     origin: &CartesianCoordinates,
     max_distance: Distance<f64>,
     age: Time<f64>,
-    parsec_distr: ParsecDistribution,
+    parsec_distr: &ParsecDistribution,
 ) -> Result<Vec<StarData>, AstroUtilError> {
     const MAX_CHUNKSIZE: usize = 100_000_000;
 
