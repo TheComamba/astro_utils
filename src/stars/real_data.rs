@@ -60,7 +60,7 @@ impl RealData {
             mass: Some(self.mass),
             constellation,
             radius: self.radius,
-            luminous_intensity: luminous_intensity,
+            luminous_intensity,
             temperature: self.temperature,
             distance: self.distance,
             pos,
