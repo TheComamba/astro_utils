@@ -20,34 +20,12 @@ mod tests {
     use crate::{
         coordinates::cartesian::CartesianCoordinates,
         real_data::stars::{all::get_many_stars, SUN},
-        stars::random::parsec::line::ParsedParsecLine,
         tests::eq_within,
         units::{
             distance::SOLAR_RADIUS, luminous_intensity::SOLAR_LUMINOUS_INTENSITY, mass::SOLAR_MASS,
             time::BILLION_YEARS,
         },
     };
-    use simple_si_units::base::Mass;
-
-    pub(super) fn get_params_for_current_mass_and_age<'a>(
-        data: &'a ParsecData,
-        mass: &Mass<f64>,
-        age_in_years: f64,
-    ) -> &'a ParsedParsecLine {
-        let mut mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
-        let mut trajectory = &data.data[mass_index];
-        let mut index = trajectory.get_closest_params_index(age_in_years);
-        let mut params = trajectory.get_params_by_index_unchecked(index);
-        while params.mass_in_solar_masses < mass.to_solar_mass()
-            && mass_index < ParsecData::SORTED_MASSES.len() - 1
-        {
-            mass_index += 1;
-            trajectory = &data.data[mass_index];
-            index = trajectory.get_closest_params_index(age_in_years);
-            params = trajectory.get_params_by_index_unchecked(index);
-        }
-        params
-    }
 
     #[test]
     fn test_caluclate_sun() {
