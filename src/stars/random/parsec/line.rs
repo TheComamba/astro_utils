@@ -48,6 +48,8 @@ impl ParsecLine {
         if mass_position.is_none() {
             if let Ok(mass_value) = mass_entry.parse::<f64>() {
                 *mass_position = Some(ParsecData::get_closest_mass_index(mass_value));
+            } else {
+                return Ok(());
             }
         }
 
