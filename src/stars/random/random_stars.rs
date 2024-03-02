@@ -9,6 +9,7 @@ use crate::{
     units::distance::DISTANCE_ZERO,
 };
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
+use rand_distr::Distribution;
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use simple_si_units::{
     base::{Distance, Time},
@@ -187,6 +188,16 @@ fn random_distance(
 ) -> Distance<f64> {
     let cubed: f64 = rng.sample(unit_distance_distr);
     max_distance * cubed.cbrt()
+}
+
+pub(super) fn set_random_time_of_death(star: &mut StarData) {
+    let mut rng = rand::thread_rng();
+    let distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s - star.evolution.lifetime.s);
+    let time_since_death = distribution.sample(&mut rng);
+    let time_since_death = Time {
+        s: time_since_death,
+    };
+    star.evolution.age = Some(time_since_death + star.evolution.lifetime);
 }
 
 #[cfg(test)]

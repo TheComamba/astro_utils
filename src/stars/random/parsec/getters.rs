@@ -3,9 +3,8 @@ use super::line::ParsedParsecLine;
 use crate::stars::data::StarData;
 use crate::stars::evolution::{StarDataEvolution, StarDataLifestageEvolution};
 use crate::stars::fate::StarFate;
-use crate::stars::random::random_stars::{AGE_OF_MILKY_WAY_THIN_DISK, DIMMEST_ILLUMINANCE};
+use crate::stars::random::random_stars::{set_random_time_of_death, DIMMEST_ILLUMINANCE};
 use crate::units::luminous_intensity::luminous_intensity_to_solar_luminosities;
-use rand_distr::{Distribution, Uniform};
 use simple_si_units::base::{Luminosity, Mass, Time};
 
 impl ParsecData {
@@ -90,14 +89,7 @@ impl ParsecData {
         star.evolution = get_evolution(params, trajectory, lifestage_evolution);
 
         if has_exploded {
-            let mut rng = rand::thread_rng();
-            let distribution =
-                Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s - star.evolution.lifetime.s);
-            let time_since_death = distribution.sample(&mut rng);
-            let time_since_death = Time {
-                s: time_since_death,
-            };
-            star.evolution.age = Some(time_since_death + star.evolution.lifetime);
+            set_random_time_of_death(&mut star);
         }
 
         Some(star)
