@@ -33,17 +33,14 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
-
-    let unit_distance_distr = get_unit_distance_distribution();
     let parsec_distr = ParsecDistribution::new(&parsec_data);
 
-    generate_random_stars_in_sphere(parsec_data, max_distance, unit_distance_distr, parsec_distr)
+    generate_random_stars_in_sphere(parsec_data, max_distance, parsec_distr)
 }
 
 fn generate_random_stars_in_sphere(
     parsec_data: &ParsecData,
     max_distance: Distance<f64>,
-    unit_distance_distr: Uniform<f64>,
     parsec_distr: ParsecDistribution,
 ) -> Result<Vec<StarData>, AstroUtilError> {
     const MAX_CHUNKSIZE: usize = 100_000_000;
@@ -56,7 +53,6 @@ fn generate_random_stars_in_sphere(
             MAX_CHUNKSIZE,
             parsec_data,
             max_distance,
-            unit_distance_distr,
             &parsec_distr,
         );
         stars.extend(chunk);
@@ -76,7 +72,6 @@ fn generate_random_stars_in_sphere(
         remaining,
         parsec_data,
         max_distance,
-        unit_distance_distr,
         &parsec_distr,
     );
     stars.extend(chunk);
@@ -95,20 +90,13 @@ fn generate_certain_number_of_random_stars(
     number: usize,
     parsec_data: &ParsecData,
     max_distance: Distance<f64>,
-    unit_distance_distr: Uniform<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
     (0..=number)
         .into_par_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
-            generate_visible_random_star(
-                parsec_data,
-                max_distance,
-                &mut rng,
-                &unit_distance_distr,
-                parsec_distr,
-            )
+            generate_visible_random_star(parsec_data, max_distance, &mut rng, parsec_distr)
         })
         .filter_map(|star| star)
         .collect::<Vec<StarData>>()
@@ -124,25 +112,13 @@ pub fn generate_random_star(
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
-
-    let unit_distance_distr = get_unit_distance_distribution();
     let parsec_distr = ParsecDistribution::new(&parsec_data);
 
-    let mut star = generate_visible_random_star(
-        parsec_data,
-        max_distance_or_1,
-        &mut rng,
-        &unit_distance_distr,
-        &parsec_distr,
-    );
+    let mut star =
+        generate_visible_random_star(parsec_data, max_distance_or_1, &mut rng, &parsec_distr);
     while star.is_none() {
-        star = generate_visible_random_star(
-            parsec_data,
-            max_distance_or_1,
-            &mut rng,
-            &unit_distance_distr,
-            &parsec_distr,
-        );
+        star =
+            generate_visible_random_star(parsec_data, max_distance_or_1, &mut rng, &parsec_distr);
     }
     let mut star = star.unwrap();
     if max_distance.is_none() {
@@ -155,7 +131,6 @@ fn generate_visible_random_star(
     parsec_data: &ParsecData,
     max_distance: Distance<f64>,
     rng: &mut ThreadRng,
-    unit_distance_distr: &Uniform<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Option<StarData> {
     let mass_index = parsec_distr.get_random_mass_index(rng);
@@ -204,20 +179,6 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
         dir = point.to_direction();
     }
     dir.unwrap()
-}
-
-fn get_unit_distance_distribution() -> Uniform<f64> {
-    Uniform::new(0., 1.)
-}
-
-// https://stackoverflow.com/questions/5408276/sampling-uniformly-distributed-random-points-inside-a-spherical-volume
-fn random_distance(
-    rng: &mut ThreadRng,
-    unit_distance_distr: &Uniform<f64>,
-    max_distance: Distance<f64>,
-) -> Distance<f64> {
-    let cubed: f64 = rng.sample(unit_distance_distr);
-    max_distance * cubed.cbrt()
 }
 
 pub(super) fn set_random_time_of_death(star: &mut StarData) {

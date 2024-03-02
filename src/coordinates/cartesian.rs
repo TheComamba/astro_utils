@@ -50,7 +50,7 @@ impl CartesianCoordinates {
         }
     }
 
-    pub const fn length_squared(&self) -> Area<f64> {
+    pub fn length_squared(&self) -> Area<f64> {
         let x = self.x.m;
         let y = self.y.m;
         let z = self.z.m;
