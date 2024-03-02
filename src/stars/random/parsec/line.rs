@@ -38,7 +38,7 @@ impl ParsecLine {
     pub(super) fn read(
         line: Result<String, std::io::Error>,
         mass_position: &mut Option<usize>,
-        parsec_data: &mut ParsecData,
+        lines: &mut Vec<ParsedParsecLine>,
     ) -> Result<(), AstroUtilError> {
         let line = line.map_err(AstroUtilError::Io)?;
         let entries: Vec<&str> = line.split_whitespace().collect();
@@ -50,43 +50,40 @@ impl ParsecLine {
                 *mass_position = Some(ParsecData::get_closest_mass_index(mass_value));
             }
         }
-        if let Some(mass_position) = &*mass_position {
-            let age_entry = entries
-                .get(Self::AGE_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_l_entry = entries
-                .get(Self::LOG_L_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_te_entry = entries
-                .get(Self::LOG_TE_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_r_entry = entries
-                .get(Self::LOG_R_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            if let (Ok(mass), Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
-                mass_entry.parse::<f64>(),
-                age_entry.parse::<f64>(),
-                log_l_entry.parse::<f64>(),
-                log_te_entry.parse::<f64>(),
-                log_r_entry.parse::<f64>(),
-            ) {
-                let parsec_line = ParsecLine {
-                    mass,
-                    age,
-                    log_l,
-                    log_te,
-                    log_r,
-                }
-                .parse();
-                let data = parsec_data
-                    .data
-                    .get_mut(*mass_position)
-                    .ok_or(AstroUtilError::DataNotAvailable)?;
-                data.push(parsec_line);
-            } else {
-                return Err(AstroUtilError::DataNotAvailable);
+
+        let age_entry = entries
+            .get(Self::AGE_INDEX)
+            .ok_or(AstroUtilError::DataNotAvailable)?;
+        let log_l_entry = entries
+            .get(Self::LOG_L_INDEX)
+            .ok_or(AstroUtilError::DataNotAvailable)?;
+        let log_te_entry = entries
+            .get(Self::LOG_TE_INDEX)
+            .ok_or(AstroUtilError::DataNotAvailable)?;
+        let log_r_entry = entries
+            .get(Self::LOG_R_INDEX)
+            .ok_or(AstroUtilError::DataNotAvailable)?;
+        if let (Ok(mass), Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
+            mass_entry.parse::<f64>(),
+            age_entry.parse::<f64>(),
+            log_l_entry.parse::<f64>(),
+            log_te_entry.parse::<f64>(),
+            log_r_entry.parse::<f64>(),
+        ) {
+            let parsec_line = ParsecLine {
+                mass,
+                age,
+                log_l,
+                log_te,
+                log_r,
             }
-        };
+            .parse();
+
+            lines.push(parsec_line);
+        } else {
+            return Err(AstroUtilError::DataNotAvailable);
+        }
+
         Ok(())
     }
 

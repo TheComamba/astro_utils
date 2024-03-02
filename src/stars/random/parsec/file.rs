@@ -1,6 +1,7 @@
 use super::data::ParsecData;
 use super::line::ParsecLine;
 use crate::error::AstroUtilError;
+use crate::stars::random::parsec::trajectory::Trajectory;
 use directories::ProjectDirs;
 use flate2::read::GzDecoder;
 use rmp_serde;
@@ -37,7 +38,7 @@ impl ParsecData {
                 data: Vec::with_capacity(Self::SORTED_MASSES.len()),
             };
             for _ in Self::SORTED_MASSES.iter() {
-                parsec_data.data.push(Vec::new());
+                parsec_data.data.push(Trajectory::EMPTY);
             }
             for entry in filepaths {
                 Self::read_file(entry, &mut parsec_data)?;
@@ -94,9 +95,13 @@ impl ParsecData {
         let file = File::open(file_path).map_err(AstroUtilError::Io)?;
         let reader = BufReader::new(file);
         let mut mass_position = None;
+        let mut lines = vec![];
         for line in reader.lines() {
-            ParsecLine::read(line, &mut mass_position, parsec_data)?;
+            ParsecLine::read(line, &mut mass_position, &mut lines)?;
         }
+        let mass_index = mass_position.ok_or(AstroUtilError::DataNotAvailable)?;
+        let trajectory = Trajectory::new(lines);
+        parsec_data.data[mass_index] = trajectory;
         Ok(())
     }
 }

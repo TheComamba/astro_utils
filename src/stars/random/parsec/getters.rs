@@ -52,10 +52,6 @@ impl ParsecData {
         self.data[mass_index].get_params_by_index(age_index)
     }
 
-    pub(super) fn get_lifetime_in_years(trajectory: &[ParsedParsecLine]) -> u64 {
-        trajectory.last().unwrap().age_in_years as u64
-    }
-
     pub(super) fn is_filled(&self) -> bool {
         let mut is_filled = !self.data.is_empty();
         for trajectory in self.data.iter() {

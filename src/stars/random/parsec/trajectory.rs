@@ -8,7 +8,11 @@ use crate::{
         evolution::{StarDataEvolution, StarDataLifestageEvolution},
         fate::StarFate,
     },
-    units::luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
+    units::{
+        luminous_intensity::{LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY},
+        mass::MASS_ZERO,
+        time::TIME_ZERO,
+    },
 };
 
 use super::line::ParsedParsecLine;
@@ -22,6 +26,13 @@ pub(super) struct Trajectory {
 }
 
 impl Trajectory {
+    pub(super) const EMPTY: Trajectory = Trajectory {
+        params: Vec::new(),
+        initial_mass: MASS_ZERO,
+        lifetime: TIME_ZERO,
+        peak_lifetime_luminous_intensity: LUMINOSITY_ZERO,
+    };
+
     pub(super) fn new(params: Vec<ParsedParsecLine>) -> Self {
         let peak_lifetime_luminous_intensity = params
             .iter()
@@ -47,10 +58,12 @@ impl Trajectory {
         self.params.get(index)
     }
 
+    #[cfg(test)]
     pub(super) fn get_params_by_index_unchecked(&self, index: usize) -> &ParsedParsecLine {
         &self.params[index]
     }
 
+    #[cfg(test)]
     pub(super) fn get_closest_params_index(&self, actual_age_in_years: f64) -> usize {
         if actual_age_in_years < self.params[0].age_in_years {
             return Self::this_or_next_age_index(self, 0, actual_age_in_years);
@@ -72,6 +85,7 @@ impl Trajectory {
         Self::this_or_next_age_index(self, age_index, actual_age_in_years)
     }
 
+    #[cfg(test)]
     fn this_or_next_age_index(&self, age_index: usize, actual_age_in_years: f64) -> usize {
         let this_age = self.params[age_index].age_in_years;
         let diff_to_this = actual_age_in_years - this_age;
