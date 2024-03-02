@@ -1,10 +1,10 @@
 use super::data::ParsecData;
 use crate::{
-    coordinates::ecliptic::EclipticCoordinates,
+    coordinates::cartesian::CartesianCoordinates,
     error::AstroUtilError,
     stars::{data::StarData, evolution::StarDataEvolution},
     units::{
-        distance::{distance_to_sun_radii, DISTANCE_ZERO, SOLAR_RADIUS},
+        distance::{distance_to_sun_radii, SOLAR_RADIUS},
         luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
     },
 };
@@ -116,8 +116,7 @@ impl ParsedParsecLine {
             luminous_intensity,
             temperature: temperature,
             radius: Some(radius),
-            distance: DISTANCE_ZERO,
-            pos: EclipticCoordinates::Z_DIRECTION,
+            pos: CartesianCoordinates::ORIGIN,
             constellation: None,
             evolution: StarDataEvolution::NONE,
         }

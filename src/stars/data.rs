@@ -1,6 +1,6 @@
 use super::{appearance::StarAppearance, evolution::StarDataEvolution, fate::StarFate};
 use crate::{
-    color::srgb::sRGBColor, coordinates::ecliptic::EclipticCoordinates,
+    color::srgb::sRGBColor, coordinates::cartesian::CartesianCoordinates,
     units::luminous_intensity::luminous_intensity_to_illuminance,
 };
 use serde::{Deserialize, Serialize};
@@ -14,8 +14,7 @@ pub struct StarData {
     pub(super) radius: Option<Distance<f64>>,
     pub(super) luminous_intensity: Luminosity<f64>,
     pub(super) temperature: Temperature<f64>,
-    pub(super) distance: Distance<f64>,
-    pub(super) pos: EclipticCoordinates,
+    pub(super) pos: CartesianCoordinates,
     pub(super) evolution: StarDataEvolution,
 }
 
@@ -27,8 +26,7 @@ impl StarData {
         radius: Option<Distance<f64>>,
         luminous_intensity: Luminosity<f64>,
         temperature: Temperature<f64>,
-        distance: Distance<f64>,
-        pos: EclipticCoordinates,
+        pos: CartesianCoordinates,
         evolution: StarDataEvolution,
     ) -> Self {
         Self {
@@ -37,7 +35,6 @@ impl StarData {
             radius,
             luminous_intensity,
             temperature,
-            distance,
             pos,
             constellation,
             evolution,
@@ -93,19 +90,19 @@ impl StarData {
         self.evolution.age.map(|age| age + time)
     }
 
-    pub const fn get_distance_at_epoch(&self) -> Distance<f64> {
-        self.distance
+    pub fn get_distance_at_epoch(&self) -> Distance<f64> {
+        self.pos.length()
     }
 
-    pub fn get_distance(&self, _time: Time<f64>) -> Distance<f64> {
-        self.distance
+    pub fn get_distance(&self, time: Time<f64>) -> Distance<f64> {
+        self.get_pos(time).length()
     }
 
-    pub const fn get_pos_at_epoch(&self) -> &EclipticCoordinates {
+    pub const fn get_pos_at_epoch(&self) -> &CartesianCoordinates {
         &self.pos
     }
 
-    pub fn get_pos(&self, _time: Time<f64>) -> EclipticCoordinates {
+    pub fn get_pos(&self, _time: Time<f64>) -> CartesianCoordinates {
         self.pos.clone()
     }
 
@@ -150,10 +147,14 @@ impl StarData {
     }
 
     pub fn set_distance_at_epoch(&mut self, distance: Distance<f64>) {
-        self.distance = distance;
+        let direction = match self.pos.to_direction() {
+            Ok(direction) => direction,
+            Err(_) => return,
+        };
+        self.pos = direction.to_cartesian(distance);
     }
 
-    pub fn set_pos_at_epoch(&mut self, pos: EclipticCoordinates) {
+    pub fn set_pos_at_epoch(&mut self, pos: CartesianCoordinates) {
         self.pos = pos;
     }
 
@@ -167,11 +168,14 @@ impl StarData {
 
     pub fn to_star_appearance(&self, time_since_epoch: Time<f64>) -> StarAppearance {
         let luminous_intensity = self.get_luminous_intensity(time_since_epoch);
-        let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &self.distance);
+        let illuminance = luminous_intensity_to_illuminance(
+            &luminous_intensity,
+            &self.get_distance(time_since_epoch),
+        );
 
         let color = sRGBColor::from_temperature(self.get_temperature(time_since_epoch));
 
-        let pos = self.get_pos(time_since_epoch);
+        let pos = self.get_pos(time_since_epoch).to_ecliptic();
 
         StarAppearance {
             name: self.name.clone(),
@@ -364,26 +368,18 @@ mod tests {
                 star.get_distance_at_epoch(),
                 star.get_distance(TIME_ZERO)
             );
-            assert!(
-                kinda_equal(
-                    Some(star.get_pos_at_epoch().get_longitude().rad),
-                    Some(star.get_pos(TIME_ZERO).get_longitude().rad)
-                ),
-                "Star {}\nLongitude {:?}\nLongitude {:?}",
-                star.get_name(),
-                star.get_pos_at_epoch(),
-                star.get_pos(TIME_ZERO)
-            );
-            assert!(
-                kinda_equal(
-                    Some(star.get_pos_at_epoch().get_latitude().rad),
-                    Some(star.get_pos(TIME_ZERO).get_latitude().rad)
-                ),
-                "Star {}\nLatitude {:?}\nLatitude {:?}",
-                star.get_name(),
-                star.get_pos_at_epoch(),
-                star.get_pos(TIME_ZERO)
-            );
+            assert!(kinda_equal(
+                Some(star.get_pos_at_epoch().x().to_lyr()),
+                Some(star.get_pos(TIME_ZERO).x().to_lyr())
+            ));
+            assert!(kinda_equal(
+                Some(star.get_pos_at_epoch().y().to_lyr()),
+                Some(star.get_pos(TIME_ZERO).y().to_lyr())
+            ));
+            assert!(kinda_equal(
+                Some(star.get_pos_at_epoch().z().to_lyr()),
+                Some(star.get_pos(TIME_ZERO).z().to_lyr())
+            ));
         }
     }
 }

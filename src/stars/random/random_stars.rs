@@ -7,7 +7,6 @@ use crate::{
         fate::StarFate,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
     },
-    units::distance::DISTANCE_ZERO,
 };
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rand_distr::Distribution;
@@ -38,12 +37,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let unit_distance_distr = get_unit_distance_distribution();
     let parsec_distr = ParsecDistribution::new(&parsec_data);
 
-    generate_random_stars_in_sphere(
-        parsec_data,
-        max_distance,
-        unit_distance_distr,
-        parsec_distr,
-    )
+    generate_random_stars_in_sphere(parsec_data, max_distance, unit_distance_distr, parsec_distr)
 }
 
 fn generate_random_stars_in_sphere(
@@ -152,7 +146,7 @@ pub fn generate_random_star(
     }
     let mut star = star.unwrap();
     if max_distance.is_none() {
-        star.distance = DISTANCE_ZERO;
+        star.pos = CartesianCoordinates::ORIGIN;
     }
     Ok(star)
 }
@@ -168,9 +162,7 @@ fn generate_visible_random_star(
     let age_index = parsec_distr.get_random_age_index(mass_index, rng);
     let distance = random_distance(rng, unit_distance_distr, max_distance);
     let mut star = parsec_data.get_star_data_if_visible(mass_index, age_index, distance.m)?;
-    let pos = random_direction(rng).to_ecliptic();
-    star.distance = distance;
-    star.pos = pos;
+    star.pos = random_direction(rng).to_cartesian(distance);
     Some(star)
 }
 
@@ -285,7 +277,7 @@ mod tests {
         let max_distance = Distance::from_lyr(100.);
         let stars = generate_random_stars(max_distance).unwrap();
         for star in stars {
-            assert!(star.distance < max_distance * 1.01);
+            assert!(star.get_distance_at_epoch() < max_distance * 1.01);
         }
     }
 
