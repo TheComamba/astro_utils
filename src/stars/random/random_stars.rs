@@ -35,11 +35,17 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let parsec_data = parsec_data_mutex.as_ref()?;
     let parsec_distr = ParsecDistribution::new(&parsec_data);
 
-    generate_random_stars_in_sphere(parsec_data, max_distance, parsec_distr)
+    generate_random_stars_in_sphere(
+        parsec_data,
+        &CartesianCoordinates::ORIGIN,
+        max_distance,
+        parsec_distr,
+    )
 }
 
 fn generate_random_stars_in_sphere(
     parsec_data: &ParsecData,
+    origin: &CartesianCoordinates,
     max_distance: Distance<f64>,
     parsec_distr: ParsecDistribution,
 ) -> Result<Vec<StarData>, AstroUtilError> {
@@ -52,6 +58,7 @@ fn generate_random_stars_in_sphere(
         let chunk = generate_certain_number_of_random_stars(
             MAX_CHUNKSIZE,
             parsec_data,
+            origin,
             max_distance,
             &parsec_distr,
         );
@@ -71,6 +78,7 @@ fn generate_random_stars_in_sphere(
     let chunk = generate_certain_number_of_random_stars(
         remaining,
         parsec_data,
+        origin,
         max_distance,
         &parsec_distr,
     );
@@ -89,6 +97,7 @@ fn number_of_stars_in_sphere(max_distance: Distance<f64>) -> usize {
 fn generate_certain_number_of_random_stars(
     number: usize,
     parsec_data: &ParsecData,
+    origin: &CartesianCoordinates,
     max_distance: Distance<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
@@ -96,7 +105,7 @@ fn generate_certain_number_of_random_stars(
         .into_par_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
-            generate_visible_random_star(parsec_data, max_distance, &mut rng, parsec_distr)
+            generate_visible_random_star(parsec_data, origin, max_distance, &mut rng, parsec_distr)
         })
         .filter_map(|star| star)
         .collect::<Vec<StarData>>()
@@ -114,11 +123,21 @@ pub fn generate_random_star(
     let parsec_data = parsec_data_mutex.as_ref()?;
     let parsec_distr = ParsecDistribution::new(&parsec_data);
 
-    let mut star =
-        generate_visible_random_star(parsec_data, max_distance_or_1, &mut rng, &parsec_distr);
+    let mut star = generate_visible_random_star(
+        parsec_data,
+        &CartesianCoordinates::ORIGIN,
+        max_distance_or_1,
+        &mut rng,
+        &parsec_distr,
+    );
     while star.is_none() {
-        star =
-            generate_visible_random_star(parsec_data, max_distance_or_1, &mut rng, &parsec_distr);
+        star = generate_visible_random_star(
+            parsec_data,
+            &CartesianCoordinates::ORIGIN,
+            max_distance_or_1,
+            &mut rng,
+            &parsec_distr,
+        );
     }
     let mut star = star.unwrap();
     if max_distance.is_none() {
@@ -129,13 +148,14 @@ pub fn generate_random_star(
 
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
+    origin: &CartesianCoordinates,
     max_distance: Distance<f64>,
     rng: &mut ThreadRng,
     parsec_distr: &ParsecDistribution,
 ) -> Option<StarData> {
     let mass_index = parsec_distr.get_random_mass_index(rng);
     let age_index = parsec_distr.get_random_age_index(mass_index, rng);
-    let pos = random_point_in_sphere(rng, max_distance);
+    let pos = origin + &random_point_in_sphere(rng, max_distance);
     let star = parsec_data.get_star_data_if_visible(mass_index, age_index, pos)?;
     Some(star)
 }
