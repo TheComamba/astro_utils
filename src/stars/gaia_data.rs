@@ -6,6 +6,7 @@ use crate::{
     units::{
         distance::DISTANCE_ZERO,
         illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
+        luminous_intensity::LUMINOSITY_ZERO,
         temperature::TEMPERATURE_ZERO,
         time::TIME_ZERO,
     },
@@ -99,7 +100,7 @@ impl GaiaResponse {
                     name: parsed_data.designation,
                     mass: None,
                     radius: None,
-                    luminous_intensity: None,
+                    luminous_intensity: LUMINOSITY_ZERO,
                     temperature: parsed_data.temperature.unwrap_or(TEMPERATURE_ZERO),
                     distance: DISTANCE_ZERO,
                     pos: parsed_data.pos,

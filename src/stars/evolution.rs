@@ -43,8 +43,8 @@ impl StarDataEvolution {
             (self.time_until_death(then), self.time_until_death(now))
         {
             const DEATH_TIMESCALE: Time<f64> = Time {
-                s: -365.25 * 24. * 60. * 60.,
-            }; // 1 year (negative because it counts time until death)
+                s: -10. * 365.25 * 24. * 60. * 60.,
+            }; // 10 years (negative because it counts time until death)
 
             let has_crossed_death = until_death_then.s.signum() != until_death_now.s.signum();
             let shortly_after_death = DEATH_TIMESCALE.s..0.;
@@ -75,7 +75,7 @@ impl StarDataEvolution {
     pub(crate) fn apply_to_mass(&self, mass: Mass<f64>, time_since_epoch: Time<f64>) -> Mass<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
-                return self.fate.apply_to_mass(mass, -time_until_death);
+                return self.fate.apply_to_mass(mass);
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
@@ -91,7 +91,7 @@ impl StarDataEvolution {
     ) -> Distance<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
-                return self.fate.apply_to_radius(radius, -time_until_death);
+                return self.fate.apply_to_radius();
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
@@ -185,12 +185,9 @@ impl StarDataLifestageEvolution {
             (Some(now_radius), Some(then_radius)) => (now_radius - then_radius) / years,
             _ => DISTANCE_ZERO,
         };
-        let luminous_intensity_per_year = match (now.luminous_intensity, then.luminous_intensity) {
-            (Some(now_luminous_intensity), Some(then_luminous_intensity)) => {
-                (now_luminous_intensity - then_luminous_intensity) / years
-            }
-            _ => LUMINOSITY_ZERO,
-        };
+        let luminous_intensity_per_year =
+            (now.luminous_intensity - then.luminous_intensity) / years;
+
         let temperature_per_year = (now.temperature - then.temperature) / years;
         Self {
             mass_per_year,
@@ -271,6 +268,7 @@ mod tests {
             Time::from_min(1.),
             Time::from_hr(1.),
             Time::from_days(1.),
+            Time::from_yr(1.),
         ];
         let age = Some(lifetime);
         let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
