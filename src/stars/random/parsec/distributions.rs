@@ -26,8 +26,18 @@ fn get_mass_distribution() -> WeightedAliasIndex<f64> {
 
 fn kroupa_weights() -> Vec<f64> {
     let mut weights = Vec::new();
-    for m in ParsecData::SORTED_MASSES {
-        let weight = kroupa_mass_distribution(m);
+    for m in 0..ParsecData::SORTED_MASSES.len() {
+        let lower = if m == 0 {
+            0.
+        } else {
+            (ParsecData::SORTED_MASSES[m - 1] + ParsecData::SORTED_MASSES[m]) / 2.
+        };
+        let upper = if m == ParsecData::SORTED_MASSES.len() - 1 {
+            1000.
+        } else {
+            (ParsecData::SORTED_MASSES[m] + ParsecData::SORTED_MASSES[m + 1]) / 2.
+        };
+        let weight = integrate_kroupa(lower, upper);
         weights.push(weight);
     }
     weights
@@ -48,20 +58,20 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
     prefactor * m_in_solar_masses.powf(-alpha) * NORMALIZATION
 }
 
+fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
+    let mut integral = 0.;
+    let mut x = lower;
+    while x < upper {
+        let dx = (upper - x).min(0.01);
+        integral += kroupa_mass_distribution(x) * dx;
+        x += dx;
+    }
+    integral
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
-        let mut integral = 0.;
-        let mut x = lower;
-        while x < upper {
-            let dx = (upper - x).min(0.01);
-            integral += kroupa_mass_distribution(x) * dx;
-            x += dx;
-        }
-        integral
-    }
 
     #[test]
     fn kroupa_is_smooth() {
@@ -90,21 +100,6 @@ mod tests {
         let upper = 2000.;
         let integral = integrate_kroupa(lower, upper);
         assert!((integral - 1.).abs() < 0.01, "Integral is {}", integral);
-    }
-
-    #[test]
-    fn kroupa_weights_are_ordered() {
-        let weights = kroupa_weights();
-        for i in 1..weights.len() {
-            assert!(
-                weights[i - 1] >= weights[i],
-                "Weight {} is larger than weight {}: {}, {}",
-                i - 1,
-                i,
-                weights[i - 1],
-                weights[i]
-            );
-        }
     }
 
     #[test]
