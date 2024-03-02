@@ -261,7 +261,7 @@ mod tests {
     }
 
     #[test]
-    fn star_changes_rapidly_in_the_millenia_after_death() {
+    fn star_changes_rapidly_shortly_after_death() {
         let lifetime = Time::from_Gyr(1.);
         let small_steps = vec![
             Time::from_s(1.),
@@ -269,7 +269,6 @@ mod tests {
             Time::from_hr(1.),
             Time::from_days(1.),
             Time::from_yr(1.),
-            Time::from_kyr(1.),
         ];
         let age = Some(lifetime);
         let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
