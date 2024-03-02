@@ -108,12 +108,33 @@ mod tests {
     }
 
     #[test]
-    fn about_2_permille_of_stars_explode() {
+    fn about_2_permille_of_stars_explode_according_to_integral() {
         let integral = integrate_kroupa(8.0, 80.);
         assert!(
-            integral > 0.0020 && integral < 0.0022,
+            (0.002..0.003).contains(&integral),
             "Integral is {}",
             integral
+        );
+    }
+
+    #[test]
+    fn about_2_permille_of_stars_explode_according_to_sampling() {
+        let num_stars = 1_000_000;
+        let mut num_exploding_stars = 0;
+        let mut rng = rand::thread_rng();
+        let distribution = get_mass_distribution();
+        for _ in 0..num_stars {
+            let mass_index = distribution.sample(&mut rng);
+            let mass = ParsecData::SORTED_MASSES[mass_index];
+            if mass >= 8. {
+                num_exploding_stars += 1;
+            }
+        }
+        let fraction = num_exploding_stars as f64 / num_stars as f64;
+        assert!(
+            (0.002..0.003).contains(&fraction),
+            "Fraction is {}",
+            fraction
         );
     }
 }

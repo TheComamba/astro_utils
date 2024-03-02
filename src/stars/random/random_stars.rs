@@ -44,12 +44,17 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     )?;
 
     loop {
-        let past_supernovae = collect_past_supernovae(&new_stars);
+        let supernovae = collect_supernovae(&new_stars);
         stars.append(&mut new_stars);
-        if past_supernovae.is_empty() {
+        if supernovae.is_empty() {
             break;
         }
-        for supernova in past_supernovae {
+        println!(
+            "Generated {} new supernovae. Total star count {}",
+            supernovae.len(),
+            stars.len()
+        );
+        for supernova in supernovae {
             let mut stars_near_remnant =
                 generate_stars_around_supernova_remnant(&supernova, parsec_data, &parsec_distr)?;
             new_stars.append(&mut stars_near_remnant);
@@ -213,13 +218,10 @@ fn generate_visible_random_star(
     Some(star)
 }
 
-fn collect_past_supernovae(stars: &Vec<StarData>) -> Vec<StarData> {
+fn collect_supernovae(stars: &Vec<StarData>) -> Vec<StarData> {
     stars
         .iter()
-        .filter(|s| {
-            s.get_fate() == &StarFate::TypeIISupernova
-                && s.get_age_at_epoch().unwrap() > s.get_lifetime()
-        })
+        .filter(|s| s.get_fate() == &StarFate::TypeIISupernova)
         .cloned()
         .collect()
 }
@@ -285,7 +287,7 @@ mod tests {
         let start = Instant::now();
         let stars = generate_random_stars(max_distance).unwrap();
         let duration = start.elapsed();
-        let number_of_visible_stars = stars.len() - collect_past_supernovae(&stars).len();
+        let number_of_visible_stars = stars.len() - collect_supernovae(&stars).len();
         println!(
             "Generated {} stars within {} in {:?}",
             number_of_visible_stars,
@@ -353,15 +355,15 @@ mod tests {
     }
 
     #[test]
-    fn less_than_3_permille_of_random_stars_have_gone_supernova() {
+    fn about_2_permille_of_random_stars_have_gone_supernova() {
         let max_distance = Distance::from_lyr(1000.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
-        let supernova_stars = collect_past_supernovae(&star_data).len();
+        let supernova_stars = collect_supernovae(&star_data).len();
         let total_stars = number_of_stars_in_sphere(max_distance);
         assert!(total_stars > 0);
         let portion = supernova_stars as f64 / total_stars as f64;
         assert!(
-            portion < 0.003,
+            (0.001..0.003).contains(&portion),
             "Generated {} stars, {} of which have gone supernova. This corresponds to a portion of {}",
             total_stars,
             supernova_stars,
