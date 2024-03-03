@@ -1,10 +1,13 @@
-use simple_si_units::base::{Luminosity, Time};
+use simple_si_units::base::{Luminosity, Mass, Time};
 
 use super::data::ParsecData;
 use super::trajectory::Trajectory;
 use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::data::StarData;
-use crate::units::luminous_intensity::LUMINOSITY_ZERO;
+use crate::stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE;
+use crate::units::luminous_intensity::{
+    absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
+};
 use crate::units::time::TEN_MILLENIA;
 
 impl ParsecData {
@@ -79,15 +82,27 @@ impl ParsecData {
     pub(crate) fn get_most_luminous_intensity_possible(
         &self,
         min_age: Time<f64>,
+        max_age: Time<f64>,
     ) -> Luminosity<f64> {
         let mut max_luminous_intensity = LUMINOSITY_ZERO;
         for trajectory in self.data.iter() {
             if min_age > trajectory.lifetime {
                 continue;
             }
-            let luminous_intensity = trajectory.peak_lifetime_luminous_intensity;
-            if luminous_intensity > max_luminous_intensity {
-                max_luminous_intensity = luminous_intensity;
+            if (min_age..max_age).contains(&trajectory.lifetime)
+                && trajectory.initial_mass > Mass::from_solar_mass(8.)
+            {
+                return absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE);
+            }
+            let min_age_index = trajectory.get_closest_params_index(min_age.to_yr());
+            let max_age_index = trajectory.get_closest_params_index(max_age.to_yr());
+            for age_index in min_age_index..=max_age_index {
+                let params = trajectory.get_params_by_index_unchecked(age_index);
+                let luminous_intensity =
+                    params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
+                if luminous_intensity > max_luminous_intensity {
+                    max_luminous_intensity = luminous_intensity;
+                }
             }
         }
         max_luminous_intensity
@@ -103,7 +118,7 @@ mod tests {
         astro_display::AstroDisplay,
         coordinates::direction::Direction,
         real_data::stars::all::get_many_stars,
-        stars::random::{parsec::data::PARSEC_DATA, random_stars::AGE_OF_MILKY_WAY_THIN_DISK},
+        stars::random::parsec::data::PARSEC_DATA,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
             luminous_intensity::luminous_intensity_to_illuminance, time::TIME_ZERO,
@@ -205,12 +220,7 @@ mod tests {
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             let trajectory = &parsec_data.get_trajectory_via_index(mass_index);
             let age = trajectory.lifetime;
-            parsec_data
-                .get_star_data_if_visible(
-                    mass_index,
-                    age,
-                    CartesianCoordinates::ORIGIN,
-                )
+            parsec_data.get_star_data_if_visible(mass_index, age, CartesianCoordinates::ORIGIN)
         };
         let star = star.unwrap();
         assert!(star
