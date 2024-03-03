@@ -5,6 +5,7 @@ use super::trajectory::Trajectory;
 use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::data::StarData;
 use crate::stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE;
+use crate::stars::random::random_stars::get_min_age;
 use crate::units::luminous_intensity::{
     absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
 };
@@ -81,10 +82,10 @@ impl ParsecData {
 
     pub(crate) fn get_most_luminous_intensity_possible(
         &self,
-        min_age: Time<f64>,
         max_age: Time<f64>,
     ) -> Luminosity<f64> {
         let mut max_luminous_intensity = LUMINOSITY_ZERO;
+        let min_age = get_min_age(max_age);
         for trajectory in self.data.iter() {
             if min_age > trajectory.lifetime {
                 continue;

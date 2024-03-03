@@ -52,14 +52,8 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             if i == 0 {
                 let origin = CartesianCoordinates::ORIGIN;
                 let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
-                let min_age = min_age(max_age);
-                let adjusted_distance = distance_adjusted_for_performance(
-                    parsec_data,
-                    min_age,
-                    max_age,
-                    &origin,
-                    max_distance,
-                );
+                let adjusted_distance =
+                    distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance);
                 let number_of_stars_in_sphere =
                     number_in_sphere(STARS_PER_LY_CUBED, adjusted_distance);
                 generate_certain_number_of_random_stars(
@@ -91,7 +85,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     Ok(stars)
 }
 
-fn min_age(max_age: Time<f64>) -> Time<f64> {
+pub(crate) fn get_min_age(max_age: Time<f64>) -> Time<f64> {
     max_age - NURSERY_LIFETIME - TEN_MILLENIA
 }
 
@@ -212,13 +206,11 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 fn distance_adjusted_for_performance(
     parsec_data: &ParsecData,
-    min_age: Time<f64>,
     max_age: Time<f64>,
     origin: &CartesianCoordinates,
     max_distance_from_origin: Distance<f64>,
 ) -> Distance<f64> {
-    let most_luminous_intensity =
-        parsec_data.get_most_luminous_intensity_possible(min_age, max_age);
+    let most_luminous_intensity = parsec_data.get_most_luminous_intensity_possible(max_age);
     let required_distance = Distance {
         m: (most_luminous_intensity.cd / DIMMEST_ILLUMINANCE.lux).sqrt(),
     };
@@ -340,28 +332,26 @@ mod tests {
 
     #[test]
     fn large_distance_for_old_stars_is_adjusted() {
-        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - NURSERY_LIFETIME - TEN_MILLENIA;
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let origin = CartesianCoordinates::ORIGIN;
         let max_distance = Distance::from_lyr(10_000.);
         let adjusted = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            distance_adjusted_for_performance(parsec_data, min_age, max_age, &origin, max_distance)
+            distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance)
         };
         assert!(adjusted < max_distance);
     }
 
     #[test]
     fn short_distance_for_old_stars_is_not_adjusted() {
-        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - NURSERY_LIFETIME - TEN_MILLENIA;
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let origin = CartesianCoordinates::ORIGIN;
         let max_distance = Distance::from_lyr(10.);
         let adjusted = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            distance_adjusted_for_performance(parsec_data, min_age, max_age, &origin, max_distance)
+            distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance)
         };
         assert!(eq_within(
             adjusted.to_lyr(),
@@ -372,28 +362,26 @@ mod tests {
 
     #[test]
     fn old_stars_far_away_are_adjusted() {
-        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - NURSERY_LIFETIME - TEN_MILLENIA;
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let origin = Direction::Z.to_cartesian(Distance::from_lyr(10_000.));
         let max_distance = Distance::from_lyr(100.);
         let adjusted = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            distance_adjusted_for_performance(parsec_data, min_age, max_age, &origin, max_distance)
+            distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance)
         };
         assert!(adjusted.m < 1.);
     }
 
     #[test]
     fn young_stars_far_away_are_not_adjusted() {
-        let min_age = TIME_ZERO;
         let max_age = NURSERY_LIFETIME;
         let origin = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
         let max_distance = Distance::from_lyr(100.);
         let adjusted = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            distance_adjusted_for_performance(parsec_data, min_age, max_age, &origin, max_distance)
+            distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance)
         };
         assert!(eq_within(
             adjusted.to_lyr(),
