@@ -19,19 +19,19 @@ use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // But more or less arbitrarily adjusted to reproduce Gaia data.
-pub(super) const STARS_PER_LY_CUBED: f64 = 3e-4;
+pub(super) const STARS_PER_LY_CUBED: f64 = 4e-3;
 // https://ui.adsabs.harvard.edu/abs/1985ApJ...289..373S/abstract
 // 6000 star forming regions are currently in the milky way
 // Assuming that they form stars at a constant rate for 10 million years, and that the milky way is about 10 billion years old,
 // this adds a factor of 1000.
 pub(super) const NURSERY_LIFETIME: Time<f64> = Time {
-    s: 10_000_000. * 365.25 * 24. * 60. * 60.,
+    s: 8e9 * 365.25 * 24. * 60. * 60.,
 }; // 10_000_000 years
 pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
 };
 const NURSERIES_PER_LY_CUBED: f64 =
-    6_000. / 8e12 * AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
+    6_000. / 8e12* AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
 pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
 pub(super) const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
@@ -45,6 +45,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
 
     let number_star_forming_regions = number_in_sphere(NURSERIES_PER_LY_CUBED, max_distance) + 1;
     let age_distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s);
+    println!("Number of star forming regions: {}", number_star_forming_regions);
     let stars = (0..number_star_forming_regions)
         .into_par_iter()
         .map(|i| {
@@ -79,9 +80,6 @@ fn generate_random_stars_with_params(
     parsec_data: &ParsecData,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
-    if params.number == 0 {
-        return Vec::new();
-    }
     let age_distribution = Uniform::new(0., NURSERY_LIFETIME.s);
     (0..=params.number)
         .into_iter()
