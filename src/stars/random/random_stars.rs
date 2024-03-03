@@ -6,7 +6,7 @@ use crate::{
         data::StarData,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
     },
-    units::time::TEN_MILLENIA,
+    units::{distance::DISTANCE_ZERO, time::TEN_MILLENIA},
 };
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
@@ -52,10 +52,21 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             if i == 0 {
                 let origin = CartesianCoordinates::ORIGIN;
                 let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
-                generate_random_stars_in_sphere(
+                let min_age = min_age(max_age);
+                let adjusted_distance = distance_adjusted_for_performance(
                     parsec_data,
+                    min_age,
+                    max_age,
                     &origin,
                     max_distance,
+                );
+                let number_of_stars_in_sphere =
+                    number_in_sphere(STARS_PER_LY_CUBED, adjusted_distance);
+                generate_certain_number_of_random_stars(
+                    number_of_stars_in_sphere,
+                    parsec_data,
+                    &origin,
+                    adjusted_distance,
                     max_age,
                     &parsec_distr,
                 )
@@ -80,31 +91,8 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     Ok(stars)
 }
 
-fn generate_random_stars_in_sphere(
-    parsec_data: &ParsecData,
-    origin: &CartesianCoordinates,
-    max_distance: Distance<f64>,
-    max_age: Time<f64>,
-    parsec_distr: &ParsecDistribution,
-) -> Vec<StarData> {
-    let min_age = max_age - NURSERY_LIFETIME - TEN_MILLENIA;
-    let adjusted_distance =
-        distance_adjusted_for_performance(parsec_data, min_age, max_age, origin, max_distance);
-    let max_distance = if let Some(max_distance) = adjusted_distance {
-        max_distance
-    } else {
-        return vec![];
-    };
-
-    let number_of_stars_in_sphere = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
-    generate_certain_number_of_random_stars(
-        number_of_stars_in_sphere,
-        parsec_data,
-        origin,
-        max_distance,
-        max_age,
-        &parsec_distr,
-    )
+fn min_age(max_age: Time<f64>) -> Time<f64> {
+    max_age - NURSERY_LIFETIME - TEN_MILLENIA
 }
 
 fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) -> usize {
@@ -228,7 +216,7 @@ fn distance_adjusted_for_performance(
     max_age: Time<f64>,
     origin: &CartesianCoordinates,
     max_distance_from_origin: Distance<f64>,
-) -> Option<Distance<f64>> {
+) -> Distance<f64> {
     let most_luminous_intensity =
         parsec_data.get_most_luminous_intensity_possible(min_age, max_age);
     let required_distance = Distance {
@@ -239,15 +227,15 @@ fn distance_adjusted_for_performance(
     let farthest_possible = distance_to_origin + max_distance_from_origin;
     if distance_to_origin > max_distance_from_origin {
         if closest_possible > required_distance {
-            None
+            DISTANCE_ZERO
         } else {
-            Some(max_distance_from_origin)
+            max_distance_from_origin
         }
     } else {
         if farthest_possible > required_distance {
-            Some(required_distance - distance_to_origin)
+            required_distance - distance_to_origin
         } else {
-            Some(max_distance_from_origin)
+            max_distance_from_origin
         }
     }
 }
@@ -360,8 +348,7 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             distance_adjusted_for_performance(parsec_data, min_age, max_age, &origin, max_distance)
-        }
-        .unwrap();
+        };
         assert!(adjusted < max_distance);
     }
 
@@ -375,8 +362,7 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             distance_adjusted_for_performance(parsec_data, min_age, max_age, &origin, max_distance)
-        }
-        .unwrap();
+        };
         assert!(eq_within(
             adjusted.to_lyr(),
             max_distance.to_lyr(),
@@ -395,7 +381,7 @@ mod tests {
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             distance_adjusted_for_performance(parsec_data, min_age, max_age, &origin, max_distance)
         };
-        assert!(adjusted.is_none());
+        assert!(adjusted.m < 1.);
     }
 
     #[test]
@@ -408,8 +394,7 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             distance_adjusted_for_performance(parsec_data, min_age, max_age, &origin, max_distance)
-        }
-        .unwrap();
+        };
         assert!(eq_within(
             adjusted.to_lyr(),
             max_distance.to_lyr(),
