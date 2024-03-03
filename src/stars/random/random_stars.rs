@@ -49,36 +49,33 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         .into_par_iter()
         .map(|i| {
             let mut rng = rand::thread_rng();
-            if i == 0 {
-                let origin = CartesianCoordinates::ORIGIN;
+            let (pos, max_age, radius, number) = if i == 0 {
+                let pos = CartesianCoordinates::ORIGIN;
                 let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
-                let adjusted_distance =
-                    distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance);
-                let number_of_stars_in_sphere =
-                    number_in_sphere(STARS_PER_LY_CUBED, adjusted_distance);
-                generate_certain_number_of_random_stars(
-                    number_of_stars_in_sphere,
-                    parsec_data,
-                    &origin,
-                    adjusted_distance,
-                    max_age,
-                    &parsec_distr,
-                )
+                let radius = max_distance;
+                let number = number_in_sphere(STARS_PER_LY_CUBED, radius);
+                (pos, max_age, radius, number)
             } else {
-                let nursery_pos = random_point_in_sphere(&mut rng, max_distance);
-                let nursery_age = Time {
+                let pos = random_point_in_sphere(&mut rng, max_distance);
+                let max_age = Time {
                     s: rng.sample(age_distribution),
                 };
-                let nursery_radius = STELLAR_VELOCITY * nursery_age;
-                generate_certain_number_of_random_stars(
-                    NUMBER_OF_STARS_FORMED_IN_NURSERY,
-                    parsec_data,
-                    &nursery_pos,
-                    nursery_radius,
-                    nursery_age,
-                    &parsec_distr,
-                )
-            }
+                let radius = STELLAR_VELOCITY * max_age;
+                let number = NUMBER_OF_STARS_FORMED_IN_NURSERY;
+                (pos, max_age, radius, number)
+            };
+            let adjusted_distance =
+                distance_adjusted_for_performance(parsec_data, max_age, &pos, radius);
+            let adjusted_number =
+                (number as f64 * (adjusted_distance / radius).powi(3)) as usize;
+            generate_certain_number_of_random_stars(
+                adjusted_number,
+                parsec_data,
+                &pos,
+                adjusted_distance,
+                max_age,
+                &parsec_distr,
+            )
         })
         .flatten()
         .collect();
