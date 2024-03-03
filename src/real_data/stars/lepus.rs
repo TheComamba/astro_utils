@@ -66,7 +66,7 @@ const BETA_LEPORIS: RealData = RealData {
 
 const EPSILON_LEPORIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epislon Leporis",
+    astronomical_name: "ε Leporis",
     constellation: "Lepus",
     right_ascension: RightAscension::new(5, 5, 28),
     declination: Declination::new(Sgn::Neg, 22, 22, 16),

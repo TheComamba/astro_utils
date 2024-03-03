@@ -114,7 +114,7 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
 
 const EPSILON_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epislon Coronae Borealis",
+    astronomical_name: "ε Coronae Borealis",
     constellation: "Corona Borealis",
     right_ascension: RightAscension::new(15, 57, 35),
     declination: Declination::new(Sgn::Pos, 26, 52, 40),

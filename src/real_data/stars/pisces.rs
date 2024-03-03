@@ -142,7 +142,7 @@ const OMICRON_PISCIUM: RealData = RealData {
 
 const EPSILON_PISCIUM: RealData = RealData {
     common_name: "",
-    astronomical_name: "Epislon Piscium",
+    astronomical_name: "ε Piscium",
     constellation: "Pisces",
     right_ascension: RightAscension::new(1, 2, 57),
     declination: Declination::new(Sgn::Pos, 7, 53, 24),
