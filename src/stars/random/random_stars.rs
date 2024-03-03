@@ -19,7 +19,7 @@ use std::f64::consts::PI;
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted, because Gaia does not resolve all binaries.
 const STARS_PER_LY_CUBED: f64 = 0.004 / 1.12;
-const STAR_FORMING_REGIONS_PER_LY_CUBED: f64 = 1e-7;
+const STAR_FORMING_REGIONS_PER_LY_CUBED: f64 = 6e-7;
 const STAR_FORMING_REGION_RADIUS: Distance<f64> = Distance { m: 50. * 9.461e15 }; // 50 lyr
 const STAR_FORMING_REGION_LIFETIME: Time<f64> = Time {
     s: 10_000_000. * 365.25 * 24. * 60. * 60.,
@@ -39,35 +39,41 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let parsec_data = parsec_data_mutex.as_ref()?;
     let parsec_distr = ParsecDistribution::new();
 
-    let mut stars = generate_random_stars_in_sphere(
-        parsec_data,
-        &CartesianCoordinates::ORIGIN,
-        max_distance,
-        AGE_OF_MILKY_WAY_THIN_DISK,
-        &parsec_distr,
-    )?;
-
     let number_star_forming_regions =
-        number_in_sphere(STAR_FORMING_REGIONS_PER_LY_CUBED, max_distance);
+        number_in_sphere(STAR_FORMING_REGIONS_PER_LY_CUBED, max_distance) + 1;
     let age_distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s);
-    let mut rng = rand::thread_rng();
-    for _ in 0..number_star_forming_regions {
-        let origin = random_point_in_sphere(&mut rng, max_distance);
-        let age = Time {
-            s: rng.sample(age_distribution),
-        };
-        let mut younger_stars = generate_random_stars_in_sphere(
-            parsec_data,
-            &origin,
-            STAR_FORMING_REGION_RADIUS,
-            age,
-            &parsec_distr,
-        )?;
-        if younger_stars.is_empty() {
-            continue;
-        }
-        stars.append(&mut younger_stars);
-    }
+    let stars = (0..number_star_forming_regions)
+        .into_par_iter()
+        .map(|i| {
+            let mut rng = rand::thread_rng();
+            let (origin, cluster_age, radius) = if i == 0 {
+                (
+                    CartesianCoordinates::ORIGIN,
+                    AGE_OF_MILKY_WAY_THIN_DISK,
+                    max_distance,
+                )
+            } else {
+                (
+                    random_point_in_sphere(&mut rng, max_distance),
+                    Time {
+                        s: rng.sample(age_distribution),
+                    },
+                    STAR_FORMING_REGION_RADIUS,
+                )
+            };
+
+            generate_random_stars_in_sphere(
+                parsec_data,
+                &origin,
+                radius,
+                cluster_age,
+                &parsec_distr,
+            )
+        })
+        .collect::<Result<Vec<Vec<StarData>>, AstroUtilError>>()?
+        .into_iter()
+        .flatten()
+        .collect();
     Ok(stars)
 }
 
@@ -140,7 +146,7 @@ fn generate_certain_number_of_random_stars(
 ) -> Vec<StarData> {
     let age_distribution = Uniform::new(0., STAR_FORMING_REGION_LIFETIME.s);
     (0..=number)
-        .into_par_iter()
+        .into_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
             let age = max_age
