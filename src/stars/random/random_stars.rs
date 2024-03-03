@@ -54,6 +54,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             supernovae.len(),
             stars.len()
         );
+        break;
         for supernova in supernovae {
             let mut stars_near_remnant =
                 generate_stars_around_supernova_remnant(&supernova, parsec_data, &parsec_distr)?;

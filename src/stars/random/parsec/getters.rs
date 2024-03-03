@@ -55,22 +55,27 @@ impl ParsecData {
         age: Time<f64>,
         pos: CartesianCoordinates,
     ) -> Option<StarData> {
+        const TEN_MILLENIA: Time<f64> = Time {
+            s: 10_000. * 365.25 * 24. * 60. * 60.,
+        };
+
         let trajectory = self.get_trajectory_via_index(mass_index);
-        let is_supernova_progenitor = trajectory.is_visible_supernova(&pos);
-        let is_still_alive = age < trajectory.lifetime;
-        if !is_still_alive && !is_supernova_progenitor {
+        let was_alive_10_millenia_ago = age - TEN_MILLENIA < trajectory.lifetime;
+        if !was_alive_10_millenia_ago {
             return None;
         }
 
-        let has_exploded = is_supernova_progenitor && !is_still_alive;
-        if !has_exploded {
-            let age_index = trajectory.get_closest_params_index(age.to_yr());
-            let params = trajectory.get_params_by_index(age_index)?;
-            if !params.is_visible(&pos) {
-                return None;
-            }
+        let age_index = trajectory.get_closest_params_index(age.to_yr());
+        let params = trajectory.get_params_by_index(age_index)?;
+
+        let is_currently_visible = params.is_visible(&pos);
+        let has_visible_death_within_10k_years =
+            trajectory.is_visible_supernova(&pos) && age + TEN_MILLENIA > trajectory.lifetime;
+        if is_currently_visible || has_visible_death_within_10k_years {
+            Some(trajectory.to_star(age, pos))
+        } else {
+            None
         }
-        Some(trajectory.to_star(age, pos))
     }
 }
 
