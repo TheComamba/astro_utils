@@ -17,9 +17,11 @@ use simple_si_units::{
 use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
-// Adjusted, because Gaia does not resolve all binaries.
-const STARS_PER_LY_CUBED: f64 = 0.004 / 1.12;
-const STAR_FORMING_REGIONS_PER_LY_CUBED: f64 = 1e-7;
+// But more or less arbitrarily adjusted to reproduce Gaia data.
+const STARS_PER_LY_CUBED: f64 = 8.5e-2;
+// https://ui.adsabs.harvard.edu/abs/1985ApJ...289..373S/abstract
+// 6000 star forming regions in the milky way
+const STAR_FORMING_REGIONS_PER_LY_CUBED: f64 = 6_000. / 8e12;
 const STAR_FORMING_REGION_RADIUS: Distance<f64> = Distance { m: 50. * 9.461e15 }; // 50 lyr
 const STAR_FORMING_REGION_LIFETIME: Time<f64> = Time {
     s: 10_000_000. * 365.25 * 24. * 60. * 60.,
@@ -90,6 +92,12 @@ fn generate_random_stars_in_sphere(
     } else {
         return vec![];
     };
+
+    if origin.length().m < 1. {
+        println!("Generating stars in the solar system.");
+        println!("Max distance: {:.0} lyr", max_distance.to_lyr());
+    }
+
     let number_of_stars_in_sphere = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
     generate_certain_number_of_random_stars(
         number_of_stars_in_sphere,
