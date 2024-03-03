@@ -4,7 +4,6 @@ use crate::{
     error::AstroUtilError,
     stars::{
         data::StarData,
-        fate::StarFate,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
     },
 };
@@ -19,6 +18,11 @@ use std::f64::consts::PI;
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted, because Gaia does not resolve all binaries.
 const STARS_PER_LY_CUBED: f64 = 0.004 / 1.12;
+const STAR_FORMING_REGIONS_PER_LY_CUBED: f64 = 1e-7;
+const STAR_FORMING_REGION_RADIUS: Distance<f64> = Distance { m: 50. * 9.461e15 }; // 50 lyr
+const STAR_FORMING_REGION_LIFETIME: Time<f64> = Time {
+    s: 10_000_000. * 365.25 * 24. * 60. * 60.,
+}; // 10_000_000 years
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
@@ -34,8 +38,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let parsec_data = parsec_data_mutex.as_ref()?;
     let parsec_distr = ParsecDistribution::new();
 
-    let mut stars = vec![];
-    let mut new_stars = generate_random_stars_in_sphere(
+    let mut stars = generate_random_stars_in_sphere(
         parsec_data,
         &CartesianCoordinates::ORIGIN,
         max_distance,
@@ -43,50 +46,33 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         &parsec_distr,
     )?;
 
-    loop {
-        let supernovae = collect_supernovae(&new_stars);
-        stars.append(&mut new_stars);
-        if supernovae.is_empty() {
-            break;
+    let number_star_forming_regions =
+        number_in_sphere(STAR_FORMING_REGIONS_PER_LY_CUBED, max_distance);
+    let age_distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s);
+    let mut rng = rand::thread_rng();
+    for _ in 0..number_star_forming_regions {
+        let origin = random_point_in_sphere(&mut rng, max_distance);
+        let age = Time {
+            s: rng.sample(age_distribution),
+        };
+        let mut younger_stars = generate_random_stars_in_sphere(
+            parsec_data,
+            &origin,
+            STAR_FORMING_REGION_RADIUS,
+            age,
+            &parsec_distr,
+        )?;
+        if younger_stars.is_empty() {
+            continue;
         }
         println!(
-            "Generated {} new supernovae. Total star count {}",
-            supernovae.len(),
+            "Generated {} stars in star forming region, total star count {}",
+            younger_stars.len(),
             stars.len()
         );
-        break;
-        for supernova in supernovae {
-            let mut stars_near_remnant =
-                generate_stars_around_supernova_remnant(&supernova, parsec_data, &parsec_distr)?;
-            new_stars.append(&mut stars_near_remnant);
-        }
+        stars.append(&mut younger_stars);
     }
     Ok(stars)
-}
-
-fn generate_stars_around_supernova_remnant(
-    remnant: &StarData,
-    parsec_data: &ParsecData,
-    parsec_distr: &ParsecDistribution,
-) -> Result<Vec<StarData>, AstroUtilError> {
-    const TIME_UNTIL_STAR_FORMATION: Time<f64> = Time {
-        s: 10_000. * 365.25 * 24. * 60. * 60.,
-    }; // 10_000 years
-    const DISTANCE_OF_STAR_FORMATION: Distance<f64> = Distance { m: 100. * 9.461e15 }; // 100 lyr
-
-    let origin = remnant.pos.clone();
-    let age =
-        remnant.get_age_at_epoch().unwrap() - remnant.get_lifetime() - TIME_UNTIL_STAR_FORMATION;
-    if age < -TIME_UNTIL_STAR_FORMATION {
-        return Ok(vec![]);
-    }
-    generate_random_stars_in_sphere(
-        parsec_data,
-        &origin,
-        DISTANCE_OF_STAR_FORMATION,
-        age,
-        parsec_distr,
-    )
 }
 
 fn generate_random_stars_in_sphere(
@@ -98,7 +84,7 @@ fn generate_random_stars_in_sphere(
 ) -> Result<Vec<StarData>, AstroUtilError> {
     const MAX_CHUNKSIZE: usize = 100_000_000;
 
-    let number_of_stars_in_sphere = number_of_stars_in_sphere(max_distance);
+    let number_of_stars_in_sphere = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
     let mut remaining = number_of_stars_in_sphere;
     let mut stars = Vec::new();
     while remaining > MAX_CHUNKSIZE {
@@ -136,11 +122,8 @@ fn generate_random_stars_in_sphere(
     Ok(stars)
 }
 
-fn number_of_stars_in_sphere(max_distance: Distance<f64>) -> usize {
-    let number_of_stars_in_sphere =
-        STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
-    let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
-    number_of_stars_in_sphere
+fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) -> usize {
+    (num_per_lyr * 4. / 3. * PI * max_distance.to_lyr().powi(3)) as usize
 }
 
 fn generate_certain_number_of_random_stars(
@@ -148,13 +131,18 @@ fn generate_certain_number_of_random_stars(
     parsec_data: &ParsecData,
     origin: &CartesianCoordinates,
     max_distance: Distance<f64>,
-    age: Time<f64>,
+    max_age: Time<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
+    let age_distribution = Uniform::new(0., STAR_FORMING_REGION_LIFETIME.s);
     (0..=number)
         .into_par_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
+            let age = max_age
+                - Time {
+                    s: rng.sample(age_distribution),
+                };
             generate_visible_random_star(
                 parsec_data,
                 origin,
@@ -219,14 +207,6 @@ fn generate_visible_random_star(
     Some(star)
 }
 
-fn collect_supernovae(stars: &Vec<StarData>) -> Vec<StarData> {
-    stars
-        .iter()
-        .filter(|s| s.get_fate() == &StarFate::TypeIISupernova)
-        .cloned()
-        .collect()
-}
-
 fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
     let distr = Uniform::new(-1., 1.);
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
@@ -288,7 +268,7 @@ mod tests {
         let start = Instant::now();
         let stars = generate_random_stars(max_distance).unwrap();
         let duration = start.elapsed();
-        let number_of_visible_stars = stars.len() - collect_supernovae(&stars).len();
+        let number_of_visible_stars = stars.len();
         println!(
             "Generated {} stars within {} in {:?}",
             number_of_visible_stars,
@@ -356,11 +336,14 @@ mod tests {
     }
 
     #[test]
-    fn about_2_permille_of_random_stars_have_gone_supernova() {
+    fn about_2_permille_of_random_stars_go_supernova() {
         let max_distance = Distance::from_lyr(1000.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
-        let supernova_stars = collect_supernovae(&star_data).len();
-        let total_stars = number_of_stars_in_sphere(max_distance);
+        let supernova_stars = star_data
+            .iter()
+            .filter(|star| star.get_fate() == &StarFate::TypeIISupernova)
+            .count() as f64;
+        let total_stars = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
         assert!(total_stars > 0);
         let portion = supernova_stars as f64 / total_stars as f64;
         assert!(
