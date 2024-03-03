@@ -30,17 +30,27 @@ fn kroupa_weights() -> Vec<f64> {
         let lower = if m == 0 {
             0.
         } else {
-            (ParsecData::SORTED_MASSES[m - 1] + ParsecData::SORTED_MASSES[m]) / 2.
+            geometric_mean(
+                ParsecData::SORTED_MASSES[m - 1],
+                ParsecData::SORTED_MASSES[m],
+            )
         };
         let upper = if m == ParsecData::SORTED_MASSES.len() - 1 {
             1000.
         } else {
-            (ParsecData::SORTED_MASSES[m] + ParsecData::SORTED_MASSES[m + 1]) / 2.
+            geometric_mean(
+                ParsecData::SORTED_MASSES[m],
+                ParsecData::SORTED_MASSES[m + 1],
+            )
         };
         let weight = integrate_kroupa(lower, upper);
         weights.push(weight);
     }
     weights
+}
+
+fn geometric_mean(a: f64, b: f64) -> f64 {
+    (a * b).sqrt()
 }
 
 fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
