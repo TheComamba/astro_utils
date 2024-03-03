@@ -13,26 +13,28 @@ use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use simple_si_units::{
     base::{Distance, Time},
     electromagnetic::Illuminance,
+    mechanical::Velocity,
 };
 use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // But more or less arbitrarily adjusted to reproduce Gaia data.
-const STARS_PER_LY_CUBED: f64 = 8.5e-2;
+const STARS_PER_LY_CUBED: f64 = 3e-4;
 // https://ui.adsabs.harvard.edu/abs/1985ApJ...289..373S/abstract
-// 6000 star forming regions in the milky way
-const STAR_FORMING_REGIONS_PER_LY_CUBED: f64 = 6_000. / 8e12;
-const STAR_FORMING_REGION_RADIUS: Distance<f64> = Distance { m: 50. * 9.461e15 }; // 50 lyr
-const STAR_FORMING_REGION_LIFETIME: Time<f64> = Time {
+// 6000 star forming regions are currently in the milky way
+// Assuming that they form stars at a constant rate for 10 million years, and that the milky way is about 10 billion years old,
+// this adds a factor of 1000.
+const NURSERY_LIFETIME: Time<f64> = Time {
     s: 10_000_000. * 365.25 * 24. * 60. * 60.,
 }; // 10_000_000 years
-pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
 };
-// pub(super) const AGE_OF_UNIVERSE: Time<f64> = Time {
-//     s: 1.38e10 * 365.25 * 24. * 3600.,
-// };
+const NURSERIES_PER_LY_CUBED: f64 =
+    6_000. / 8e12 * AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
+const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
+const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
+pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data_mutex = PARSEC_DATA
@@ -41,36 +43,37 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let parsec_data = parsec_data_mutex.as_ref()?;
     let parsec_distr = ParsecDistribution::new();
 
-    let number_star_forming_regions =
-        number_in_sphere(STAR_FORMING_REGIONS_PER_LY_CUBED, max_distance) + 1;
+    let number_star_forming_regions = number_in_sphere(NURSERIES_PER_LY_CUBED, max_distance) + 1;
     let age_distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s);
     let stars = (0..number_star_forming_regions)
         .into_par_iter()
         .map(|i| {
             let mut rng = rand::thread_rng();
-            let (origin, cluster_age, radius) = if i == 0 {
-                (
-                    CartesianCoordinates::ORIGIN,
-                    AGE_OF_MILKY_WAY_THIN_DISK,
+            if i == 0 {
+                let origin = CartesianCoordinates::ORIGIN;
+                let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
+                generate_random_stars_in_sphere(
+                    parsec_data,
+                    &origin,
                     max_distance,
+                    max_age,
+                    &parsec_distr,
                 )
             } else {
-                (
-                    random_point_in_sphere(&mut rng, max_distance),
-                    Time {
-                        s: rng.sample(age_distribution),
-                    },
-                    STAR_FORMING_REGION_RADIUS,
+                let nursery_pos = random_point_in_sphere(&mut rng, max_distance);
+                let nursery_age = Time {
+                    s: rng.sample(age_distribution),
+                };
+                let nursery_radius = STELLAR_VELOCITY * nursery_age;
+                generate_certain_number_of_random_stars(
+                    NUMBER_OF_STARS_FORMED_IN_NURSERY,
+                    parsec_data,
+                    &nursery_pos,
+                    nursery_radius,
+                    nursery_age,
+                    &parsec_distr,
                 )
-            };
-
-            generate_random_stars_in_sphere(
-                parsec_data,
-                &origin,
-                radius,
-                cluster_age,
-                &parsec_distr,
-            )
+            }
         })
         .flatten()
         .collect();
@@ -84,7 +87,7 @@ fn generate_random_stars_in_sphere(
     max_age: Time<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
-    let min_age = max_age - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
+    let min_age = max_age - NURSERY_LIFETIME - TEN_MILLENIA;
     let adjusted_distance =
         distance_adjusted_for_performance(parsec_data, min_age, max_age, origin, max_distance);
     let max_distance = if let Some(max_distance) = adjusted_distance {
@@ -92,11 +95,6 @@ fn generate_random_stars_in_sphere(
     } else {
         return vec![];
     };
-
-    if origin.length().m < 1. {
-        println!("Generating stars in the solar system.");
-        println!("Max distance: {:.0} lyr", max_distance.to_lyr());
-    }
 
     let number_of_stars_in_sphere = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
     generate_certain_number_of_random_stars(
@@ -121,7 +119,7 @@ fn generate_certain_number_of_random_stars(
     max_age: Time<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
-    let age_distribution = Uniform::new(0., STAR_FORMING_REGION_LIFETIME.s);
+    let age_distribution = Uniform::new(0., NURSERY_LIFETIME.s);
     (0..=number)
         .into_iter()
         .map(|_| {
@@ -354,7 +352,7 @@ mod tests {
 
     #[test]
     fn large_distance_for_old_stars_is_adjusted() {
-        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
+        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - NURSERY_LIFETIME - TEN_MILLENIA;
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let origin = CartesianCoordinates::ORIGIN;
         let max_distance = Distance::from_lyr(10_000.);
@@ -369,7 +367,7 @@ mod tests {
 
     #[test]
     fn short_distance_for_old_stars_is_not_adjusted() {
-        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
+        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - NURSERY_LIFETIME - TEN_MILLENIA;
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let origin = CartesianCoordinates::ORIGIN;
         let max_distance = Distance::from_lyr(10.);
@@ -388,7 +386,7 @@ mod tests {
 
     #[test]
     fn old_stars_far_away_are_adjusted() {
-        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
+        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - NURSERY_LIFETIME - TEN_MILLENIA;
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let origin = Direction::Z.to_cartesian(Distance::from_lyr(10_000.));
         let max_distance = Distance::from_lyr(100.);
@@ -403,7 +401,7 @@ mod tests {
     #[test]
     fn young_stars_far_away_are_not_adjusted() {
         let min_age = TIME_ZERO;
-        let max_age = STAR_FORMING_REGION_LIFETIME;
+        let max_age = NURSERY_LIFETIME;
         let origin = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
         let max_distance = Distance::from_lyr(100.);
         let adjusted = {
