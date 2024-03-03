@@ -1,4 +1,4 @@
-use super::parsec::data::ParsecData;
+use super::{params::GenerationParams, parsec::data::ParsecData};
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
@@ -6,7 +6,7 @@ use crate::{
         data::StarData,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
     },
-    units::{distance::DISTANCE_ZERO, time::TEN_MILLENIA},
+    units::time::TEN_MILLENIA,
 };
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
@@ -19,12 +19,12 @@ use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // But more or less arbitrarily adjusted to reproduce Gaia data.
-const STARS_PER_LY_CUBED: f64 = 3e-4;
+pub(super) const STARS_PER_LY_CUBED: f64 = 3e-4;
 // https://ui.adsabs.harvard.edu/abs/1985ApJ...289..373S/abstract
 // 6000 star forming regions are currently in the milky way
 // Assuming that they form stars at a constant rate for 10 million years, and that the milky way is about 10 billion years old,
 // this adds a factor of 1000.
-const NURSERY_LIFETIME: Time<f64> = Time {
+pub(super) const NURSERY_LIFETIME: Time<f64> = Time {
     s: 10_000_000. * 365.25 * 24. * 60. * 60.,
 }; // 10_000_000 years
 pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
@@ -32,8 +32,8 @@ pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
 };
 const NURSERIES_PER_LY_CUBED: f64 =
     6_000. / 8e12 * AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
-const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
-const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
+pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
+pub(super) const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
@@ -49,33 +49,17 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         .into_par_iter()
         .map(|i| {
             let mut rng = rand::thread_rng();
-            let (pos, max_age, radius, number) = if i == 0 {
-                let pos = CartesianCoordinates::ORIGIN;
-                let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
-                let radius = max_distance;
-                let number = number_in_sphere(STARS_PER_LY_CUBED, radius);
-                (pos, max_age, radius, number)
+            let mut params = if i == 0 {
+                GenerationParams::old_stars(max_distance)
             } else {
                 let pos = random_point_in_sphere(&mut rng, max_distance);
                 let max_age = Time {
                     s: rng.sample(age_distribution),
                 };
-                let radius = STELLAR_VELOCITY * max_age;
-                let number = NUMBER_OF_STARS_FORMED_IN_NURSERY;
-                (pos, max_age, radius, number)
+                GenerationParams::nursery(pos, max_age)
             };
-            let adjusted_distance =
-                distance_adjusted_for_performance(parsec_data, max_age, &pos, radius);
-            let adjusted_number =
-                (number as f64 * (adjusted_distance / radius).powi(3)) as usize;
-            generate_certain_number_of_random_stars(
-                adjusted_number,
-                parsec_data,
-                &pos,
-                adjusted_distance,
-                max_age,
-                &parsec_distr,
-            )
+            params.adjust_distance_for_performance(parsec_data);
+            generate_random_stars_with_params(params, parsec_data, &parsec_distr)
         })
         .flatten()
         .collect();
@@ -86,31 +70,31 @@ pub(crate) fn get_min_age(max_age: Time<f64>) -> Time<f64> {
     max_age - NURSERY_LIFETIME - TEN_MILLENIA
 }
 
-fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) -> usize {
+pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) -> usize {
     (num_per_lyr * 4. / 3. * PI * max_distance.to_lyr().powi(3)) as usize
 }
 
-fn generate_certain_number_of_random_stars(
-    number: usize,
+fn generate_random_stars_with_params(
+    params: GenerationParams,
     parsec_data: &ParsecData,
-    origin: &CartesianCoordinates,
-    max_distance: Distance<f64>,
-    max_age: Time<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
+    if params.number == 0 {
+        return Vec::new();
+    }
     let age_distribution = Uniform::new(0., NURSERY_LIFETIME.s);
-    (0..=number)
+    (0..=params.number)
         .into_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
-            let age = max_age
+            let age = params.max_age
                 - Time {
                     s: rng.sample(age_distribution),
                 };
             generate_visible_random_star(
                 parsec_data,
-                origin,
-                max_distance,
+                &params.pos,
+                params.radius,
                 age,
                 &mut rng,
                 parsec_distr,
@@ -201,34 +185,6 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
     dir.unwrap()
 }
 
-fn distance_adjusted_for_performance(
-    parsec_data: &ParsecData,
-    max_age: Time<f64>,
-    origin: &CartesianCoordinates,
-    max_distance_from_origin: Distance<f64>,
-) -> Distance<f64> {
-    let most_luminous_intensity = parsec_data.get_most_luminous_intensity_possible(max_age);
-    let required_distance = Distance {
-        m: (most_luminous_intensity.cd / DIMMEST_ILLUMINANCE.lux).sqrt(),
-    };
-    let distance_to_origin = origin.length();
-    let closest_possible = distance_to_origin - max_distance_from_origin;
-    let farthest_possible = distance_to_origin + max_distance_from_origin;
-    if distance_to_origin > max_distance_from_origin {
-        if closest_possible > required_distance {
-            DISTANCE_ZERO
-        } else {
-            max_distance_from_origin
-        }
-    } else {
-        if farthest_possible > required_distance {
-            required_distance - distance_to_origin
-        } else {
-            max_distance_from_origin
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use simple_si_units::base::Mass;
@@ -236,7 +192,7 @@ mod tests {
     use crate::{
         astro_display::AstroDisplay,
         stars::fate::StarFate,
-        tests::{eq, eq_within, TEST_ACCURACY},
+        tests::eq,
         units::{illuminance::illuminance_to_apparent_magnitude, time::TIME_ZERO},
     };
 
@@ -325,65 +281,5 @@ mod tests {
         for star in star_data {
             assert!(star.get_age_at_epoch().is_some());
         }
-    }
-
-    #[test]
-    fn large_distance_for_old_stars_is_adjusted() {
-        let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
-        let origin = CartesianCoordinates::ORIGIN;
-        let max_distance = Distance::from_lyr(10_000.);
-        let adjusted = {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance)
-        };
-        assert!(adjusted < max_distance);
-    }
-
-    #[test]
-    fn short_distance_for_old_stars_is_not_adjusted() {
-        let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
-        let origin = CartesianCoordinates::ORIGIN;
-        let max_distance = Distance::from_lyr(10.);
-        let adjusted = {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance)
-        };
-        assert!(eq_within(
-            adjusted.to_lyr(),
-            max_distance.to_lyr(),
-            TEST_ACCURACY
-        ));
-    }
-
-    #[test]
-    fn old_stars_far_away_are_adjusted() {
-        let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
-        let origin = Direction::Z.to_cartesian(Distance::from_lyr(10_000.));
-        let max_distance = Distance::from_lyr(100.);
-        let adjusted = {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance)
-        };
-        assert!(adjusted.m < 1.);
-    }
-
-    #[test]
-    fn young_stars_far_away_are_not_adjusted() {
-        let max_age = NURSERY_LIFETIME;
-        let origin = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
-        let max_distance = Distance::from_lyr(100.);
-        let adjusted = {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            distance_adjusted_for_performance(parsec_data, max_age, &origin, max_distance)
-        };
-        assert!(eq_within(
-            adjusted.to_lyr(),
-            max_distance.to_lyr(),
-            TEST_ACCURACY
-        ));
     }
 }
