@@ -7,6 +7,9 @@ pub const TIME_ZERO: Time<f64> = Time { s: 0. };
 pub const HOUR: Time<f64> = Time { s: 60. * 60. };
 pub const DAY: Time<f64> = Time { s: 24. * HOUR.s };
 pub const YEAR: Time<f64> = Time { s: 365.25 * DAY.s };
+pub(crate) const TEN_MILLENIA: Time<f64> = Time {
+    s: 10_000. * 365.25 * 24. * 60. * 60.,
+};
 pub const BILLION_YEARS: Time<f64> = Time { s: 1e9 * YEAR.s };
 
 pub enum TimeUnit {

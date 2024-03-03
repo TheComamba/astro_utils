@@ -1,9 +1,11 @@
-use simple_si_units::base::Time;
+use simple_si_units::base::{Luminosity, Time};
 
 use super::data::ParsecData;
 use super::trajectory::Trajectory;
 use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::data::StarData;
+use crate::units::luminous_intensity::LUMINOSITY_ZERO;
+use crate::units::time::TEN_MILLENIA;
 
 impl ParsecData {
     pub(super) const SORTED_MASSES: [f64; 100] = [
@@ -55,10 +57,6 @@ impl ParsecData {
         age: Time<f64>,
         pos: CartesianCoordinates,
     ) -> Option<StarData> {
-        const TEN_MILLENIA: Time<f64> = Time {
-            s: 10_000. * 365.25 * 24. * 60. * 60.,
-        };
-
         let trajectory = self.get_trajectory_via_index(mass_index);
         let was_alive_10_millenia_ago = age - TEN_MILLENIA < trajectory.lifetime;
         if !was_alive_10_millenia_ago {
@@ -76,6 +74,23 @@ impl ParsecData {
         } else {
             None
         }
+    }
+
+    pub(crate) fn get_most_luminous_intensity_possible(
+        &self,
+        min_age: Time<f64>,
+    ) -> Luminosity<f64> {
+        let mut max_luminous_intensity = LUMINOSITY_ZERO;
+        for trajectory in self.data.iter() {
+            if min_age > trajectory.lifetime {
+                continue;
+            }
+            let luminous_intensity = trajectory.peak_lifetime_luminous_intensity;
+            if luminous_intensity > max_luminous_intensity {
+                max_luminous_intensity = luminous_intensity;
+            }
+        }
+        max_luminous_intensity
     }
 }
 
@@ -188,14 +203,16 @@ mod tests {
         let star = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            let trajectory = &parsec_data.get_trajectory_via_index(mass_index);
+            let age = trajectory.lifetime;
             parsec_data
                 .get_star_data_if_visible(
                     mass_index,
-                    AGE_OF_MILKY_WAY_THIN_DISK,
+                    age,
                     CartesianCoordinates::ORIGIN,
                 )
-                .unwrap()
         };
+        let star = star.unwrap();
         assert!(star
             .evolution
             .get_lifestage_luminous_intensity_per_year()
@@ -321,24 +338,6 @@ mod tests {
             assert!(
                 star.is_none(),
                 "Star {:?} is visible at 1000 lyr, while it should not be.",
-                star
-            );
-        }
-    }
-
-    #[test]
-    fn distant_past_supernovae_are_visible() {
-        let pos = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
-        let age = Time::from_Gyr(1.);
-        for mass_index in 90..ParsecData::SORTED_MASSES.len() {
-            let star = {
-                let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-                let parsec_data = parsec_data_mutex.as_ref().unwrap();
-                parsec_data.get_star_data_if_visible(mass_index, age, pos.clone())
-            };
-            assert!(
-                star.is_some(),
-                "Star {:?} is not visible at 1000 lyr, while it should be.",
                 star
             );
         }

@@ -6,6 +6,7 @@ use crate::{
         data::StarData,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
     },
+    units::time::TEN_MILLENIA,
 };
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
@@ -65,11 +66,6 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         if younger_stars.is_empty() {
             continue;
         }
-        println!(
-            "Generated {} stars in star forming region, total star count {}",
-            younger_stars.len(),
-            stars.len()
-        );
         stars.append(&mut younger_stars);
     }
     Ok(stars)
@@ -79,11 +75,19 @@ fn generate_random_stars_in_sphere(
     parsec_data: &ParsecData,
     origin: &CartesianCoordinates,
     max_distance: Distance<f64>,
-    age: Time<f64>,
+    max_age: Time<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Result<Vec<StarData>, AstroUtilError> {
     const MAX_CHUNKSIZE: usize = 100_000_000;
 
+    let min_age = max_age - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
+    let max_distance = if let Some(max_distance) =
+        distance_adjusted_for_performance(parsec_data, min_age, origin, max_distance)
+    {
+        max_distance
+    } else {
+        return Ok(vec![]);
+    };
     let number_of_stars_in_sphere = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
     let mut remaining = number_of_stars_in_sphere;
     let mut stars = Vec::new();
@@ -93,7 +97,7 @@ fn generate_random_stars_in_sphere(
             parsec_data,
             origin,
             max_distance,
-            age,
+            max_age,
             &parsec_distr,
         );
         stars.extend(chunk);
@@ -114,7 +118,7 @@ fn generate_random_stars_in_sphere(
         parsec_data,
         origin,
         max_distance,
-        age,
+        max_age,
         &parsec_distr,
     );
     stars.extend(chunk);
@@ -237,6 +241,36 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
     dir.unwrap()
 }
 
+fn distance_adjusted_for_performance(
+    parsec_data: &ParsecData,
+    min_age: Time<f64>,
+    origin: &CartesianCoordinates,
+    max_distance_from_origin: Distance<f64>,
+) -> Option<Distance<f64>> {
+    let most_luminous_intensity = parsec_data.get_most_luminous_intensity_possible(min_age);
+    let required_distance = Distance {
+        m: (most_luminous_intensity.cd / DIMMEST_ILLUMINANCE.lux).sqrt(),
+    };
+    let distance_to_origin = origin.length();
+    let closest_possible = distance_to_origin - max_distance_from_origin;
+    let farthest_possible = distance_to_origin + max_distance_from_origin;
+    if distance_to_origin > max_distance_from_origin {
+        if closest_possible > required_distance {
+            None
+        } else {
+            println!("Adjusted distance");
+            Some(max_distance_from_origin)
+        }
+    } else {
+        if farthest_possible > required_distance {
+            Some(required_distance - distance_to_origin)
+        } else {
+            println!("Adjusted distance");
+            Some(max_distance_from_origin)
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use simple_si_units::base::Mass;
@@ -244,7 +278,7 @@ mod tests {
     use crate::{
         astro_display::AstroDisplay,
         stars::fate::StarFate,
-        tests::eq,
+        tests::{eq, eq_within, TEST_ACCURACY},
         units::{illuminance::illuminance_to_apparent_magnitude, time::TIME_ZERO},
     };
 
@@ -336,22 +370,65 @@ mod tests {
     }
 
     #[test]
-    fn about_2_permille_of_random_stars_go_supernova() {
-        let max_distance = Distance::from_lyr(1000.);
-        let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
-        let supernova_stars = star_data
-            .iter()
-            .filter(|star| star.get_fate() == &StarFate::TypeIISupernova)
-            .count() as f64;
-        let total_stars = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
-        assert!(total_stars > 0);
-        let portion = supernova_stars as f64 / total_stars as f64;
-        assert!(
-            (0.001..0.003).contains(&portion),
-            "Generated {} stars, {} of which have gone supernova. This corresponds to a portion of {}",
-            total_stars,
-            supernova_stars,
-            portion
-        );
+    fn large_distance_for_old_stars_is_adjusted() {
+        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
+        let origin = CartesianCoordinates::ORIGIN;
+        let max_distance = Distance::from_lyr(10_000.);
+        let adjusted = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            distance_adjusted_for_performance(parsec_data, min_age, &origin, max_distance)
+        }
+        .unwrap();
+        assert!(adjusted < max_distance);
+    }
+
+    #[test]
+    fn short_distance_for_old_stars_is_not_adjusted() {
+        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
+        let origin = CartesianCoordinates::ORIGIN;
+        let max_distance = Distance::from_lyr(10.);
+        let adjusted = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            distance_adjusted_for_performance(parsec_data, min_age, &origin, max_distance)
+        }
+        .unwrap();
+        assert!(eq_within(
+            adjusted.to_lyr(),
+            max_distance.to_lyr(),
+            TEST_ACCURACY
+        ));
+    }
+
+    #[test]
+    fn old_stars_far_away_are_adjusted() {
+        let min_age = AGE_OF_MILKY_WAY_THIN_DISK - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
+        let origin = Direction::Z.to_cartesian(Distance::from_lyr(10_000.));
+        let max_distance = Distance::from_lyr(100.);
+        let adjusted = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            distance_adjusted_for_performance(parsec_data, min_age, &origin, max_distance)
+        };
+        assert!(adjusted.is_none());
+    }
+
+    #[test]
+    fn young_stars_far_away_are_not_adjusted() {
+        let min_age = TIME_ZERO;
+        let origin = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
+        let max_distance = Distance::from_lyr(100.);
+        let adjusted = {
+            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
+            let parsec_data = parsec_data_mutex.as_ref().unwrap();
+            distance_adjusted_for_performance(parsec_data, min_age, &origin, max_distance)
+        }
+        .unwrap();
+        assert!(eq_within(
+            adjusted.to_lyr(),
+            max_distance.to_lyr(),
+            TEST_ACCURACY
+        ));
     }
 }
