@@ -1,4 +1,5 @@
 use astro_utils::{
+    astro_display::AstroDisplay,
     real_data::stars::all::get_many_stars,
     stars::{
         appearance::StarAppearance,
@@ -16,10 +17,15 @@ use simple_si_units::base::Distance;
 #[test]
 #[ignore]
 fn parsec_generates_data_similar_to_gaia() {
-    let max_distance: Distance<f64> = Distance::from_lyr(10_000.);
+    let max_distance: Distance<f64> = Distance::from_lyr(40_000.);
 
-    let parsec_data: Vec<StarData> = generate_random_stars(max_distance)
-        .unwrap()
+    let randoms_stars = generate_random_stars(max_distance).unwrap();
+    println!(
+        "Generated {} random stars within {}.",
+        randoms_stars.len(),
+        max_distance.astro_display()
+    );
+    let parsec_data: Vec<StarData> = randoms_stars
         .into_iter()
         .filter(|s| s.get_age_at_epoch().unwrap() < s.get_lifetime())
         .collect();

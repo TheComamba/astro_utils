@@ -19,7 +19,7 @@ use std::f64::consts::PI;
 // https://en.wikipedia.org/wiki/Stellar_density
 // Adjusted, because Gaia does not resolve all binaries.
 const STARS_PER_LY_CUBED: f64 = 0.004 / 1.12;
-const STAR_FORMING_REGIONS_PER_LY_CUBED: f64 = 6e-7;
+const STAR_FORMING_REGIONS_PER_LY_CUBED: f64 = 1e-7;
 const STAR_FORMING_REGION_RADIUS: Distance<f64> = Distance { m: 50. * 9.461e15 }; // 50 lyr
 const STAR_FORMING_REGION_LIFETIME: Time<f64> = Time {
     s: 10_000_000. * 365.25 * 24. * 60. * 60.,
@@ -70,8 +70,6 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
                 &parsec_distr,
             )
         })
-        .collect::<Result<Vec<Vec<StarData>>, AstroUtilError>>()?
-        .into_iter()
         .flatten()
         .collect();
     Ok(stars)
@@ -83,53 +81,24 @@ fn generate_random_stars_in_sphere(
     max_distance: Distance<f64>,
     max_age: Time<f64>,
     parsec_distr: &ParsecDistribution,
-) -> Result<Vec<StarData>, AstroUtilError> {
-    const MAX_CHUNKSIZE: usize = 100_000_000;
-
+) -> Vec<StarData> {
     let min_age = max_age - STAR_FORMING_REGION_LIFETIME - TEN_MILLENIA;
     let adjusted_distance =
         distance_adjusted_for_performance(parsec_data, min_age, max_age, origin, max_distance);
     let max_distance = if let Some(max_distance) = adjusted_distance {
         max_distance
     } else {
-        return Ok(vec![]);
+        return vec![];
     };
     let number_of_stars_in_sphere = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
-    let mut remaining = number_of_stars_in_sphere;
-    let mut stars = Vec::new();
-    while remaining > MAX_CHUNKSIZE {
-        let chunk = generate_certain_number_of_random_stars(
-            MAX_CHUNKSIZE,
-            parsec_data,
-            origin,
-            max_distance,
-            max_age,
-            &parsec_distr,
-        );
-        stars.extend(chunk);
-        remaining -= MAX_CHUNKSIZE;
-
-        let finished = number_of_stars_in_sphere - remaining;
-        let fraction = finished as f64 / number_of_stars_in_sphere as f64;
-        println!(
-            "Generated {:2.2e} of {:2.2e} stars ({:2.0}%) and kept {:2.2e}",
-            finished,
-            number_of_stars_in_sphere,
-            fraction * 100.,
-            stars.len()
-        );
-    }
-    let chunk = generate_certain_number_of_random_stars(
-        remaining,
+    generate_certain_number_of_random_stars(
+        number_of_stars_in_sphere,
         parsec_data,
         origin,
         max_distance,
         max_age,
         &parsec_distr,
-    );
-    stars.extend(chunk);
-
-    Ok(stars)
+    )
 }
 
 fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) -> usize {
@@ -302,7 +271,7 @@ mod tests {
     fn generate_random_stars_stress_test() {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
-        let max_distance = Distance::from_lyr(4000.);
+        let max_distance = Distance::from_lyr(20_000.);
         let max_seconds = 60;
 
         let start = Instant::now();
