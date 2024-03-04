@@ -12,7 +12,7 @@ use astro_utils::{
         time::TIME_ZERO,
     },
 };
-use simple_si_units::base::Distance;
+use simple_si_units::base::{Distance, Temperature};
 
 #[test]
 #[ignore]
@@ -48,6 +48,11 @@ fn parsec_generates_data_similar_to_gaia() {
             expected_stars.push(s);
         }
     });
+    let expected_data_with_temperature = expected_data
+        .clone()
+        .into_iter()
+        .filter(|s| s.get_temperature_at_epoch() > TEMPERATURE_ZERO)
+        .collect::<Vec<_>>();
 
     let total_num_is_similar = total_number_is_similar(&parsec_stars, &expected_stars);
     let parsec_to_gaia_ratio = parsec_stars.len() as f64 / expected_stars.len() as f64;
@@ -87,6 +92,24 @@ fn parsec_generates_data_similar_to_gaia() {
         6.,
         parsec_to_gaia_ratio,
     );
+    let cold_star_fraction_is_similar = number_of_stars_in_temperature_range_is_similar(
+        &parsec_data,
+        &expected_data_with_temperature,
+        Temperature::from_K(10.),
+        Temperature::from_K(4_000.),
+    );
+    let warm_star_fraction_is_similar = number_of_stars_in_temperature_range_is_similar(
+        &parsec_data,
+        &expected_data_with_temperature,
+        Temperature::from_K(4_000.),
+        Temperature::from_K(6_000.),
+    );
+    let hot_star_fraction_is_similar = number_of_stars_in_temperature_range_is_similar(
+        &parsec_data,
+        &expected_data_with_temperature,
+        Temperature::from_K(6_000.),
+        Temperature::from_K(10_000.),
+    );
     let temperature_is_similar = mean_temperature_is_similar(&parsec_data, &expected_data);
     assert!(total_num_is_similar);
     assert!(mag_1_stars_is_similar);
@@ -95,6 +118,9 @@ fn parsec_generates_data_similar_to_gaia() {
     assert!(mag_4_stars_is_similar);
     assert!(mag_5_stars_is_similar);
     assert!(mag_6_stars_is_similar);
+    assert!(cold_star_fraction_is_similar);
+    assert!(warm_star_fraction_is_similar);
+    assert!(hot_star_fraction_is_similar);
     assert!(temperature_is_similar);
 }
 
@@ -155,6 +181,43 @@ fn number_of_stars_in_apparent_magnitude_range_is_similar(
     );
     println!("parsec (adjusted): {:2.2e}, gaia: {:2.2e}", parsec, gaia);
     similar_count(parsec, gaia)
+}
+
+fn number_of_stars_in_temperature_range_is_similar(
+    parsec: &[StarData],
+    gaia: &[StarData],
+    lower: Temperature<f64>,
+    upper: Temperature<f64>,
+) -> bool {
+    let parsec_in_range = parsec
+        .iter()
+        .filter(|s| {
+            let t = s.get_temperature_at_epoch();
+            t > lower && t < upper
+        })
+        .count();
+    let gaia_in_range = gaia
+        .iter()
+        .filter(|s| {
+            let t = s.get_temperature_at_epoch();
+            t > lower && t < upper
+        })
+        .count();
+    let parsec_fraction = parsec_in_range as f64 / parsec.len() as f64;
+    let gaia_fraction = gaia_in_range as f64 / gaia.len() as f64;
+    println!(
+        "\nTotal number of stars with temperature between {} and {}:",
+        lower.astro_display(),
+        upper.astro_display()
+    );
+    println!(
+        "parsec: {:2.2e} ({:.0}%), gaia: {:2.2e} ({:2.0}%)",
+        parsec_in_range,
+        parsec_fraction * 100.,
+        gaia_in_range,
+        gaia_fraction * 100.
+    );
+    is_similar(parsec_fraction, gaia_fraction)
 }
 
 fn mean_temperature(data: &[StarData]) -> f64 {
