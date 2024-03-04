@@ -81,6 +81,11 @@ fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
 
 #[cfg(test)]
 mod tests {
+    use rayon::iter::{IntoParallelIterator, ParallelIterator};
+    use simple_si_units::base::Distance;
+
+    use crate::stars::random::random_stars::{number_in_sphere, STARS_PER_LY_CUBED};
+
     use super::*;
 
     #[test]
@@ -140,6 +145,59 @@ mod tests {
             (0.002..0.003).contains(&fraction),
             "Fraction is {}",
             fraction
+        );
+    }
+
+    #[test]
+    fn kroupa_integral_and_sampling_agree() {
+        let num_stars = 100_000;
+        let uncertainty = 10. / (num_stars as f64).sqrt();
+        let distribution = get_mass_distribution();
+        let masses = (0..num_stars)
+            .map(|_| ParsecData::SORTED_MASSES[distribution.sample(&mut rand::thread_rng())]);
+        let mut thresholds = Vec::new();
+        for i in 0..ParsecData::SORTED_MASSES.len() - 1 {
+            thresholds.push(geometric_mean(
+                ParsecData::SORTED_MASSES[i],
+                ParsecData::SORTED_MASSES[i + 1],
+            ));
+        }
+        for threshold in thresholds {
+            let count = masses.clone().filter(|&m| m >= threshold).count();
+            let fraction = count as f64 / num_stars as f64;
+            let integral = integrate_kroupa(threshold as f64, 1000.);
+            let lower = integral - uncertainty;
+            let upper = integral + uncertainty;
+            assert!(
+                (lower..upper).contains(&fraction),
+                "Threshold mass is {}, fraction is {} not within [{},{}]",
+                threshold,
+                fraction,
+                lower,
+                upper
+            );
+        }
+    }
+
+    #[test]
+    fn there_are_less_than_10_supermassive_stars_within_1000_lyr() {
+        // The closest star above 50 Sun masses ist 3000 lyr away.
+        let max_distance = Distance::from_lyr(1000.);
+        let num_stars = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
+        println!("Number of stars: {}", num_stars);
+        let distribution = get_mass_distribution();
+        let num_supermassive_stars = (0..num_stars)
+            .into_par_iter()
+            .map(|_| {
+                let mut rng = rand::thread_rng();
+                ParsecData::SORTED_MASSES[distribution.sample(&mut rng)]
+            })
+            .filter(|&m| m >= 99.)
+            .count();
+        assert!(
+            num_supermassive_stars < 10,
+            "There are {} supermassive stars",
+            num_supermassive_stars
         );
     }
 }
