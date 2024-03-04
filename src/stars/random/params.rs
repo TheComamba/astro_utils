@@ -69,8 +69,9 @@ impl GenerationParams {
 mod tests {
     use crate::{
         coordinates::direction::Direction,
-        stars::random::{parsec::data::PARSEC_DATA, random_stars::NURSERY_LIFETIME},
+        stars::random::parsec::data::PARSEC_DATA,
         tests::{eq_within, TEST_ACCURACY},
+        units::time::TEN_MILLENIA,
     };
 
     use super::*;
@@ -118,10 +119,10 @@ mod tests {
 
     #[test]
     fn young_stars_far_away_are_not_adjusted() {
-        let max_age = NURSERY_LIFETIME;
+        let max_age = TEN_MILLENIA;
         let origin = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
-        let max_distance = Distance::from_lyr(100.);
         let mut params = GenerationParams::nursery(origin, max_age);
+        let max_distance = params.radius;
         {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
