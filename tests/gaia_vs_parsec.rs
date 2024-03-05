@@ -17,7 +17,7 @@ use simple_si_units::base::{Distance, Temperature};
 #[test]
 #[ignore]
 fn parsec_generates_data_similar_to_gaia() {
-    let max_distance: Distance<f64> = Distance::from_lyr(40_000.);
+    let max_distance: Distance<f64> = Distance::from_lyr(25_000.);
 
     let randoms_stars = generate_random_stars(max_distance).unwrap();
     println!(
@@ -53,6 +53,10 @@ fn parsec_generates_data_similar_to_gaia() {
         .into_iter()
         .filter(|s| s.get_temperature_at_epoch() > TEMPERATURE_ZERO)
         .collect::<Vec<_>>();
+    println!(
+        "{} GAIA stars have a temperature.",
+        expected_data_with_temperature.len()
+    );
 
     let total_num_is_similar = total_number_is_similar(&parsec_stars, &expected_stars);
     let parsec_to_gaia_ratio = parsec_stars.len() as f64 / expected_stars.len() as f64;
@@ -96,18 +100,18 @@ fn parsec_generates_data_similar_to_gaia() {
         &parsec_data,
         &expected_data_with_temperature,
         Temperature::from_K(10.),
-        Temperature::from_K(4_000.),
+        Temperature::from_K(4_500.),
     );
     let warm_star_fraction_is_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &expected_data_with_temperature,
-        Temperature::from_K(4_000.),
-        Temperature::from_K(6_000.),
+        Temperature::from_K(4_500.),
+        Temperature::from_K(9_000.),
     );
     let hot_star_fraction_is_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &expected_data_with_temperature,
-        Temperature::from_K(6_000.),
+        Temperature::from_K(9_000.),
         Temperature::from_K(10_000.),
     );
     let temperature_is_similar = mean_temperature_is_similar(&parsec_data, &expected_data);

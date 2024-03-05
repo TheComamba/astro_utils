@@ -62,8 +62,10 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
         (1.3, 0.5f64.powf(-2.3) / 0.5f64.powf(-1.3))
     } else if m_in_solar_masses <= 1. {
         (2.3, 1.)
-    } else {
+    } else if m_in_solar_masses <= 25. {
         (2.7, 1.)
+    } else {
+        (5., 25f64.powf(-2.7) / 25f64.powf(-5.)) //Adjusted high mass tail
     };
     prefactor * m_in_solar_masses.powf(-alpha) * NORMALIZATION
 }

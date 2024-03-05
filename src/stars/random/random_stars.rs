@@ -19,17 +19,17 @@ use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // But more or less arbitrarily adjusted to reproduce Gaia data.
-pub(super) const STARS_PER_LY_CUBED: f64 = 4e-3;
+pub(super) const STARS_PER_LY_CUBED: f64 = 3e-3;
 // https://ui.adsabs.harvard.edu/abs/1985ApJ...289..373S/abstract
 // 6000 star forming regions are currently in the milky way
-// Adjusted a little
-const NURSERIES_PER_LY_CUBED: f64 = 6_000. / 8e12 * 1.5;
 pub(super) const NURSERY_LIFETIME: Time<f64> = Time {
-    s: 1e8 * 365.25 * 24. * 60. * 60.,
-}; // 10_000_000 years
+    s: 2e7 * 365.25 * 24. * 60. * 60.,
+};
 pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
 };
+const NURSERIES_PER_LY_CUBED: f64 =
+    6_000. / 8e12 * AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
 pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
 pub(super) const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
