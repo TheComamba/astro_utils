@@ -1,15 +1,12 @@
 use super::data::ParsecData;
 use crate::{
-    coordinates::ecliptic::EclipticCoordinates,
+    coordinates::cartesian::CartesianCoordinates,
     error::AstroUtilError,
-    stars::{data::StarData, evolution::StarDataEvolution},
-    units::{
-        distance::{distance_to_sun_radii, DISTANCE_ZERO, SOLAR_RADIUS},
-        luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
-    },
+    stars::random::random_stars::DIMMEST_ILLUMINANCE,
+    units::{distance::distance_to_sun_radii, luminous_intensity::SOLAR_LUMINOUS_INTENSITY},
 };
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Distance, Luminosity};
 
 pub(super) struct ParsecLine {
     mass: f64,
@@ -38,7 +35,7 @@ impl ParsecLine {
     pub(super) fn read(
         line: Result<String, std::io::Error>,
         mass_position: &mut Option<usize>,
-        parsec_data: &mut ParsecData,
+        lines: &mut Vec<ParsedParsecLine>,
     ) -> Result<(), AstroUtilError> {
         let line = line.map_err(AstroUtilError::Io)?;
         let entries: Vec<&str> = line.split_whitespace().collect();
@@ -48,45 +45,44 @@ impl ParsecLine {
         if mass_position.is_none() {
             if let Ok(mass_value) = mass_entry.parse::<f64>() {
                 *mass_position = Some(ParsecData::get_closest_mass_index(mass_value));
+            } else {
+                return Ok(());
             }
         }
-        if let Some(mass_position) = &*mass_position {
-            let age_entry = entries
-                .get(Self::AGE_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_l_entry = entries
-                .get(Self::LOG_L_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_te_entry = entries
-                .get(Self::LOG_TE_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            let log_r_entry = entries
-                .get(Self::LOG_R_INDEX)
-                .ok_or(AstroUtilError::DataNotAvailable)?;
-            if let (Ok(mass), Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
-                mass_entry.parse::<f64>(),
-                age_entry.parse::<f64>(),
-                log_l_entry.parse::<f64>(),
-                log_te_entry.parse::<f64>(),
-                log_r_entry.parse::<f64>(),
-            ) {
-                let parsec_line = ParsecLine {
-                    mass,
-                    age,
-                    log_l,
-                    log_te,
-                    log_r,
-                }
-                .parse();
-                let data = parsec_data
-                    .data
-                    .get_mut(*mass_position)
-                    .ok_or(AstroUtilError::DataNotAvailable)?;
-                data.push(parsec_line);
-            } else {
-                return Err(AstroUtilError::DataNotAvailable);
+
+        let age_entry = entries
+            .get(Self::AGE_INDEX)
+            .ok_or(AstroUtilError::DataNotAvailable)?;
+        let log_l_entry = entries
+            .get(Self::LOG_L_INDEX)
+            .ok_or(AstroUtilError::DataNotAvailable)?;
+        let log_te_entry = entries
+            .get(Self::LOG_TE_INDEX)
+            .ok_or(AstroUtilError::DataNotAvailable)?;
+        let log_r_entry = entries
+            .get(Self::LOG_R_INDEX)
+            .ok_or(AstroUtilError::DataNotAvailable)?;
+        if let (Ok(mass), Ok(age), Ok(log_l), Ok(log_te), Ok(log_r)) = (
+            mass_entry.parse::<f64>(),
+            age_entry.parse::<f64>(),
+            log_l_entry.parse::<f64>(),
+            log_te_entry.parse::<f64>(),
+            log_r_entry.parse::<f64>(),
+        ) {
+            let parsec_line = ParsecLine {
+                mass,
+                age,
+                log_l,
+                log_te,
+                log_r,
             }
-        };
+            .parse();
+
+            lines.push(parsec_line);
+        } else {
+            return Err(AstroUtilError::DataNotAvailable);
+        }
+
         Ok(())
     }
 
@@ -103,24 +99,10 @@ impl ParsecLine {
 }
 
 impl ParsedParsecLine {
-    pub(super) fn to_star_at_origin(&self) -> StarData {
-        let mass = Mass::from_solar_mass(self.mass_in_solar_masses);
-        let age = Time::from_yr(self.age_in_years);
-        let luminous_intensity = self.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
-        let temperature = Temperature::from_K(self.temperature_in_kelvin);
-        let radius = self.radius_in_solar_radii * SOLAR_RADIUS;
-        let mut evolution = StarDataEvolution::NONE;
-        evolution.age = Some(age);
-        StarData {
-            name: "".to_string(),
-            mass: Some(mass),
-            luminous_intensity,
-            temperature: temperature,
-            radius: Some(radius),
-            distance: DISTANCE_ZERO,
-            pos: EclipticCoordinates::Z_DIRECTION,
-            constellation: None,
-            evolution: StarDataEvolution::NONE,
-        }
+    pub(super) fn is_visible(&self, pos: &CartesianCoordinates) -> bool {
+        let min_luminous_intensity = Luminosity {
+            cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
+        };
+        self.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY >= min_luminous_intensity
     }
 }

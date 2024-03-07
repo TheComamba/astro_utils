@@ -1,39 +1,21 @@
-use super::{data::ParsecData, line::ParsedParsecLine};
-use crate::stars::random::random_stars::AGE_OF_MILKY_WAY_THIN_DISK;
+use super::data::ParsecData;
 use rand::{distributions::Distribution, rngs::ThreadRng};
 use rand_distr::WeightedAliasIndex;
-use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 const MIN_MASS_FOR_HYDROGEN_FUSION: f64 = 0.08;
 
 pub(crate) struct ParsecDistribution {
     mass_distribution: WeightedAliasIndex<f64>,
-    age_distributions: Vec<WeightedAliasIndex<f64>>,
 }
 
 impl ParsecDistribution {
-    pub(crate) fn new(parsec: &ParsecData) -> Self {
+    pub(crate) fn new() -> Self {
         let mass_distribution = get_mass_distribution();
-
-        let max_age_in_years = AGE_OF_MILKY_WAY_THIN_DISK.to_yr();
-        let age_distributions = parsec
-            .data
-            .par_iter()
-            .map(|trajectory| get_age_distribution(trajectory, max_age_in_years))
-            .collect();
-
-        ParsecDistribution {
-            mass_distribution,
-            age_distributions,
-        }
+        ParsecDistribution { mass_distribution }
     }
 
     pub(crate) fn get_random_mass_index(&self, rng: &mut ThreadRng) -> usize {
         self.mass_distribution.sample(rng)
-    }
-
-    pub(crate) fn get_random_age_index(&self, mass_index: usize, rng: &mut ThreadRng) -> usize {
-        self.age_distributions[mass_index].sample(rng)
     }
 }
 
@@ -44,15 +26,35 @@ fn get_mass_distribution() -> WeightedAliasIndex<f64> {
 
 fn kroupa_weights() -> Vec<f64> {
     let mut weights = Vec::new();
-    for m in ParsecData::SORTED_MASSES {
-        let weight = kroupa_mass_distribution(m);
+    for m in 0..ParsecData::SORTED_MASSES.len() {
+        let lower = if m == 0 {
+            0.
+        } else {
+            geometric_mean(
+                ParsecData::SORTED_MASSES[m - 1],
+                ParsecData::SORTED_MASSES[m],
+            )
+        };
+        let upper = if m == ParsecData::SORTED_MASSES.len() - 1 {
+            1000.
+        } else {
+            geometric_mean(
+                ParsecData::SORTED_MASSES[m],
+                ParsecData::SORTED_MASSES[m + 1],
+            )
+        };
+        let weight = integrate_kroupa(lower, upper);
         weights.push(weight);
     }
     weights
 }
 
+fn geometric_mean(a: f64, b: f64) -> f64 {
+    (a * b).sqrt()
+}
+
 fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
-    const NORMALIZATION: f64 = 0.124969;
+    const NORMALIZATION: f64 = 0.12499960249873866;
     if m_in_solar_masses < MIN_MASS_FOR_HYDROGEN_FUSION {
         return 0.; // Brown dwarfs
     }
@@ -60,50 +62,33 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
         (1.3, 0.5f64.powf(-2.3) / 0.5f64.powf(-1.3))
     } else if m_in_solar_masses <= 1. {
         (2.3, 1.)
-    } else {
+    } else if m_in_solar_masses <= 20. {
         (2.7, 1.)
+    } else {
+        (5., 20f64.powf(-2.7) / 20f64.powf(-5.)) //Adjusted high mass tail
     };
     prefactor * m_in_solar_masses.powf(-alpha) * NORMALIZATION
 }
 
-fn get_age_distribution(
-    trajectory: &Vec<ParsedParsecLine>,
-    max_age_in_years: f64,
-) -> WeightedAliasIndex<f64> {
-    let mut weights = Vec::new();
-    for i in 0..=trajectory.len() {
-        let previous_age = if i > 0 {
-            trajectory[i - 1].age_in_years
-        } else {
-            0.
-        };
-        if previous_age >= max_age_in_years {
-            break;
-        }
-        let current_age = if i < trajectory.len() {
-            trajectory[i].age_in_years
-        } else {
-            max_age_in_years
-        };
-        weights.push(current_age - previous_age);
+fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
+    let mut integral = 0.;
+    let mut x = lower;
+    while x < upper {
+        let dx = (upper - x).min(0.01);
+        integral += kroupa_mass_distribution(x) * dx;
+        x += dx;
     }
-    WeightedAliasIndex::new(weights).unwrap()
+    integral
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use rayon::iter::{IntoParallelIterator, ParallelIterator};
+    use simple_si_units::base::Distance;
 
-    fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
-        let mut integral = 0.;
-        let mut x = lower;
-        while x < upper {
-            let dx = (upper - x).min(0.01);
-            integral += kroupa_mass_distribution(x) * dx;
-            x += dx;
-        }
-        integral
-    }
+    use crate::stars::random::random_stars::{number_in_sphere, STARS_PER_LY_CUBED};
+
+    use super::*;
 
     #[test]
     fn kroupa_is_smooth() {
@@ -131,21 +116,64 @@ mod tests {
         let lower = 0.0;
         let upper = 2000.;
         let integral = integrate_kroupa(lower, upper);
-        assert!((integral - 1.).abs() < 0.01, "Integral is {}", integral);
+        assert!(
+            (integral - 1.).abs() < 1e-5,
+            "Integral is {},\nso normalization should be {}",
+            integral,
+            1. / integral
+        );
     }
 
     #[test]
-    fn kroupa_weights_are_ordered() {
-        let weights = kroupa_weights();
-        for i in 1..weights.len() {
+    fn kroupa_integral_and_sampling_agree() {
+        let num_stars = 100_000;
+        let uncertainty = 10. / (num_stars as f64).sqrt();
+        let distribution = get_mass_distribution();
+        let masses = (0..num_stars)
+            .map(|_| ParsecData::SORTED_MASSES[distribution.sample(&mut rand::thread_rng())]);
+        let mut thresholds = Vec::new();
+        for i in 0..ParsecData::SORTED_MASSES.len() - 1 {
+            thresholds.push(geometric_mean(
+                ParsecData::SORTED_MASSES[i],
+                ParsecData::SORTED_MASSES[i + 1],
+            ));
+        }
+        for threshold in thresholds {
+            let count = masses.clone().filter(|&m| m >= threshold).count();
+            let fraction = count as f64 / num_stars as f64;
+            let integral = integrate_kroupa(threshold as f64, 1000.);
+            let lower = integral - uncertainty;
+            let upper = integral + uncertainty;
             assert!(
-                weights[i - 1] >= weights[i],
-                "Weight {} is larger than weight {}: {}, {}",
-                i - 1,
-                i,
-                weights[i - 1],
-                weights[i]
+                (lower..upper).contains(&fraction),
+                "Threshold mass is {}, fraction is {} not within [{},{}]",
+                threshold,
+                fraction,
+                lower,
+                upper
             );
         }
+    }
+
+    #[test]
+    fn there_are_less_than_10_supermassive_stars_within_1000_lyr() {
+        // The closest star above 50 Sun masses ist 3000 lyr away.
+        let max_distance = Distance::from_lyr(1000.);
+        let num_stars = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
+        println!("Number of stars: {}", num_stars);
+        let distribution = get_mass_distribution();
+        let num_supermassive_stars = (0..num_stars)
+            .into_par_iter()
+            .map(|_| {
+                let mut rng = rand::thread_rng();
+                ParsecData::SORTED_MASSES[distribution.sample(&mut rng)]
+            })
+            .filter(|&m| m >= 99.)
+            .count();
+        assert!(
+            num_supermassive_stars < 10,
+            "There are {} supermassive stars",
+            num_supermassive_stars
+        );
     }
 }

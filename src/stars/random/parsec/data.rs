@@ -1,4 +1,4 @@
-use super::line::ParsedParsecLine;
+use super::trajectory::Trajectory;
 use crate::error::AstroUtilError;
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
@@ -11,13 +11,14 @@ lazy_static! {
 
 #[derive(Deserialize, Serialize)]
 pub(crate) struct ParsecData {
-    pub(super) data: Vec<Vec<ParsedParsecLine>>,
+    pub(super) data: Vec<Trajectory>,
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::{
+        coordinates::cartesian::CartesianCoordinates,
         real_data::stars::{all::get_many_stars, SUN},
         tests::eq_within,
         units::{
@@ -25,37 +26,18 @@ mod tests {
             time::BILLION_YEARS,
         },
     };
-    use simple_si_units::base::{Mass, Time};
-
-    pub(super) fn get_params_for_current_mass_and_age<'a>(
-        data: &'a ParsecData,
-        mass: &Mass<f64>,
-        age_in_years: f64,
-    ) -> &'a ParsedParsecLine {
-        let mut mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
-        let mut trajectory = &data.data[mass_index];
-        let mut index = ParsecData::get_closest_params_index(trajectory, age_in_years);
-        let mut params = &trajectory[index];
-        while params.mass_in_solar_masses < mass.to_solar_mass()
-            && mass_index < ParsecData::SORTED_MASSES.len() - 1
-        {
-            mass_index += 1;
-            trajectory = &data.data[mass_index];
-            index = ParsecData::get_closest_params_index(trajectory, age_in_years);
-            params = &trajectory[index];
-        }
-        params
-    }
 
     #[test]
     fn test_caluclate_sun() {
         let mass = SUN.mass;
         let age = SUN.age.unwrap();
+        let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
         let calculated_sun = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            get_params_for_current_mass_and_age(&parsec_data, &mass, age.to_yr())
-                .to_star_at_origin()
+            parsec_data
+                .get_trajectory_via_index(mass_index)
+                .to_star(age, CartesianCoordinates::ORIGIN)
         };
         let real_sun = SUN.to_star_data();
         println!(
@@ -109,19 +91,18 @@ mod tests {
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             for data in get_many_stars().iter() {
                 if let Some(age) = data.age {
-                    let age = age.to_yr();
+                    let age = age;
                     let mass_index = ParsecData::get_closest_mass_index(data.mass.to_solar_mass());
                     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
-                    let age_expectancy = ParsecData::get_lifetime_in_years(trajectory);
-                    let age_expectancy = Time::from_yr(age_expectancy as f64);
+                    let age_expectancy = trajectory.lifetime;
                     if age_expectancy < 0.3 * BILLION_YEARS {
                         // Numerics get really unstable for stars with short life expectancies.
                         continue;
                     }
 
-                    let current_params =
-                        get_params_for_current_mass_and_age(&parsec_data, &data.mass, age);
-                    let calculated_star = current_params.to_star_at_origin();
+                    let calculated_star = parsec_data
+                        .get_trajectory_via_index(mass_index)
+                        .to_star(age, CartesianCoordinates::ORIGIN);
                     let real_star = data.to_star_data();
                     if calculated_star.similar_within_order_of_magnitude(&real_star) {
                         num_success += 1;

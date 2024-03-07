@@ -1,4 +1,4 @@
-use super::parsec::data::ParsecData;
+use super::{params::GenerationParams, parsec::data::ParsecData};
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
@@ -6,92 +6,95 @@ use crate::{
         data::StarData,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
     },
-    units::distance::DISTANCE_ZERO,
+    units::time::TEN_MILLENIA,
 };
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use simple_si_units::{
     base::{Distance, Time},
     electromagnetic::Illuminance,
+    mechanical::Velocity,
 };
 use std::f64::consts::PI;
 
 // https://en.wikipedia.org/wiki/Stellar_density
-// Adjusted, because Gaia does not resolve all binaries.
-const STARS_PER_LY_CUBED: f64 = 0.004 / 1.12;
-pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
+// But more or less arbitrarily adjusted to reproduce Gaia data.
+pub(super) const STARS_PER_LY_CUBED: f64 = 3e-3;
+// https://ui.adsabs.harvard.edu/abs/1985ApJ...289..373S/abstract
+// 6000 star forming regions are currently in the milky way
+pub(super) const NURSERY_LIFETIME: Time<f64> = Time {
+    s: 1e8 * 365.25 * 24. * 60. * 60.,
+};
 pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
     s: 8.8e9 * 365.25 * 24. * 3600.,
 };
-// pub(super) const AGE_OF_UNIVERSE: Time<f64> = Time {
-//     s: 1.38e10 * 365.25 * 24. * 3600.,
-// };
+const NURSERIES_PER_LY_CUBED: f64 = 6_000. / 8e12 * 4.; //* AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
+pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
+pub(super) const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
+pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
-    let number_of_stars_in_sphere =
-        STARS_PER_LY_CUBED * 4. / 3. * PI * max_distance.to_lyr().powi(3);
-    let number_of_stars_in_sphere = number_of_stars_in_sphere as usize;
-
     let parsec_data_mutex = PARSEC_DATA
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
+    let parsec_distr = ParsecDistribution::new();
 
-    let unit_distance_distr = get_unit_distance_distribution();
-    let parsec_distr = ParsecDistribution::new(&parsec_data);
-
-    const MAX_CHUNKSIZE: usize = 100_000_000;
-    let mut remaining = number_of_stars_in_sphere;
-    let mut stars = Vec::new();
-    while remaining > MAX_CHUNKSIZE {
-        let chunk = generate_certain_number_of_random_stars(
-            MAX_CHUNKSIZE,
-            parsec_data,
-            max_distance,
-            unit_distance_distr,
-            &parsec_distr,
-        );
-        stars.extend(chunk);
-        remaining -= MAX_CHUNKSIZE;
-
-        let finished = number_of_stars_in_sphere - remaining;
-        let fraction = finished as f64 / number_of_stars_in_sphere as f64;
-        println!(
-            "Generated {:2.2e} of {:2.2e} stars ({:2.0}%) and kept {:2.2e}",
-            finished,
-            number_of_stars_in_sphere,
-            fraction * 100.,
-            stars.len()
-        );
-    }
-    let chunk = generate_certain_number_of_random_stars(
-        remaining,
-        parsec_data,
-        max_distance,
-        unit_distance_distr,
-        &parsec_distr,
+    let number_star_forming_regions = number_in_sphere(NURSERIES_PER_LY_CUBED, max_distance) + 1;
+    let age_distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s);
+    println!(
+        "Number of star forming regions: {}",
+        number_star_forming_regions
     );
-    stars.extend(chunk);
-
+    let stars = (0..number_star_forming_regions)
+        .into_par_iter()
+        .map(|i| {
+            let mut rng = rand::thread_rng();
+            let mut params = if i == 0 {
+                GenerationParams::old_stars(max_distance)
+            } else {
+                let pos = random_point_in_sphere(&mut rng, max_distance);
+                let max_age = Time {
+                    s: rng.sample(age_distribution),
+                };
+                GenerationParams::nursery(pos, max_age)
+            };
+            params.adjust_distance_for_performance(parsec_data);
+            generate_random_stars_with_params(params, parsec_data, &parsec_distr)
+        })
+        .flatten()
+        .collect();
     Ok(stars)
 }
 
-fn generate_certain_number_of_random_stars(
-    number: usize,
+pub(crate) fn get_min_age(max_age: Time<f64>) -> Time<f64> {
+    max_age - NURSERY_LIFETIME - TEN_MILLENIA
+}
+
+pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) -> usize {
+    (num_per_lyr * 4. / 3. * PI * max_distance.to_lyr().powi(3)) as usize
+}
+
+fn generate_random_stars_with_params(
+    params: GenerationParams,
     parsec_data: &ParsecData,
-    max_distance: Distance<f64>,
-    unit_distance_distr: Uniform<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
-    (0..=number)
-        .into_par_iter()
+    let age_distribution = Uniform::new(0., NURSERY_LIFETIME.s);
+    (0..=params.number)
+        .into_iter()
         .map(|_| {
             let mut rng = rand::thread_rng();
+            let age = params.max_age
+                - Time {
+                    s: rng.sample(age_distribution),
+                };
             generate_visible_random_star(
                 parsec_data,
-                max_distance,
+                &params.pos,
+                params.radius,
+                age,
                 &mut rng,
-                &unit_distance_distr,
                 parsec_distr,
             )
         })
@@ -109,47 +112,44 @@ pub fn generate_random_star(
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
-
-    let unit_distance_distr = get_unit_distance_distribution();
-    let parsec_distr = ParsecDistribution::new(&parsec_data);
+    let parsec_distr = ParsecDistribution::new();
 
     let mut star = generate_visible_random_star(
         parsec_data,
+        &CartesianCoordinates::ORIGIN,
         max_distance_or_1,
+        AGE_OF_MILKY_WAY_THIN_DISK,
         &mut rng,
-        &unit_distance_distr,
         &parsec_distr,
     );
     while star.is_none() {
         star = generate_visible_random_star(
             parsec_data,
+            &CartesianCoordinates::ORIGIN,
             max_distance_or_1,
+            AGE_OF_MILKY_WAY_THIN_DISK,
             &mut rng,
-            &unit_distance_distr,
             &parsec_distr,
         );
     }
     let mut star = star.unwrap();
     if max_distance.is_none() {
-        star.distance = DISTANCE_ZERO;
+        star.pos = CartesianCoordinates::ORIGIN;
     }
     Ok(star)
 }
 
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
+    origin: &CartesianCoordinates,
     max_distance: Distance<f64>,
+    age: Time<f64>,
     rng: &mut ThreadRng,
-    unit_distance_distr: &Uniform<f64>,
     parsec_distr: &ParsecDistribution,
 ) -> Option<StarData> {
     let mass_index = parsec_distr.get_random_mass_index(rng);
-    let age_index = parsec_distr.get_random_age_index(mass_index, rng);
-    let distance = random_distance(rng, unit_distance_distr, max_distance);
-    let mut star = parsec_data.get_star_data_if_visible(mass_index, age_index, distance.m)?;
-    let pos = random_direction(rng).to_ecliptic();
-    star.distance = distance;
-    star.pos = pos;
+    let pos = origin + &random_point_in_sphere(rng, max_distance);
+    let star = parsec_data.get_star_data_if_visible(mass_index, age, pos)?;
     Some(star)
 }
 
@@ -165,6 +165,14 @@ fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
     CartesianCoordinates::new(x, y, z)
 }
 
+fn random_point_in_sphere(
+    rng: &mut ThreadRng,
+    max_distance: Distance<f64>,
+) -> CartesianCoordinates {
+    let point = random_point_in_unit_sphere(rng);
+    point * max_distance.m
+}
+
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
     let mut point = random_point_in_unit_sphere(rng);
     let mut dir = point.to_direction();
@@ -173,20 +181,6 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
         dir = point.to_direction();
     }
     dir.unwrap()
-}
-
-fn get_unit_distance_distribution() -> Uniform<f64> {
-    Uniform::new(0., 1.)
-}
-
-// https://stackoverflow.com/questions/5408276/sampling-uniformly-distributed-random-points-inside-a-spherical-volume
-fn random_distance(
-    rng: &mut ThreadRng,
-    unit_distance_distr: &Uniform<f64>,
-    max_distance: Distance<f64>,
-) -> Distance<f64> {
-    let cubed: f64 = rng.sample(unit_distance_distr);
-    max_distance * cubed.cbrt()
 }
 
 #[cfg(test)]
@@ -214,20 +208,21 @@ mod tests {
     fn generate_random_stars_stress_test() {
         let _ = PARSEC_DATA.lock(); // Load the parsec data.
 
-        let max_distance = Distance::from_lyr(4000.);
+        let max_distance = Distance::from_lyr(25_000.);
         let max_seconds = 60;
 
         let start = Instant::now();
         let stars = generate_random_stars(max_distance).unwrap();
         let duration = start.elapsed();
+        let number_of_visible_stars = stars.len();
         println!(
             "Generated {} stars within {} in {:?}",
-            stars.len(),
+            number_of_visible_stars,
             max_distance.astro_display(),
             duration
         );
-        assert!(stars.len() > 6_000);
-        assert!(stars.len() < 24_000);
+        assert!(number_of_visible_stars > 6_000);
+        assert!(number_of_visible_stars < 24_000);
         assert!(duration.as_secs() < max_seconds);
     }
 
@@ -242,7 +237,7 @@ mod tests {
         let max_distance = Distance::from_lyr(100.);
         let stars = generate_random_stars(max_distance).unwrap();
         for star in stars {
-            assert!(star.distance < max_distance * 1.01);
+            assert!(star.get_distance_at_epoch() < max_distance * 1.01);
         }
     }
 

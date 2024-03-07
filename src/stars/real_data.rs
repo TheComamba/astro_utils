@@ -52,7 +52,9 @@ impl RealData {
         let luminous_intensity = absolute_magnitude_to_luminous_intensity(self.absolute_magnitude);
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
-        let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
+        let pos = EarthEquatorialCoordinates::new(ra, dec)
+            .to_direction()
+            .to_cartesian(self.distance);
         let evolution =
             StarDataEvolution::new(None, self.age, self.lifetime, StarFate::new(self.mass));
         StarData {
@@ -62,7 +64,6 @@ impl RealData {
             radius: self.radius,
             luminous_intensity,
             temperature: self.temperature,
-            distance: self.distance,
             pos,
             evolution: evolution,
         }
@@ -106,8 +107,10 @@ mod tests {
         for star_data in get_many_stars() {
             let star = star_data.to_star_data();
             let luminous_intensity = star.get_luminous_intensity_at_epoch();
-            let illuminance =
-                luminous_intensity_to_illuminance(&luminous_intensity, &star.distance);
+            let illuminance = luminous_intensity_to_illuminance(
+                &luminous_intensity,
+                &star.get_distance_at_epoch(),
+            );
             let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             assert!(

@@ -79,12 +79,12 @@ impl StarFate {
 const SN_PHASE_1_INCREASE: Range<f64> = 0.0..10.0;
 const SN_PHASE_2_DECREASE: Range<f64> = 10.0..20.0;
 const SN_PHASE_3_PLATEAU: Range<f64> = 20.0..110.0;
+pub(crate) const TYPE_II_SUPERNOVA_PEAK_MAGNITUDE: f64 = -16.8;
 
 fn type_2_supernova_luminous_intensity(
     initial: Luminosity<f64>,
     time_since_death: Time<f64>,
 ) -> Luminosity<f64> {
-    const PEAK_MAGNITUDE: f64 = -16.8;
     const PLATEAU_MAGNITUDE: f64 = -16.3;
 
     let days = time_since_death.to_days();
@@ -92,12 +92,12 @@ fn type_2_supernova_luminous_intensity(
         initial
     } else if SN_PHASE_1_INCREASE.contains(&days) {
         let offset = luminous_intensity_to_absolute_magnitude(initial);
-        let slope =
-            (PEAK_MAGNITUDE - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
+        let slope = (TYPE_II_SUPERNOVA_PEAK_MAGNITUDE - offset)
+            / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
         let mag = offset + slope * (days - SN_PHASE_1_INCREASE.start);
         absolute_magnitude_to_luminous_intensity(mag)
     } else if SN_PHASE_2_DECREASE.contains(&days) {
-        let offset = PEAK_MAGNITUDE;
+        let offset = TYPE_II_SUPERNOVA_PEAK_MAGNITUDE;
         let slope =
             (PLATEAU_MAGNITUDE - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
         let mag = offset + slope * (days - SN_PHASE_2_DECREASE.start);

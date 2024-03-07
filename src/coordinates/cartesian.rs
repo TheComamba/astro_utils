@@ -4,7 +4,10 @@ use super::{
 };
 use crate::{astro_display::AstroDisplay, error::AstroUtilError, units::distance::DISTANCE_ZERO};
 use serde::{Deserialize, Serialize};
-use simple_si_units::{base::Distance, geometry::Angle};
+use simple_si_units::{
+    base::Distance,
+    geometry::{Angle, Area},
+};
 use std::{
     fmt::Display,
     ops::{Add, Div, Mul, Neg, Sub},
@@ -44,6 +47,15 @@ impl CartesianCoordinates {
         let z = self.z.m;
         Distance {
             m: (x * x + y * y + z * z).sqrt(),
+        }
+    }
+
+    pub fn length_squared(&self) -> Area<f64> {
+        let x = self.x.m;
+        let y = self.y.m;
+        let z = self.z.m;
+        Area {
+            m2: x * x + y * y + z * z,
         }
     }
 
