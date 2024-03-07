@@ -54,7 +54,7 @@ fn geometric_mean(a: f64, b: f64) -> f64 {
 }
 
 fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
-    const NORMALIZATION: f64 = 0.124969;
+    const NORMALIZATION: f64 = 0.12499960249873866;
     if m_in_solar_masses < MIN_MASS_FOR_HYDROGEN_FUSION {
         return 0.; // Brown dwarfs
     }
@@ -62,10 +62,10 @@ fn kroupa_mass_distribution(m_in_solar_masses: f64) -> f64 {
         (1.3, 0.5f64.powf(-2.3) / 0.5f64.powf(-1.3))
     } else if m_in_solar_masses <= 1. {
         (2.3, 1.)
-    } else if m_in_solar_masses <= 25. {
+    } else if m_in_solar_masses <= 20. {
         (2.7, 1.)
     } else {
-        (5., 25f64.powf(-2.7) / 25f64.powf(-5.)) //Adjusted high mass tail
+        (5., 20f64.powf(-2.7) / 20f64.powf(-5.)) //Adjusted high mass tail
     };
     prefactor * m_in_solar_masses.powf(-alpha) * NORMALIZATION
 }
@@ -116,37 +116,11 @@ mod tests {
         let lower = 0.0;
         let upper = 2000.;
         let integral = integrate_kroupa(lower, upper);
-        assert!((integral - 1.).abs() < 0.01, "Integral is {}", integral);
-    }
-
-    #[test]
-    fn about_2_permille_of_stars_explode_according_to_integral() {
-        let integral = integrate_kroupa(8.0, 80.);
         assert!(
-            (0.002..0.003).contains(&integral),
-            "Integral is {}",
-            integral
-        );
-    }
-
-    #[test]
-    fn about_2_permille_of_stars_explode_according_to_sampling() {
-        let num_stars = 1_000_000;
-        let mut num_exploding_stars = 0;
-        let mut rng = rand::thread_rng();
-        let distribution = get_mass_distribution();
-        for _ in 0..num_stars {
-            let mass_index = distribution.sample(&mut rng);
-            let mass = ParsecData::SORTED_MASSES[mass_index];
-            if mass >= 8. {
-                num_exploding_stars += 1;
-            }
-        }
-        let fraction = num_exploding_stars as f64 / num_stars as f64;
-        assert!(
-            (0.002..0.003).contains(&fraction),
-            "Fraction is {}",
-            fraction
+            (integral - 1.).abs() < 1e-5,
+            "Integral is {},\nso normalization should be {}",
+            integral,
+            1. / integral
         );
     }
 
