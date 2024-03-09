@@ -13,9 +13,18 @@ use crate::{
         time::TIME_ZERO,
     },
 };
+use gaia_access::{
+    column::GaiaColumn,
+    condition::GaiaCondition,
+    query::GaiaQueryBuilder,
+    result::{get_float, get_string, GaiaCellData, GaiaResult},
+    schema::GaiaSchema,
+    table::GaiaTable,
+};
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Temperature, electromagnetic::Illuminance, geometry::Angle};
+use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize)]
 struct GaiaMetadataLine {
@@ -29,132 +38,95 @@ struct GaiaMetadataLine {
     utype: Option<String>,
 }
 
-struct ParsedGaiaCellData {
-    pub designation: String,
-    pub pos: EclipticCoordinates,
-    pub mag: f64,
-    pub temperature: Option<Temperature<f64>>,
+fn get_designation(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<String> {
+    get_string(map.get(&GaiaColumn::designation)?)
 }
 
-#[derive(Serialize, Deserialize)]
-#[serde(untagged)]
-enum GaiaCellData {
-    String(String),
-    Float(f64),
-    Null,
+fn get_ecl_lon(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Angle<f64>> {
+    let ecl_lon = get_float(map.get(&GaiaColumn::ecl_lon)?)?;
+    Some(Angle::from_degrees(ecl_lon))
 }
 
-fn get_string(data: &GaiaCellData) -> Option<String> {
-    match data {
-        GaiaCellData::String(string) => Some(string.clone()),
-        _ => None,
-    }
+fn get_ecl_lat(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Angle<f64>> {
+    let ecl_lat = get_float(map.get(&GaiaColumn::ecl_lat)?)?;
+    Some(Angle::from_degrees(ecl_lat))
 }
 
-fn get_float(data: &GaiaCellData) -> Option<f64> {
-    match data {
-        GaiaCellData::Float(float) => Some(*float),
-        _ => None,
-    }
+fn get_temperature(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Temperature<f64>> {
+    let temperature = get_float(map.get(&GaiaColumn::teff_gspphot)?)?;
+    Some(Temperature::from_K(temperature))
 }
 
-#[derive(Serialize, Deserialize)]
-struct GaiaResponse {
-    metadata: Vec<GaiaMetadataLine>,
-    data: Vec<Vec<GaiaCellData>>,
+fn get_illuminance(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Illuminance<f64>> {
+    let mag = get_float(map.get(&GaiaColumn::phot_g_mean_mag)?)?;
+    Some(apparent_magnitude_to_illuminance(mag))
 }
 
-impl GaiaResponse {
-    fn get_parsed_data(row: &[GaiaCellData]) -> Result<ParsedGaiaCellData, AstroUtilError> {
-        const DESIGNATION_INDEX: usize = 0;
-        const ECL_LON_INDEX: usize = 1;
-        const ECL_LAT_INDEX: usize = 2;
-        const MAG_INDEX: usize = 3;
-        const TEMPERATURE_INDEX: usize = 4;
-
-        let designation =
-            get_string(&row[DESIGNATION_INDEX]).ok_or(AstroUtilError::DataNotAvailable)?;
-        let ecl_lon = get_float(&row[ECL_LON_INDEX]);
-        let ecl_lat = get_float(&row[ECL_LAT_INDEX]);
-        let temperature = get_float(&row[TEMPERATURE_INDEX]);
-
-        let ecl_lon = Angle::from_degrees(ecl_lon.ok_or(AstroUtilError::DataNotAvailable)?);
-        let ecl_lat = Angle::from_degrees(ecl_lat.ok_or(AstroUtilError::DataNotAvailable)?);
-        let pos = SphericalCoordinates::new(ecl_lon, ecl_lat).to_ecliptic();
-        let mag = get_float(&row[MAG_INDEX]);
-        let mag = mag.ok_or(AstroUtilError::DataNotAvailable)?;
-        let temperature = temperature.map(Temperature::from_K);
-        Ok(ParsedGaiaCellData {
-            designation,
-            pos,
-            mag,
-            temperature,
+fn to_star_data(result: GaiaResult) -> Result<Vec<StarData>, AstroUtilError> {
+    let stars = result
+        .data
+        .par_iter()
+        .map(|map| {
+            let name = get_designation(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let temperature = get_temperature(map).unwrap_or(TEMPERATURE_ZERO);
+            let star = StarData {
+                name,
+                mass: None,
+                radius: None,
+                luminous_intensity: LUMINOSITY_ZERO,
+                temperature,
+                pos: CartesianCoordinates::ORIGIN,
+                constellation: None,
+                evolution: StarDataEvolution::NONE,
+            };
+            Ok(star)
         })
-    }
-
-    fn to_star_data(&self) -> Result<Vec<StarData>, AstroUtilError> {
-        let stars = self
-            .data
-            .par_iter()
-            .map(|row| {
-                let parsed_data = Self::get_parsed_data(row)?;
-                let star = StarData {
-                    name: parsed_data.designation,
-                    mass: None,
-                    radius: None,
-                    luminous_intensity: LUMINOSITY_ZERO,
-                    temperature: parsed_data.temperature.unwrap_or(TEMPERATURE_ZERO),
-                    pos: CartesianCoordinates::ORIGIN,
-                    constellation: None,
-                    evolution: StarDataEvolution::NONE,
-                };
-                Ok(star)
-            })
-            .collect::<Result<Vec<StarData>, AstroUtilError>>();
-        stars
-    }
-
-    fn to_star_appearances(&self) -> Result<Vec<StarAppearance>, AstroUtilError> {
-        let stars = self
-            .data
-            .par_iter()
-            .map(|row| {
-                let parsed_data = Self::get_parsed_data(row)?;
-
-                let illuminance = apparent_magnitude_to_illuminance(parsed_data.mag);
-                let color = match parsed_data.temperature {
-                    Some(temperature) => sRGBColor::from_temperature(temperature),
-                    None => sRGBColor::WHITE,
-                };
-
-                let star = StarAppearance {
-                    name: parsed_data.designation,
-                    illuminance,
-                    color,
-                    pos: parsed_data.pos,
-                    time_since_epoch: TIME_ZERO,
-                };
-                Ok(star)
-            })
-            .collect::<Result<Vec<StarAppearance>, AstroUtilError>>();
-        stars
-    }
+        .collect::<Result<Vec<StarData>, AstroUtilError>>();
+    stars
 }
 
-fn query_brightest_stars(brightest: Illuminance<f64>) -> Result<GaiaResponse, AstroUtilError> {
-    let mut url = "https://gea.esac.esa.int/tap-server/tap/sync".to_string();
-    url += "?REQUEST=doQuery";
-    url += "&LANG=ADQL";
-    url += "&FORMAT=json";
-    url += "&QUERY=SELECT+designation,ecl_lon,ecl_lat,phot_g_mean_mag,teff_gspphot";
-    url += "+FROM+gaiadr3.gaia_source";
-    url += "+WHERE+phot_g_mean_mag+<+";
-    url += &format!("{:.1}", illuminance_to_apparent_magnitude(&brightest));
-    let resp = reqwest::blocking::get(&url)
-        .map_err(AstroUtilError::Connection)?
-        .text()
-        .map_err(AstroUtilError::Connection)?;
-    serde_json::from_str(&resp).map_err(AstroUtilError::Json)
+fn to_star_appearances(result: GaiaResult) -> Result<Vec<StarAppearance>, AstroUtilError> {
+    let stars = result
+        .data
+        .par_iter()
+        .map(|map| {
+            let name = get_designation(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let illuminance = get_illuminance(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let temperature = get_temperature(map).unwrap_or(Temperature::from_K(4000.));
+            let color = sRGBColor::from_temperature(temperature);
+            let lon = get_ecl_lon(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let lat = get_ecl_lat(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let pos = EclipticCoordinates::new(SphericalCoordinates::new(lon, lat));
+
+            let star = StarAppearance {
+                name,
+                illuminance,
+                color,
+                pos,
+                time_since_epoch: TIME_ZERO,
+            };
+            Ok(star)
+        })
+        .collect::<Result<Vec<StarAppearance>, AstroUtilError>>();
+    stars
+}
+
+fn query_brightest_stars(threshold: Illuminance<f64>) -> Result<GaiaResult, AstroUtilError> {
+    Ok(
+        GaiaQueryBuilder::new(GaiaSchema::gaiadr3, GaiaTable::gaia_source)
+            .select(vec![
+                GaiaColumn::designation,
+                GaiaColumn::ecl_lon,
+                GaiaColumn::ecl_lat,
+                GaiaColumn::phot_g_mean_mag,
+                GaiaColumn::teff_gspphot,
+            ])
+            .where_clause(GaiaCondition::LessThan(
+                GaiaColumn::phot_g_mean_mag,
+                illuminance_to_apparent_magnitude(&threshold),
+            ))
+            .do_query()?,
+    )
 }
 
 pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[StarAppearance]) -> bool {
@@ -166,14 +138,14 @@ pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[StarAppea
 pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
     let brightest = apparent_magnitude_to_illuminance(6.5);
     let resp = query_brightest_stars(brightest)?;
-    let gaia_stars = resp.to_star_appearances()?;
+    let gaia_stars = to_star_appearances(resp)?;
     Ok(gaia_stars)
 }
 
 pub fn fetch_brightest_stars_data() -> Result<Vec<StarData>, AstroUtilError> {
     let brightest = apparent_magnitude_to_illuminance(6.5);
     let resp = query_brightest_stars(brightest)?;
-    let gaia_stars = resp.to_star_data()?;
+    let gaia_stars = to_star_data(resp)?;
     Ok(gaia_stars)
 }
 
@@ -204,34 +176,6 @@ mod tests {
     }
 
     #[test]
-    fn gaia_serialization_roundtrip() {
-        let input = r#"
-{"metadata":
-[
-{"name": "designation", "datatype": "char", "xtype": null, "arraysize": "*", "description": "Unique source designation (unique across all Data Releases)", "unit": null, "ucd": "meta.id;meta.main", "utype": null},
-{"name": "ecl_lon", "datatype": "double", "xtype": null, "arraysize": null, "description": "Ecliptic longitude", "unit": "deg", "ucd": "pos.ecliptic.lon", "utype": "stc:AstroCoords.Position2D.Value2.C1"},
-{"name": "ecl_lat", "datatype": "double", "xtype": null, "arraysize": null, "description": "Ecliptic latitude", "unit": "deg", "ucd": "pos.ecliptic.lat", "utype": "stc:AstroCoords.Position2D.Value2.C2"},
-{"name": "phot_g_mean_mag", "datatype": "float", "xtype": null, "arraysize": null, "description": "G-band mean magnitude", "unit": "mag", "ucd": "phot.mag;em.opt", "utype": null},
-{"name": "teff_gspphot", "datatype": "float", "xtype": null, "arraysize": null, "description": "Effective temperature from GSP-Phot Aeneas best library using BP/RP spectra", "unit": "K", "ucd": "phys.temperature.effective", "utype": null}
-],
-"data":
-[
-["Gaia DR3 1576683529448755328",158.93417,54.319103,1.731607,null],
-["Gaia DR3 6560604777055249536",315.90726,-32.914074,1.7732803,null]
-]
-}"#;
-        println!("Input:\n{}", input);
-        let deserialized: GaiaResponse = serde_json::from_str(&input).unwrap();
-        let serialized = serde_json::to_string(&deserialized).unwrap();
-        println!("After roundtrip:\n{}", serialized);
-        let input = input
-            .replace("\n", "")
-            .replace(": ", ":")
-            .replace(", ", ",");
-        assert_eq!(input, serialized);
-    }
-
-    #[test]
     fn all_bright_gaia_stars_are_already_known() {
         // Gaia finds R Doradus to be much brighter than all other literature.
         const PROBLEMATIC_STAR: &str = "Gaia DR3 4677205714465503104";
@@ -242,7 +186,7 @@ mod tests {
         }
 
         let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(2.5)).unwrap();
-        let gaia_stars = gaia_response.to_star_appearances().unwrap();
+        let gaia_stars = to_star_appearances(gaia_response).unwrap();
 
         println!("known_stars.len(): {}", known_stars.len());
         assert!(known_stars.len() > 30);
@@ -330,7 +274,7 @@ mod tests {
             LOWER_BRIGHTNESS_THRESHOLD,
         ))
         .unwrap();
-        let gaia_stars = gaia_response.to_star_appearances().unwrap();
+        let gaia_stars = to_star_appearances(gaia_response).unwrap();
 
         assert!(
             known_stars.len() > 30,
@@ -374,7 +318,7 @@ mod tests {
         }
 
         let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(3.5)).unwrap();
-        let gaia_stars = gaia_response.to_star_appearances().unwrap();
+        let gaia_stars = to_star_appearances(gaia_response).unwrap();
         let mut star_pairs = vec![];
         for gaia_star in gaia_stars.iter() {
             for known_star in known_stars.iter() {
