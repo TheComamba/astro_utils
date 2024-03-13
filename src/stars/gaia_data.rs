@@ -16,6 +16,7 @@ use crate::{
 use gaia_access::{
     column::GaiaColumn,
     condition::GaiaCondition,
+    data::gaiadr3::gaia_source::Col,
     query::GaiaQueryBuilder,
     result::{get_float, get_string, GaiaCellData, GaiaResult},
     schema::GaiaSchema,
@@ -62,7 +63,7 @@ fn get_illuminance(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Illuminanc
     Some(apparent_magnitude_to_illuminance(mag))
 }
 
-fn to_star_data(result: GaiaResult) -> Result<Vec<StarData>, AstroUtilError> {
+fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, AstroUtilError> {
     let stars = result
         .data
         .par_iter()
@@ -85,7 +86,7 @@ fn to_star_data(result: GaiaResult) -> Result<Vec<StarData>, AstroUtilError> {
     stars
 }
 
-fn to_star_appearances(result: GaiaResult) -> Result<Vec<StarAppearance>, AstroUtilError> {
+fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, AstroUtilError> {
     let stars = result
         .data
         .par_iter()
@@ -111,7 +112,7 @@ fn to_star_appearances(result: GaiaResult) -> Result<Vec<StarAppearance>, AstroU
     stars
 }
 
-fn query_brightest_stars(threshold: Illuminance<f64>) -> Result<GaiaResult, AstroUtilError> {
+fn query_brightest_stars(threshold: Illuminance<f64>) -> Result<GaiaResult<Col>, AstroUtilError> {
     Ok(
         GaiaQueryBuilder::new(GaiaSchema::gaiadr3, GaiaTable::gaia_source)
             .select(vec![
