@@ -14,13 +14,13 @@ use crate::{
     },
 };
 use gaia_access::{
-    column::GaiaColumn,
     condition::GaiaCondition,
-    data::gaiadr3::gaia_source::Col,
+    data::gaiadr3::{
+        gaia_source::{gaia_source, Col},
+        gaiadr3,
+    },
     query::GaiaQueryBuilder,
     result::{get_float, get_string, GaiaCellData, GaiaResult},
-    schema::GaiaSchema,
-    table::GaiaTable,
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
@@ -39,27 +39,27 @@ struct GaiaMetadataLine {
     utype: Option<String>,
 }
 
-fn get_designation(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<String> {
-    get_string(map.get(&GaiaColumn::designation)?)
+fn get_designation(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
+    get_string(map.get(&Col::designation)?)
 }
 
-fn get_ecl_lon(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Angle<f64>> {
-    let ecl_lon = get_float(map.get(&GaiaColumn::ecl_lon)?)?;
+fn get_ecl_lon(map: &HashMap<Col, GaiaCellData>) -> Option<Angle<f64>> {
+    let ecl_lon = get_float(map.get(&Col::ecl_lon)?)?;
     Some(Angle::from_degrees(ecl_lon))
 }
 
-fn get_ecl_lat(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Angle<f64>> {
-    let ecl_lat = get_float(map.get(&GaiaColumn::ecl_lat)?)?;
+fn get_ecl_lat(map: &HashMap<Col, GaiaCellData>) -> Option<Angle<f64>> {
+    let ecl_lat = get_float(map.get(&Col::ecl_lat)?)?;
     Some(Angle::from_degrees(ecl_lat))
 }
 
-fn get_temperature(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Temperature<f64>> {
-    let temperature = get_float(map.get(&GaiaColumn::teff_gspphot)?)?;
+fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<Temperature<f64>> {
+    let temperature = get_float(map.get(&Col::teff_gspphot)?)?;
     Some(Temperature::from_K(temperature))
 }
 
-fn get_illuminance(map: &HashMap<GaiaColumn, GaiaCellData>) -> Option<Illuminance<f64>> {
-    let mag = get_float(map.get(&GaiaColumn::phot_g_mean_mag)?)?;
+fn get_illuminance(map: &HashMap<Col, GaiaCellData>) -> Option<Illuminance<f64>> {
+    let mag = get_float(map.get(&Col::phot_g_mean_mag)?)?;
     Some(apparent_magnitude_to_illuminance(mag))
 }
 
@@ -113,21 +113,19 @@ fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, A
 }
 
 fn query_brightest_stars(threshold: Illuminance<f64>) -> Result<GaiaResult<Col>, AstroUtilError> {
-    Ok(
-        GaiaQueryBuilder::new(GaiaSchema::gaiadr3, GaiaTable::gaia_source)
-            .select(vec![
-                GaiaColumn::designation,
-                GaiaColumn::ecl_lon,
-                GaiaColumn::ecl_lat,
-                GaiaColumn::phot_g_mean_mag,
-                GaiaColumn::teff_gspphot,
-            ])
-            .where_clause(GaiaCondition::LessThan(
-                GaiaColumn::phot_g_mean_mag,
-                illuminance_to_apparent_magnitude(&threshold),
-            ))
-            .do_query()?,
-    )
+    Ok(GaiaQueryBuilder::new(gaiadr3, gaia_source)
+        .select(vec![
+            Col::designation,
+            Col::ecl_lon,
+            Col::ecl_lat,
+            Col::phot_g_mean_mag,
+            Col::teff_gspphot,
+        ])
+        .where_clause(GaiaCondition::LessThan(
+            Col::phot_g_mean_mag,
+            illuminance_to_apparent_magnitude(&threshold),
+        ))
+        .do_query()?)
 }
 
 pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[StarAppearance]) -> bool {

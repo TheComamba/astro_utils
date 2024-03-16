@@ -24,6 +24,7 @@ impl AstroDisplay for sRGBColor {
 }
 
 impl sRGBColor {
+    #[cfg(test)]
     pub(crate) const WHITE: Self = sRGBColor::from_sRGB(1., 1., 1.);
     const SERIALIZATION_ACCURACY: f64 = 1e-2;
 
