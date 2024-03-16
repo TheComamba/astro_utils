@@ -1,4 +1,3 @@
-use super::{appearance::StarAppearance, data::StarData, evolution::StarDataEvolution};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::{
@@ -6,6 +5,7 @@ use crate::{
         spherical::SphericalCoordinates,
     },
     error::AstroUtilError,
+    stars::{appearance::StarAppearance, data::StarData, evolution::StarDataEvolution},
     units::{
         illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
         luminous_intensity::LUMINOSITY_ZERO,

@@ -4,7 +4,9 @@ use astro_utils::{
     stars::{
         appearance::StarAppearance,
         data::StarData,
-        gaia_data::{fetch_brightest_stars, fetch_brightest_stars_data, star_is_already_known},
+        gaia::gaia_source::{
+            fetch_brightest_stars, fetch_brightest_stars_data, star_is_already_known,
+        },
         random::random_stars::generate_random_stars,
     },
     units::{

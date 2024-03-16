@@ -11,7 +11,7 @@ crate-type   = ["rlib"]
 directories = { version = "5.0", default-features = false } # Standard locations on file system
 flate2 = { version = "1.0", default-features = false, features = ["zlib-ng-compat"] } # Decompression
 fraction = { version = "0.15.0", default-features = false }
-gaia_access = { git = "https://github.com/TheComamba/GaiaAccess.git", branch="main", features = ["gaiadr3_gaia_source"] }
+gaia_access = { git = "https://github.com/TheComamba/GaiaAccess.git", branch="main", features = ["gaiadr3_gaia_source", "gaiadr3_gaia_universe_model"] }
 lazy_static = { version = "1.4", default-features = false }
 rand = { version = "0.8.0", default-features = false, features = ["std", "std_rng"] } # Random number generation
 rand_distr = { version = "0.4.0", default-features = false, features = ["alloc"] } # WeightedAliasIndex
