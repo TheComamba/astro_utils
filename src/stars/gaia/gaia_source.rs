@@ -1,17 +1,9 @@
 use crate::{
     color::srgb::sRGBColor,
-    coordinates::{
-        cartesian::CartesianCoordinates, ecliptic::EclipticCoordinates,
-        spherical::SphericalCoordinates,
-    },
+    coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates},
     error::AstroUtilError,
-    stars::{appearance::StarAppearance, data::StarData, evolution::StarDataEvolution},
-    units::{
-        illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude},
-        luminous_intensity::LUMINOSITY_ZERO,
-        temperature::TEMPERATURE_ZERO,
-        time::TIME_ZERO,
-    },
+    stars::appearance::StarAppearance,
+    units::{illuminance::apparent_magnitude_to_illuminance, time::TIME_ZERO},
 };
 use gaia_access::{
     condition::GaiaCondition,
@@ -63,29 +55,6 @@ fn get_illuminance(map: &HashMap<Col, GaiaCellData>) -> Option<Illuminance<f64>>
     Some(apparent_magnitude_to_illuminance(mag))
 }
 
-fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, AstroUtilError> {
-    let stars = result
-        .data
-        .par_iter()
-        .map(|map| {
-            let name = get_designation(map).ok_or(AstroUtilError::DataNotAvailable)?;
-            let temperature = get_temperature(map).unwrap_or(TEMPERATURE_ZERO);
-            let star = StarData {
-                name,
-                mass: None,
-                radius: None,
-                luminous_intensity: LUMINOSITY_ZERO,
-                temperature,
-                pos: CartesianCoordinates::ORIGIN,
-                constellation: None,
-                evolution: StarDataEvolution::NONE,
-            };
-            Ok(star)
-        })
-        .collect::<Result<Vec<StarData>, AstroUtilError>>();
-    stars
-}
-
 fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, AstroUtilError> {
     let stars = result
         .data
@@ -112,7 +81,7 @@ fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, A
     stars
 }
 
-fn query_brightest_stars(threshold: Illuminance<f64>) -> Result<GaiaResult<Col>, AstroUtilError> {
+fn query_brightest_stars(magnitude_threshold: f64) -> Result<GaiaResult<Col>, AstroUtilError> {
     Ok(GaiaQueryBuilder::new(gaiadr3, gaia_source)
         .select(vec![
             Col::designation,
@@ -123,7 +92,7 @@ fn query_brightest_stars(threshold: Illuminance<f64>) -> Result<GaiaResult<Col>,
         ])
         .where_clause(GaiaCondition::LessThan(
             Col::phot_g_mean_mag,
-            illuminance_to_apparent_magnitude(&threshold),
+            magnitude_threshold,
         ))
         .do_query()?)
 }
@@ -135,16 +104,8 @@ pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[StarAppea
 }
 
 pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
-    let brightest = apparent_magnitude_to_illuminance(6.5);
-    let resp = query_brightest_stars(brightest)?;
+    let resp = query_brightest_stars(6.5)?;
     let gaia_stars = to_star_appearances(resp)?;
-    Ok(gaia_stars)
-}
-
-pub fn fetch_brightest_stars_data() -> Result<Vec<StarData>, AstroUtilError> {
-    let brightest = apparent_magnitude_to_illuminance(6.5);
-    let resp = query_brightest_stars(brightest)?;
-    let gaia_stars = to_star_data(resp)?;
     Ok(gaia_stars)
 }
 
@@ -153,7 +114,10 @@ mod tests {
     use crate::{
         astro_display::AstroDisplay,
         real_data::stars::all::get_many_stars,
-        units::{angle::angle_to_arcsecs, illuminance::IRRADIANCE_ZERO},
+        units::{
+            angle::angle_to_arcsecs,
+            illuminance::{illuminance_to_apparent_magnitude, IRRADIANCE_ZERO},
+        },
     };
 
     use super::*;
@@ -184,7 +148,7 @@ mod tests {
             known_stars.push(star_data.to_star_appearance());
         }
 
-        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(2.5)).unwrap();
+        let gaia_response = query_brightest_stars(2.5).unwrap();
         let gaia_stars = to_star_appearances(gaia_response).unwrap();
 
         println!("known_stars.len(): {}", known_stars.len());
@@ -269,10 +233,7 @@ mod tests {
             }
         }
 
-        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(
-            LOWER_BRIGHTNESS_THRESHOLD,
-        ))
-        .unwrap();
+        let gaia_response = query_brightest_stars(LOWER_BRIGHTNESS_THRESHOLD).unwrap();
         let gaia_stars = to_star_appearances(gaia_response).unwrap();
 
         assert!(
@@ -316,7 +277,7 @@ mod tests {
             known_stars.push(star_data.to_star_appearance());
         }
 
-        let gaia_response = query_brightest_stars(apparent_magnitude_to_illuminance(3.5)).unwrap();
+        let gaia_response = query_brightest_stars(3.5).unwrap();
         let gaia_stars = to_star_appearances(gaia_response).unwrap();
         let mut star_pairs = vec![];
         for gaia_star in gaia_stars.iter() {

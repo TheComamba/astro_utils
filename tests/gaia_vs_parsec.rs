@@ -4,8 +4,9 @@ use astro_utils::{
     stars::{
         appearance::StarAppearance,
         data::StarData,
-        gaia::gaia_source::{
-            fetch_brightest_stars, fetch_brightest_stars_data, star_is_already_known,
+        gaia::{
+            gaia_source::{fetch_brightest_stars, star_is_already_known},
+            gaia_universe_simulation::fetch_brightest_stars_simulated_data,
         },
         random::random_stars::generate_random_stars,
     },
@@ -35,7 +36,7 @@ fn parsec_generates_data_similar_to_gaia() {
         .iter()
         .map(|s| s.to_star_appearance(TIME_ZERO))
         .collect::<Vec<_>>();
-    let mut gaia_data = fetch_brightest_stars_data().unwrap();
+    let mut gaia_simulated_data = fetch_brightest_stars_simulated_data().unwrap();
     let gaia_stars = fetch_brightest_stars().unwrap();
     let manual_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
     let manual_stars: Vec<StarAppearance> = manual_data
@@ -43,7 +44,7 @@ fn parsec_generates_data_similar_to_gaia() {
         .map(|s| s.to_star_appearance(TIME_ZERO))
         .collect();
     let mut expected_data = manual_data.clone();
-    expected_data.append(&mut gaia_data); //The few duplicates are ok for average temperature
+    expected_data.append(&mut gaia_simulated_data); //The few duplicates are ok for average temperature
     let mut expected_stars = manual_stars.clone();
     gaia_stars.into_iter().for_each(|s| {
         if !star_is_already_known(&s, &manual_stars) {
