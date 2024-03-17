@@ -60,12 +60,16 @@ fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, A
         .data
         .par_iter()
         .map(|map| {
-            let name = get_designation(map).ok_or(AstroUtilError::DataNotAvailable)?;
-            let illuminance = get_illuminance(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let name =
+                get_designation(map).ok_or(AstroUtilError::DataNotAvailable("name".to_string()))?;
+            let illuminance = get_illuminance(map)
+                .ok_or(AstroUtilError::DataNotAvailable("illuminance".to_string()))?;
             let temperature = get_temperature(map).unwrap_or(Temperature::from_K(4000.));
             let color = sRGBColor::from_temperature(temperature);
-            let lon = get_ecl_lon(map).ok_or(AstroUtilError::DataNotAvailable)?;
-            let lat = get_ecl_lat(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let lon =
+                get_ecl_lon(map).ok_or(AstroUtilError::DataNotAvailable("lon".to_string()))?;
+            let lat =
+                get_ecl_lat(map).ok_or(AstroUtilError::DataNotAvailable("lat".to_string()))?;
             let pos = EclipticCoordinates::new(SphericalCoordinates::new(lon, lat));
 
             let star = StarAppearance {

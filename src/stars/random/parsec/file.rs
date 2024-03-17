@@ -28,7 +28,7 @@ impl ParsecData {
             if parsec_data.is_filled() {
                 Ok(parsec_data)
             } else {
-                Err(AstroUtilError::DataNotAvailable)
+                Err(AstroUtilError::DataNotAvailable("Parsec Data".to_string()))
             }
         } else {
             Self::ensure_data_files()?;
@@ -52,7 +52,7 @@ impl ParsecData {
             if parsec_data.is_filled() {
                 Ok(parsec_data)
             } else {
-                Err(AstroUtilError::DataNotAvailable)
+                Err(AstroUtilError::DataNotAvailable("Parsec Data".to_string()))
             }
         }
     }
@@ -99,7 +99,8 @@ impl ParsecData {
         for line in reader.lines() {
             ParsecLine::read(line, &mut mass_position, &mut lines)?;
         }
-        let mass_index = mass_position.ok_or(AstroUtilError::DataNotAvailable)?;
+        let mass_index =
+            mass_position.ok_or(AstroUtilError::DataNotAvailable("Mass Index".to_string()))?;
         let trajectory = Trajectory::new(lines);
         parsec_data.data[mass_index] = trajectory;
         Ok(())

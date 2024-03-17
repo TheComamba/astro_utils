@@ -76,14 +76,17 @@ fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, AstroUtilError
         .data
         .par_iter()
         .map(|map| {
-            let name = get_id(map).ok_or(AstroUtilError::DataNotAvailable)?;
-            let temperature = get_temperature(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let name = get_id(map).ok_or(AstroUtilError::DataNotAvailable("name".to_string()))?;
+            let temperature = get_temperature(map)
+                .ok_or(AstroUtilError::DataNotAvailable("temperature".to_string()))?;
             let mass = get_mass(map);
             let radius = get_radius(map);
-            let luminous_intensity =
-                get_luminous_intensity(map).ok_or(AstroUtilError::DataNotAvailable)?;
-            let pos = get_pos(map).ok_or(AstroUtilError::DataNotAvailable)?;
-            let evolution = get_evolution(map).ok_or(AstroUtilError::DataNotAvailable)?;
+            let luminous_intensity = get_luminous_intensity(map).ok_or(
+                AstroUtilError::DataNotAvailable("luminous_intensity".to_string()),
+            )?;
+            let pos = get_pos(map).ok_or(AstroUtilError::DataNotAvailable("pos".to_string()))?;
+            let evolution = get_evolution(map)
+                .ok_or(AstroUtilError::DataNotAvailable("evolution".to_string()))?;
             let star = StarData {
                 name,
                 mass,
@@ -145,8 +148,16 @@ mod tests {
         let resp = query_nearest_simulated_stars(max_distance, min_brightness).unwrap();
         let stars = to_star_data(resp).unwrap();
         for star in stars {
-            assert!(star.mass.is_some(), "Star {} does not have a mass", star.name);
-            assert!(star.radius.is_some(), "Star {} does not have a radius", star.name);
+            assert!(
+                star.mass.is_some(),
+                "Star {} does not have a mass",
+                star.name
+            );
+            assert!(
+                star.radius.is_some(),
+                "Star {} does not have a radius",
+                star.name
+            );
         }
     }
 }

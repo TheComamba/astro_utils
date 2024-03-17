@@ -3,7 +3,7 @@ use std::fmt;
 #[derive(Debug)]
 pub enum AstroUtilError {
     Connection(reqwest::Error),
-    DataNotAvailable,
+    DataNotAvailable(String),
     GaiaAccess(gaia_access::error::GaiaError),
     Io(std::io::Error),
     Json(serde_json::Error),
@@ -17,7 +17,7 @@ impl fmt::Display for AstroUtilError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             AstroUtilError::Connection(err) => write!(f, "Connection error: {}", err),
-            AstroUtilError::DataNotAvailable => write!(f, "Data not available"),
+            AstroUtilError::DataNotAvailable(data) => write!(f, "Data {} not available", data),
             AstroUtilError::GaiaAccess(err) => write!(f, "Gaia access error: {:?}", err),
             AstroUtilError::Io(err) => write!(f, "I/O error: {}", err),
             AstroUtilError::Json(err) => write!(f, "JSON error: {}", err),
