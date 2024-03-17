@@ -71,7 +71,7 @@ fn get_evolution(map: &HashMap<Col, GaiaCellData>) -> Option<StarDataEvolution> 
     Some(StarDataEvolution::from_age_and_mass(age, mass))
 }
 
-fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, AstroUtilError> {
+pub(crate) fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, AstroUtilError> {
     let stars = result
         .data
         .par_iter()
@@ -102,7 +102,7 @@ fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, AstroUtilError
     stars
 }
 
-fn query_nearest_simulated_stars(
+pub(crate) fn query_nearest_simulated_stars(
     distance_threshold: Distance<f64>,
     magnitude_threshold: Option<f64>,
 ) -> Result<GaiaResult<Col>, AstroUtilError> {
@@ -121,7 +121,8 @@ fn query_nearest_simulated_stars(
         .where_clause(GaiaCondition::LessThan(
             Col::barycentric_distance,
             distance_threshold.to_parsec(),
-        ));
+        ))
+        .where_clause(GaiaCondition::GreaterThan(Col::mass, 0.08));
     if let Some(mag) = magnitude_threshold {
         query = query.where_clause(GaiaCondition::LessThan(Col::mag_g, mag));
     }
