@@ -23,7 +23,8 @@ use crate::{
 };
 
 fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
-    get_string(map.get(&Col::source_id)?)
+    let id = get_float(map.get(&Col::source_id)?)?;
+    Some(id.to_string())
 }
 
 fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<Temperature<f64>> {
@@ -131,4 +132,21 @@ pub fn fetch_brightest_stars_simulated_data() -> Result<Vec<StarData>, AstroUtil
     let resp = query_nearest_simulated_stars(max_distance, min_brightness)?;
     let gaia_stars = to_star_data(resp)?;
     Ok(gaia_stars)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_star_has_mass_and_radius() {
+        let max_distance = Distance::from_lyr(100_000.);
+        let min_brightness = Some(4.);
+        let resp = query_nearest_simulated_stars(max_distance, min_brightness).unwrap();
+        let stars = to_star_data(resp).unwrap();
+        for star in stars {
+            assert!(star.mass.is_some(), "Star {} does not have a mass", star.name);
+            assert!(star.radius.is_some(), "Star {} does not have a radius", star.name);
+        }
+    }
 }
