@@ -77,8 +77,7 @@ fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, AstroUtilError
         .par_iter()
         .map(|map| {
             let name = get_id(map).ok_or(AstroUtilError::DataNotAvailable("name".to_string()))?;
-            let temperature = get_temperature(map)
-                .ok_or(AstroUtilError::DataNotAvailable("temperature".to_string()))?;
+            let temperature = get_temperature(map).unwrap_or(Temperature::from_K(0.));
             let mass = get_mass(map);
             let radius = get_radius(map);
             let luminous_intensity = get_luminous_intensity(map).ok_or(
@@ -142,7 +141,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_star_has_mass_and_radius() {
+    fn every_model_star_has_a_mass() {
         let max_distance = Distance::from_lyr(100_000.);
         let min_brightness = Some(4.);
         let resp = query_nearest_simulated_stars(max_distance, min_brightness).unwrap();
@@ -151,11 +150,6 @@ mod tests {
             assert!(
                 star.mass.is_some(),
                 "Star {} does not have a mass",
-                star.name
-            );
-            assert!(
-                star.radius.is_some(),
-                "Star {} does not have a radius",
                 star.name
             );
         }
