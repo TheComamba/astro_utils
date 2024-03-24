@@ -127,7 +127,6 @@ mod tests {
     #[test]
     fn kroupa_integral_and_sampling_agree() {
         let num_stars = 100_000;
-        let uncertainty = 10. / (num_stars as f64).sqrt();
         let distribution = get_mass_distribution();
         let masses = (0..num_stars)
             .map(|_| ParsecData::SORTED_MASSES[distribution.sample(&mut rand::thread_rng())]);
@@ -140,6 +139,7 @@ mod tests {
         }
         for threshold in thresholds {
             let count = masses.clone().filter(|&m| m >= threshold).count();
+            let uncertainty = 10. / (count as f64).sqrt();
             let fraction = count as f64 / num_stars as f64;
             let integral = integrate_kroupa(threshold as f64, 1000.);
             let lower = integral - uncertainty;

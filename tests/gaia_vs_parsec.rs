@@ -1,10 +1,8 @@
 use astro_utils::{
     astro_display::AstroDisplay,
-    real_data::stars::all::get_many_stars,
     stars::{
-        appearance::StarAppearance,
-        data::StarData,
-        gaia_data::{fetch_brightest_stars, fetch_brightest_stars_data, star_is_already_known},
+        appearance::StarAppearance, data::StarData,
+        gaia::gaia_universe_simulation::fetch_brightest_stars_simulated_data,
         random::random_stars::generate_random_stars,
     },
     units::{
@@ -17,7 +15,7 @@ use simple_si_units::base::{Distance, Temperature};
 #[test]
 #[ignore]
 fn parsec_generates_data_similar_to_gaia() {
-    let max_distance: Distance<f64> = Distance::from_lyr(25_000.);
+    let max_distance: Distance<f64> = Distance::from_lyr(15_000.);
 
     let randoms_stars = generate_random_stars(max_distance).unwrap();
     println!(
@@ -33,88 +31,91 @@ fn parsec_generates_data_similar_to_gaia() {
         .iter()
         .map(|s| s.to_star_appearance(TIME_ZERO))
         .collect::<Vec<_>>();
-    let mut gaia_data = fetch_brightest_stars_data().unwrap();
-    let gaia_stars = fetch_brightest_stars().unwrap();
-    let manual_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
-    let manual_stars: Vec<StarAppearance> = manual_data
-        .iter()
-        .map(|s| s.to_star_appearance(TIME_ZERO))
-        .collect();
-    let mut expected_data = manual_data.clone();
-    expected_data.append(&mut gaia_data); //The few duplicates are ok for average temperature
-    let mut expected_stars = manual_stars.clone();
-    gaia_stars.into_iter().for_each(|s| {
-        if !star_is_already_known(&s, &manual_stars) {
-            expected_stars.push(s);
-        }
-    });
-    let expected_data_with_temperature = expected_data
-        .clone()
+    let gaia_simulated_data = fetch_brightest_stars_simulated_data()
+        .unwrap()
         .into_iter()
         .filter(|s| s.get_temperature_at_epoch() > TEMPERATURE_ZERO)
         .collect::<Vec<_>>();
-    println!(
-        "{} GAIA stars have a temperature.",
-        expected_data_with_temperature.len()
-    );
+    let gaia_stars = gaia_simulated_data
+        .iter()
+        .map(|s| s.to_star_appearance(TIME_ZERO))
+        .collect::<Vec<_>>();
 
-    let total_num_is_similar = total_number_is_similar(&parsec_stars, &expected_stars);
-    let parsec_to_gaia_ratio = parsec_stars.len() as f64 / expected_stars.len() as f64;
+    let total_num_is_similar = total_number_is_similar(&parsec_stars, &gaia_stars);
+    let parsec_to_gaia_ratio = parsec_stars.len() as f64 / gaia_stars.len() as f64;
     let mag_1_stars_is_similar = number_of_stars_in_apparent_magnitude_range_is_similar(
         &parsec_stars,
-        &expected_stars,
+        &gaia_stars,
         1.,
         parsec_to_gaia_ratio,
     );
     let mag_2_stars_is_similar = number_of_stars_in_apparent_magnitude_range_is_similar(
         &parsec_stars,
-        &expected_stars,
+        &gaia_stars,
         2.,
         parsec_to_gaia_ratio,
     );
     let mag_3_stars_is_similar = number_of_stars_in_apparent_magnitude_range_is_similar(
         &parsec_stars,
-        &expected_stars,
+        &gaia_stars,
         3.,
         parsec_to_gaia_ratio,
     );
     let mag_4_stars_is_similar = number_of_stars_in_apparent_magnitude_range_is_similar(
         &parsec_stars,
-        &expected_stars,
+        &gaia_stars,
         4.,
         parsec_to_gaia_ratio,
     );
     let mag_5_stars_is_similar = number_of_stars_in_apparent_magnitude_range_is_similar(
         &parsec_stars,
-        &expected_stars,
+        &gaia_stars,
         5.,
         parsec_to_gaia_ratio,
     );
     let mag_6_stars_is_similar = number_of_stars_in_apparent_magnitude_range_is_similar(
         &parsec_stars,
-        &expected_stars,
+        &gaia_stars,
         6.,
         parsec_to_gaia_ratio,
     );
-    let cold_star_fraction_is_similar = number_of_stars_in_temperature_range_is_similar(
+    let temperatures_in_range_1_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
-        &expected_data_with_temperature,
+        &gaia_simulated_data,
         Temperature::from_K(10.),
-        Temperature::from_K(4_500.),
+        Temperature::from_K(2_000.),
     );
-    let warm_star_fraction_is_similar = number_of_stars_in_temperature_range_is_similar(
+    let temperatures_in_range_2_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
-        &expected_data_with_temperature,
-        Temperature::from_K(4_500.),
-        Temperature::from_K(9_000.),
+        &gaia_simulated_data,
+        Temperature::from_K(2_000.),
+        Temperature::from_K(4_000.),
     );
-    let hot_star_fraction_is_similar = number_of_stars_in_temperature_range_is_similar(
+    let temperatures_in_range_3_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
-        &expected_data_with_temperature,
-        Temperature::from_K(9_000.),
-        Temperature::from_K(10_000.),
+        &gaia_simulated_data,
+        Temperature::from_K(4_000.),
+        Temperature::from_K(8_000.),
     );
-    let temperature_is_similar = mean_temperature_is_similar(&parsec_data, &expected_data);
+    let temperatures_in_range_4_are_similar = number_of_stars_in_temperature_range_is_similar(
+        &parsec_data,
+        &gaia_simulated_data,
+        Temperature::from_K(8_000.),
+        Temperature::from_K(16_000.),
+    );
+    let temperatures_in_range_5_are_similar = number_of_stars_in_temperature_range_is_similar(
+        &parsec_data,
+        &gaia_simulated_data,
+        Temperature::from_K(16_000.),
+        Temperature::from_K(32_000.),
+    );
+    let temperatures_in_range_6_are_similar = number_of_stars_in_temperature_range_is_similar(
+        &parsec_data,
+        &gaia_simulated_data,
+        Temperature::from_K(32_000.),
+        Temperature::from_K(64_000.),
+    );
+    let temperature_is_similar = mean_temperature_is_similar(&parsec_data, &gaia_simulated_data);
     assert!(total_num_is_similar);
     assert!(mag_1_stars_is_similar);
     assert!(mag_2_stars_is_similar);
@@ -122,9 +123,12 @@ fn parsec_generates_data_similar_to_gaia() {
     assert!(mag_4_stars_is_similar);
     assert!(mag_5_stars_is_similar);
     assert!(mag_6_stars_is_similar);
-    // assert!(cold_star_fraction_is_similar);
-    // assert!(warm_star_fraction_is_similar);
-    // assert!(hot_star_fraction_is_similar);
+    assert!(temperatures_in_range_1_are_similar);
+    assert!(temperatures_in_range_2_are_similar);
+    assert!(temperatures_in_range_3_are_similar);
+    assert!(temperatures_in_range_4_are_similar);
+    assert!(temperatures_in_range_5_are_similar);
+    assert!(temperatures_in_range_6_are_similar);
     assert!(temperature_is_similar);
 }
 

@@ -38,6 +38,17 @@ impl StarDataEvolution {
         }
     }
 
+    pub(crate) fn from_age_and_mass(age: Time<f64>, mass: Mass<f64>) -> Self {
+        let lifetime = Time::from_Gyr(10.) * mass.to_solar_mass().powf(-2.5); //TODO: find a better formula
+        let fate = StarFate::new(mass);
+        Self {
+            lifestage_evolution: None,
+            age: Some(age),
+            lifetime,
+            fate,
+        }
+    }
+
     pub(super) fn has_changed(&self, then: Time<f64>, now: Time<f64>) -> bool {
         if let (Some(until_death_then), Some(until_death_now)) =
             (self.time_until_death(then), self.time_until_death(now))
