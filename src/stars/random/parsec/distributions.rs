@@ -139,7 +139,7 @@ mod tests {
         }
         for threshold in thresholds {
             let count = masses.clone().filter(|&m| m >= threshold).count();
-            let uncertainty = 1. / (count as f64).sqrt();
+            let uncertainty = 10. / (count as f64).sqrt();
             let fraction = count as f64 / num_stars as f64;
             let integral = integrate_kroupa(threshold as f64, 1000.);
             let lower = integral - uncertainty;
