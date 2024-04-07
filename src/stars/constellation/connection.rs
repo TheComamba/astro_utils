@@ -204,7 +204,7 @@ mod tests {
         color::srgb::sRGBColor,
         coordinates::spherical::SphericalCoordinates,
         real_data::stars::all::get_many_stars,
-        stars::constellation::constellation::collect_constellations,
+        stars::constellation::collect_constellations,
         units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY, time::TIME_ZERO},
     };
 
