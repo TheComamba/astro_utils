@@ -132,13 +132,14 @@ impl Direction {
     }
 
     pub fn some_orthogonal_vector(&self) -> Direction {
-        if self.x().abs() > NORMALIZATION_THRESHOLD {
-            self.cross_product(&Self::Y).unwrap()
+        let ortho = if self.x().abs() > NORMALIZATION_THRESHOLD {
+            self.cross_product(&Self::Y)
         } else if self.y().abs() > NORMALIZATION_THRESHOLD {
-            self.cross_product(&Self::Z).unwrap()
+            self.cross_product(&Self::Z)
         } else {
-            self.cross_product(&Self::X).unwrap()
-        }
+            self.cross_product(&Self::X)
+        };
+        ortho.unwrap_or(Self::Z)
     }
 
     pub fn cross_product(&self, other: &Direction) -> Result<Direction, AstroUtilError> {

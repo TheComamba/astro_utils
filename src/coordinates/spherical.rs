@@ -57,17 +57,17 @@ impl SphericalCoordinates {
     pub(crate) fn eq_within(&self, other: &Self, accuracy: Angle<f64>) -> bool {
         let northpole_latitude = QUARTER_CIRC;
         let southpole_latitude = -QUARTER_CIRC;
-        let mut clone = self.clone();
-        let mut other_clone = other.clone();
-        clone.normalize();
-        other_clone.normalize();
-        let latitudes_equal = angle_eq_within(clone.latitude, other_clone.latitude, accuracy);
-        let is_pole = angle_eq_within(clone.latitude, northpole_latitude, accuracy)
-            || angle_eq_within(clone.latitude, southpole_latitude, accuracy);
+        let mut copy = *self;
+        let mut other_copy = *other;
+        copy.normalize();
+        other_copy.normalize();
+        let latitudes_equal = angle_eq_within(copy.latitude, other_copy.latitude, accuracy);
+        let is_pole = angle_eq_within(copy.latitude, northpole_latitude, accuracy)
+            || angle_eq_within(copy.latitude, southpole_latitude, accuracy);
         let longitudes_equal = if is_pole {
             true
         } else {
-            angle_eq_within(clone.longitude, other_clone.longitude, accuracy)
+            angle_eq_within(copy.longitude, other_copy.longitude, accuracy)
         };
         latitudes_equal && longitudes_equal
     }
