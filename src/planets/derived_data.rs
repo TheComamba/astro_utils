@@ -167,7 +167,7 @@ fn black_body_temperature(
 fn axis_tilt(data: &PlanetData) -> Angle<f64> {
     data.orbital_parameters
         .normal()
-        .angle_to(&data.rotation_axis)
+        .angle_to(&data.params.rotation_axis)
 }
 
 #[cfg(test)]
@@ -185,7 +185,7 @@ mod tests {
 
     #[test]
     fn surface_gravity_of_earth() {
-        let mass = EARTH.to_planet_data().mass;
+        let mass = EARTH.to_planet_data().params.mass;
         let radius = EARTH.to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
         assert!(eq_within(gravity.to_mps2(), 9.81, ACCURACY));
@@ -193,7 +193,7 @@ mod tests {
 
     #[test]
     fn surface_gravity_of_mercury() {
-        let mass = MERCURY.to_planet_data().mass;
+        let mass = MERCURY.to_planet_data().params.mass;
         let radius = MERCURY.to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
         assert!(eq_within(gravity.to_mps2(), 3.7, ACCURACY));
@@ -201,7 +201,7 @@ mod tests {
 
     #[test]
     fn escape_velocity_of_earth() {
-        let mass = EARTH.to_planet_data().mass;
+        let mass = EARTH.to_planet_data().params.mass;
         let radius = EARTH.to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
         assert!(eq_within(velocity.to_kmps(), 11.2, 10. * ACCURACY));
@@ -209,7 +209,7 @@ mod tests {
 
     #[test]
     fn escape_velocity_of_mercury() {
-        let mass = MERCURY.to_planet_data().mass;
+        let mass = MERCURY.to_planet_data().params.mass;
         let radius = MERCURY.to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
         assert!(eq_within(velocity.to_kmps(), 4.3, 10. * ACCURACY));
