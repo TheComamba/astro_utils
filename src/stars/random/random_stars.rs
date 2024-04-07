@@ -105,7 +105,6 @@ fn generate_random_stars_with_params(
 pub fn generate_random_star(
     max_distance: Option<Distance<f64>>,
 ) -> Result<StarData, AstroUtilError> {
-    let mut rng = rand::thread_rng();
     let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
 
     let parsec_data_mutex = PARSEC_DATA
@@ -114,29 +113,36 @@ pub fn generate_random_star(
     let parsec_data = parsec_data_mutex.as_ref()?;
     let parsec_distr = ParsecDistribution::new();
 
-    let mut star = generate_visible_random_star(
-        parsec_data,
-        &CartesianCoordinates::ORIGIN,
-        max_distance_or_1,
-        AGE_OF_MILKY_WAY_THIN_DISK,
-        &mut rng,
-        &parsec_distr,
-    );
-    while star.is_none() {
-        star = generate_visible_random_star(
-            parsec_data,
-            &CartesianCoordinates::ORIGIN,
-            max_distance_or_1,
-            AGE_OF_MILKY_WAY_THIN_DISK,
-            &mut rng,
-            &parsec_distr,
-        );
-    }
-    let mut star = star.unwrap();
+    let mut star =
+        definetely_generate_visible_random_star(parsec_data, max_distance_or_1, parsec_distr);
     if max_distance.is_none() {
         star.pos = CartesianCoordinates::ORIGIN;
     }
     Ok(star)
+}
+
+fn definetely_generate_visible_random_star(
+    parsec_data: &ParsecData,
+    max_distance_or_1: Distance<f64>,
+    parsec_distr: ParsecDistribution,
+) -> StarData {
+    let mut rng = rand::thread_rng();
+    let mut star = None;
+    loop {
+        match star {
+            None => {
+                star = generate_visible_random_star(
+                    parsec_data,
+                    &CartesianCoordinates::ORIGIN,
+                    max_distance_or_1,
+                    AGE_OF_MILKY_WAY_THIN_DISK,
+                    &mut rng,
+                    &parsec_distr,
+                );
+            }
+            Some(star) => return star,
+        }
+    }
 }
 
 fn generate_visible_random_star(
