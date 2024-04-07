@@ -39,7 +39,10 @@ impl Trajectory {
 
     pub(super) fn new(params: Vec<ParsedParsecLine>) -> Self {
         let initial_mass = Mass::from_solar_mass(params[0].mass_in_solar_masses);
-        let lifetime = Time::from_yr(params.last().unwrap().age_in_years);
+        let lifetime = match params.last() {
+            Some(last) => Time::from_yr(last.age_in_years),
+            None => TIME_ZERO,
+        };
         let peak_lifetime_luminous_intensity =
             get_peak_lifetime_luminous_intensity(&params, initial_mass);
 

@@ -38,7 +38,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
-    let parsec_distr = ParsecDistribution::new();
+    let parsec_distr = ParsecDistribution::new()?;
 
     let number_star_forming_regions = number_in_sphere(NURSERIES_PER_LY_CUBED, max_distance) + 1;
     let age_distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s);
@@ -109,7 +109,7 @@ pub fn generate_random_star(
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
     let parsec_data = parsec_data_mutex.as_ref()?;
-    let parsec_distr = ParsecDistribution::new();
+    let parsec_distr = ParsecDistribution::new()?;
 
     let mut star =
         definetely_generate_visible_random_star(parsec_data, max_distance_or_1, parsec_distr);

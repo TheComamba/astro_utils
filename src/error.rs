@@ -11,6 +11,7 @@ pub enum AstroUtilError {
     NormalizingZeroVector,
     RmpSerialization(rmp_serde::encode::Error),
     RmpDeserialization(rmp_serde::decode::Error),
+    WightedError(rand_distr::WeightedError),
 }
 
 impl fmt::Display for AstroUtilError {
@@ -31,6 +32,7 @@ impl fmt::Display for AstroUtilError {
             AstroUtilError::RmpDeserialization(err) => {
                 write!(f, "MessagePack deserialization error: {}", err)
             }
+            AstroUtilError::WightedError(err) => write!(f, "Weighted error: {}", err),
         }
     }
 }
@@ -68,6 +70,12 @@ impl From<rmp_serde::encode::Error> for AstroUtilError {
 impl From<rmp_serde::decode::Error> for AstroUtilError {
     fn from(err: rmp_serde::decode::Error) -> Self {
         AstroUtilError::RmpDeserialization(err)
+    }
+}
+
+impl From<rand_distr::WeightedError> for AstroUtilError {
+    fn from(err: rand_distr::WeightedError) -> Self {
+        AstroUtilError::WightedError(err)
     }
 }
 
