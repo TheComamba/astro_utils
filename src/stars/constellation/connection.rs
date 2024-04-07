@@ -51,10 +51,12 @@ fn is_reachable_within(
     }
     for connection in connections {
         if connection.connects_to(start) {
-            let connects_to_end = connection.connects_to(end);
-            let end_is_reachable =
-                is_reachable_within(connection.other_end(start), end, max_steps - 1, connections);
-            if connects_to_end || end_is_reachable {
+            if connection.connects_to(end) {
+                return true;
+            }
+            let start = connection.other_end(start);
+            let max_steps = max_steps - 1;
+            if is_reachable_within(start, end, max_steps, connections) {
                 return true;
             }
         }
