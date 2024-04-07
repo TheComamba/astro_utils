@@ -23,7 +23,7 @@ impl ParsecDistribution {
 
 fn get_mass_distribution() -> Result<WeightedAliasIndex<f64>, AstroUtilError> {
     let weights = kroupa_weights();
-    WeightedAliasIndex::new(weights).map_err(|err| AstroUtilError::from(err))
+    WeightedAliasIndex::new(weights).map_err(AstroUtilError::from)
 }
 
 fn kroupa_weights() -> Vec<f64> {
