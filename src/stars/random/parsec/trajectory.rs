@@ -121,13 +121,10 @@ impl Trajectory {
         };
         let other_star = self.to_star_without_evolution(other_age_index, pos);
 
-        let year_difference =
-            star.evolution.age.unwrap().to_yr() - other_star.evolution.age.unwrap().to_yr();
-        let lifestage_evolution =
-            StarDataLifestageEvolution::new(&star, &other_star, year_difference);
+        let lifestage_evolution = get_lifestage_evolution(&star, other_star);
         let fate = StarFate::new(self.initial_mass);
         star.evolution =
-            StarDataEvolution::new(Some(lifestage_evolution), Some(age), self.lifetime, fate);
+            StarDataEvolution::new(lifestage_evolution, Some(age), self.lifetime, fate);
         star
     }
 
@@ -152,15 +149,24 @@ impl Trajectory {
     }
 }
 
+fn get_lifestage_evolution(
+    star: &StarData,
+    other_star: StarData,
+) -> Option<StarDataLifestageEvolution> {
+    let year_difference = star.evolution.age?.to_yr() - other_star.evolution.age?.to_yr();
+    let lifestage_evolution = StarDataLifestageEvolution::new(star, &other_star, year_difference);
+    Some(lifestage_evolution)
+}
+
 fn get_peak_lifetime_luminous_intensity(
-    params: &Vec<ParsedParsecLine>,
+    params: &[ParsedParsecLine],
     initial_mass: Mass<f64>,
 ) -> Luminosity<f64> {
     let peak_lifetime_luminous_intensity = params
         .iter()
         .map(|p| p.luminous_intensity_in_solar)
         .max_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal))
-        .unwrap();
+        .unwrap_or_default();
     if initial_mass < Mass::from_solar_mass(8.) {
         peak_lifetime_luminous_intensity * SOLAR_LUMINOUS_INTENSITY
     } else {

@@ -82,7 +82,7 @@ fn generate_random_stars_with_params(
 ) -> Vec<StarData> {
     let age_distribution = Uniform::new(0., NURSERY_LIFETIME.s);
     (0..=params.number)
-        .map(|_| {
+        .filter_map(|_| {
             let mut rng = rand::thread_rng();
             let age = params.max_age
                 - Time {
@@ -97,7 +97,6 @@ fn generate_random_stars_with_params(
                 parsec_distr,
             )
         })
-        .flatten()
         .collect::<Vec<StarData>>()
 }
 
