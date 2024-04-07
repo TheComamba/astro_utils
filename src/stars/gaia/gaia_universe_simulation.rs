@@ -18,7 +18,9 @@ use simple_si_units::{
 use crate::{
     coordinates::{cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates},
     error::AstroUtilError,
-    stars::{data::StarData, evolution::StarDataEvolution},
+    stars::{
+        data::StarData, evolution::StarDataEvolution, physical_parameters::StarPhysicalParameters,
+    },
     units::{distance::SOLAR_RADIUS, luminous_intensity::absolute_magnitude_to_luminous_intensity},
 };
 
@@ -77,21 +79,22 @@ pub(crate) fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, Ast
         .par_iter()
         .map(|map| {
             let name = get_id(map).ok_or(AstroUtilError::DataNotAvailable("name".to_string()))?;
+
             let temperature = get_temperature(map).unwrap_or(Temperature::from_K(0.));
             let mass = get_mass(map);
             let radius = get_radius(map);
             let luminous_intensity = get_luminous_intensity(map).ok_or(
                 AstroUtilError::DataNotAvailable("luminous_intensity".to_string()),
             )?;
+            let physical_parameters =
+                StarPhysicalParameters::new(mass, radius, luminous_intensity, temperature);
+
             let pos = get_pos(map).ok_or(AstroUtilError::DataNotAvailable("pos".to_string()))?;
             let evolution = get_evolution(map)
                 .ok_or(AstroUtilError::DataNotAvailable("evolution".to_string()))?;
             let star = StarData {
                 name,
-                mass,
-                radius,
-                luminous_intensity,
-                temperature,
+                params: physical_parameters,
                 pos,
                 constellation: None,
                 evolution,
@@ -149,7 +152,7 @@ mod tests {
         let stars = to_star_data(resp).unwrap();
         for star in stars {
             assert!(
-                star.mass.is_some(),
+                star.params.mass.is_some(),
                 "Star {} does not have a mass",
                 star.name
             );

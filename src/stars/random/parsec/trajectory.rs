@@ -7,6 +7,7 @@ use crate::{
         data::StarData,
         evolution::{StarDataEvolution, StarDataLifestageEvolution},
         fate::{StarFate, TYPE_II_SUPERNOVA_PEAK_MAGNITUDE},
+        physical_parameters::StarPhysicalParameters,
         random::random_stars::DIMMEST_ILLUMINANCE,
     },
     units::{
@@ -137,14 +138,17 @@ impl Trajectory {
         let luminous_intensity = params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
         let temperature = Temperature::from_K(params.temperature_in_kelvin);
         let radius = params.radius_in_solar_radii * SOLAR_RADIUS;
+        let physical_parameters = StarPhysicalParameters {
+            mass: Some(mass),
+            luminous_intensity,
+            temperature,
+            radius: Some(radius),
+        };
         let mut evolution = StarDataEvolution::NONE;
         evolution.age = Some(Time::from_yr(params.age_in_years));
         StarData {
             name: "".to_string(),
-            mass: Some(mass),
-            luminous_intensity,
-            temperature: temperature,
-            radius: Some(radius),
+            params: physical_parameters,
             pos,
             constellation: None,
             evolution: evolution,

@@ -263,7 +263,7 @@ mod tests {
         let max_distance = Distance::from_lyr(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
-            if star.mass.unwrap() < Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() < Mass::from_solar_mass(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::WhiteDwarf);
             }
         }
@@ -274,7 +274,7 @@ mod tests {
         let max_distance = Distance::from_lyr(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
-            if star.mass.unwrap() > Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() > Mass::from_solar_mass(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::TypeIISupernova);
             }
         }

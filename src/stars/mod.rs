@@ -4,5 +4,6 @@ pub mod data;
 pub mod evolution;
 pub mod fate;
 pub mod gaia;
+pub mod physical_parameters;
 pub mod random;
 pub mod real_data;

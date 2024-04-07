@@ -1,4 +1,7 @@
-use super::{appearance::StarAppearance, evolution::StarDataEvolution, fate::StarFate};
+use super::{
+    appearance::StarAppearance, evolution::StarDataEvolution, fate::StarFate,
+    physical_parameters::StarPhysicalParameters,
+};
 use crate::{
     color::srgb::sRGBColor, coordinates::cartesian::CartesianCoordinates,
     units::luminous_intensity::luminous_intensity_to_illuminance,
@@ -10,10 +13,7 @@ use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 pub struct StarData {
     pub(super) name: String,
     pub(super) constellation: Option<String>,
-    pub(super) mass: Option<Mass<f64>>,
-    pub(super) radius: Option<Distance<f64>>,
-    pub(super) luminous_intensity: Luminosity<f64>,
-    pub(super) temperature: Temperature<f64>,
+    pub(super) params: StarPhysicalParameters,
     pub(super) pos: CartesianCoordinates,
     pub(super) evolution: StarDataEvolution,
 }
@@ -22,19 +22,13 @@ impl StarData {
     pub fn new(
         name: String,
         constellation: Option<String>,
-        mass: Option<Mass<f64>>,
-        radius: Option<Distance<f64>>,
-        luminous_intensity: Luminosity<f64>,
-        temperature: Temperature<f64>,
+        params: StarPhysicalParameters,
         pos: CartesianCoordinates,
         evolution: StarDataEvolution,
     ) -> Self {
         Self {
             name,
-            mass,
-            radius,
-            luminous_intensity,
-            temperature,
+            params,
             pos,
             constellation,
             evolution,
@@ -50,36 +44,37 @@ impl StarData {
     }
 
     pub const fn get_mass_at_epoch(&self) -> Option<Mass<f64>> {
-        self.mass
+        self.params.mass
     }
 
     pub fn get_mass(&self, time: Time<f64>) -> Option<Mass<f64>> {
-        Some(self.evolution.apply_to_mass(self.mass?, time))
+        Some(self.evolution.apply_to_mass(self.params.mass?, time))
     }
 
     pub const fn get_radius_at_epoch(&self) -> Option<Distance<f64>> {
-        self.radius
+        self.params.radius
     }
 
     pub fn get_radius(&self, time: Time<f64>) -> Option<Distance<f64>> {
-        Some(self.evolution.apply_to_radius(self.radius?, time))
+        Some(self.evolution.apply_to_radius(self.params.radius?, time))
     }
 
     pub const fn get_luminous_intensity_at_epoch(&self) -> Luminosity<f64> {
-        self.luminous_intensity
+        self.params.luminous_intensity
     }
 
     pub fn get_luminous_intensity(&self, time: Time<f64>) -> Luminosity<f64> {
         self.evolution
-            .apply_to_luminous_intensity(self.luminous_intensity, time)
+            .apply_to_luminous_intensity(self.params.luminous_intensity, time)
     }
 
     pub const fn get_temperature_at_epoch(&self) -> Temperature<f64> {
-        self.temperature
+        self.params.temperature
     }
 
     pub fn get_temperature(&self, time: Time<f64>) -> Temperature<f64> {
-        self.evolution.apply_to_temperature(self.temperature, time)
+        self.evolution
+            .apply_to_temperature(self.params.temperature, time)
     }
 
     pub const fn get_age_at_epoch(&self) -> Option<Time<f64>> {
@@ -127,19 +122,19 @@ impl StarData {
     }
 
     pub fn set_mass_at_epoch(&mut self, mass: Option<Mass<f64>>) {
-        self.mass = mass;
+        self.params.mass = mass;
     }
 
     pub fn set_radius_at_epoch(&mut self, radius: Option<Distance<f64>>) {
-        self.radius = radius;
+        self.params.radius = radius;
     }
 
     pub fn set_luminous_intensity_at_epoch(&mut self, luminous_intensity: Luminosity<f64>) {
-        self.luminous_intensity = luminous_intensity;
+        self.params.luminous_intensity = luminous_intensity;
     }
 
     pub fn set_temperature_at_epoch(&mut self, temperature: Temperature<f64>) {
-        self.temperature = temperature;
+        self.params.temperature = temperature;
     }
 
     pub fn set_age_at_epoch(&mut self, age: Option<Time<f64>>) {
@@ -190,19 +185,19 @@ impl StarData {
     pub(crate) fn similar_within_order_of_magnitude(&self, other: &Self) -> bool {
         use crate::units::luminous_intensity::luminous_intensity_to_absolute_magnitude;
 
-        let mass_ratio = match (self.mass, other.mass) {
+        let mass_ratio = match (self.params.mass, other.params.mass) {
             (Some(self_mass), Some(other_mass)) => self_mass / other_mass,
             _ => 1.0,
         };
-        let radius_ratio = match (self.radius, other.radius) {
+        let radius_ratio = match (self.params.radius, other.params.radius) {
             (Some(self_radius), Some(other_radius)) => self_radius / other_radius,
             _ => 1.0,
         };
         let luminous_intensity_difference =
-            (luminous_intensity_to_absolute_magnitude(self.luminous_intensity)
-                - luminous_intensity_to_absolute_magnitude(other.luminous_intensity))
+            (luminous_intensity_to_absolute_magnitude(self.params.luminous_intensity)
+                - luminous_intensity_to_absolute_magnitude(other.params.luminous_intensity))
             .abs();
-        let temperature_ratio = self.temperature / other.temperature;
+        let temperature_ratio = self.params.temperature / other.params.temperature;
         let age_ratio = match (self.evolution.age, other.evolution.age) {
             (Some(self_age), Some(other_age)) => self_age / other_age,
             _ => 1.0,
@@ -211,8 +206,8 @@ impl StarData {
         if mass_ratio < 0.1 || mass_ratio > 10.0 {
             println!(
                 "mass1: {}, mass2: {}, ratio: {}",
-                self.mass.unwrap(),
-                other.mass.unwrap(),
+                self.params.mass.unwrap(),
+                other.params.mass.unwrap(),
                 mass_ratio
             );
             result = false;
@@ -220,8 +215,8 @@ impl StarData {
         if radius_ratio < 0.1 || radius_ratio > 10.0 {
             println!(
                 "radius1: {}, radius2: {}, ratio: {}",
-                self.radius.unwrap(),
-                other.radius.unwrap(),
+                self.params.radius.unwrap(),
+                other.params.radius.unwrap(),
                 radius_ratio
             );
             result = false;
@@ -229,14 +224,16 @@ impl StarData {
         if luminous_intensity_difference > 1.0 {
             println!(
                 "luminous_intensity1: {}, luminous_intensity2: {}, difference: {}",
-                self.luminous_intensity, other.luminous_intensity, luminous_intensity_difference
+                self.params.luminous_intensity,
+                other.params.luminous_intensity,
+                luminous_intensity_difference
             );
             result = false;
         }
         if temperature_ratio < 0.1 || temperature_ratio > 10.0 {
             println!(
                 "temperature1: {}, temperature2: {}, ratio: {}",
-                self.temperature, other.temperature, temperature_ratio
+                self.params.temperature, other.params.temperature, temperature_ratio
             );
             result = false;
         }
@@ -280,7 +277,7 @@ mod tests {
     fn stars_below_8_sun_masses_become_white_dwarfs() {
         let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
         for star in star_data {
-            if star.mass.unwrap() < Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() < Mass::from_solar_mass(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::WhiteDwarf);
             }
         }
@@ -290,7 +287,7 @@ mod tests {
     fn stars_above_8_sun_masses_go_supernova() {
         let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
         for star in star_data {
-            if star.mass.unwrap() > Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() > Mass::from_solar_mass(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::TypeIISupernova);
             }
         }
