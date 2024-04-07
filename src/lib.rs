@@ -1,3 +1,5 @@
+#![warn(clippy::unwrap_used)]
+
 pub mod astro_display;
 pub mod color;
 pub mod coordinates;
