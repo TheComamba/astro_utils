@@ -176,11 +176,15 @@ fn random_point_in_sphere(
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
     let mut point = random_point_in_unit_sphere(rng);
     let mut dir = point.to_direction();
-    while dir.is_err() {
-        point = random_point_in_unit_sphere(rng);
-        dir = point.to_direction();
+    loop {
+        match dir {
+            Err(_) => {
+                point = random_point_in_unit_sphere(rng);
+                dir = point.to_direction();
+            }
+            Ok(dir) => return dir,
+        }
     }
-    dir.unwrap()
 }
 
 #[cfg(test)]
