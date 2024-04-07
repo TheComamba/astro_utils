@@ -154,7 +154,7 @@ impl PlanetData {
         Ok(StarAppearance {
             name: self.name.clone(),
             illuminance: brightness,
-            color: self.color.clone(),
+            color: self.color,
             pos,
             time_since_epoch,
         })

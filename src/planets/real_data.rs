@@ -27,7 +27,7 @@ impl RealData {
             orbital_parameters: self.orbit.clone(),
             radius: self.radius,
             geometric_albedo: self.geometric_albedo,
-            color: self.color.clone(),
+            color: self.color,
             sideral_rotation_period: self.siderial_rotation_period,
             rotation_axis: self.rotation_axis.to_direction(),
         }
