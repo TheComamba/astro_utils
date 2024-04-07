@@ -1,6 +1,9 @@
 use std::f64::consts::PI;
 
-use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
+use super::{
+    orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters,
+    planet_data::PlanetData,
+};
 use crate::{
     color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
 };
@@ -64,10 +67,14 @@ pub fn generate_random_planet() -> PlanetData {
 
     PlanetData {
         name,
-        mass,
-        radius,
-        geometric_albedo,
-        color,
+        params: PlanetPhysicalParameters::new(
+            mass,
+            radius,
+            geometric_albedo,
+            color,
+            rotation_period,
+            rotation_axis,
+        ),
         orbital_parameters: OrbitParameters::new(
             semi_major_axis,
             eccentricity,
@@ -75,8 +82,6 @@ pub fn generate_random_planet() -> PlanetData {
             longitude_of_ascending_node,
             argument_of_periapsis,
         ),
-        sideral_rotation_period: rotation_period,
-        rotation_axis,
     }
 }
 

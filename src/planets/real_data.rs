@@ -3,7 +3,10 @@ use simple_si_units::{
     geometry::Angle,
 };
 
-use super::{orbit_parameters::OrbitParameters, planet_data::PlanetData};
+use super::{
+    orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters,
+    planet_data::PlanetData,
+};
 use crate::{color::srgb::sRGBColor, coordinates::earth_equatorial::EarthEquatorialCoordinates};
 
 pub struct RealData {
@@ -21,15 +24,18 @@ pub struct RealData {
 
 impl RealData {
     pub fn to_planet_data(&self) -> PlanetData {
+        let params = PlanetPhysicalParameters::new(
+            self.mass,
+            self.radius,
+            self.geometric_albedo,
+            self.color,
+            self.siderial_rotation_period,
+            self.rotation_axis.to_direction(),
+        );
         PlanetData {
             name: self.name.to_string(),
-            mass: self.mass,
+            params,
             orbital_parameters: self.orbit.clone(),
-            radius: self.radius,
-            geometric_albedo: self.geometric_albedo,
-            color: self.color.clone(),
-            sideral_rotation_period: self.siderial_rotation_period,
-            rotation_axis: self.rotation_axis.to_direction(),
         }
     }
 }

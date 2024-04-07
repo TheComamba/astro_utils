@@ -53,12 +53,10 @@ fn is_reachable_within(
         if connection.connects_to(start) {
             if connection.connects_to(end) {
                 return true;
-            } else if is_reachable_within(
-                connection.other_end(start),
-                end,
-                max_steps - 1,
-                connections,
-            ) {
+            }
+            let start = connection.other_end(start);
+            let max_steps = max_steps - 1;
+            if is_reachable_within(start, end, max_steps, connections) {
                 return true;
             }
         }
@@ -106,7 +104,7 @@ fn all_nearest_neighbours(stars: &[StarAppearance]) -> Vec<Vec<usize>> {
     all_neighbours
 }
 
-fn get_max_allowed_steps(i: usize, j: usize, all_nearest_neighbours: &Vec<Vec<usize>>) -> usize {
+fn get_max_allowed_steps(i: usize, j: usize, all_nearest_neighbours: &[Vec<usize>]) -> usize {
     let steps1 = all_nearest_neighbours[i]
         .iter()
         .position(|&ind| ind == j)
@@ -204,7 +202,7 @@ mod tests {
         color::srgb::sRGBColor,
         coordinates::spherical::SphericalCoordinates,
         real_data::stars::all::get_many_stars,
-        stars::constellation::constellation::collect_constellations,
+        stars::constellation::collect_constellations,
         units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY, time::TIME_ZERO},
     };
 

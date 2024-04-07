@@ -1,6 +1,7 @@
 use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
 use crate::{
     astro_display::AstroDisplay,
+    error::AstroUtilError,
     stars::data::StarData,
     units::{
         acceleration::EARTH_SURFACE_GRAVITY, distance::distance_to_earth_radii,
@@ -32,8 +33,10 @@ impl DerivedPlanetData {
         data: &PlanetData,
         central_body: &StarData,
         previous: Option<&DerivedPlanetData>,
-    ) -> Self {
-        let central_body_mass = central_body.get_mass_at_epoch().unwrap();
+    ) -> Result<Self, AstroUtilError> {
+        let central_body_mass = central_body.get_mass_at_epoch().ok_or_else(|| {
+            AstroUtilError::DataNotAvailable("Central body is missing mass.".to_string())
+        })?;
         let central_body_luminosity = central_body.get_luminous_intensity_at_epoch();
         let radius = data.get_radius();
 
@@ -61,7 +64,7 @@ impl DerivedPlanetData {
 
         let black_body_temperature = black_body_temperature(central_body_luminosity, data);
 
-        Self {
+        let derived_data = Self {
             density,
             surface_gravity,
             escape_velocity,
@@ -70,7 +73,8 @@ impl DerivedPlanetData {
             mean_synodic_day,
             axial_tilt,
             black_body_temperature,
-        }
+        };
+        Ok(derived_data)
     }
 
     pub fn get_density(&self) -> Density<f64> {
@@ -167,7 +171,7 @@ fn black_body_temperature(
 fn axis_tilt(data: &PlanetData) -> Angle<f64> {
     data.orbital_parameters
         .normal()
-        .angle_to(&data.rotation_axis)
+        .angle_to(&data.params.rotation_axis)
 }
 
 #[cfg(test)]
@@ -185,7 +189,7 @@ mod tests {
 
     #[test]
     fn surface_gravity_of_earth() {
-        let mass = EARTH.to_planet_data().mass;
+        let mass = EARTH.to_planet_data().params.mass;
         let radius = EARTH.to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
         assert!(eq_within(gravity.to_mps2(), 9.81, ACCURACY));
@@ -193,7 +197,7 @@ mod tests {
 
     #[test]
     fn surface_gravity_of_mercury() {
-        let mass = MERCURY.to_planet_data().mass;
+        let mass = MERCURY.to_planet_data().params.mass;
         let radius = MERCURY.to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
         assert!(eq_within(gravity.to_mps2(), 3.7, ACCURACY));
@@ -201,7 +205,7 @@ mod tests {
 
     #[test]
     fn escape_velocity_of_earth() {
-        let mass = EARTH.to_planet_data().mass;
+        let mass = EARTH.to_planet_data().params.mass;
         let radius = EARTH.to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
         assert!(eq_within(velocity.to_kmps(), 11.2, 10. * ACCURACY));
@@ -209,7 +213,7 @@ mod tests {
 
     #[test]
     fn escape_velocity_of_mercury() {
-        let mass = MERCURY.to_planet_data().mass;
+        let mass = MERCURY.to_planet_data().params.mass;
         let radius = MERCURY.to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
         assert!(eq_within(velocity.to_kmps(), 4.3, 10. * ACCURACY));

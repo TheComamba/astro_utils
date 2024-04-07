@@ -7,6 +7,7 @@ use crate::{
         data::StarData,
         evolution::{StarDataEvolution, StarDataLifestageEvolution},
         fate::{StarFate, TYPE_II_SUPERNOVA_PEAK_MAGNITUDE},
+        physical_parameters::StarPhysicalParameters,
         random::random_stars::DIMMEST_ILLUMINANCE,
     },
     units::{
@@ -39,7 +40,10 @@ impl Trajectory {
 
     pub(super) fn new(params: Vec<ParsedParsecLine>) -> Self {
         let initial_mass = Mass::from_solar_mass(params[0].mass_in_solar_masses);
-        let lifetime = Time::from_yr(params.last().unwrap().age_in_years);
+        let lifetime = match params.last() {
+            Some(last) => Time::from_yr(last.age_in_years),
+            None => TIME_ZERO,
+        };
         let peak_lifetime_luminous_intensity =
             get_peak_lifetime_luminous_intensity(&params, initial_mass);
 
@@ -121,13 +125,10 @@ impl Trajectory {
         };
         let other_star = self.to_star_without_evolution(other_age_index, pos);
 
-        let year_difference =
-            star.evolution.age.unwrap().to_yr() - other_star.evolution.age.unwrap().to_yr();
-        let lifestage_evolution =
-            StarDataLifestageEvolution::new(&star, &other_star, year_difference);
+        let lifestage_evolution = get_lifestage_evolution(&star, other_star);
         let fate = StarFate::new(self.initial_mass);
         star.evolution =
-            StarDataEvolution::new(Some(lifestage_evolution), Some(age), self.lifetime, fate);
+            StarDataEvolution::new(lifestage_evolution, Some(age), self.lifetime, fate);
         star
     }
 
@@ -137,30 +138,42 @@ impl Trajectory {
         let luminous_intensity = params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
         let temperature = Temperature::from_K(params.temperature_in_kelvin);
         let radius = params.radius_in_solar_radii * SOLAR_RADIUS;
+        let physical_parameters = StarPhysicalParameters {
+            mass: Some(mass),
+            luminous_intensity,
+            temperature,
+            radius: Some(radius),
+        };
         let mut evolution = StarDataEvolution::NONE;
         evolution.age = Some(Time::from_yr(params.age_in_years));
         StarData {
             name: "".to_string(),
-            mass: Some(mass),
-            luminous_intensity,
-            temperature: temperature,
-            radius: Some(radius),
+            params: physical_parameters,
             pos,
             constellation: None,
-            evolution: evolution,
+            evolution,
         }
     }
 }
 
+fn get_lifestage_evolution(
+    star: &StarData,
+    other_star: StarData,
+) -> Option<StarDataLifestageEvolution> {
+    let year_difference = star.evolution.age?.to_yr() - other_star.evolution.age?.to_yr();
+    let lifestage_evolution = StarDataLifestageEvolution::new(star, &other_star, year_difference);
+    Some(lifestage_evolution)
+}
+
 fn get_peak_lifetime_luminous_intensity(
-    params: &Vec<ParsedParsecLine>,
+    params: &[ParsedParsecLine],
     initial_mass: Mass<f64>,
 ) -> Luminosity<f64> {
     let peak_lifetime_luminous_intensity = params
         .iter()
         .map(|p| p.luminous_intensity_in_solar)
-        .max_by(|a, b| a.partial_cmp(b).unwrap())
-        .unwrap();
+        .max_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal))
+        .unwrap_or_default();
     if initial_mass < Mass::from_solar_mass(8.) {
         peak_lifetime_luminous_intensity * SOLAR_LUMINOUS_INTENSITY
     } else {

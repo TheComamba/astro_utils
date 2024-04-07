@@ -308,7 +308,7 @@ mod tests {
                 &star.get_luminous_intensity_at_epoch(),
                 &star.get_distance_at_epoch(),
             );
-            let mass = star.mass;
+            let mass = star.params.mass;
             let age = star.get_age_at_epoch();
             if mass.is_none() || age.is_none() {
                 continue;

@@ -28,7 +28,7 @@ impl sRGBColor {
     pub(crate) const WHITE: Self = sRGBColor::from_sRGB(1., 1., 1.);
     const SERIALIZATION_ACCURACY: f64 = 1e-2;
 
-    fn to_array(&self) -> [f64; 3] {
+    fn as_array(&self) -> [f64; 3] {
         [self.R, self.G, self.B]
     }
 
@@ -56,7 +56,7 @@ impl sRGBColor {
 
 impl Serialize for sRGBColor {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        let array = self.to_array();
+        let array = self.as_array();
         let mut tuple_serializer = serializer.serialize_tuple(3)?;
         for value in &array {
             let value =
@@ -86,14 +86,6 @@ impl Add for &sRGBColor {
     }
 }
 
-impl Add for sRGBColor {
-    type Output = sRGBColor;
-
-    fn add(self, other: Self) -> sRGBColor {
-        &self + &other
-    }
-}
-
 impl Sub for &sRGBColor {
     type Output = sRGBColor;
 
@@ -103,14 +95,6 @@ impl Sub for &sRGBColor {
             G: self.G - other.G,
             B: self.B - other.B,
         }
-    }
-}
-
-impl Sub for sRGBColor {
-    type Output = sRGBColor;
-
-    fn sub(self, other: Self) -> sRGBColor {
-        &self - &other
     }
 }
 
@@ -126,14 +110,6 @@ impl Neg for &sRGBColor {
     }
 }
 
-impl Neg for sRGBColor {
-    type Output = sRGBColor;
-
-    fn neg(self) -> sRGBColor {
-        -&self
-    }
-}
-
 impl Mul<f64> for &sRGBColor {
     type Output = sRGBColor;
 
@@ -143,14 +119,6 @@ impl Mul<f64> for &sRGBColor {
             G: self.G * scalar,
             B: self.B * scalar,
         }
-    }
-}
-
-impl Mul<f64> for sRGBColor {
-    type Output = sRGBColor;
-
-    fn mul(self, scalar: f64) -> sRGBColor {
-        &self * scalar
     }
 }
 

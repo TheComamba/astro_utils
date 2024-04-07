@@ -1,3 +1,5 @@
+use crate::error::AstroUtilError;
+
 use super::data::ParsecData;
 use rand::{distributions::Distribution, rngs::ThreadRng};
 use rand_distr::WeightedAliasIndex;
@@ -9,9 +11,9 @@ pub(crate) struct ParsecDistribution {
 }
 
 impl ParsecDistribution {
-    pub(crate) fn new() -> Self {
-        let mass_distribution = get_mass_distribution();
-        ParsecDistribution { mass_distribution }
+    pub(crate) fn new() -> Result<Self, AstroUtilError> {
+        let mass_distribution = get_mass_distribution()?;
+        Ok(ParsecDistribution { mass_distribution })
     }
 
     pub(crate) fn get_random_mass_index(&self, rng: &mut ThreadRng) -> usize {
@@ -19,9 +21,9 @@ impl ParsecDistribution {
     }
 }
 
-fn get_mass_distribution() -> WeightedAliasIndex<f64> {
+fn get_mass_distribution() -> Result<WeightedAliasIndex<f64>, AstroUtilError> {
     let weights = kroupa_weights();
-    WeightedAliasIndex::new(weights).unwrap()
+    WeightedAliasIndex::new(weights).map_err(AstroUtilError::from)
 }
 
 fn kroupa_weights() -> Vec<f64> {
@@ -127,7 +129,7 @@ mod tests {
     #[test]
     fn kroupa_integral_and_sampling_agree() {
         let num_stars = 100_000;
-        let distribution = get_mass_distribution();
+        let distribution = get_mass_distribution().unwrap();
         let masses = (0..num_stars)
             .map(|_| ParsecData::SORTED_MASSES[distribution.sample(&mut rand::thread_rng())]);
         let mut thresholds = Vec::new();
@@ -161,7 +163,7 @@ mod tests {
         let max_distance = Distance::from_lyr(1000.);
         let num_stars = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
         println!("Number of stars: {}", num_stars);
-        let distribution = get_mass_distribution();
+        let distribution = get_mass_distribution().unwrap();
         let num_supermassive_stars = (0..num_stars)
             .into_par_iter()
             .map(|_| {

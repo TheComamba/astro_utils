@@ -1,5 +1,6 @@
 use super::{
     appearance::StarAppearance, data::StarData, evolution::StarDataEvolution, fate::StarFate,
+    physical_parameters,
 };
 use crate::{
     color::srgb::sRGBColor,
@@ -49,23 +50,30 @@ impl RealData {
         } else {
             Some(self.constellation.to_string())
         };
+
         let luminous_intensity = absolute_magnitude_to_luminous_intensity(self.absolute_magnitude);
+
+        let physical_parameters = physical_parameters::StarPhysicalParameters::new(
+            Some(self.mass),
+            self.radius,
+            luminous_intensity,
+            self.temperature,
+        );
+
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
         let pos = EarthEquatorialCoordinates::new(ra, dec)
             .to_direction()
             .to_cartesian(self.distance);
+
         let evolution =
             StarDataEvolution::new(None, self.age, self.lifetime, StarFate::new(self.mass));
         StarData {
             name: name.to_string(),
-            mass: Some(self.mass),
             constellation,
-            radius: self.radius,
-            luminous_intensity,
-            temperature: self.temperature,
+            params: physical_parameters,
             pos,
-            evolution: evolution,
+            evolution,
         }
     }
 

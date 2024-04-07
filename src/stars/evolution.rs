@@ -188,18 +188,18 @@ pub(crate) struct StarDataLifestageEvolution {
 
 impl StarDataLifestageEvolution {
     pub(crate) fn new(now: &StarData, then: &StarData, years: f64) -> Self {
-        let mass_per_year = match (now.mass, then.mass) {
+        let mass_per_year = match (now.params.mass, then.params.mass) {
             (Some(now_mass), Some(then_mass)) => (now_mass - then_mass) / years,
             _ => MASS_ZERO,
         };
-        let radius_per_year = match (now.radius, then.radius) {
+        let radius_per_year = match (now.params.radius, then.params.radius) {
             (Some(now_radius), Some(then_radius)) => (now_radius - then_radius) / years,
             _ => DISTANCE_ZERO,
         };
         let luminous_intensity_per_year =
-            (now.luminous_intensity - then.luminous_intensity) / years;
+            (now.params.luminous_intensity - then.params.luminous_intensity) / years;
 
-        let temperature_per_year = (now.temperature - then.temperature) / years;
+        let temperature_per_year = (now.params.temperature - then.params.temperature) / years;
         Self {
             mass_per_year,
             radius_per_year,

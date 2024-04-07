@@ -1,4 +1,4 @@
-use super::orbit_parameters::OrbitParameters;
+use super::{orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters};
 use crate::{
     color::srgb::sRGBColor,
     coordinates::{cartesian::CartesianCoordinates, direction::Direction},
@@ -15,13 +15,8 @@ use simple_si_units::{
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PlanetData {
     pub(super) name: String,
-    pub(super) mass: Mass<f64>,
-    pub(super) radius: Distance<f64>,
-    pub(super) geometric_albedo: f64,
-    pub(super) color: sRGBColor,
-    pub(super) sideral_rotation_period: Time<f64>,
+    pub(super) params: PlanetPhysicalParameters,
     pub(super) orbital_parameters: OrbitParameters,
-    pub(super) rotation_axis: Direction,
 }
 
 impl PartialEq for PlanetData {
@@ -33,23 +28,13 @@ impl PartialEq for PlanetData {
 impl PlanetData {
     pub fn new(
         name: String,
-        mass: Mass<f64>,
-        radius: Distance<f64>,
-        geometric_albedo: f64,
-        color: sRGBColor,
-        sideral_rotation_period: Time<f64>,
+        params: PlanetPhysicalParameters,
         orbital_parameters: OrbitParameters,
-        rotation_axis: Direction,
     ) -> Self {
         PlanetData {
             name,
-            mass,
-            radius,
-            geometric_albedo,
-            color,
-            sideral_rotation_period,
+            params,
             orbital_parameters,
-            rotation_axis,
         }
     }
 
@@ -58,19 +43,19 @@ impl PlanetData {
     }
 
     pub fn get_mass(&self) -> Mass<f64> {
-        self.mass
+        self.params.mass
     }
 
     pub fn get_radius(&self) -> Distance<f64> {
-        self.radius
+        self.params.radius
     }
 
     pub fn get_geometric_albedo(&self) -> f64 {
-        self.geometric_albedo
+        self.params.geometric_albedo
     }
 
     pub fn get_color(&self) -> &sRGBColor {
-        &self.color
+        &self.params.color
     }
 
     pub fn get_orbital_parameters(&self) -> &OrbitParameters {
@@ -78,11 +63,11 @@ impl PlanetData {
     }
 
     pub fn get_sideral_rotation_period(&self) -> Time<f64> {
-        self.sideral_rotation_period
+        self.params.sideral_rotation_period
     }
 
     pub fn get_rotation_axis(&self) -> &Direction {
-        &self.rotation_axis
+        &self.params.rotation_axis
     }
 
     pub fn set_name(&mut self, name: String) {
@@ -90,19 +75,19 @@ impl PlanetData {
     }
 
     pub fn set_mass(&mut self, mass: Mass<f64>) {
-        self.mass = mass;
+        self.params.mass = mass;
     }
 
     pub fn set_radius(&mut self, radius: Distance<f64>) {
-        self.radius = radius;
+        self.params.radius = radius;
     }
 
     pub fn set_geometric_albedo(&mut self, geometric_albedo: f64) {
-        self.geometric_albedo = geometric_albedo;
+        self.params.geometric_albedo = geometric_albedo;
     }
 
     pub fn set_color(&mut self, color: sRGBColor) {
-        self.color = color;
+        self.params.color = color;
     }
 
     pub fn set_semi_major_axis(&mut self, semi_major_axis: Distance<f64>) {
@@ -126,11 +111,11 @@ impl PlanetData {
     }
 
     pub fn set_sideral_rotation_period(&mut self, sideral_rotation_period: Time<f64>) {
-        self.sideral_rotation_period = sideral_rotation_period;
+        self.params.sideral_rotation_period = sideral_rotation_period;
     }
 
     pub fn set_rotation_axis(&mut self, rotation_axis: Direction) {
-        self.rotation_axis = rotation_axis;
+        self.params.rotation_axis = rotation_axis;
     }
 
     pub fn to_star_appearance(
@@ -146,15 +131,15 @@ impl PlanetData {
             &CartesianCoordinates::ORIGIN,
             planet_pos,
             observer_position,
-            self.radius,
-            self.geometric_albedo,
+            self.params.radius,
+            self.params.geometric_albedo,
         )?;
         let relative_position = planet_pos - observer_position;
         let pos = relative_position.to_ecliptic();
         Ok(StarAppearance {
             name: self.name.clone(),
             illuminance: brightness,
-            color: self.color.clone(),
+            color: self.params.color,
             pos,
             time_since_epoch,
         })
