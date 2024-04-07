@@ -159,7 +159,7 @@ fn get_peak_lifetime_luminous_intensity(
     let peak_lifetime_luminous_intensity = params
         .iter()
         .map(|p| p.luminous_intensity_in_solar)
-        .max_by(|a, b| a.partial_cmp(b).unwrap())
+        .max_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal))
         .unwrap();
     if initial_mass < Mass::from_solar_mass(8.) {
         peak_lifetime_luminous_intensity * SOLAR_LUMINOUS_INTENSITY
