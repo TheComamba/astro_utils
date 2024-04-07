@@ -73,7 +73,7 @@ impl RealData {
             constellation,
             params: physical_parameters,
             pos,
-            evolution: evolution,
+            evolution,
         }
     }
 

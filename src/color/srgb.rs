@@ -28,7 +28,7 @@ impl sRGBColor {
     pub(crate) const WHITE: Self = sRGBColor::from_sRGB(1., 1., 1.);
     const SERIALIZATION_ACCURACY: f64 = 1e-2;
 
-    fn to_array(&self) -> [f64; 3] {
+    fn as_array(&self) -> [f64; 3] {
         [self.R, self.G, self.B]
     }
 
@@ -56,7 +56,7 @@ impl sRGBColor {
 
 impl Serialize for sRGBColor {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        let array = self.to_array();
+        let array = self.as_array();
         let mut tuple_serializer = serializer.serialize_tuple(3)?;
         for value in &array {
             let value =

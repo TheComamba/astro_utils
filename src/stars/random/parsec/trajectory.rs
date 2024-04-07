@@ -151,7 +151,7 @@ impl Trajectory {
             params: physical_parameters,
             pos,
             constellation: None,
-            evolution: evolution,
+            evolution,
         }
     }
 }

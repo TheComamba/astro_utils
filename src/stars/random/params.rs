@@ -56,10 +56,8 @@ impl GenerationParams {
             if closest_possible > required_distance {
                 self.radius = DISTANCE_ZERO;
             }
-        } else {
-            if farthest_possible > required_distance {
-                self.radius = required_distance - distance_to_origin
-            }
+        } else if farthest_possible > required_distance {
+            self.radius = required_distance - distance_to_origin
         }
         self.number = (self.number as f64 * (self.radius / original_radius).powi(3)) as usize;
     }
