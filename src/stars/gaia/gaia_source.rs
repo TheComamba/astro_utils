@@ -107,8 +107,8 @@ pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[StarAppea
         .any(|known_star| known_star.apparently_the_same(new_star))
 }
 
-pub fn fetch_brightest_stars() -> Result<Vec<StarAppearance>, AstroUtilError> {
-    let resp = query_brightest_stars(6.5)?;
+pub fn fetch_brightest_stars(magnitude_threshold: f64) -> Result<Vec<StarAppearance>, AstroUtilError> {
+    let resp = query_brightest_stars(magnitude_threshold)?;
     let gaia_stars = to_star_appearances(resp)?;
     Ok(gaia_stars)
 }
