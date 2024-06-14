@@ -17,7 +17,7 @@ use gaia_access::{
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Temperature, electromagnetic::Illuminance, geometry::Angle};
-use std::collections::HashMap;
+use std::{collections::HashMap, time::Instant};
 
 #[derive(Serialize, Deserialize)]
 struct GaiaMetadataLine {
@@ -85,7 +85,10 @@ fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, A
     stars
 }
 
-fn query_brightest_stars(magnitude_threshold: f64) -> Result<GaiaResult<Col>, AstroUtilError> {
+fn query_stars_by_brightness(
+    brightest_mag: f64,
+    dimmest_mag: f64,
+) -> Result<GaiaResult<Col>, AstroUtilError> {
     Ok(GaiaQueryBuilder::new(gaiadr3, gaia_source)
         .select(vec![
             Col::designation,
@@ -94,10 +97,11 @@ fn query_brightest_stars(magnitude_threshold: f64) -> Result<GaiaResult<Col>, As
             Col::phot_g_mean_mag,
             Col::teff_gspphot,
         ])
-        .where_clause(GaiaCondition::LessThan(
+        .where_clause(GaiaCondition::GreaterThanOrEqual(
             Col::phot_g_mean_mag,
-            magnitude_threshold,
+            brightest_mag,
         ))
+        .where_clause(GaiaCondition::LessThan(Col::phot_g_mean_mag, dimmest_mag))
         .do_query()?)
 }
 
@@ -107,9 +111,31 @@ pub fn star_is_already_known(new_star: &StarAppearance, known_stars: &[StarAppea
         .any(|known_star| known_star.apparently_the_same(new_star))
 }
 
-pub fn fetch_brightest_stars(magnitude_threshold: f64) -> Result<Vec<StarAppearance>, AstroUtilError> {
-    let resp = query_brightest_stars(magnitude_threshold)?;
-    let gaia_stars = to_star_appearances(resp)?;
+pub fn fetch_brightest_stars(
+    magnitude_threshold: f64,
+) -> Result<Vec<StarAppearance>, AstroUtilError> {
+    const LIMIT_FOR_FIRST_BATCH: f64 = 4.;
+    const STEP: f64 = 1.;
+
+    let mut gaia_stars = vec![];
+    let mut brighter_limit = 0.;
+    let mut dimmer_limit = f64::min(magnitude_threshold, LIMIT_FOR_FIRST_BATCH);
+    while brighter_limit < magnitude_threshold {
+        let start = Instant::now();
+        let resp = query_stars_by_brightness(brighter_limit, dimmer_limit)?;
+        let duration = start.elapsed();
+        let gaia_stars_in_this_range = to_star_appearances(resp)?;
+        println!(
+            "Fetched {} stars with brightness between {} and {} in {} seconds.",
+            gaia_stars_in_this_range.len(),
+            brighter_limit,
+            dimmer_limit,
+            duration.as_secs()
+        );
+        gaia_stars.extend(gaia_stars_in_this_range);
+        brighter_limit = dimmer_limit;
+        dimmer_limit = f64::min(dimmer_limit + STEP, magnitude_threshold);
+    }
     Ok(gaia_stars)
 }
 
@@ -152,7 +178,7 @@ mod tests {
             known_stars.push(star_data.to_star_appearance());
         }
 
-        let gaia_response = query_brightest_stars(2.5).unwrap();
+        let gaia_response = query_stars_by_brightness(0., 2.5).unwrap();
         let gaia_stars = to_star_appearances(gaia_response).unwrap();
 
         println!("known_stars.len(): {}", known_stars.len());
@@ -237,7 +263,7 @@ mod tests {
             }
         }
 
-        let gaia_response = query_brightest_stars(LOWER_BRIGHTNESS_THRESHOLD).unwrap();
+        let gaia_response = query_stars_by_brightness(0., LOWER_BRIGHTNESS_THRESHOLD).unwrap();
         let gaia_stars = to_star_appearances(gaia_response).unwrap();
 
         assert!(
@@ -281,7 +307,7 @@ mod tests {
             known_stars.push(star_data.to_star_appearance());
         }
 
-        let gaia_response = query_brightest_stars(3.5).unwrap();
+        let gaia_response = query_stars_by_brightness(0., 3.5).unwrap();
         let gaia_stars = to_star_appearances(gaia_response).unwrap();
         let mut star_pairs = vec![];
         for gaia_star in gaia_stars.iter() {
@@ -316,5 +342,12 @@ mod tests {
             mean_brightness_difference / acceptable_difference
         );
         assert!(mean_brightness_difference.to_lux().abs() < acceptable_difference.to_lux());
+    }
+
+    #[test]
+    #[ignore]
+    fn fetch_brightest_stars_works() {
+        let gaia_response = fetch_brightest_stars(11.).unwrap();
+        assert!(gaia_response.len() > 30);
     }
 }
