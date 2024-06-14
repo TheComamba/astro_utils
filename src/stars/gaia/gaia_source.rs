@@ -115,7 +115,6 @@ pub fn fetch_brightest_stars(
     magnitude_threshold: f64,
 ) -> Result<Vec<StarAppearance>, AstroUtilError> {
     const LIMIT_FOR_FIRST_BATCH: f64 = 4.;
-    const STEP: f64 = 1.;
 
     let mut gaia_stars = vec![];
     let mut brighter_limit = 0.;
@@ -134,7 +133,8 @@ pub fn fetch_brightest_stars(
         );
         gaia_stars.extend(gaia_stars_in_this_range);
         brighter_limit = dimmer_limit;
-        dimmer_limit = f64::min(dimmer_limit + STEP, magnitude_threshold);
+        let step = 1000. / dimmer_limit.powi(4);
+        dimmer_limit = f64::min(dimmer_limit + step, magnitude_threshold);
     }
     Ok(gaia_stars)
 }
