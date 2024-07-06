@@ -1,3 +1,4 @@
+use std::fmt::Display;
 use std::ops::{Add, Mul, Neg, Sub};
 
 use crate::astro_display::AstroDisplay;
@@ -20,6 +21,12 @@ impl AstroDisplay for sRGBColor {
     fn astro_display(&self) -> String {
         let (r, g, b) = self.maximized_sRGB_tuple();
         format!("({:.2}, {:.2}, {:.2})", r, g, b)
+    }
+}
+
+impl Display for sRGBColor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.astro_display())
     }
 }
 
