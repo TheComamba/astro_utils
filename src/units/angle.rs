@@ -11,12 +11,6 @@ pub(crate) const HALF_CIRC: Angle<f64> = Angle { rad: 2. * PI / 2. };
 pub(crate) const THREE_QUARTER_CIRC: Angle<f64> = Angle {
     rad: 2. * PI * 3. / 4.,
 };
-#[cfg(test)]
-pub(crate) const ONE_THIRD_CIRC: Angle<f64> = Angle { rad: 2. * PI / 3. };
-#[cfg(test)]
-pub(crate) const TWO_THIRDS_CIRC: Angle<f64> = Angle {
-    rad: 2. * PI * 2. / 3.,
-};
 
 pub const DEGREE: Angle<f64> = Angle {
     rad: 2. * PI / 360.,
@@ -57,6 +51,7 @@ pub fn normalized_angle(mut angle: Angle<f64>) -> Angle<f64> {
     angle
 }
 
+#[cfg(test)]
 pub(crate) fn angle_eq_within(
     actual: Angle<f64>,
     expected: Angle<f64>,

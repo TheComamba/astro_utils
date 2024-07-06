@@ -1,7 +1,8 @@
+use astro_coordinates::direction::Direction;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Mass, Time};
 
-use crate::{color::srgb::sRGBColor, coordinates::direction::Direction};
+use crate::color::srgb::sRGBColor;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PlanetPhysicalParameters {

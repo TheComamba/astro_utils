@@ -1,6 +1,7 @@
+use astro_coordinates::cartesian::CartesianCoordinates;
 use simple_si_units::base::{Distance, Time};
 
-use crate::{coordinates::cartesian::CartesianCoordinates, units::distance::DISTANCE_ZERO};
+use crate::units::distance::DISTANCE_ZERO;
 
 use super::{
     parsec::data::ParsecData,
@@ -65,8 +66,9 @@ impl GenerationParams {
 
 #[cfg(test)]
 mod tests {
+    use astro_coordinates::direction::Direction;
+
     use crate::{
-        coordinates::direction::Direction,
         stars::random::parsec::data::PARSEC_DATA,
         tests::{eq_within, TEST_ACCURACY},
         units::time::TEN_MILLENIA,

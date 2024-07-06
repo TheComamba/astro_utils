@@ -1,13 +1,15 @@
+use astro_coordinates::earth_equatorial::EarthEquatorialCoordinates;
 use simple_si_units::{
     base::{Distance, Mass, Time},
     geometry::Angle,
 };
 
+use crate::color::srgb::sRGBColor;
+
 use super::{
     orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters,
     planet_data::PlanetData,
 };
-use crate::{color::srgb::sRGBColor, coordinates::earth_equatorial::EarthEquatorialCoordinates};
 
 pub struct RealData {
     pub name: &'static str,

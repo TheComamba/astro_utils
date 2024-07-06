@@ -1,8 +1,10 @@
+use astro_coordinates::{
+    declination::{Declination, Sgn},
+    right_ascension::RightAscension,
+};
+use simple_si_units::base::{Temperature, Time};
+
 use crate::{
-    coordinates::{
-        declination::{Declination, Sgn},
-        right_ascension::RightAscension,
-    },
     stars::real_data::RealData,
     units::{
         distance::{DISTANCE_ZERO, SOLAR_RADIUS},
@@ -10,7 +12,6 @@ use crate::{
         time::BILLION_YEARS,
     },
 };
-use simple_si_units::base::{Temperature, Time};
 
 //https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html
 // Gaia data that was not found in the list of 100 brightest stars

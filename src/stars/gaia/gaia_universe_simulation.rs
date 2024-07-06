@@ -1,5 +1,6 @@
-use std::collections::HashMap;
-
+use astro_coordinates::{
+    cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
+};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{
@@ -14,9 +15,9 @@ use simple_si_units::{
     base::{Distance, Luminosity, Mass, Temperature, Time},
     geometry::Angle,
 };
+use std::collections::HashMap;
 
 use crate::{
-    coordinates::{cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates},
     error::AstroUtilError,
     stars::{
         data::StarData, evolution::StarDataEvolution, physical_parameters::StarPhysicalParameters,

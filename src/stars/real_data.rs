@@ -1,20 +1,22 @@
-use super::{
-    appearance::StarAppearance, data::StarData, evolution::StarDataEvolution, fate::StarFate,
-    physical_parameters,
+use astro_coordinates::{
+    declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
+    right_ascension::RightAscension,
 };
+use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use std::fmt::Display;
+
 use crate::{
     color::srgb::sRGBColor,
-    coordinates::{
-        declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
-        right_ascension::RightAscension,
-    },
     units::{
         illuminance::apparent_magnitude_to_illuminance,
         luminous_intensity::absolute_magnitude_to_luminous_intensity, time::TIME_ZERO,
     },
 };
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
-use std::fmt::Display;
+
+use super::{
+    appearance::StarAppearance, data::StarData, evolution::StarDataEvolution, fate::StarFate,
+    physical_parameters,
+};
 
 pub struct RealData {
     pub common_name: &'static str,

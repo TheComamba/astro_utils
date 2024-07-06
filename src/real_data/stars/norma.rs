@@ -1,12 +1,13 @@
+use astro_coordinates::{
+    declination::{Declination, Sgn},
+    right_ascension::RightAscension,
+};
+use simple_si_units::base::{Distance, Mass, Temperature, Time};
+
 use crate::{
-    coordinates::{
-        declination::{Declination, Sgn},
-        right_ascension::RightAscension,
-    },
     stars::real_data::RealData,
     units::{distance::LIGHT_YEAR, mass::SOLAR_MASS, time::BILLION_YEARS},
 };
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const GAMMA2_NORMAE: RealData = RealData {
     common_name: "",

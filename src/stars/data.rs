@@ -2,10 +2,8 @@ use super::{
     appearance::StarAppearance, evolution::StarDataEvolution, fate::StarFate,
     physical_parameters::StarPhysicalParameters,
 };
-use crate::{
-    color::srgb::sRGBColor, coordinates::cartesian::CartesianCoordinates,
-    units::luminous_intensity::luminous_intensity_to_illuminance,
-};
+use crate::{color::srgb::sRGBColor, units::luminous_intensity::luminous_intensity_to_illuminance};
+use astro_coordinates::cartesian::CartesianCoordinates;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 

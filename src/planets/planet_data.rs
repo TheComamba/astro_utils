@@ -1,11 +1,11 @@
 use super::{orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters};
 use crate::{
     color::srgb::sRGBColor,
-    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
     stars::{appearance::StarAppearance, data::StarData},
 };
+use astro_coordinates::{cartesian::CartesianCoordinates, direction::Direction};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
     base::{Distance, Mass, Time},

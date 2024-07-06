@@ -1,12 +1,12 @@
-use super::orbit_parameters::OrbitParameters;
-use crate::{
-    coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates},
-    units::angle::{normalized_angle, ANGLE_ZERO, FULL_CIRC},
-};
+use astro_coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates};
 use simple_si_units::{
     base::{Distance, Mass, Time},
     geometry::Angle,
 };
+
+use crate::units::angle::{normalized_angle, ANGLE_ZERO, FULL_CIRC};
+
+use super::orbit_parameters::OrbitParameters;
 
 pub(crate) const GRAVITATIONAL_CONSTANT: f64 = 6.67430e-11;
 
@@ -109,7 +109,6 @@ pub fn position_relative_to_central_body(
 #[cfg(test)]
 mod tests {
     use crate::{
-        coordinates::cartesian::CartesianCoordinates,
         real_data::planets::*,
         tests::{eq, eq_within},
         units::{angle::*, distance::DISTANCE_ZERO, mass::SOLAR_MASS},
