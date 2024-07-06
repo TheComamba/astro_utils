@@ -1,12 +1,13 @@
+use astro_coordinates::earth_equatorial::EarthEquatorialCoordinates;
+use simple_si_units::base::Time;
+use simple_si_units::base::{Distance, Mass};
+use simple_si_units::geometry::Angle;
+
 use crate::color::srgb::sRGBColor;
-use crate::coordinates::earth_equatorial::EarthEquatorialCoordinates;
 use crate::planets::orbit_parameters::OrbitParameters;
 use crate::planets::real_data::RealData;
 use crate::units::angle::*;
 use crate::units::time::*;
-use simple_si_units::base::Time;
-use simple_si_units::base::{Distance, Mass};
-use simple_si_units::geometry::Angle;
 
 pub const MERCURY: RealData = RealData {
     name: "Mercury",

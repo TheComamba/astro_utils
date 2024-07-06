@@ -195,16 +195,17 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
 
 #[cfg(test)]
 mod tests {
+    use astro_coordinates::spherical::SphericalCoordinates;
     use simple_si_units::electromagnetic::Illuminance;
 
-    use super::*;
     use crate::{
         color::srgb::sRGBColor,
-        coordinates::spherical::SphericalCoordinates,
         real_data::stars::all::get_many_stars,
         stars::constellation::collect_constellations,
         units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY, time::TIME_ZERO},
     };
+
+    use super::*;
 
     fn stars_in_line(size: usize) -> Vec<StarAppearance> {
         let mut stars = Vec::new();

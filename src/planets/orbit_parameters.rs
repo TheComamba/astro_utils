@@ -1,14 +1,13 @@
-use crate::{
-    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
-    planets::kepler_orbit::{
-        eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,
-        true_anomaly,
-    },
-};
+use astro_coordinates::{cartesian::CartesianCoordinates, direction::Direction};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
     base::{Distance, Mass, Time},
     geometry::Angle,
+};
+
+use crate::planets::kepler_orbit::{
+    eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,
+    true_anomaly,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

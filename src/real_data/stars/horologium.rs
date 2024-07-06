@@ -1,8 +1,10 @@
+use astro_coordinates::{
+    declination::{Declination, Sgn},
+    right_ascension::RightAscension,
+};
+use simple_si_units::base::{Distance, Mass, Temperature, Time};
+
 use crate::{
-    coordinates::{
-        declination::{Declination, Sgn},
-        right_ascension::RightAscension,
-    },
     stars::real_data::RealData,
     units::{
         distance::{LIGHT_YEAR, SOLAR_RADIUS},
@@ -10,7 +12,6 @@ use crate::{
         time::BILLION_YEARS,
     },
 };
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 const ALPHA_HOROLOGII: RealData = RealData {
     common_name: "",

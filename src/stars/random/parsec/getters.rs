@@ -1,8 +1,6 @@
+use astro_coordinates::cartesian::CartesianCoordinates;
 use simple_si_units::base::{Luminosity, Mass, Time};
 
-use super::data::ParsecData;
-use super::trajectory::Trajectory;
-use crate::coordinates::cartesian::CartesianCoordinates;
 use crate::stars::data::StarData;
 use crate::stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE;
 use crate::stars::random::random_stars::get_min_age;
@@ -10,6 +8,9 @@ use crate::units::luminous_intensity::{
     absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
 };
 use crate::units::time::TEN_MILLENIA;
+
+use super::data::ParsecData;
+use super::trajectory::Trajectory;
 
 impl ParsecData {
     pub(super) const SORTED_MASSES: [f64; 100] = [
@@ -112,12 +113,12 @@ impl ParsecData {
 
 #[cfg(test)]
 mod tests {
+    use astro_coordinates::direction::Direction;
     use simple_si_units::base::Distance;
 
     use super::*;
     use crate::{
         astro_display::AstroDisplay,
-        coordinates::direction::Direction,
         real_data::stars::all::get_many_stars,
         stars::random::parsec::data::PARSEC_DATA,
         units::{luminous_intensity::luminous_intensity_to_illuminance, time::TIME_ZERO},

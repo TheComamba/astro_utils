@@ -1,8 +1,7 @@
-use crate::{
-    coordinates::{direction::Direction, equatorial::EquatorialCoordinates},
-    units::angle::FULL_CIRC,
-};
+use astro_coordinates::{direction::Direction, equatorial::EquatorialCoordinates};
 use simple_si_units::{base::Time, geometry::Angle};
+
+use crate::units::angle::FULL_CIRC;
 
 pub fn surface_normal_at_time(
     mut observer: EquatorialCoordinates,
@@ -20,12 +19,14 @@ pub fn surface_normal_at_time(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use astro_coordinates::spherical::SphericalCoordinates;
+
     use crate::{
-        coordinates::spherical::SphericalCoordinates,
         tests::TEST_ACCURACY,
         units::{angle::ANGLE_ZERO, time::TIME_ZERO},
     };
+
+    use super::*;
 
     #[test]
     fn surface_normal_at_time_zero_in_x_direction() {

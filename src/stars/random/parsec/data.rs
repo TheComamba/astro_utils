@@ -16,9 +16,9 @@ pub(crate) struct ParsecData {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use astro_coordinates::cartesian::CartesianCoordinates;
+
     use crate::{
-        coordinates::cartesian::CartesianCoordinates,
         real_data::stars::{all::get_many_stars, SUN},
         tests::eq_within,
         units::{
@@ -26,6 +26,8 @@ mod tests {
             time::BILLION_YEARS,
         },
     };
+
+    use super::*;
 
     #[test]
     fn test_caluclate_sun() {

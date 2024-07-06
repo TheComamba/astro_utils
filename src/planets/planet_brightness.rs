@@ -1,13 +1,12 @@
-use std::f64::consts::PI;
-
+use astro_coordinates::cartesian::CartesianCoordinates;
 use simple_si_units::{
     base::{Distance, Luminosity},
     electromagnetic::Illuminance,
     geometry::Angle,
 };
+use std::f64::consts::PI;
 
 use crate::{
-    coordinates::cartesian::CartesianCoordinates,
     error::AstroUtilError,
     units::{
         luminous_intensity::luminous_intensity_to_illuminance,
@@ -53,7 +52,6 @@ pub fn planet_brightness(
 mod tests {
     use super::*;
     use crate::{
-        coordinates::cartesian::CartesianCoordinates,
         real_data::planets::*,
         tests::eq_within,
         units::{

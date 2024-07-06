@@ -1,6 +1,5 @@
 use super::{params::GenerationParams, parsec::data::ParsecData};
 use crate::{
-    coordinates::{cartesian::CartesianCoordinates, direction::Direction},
     error::AstroUtilError,
     stars::{
         data::StarData,
@@ -8,6 +7,7 @@ use crate::{
     },
     units::time::TEN_MILLENIA,
 };
+use astro_coordinates::{cartesian::CartesianCoordinates, direction::Direction};
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use simple_si_units::{

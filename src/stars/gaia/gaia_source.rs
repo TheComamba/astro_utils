@@ -1,10 +1,10 @@
 use crate::{
     color::srgb::sRGBColor,
-    coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates},
     error::AstroUtilError,
     stars::appearance::StarAppearance,
     units::{illuminance::apparent_magnitude_to_illuminance, time::TIME_ZERO},
 };
+use astro_coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{
@@ -203,12 +203,12 @@ mod tests {
                     println!(
                         "gaia_star position: {}, {}",
                         gaia_ra,
-                        gaia_dec.astro_display()
+                        gaia_dec
                     );
                     println!(
                         "closest_star position: {}, {}",
                         closest_ra,
-                        closest_dec.astro_display()
+                        closest_dec
                     );
                     println!(
                         "Angle difference: {} arcsecs",
