@@ -2,13 +2,13 @@ use std::fmt;
 
 #[derive(Debug)]
 pub enum AstroUtilError {
+    AstroCoordsError(astro_coordinates::error::AstroCoordsError),
     Connection(reqwest::Error),
     DataNotAvailable(String),
     GaiaAccess(gaia_access::error::GaiaError),
     Io(std::io::Error),
     Json(serde_json::Error),
     MutexPoison,
-    NormalizingZeroVector,
     RmpSerialization(rmp_serde::encode::Error),
     RmpDeserialization(rmp_serde::decode::Error),
     WightedError(rand_distr::WeightedError),
@@ -17,15 +17,13 @@ pub enum AstroUtilError {
 impl fmt::Display for AstroUtilError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
+            AstroUtilError::AstroCoordsError(err) => write!(f, "AstroCoords error: {}", err),
             AstroUtilError::Connection(err) => write!(f, "Connection error: {}", err),
             AstroUtilError::DataNotAvailable(data) => write!(f, "Data {} not available", data),
             AstroUtilError::GaiaAccess(err) => write!(f, "Gaia access error: {:?}", err),
             AstroUtilError::Io(err) => write!(f, "I/O error: {}", err),
             AstroUtilError::Json(err) => write!(f, "JSON error: {}", err),
             AstroUtilError::MutexPoison => write!(f, "Mutex poisoned"),
-            AstroUtilError::NormalizingZeroVector => {
-                write!(f, "Encountered a zero vector while normalizing")
-            }
             AstroUtilError::RmpSerialization(err) => {
                 write!(f, "MessagePack serialization error: {}", err)
             }
@@ -40,6 +38,12 @@ impl fmt::Display for AstroUtilError {
 impl From<reqwest::Error> for AstroUtilError {
     fn from(err: reqwest::Error) -> Self {
         AstroUtilError::Connection(err)
+    }
+}
+
+impl From<astro_coordinates::error::AstroCoordsError> for AstroUtilError {
+    fn from(err: astro_coordinates::error::AstroCoordsError) -> Self {
+        AstroUtilError::AstroCoordsError(err)
     }
 }
 

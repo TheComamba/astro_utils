@@ -200,16 +200,8 @@ mod tests {
                 let (closest_ra, closest_dec) = closest.pos.get_spherical().to_ra_and_dec();
                 let angle_difference = gaia_star.pos.angle_to(&closest.pos);
                 if angle_difference > Angle::from_degrees(0.03) {
-                    println!(
-                        "gaia_star position: {}, {}",
-                        gaia_ra,
-                        gaia_dec
-                    );
-                    println!(
-                        "closest_star position: {}, {}",
-                        closest_ra,
-                        closest_dec
-                    );
+                    println!("gaia_star position: {}, {}", gaia_ra, gaia_dec);
+                    println!("closest_star position: {}, {}", closest_ra, closest_dec);
                     println!(
                         "Angle difference: {} arcsecs",
                         angle_to_arcsecs(&angle_difference)
