@@ -3,7 +3,7 @@ use super::{
     physical_parameters::StarPhysicalParameters,
 };
 use crate::{color::srgb::sRGBColor, units::luminous_intensity::luminous_intensity_to_illuminance};
-use astro_coords::cartesian::CartesianCoordinates;
+use astro_coords::{cartesian::CartesianCoordinates, ecliptic::EclipticCoordinates};
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
@@ -168,7 +168,10 @@ impl StarData {
 
         let color = sRGBColor::from_temperature(self.get_temperature(time_since_epoch));
 
-        let pos = self.get_pos(time_since_epoch).to_ecliptic();
+        let pos = self
+            .get_pos(time_since_epoch)
+            .to_ecliptic()
+            .unwrap_or(EclipticCoordinates::X_DIRECTION);
 
         StarAppearance {
             name: self.name.clone(),
@@ -364,16 +367,16 @@ mod tests {
                 star.get_distance(TIME_ZERO)
             );
             assert!(kinda_equal(
-                Some(star.get_pos_at_epoch().x().to_lyr()),
-                Some(star.get_pos(TIME_ZERO).x().to_lyr())
+                Some(star.get_pos_at_epoch().x.to_lyr()),
+                Some(star.get_pos(TIME_ZERO).x.to_lyr())
             ));
             assert!(kinda_equal(
-                Some(star.get_pos_at_epoch().y().to_lyr()),
-                Some(star.get_pos(TIME_ZERO).y().to_lyr())
+                Some(star.get_pos_at_epoch().y.to_lyr()),
+                Some(star.get_pos(TIME_ZERO).y.to_lyr())
             ));
             assert!(kinda_equal(
-                Some(star.get_pos_at_epoch().z().to_lyr()),
-                Some(star.get_pos(TIME_ZERO).z().to_lyr())
+                Some(star.get_pos_at_epoch().z.to_lyr()),
+                Some(star.get_pos(TIME_ZERO).z.to_lyr())
             ));
         }
     }

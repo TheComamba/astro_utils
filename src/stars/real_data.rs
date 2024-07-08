@@ -1,6 +1,6 @@
 use astro_coords::{
-    declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
-    right_ascension::RightAscension,
+    earth_equatorial::EarthEquatorialCoordinates,
+    ra_and_dec::{Declination, RightAscension},
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 use std::fmt::Display;
