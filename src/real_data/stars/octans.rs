@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const NU_OCTANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "ν Octantis",
     constellation: "Octans",
-    right_ascension: RightAscension::new(21, 41, 29),
-    declination: Declination::new(Sgn::Neg, 77, 23, 24),
+    right_ascension: RightAscension::new(21, 41, 29.),
+    declination: Declination::new(Sgn::Neg, 77, 23, 24.),
     apparent_magnitude: 3.73,
     distance: Distance {
         m: 63.3 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_OCTANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Octantis",
     constellation: "Octans",
-    right_ascension: RightAscension::new(22, 46, 4),
-    declination: Declination::new(Sgn::Neg, 81, 22, 54),
+    right_ascension: RightAscension::new(22, 46, 4.),
+    declination: Declination::new(Sgn::Neg, 81, 22, 54.),
     apparent_magnitude: 4.13,
     distance: Distance {
         m: 149. * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const DELTA_OCTANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Octantis",
     constellation: "Octans",
-    right_ascension: RightAscension::new(14, 26, 55),
-    declination: Declination::new(Sgn::Neg, 83, 40, 4),
+    right_ascension: RightAscension::new(14, 26, 55.),
+    declination: Declination::new(Sgn::Neg, 83, 40, 4.),
     apparent_magnitude: 4.31,
     distance: Distance {
         m: 299. * LIGHT_YEAR.m,

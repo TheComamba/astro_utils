@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const ARCTURUS: RealData = RealData {
     absolute_magnitude: -0.31,
     apparent_magnitude: -0.05,
     temperature: Temperature { K: 4286. },
-    right_ascension: RightAscension::new(14, 15, 40),
-    declination: Declination::new(Sgn::Pos, 19, 10, 56),
+    right_ascension: RightAscension::new(14, 15, 40.),
+    declination: Declination::new(Sgn::Pos, 19, 10, 56.),
     distance: Distance {
         m: 37. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const IZAR: RealData = RealData {
     absolute_magnitude: -1.69,
     apparent_magnitude: 2.35,
     temperature: Temperature { K: 4550. },
-    right_ascension: RightAscension::new(14, 44, 59),
-    declination: Declination::new(Sgn::Pos, 27, 4, 27),
+    right_ascension: RightAscension::new(14, 44, 59.),
+    declination: Declination::new(Sgn::Pos, 27, 4, 27.),
     distance: Distance {
         m: 210. * LIGHT_YEAR.m,
     },
@@ -69,8 +66,8 @@ const GAMMA_BOOTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Boötis",
     constellation: "Boötes",
-    right_ascension: RightAscension::new(14, 32, 5),
-    declination: Declination::new(Sgn::Pos, 38, 18, 30),
+    right_ascension: RightAscension::new(14, 32, 5.),
+    declination: Declination::new(Sgn::Pos, 38, 18, 30.),
     apparent_magnitude: 3.03,
     distance: Distance {
         m: 86.8 * LIGHT_YEAR.m,
@@ -95,8 +92,8 @@ const DELTA_BOOTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Boötis",
     constellation: "Boötes",
-    right_ascension: RightAscension::new(15, 15, 30),
-    declination: Declination::new(Sgn::Pos, 33, 18, 53),
+    right_ascension: RightAscension::new(15, 15, 30.),
+    declination: Declination::new(Sgn::Pos, 33, 18, 53.),
     apparent_magnitude: 3.482,
     distance: Distance {
         m: 121.8 * LIGHT_YEAR.m,
@@ -119,8 +116,8 @@ const BETA_BOOTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Boötis",
     constellation: "Boötes",
-    right_ascension: RightAscension::new(15, 1, 57),
-    declination: Declination::new(Sgn::Pos, 40, 23, 26),
+    right_ascension: RightAscension::new(15, 1, 57.),
+    declination: Declination::new(Sgn::Pos, 40, 23, 26.),
     apparent_magnitude: 3.488,
     distance: Distance {
         m: 225. * LIGHT_YEAR.m,
@@ -145,8 +142,8 @@ const MUPHRID: RealData = RealData {
     common_name: "Muphrid",
     astronomical_name: "η Boötis",
     constellation: "Boötes",
-    right_ascension: RightAscension::new(13, 54, 41),
-    declination: Declination::new(Sgn::Pos, 18, 23, 52),
+    right_ascension: RightAscension::new(13, 54, 41.),
+    declination: Declination::new(Sgn::Pos, 18, 23, 52.),
     apparent_magnitude: 2.680,
     distance: Distance {
         m: 37.2 * LIGHT_YEAR.m,

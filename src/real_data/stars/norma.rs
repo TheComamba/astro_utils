@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -13,8 +10,8 @@ const GAMMA2_NORMAE: RealData = RealData {
     common_name: "",
     astronomical_name: "γ² Normae",
     constellation: "Norma",
-    right_ascension: RightAscension::new(16, 19, 50),
-    declination: Declination::new(Sgn::Neg, 50, 9, 20),
+    right_ascension: RightAscension::new(16, 19, 50.),
+    declination: Declination::new(Sgn::Neg, 50, 9, 20.),
     apparent_magnitude: 4.02,
     distance: Distance {
         m: 129. * LIGHT_YEAR.m,
@@ -35,8 +32,8 @@ const EPSILON_NORMAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Normae",
     constellation: "Norma",
-    right_ascension: RightAscension::new(16, 27, 11),
-    declination: Declination::new(Sgn::Neg, 47, 33, 17),
+    right_ascension: RightAscension::new(16, 27, 11.),
+    declination: Declination::new(Sgn::Neg, 47, 33, 17.),
     apparent_magnitude: 4.46,
     distance: Distance {
         m: 399.5 * LIGHT_YEAR.m,
@@ -59,8 +56,8 @@ const IOTA1_NORMAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ι¹ Normae",
     constellation: "Norma",
-    right_ascension: RightAscension::new(16, 3, 32),
-    declination: Declination::new(Sgn::Neg, 57, 46, 30),
+    right_ascension: RightAscension::new(16, 3, 32.),
+    declination: Declination::new(Sgn::Neg, 57, 46, 30.),
     apparent_magnitude: 4.69,
     distance: Distance {
         m: 128. * LIGHT_YEAR.m,

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const ALPHARD: RealData = RealData {
     lifetime: Time {
         s: 0.420724107 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(9, 27, 35),
-    declination: Declination::new(Sgn::Neg, 8, 39, 30),
+    right_ascension: RightAscension::new(9, 27, 35.),
+    declination: Declination::new(Sgn::Neg, 8, 39, 30.),
     distance: Distance {
         m: 177. * LIGHT_YEAR.m,
     },
@@ -43,8 +40,8 @@ const GAMMA_HYDRAE: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Hydrae",
     constellation: "Hydra",
-    right_ascension: RightAscension::new(13, 18, 55),
-    declination: Declination::new(Sgn::Neg, 23, 10, 17),
+    right_ascension: RightAscension::new(13, 18, 55.),
+    declination: Declination::new(Sgn::Neg, 23, 10, 17.),
     apparent_magnitude: 2.993,
     distance: Distance {
         m: 133.8 * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const ZETA_HYDRAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Hydrae",
     constellation: "Hydra",
-    right_ascension: RightAscension::new(8, 55, 24),
-    declination: Declination::new(Sgn::Pos, 5, 56, 44),
+    right_ascension: RightAscension::new(8, 55, 24.),
+    declination: Declination::new(Sgn::Pos, 5, 56, 44.),
     apparent_magnitude: 3.1,
     distance: Distance {
         m: 167. * LIGHT_YEAR.m,
@@ -95,8 +92,8 @@ const NU_HYDRAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ν Hydrae",
     constellation: "Hydra",
-    right_ascension: RightAscension::new(10, 49, 37),
-    declination: Declination::new(Sgn::Neg, 16, 11, 37),
+    right_ascension: RightAscension::new(10, 49, 37.),
+    declination: Declination::new(Sgn::Neg, 16, 11, 37.),
     apparent_magnitude: 3.115,
     distance: Distance {
         m: 137.1 * LIGHT_YEAR.m,

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const ANTARES: RealData = RealData {
     age: Some(Time {
         s: 0.015 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(16, 29, 24),
-    declination: Declination::new(Sgn::Neg, 26, 25, 55),
+    right_ascension: RightAscension::new(16, 29, 24.),
+    declination: Declination::new(Sgn::Neg, 26, 25, 55.),
     distance: Distance {
         m: 604. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const SHAULA: RealData = RealData {
     absolute_magnitude: -4.8,
     apparent_magnitude: 1.62,
     temperature: Temperature { K: 25_000. },
-    right_ascension: RightAscension::new(17, 33, 37),
-    declination: Declination::new(Sgn::Neg, 37, 6, 14),
+    right_ascension: RightAscension::new(17, 33, 37.),
+    declination: Declination::new(Sgn::Neg, 37, 6, 14.),
     distance: Distance {
         m: 600. * LIGHT_YEAR.m,
     },
@@ -79,8 +76,8 @@ const SARGAS: RealData = RealData {
     apparent_magnitude: 1.86,
     temperature: Temperature { K: 6294. },
     age: None,
-    right_ascension: RightAscension::new(17, 37, 19),
-    declination: Declination::new(Sgn::Neg, 42, 59, 52),
+    right_ascension: RightAscension::new(17, 37, 19.),
+    declination: Declination::new(Sgn::Neg, 42, 59, 52.),
     distance: Distance {
         m: 272. * LIGHT_YEAR.m,
     },
@@ -105,8 +102,8 @@ const DSCHUBBA: RealData = RealData {
     age: Some(Time {
         s: 0.0095 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(16, 0, 20),
-    declination: Declination::new(Sgn::Neg, 22, 37, 18),
+    right_ascension: RightAscension::new(16, 0, 20.),
+    declination: Declination::new(Sgn::Neg, 22, 37, 18.),
     distance: Distance {
         m: 401.5 * LIGHT_YEAR.m,
     },
@@ -129,8 +126,8 @@ const LARAWAG: RealData = RealData {
     apparent_magnitude: 2.29,
     temperature: Temperature { K: 4560. },
     age: None,
-    right_ascension: RightAscension::new(16, 50, 10),
-    declination: Declination::new(Sgn::Neg, 34, 17, 36),
+    right_ascension: RightAscension::new(16, 50, 10.),
+    declination: Declination::new(Sgn::Neg, 34, 17, 36.),
     distance: Distance {
         m: 65. * LIGHT_YEAR.m,
     },
@@ -152,8 +149,8 @@ const GIRTAB: RealData = RealData {
     absolute_magnitude: -3.38,
     apparent_magnitude: 2.39,
     temperature: Temperature { K: 23_400. },
-    right_ascension: RightAscension::new(17, 42, 29),
-    declination: Declination::new(Sgn::Neg, 39, 1, 48),
+    right_ascension: RightAscension::new(17, 42, 29.),
+    declination: Declination::new(Sgn::Neg, 39, 1, 48.),
     distance: Distance {
         m: 464. * LIGHT_YEAR.m,
     },
@@ -178,8 +175,8 @@ const ACRAB: RealData = RealData {
     absolute_magnitude: -3.50,
     apparent_magnitude: 2.56,
     temperature: Temperature { K: 28_000. },
-    right_ascension: RightAscension::new(16, 5, 26),
-    declination: Declination::new(Sgn::Neg, 19, 48, 20),
+    right_ascension: RightAscension::new(16, 5, 26.),
+    declination: Declination::new(Sgn::Neg, 19, 48, 20.),
     distance: Distance {
         m: 530. * LIGHT_YEAR.m,
     },

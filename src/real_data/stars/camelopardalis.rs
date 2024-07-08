@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const BETA_CAMELOPARDALIS: RealData = RealData {
     absolute_magnitude: -3.1,
     apparent_magnitude: 4.02,
     temperature: Temperature { K: 5300. },
-    right_ascension: RightAscension::new(5, 3, 25),
-    declination: Declination::new(Sgn::Pos, 60, 26, 32),
+    right_ascension: RightAscension::new(5, 3, 25.),
+    declination: Declination::new(Sgn::Pos, 60, 26, 32.),
     distance: Distance {
         m: 870. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     absolute_magnitude: -6.39,
     apparent_magnitude: 4.21,
     temperature: Temperature { K: 10_800. },
-    right_ascension: RightAscension::new(3, 29, 4),
-    declination: Declination::new(Sgn::Pos, 59, 56, 25),
+    right_ascension: RightAscension::new(3, 29, 4.),
+    declination: Declination::new(Sgn::Pos, 59, 56, 25.),
     distance: Distance {
         m: 4289. * LIGHT_YEAR.m,
     },
@@ -78,8 +75,8 @@ const ALPHA_CAMELOPARDALIS: RealData = RealData {
     absolute_magnitude: -7.1,
     apparent_magnitude: 4.29,
     temperature: Temperature { K: 29_000. },
-    right_ascension: RightAscension::new(4, 54, 3),
-    declination: Declination::new(Sgn::Pos, 66, 20, 34),
+    right_ascension: RightAscension::new(4, 54, 3.),
+    declination: Declination::new(Sgn::Pos, 66, 20, 34.),
     distance: Distance {
         m: 6_000. * LIGHT_YEAR.m,
     },

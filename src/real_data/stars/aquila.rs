@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const ALTAIR: RealData = RealData {
     absolute_magnitude: 2.20,
     apparent_magnitude: 0.76,
     temperature: Temperature { K: 7670. },
-    right_ascension: RightAscension::new(19, 50, 47),
-    declination: Declination::new(Sgn::Pos, 8, 52, 6),
+    right_ascension: RightAscension::new(19, 50, 47.),
+    declination: Declination::new(Sgn::Pos, 8, 52, 6.),
     distance: Distance {
         m: 17. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const TARAZED: RealData = RealData {
     absolute_magnitude: -3.03,
     apparent_magnitude: 2.72,
     temperature: Temperature { K: 4098. },
-    right_ascension: RightAscension::new(19, 46, 16),
-    declination: Declination::new(Sgn::Pos, 10, 36, 48),
+    right_ascension: RightAscension::new(19, 46, 16.),
+    declination: Declination::new(Sgn::Pos, 10, 36, 48.),
     distance: Distance {
         m: 460.5 * LIGHT_YEAR.m,
     },
@@ -69,8 +66,8 @@ const OKAB: RealData = RealData {
     common_name: "Okab",
     astronomical_name: "ζ Aquilae",
     constellation: "Aquila",
-    right_ascension: RightAscension::new(19, 5, 25),
-    declination: Declination::new(Sgn::Pos, 13, 51, 49),
+    right_ascension: RightAscension::new(19, 5, 25.),
+    declination: Declination::new(Sgn::Pos, 13, 51, 49.),
     apparent_magnitude: 2.983,
     distance: Distance {
         m: 83.0 * LIGHT_YEAR.m,
@@ -95,8 +92,8 @@ const THETA_AQUILAE: RealData = RealData {
     common_name: "",
     astronomical_name: "θ Aquilae",
     constellation: "Aquila",
-    right_ascension: RightAscension::new(20, 11, 18),
-    declination: Declination::new(Sgn::Neg, 0, 49, 17),
+    right_ascension: RightAscension::new(20, 11, 18.),
+    declination: Declination::new(Sgn::Neg, 0, 49, 17.),
     apparent_magnitude: 3.26,
     distance: Distance {
         m: 286. * LIGHT_YEAR.m,
@@ -121,8 +118,8 @@ const DELTA_AQUILAE: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Aquilae",
     constellation: "Aquila",
-    right_ascension: RightAscension::new(19, 25, 30),
-    declination: Declination::new(Sgn::Pos, 3, 6, 53),
+    right_ascension: RightAscension::new(19, 25, 30.),
+    declination: Declination::new(Sgn::Pos, 3, 6, 53.),
     apparent_magnitude: 3.365,
     distance: Distance {
         m: 50.6 * LIGHT_YEAR.m,
@@ -145,8 +142,8 @@ const LAMBDA_AQUILAE: RealData = RealData {
     common_name: "",
     astronomical_name: "λ Aquilae",
     constellation: "Aquila",
-    right_ascension: RightAscension::new(19, 6, 15),
-    declination: Declination::new(Sgn::Neg, 4, 52, 57),
+    right_ascension: RightAscension::new(19, 6, 15.),
+    declination: Declination::new(Sgn::Neg, 4, 52, 57.),
     apparent_magnitude: 3.43,
     distance: Distance {
         m: 125. * LIGHT_YEAR.m,

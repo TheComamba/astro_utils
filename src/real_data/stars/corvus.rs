@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -27,8 +24,8 @@ const GHURAB: RealData = RealData {
     age: Some(Time {
         s: 0.160 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(12, 15, 48),
-    declination: Declination::new(Sgn::Neg, 17, 32, 31),
+    right_ascension: RightAscension::new(12, 15, 48.),
+    declination: Declination::new(Sgn::Neg, 17, 32, 31.),
     distance: Distance {
         m: 165. * LIGHT_YEAR.m,
     },
@@ -53,8 +50,8 @@ const KRAZ: RealData = RealData {
     age: Some(Time {
         s: 0.206 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(12, 34, 23),
-    declination: Declination::new(Sgn::Neg, 23, 23, 48),
+    right_ascension: RightAscension::new(12, 34, 23.),
+    declination: Declination::new(Sgn::Neg, 23, 23, 48.),
     distance: Distance {
         m: 146. * LIGHT_YEAR.m,
     },
@@ -67,8 +64,8 @@ const ALGORAB: RealData = RealData {
     common_name: "Algorab",
     astronomical_name: "δ Corvi",
     constellation: "Corvus",
-    right_ascension: RightAscension::new(12, 29, 52),
-    declination: Declination::new(Sgn::Neg, 16, 30, 56),
+    right_ascension: RightAscension::new(12, 29, 52.),
+    declination: Declination::new(Sgn::Neg, 16, 30, 56.),
     apparent_magnitude: 2.94,
     distance: Distance {
         m: 87.85 * LIGHT_YEAR.m,
@@ -91,8 +88,8 @@ const EPSILON_CORVI: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Corvi",
     constellation: "Corvus",
-    right_ascension: RightAscension::new(12, 10, 7),
-    declination: Declination::new(Sgn::Neg, 22, 37, 11),
+    right_ascension: RightAscension::new(12, 10, 7.),
+    declination: Declination::new(Sgn::Neg, 22, 37, 11.),
     apparent_magnitude: 3.024,
     distance: Distance {
         m: 318. * LIGHT_YEAR.m,

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const CANOPUS: RealData = RealData {
     absolute_magnitude: -5.53,
     apparent_magnitude: -0.62,
     temperature: Temperature { K: 7400. },
-    right_ascension: RightAscension::new(6, 23, 57),
-    declination: Declination::new(Sgn::Neg, 52, 41, 44),
+    right_ascension: RightAscension::new(6, 23, 57.),
+    declination: Declination::new(Sgn::Neg, 52, 41, 44.),
     distance: Distance {
         m: 313. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const MIAPLACIDUS: RealData = RealData {
     absolute_magnitude: -0.99,
     apparent_magnitude: 1.67,
     temperature: Temperature { K: 8866. },
-    right_ascension: RightAscension::new(9, 13, 12),
-    declination: Declination::new(Sgn::Neg, 69, 43, 2),
+    right_ascension: RightAscension::new(9, 13, 12.),
+    declination: Declination::new(Sgn::Neg, 69, 43, 2.),
     distance: Distance {
         m: 111. * LIGHT_YEAR.m,
     },
@@ -76,8 +73,8 @@ const AVIOR: RealData = RealData {
     absolute_magnitude: -4.58,
     apparent_magnitude: 1.86,
     temperature: Temperature { K: 3523. },
-    right_ascension: RightAscension::new(8, 22, 31),
-    declination: Declination::new(Sgn::Neg, 59, 30, 34),
+    right_ascension: RightAscension::new(8, 22, 31.),
+    declination: Declination::new(Sgn::Neg, 59, 30, 34.),
     distance: Distance {
         m: 632. * LIGHT_YEAR.m,
     },
@@ -102,8 +99,8 @@ const ASPIDISKE: RealData = RealData {
     absolute_magnitude: -4.42,
     apparent_magnitude: 2.21,
     temperature: Temperature { K: 7500. },
-    right_ascension: RightAscension::new(9, 17, 5),
-    declination: Declination::new(Sgn::Neg, 59, 16, 30),
+    right_ascension: RightAscension::new(9, 17, 5.),
+    declination: Declination::new(Sgn::Neg, 59, 16, 30.),
     distance: Distance {
         m: 694. * LIGHT_YEAR.m,
     },

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const PEACOCK: RealData = RealData {
     age: Some(Time {
         s: 0.048 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(20, 25, 39),
-    declination: Declination::new(Sgn::Neg, 56, 44, 6),
+    right_ascension: RightAscension::new(20, 25, 39.),
+    declination: Declination::new(Sgn::Neg, 56, 44, 6.),
     distance: Distance {
         m: 183. * LIGHT_YEAR.m,
     },
@@ -43,8 +40,8 @@ const BETA_PAVONIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Pavonis",
     constellation: "Pavo",
-    right_ascension: RightAscension::new(20, 44, 57),
-    declination: Declination::new(Sgn::Neg, 66, 12, 12),
+    right_ascension: RightAscension::new(20, 44, 57.),
+    declination: Declination::new(Sgn::Neg, 66, 12, 12.),
     apparent_magnitude: 3.42,
     distance: Distance {
         m: 135.1 * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const DELTA_PAVONIS: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Pavonis",
     constellation: "Pavo",
-    right_ascension: RightAscension::new(20, 8, 44),
-    declination: Declination::new(Sgn::Neg, 66, 10, 55),
+    right_ascension: RightAscension::new(20, 8, 44.),
+    declination: Declination::new(Sgn::Neg, 66, 10, 55.),
     apparent_magnitude: 3.56,
     distance: Distance {
         m: 19.89 * LIGHT_YEAR.m,

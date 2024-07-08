@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_PYXIDIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Pyxidis",
     constellation: "Pyxis",
-    right_ascension: RightAscension::new(8, 43, 36),
-    declination: Declination::new(Sgn::Neg, 33, 11, 11),
+    right_ascension: RightAscension::new(8, 43, 36.),
+    declination: Declination::new(Sgn::Neg, 33, 11, 11.),
     apparent_magnitude: 3.67,
     distance: Distance {
         m: 880. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_PYXIDIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Pyxidis",
     constellation: "Pyxis",
-    right_ascension: RightAscension::new(8, 40, 6),
-    declination: Declination::new(Sgn::Neg, 35, 18, 30),
+    right_ascension: RightAscension::new(8, 40, 6.),
+    declination: Declination::new(Sgn::Neg, 35, 18, 30.),
     apparent_magnitude: 3.97,
     distance: Distance {
         m: 388.1 * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_PYXIDIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Pyxidis",
     constellation: "Pyxis",
-    right_ascension: RightAscension::new(8, 50, 32),
-    declination: Declination::new(Sgn::Neg, 27, 42, 35),
+    right_ascension: RightAscension::new(8, 50, 32.),
+    declination: Declination::new(Sgn::Neg, 27, 42, 35.),
     apparent_magnitude: 4.010,
     distance: Distance {
         m: 207. * LIGHT_YEAR.m,

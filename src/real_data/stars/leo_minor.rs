@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const PRAECIPUA: RealData = RealData {
     common_name: "Praecipua",
     astronomical_name: "46 Leonis Minoris",
     constellation: "Leo Minor",
-    right_ascension: RightAscension::new(10, 53, 19),
-    declination: Declination::new(Sgn::Pos, 34, 12, 54),
+    right_ascension: RightAscension::new(10, 53, 19.),
+    declination: Declination::new(Sgn::Pos, 34, 12, 54.),
     apparent_magnitude: 3.83,
     distance: Distance {
         m: 94.9 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_LEONIS_MINORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Leonis Minoris",
     constellation: "Leo Minor",
-    right_ascension: RightAscension::new(10, 27, 53),
-    declination: Declination::new(Sgn::Pos, 36, 42, 26),
+    right_ascension: RightAscension::new(10, 27, 53.),
+    declination: Declination::new(Sgn::Pos, 36, 42, 26.),
     apparent_magnitude: 4.21,
     distance: Distance {
         m: 154. * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "21 Leonis Minoris",
     constellation: "Leo Minor",
-    right_ascension: RightAscension::new(10, 7, 26),
-    declination: Declination::new(Sgn::Pos, 35, 14, 41),
+    right_ascension: RightAscension::new(10, 7, 26.),
+    declination: Declination::new(Sgn::Pos, 35, 14, 41.),
     apparent_magnitude: 4.5,
     distance: Distance {
         m: 92.1 * LIGHT_YEAR.m,

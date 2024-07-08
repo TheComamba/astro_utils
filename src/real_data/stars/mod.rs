@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Temperature, Time};
 
 use crate::{
@@ -45,8 +42,8 @@ pub const SUN: RealData = RealData {
     age: Some(Time {
         s: 4.6 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(0, 0, 0),
-    declination: Declination::new(Sgn::Pos, 0, 0, 0),
+    right_ascension: RightAscension::new(0, 0, 0.),
+    declination: Declination::new(Sgn::Pos, 0, 0, 0.),
     distance: DISTANCE_ZERO,
     lifetime: Time {
         s: 10.0 * BILLION_YEARS.s,

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const KITALPHA: RealData = RealData {
     common_name: "Kitalpha",
     astronomical_name: "α Equulei",
     constellation: "Equuleus",
-    right_ascension: RightAscension::new(21, 15, 49),
-    declination: Declination::new(Sgn::Pos, 5, 14, 52),
+    right_ascension: RightAscension::new(21, 15, 49.),
+    declination: Declination::new(Sgn::Pos, 5, 14, 52.),
     apparent_magnitude: 3.919,
     distance: Distance {
         m: 190. * LIGHT_YEAR.m,
@@ -41,8 +38,8 @@ const DELTA_EQUULEI: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Equulei",
     constellation: "Equuleus",
-    right_ascension: RightAscension::new(21, 14, 29),
-    declination: Declination::new(Sgn::Pos, 10, 0, 25),
+    right_ascension: RightAscension::new(21, 14, 29.),
+    declination: Declination::new(Sgn::Pos, 10, 0, 25.),
     apparent_magnitude: 4.47,
     distance: Distance {
         m: 60.25 * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_EQUULEI: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Equulei",
     constellation: "Equuleus",
-    right_ascension: RightAscension::new(21, 10, 21),
-    declination: Declination::new(Sgn::Pos, 10, 7, 54),
+    right_ascension: RightAscension::new(21, 10, 21.),
+    declination: Declination::new(Sgn::Pos, 10, 7, 54.),
     apparent_magnitude: 4.6,
     distance: Distance {
         m: 118. * LIGHT_YEAR.m,

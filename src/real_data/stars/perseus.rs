@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const MIRPHAK: RealData = RealData {
     absolute_magnitude: -4.50,
     apparent_magnitude: 1.79,
     temperature: Temperature { K: 6350. },
-    right_ascension: RightAscension::new(3, 24, 19),
-    declination: Declination::new(Sgn::Pos, 49, 51, 40),
+    right_ascension: RightAscension::new(3, 24, 19.),
+    declination: Declination::new(Sgn::Pos, 49, 51, 40.),
     distance: Distance {
         m: 592. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const ALGOL: RealData = RealData {
     absolute_magnitude: -0.18,
     apparent_magnitude: 2.09,
     temperature: Temperature { K: 13_000. },
-    right_ascension: RightAscension::new(3, 8, 10),
-    declination: Declination::new(Sgn::Pos, 40, 57, 20),
+    right_ascension: RightAscension::new(3, 8, 10.),
+    declination: Declination::new(Sgn::Pos, 40, 57, 20.),
     distance: Distance {
         m: 93. * LIGHT_YEAR.m,
     },
@@ -81,8 +78,8 @@ const GORGONEA_TERTIA: RealData = RealData {
     age: Some(Time {
         s: 0.440 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(3, 5, 11),
-    declination: Declination::new(Sgn::Pos, 38, 50, 25),
+    right_ascension: RightAscension::new(3, 5, 11.),
+    declination: Declination::new(Sgn::Pos, 38, 50, 25.),
     distance: Distance {
         m: 325. * LIGHT_YEAR.m,
     },

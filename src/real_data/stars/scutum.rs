@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_SCUTI: RealData = RealData {
     common_name: "",
     astronomical_name: "α Scuti",
     constellation: "Scutum",
-    right_ascension: RightAscension::new(18, 35, 12),
-    declination: Declination::new(Sgn::Neg, 8, 14, 39),
+    right_ascension: RightAscension::new(18, 35, 12.),
+    declination: Declination::new(Sgn::Neg, 8, 14, 39.),
     apparent_magnitude: 3.83,
     distance: Distance {
         m: 199. * LIGHT_YEAR.m,
@@ -41,8 +38,8 @@ const BETA_SCUTI: RealData = RealData {
     common_name: "",
     astronomical_name: "β Scuti",
     constellation: "Scutum",
-    right_ascension: RightAscension::new(18, 47, 10),
-    declination: Declination::new(Sgn::Neg, 4, 44, 52),
+    right_ascension: RightAscension::new(18, 47, 10.),
+    declination: Declination::new(Sgn::Neg, 4, 44, 52.),
     apparent_magnitude: 4.22,
     distance: Distance {
         m: 900. * LIGHT_YEAR.m,
@@ -63,8 +60,8 @@ const ZETA_SCUTI: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Scuti",
     constellation: "Scutum",
-    right_ascension: RightAscension::new(18, 23, 40),
-    declination: Declination::new(Sgn::Neg, 8, 56, 4),
+    right_ascension: RightAscension::new(18, 23, 40.),
+    declination: Declination::new(Sgn::Neg, 8, 56, 4.),
     apparent_magnitude: 4.66,
     distance: Distance {
         m: 210. * LIGHT_YEAR.m,

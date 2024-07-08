@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_SCULPTORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Sculptoris",
     constellation: "Sculptor",
-    right_ascension: RightAscension::new(0, 58, 36),
-    declination: Declination::new(Sgn::Neg, 29, 21, 27),
+    right_ascension: RightAscension::new(0, 58, 36.),
+    declination: Declination::new(Sgn::Neg, 29, 21, 27.),
     apparent_magnitude: 4.30,
     distance: Distance {
         m: 780. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_SCULPTORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Sculptoris",
     constellation: "Sculptor",
-    right_ascension: RightAscension::new(23, 32, 58),
-    declination: Declination::new(Sgn::Neg, 37, 49, 6),
+    right_ascension: RightAscension::new(23, 32, 58.),
+    declination: Declination::new(Sgn::Neg, 37, 49, 6.),
     apparent_magnitude: 4.37,
     distance: Distance {
         m: 174. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_SULPTORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Sculptoris",
     constellation: "Sculptor",
-    right_ascension: RightAscension::new(23, 18, 49),
-    declination: Declination::new(Sgn::Neg, 32, 31, 55),
+    right_ascension: RightAscension::new(23, 18, 49.),
+    declination: Declination::new(Sgn::Neg, 32, 31, 55.),
     apparent_magnitude: 4.41,
     distance: Distance {
         m: 182. * LIGHT_YEAR.m,

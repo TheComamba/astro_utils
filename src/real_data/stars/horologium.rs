@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_HOROLOGII: RealData = RealData {
     common_name: "",
     astronomical_name: "α Horologii",
     constellation: "Horologium",
-    right_ascension: RightAscension::new(4, 14, 0),
-    declination: Declination::new(Sgn::Neg, 42, 17, 40),
+    right_ascension: RightAscension::new(4, 14, 0.),
+    declination: Declination::new(Sgn::Neg, 42, 17, 40.),
     apparent_magnitude: 3.853,
     distance: Distance {
         m: 115. * LIGHT_YEAR.m,
@@ -41,8 +38,8 @@ const R_HOROLOGII: RealData = RealData {
     common_name: "",
     astronomical_name: "R Horologii",
     constellation: "Horologium",
-    right_ascension: RightAscension::new(2, 53, 53),
-    declination: Declination::new(Sgn::Neg, 49, 53, 23),
+    right_ascension: RightAscension::new(2, 53, 53.),
+    declination: Declination::new(Sgn::Neg, 49, 53, 23.),
     apparent_magnitude: 7.22,
     distance: Distance {
         m: 1003. * LIGHT_YEAR.m,
@@ -63,8 +60,8 @@ const BETA_HOROLOGII: RealData = RealData {
     common_name: "",
     astronomical_name: "β Horologii",
     constellation: "Horologium",
-    right_ascension: RightAscension::new(2, 58, 48),
-    declination: Declination::new(Sgn::Neg, 64, 4, 17),
+    right_ascension: RightAscension::new(2, 58, 48.),
+    declination: Declination::new(Sgn::Neg, 64, 4, 17.),
     apparent_magnitude: 4.979,
     distance: Distance {
         m: 312. * LIGHT_YEAR.m,

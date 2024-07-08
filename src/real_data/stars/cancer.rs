@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const TARF: RealData = RealData {
     absolute_magnitude: -1.218,
     apparent_magnitude: 3.50,
     temperature: Temperature { K: 4092. },
-    right_ascension: RightAscension::new(8, 16, 31),
-    declination: Declination::new(Sgn::Pos, 9, 11, 8),
+    right_ascension: RightAscension::new(8, 16, 31.),
+    declination: Declination::new(Sgn::Pos, 9, 11, 8.),
     distance: Distance {
         m: 290. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const ASELLUS_AUSTRALIS: RealData = RealData {
     absolute_magnitude: 0.843,
     apparent_magnitude: 3.94,
     temperature: Temperature { K: 4637. },
-    right_ascension: RightAscension::new(8, 44, 41),
-    declination: Declination::new(Sgn::Pos, 18, 9, 16),
+    right_ascension: RightAscension::new(8, 44, 41.),
+    declination: Declination::new(Sgn::Pos, 18, 9, 16.),
     distance: Distance {
         m: 131. * LIGHT_YEAR.m,
     },
@@ -78,8 +75,8 @@ const IOTA_CANCRI: RealData = RealData {
     absolute_magnitude: -0.79,
     apparent_magnitude: 4.02,
     temperature: Temperature { K: 4954. },
-    right_ascension: RightAscension::new(8, 46, 42),
-    declination: Declination::new(Sgn::Pos, 28, 45, 36),
+    right_ascension: RightAscension::new(8, 46, 42.),
+    declination: Declination::new(Sgn::Pos, 28, 45, 36.),
     distance: Distance {
         m: 330. * LIGHT_YEAR.m,
     },

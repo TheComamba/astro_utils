@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const VEGA: RealData = RealData {
     lifetime: Time {
         s: 1.09929685 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(18, 36, 56),
-    declination: Declination::new(Sgn::Pos, 38, 47, 1),
+    right_ascension: RightAscension::new(18, 36, 56.),
+    declination: Declination::new(Sgn::Pos, 38, 47, 1.),
     distance: Distance {
         m: 25. * LIGHT_YEAR.m,
     },
@@ -54,8 +51,8 @@ const R_LYRAE: RealData = RealData {
     lifetime: Time {
         s: 1.46605285 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(18, 55, 20),
-    declination: Declination::new(Sgn::Pos, 43, 56, 46),
+    right_ascension: RightAscension::new(18, 55, 20.),
+    declination: Declination::new(Sgn::Pos, 43, 56, 46.),
     distance: Distance {
         m: 349.4 * LIGHT_YEAR.m,
     },
@@ -65,8 +62,8 @@ const GAMMA_LYRAE: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Lyrae",
     constellation: "Lyra",
-    right_ascension: RightAscension::new(18, 58, 57),
-    declination: Declination::new(Sgn::Pos, 32, 41, 22),
+    right_ascension: RightAscension::new(18, 58, 57.),
+    declination: Declination::new(Sgn::Pos, 32, 41, 22.),
     apparent_magnitude: 3.261,
     distance: Distance {
         m: 620. * LIGHT_YEAR.m,
@@ -89,8 +86,8 @@ const BETA_LYRAE: RealData = RealData {
     common_name: "",
     astronomical_name: "β Lyrae",
     constellation: "Lyra",
-    right_ascension: RightAscension::new(18, 50, 5),
-    declination: Declination::new(Sgn::Pos, 33, 21, 46),
+    right_ascension: RightAscension::new(18, 50, 5.),
+    declination: Declination::new(Sgn::Pos, 33, 21, 46.),
     apparent_magnitude: 3.52,
     distance: Distance {
         m: 960. * LIGHT_YEAR.m,

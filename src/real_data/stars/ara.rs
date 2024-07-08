@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_ARAE: RealData = RealData {
     common_name: "",
     astronomical_name: "α Arae",
     constellation: "Ara",
-    right_ascension: RightAscension::new(17, 31, 50),
-    declination: Declination::new(Sgn::Neg, 49, 52, 34),
+    right_ascension: RightAscension::new(17, 31, 50.),
+    declination: Declination::new(Sgn::Neg, 49, 52, 34.),
     apparent_magnitude: 2.93,
     distance: Distance {
         m: 270. * LIGHT_YEAR.m,
@@ -52,8 +49,8 @@ const BETA_ARAE: RealData = RealData {
     absolute_magnitude: -3.49,
     apparent_magnitude: 2.84,
     temperature: Temperature { K: 4197. },
-    right_ascension: RightAscension::new(17, 25, 18),
-    declination: Declination::new(Sgn::Neg, 55, 31, 48),
+    right_ascension: RightAscension::new(17, 25, 18.),
+    declination: Declination::new(Sgn::Neg, 55, 31, 48.),
     distance: Distance {
         m: 602.6 * LIGHT_YEAR.m,
     },
@@ -69,8 +66,8 @@ const GAMMA_ARAE: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Arae",
     constellation: "Ara",
-    right_ascension: RightAscension::new(17, 25, 24),
-    declination: Declination::new(Sgn::Neg, 56, 22, 40),
+    right_ascension: RightAscension::new(17, 25, 24.),
+    declination: Declination::new(Sgn::Neg, 56, 22, 40.),
     apparent_magnitude: 3.31,
     distance: Distance {
         m: 1136. * LIGHT_YEAR.m,
@@ -95,8 +92,8 @@ const DELTA_ARAE: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Arae",
     constellation: "Ara",
-    right_ascension: RightAscension::new(17, 31, 6),
-    declination: Declination::new(Sgn::Neg, 60, 41, 2),
+    right_ascension: RightAscension::new(17, 31, 6.),
+    declination: Declination::new(Sgn::Neg, 60, 41, 2.),
     apparent_magnitude: 3.62,
     distance: Distance {
         m: 198. * LIGHT_YEAR.m,
@@ -121,8 +118,8 @@ const ZETA_ARAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Arae",
     constellation: "Ara",
-    right_ascension: RightAscension::new(16, 58, 37),
-    declination: Declination::new(Sgn::Neg, 55, 59, 25),
+    right_ascension: RightAscension::new(16, 58, 37.),
+    declination: Declination::new(Sgn::Neg, 55, 59, 25.),
     apparent_magnitude: 3.12,
     distance: Distance {
         m: 573.9 * LIGHT_YEAR.m,

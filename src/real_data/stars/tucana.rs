@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -27,8 +24,8 @@ const ALPHA_TUCANAE: RealData = RealData {
     apparent_magnitude: 2.87,
     temperature: Temperature { K: 4300. },
     age: None,
-    right_ascension: RightAscension::new(22, 18, 30),
-    declination: Declination::new(Sgn::Neg, 60, 15, 35),
+    right_ascension: RightAscension::new(22, 18, 30.),
+    declination: Declination::new(Sgn::Neg, 60, 15, 35.),
     distance: Distance {
         m: 198.5 * LIGHT_YEAR.m,
     },
@@ -41,8 +38,8 @@ const GAMMA_TUCANAE: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Tucanae",
     constellation: "Tucana",
-    right_ascension: RightAscension::new(23, 17, 26),
-    declination: Declination::new(Sgn::Neg, 58, 14, 9),
+    right_ascension: RightAscension::new(23, 17, 26.),
+    declination: Declination::new(Sgn::Neg, 58, 14, 9.),
     apparent_magnitude: 3.99,
     distance: Distance {
         m: 75. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const ZETA_TUCANAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Tucanae",
     constellation: "Tucana",
-    right_ascension: RightAscension::new(0, 20, 4),
-    declination: Declination::new(Sgn::Neg, 64, 52, 29),
+    right_ascension: RightAscension::new(0, 20, 4.),
+    declination: Declination::new(Sgn::Neg, 64, 52, 29.),
     apparent_magnitude: 4.23,
     distance: Distance {
         m: 28.01 * LIGHT_YEAR.m,

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_HYDRI: RealData = RealData {
     common_name: "",
     astronomical_name: "α Hydri",
     constellation: "Hydrus",
-    right_ascension: RightAscension::new(1, 58, 46),
-    declination: Declination::new(Sgn::Neg, 61, 34, 11),
+    right_ascension: RightAscension::new(1, 58, 46.),
+    declination: Declination::new(Sgn::Neg, 61, 34, 11.),
     apparent_magnitude: 2.9,
     distance: Distance {
         m: 71.8 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_HYDRI: RealData = RealData {
     common_name: "",
     astronomical_name: "β Hydri",
     constellation: "Hydrus",
-    right_ascension: RightAscension::new(0, 25, 45),
-    declination: Declination::new(Sgn::Neg, 77, 15, 15),
+    right_ascension: RightAscension::new(0, 25, 45.),
+    declination: Declination::new(Sgn::Neg, 77, 15, 15.),
     apparent_magnitude: 2.8,
     distance: Distance {
         m: 24.33 * LIGHT_YEAR.m,
@@ -78,8 +75,8 @@ const GAMMA_HYDRI: RealData = RealData {
     absolute_magnitude: -0.83,
     apparent_magnitude: 3.26,
     temperature: Temperature { K: 3499. },
-    right_ascension: RightAscension::new(3, 47, 14),
-    declination: Declination::new(Sgn::Neg, 74, 14, 20),
+    right_ascension: RightAscension::new(3, 47, 14.),
+    declination: Declination::new(Sgn::Neg, 74, 14, 20.),
     distance: Distance {
         m: 214. * LIGHT_YEAR.m,
     },

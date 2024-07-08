@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const FORMALHAUT: RealData = RealData {
     age: Some(Time {
         s: 0.44 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(22, 57, 39),
-    declination: Declination::new(Sgn::Neg, 29, 37, 20),
+    right_ascension: RightAscension::new(22, 57, 39.),
+    declination: Declination::new(Sgn::Neg, 29, 37, 20.),
     distance: Distance {
         m: 25. * LIGHT_YEAR.m,
     },
@@ -43,8 +40,8 @@ const DELTA_PISCIS_AUSTRINI: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Piscis Austrini",
     constellation: "Piscis Austrinus",
-    right_ascension: RightAscension::new(22, 55, 57),
-    declination: Declination::new(Sgn::Neg, 32, 32, 23),
+    right_ascension: RightAscension::new(22, 55, 57.),
+    declination: Declination::new(Sgn::Neg, 32, 32, 23.),
     apparent_magnitude: 4.175,
     distance: Distance {
         m: 172. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Piscis Austrini",
     constellation: "Piscis Austrinus",
-    right_ascension: RightAscension::new(22, 40, 39),
-    declination: Declination::new(Sgn::Neg, 27, 2, 37),
+    right_ascension: RightAscension::new(22, 40, 39.),
+    declination: Declination::new(Sgn::Neg, 27, 2, 37.),
     apparent_magnitude: 4.18,
     distance: Distance {
         m: 744.3 * LIGHT_YEAR.m,
@@ -91,8 +88,8 @@ const IOTA_PISCIS_AUSTRINI: RealData = RealData {
     common_name: "",
     astronomical_name: "ι Piscis Austrini",
     constellation: "Piscis Austrinus",
-    right_ascension: RightAscension::new(21, 44, 57),
-    declination: Declination::new(Sgn::Neg, 33, 1, 33),
+    right_ascension: RightAscension::new(21, 44, 57.),
+    declination: Declination::new(Sgn::Neg, 33, 1, 33.),
     apparent_magnitude: 4.35,
     distance: Distance {
         m: 204. * LIGHT_YEAR.m,

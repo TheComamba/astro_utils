@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const ALPHERATZ: RealData = RealData {
     lifetime: Time {
         s: 0.220601963 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(0, 8, 23),
-    declination: Declination::new(Sgn::Pos, 29, 5, 26),
+    right_ascension: RightAscension::new(0, 8, 23.),
+    declination: Declination::new(Sgn::Pos, 29, 5, 26.),
     distance: Distance {
         m: 97.0 * LIGHT_YEAR.m,
     },
@@ -56,8 +53,8 @@ const MIRACH: RealData = RealData {
     lifetime: Time {
         s: 0.800458342 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(1, 9, 44),
-    declination: Declination::new(Sgn::Pos, 35, 37, 14),
+    right_ascension: RightAscension::new(1, 9, 44.),
+    declination: Declination::new(Sgn::Pos, 35, 37, 14.),
     distance: Distance {
         m: 199. * LIGHT_YEAR.m,
     },
@@ -82,8 +79,8 @@ const ALMACH: RealData = RealData {
     lifetime: Time {
         s: 0.008063854 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(2, 3, 54),
-    declination: Declination::new(Sgn::Pos, 42, 19, 47),
+    right_ascension: RightAscension::new(2, 3, 54.),
+    declination: Declination::new(Sgn::Pos, 42, 19, 47.),
     distance: Distance {
         m: 355. * LIGHT_YEAR.m,
     },

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const MERIDIANA: RealData = RealData {
     common_name: "Meridiana",
     astronomical_name: "α Coronae Australis",
     constellation: "Corona Australis",
-    right_ascension: RightAscension::new(19, 9, 28),
-    declination: Declination::new(Sgn::Neg, 37, 54, 16),
+    right_ascension: RightAscension::new(19, 9, 28.),
+    declination: Declination::new(Sgn::Neg, 37, 54, 16.),
     apparent_magnitude: 4.102,
     distance: Distance {
         m: 125. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_CORONAE_AUSTRALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Coronae Australis",
     constellation: "Corona Australis",
-    right_ascension: RightAscension::new(19, 10, 2),
-    declination: Declination::new(Sgn::Neg, 39, 20, 27),
+    right_ascension: RightAscension::new(19, 10, 2.),
+    declination: Declination::new(Sgn::Neg, 39, 20, 27.),
     apparent_magnitude: 4.10,
     distance: Distance {
         m: 470. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_CORONAE_AUSTRALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ¹ Coronae Australis",
     constellation: "Corona Australis",
-    right_ascension: RightAscension::new(19, 6, 25),
-    declination: Declination::new(Sgn::Neg, 37, 3, 48),
+    right_ascension: RightAscension::new(19, 6, 25.),
+    declination: Declination::new(Sgn::Neg, 37, 3, 48.),
     apparent_magnitude: 4.23,
     distance: Distance {
         m: 58.33 * LIGHT_YEAR.m,

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const DENEB: RealData = RealData {
     absolute_magnitude: -7.13,
     apparent_magnitude: 1.25,
     temperature: Temperature { K: 8515. },
-    right_ascension: RightAscension::new(20, 41, 26),
-    declination: Declination::new(Sgn::Pos, 45, 16, 49),
+    right_ascension: RightAscension::new(20, 41, 26.),
+    declination: Declination::new(Sgn::Pos, 45, 16, 49.),
     distance: Distance {
         m: 1548. * LIGHT_YEAR.m,
     },
@@ -58,8 +55,8 @@ const SADIR: RealData = RealData {
     lifetime: Time {
         s: 0.019450199 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(20, 22, 14),
-    declination: Declination::new(Sgn::Pos, 40, 15, 24),
+    right_ascension: RightAscension::new(20, 22, 14.),
+    declination: Declination::new(Sgn::Pos, 40, 15, 24.),
     distance: Distance {
         m: 1522. * LIGHT_YEAR.m,
     },
@@ -84,8 +81,8 @@ const ALJANAH: RealData = RealData {
     lifetime: Time {
         s: 1.36020165 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(20, 46, 13),
-    declination: Declination::new(Sgn::Pos, 33, 58, 13),
+    right_ascension: RightAscension::new(20, 46, 13.),
+    declination: Declination::new(Sgn::Pos, 33, 58, 13.),
     distance: Distance {
         m: 72. * LIGHT_YEAR.m,
     },

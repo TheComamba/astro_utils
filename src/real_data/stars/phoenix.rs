@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -27,8 +24,8 @@ const ANKAA: RealData = RealData {
     apparent_magnitude: 2.4,
     temperature: Temperature { K: 4436. },
     age: None,
-    right_ascension: RightAscension::new(0, 26, 17),
-    declination: Declination::new(Sgn::Neg, 42, 18, 21),
+    right_ascension: RightAscension::new(0, 26, 17.),
+    declination: Declination::new(Sgn::Neg, 42, 18, 21.),
     distance: Distance {
         m: 77. * LIGHT_YEAR.m,
     },
@@ -41,8 +38,8 @@ const BETA_PHOENICIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Phoenicis",
     constellation: "Phoenix",
-    right_ascension: RightAscension::new(1, 6, 5),
-    declination: Declination::new(Sgn::Neg, 46, 43, 6),
+    right_ascension: RightAscension::new(1, 6, 5.),
+    declination: Declination::new(Sgn::Neg, 46, 43, 6.),
     apparent_magnitude: 3.32,
     distance: Distance {
         m: 198.1 * LIGHT_YEAR.m,
@@ -63,8 +60,8 @@ const GAMMA_PHOENICIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Phoenicis",
     constellation: "Phoenix",
-    right_ascension: RightAscension::new(1, 28, 22),
-    declination: Declination::new(Sgn::Neg, 43, 19, 6),
+    right_ascension: RightAscension::new(1, 28, 22.),
+    declination: Declination::new(Sgn::Neg, 43, 19, 6.),
     apparent_magnitude: 3.41,
     distance: Distance {
         m: 234. * LIGHT_YEAR.m,

@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const DALIM: RealData = RealData {
     common_name: "Dalim",
     astronomical_name: "α Fornacis",
     constellation: "Fornax",
-    right_ascension: RightAscension::new(3, 12, 5),
-    declination: Declination::new(Sgn::Neg, 28, 59, 15),
+    right_ascension: RightAscension::new(3, 12, 5.),
+    declination: Declination::new(Sgn::Neg, 28, 59, 15.),
     apparent_magnitude: 3.85,
     distance: Distance {
         m: 45.66 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_FORNACIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Fornacis",
     constellation: "Fornax",
-    right_ascension: RightAscension::new(2, 49, 5),
-    declination: Declination::new(Sgn::Neg, 32, 24, 21),
+    right_ascension: RightAscension::new(2, 49, 5.),
+    declination: Declination::new(Sgn::Neg, 32, 24, 21.),
     apparent_magnitude: 4.46,
     distance: Distance {
         m: 178. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const NU_FORNACIS: RealData = RealData {
     common_name: "",
     astronomical_name: "ν Fornacis",
     constellation: "Fornax",
-    right_ascension: RightAscension::new(2, 4, 29),
-    declination: Declination::new(Sgn::Neg, 29, 17, 49),
+    right_ascension: RightAscension::new(2, 4, 29.),
+    declination: Declination::new(Sgn::Neg, 29, 17, 49.),
     apparent_magnitude: 4.69,
     distance: Distance {
         m: 370. * LIGHT_YEAR.m,

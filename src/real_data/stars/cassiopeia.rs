@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const NAVI: RealData = RealData {
     absolute_magnitude: -4.22,
     apparent_magnitude: 2.20,
     temperature: Temperature { K: 25_000. },
-    right_ascension: RightAscension::new(0, 56, 43),
-    declination: Declination::new(Sgn::Pos, 60, 43, 0),
+    right_ascension: RightAscension::new(0, 56, 43.),
+    declination: Declination::new(Sgn::Pos, 60, 43, 0.),
     distance: Distance {
         m: 613. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const SCHEDAR: RealData = RealData {
     absolute_magnitude: -1.99,
     apparent_magnitude: 2.24,
     temperature: Temperature { K: 4552. },
-    right_ascension: RightAscension::new(0, 40, 30),
-    declination: Declination::new(Sgn::Pos, 56, 32, 14),
+    right_ascension: RightAscension::new(0, 40, 30.),
+    declination: Declination::new(Sgn::Pos, 56, 32, 14.),
     distance: Distance {
         m: 228. * LIGHT_YEAR.m,
     },
@@ -78,8 +75,8 @@ const CAPH: RealData = RealData {
     absolute_magnitude: 1.17,
     apparent_magnitude: 2.28,
     temperature: Temperature { K: 7079. },
-    right_ascension: RightAscension::new(0, 9, 11),
-    declination: Declination::new(Sgn::Pos, 59, 8, 59),
+    right_ascension: RightAscension::new(0, 9, 11.),
+    declination: Declination::new(Sgn::Pos, 59, 8, 59.),
     distance: Distance {
         m: 54. * LIGHT_YEAR.m,
     },

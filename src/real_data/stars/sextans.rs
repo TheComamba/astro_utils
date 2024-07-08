@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_SEXTANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Sextantis",
     constellation: "Sextans",
-    right_ascension: RightAscension::new(10, 7, 56),
-    declination: Declination::new(Sgn::Neg, 0, 22, 18),
+    right_ascension: RightAscension::new(10, 7, 56.),
+    declination: Declination::new(Sgn::Neg, 0, 22, 18.),
     apparent_magnitude: 4.49,
     distance: Distance {
         m: 280. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const GAMMA_SEXTANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Sextantis",
     constellation: "Sextans",
-    right_ascension: RightAscension::new(9, 52, 30),
-    declination: Declination::new(Sgn::Neg, 8, 6, 18),
+    right_ascension: RightAscension::new(9, 52, 30.),
+    declination: Declination::new(Sgn::Neg, 8, 6, 18.),
     apparent_magnitude: 5.05,
     distance: Distance {
         m: 280. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const BETA_SEXTANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Sextantis",
     constellation: "Sextans",
-    right_ascension: RightAscension::new(10, 30, 17),
-    declination: Declination::new(Sgn::Neg, 0, 38, 13),
+    right_ascension: RightAscension::new(10, 30, 17.),
+    declination: Declination::new(Sgn::Neg, 0, 38, 13.),
     apparent_magnitude: 5.07,
     distance: Distance {
         m: 364. * LIGHT_YEAR.m,

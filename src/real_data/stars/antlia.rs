@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -30,8 +27,8 @@ const ALPHA_ANTLIAE: RealData = RealData {
     lifetime: Time {
         s: 1.03650581 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(10, 27, 9),
-    declination: Declination::new(Sgn::Neg, 31, 4, 4),
+    right_ascension: RightAscension::new(10, 27, 9.),
+    declination: Declination::new(Sgn::Neg, 31, 4, 4.),
     distance: Distance {
         m: 366.3 * LIGHT_YEAR.m,
     },
@@ -54,8 +51,8 @@ const EPSILON_ANTLIAE: RealData = RealData {
     lifetime: Time {
         s: 1.36020165 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(9, 29, 15),
-    declination: Declination::new(Sgn::Neg, 35, 57, 5),
+    right_ascension: RightAscension::new(9, 29, 15.),
+    declination: Declination::new(Sgn::Neg, 35, 57, 5.),
     distance: Distance {
         m: 699.6 * LIGHT_YEAR.m,
     },
@@ -80,8 +77,8 @@ const IOTA_ANTLIAE: RealData = RealData {
     lifetime: Time {
         s: 2.29668629 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(10, 56, 43),
-    declination: Declination::new(Sgn::Neg, 37, 8, 16),
+    right_ascension: RightAscension::new(10, 56, 43.),
+    declination: Declination::new(Sgn::Neg, 37, 8, 16.),
     distance: Distance {
         m: 198.8 * LIGHT_YEAR.m,
     },

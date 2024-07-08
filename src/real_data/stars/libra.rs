@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ZUBENELGENUBI: RealData = RealData {
     common_name: "Zubenelgenubi",
     astronomical_name: "α² Librae",
     constellation: "Libra",
-    right_ascension: RightAscension::new(14, 50, 53),
-    declination: Declination::new(Sgn::Neg, 16, 2, 30),
+    right_ascension: RightAscension::new(14, 50, 53.),
+    declination: Declination::new(Sgn::Neg, 16, 2, 30.),
     apparent_magnitude: 2.741,
     distance: Distance {
         m: 75.8 * LIGHT_YEAR.m,
@@ -39,8 +36,8 @@ const ZUBENESCHAMALI: RealData = RealData {
     common_name: "Zubeneschamali",
     astronomical_name: "β Librae",
     constellation: "Libra",
-    right_ascension: RightAscension::new(15, 17, 0),
-    declination: Declination::new(Sgn::Neg, 9, 22, 58),
+    right_ascension: RightAscension::new(15, 17, 0.),
+    declination: Declination::new(Sgn::Neg, 9, 22, 58.),
     apparent_magnitude: 2.61,
     distance: Distance {
         m: 185. * LIGHT_YEAR.m,
@@ -78,8 +75,8 @@ const BRACHIUM: RealData = RealData {
     lifetime: Time {
         s: 1.03650581 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(15, 4, 4),
-    declination: Declination::new(Sgn::Neg, 25, 16, 55),
+    right_ascension: RightAscension::new(15, 4, 4.),
+    declination: Declination::new(Sgn::Neg, 25, 16, 55.),
     distance: Distance {
         m: 288. * LIGHT_YEAR.m,
     },

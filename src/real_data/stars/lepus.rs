@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const ARNEB: RealData = RealData {
     lifetime: Time {
         s: 0.015362858 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(5, 32, 44),
-    declination: Declination::new(Sgn::Neg, 17, 49, 20),
+    right_ascension: RightAscension::new(5, 32, 44.),
+    declination: Declination::new(Sgn::Neg, 17, 49, 20.),
     distance: Distance {
         m: 1283. * LIGHT_YEAR.m,
     },
@@ -43,8 +40,8 @@ const BETA_LEPORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Leporis",
     constellation: "Lepus",
-    right_ascension: RightAscension::new(5, 28, 15),
-    declination: Declination::new(Sgn::Neg, 20, 45, 34),
+    right_ascension: RightAscension::new(5, 28, 15.),
+    declination: Declination::new(Sgn::Neg, 20, 45, 34.),
     apparent_magnitude: 2.84,
     distance: Distance {
         m: 160. * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const EPSILON_LEPORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Leporis",
     constellation: "Lepus",
-    right_ascension: RightAscension::new(5, 5, 28),
-    declination: Declination::new(Sgn::Neg, 22, 22, 16),
+    right_ascension: RightAscension::new(5, 5, 28.),
+    declination: Declination::new(Sgn::Neg, 22, 22, 16.),
     apparent_magnitude: 3.166,
     distance: Distance {
         m: 209. * LIGHT_YEAR.m,

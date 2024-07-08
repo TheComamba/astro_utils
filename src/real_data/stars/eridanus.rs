@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const ACHERNAR: RealData = RealData {
     lifetime: Time {
         s: 0.073299383 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(1, 37, 43),
-    declination: Declination::new(Sgn::Neg, 57, 14, 12),
+    right_ascension: RightAscension::new(1, 37, 43.),
+    declination: Declination::new(Sgn::Neg, 57, 14, 12.),
     distance: Distance {
         m: 144. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const ZAURAK: RealData = RealData {
     absolute_magnitude: -1.19,
     apparent_magnitude: 2.97,
     temperature: Temperature { K: 3811. },
-    right_ascension: RightAscension::new(3, 58, 2),
-    declination: Declination::new(Sgn::Neg, 13, 30, 31),
+    right_ascension: RightAscension::new(3, 58, 2.),
+    declination: Declination::new(Sgn::Neg, 13, 30, 31.),
     distance: Distance {
         m: 221. * LIGHT_YEAR.m,
     },
@@ -67,8 +64,8 @@ const CURSA: RealData = RealData {
     common_name: "Cursa",
     astronomical_name: "β Eridani",
     constellation: "Eridanus",
-    right_ascension: RightAscension::new(5, 7, 51),
-    declination: Declination::new(Sgn::Neg, 5, 5, 11),
+    right_ascension: RightAscension::new(5, 7, 51.),
+    declination: Declination::new(Sgn::Neg, 5, 5, 11.),
     apparent_magnitude: 2.796,
     distance: Distance {
         m: 90. * LIGHT_YEAR.m,
@@ -91,8 +88,8 @@ const ACAMAR: RealData = RealData {
     common_name: "Acamar",
     astronomical_name: "θ Eridani",
     constellation: "Eridanus",
-    right_ascension: RightAscension::new(2, 58, 16),
-    declination: Declination::new(Sgn::Neg, 40, 18, 17),
+    right_ascension: RightAscension::new(2, 58, 16.),
+    declination: Declination::new(Sgn::Neg, 40, 18, 17.),
     apparent_magnitude: 3.18,
     distance: Distance {
         m: 164. * LIGHT_YEAR.m,

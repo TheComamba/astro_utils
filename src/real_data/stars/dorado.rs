@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_DORADUS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Doradus",
     constellation: "Dorado",
-    right_ascension: RightAscension::new(4, 33, 60),
-    declination: Declination::new(Sgn::Neg, 55, 2, 42),
+    right_ascension: RightAscension::new(4, 33, 60.),
+    declination: Declination::new(Sgn::Neg, 55, 2, 42.),
     apparent_magnitude: 3.27,
     distance: Distance {
         m: 169. * LIGHT_YEAR.m,
@@ -41,8 +38,8 @@ const BETA_DORADUS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Doradus",
     constellation: "Dorado",
-    right_ascension: RightAscension::new(5, 33, 38),
-    declination: Declination::new(Sgn::Neg, 62, 29, 23),
+    right_ascension: RightAscension::new(5, 33, 38.),
+    declination: Declination::new(Sgn::Neg, 62, 29, 23.),
     apparent_magnitude: 3.5,
     distance: Distance {
         m: 1050. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_DORADUS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Doradus",
     constellation: "Dorado",
-    right_ascension: RightAscension::new(4, 16, 2),
-    declination: Declination::new(Sgn::Neg, 51, 29, 12),
+    right_ascension: RightAscension::new(4, 16, 2.),
+    declination: Declination::new(Sgn::Neg, 51, 29, 12.),
     apparent_magnitude: 4.25,
     distance: Distance {
         m: 66.7 * LIGHT_YEAR.m,
@@ -108,8 +105,8 @@ const R_DORADUS: RealData = RealData {
     lifetime: Time {
         s: 21.4199307 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(4, 36, 46),
-    declination: Declination::new(Sgn::Neg, 62, 4, 38),
+    right_ascension: RightAscension::new(4, 36, 46.),
+    declination: Declination::new(Sgn::Neg, 62, 4, 38.),
     distance: Distance {
         m: 203.5 * LIGHT_YEAR.m,
     },

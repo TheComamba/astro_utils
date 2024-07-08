@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const ACRUX: RealData = RealData {
     lifetime: Time {
         s: 0.011037517 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(12, 26, 36),
-    declination: Declination::new(Sgn::Neg, 63, 5, 57),
+    right_ascension: RightAscension::new(12, 26, 36.),
+    declination: Declination::new(Sgn::Neg, 63, 5, 57.),
     distance: Distance {
         m: 321. * LIGHT_YEAR.m,
     },
@@ -55,8 +52,8 @@ const MIMOSA: RealData = RealData {
     age: Some(Time {
         s: 0.010 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(12, 47, 43),
-    declination: Declination::new(Sgn::Neg, 59, 41, 20),
+    right_ascension: RightAscension::new(12, 47, 43.),
+    declination: Declination::new(Sgn::Neg, 59, 41, 20.),
     distance: Distance {
         m: 352. * LIGHT_YEAR.m,
     },
@@ -79,8 +76,8 @@ const GACRUX: RealData = RealData {
     apparent_magnitude: 1.59,
     temperature: Temperature { K: 3689. },
     age: None,
-    right_ascension: RightAscension::new(12, 31, 10),
-    declination: Declination::new(Sgn::Neg, 57, 6, 48),
+    right_ascension: RightAscension::new(12, 31, 10.),
+    declination: Declination::new(Sgn::Neg, 57, 6, 48.),
     distance: Distance {
         m: 88. * LIGHT_YEAR.m,
     },

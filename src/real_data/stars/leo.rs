@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const REGULUS: RealData = RealData {
     lifetime: Time {
         s: 0.220601963 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(10, 8, 22),
-    declination: Declination::new(Sgn::Pos, 11, 58, 2),
+    right_ascension: RightAscension::new(10, 8, 22.),
+    declination: Declination::new(Sgn::Pos, 11, 58, 2.),
     distance: Distance {
         m: 77. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const ALGIEBA: RealData = RealData {
     absolute_magnitude: -0.92,
     apparent_magnitude: 2.01,
     temperature: Temperature { K: 4470. },
-    right_ascension: RightAscension::new(10, 19, 58),
-    declination: Declination::new(Sgn::Pos, 19, 50, 29),
+    right_ascension: RightAscension::new(10, 19, 58.),
+    declination: Declination::new(Sgn::Pos, 19, 50, 29.),
     distance: Distance {
         m: 126. * LIGHT_YEAR.m,
     },
@@ -82,8 +79,8 @@ const DENEBOLA: RealData = RealData {
     lifetime: Time {
         s: 1.46605285 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(11, 49, 3),
-    declination: Declination::new(Sgn::Pos, 14, 34, 19),
+    right_ascension: RightAscension::new(11, 49, 3.),
+    declination: Declination::new(Sgn::Pos, 14, 34, 19.),
     distance: Distance {
         m: 36. * LIGHT_YEAR.m,
     },
@@ -105,8 +102,8 @@ const ZOSMA: RealData = RealData {
     age: Some(Time {
         s: 0.65 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(11, 14, 7),
-    declination: Declination::new(Sgn::Pos, 20, 31, 25),
+    right_ascension: RightAscension::new(11, 14, 7.),
+    declination: Declination::new(Sgn::Pos, 20, 31, 25.),
     distance: Distance {
         m: 58. * LIGHT_YEAR.m,
     },

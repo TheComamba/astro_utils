@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const SPICA: RealData = RealData {
     age: Some(Time {
         s: 0.0125 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(13, 25, 12),
-    declination: Declination::new(Sgn::Neg, 11, 9, 41),
+    right_ascension: RightAscension::new(13, 25, 12.),
+    declination: Declination::new(Sgn::Neg, 11, 9, 41.),
     distance: Distance {
         m: 262. * LIGHT_YEAR.m,
     },
@@ -53,8 +50,8 @@ const MINELAUVA: RealData = RealData {
     apparent_magnitude: 3.39,
     temperature: Temperature { K: 3999. },
     age: None,
-    right_ascension: RightAscension::new(12, 55, 36),
-    declination: Declination::new(Sgn::Pos, 3, 23, 51),
+    right_ascension: RightAscension::new(12, 55, 36.),
+    declination: Declination::new(Sgn::Pos, 3, 23, 51.),
     distance: Distance {
         m: 202.4 * LIGHT_YEAR.m,
     },
@@ -67,8 +64,8 @@ const ZAVIJAVA: RealData = RealData {
     common_name: "Zavijava",
     astronomical_name: "β Virginis",
     constellation: "Virgo",
-    right_ascension: RightAscension::new(11, 50, 42),
-    declination: Declination::new(Sgn::Pos, 1, 45, 53),
+    right_ascension: RightAscension::new(11, 50, 42.),
+    declination: Declination::new(Sgn::Pos, 1, 45, 53.),
     apparent_magnitude: 3.604,
     distance: Distance {
         m: 35.65 * LIGHT_YEAR.m,
@@ -93,8 +90,8 @@ const SYRMA: RealData = RealData {
     common_name: "Syrma",
     astronomical_name: "ι Virginis",
     constellation: "Virgo",
-    right_ascension: RightAscension::new(14, 16, 1),
-    declination: Declination::new(Sgn::Neg, 6, 0, 2),
+    right_ascension: RightAscension::new(14, 16, 1.),
+    declination: Declination::new(Sgn::Neg, 6, 0, 2.),
     apparent_magnitude: 4.08,
     distance: Distance {
         m: 72.5 * LIGHT_YEAR.m,
@@ -117,8 +114,8 @@ const HEZE: RealData = RealData {
     common_name: "Heze",
     astronomical_name: "ζ Virginis",
     constellation: "Virgo",
-    right_ascension: RightAscension::new(13, 34, 42),
-    declination: Declination::new(Sgn::Neg, 0, 35, 45),
+    right_ascension: RightAscension::new(13, 34, 42.),
+    declination: Declination::new(Sgn::Neg, 0, 35, 45.),
     apparent_magnitude: 3.376,
     distance: Distance {
         m: 74.1 * LIGHT_YEAR.m,
@@ -143,8 +140,8 @@ const VINDEMIATRIX: RealData = RealData {
     common_name: "Vindemiatrix",
     astronomical_name: "ε Virginis",
     constellation: "Virgo",
-    right_ascension: RightAscension::new(13, 2, 11),
-    declination: Declination::new(Sgn::Pos, 10, 57, 33),
+    right_ascension: RightAscension::new(13, 2, 11.),
+    declination: Declination::new(Sgn::Pos, 10, 57, 33.),
     apparent_magnitude: 2.826,
     distance: Distance {
         m: 109.6 * LIGHT_YEAR.m,
@@ -169,8 +166,8 @@ const PORRIMA: RealData = RealData {
     common_name: "Porrima",
     astronomical_name: "γ Virginis",
     constellation: "Virgo",
-    right_ascension: RightAscension::new(12, 41, 40),
-    declination: Declination::new(Sgn::Neg, 1, 26, 58),
+    right_ascension: RightAscension::new(12, 41, 40.),
+    declination: Declination::new(Sgn::Neg, 1, 26, 58.),
     apparent_magnitude: 2.74,
     distance: Distance {
         m: 38.1 * LIGHT_YEAR.m,

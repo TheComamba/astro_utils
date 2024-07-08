@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const ATRIA: RealData = RealData {
     age: Some(Time {
         s: 0.048 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(16, 48, 40),
-    declination: Declination::new(Sgn::Neg, 69, 1, 40),
+    right_ascension: RightAscension::new(16, 48, 40.),
+    declination: Declination::new(Sgn::Neg, 69, 1, 40.),
     distance: Distance {
         m: 415. * LIGHT_YEAR.m,
     },
@@ -43,8 +40,8 @@ const BETA_TRIANGULI_AUSTRALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Trianguli Australis",
     constellation: "Triangulum Australe",
-    right_ascension: RightAscension::new(15, 55, 9),
-    declination: Declination::new(Sgn::Neg, 63, 25, 51),
+    right_ascension: RightAscension::new(15, 55, 9.),
+    declination: Declination::new(Sgn::Neg, 63, 25, 51.),
     apparent_magnitude: 2.85,
     distance: Distance {
         m: 40.37 * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const GAMMA_TRIANGULI_AUSTRALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Trianguli Australis",
     constellation: "Triangulum Australe",
-    right_ascension: RightAscension::new(15, 18, 55),
-    declination: Declination::new(Sgn::Neg, 68, 40, 46),
+    right_ascension: RightAscension::new(15, 18, 55.),
+    declination: Declination::new(Sgn::Neg, 68, 40, 46.),
     apparent_magnitude: 2.87,
     distance: Distance {
         m: 184. * LIGHT_YEAR.m,

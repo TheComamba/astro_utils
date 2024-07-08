@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const ALPHECCA: RealData = RealData {
     lifetime: Time {
         s: 0.63513384 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(15, 34, 41),
-    declination: Declination::new(Sgn::Pos, 26, 42, 53),
+    right_ascension: RightAscension::new(15, 34, 41.),
+    declination: Declination::new(Sgn::Pos, 26, 42, 53.),
     distance: Distance {
         m: 75. * LIGHT_YEAR.m,
     },
@@ -43,8 +40,8 @@ const NAUSAKAN: RealData = RealData {
     common_name: "Nausakan",
     astronomical_name: "β Coronae Borealis",
     constellation: "Corona Borealis",
-    right_ascension: RightAscension::new(15, 27, 50),
-    declination: Declination::new(Sgn::Pos, 29, 6, 21),
+    right_ascension: RightAscension::new(15, 27, 50.),
+    declination: Declination::new(Sgn::Pos, 29, 6, 21.),
     apparent_magnitude: 3.7,
     distance: Distance {
         m: 112. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Coronae Borealis",
     constellation: "Corona Borealis",
-    right_ascension: RightAscension::new(15, 42, 45),
-    declination: Declination::new(Sgn::Pos, 26, 17, 44),
+    right_ascension: RightAscension::new(15, 42, 45.),
+    declination: Declination::new(Sgn::Pos, 26, 17, 44.),
     apparent_magnitude: 3.80,
     distance: Distance {
         m: 146. * LIGHT_YEAR.m,
@@ -91,8 +88,8 @@ const DELTA_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Coronae Borealis",
     constellation: "Corona Borealis",
-    right_ascension: RightAscension::new(15, 49, 36),
-    declination: Declination::new(Sgn::Pos, 26, 4, 6),
+    right_ascension: RightAscension::new(15, 49, 36.),
+    declination: Declination::new(Sgn::Pos, 26, 4, 6.),
     apparent_magnitude: 4.57,
     distance: Distance {
         m: 165. * LIGHT_YEAR.m,
@@ -117,8 +114,8 @@ const EPSILON_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Coronae Borealis",
     constellation: "Corona Borealis",
-    right_ascension: RightAscension::new(15, 57, 35),
-    declination: Declination::new(Sgn::Pos, 26, 52, 40),
+    right_ascension: RightAscension::new(15, 57, 35.),
+    declination: Declination::new(Sgn::Pos, 26, 52, 40.),
     apparent_magnitude: 4.13,
     distance: Distance {
         m: 242. * LIGHT_YEAR.m,
@@ -143,8 +140,8 @@ const IOTA_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "ι Coronae Borealis",
     constellation: "Corona Borealis",
-    right_ascension: RightAscension::new(16, 1, 27),
-    declination: Declination::new(Sgn::Pos, 29, 51, 4),
+    right_ascension: RightAscension::new(16, 1, 27.),
+    declination: Declination::new(Sgn::Pos, 29, 51, 4.),
     apparent_magnitude: 4.96,
     distance: Distance {
         m: 312. * LIGHT_YEAR.m,
@@ -165,8 +162,8 @@ const THETA_CORONAE_BOREALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "θ Coronae Borealis",
     constellation: "Corona Borealis",
-    right_ascension: RightAscension::new(15, 32, 56),
-    declination: Declination::new(Sgn::Pos, 31, 21, 33),
+    right_ascension: RightAscension::new(15, 32, 56.),
+    declination: Declination::new(Sgn::Pos, 31, 21, 33.),
     apparent_magnitude: 4.1,
     distance: Distance {
         m: 380. * LIGHT_YEAR.m,

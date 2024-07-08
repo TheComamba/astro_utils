@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -30,8 +27,8 @@ const ALPHA_LUPI: RealData = RealData {
     lifetime: Time {
         s: 0.026540021 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(14, 41, 56),
-    declination: Declination::new(Sgn::Neg, 47, 23, 18),
+    right_ascension: RightAscension::new(14, 41, 56.),
+    declination: Declination::new(Sgn::Neg, 47, 23, 18.),
     distance: Distance {
         m: 548. * LIGHT_YEAR.m,
     },
@@ -41,8 +38,8 @@ const BETA_LUPI: RealData = RealData {
     common_name: "",
     astronomical_name: "β Lupi",
     constellation: "Lupus",
-    right_ascension: RightAscension::new(14, 58, 32),
-    declination: Declination::new(Sgn::Neg, 43, 8, 2),
+    right_ascension: RightAscension::new(14, 58, 32.),
+    declination: Declination::new(Sgn::Neg, 43, 8, 2.),
     apparent_magnitude: 2.68,
     distance: Distance {
         m: 523.3 * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_LUPI: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Lupi",
     constellation: "Lupus",
-    right_ascension: RightAscension::new(15, 35, 8),
-    declination: Declination::new(Sgn::Neg, 41, 10, 0),
+    right_ascension: RightAscension::new(15, 35, 8.),
+    declination: Declination::new(Sgn::Neg, 41, 10, 0.),
     apparent_magnitude: 2.77,
     distance: Distance {
         m: 567. * LIGHT_YEAR.m,

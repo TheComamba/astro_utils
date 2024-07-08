@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "α Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(2, 2, 3),
-    declination: Declination::new(Sgn::Pos, 2, 45, 50),
+    right_ascension: RightAscension::new(2, 2, 3.),
+    declination: Declination::new(Sgn::Pos, 2, 45, 50.),
     apparent_magnitude: 3.82,
     distance: Distance {
         m: 151. * LIGHT_YEAR.m,
@@ -41,8 +38,8 @@ const DELTA_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(0, 48, 41),
-    declination: Declination::new(Sgn::Pos, 7, 35, 6),
+    right_ascension: RightAscension::new(0, 48, 41.),
+    declination: Declination::new(Sgn::Pos, 7, 35, 6.),
     apparent_magnitude: 4.416,
     distance: Distance {
         m: 311. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const NU_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "ν Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(1, 41, 26),
-    declination: Declination::new(Sgn::Pos, 5, 29, 15),
+    right_ascension: RightAscension::new(1, 41, 26.),
+    declination: Declination::new(Sgn::Pos, 5, 29, 15.),
     apparent_magnitude: 4.44,
     distance: Distance {
         m: 363. * LIGHT_YEAR.m,
@@ -93,8 +90,8 @@ const IOTA_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "ι Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(23, 39, 57),
-    declination: Declination::new(Sgn::Pos, 5, 37, 35),
+    right_ascension: RightAscension::new(23, 39, 57.),
+    declination: Declination::new(Sgn::Pos, 5, 37, 35.),
     apparent_magnitude: 4.13,
     distance: Distance {
         m: 44.73 * LIGHT_YEAR.m,
@@ -119,8 +116,8 @@ const OMICRON_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "ο Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(1, 45, 24),
-    declination: Declination::new(Sgn::Pos, 9, 9, 28),
+    right_ascension: RightAscension::new(1, 45, 24.),
+    declination: Declination::new(Sgn::Pos, 9, 9, 28.),
     apparent_magnitude: 4.27,
     distance: Distance {
         m: 280. * LIGHT_YEAR.m,
@@ -145,8 +142,8 @@ const EPSILON_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(1, 2, 57),
-    declination: Declination::new(Sgn::Pos, 7, 53, 24),
+    right_ascension: RightAscension::new(1, 2, 57.),
+    declination: Declination::new(Sgn::Pos, 7, 53, 24.),
     apparent_magnitude: 4.27,
     distance: Distance {
         m: 182. * LIGHT_YEAR.m,
@@ -171,8 +168,8 @@ const THETA_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "θ Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(23, 27, 58),
-    declination: Declination::new(Sgn::Pos, 6, 22, 44),
+    right_ascension: RightAscension::new(23, 27, 58.),
+    declination: Declination::new(Sgn::Pos, 6, 22, 44.),
     apparent_magnitude: 4.27,
     distance: Distance {
         m: 149. * LIGHT_YEAR.m,
@@ -197,8 +194,8 @@ const ETA_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "η Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(1, 31, 29),
-    declination: Declination::new(Sgn::Pos, 15, 20, 45),
+    right_ascension: RightAscension::new(1, 31, 29.),
+    declination: Declination::new(Sgn::Pos, 15, 20, 45.),
     apparent_magnitude: 3.611,
     distance: Distance {
         m: 350. * LIGHT_YEAR.m,
@@ -223,8 +220,8 @@ const GAMMA_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(23, 17, 10),
-    declination: Declination::new(Sgn::Pos, 3, 16, 56),
+    right_ascension: RightAscension::new(23, 17, 10.),
+    declination: Declination::new(Sgn::Pos, 3, 16, 56.),
     apparent_magnitude: 3.699,
     distance: Distance {
         m: 135. * LIGHT_YEAR.m,
@@ -249,8 +246,8 @@ const OMEGA_PISCIUM: RealData = RealData {
     common_name: "",
     astronomical_name: "ω Piscium",
     constellation: "Pisces",
-    right_ascension: RightAscension::new(23, 59, 19),
-    declination: Declination::new(Sgn::Pos, 6, 51, 48),
+    right_ascension: RightAscension::new(23, 59, 19.),
+    declination: Declination::new(Sgn::Pos, 6, 51, 48.),
     apparent_magnitude: 4.01,
     distance: Distance {
         m: 104.3 * LIGHT_YEAR.m,

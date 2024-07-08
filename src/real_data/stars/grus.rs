@@ -1,7 +1,4 @@
-use astro_coords::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const ALNAIR: RealData = RealData {
     lifetime: Time {
         s: 0.193156929 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(22, 8, 14),
-    declination: Declination::new(Sgn::Neg, 46, 57, 40),
+    right_ascension: RightAscension::new(22, 8, 14.),
+    declination: Declination::new(Sgn::Neg, 46, 57, 40.),
     distance: Distance {
         m: 101. * LIGHT_YEAR.m,
     },
@@ -56,8 +53,8 @@ const TIAKI: RealData = RealData {
     lifetime: Time {
         s: 0.800458342 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(22, 42, 40),
-    declination: Declination::new(Sgn::Neg, 46, 53, 4),
+    right_ascension: RightAscension::new(22, 42, 40.),
+    declination: Declination::new(Sgn::Neg, 46, 53, 4.),
     distance: Distance {
         m: 170. * LIGHT_YEAR.m,
     },
@@ -67,8 +64,8 @@ const ALDHANAB: RealData = RealData {
     common_name: "Aldhanab",
     astronomical_name: "γ Gruis",
     constellation: "Grus",
-    right_ascension: RightAscension::new(21, 53, 56),
-    declination: Declination::new(Sgn::Neg, 37, 21, 53),
+    right_ascension: RightAscension::new(21, 53, 56.),
+    declination: Declination::new(Sgn::Neg, 37, 21, 53.),
     apparent_magnitude: 3.003,
     distance: Distance {
         m: 211. * LIGHT_YEAR.m,
