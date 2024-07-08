@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_MONOCEROTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Monocerotis",
     constellation: "Monoceros",
-    right_ascension: RightAscension::new(7, 41, 15),
-    declination: Declination::new(Sgn::Neg, 9, 33, 4),
+    right_ascension: RightAscension::new(7, 41, 15.),
+    declination: Declination::new(Sgn::Neg, 9, 33, 4.),
     apparent_magnitude: 3.94,
     distance: Distance {
         m: 148. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const GAMMA_MONOCEROTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Monocerotis",
     constellation: "Monoceros",
-    right_ascension: RightAscension::new(6, 14, 51),
-    declination: Declination::new(Sgn::Neg, 6, 16, 29),
+    right_ascension: RightAscension::new(6, 14, 51.),
+    declination: Declination::new(Sgn::Neg, 6, 16, 29.),
     apparent_magnitude: 3.96,
     distance: Distance {
         m: 500. * LIGHT_YEAR.m,
@@ -65,8 +62,8 @@ const DELTA_MONOCEROTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Monocerotis",
     constellation: "Monoceros",
-    right_ascension: RightAscension::new(7, 11, 52),
-    declination: Declination::new(Sgn::Neg, 0, 29, 34),
+    right_ascension: RightAscension::new(7, 11, 52.),
+    declination: Declination::new(Sgn::Neg, 0, 29, 34.),
     apparent_magnitude: 4.15,
     distance: Distance {
         m: 384. * LIGHT_YEAR.m,

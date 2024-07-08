@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_VULPECULAE: RealData = RealData {
     common_name: "",
     astronomical_name: "α Vulpeculae",
     constellation: "Vulpecula",
-    right_ascension: RightAscension::new(19, 28, 42),
-    declination: Declination::new(Sgn::Pos, 24, 39, 54),
+    right_ascension: RightAscension::new(19, 28, 42.),
+    declination: Declination::new(Sgn::Pos, 24, 39, 54.),
     apparent_magnitude: 4.40,
     distance: Distance {
         m: 291. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const TWENTYTHREE_VULPECULAE: RealData = RealData {
     common_name: "",
     astronomical_name: "23 Vulpeculae",
     constellation: "Vulpecula",
-    right_ascension: RightAscension::new(20, 15, 46),
-    declination: Declination::new(Sgn::Pos, 27, 48, 51),
+    right_ascension: RightAscension::new(20, 15, 46.),
+    declination: Declination::new(Sgn::Pos, 27, 48, 51.),
     apparent_magnitude: 4.52,
     distance: Distance {
         m: 327. * LIGHT_YEAR.m,
@@ -65,8 +62,8 @@ const THIRTYONE_VULPECULAE: RealData = RealData {
     common_name: "",
     astronomical_name: "31 Vulpeculae",
     constellation: "Vulpecula",
-    right_ascension: RightAscension::new(20, 52, 8),
-    declination: Declination::new(Sgn::Pos, 27, 5, 49),
+    right_ascension: RightAscension::new(20, 52, 8.),
+    declination: Declination::new(Sgn::Pos, 27, 5, 49.),
     apparent_magnitude: 4.56,
     distance: Distance {
         m: 216.5 * LIGHT_YEAR.m,

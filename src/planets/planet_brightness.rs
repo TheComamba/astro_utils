@@ -1,4 +1,4 @@
-use astro_coordinates::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::CartesianCoordinates;
 use simple_si_units::{
     base::{Distance, Luminosity},
     electromagnetic::Illuminance,

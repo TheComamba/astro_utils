@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const DIPHDA: RealData = RealData {
     absolute_magnitude: -0.30,
     apparent_magnitude: 2.04,
     temperature: Temperature { K: 4797. },
-    right_ascension: RightAscension::new(0, 43, 35),
-    declination: Declination::new(Sgn::Neg, 17, 59, 12),
+    right_ascension: RightAscension::new(0, 43, 35.),
+    declination: Declination::new(Sgn::Neg, 17, 59, 12.),
     distance: Distance {
         m: 96. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const MENKAR: RealData = RealData {
     absolute_magnitude: -1.61,
     apparent_magnitude: 2.54,
     temperature: Temperature { K: 3795. },
-    right_ascension: RightAscension::new(3, 2, 17),
-    declination: Declination::new(Sgn::Pos, 4, 5, 23),
+    right_ascension: RightAscension::new(3, 2, 17.),
+    declination: Declination::new(Sgn::Pos, 4, 5, 23.),
     distance: Distance {
         m: 220. * LIGHT_YEAR.m,
     },
@@ -67,8 +64,8 @@ const MIRA: RealData = RealData {
     common_name: "Mira",
     astronomical_name: "ο Ceti",
     constellation: "Cetus",
-    right_ascension: RightAscension::new(2, 19, 21),
-    declination: Declination::new(Sgn::Neg, 2, 58, 39),
+    right_ascension: RightAscension::new(2, 19, 21.),
+    declination: Declination::new(Sgn::Neg, 2, 58, 39.),
     apparent_magnitude: 6.47,
     distance: Distance {
         m: 418.5 * LIGHT_YEAR.m,
@@ -93,8 +90,8 @@ const BATEN_KAITOS: RealData = RealData {
     common_name: "Baten Kaitos",
     astronomical_name: "ζ Ceti",
     constellation: "Cetus",
-    right_ascension: RightAscension::new(1, 51, 28),
-    declination: Declination::new(Sgn::Neg, 10, 20, 6),
+    right_ascension: RightAscension::new(1, 51, 28.),
+    declination: Declination::new(Sgn::Neg, 10, 20, 6.),
     apparent_magnitude: 3.742,
     distance: Distance {
         m: 235. * LIGHT_YEAR.m,
@@ -119,8 +116,8 @@ const KAFFALJIDHMA: RealData = RealData {
     common_name: "Kaffaljidhma",
     astronomical_name: "γ Ceti",
     constellation: "Cetus",
-    right_ascension: RightAscension::new(2, 43, 18),
-    declination: Declination::new(Sgn::Pos, 3, 14, 9),
+    right_ascension: RightAscension::new(2, 43, 18.),
+    declination: Declination::new(Sgn::Pos, 3, 14, 9.),
     apparent_magnitude: 3.47,
     distance: Distance {
         m: 80. * LIGHT_YEAR.m,
@@ -145,8 +142,8 @@ const IOTA_CETI: RealData = RealData {
     common_name: "",
     astronomical_name: "ι Ceti",
     constellation: "Cetus",
-    right_ascension: RightAscension::new(0, 19, 26),
-    declination: Declination::new(Sgn::Neg, 8, 49, 26),
+    right_ascension: RightAscension::new(0, 19, 26.),
+    declination: Declination::new(Sgn::Neg, 8, 49, 26.),
     apparent_magnitude: 3.562,
     distance: Distance {
         m: 275. * LIGHT_YEAR.m,
@@ -171,8 +168,8 @@ const DENEB_ALGENUBI: RealData = RealData {
     common_name: "Deneb Algenubi",
     astronomical_name: "η Ceti",
     constellation: "Cetus",
-    right_ascension: RightAscension::new(1, 8, 35),
-    declination: Declination::new(Sgn::Neg, 10, 10, 56),
+    right_ascension: RightAscension::new(1, 8, 35.),
+    declination: Declination::new(Sgn::Neg, 10, 10, 56.),
     apparent_magnitude: 3.446,
     distance: Distance {
         m: 123.9 * LIGHT_YEAR.m,
@@ -197,8 +194,8 @@ const TAU_CETI: RealData = RealData {
     common_name: "",
     astronomical_name: "τ Ceti",
     constellation: "Cetus",
-    right_ascension: RightAscension::new(1, 44, 4),
-    declination: Declination::new(Sgn::Neg, 15, 56, 15),
+    right_ascension: RightAscension::new(1, 44, 4.),
+    declination: Declination::new(Sgn::Neg, 15, 56, 15.),
     apparent_magnitude: 3.50,
     distance: Distance {
         m: 11.912 * LIGHT_YEAR.m,

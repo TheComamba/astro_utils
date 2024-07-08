@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_MUSCAE: RealData = RealData {
     common_name: "",
     astronomical_name: "α Muscae",
     constellation: "Musca",
-    right_ascension: RightAscension::new(12, 37, 11),
-    declination: Declination::new(Sgn::Neg, 69, 8, 8),
+    right_ascension: RightAscension::new(12, 37, 11.),
+    declination: Declination::new(Sgn::Neg, 69, 8, 8.),
     apparent_magnitude: 2.69,
     distance: Distance {
         m: 315. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_MUSCAE: RealData = RealData {
     common_name: "",
     astronomical_name: "β Muscae",
     constellation: "Musca",
-    right_ascension: RightAscension::new(12, 46, 17),
-    declination: Declination::new(Sgn::Neg, 68, 6, 29),
+    right_ascension: RightAscension::new(12, 46, 17.),
+    declination: Declination::new(Sgn::Neg, 68, 6, 29.),
     apparent_magnitude: 3.05,
     distance: Distance {
         m: 340. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const DELTA_MUSCAE: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Muscae",
     constellation: "Musca",
-    right_ascension: RightAscension::new(13, 2, 16),
-    declination: Declination::new(Sgn::Neg, 71, 32, 56),
+    right_ascension: RightAscension::new(13, 2, 16.),
+    declination: Declination::new(Sgn::Neg, 71, 32, 56.),
     apparent_magnitude: 3.61,
     distance: Distance {
         m: 91. * LIGHT_YEAR.m,

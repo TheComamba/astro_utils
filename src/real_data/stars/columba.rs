@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const PHACT: RealData = RealData {
     common_name: "Phact",
     astronomical_name: "α Columbae",
     constellation: "Columba",
-    right_ascension: RightAscension::new(5, 39, 39),
-    declination: Declination::new(Sgn::Neg, 34, 4, 27),
+    right_ascension: RightAscension::new(5, 39, 39.),
+    declination: Declination::new(Sgn::Neg, 34, 4, 27.),
     apparent_magnitude: 2.645,
     distance: Distance {
         m: 261. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const WAZN: RealData = RealData {
     common_name: "Wazn",
     astronomical_name: "β Columbae",
     constellation: "Columba",
-    right_ascension: RightAscension::new(5, 50, 58),
-    declination: Declination::new(Sgn::Neg, 35, 46, 6),
+    right_ascension: RightAscension::new(5, 50, 58.),
+    declination: Declination::new(Sgn::Neg, 35, 46, 6.),
     apparent_magnitude: 3.105,
     distance: Distance {
         m: 87.41 * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const DELTA_COLUMBAE: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Columbae",
     constellation: "Columba",
-    right_ascension: RightAscension::new(6, 22, 7),
-    declination: Declination::new(Sgn::Neg, 33, 26, 11),
+    right_ascension: RightAscension::new(6, 22, 7.),
+    declination: Declination::new(Sgn::Neg, 33, 26, 11.),
     apparent_magnitude: 3.85,
     distance: Distance {
         m: 234. * LIGHT_YEAR.m,
@@ -91,8 +88,8 @@ const EPSILON_COLUMBAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Columbae",
     constellation: "Columba",
-    right_ascension: RightAscension::new(5, 31, 13),
-    declination: Declination::new(Sgn::Neg, 35, 28, 14),
+    right_ascension: RightAscension::new(5, 31, 13.),
+    declination: Declination::new(Sgn::Neg, 35, 28, 14.),
     apparent_magnitude: 3.87,
     distance: Distance {
         m: 262. * LIGHT_YEAR.m,

@@ -2,7 +2,7 @@ use std::fmt;
 
 #[derive(Debug)]
 pub enum AstroUtilError {
-    AstroCoordsError(astro_coordinates::error::AstroCoordsError),
+    AstroCoordsError(astro_coords::error::AstroCoordsError),
     Connection(reqwest::Error),
     DataNotAvailable(String),
     GaiaAccess(gaia_access::error::GaiaError),
@@ -41,8 +41,8 @@ impl From<reqwest::Error> for AstroUtilError {
     }
 }
 
-impl From<astro_coordinates::error::AstroCoordsError> for AstroUtilError {
-    fn from(err: astro_coordinates::error::AstroCoordsError) -> Self {
+impl From<astro_coords::error::AstroCoordsError> for AstroUtilError {
+    fn from(err: astro_coords::error::AstroCoordsError) -> Self {
         AstroUtilError::AstroCoordsError(err)
     }
 }

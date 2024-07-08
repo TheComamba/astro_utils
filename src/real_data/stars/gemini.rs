@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const POLLUX: RealData = RealData {
     lifetime: Time {
         s: 1.54706939 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(7, 45, 19),
-    declination: Declination::new(Sgn::Pos, 28, 1, 34),
+    right_ascension: RightAscension::new(7, 45, 19.),
+    declination: Declination::new(Sgn::Pos, 28, 1, 34.),
     distance: Distance {
         m: 34. * LIGHT_YEAR.m,
     },
@@ -58,8 +55,8 @@ const CASTOR: RealData = RealData {
     lifetime: Time {
         s: 0.800458342 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(7, 34, 36),
-    declination: Declination::new(Sgn::Pos, 31, 53, 18),
+    right_ascension: RightAscension::new(7, 34, 36.),
+    declination: Declination::new(Sgn::Pos, 31, 53, 18.),
     distance: Distance {
         m: 52. * LIGHT_YEAR.m,
     },
@@ -82,8 +79,8 @@ const ALHENA: RealData = RealData {
     lifetime: Time {
         s: 0.513076303 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(6, 37, 43),
-    declination: Declination::new(Sgn::Pos, 16, 23, 57),
+    right_ascension: RightAscension::new(6, 37, 43.),
+    declination: Declination::new(Sgn::Pos, 16, 23, 57.),
     distance: Distance {
         m: 105. * LIGHT_YEAR.m,
     },
@@ -106,8 +103,8 @@ const TEJAT: RealData = RealData {
     lifetime: Time {
         s: 1.17901142 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(6, 22, 58),
-    declination: Declination::new(Sgn::Pos, 22, 30, 49),
+    right_ascension: RightAscension::new(6, 22, 58.),
+    declination: Declination::new(Sgn::Pos, 22, 30, 49.),
     distance: Distance {
         m: 230. * LIGHT_YEAR.m,
     },
@@ -132,8 +129,8 @@ const PROPUS: RealData = RealData {
     lifetime: Time {
         s: 0.800458342 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(6, 14, 53),
-    declination: Declination::new(Sgn::Pos, 22, 30, 24),
+    right_ascension: RightAscension::new(6, 14, 53.),
+    declination: Declination::new(Sgn::Pos, 22, 30, 24.),
     distance: Distance {
         m: 349. * LIGHT_YEAR.m,
     },

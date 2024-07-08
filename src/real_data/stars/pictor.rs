@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_PICTORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Pictoris",
     constellation: "Pictor",
-    right_ascension: RightAscension::new(6, 48, 11),
-    declination: Declination::new(Sgn::Neg, 61, 56, 29),
+    right_ascension: RightAscension::new(6, 48, 11.),
+    declination: Declination::new(Sgn::Neg, 61, 56, 29.),
     apparent_magnitude: 3.27,
     distance: Distance {
         m: 97. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_PICTORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Pictoris",
     constellation: "Pictor",
-    right_ascension: RightAscension::new(5, 47, 17),
-    declination: Declination::new(Sgn::Neg, 51, 3, 59),
+    right_ascension: RightAscension::new(5, 47, 17.),
+    declination: Declination::new(Sgn::Neg, 51, 3, 59.),
     apparent_magnitude: 3.861,
     distance: Distance {
         m: 63.4 * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const GAMMA_PICTORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Pictoris",
     constellation: "Pictor",
-    right_ascension: RightAscension::new(5, 49, 50),
-    declination: Declination::new(Sgn::Neg, 56, 9, 60),
+    right_ascension: RightAscension::new(5, 49, 50.),
+    declination: Declination::new(Sgn::Neg, 56, 9, 60.),
     apparent_magnitude: 4.50,
     distance: Distance {
         m: 177. * LIGHT_YEAR.m,

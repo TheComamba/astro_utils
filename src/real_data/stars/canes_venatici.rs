@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -33,8 +30,8 @@ const COR_CAROLI: RealData = RealData {
         s: 0.42 * BILLION_YEARS.s,
     },
 
-    right_ascension: RightAscension::new(12, 56, 2),
-    declination: Declination::new(Sgn::Pos, 38, 19, 6),
+    right_ascension: RightAscension::new(12, 56, 2.),
+    declination: Declination::new(Sgn::Pos, 38, 19, 6.),
     distance: Distance {
         m: 110.1 * LIGHT_YEAR.m,
     },
@@ -53,8 +50,8 @@ const CHARA: RealData = RealData {
     absolute_magnitude: 4.64,
     apparent_magnitude: 4.25,
     temperature: Temperature { K: 6043. },
-    right_ascension: RightAscension::new(12, 33, 45),
-    declination: Declination::new(Sgn::Pos, 41, 21, 27),
+    right_ascension: RightAscension::new(12, 33, 45.),
+    declination: Declination::new(Sgn::Pos, 41, 21, 27.),
     distance: Distance {
         m: 27.63 * LIGHT_YEAR.m,
     },
@@ -70,8 +67,8 @@ const TWENTYFOUR_CANUM_VENATICORUM: RealData = RealData {
     common_name: "",
     astronomical_name: "24 Canum Venaticorum",
     constellation: "Canes Venatici",
-    right_ascension: RightAscension::new(13, 34, 27),
-    declination: Declination::new(Sgn::Pos, 49, 0, 58),
+    right_ascension: RightAscension::new(13, 34, 27.),
+    declination: Declination::new(Sgn::Pos, 49, 0, 58.),
     apparent_magnitude: 4.68,
     distance: Distance {
         m: 180. * LIGHT_YEAR.m,

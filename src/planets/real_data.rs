@@ -1,4 +1,4 @@
-use astro_coordinates::earth_equatorial::EarthEquatorialCoordinates;
+use astro_coords::earth_equatorial::EarthEquatorialCoordinates;
 use simple_si_units::{
     base::{Distance, Mass, Time},
     geometry::Angle,

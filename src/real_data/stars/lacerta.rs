@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_LACERTAE: RealData = RealData {
     common_name: "",
     astronomical_name: "α Lacertae",
     constellation: "Lacerta",
-    right_ascension: RightAscension::new(22, 31, 18),
-    declination: Declination::new(Sgn::Pos, 50, 16, 57),
+    right_ascension: RightAscension::new(22, 31, 18.),
+    declination: Declination::new(Sgn::Pos, 50, 16, 57.),
     apparent_magnitude: 3.76,
     distance: Distance {
         m: 102.6 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_LACERTAE: RealData = RealData {
     common_name: "",
     astronomical_name: "β Lacertae",
     constellation: "Lacerta",
-    right_ascension: RightAscension::new(22, 23, 34),
-    declination: Declination::new(Sgn::Pos, 52, 13, 45),
+    right_ascension: RightAscension::new(22, 23, 34.),
+    declination: Declination::new(Sgn::Pos, 52, 13, 45.),
     apparent_magnitude: 4.43,
     distance: Distance {
         m: 170. * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const FIVE_LACERTAE: RealData = RealData {
     common_name: "",
     astronomical_name: "5 Lacertae",
     constellation: "Lacerta",
-    right_ascension: RightAscension::new(22, 29, 32),
-    declination: Declination::new(Sgn::Pos, 47, 42, 25),
+    right_ascension: RightAscension::new(22, 29, 32.),
+    declination: Declination::new(Sgn::Pos, 47, 42, 25.),
     apparent_magnitude: 4.34,
     distance: Distance {
         m: 1164. * LIGHT_YEAR.m,

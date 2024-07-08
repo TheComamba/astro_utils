@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -30,8 +27,8 @@ const ELTANIN: RealData = RealData {
     lifetime: Time {
         s: 1.73766023 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(17, 56, 36),
-    declination: Declination::new(Sgn::Pos, 51, 29, 20),
+    right_ascension: RightAscension::new(17, 56, 36.),
+    declination: Declination::new(Sgn::Pos, 51, 29, 20.),
     distance: Distance {
         m: 148. * LIGHT_YEAR.m,
     },
@@ -56,8 +53,8 @@ const ATHEBYNE: RealData = RealData {
     lifetime: Time {
         s: 0.63513384 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(16, 23, 59),
-    declination: Declination::new(Sgn::Pos, 61, 30, 51),
+    right_ascension: RightAscension::new(16, 23, 59.),
+    declination: Declination::new(Sgn::Pos, 61, 30, 51.),
     distance: Distance {
         m: 87.68 * LIGHT_YEAR.m,
     },
@@ -67,8 +64,8 @@ const THETA_DRACONIS: RealData = RealData {
     common_name: "",
     astronomical_name: "θ Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(16, 1, 53),
-    declination: Declination::new(Sgn::Pos, 58, 33, 55),
+    right_ascension: RightAscension::new(16, 1, 53.),
+    declination: Declination::new(Sgn::Pos, 58, 33, 55.),
     apparent_magnitude: 4.119,
     distance: Distance {
         m: 68.6 * LIGHT_YEAR.m,
@@ -93,8 +90,8 @@ const KAPPA_DRACONIS: RealData = RealData {
     common_name: "",
     astronomical_name: "κ Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(12, 33, 29),
-    declination: Declination::new(Sgn::Pos, 69, 47, 18),
+    right_ascension: RightAscension::new(12, 33, 29.),
+    declination: Declination::new(Sgn::Pos, 69, 47, 18.),
     apparent_magnitude: 3.82,
     distance: Distance {
         m: 460. * LIGHT_YEAR.m,
@@ -117,8 +114,8 @@ const TYL: RealData = RealData {
     common_name: "Tyl",
     astronomical_name: "ε Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(19, 48, 10),
-    declination: Declination::new(Sgn::Pos, 70, 16, 5),
+    right_ascension: RightAscension::new(19, 48, 10.),
+    declination: Declination::new(Sgn::Pos, 70, 16, 5.),
     apparent_magnitude: 3.9974,
     distance: Distance {
         m: 153. * LIGHT_YEAR.m,
@@ -143,8 +140,8 @@ const GIAUSAR: RealData = RealData {
     common_name: "Giausar",
     astronomical_name: "λ Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(11, 31, 24),
-    declination: Declination::new(Sgn::Pos, 69, 19, 52),
+    right_ascension: RightAscension::new(11, 31, 24.),
+    declination: Declination::new(Sgn::Pos, 69, 19, 52.),
     apparent_magnitude: 3.85,
     distance: Distance {
         m: 333. * LIGHT_YEAR.m,
@@ -167,8 +164,8 @@ const GRUMIUM: RealData = RealData {
     common_name: "Grumium",
     astronomical_name: "ξ Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(17, 53, 32),
-    declination: Declination::new(Sgn::Pos, 56, 52, 22),
+    right_ascension: RightAscension::new(17, 53, 32.),
+    declination: Declination::new(Sgn::Pos, 56, 52, 22.),
     apparent_magnitude: 3.75,
     distance: Distance {
         m: 112.5 * LIGHT_YEAR.m,
@@ -191,8 +188,8 @@ const THUBAN: RealData = RealData {
     common_name: "Thuban",
     astronomical_name: "α Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(14, 4, 23),
-    declination: Declination::new(Sgn::Pos, 64, 22, 33),
+    right_ascension: RightAscension::new(14, 4, 23.),
+    declination: Declination::new(Sgn::Pos, 64, 22, 33.),
     apparent_magnitude: 3.67,
     distance: Distance {
         m: 303. * LIGHT_YEAR.m,
@@ -217,8 +214,8 @@ const CHI_DRACONIS: RealData = RealData {
     common_name: "",
     astronomical_name: "χ Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(18, 21, 3),
-    declination: Declination::new(Sgn::Pos, 72, 43, 58),
+    right_ascension: RightAscension::new(18, 21, 3.),
+    declination: Declination::new(Sgn::Pos, 72, 43, 58.),
     apparent_magnitude: 3.570,
     distance: Distance {
         m: 27.17 * LIGHT_YEAR.m,
@@ -243,8 +240,8 @@ const EDASICH: RealData = RealData {
     common_name: "Edasich",
     astronomical_name: "ι Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(15, 24, 56),
-    declination: Declination::new(Sgn::Pos, 58, 57, 58),
+    right_ascension: RightAscension::new(15, 24, 56.),
+    declination: Declination::new(Sgn::Pos, 58, 57, 58.),
     apparent_magnitude: 3.290,
     distance: Distance {
         m: 101.2 * LIGHT_YEAR.m,
@@ -269,8 +266,8 @@ const ALDHIBAH: RealData = RealData {
     common_name: "Aldhibah",
     astronomical_name: "ζ Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(17, 8, 47),
-    declination: Declination::new(Sgn::Pos, 65, 42, 53),
+    right_ascension: RightAscension::new(17, 8, 47.),
+    declination: Declination::new(Sgn::Pos, 65, 42, 53.),
     apparent_magnitude: 3.17,
     distance: Distance {
         m: 330. * LIGHT_YEAR.m,
@@ -293,8 +290,8 @@ const ALTAIS: RealData = RealData {
     common_name: "Altais",
     astronomical_name: "δ Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(19, 12, 33),
-    declination: Declination::new(Sgn::Pos, 67, 39, 42),
+    right_ascension: RightAscension::new(19, 12, 33.),
+    declination: Declination::new(Sgn::Pos, 67, 39, 42.),
     apparent_magnitude: 3.07,
     distance: Distance {
         m: 97.4 * LIGHT_YEAR.m,
@@ -319,8 +316,8 @@ const RASTABAN: RealData = RealData {
     common_name: "Rastaban",
     astronomical_name: "β Draconis",
     constellation: "Draco",
-    right_ascension: RightAscension::new(17, 30, 26),
-    declination: Declination::new(Sgn::Pos, 52, 18, 5),
+    right_ascension: RightAscension::new(17, 30, 26.),
+    declination: Declination::new(Sgn::Pos, 52, 18, 5.),
     apparent_magnitude: 2.79,
     distance: Distance {
         m: 380. * LIGHT_YEAR.m,

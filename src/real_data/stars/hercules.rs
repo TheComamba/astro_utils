@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const RASALGETHI: RealData = RealData {
     common_name: "Rasalgethi",
     astronomical_name: "α Herculis",
     constellation: "Hercules",
-    right_ascension: RightAscension::new(17, 14, 39),
-    declination: Declination::new(Sgn::Pos, 14, 23, 25),
+    right_ascension: RightAscension::new(17, 14, 39.),
+    declination: Declination::new(Sgn::Pos, 14, 23, 25.),
     apparent_magnitude: 2.78,
     distance: Distance {
         m: 360. * LIGHT_YEAR.m,
@@ -41,8 +38,8 @@ const KORNEPHOROS: RealData = RealData {
     common_name: "Kornephoros",
     astronomical_name: "β Herculis",
     constellation: "Hercules",
-    right_ascension: RightAscension::new(16, 30, 13),
-    declination: Declination::new(Sgn::Pos, 21, 29, 23),
+    right_ascension: RightAscension::new(16, 30, 13.),
+    declination: Declination::new(Sgn::Pos, 21, 29, 23.),
     apparent_magnitude: 2.81,
     distance: Distance {
         m: 139. * LIGHT_YEAR.m,
@@ -65,8 +62,8 @@ const SARIN: RealData = RealData {
     common_name: "Sarin",
     astronomical_name: "δ Herculis",
     constellation: "Hercules",
-    right_ascension: RightAscension::new(17, 15, 2),
-    declination: Declination::new(Sgn::Pos, 24, 50, 21),
+    right_ascension: RightAscension::new(17, 15, 2.),
+    declination: Declination::new(Sgn::Pos, 24, 50, 21.),
     apparent_magnitude: 3.126,
     distance: Distance {
         m: 75.1 * LIGHT_YEAR.m,
@@ -91,8 +88,8 @@ const ETA_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "η Herculis",
     constellation: "Hercules",
-    right_ascension: RightAscension::new(16, 42, 54),
-    declination: Declination::new(Sgn::Pos, 38, 55, 20),
+    right_ascension: RightAscension::new(16, 42, 54.),
+    declination: Declination::new(Sgn::Pos, 38, 55, 20.),
     apparent_magnitude: 3.487,
     distance: Distance {
         m: 112. * LIGHT_YEAR.m,
@@ -117,8 +114,8 @@ const MU_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "μ Herculis",
     constellation: "Hercules",
-    right_ascension: RightAscension::new(17, 46, 28),
-    declination: Declination::new(Sgn::Pos, 27, 43, 14),
+    right_ascension: RightAscension::new(17, 46, 28.),
+    declination: Declination::new(Sgn::Pos, 27, 43, 14.),
     apparent_magnitude: 3.417,
     distance: Distance {
         m: 27.11 * LIGHT_YEAR.m,
@@ -143,8 +140,8 @@ const ZETA_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Herculis",
     constellation: "Hercules",
-    right_ascension: RightAscension::new(16, 41, 17),
-    declination: Declination::new(Sgn::Pos, 31, 36, 10),
+    right_ascension: RightAscension::new(16, 41, 17.),
+    declination: Declination::new(Sgn::Pos, 31, 36, 10.),
     apparent_magnitude: 2.81,
     distance: Distance {
         m: 35. * LIGHT_YEAR.m,
@@ -169,8 +166,8 @@ const PI_HERCULIS: RealData = RealData {
     common_name: "",
     astronomical_name: "π Herculis",
     constellation: "Hercules",
-    right_ascension: RightAscension::new(17, 15, 3),
-    declination: Declination::new(Sgn::Pos, 36, 48, 33),
+    right_ascension: RightAscension::new(17, 15, 3.),
+    declination: Declination::new(Sgn::Pos, 36, 48, 33.),
     apparent_magnitude: 3.15,
     distance: Distance {
         m: 377. * LIGHT_YEAR.m,

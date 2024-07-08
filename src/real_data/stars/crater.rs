@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALKES: RealData = RealData {
     common_name: "Alkes",
     astronomical_name: "α Crateris",
     constellation: "Crater",
-    right_ascension: RightAscension::new(10, 59, 46),
-    declination: Declination::new(Sgn::Neg, 18, 17, 56),
+    right_ascension: RightAscension::new(10, 59, 46.),
+    declination: Declination::new(Sgn::Neg, 18, 17, 56.),
     apparent_magnitude: 4.08,
     distance: Distance {
         m: 174.2 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_CRATERIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Crateris",
     constellation: "Crater",
-    right_ascension: RightAscension::new(11, 11, 39),
-    declination: Declination::new(Sgn::Neg, 22, 49, 33),
+    right_ascension: RightAscension::new(11, 11, 39.),
+    declination: Declination::new(Sgn::Neg, 22, 49, 33.),
     apparent_magnitude: 4.46,
     distance: Distance {
         m: 296. * LIGHT_YEAR.m,
@@ -65,8 +62,8 @@ const GAMMA_CRATERIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Crateris",
     constellation: "Crater",
-    right_ascension: RightAscension::new(11, 24, 53),
-    declination: Declination::new(Sgn::Neg, 17, 41, 2),
+    right_ascension: RightAscension::new(11, 24, 53.),
+    declination: Declination::new(Sgn::Neg, 17, 41, 2.),
     apparent_magnitude: 4.06,
     distance: Distance {
         m: 85.6 * LIGHT_YEAR.m,
@@ -91,8 +88,8 @@ const DELTA_CRATERIS: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Crateris",
     constellation: "Crater",
-    right_ascension: RightAscension::new(11, 19, 20),
-    declination: Declination::new(Sgn::Neg, 14, 46, 42),
+    right_ascension: RightAscension::new(11, 19, 20.),
+    declination: Declination::new(Sgn::Neg, 14, 46, 42.),
     apparent_magnitude: 3.56,
     distance: Distance {
         m: 194.6 * LIGHT_YEAR.m,

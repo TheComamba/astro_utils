@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const REGOR: RealData = RealData {
     age: Some(Time {
         s: 0.0045 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(8, 9, 32),
-    declination: Declination::new(Sgn::Neg, 47, 20, 12),
+    right_ascension: RightAscension::new(8, 9, 32.),
+    declination: Declination::new(Sgn::Neg, 47, 20, 12.),
     distance: Distance {
         m: 840. * LIGHT_YEAR.m,
     },
@@ -55,8 +52,8 @@ const ALSEPHINA: RealData = RealData {
     age: Some(Time {
         s: 0.4 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(8, 44, 42),
-    declination: Declination::new(Sgn::Neg, 54, 42, 32),
+    right_ascension: RightAscension::new(8, 44, 42.),
+    declination: Declination::new(Sgn::Neg, 54, 42, 32.),
     distance: Distance {
         m: 80. * LIGHT_YEAR.m,
     },
@@ -81,8 +78,8 @@ const SUHAIL: RealData = RealData {
     age: Some(Time {
         s: 0.0316 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(9, 7, 60),
-    declination: Declination::new(Sgn::Neg, 43, 25, 57),
+    right_ascension: RightAscension::new(9, 7, 60.),
+    declination: Declination::new(Sgn::Neg, 43, 25, 57.),
     distance: Distance {
         m: 573. * LIGHT_YEAR.m,
     },
@@ -107,8 +104,8 @@ const MARKEB: RealData = RealData {
     age: Some(Time {
         s: 0.018 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(9, 22, 7),
-    declination: Declination::new(Sgn::Neg, 55, 0, 38),
+    right_ascension: RightAscension::new(9, 22, 7.),
+    declination: Declination::new(Sgn::Neg, 55, 0, 38.),
     distance: Distance {
         m: 539. * LIGHT_YEAR.m,
     },

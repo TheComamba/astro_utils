@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const DIADEM: RealData = RealData {
     common_name: "Diadem",
     astronomical_name: "α Comae Berenices",
     constellation: "Coma Berenices",
-    right_ascension: RightAscension::new(13, 9, 59),
-    declination: Declination::new(Sgn::Pos, 17, 31, 46),
+    right_ascension: RightAscension::new(13, 9, 59.),
+    declination: Declination::new(Sgn::Pos, 17, 31, 46.),
     apparent_magnitude: 4.32,
     distance: Distance {
         m: 46.7 * LIGHT_YEAR.m,
@@ -39,8 +36,8 @@ const BETA_COMA_BERENICES: RealData = RealData {
     common_name: "",
     astronomical_name: "β Comae Berenices",
     constellation: "Coma Berenices",
-    right_ascension: RightAscension::new(13, 11, 53),
-    declination: Declination::new(Sgn::Pos, 27, 52, 41),
+    right_ascension: RightAscension::new(13, 11, 53.),
+    declination: Declination::new(Sgn::Pos, 27, 52, 41.),
     apparent_magnitude: 4.26,
     distance: Distance {
         m: 29.95 * LIGHT_YEAR.m,
@@ -65,8 +62,8 @@ const GAMMA_COMA_BERENICES: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Comae Berenices",
     constellation: "Coma Berenices",
-    right_ascension: RightAscension::new(12, 26, 56),
-    declination: Declination::new(Sgn::Pos, 28, 16, 6),
+    right_ascension: RightAscension::new(12, 26, 56.),
+    declination: Declination::new(Sgn::Pos, 28, 16, 6.),
     apparent_magnitude: 4.36,
     distance: Distance {
         m: 169. * LIGHT_YEAR.m,

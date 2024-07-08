@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_INDI: RealData = RealData {
     common_name: "",
     astronomical_name: "α Indi",
     constellation: "Indus",
-    right_ascension: RightAscension::new(20, 37, 34),
-    declination: Declination::new(Sgn::Neg, 47, 17, 29),
+    right_ascension: RightAscension::new(20, 37, 34.),
+    declination: Declination::new(Sgn::Neg, 47, 17, 29.),
     apparent_magnitude: 3.11,
     distance: Distance {
         m: 98.3 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_INDI: RealData = RealData {
     common_name: "",
     astronomical_name: "β Indi",
     constellation: "Indus",
-    right_ascension: RightAscension::new(20, 54, 49),
-    declination: Declination::new(Sgn::Neg, 58, 27, 15),
+    right_ascension: RightAscension::new(20, 54, 49.),
+    declination: Declination::new(Sgn::Neg, 58, 27, 15.),
     apparent_magnitude: 3.67,
     distance: Distance {
         m: 600. * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const ETA_INDI: RealData = RealData {
     common_name: "",
     astronomical_name: "η Indi",
     constellation: "Indus",
-    right_ascension: RightAscension::new(20, 44, 2),
-    declination: Declination::new(Sgn::Neg, 51, 55, 15),
+    right_ascension: RightAscension::new(20, 44, 2.),
+    declination: Declination::new(Sgn::Neg, 51, 55, 15.),
     apparent_magnitude: 4.52,
     distance: Distance {
         m: 78.8 * LIGHT_YEAR.m,

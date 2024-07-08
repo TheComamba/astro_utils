@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const GAMMA_SAGITTAE: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Sagittae",
     constellation: "Sagitta",
-    right_ascension: RightAscension::new(19, 58, 45),
-    declination: Declination::new(Sgn::Pos, 19, 29, 32),
+    right_ascension: RightAscension::new(19, 58, 45.),
+    declination: Declination::new(Sgn::Pos, 19, 29, 32.),
     apparent_magnitude: 3.47,
     distance: Distance {
         m: 288. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const DELTA_SAGITTAE: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Sagittae",
     constellation: "Sagitta",
-    right_ascension: RightAscension::new(19, 47, 23),
-    declination: Declination::new(Sgn::Pos, 18, 32, 4),
+    right_ascension: RightAscension::new(19, 47, 23.),
+    declination: Declination::new(Sgn::Pos, 18, 32, 4.),
     apparent_magnitude: 3.82,
     distance: Distance {
         m: 550. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const ALPHA_SAGITTAE: RealData = RealData {
     common_name: "",
     astronomical_name: "α Sagittae",
     constellation: "Sagitta",
-    right_ascension: RightAscension::new(19, 40, 6),
-    declination: Declination::new(Sgn::Pos, 18, 0, 50),
+    right_ascension: RightAscension::new(19, 40, 6.),
+    declination: Declination::new(Sgn::Pos, 18, 0, 50.),
     apparent_magnitude: 4.38,
     distance: Distance {
         m: 382. * LIGHT_YEAR.m,

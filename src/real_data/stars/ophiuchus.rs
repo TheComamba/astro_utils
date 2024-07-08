@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const RASALHAGUE: RealData = RealData {
     age: Some(Time {
         s: 0.77 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(17, 34, 56),
-    declination: Declination::new(Sgn::Pos, 12, 33, 37),
+    right_ascension: RightAscension::new(17, 34, 56.),
+    declination: Declination::new(Sgn::Pos, 12, 33, 37.),
     distance: Distance {
         m: 47. * LIGHT_YEAR.m,
     },
@@ -51,8 +48,8 @@ const SABIK: RealData = RealData {
     apparent_magnitude: 2.43,
     temperature: Temperature { K: 8900. },
     age: None,
-    right_ascension: RightAscension::new(17, 10, 23),
-    declination: Declination::new(Sgn::Neg, 15, 43, 30),
+    right_ascension: RightAscension::new(17, 10, 23.),
+    declination: Declination::new(Sgn::Neg, 15, 43, 30.),
     distance: Distance {
         m: 84. * LIGHT_YEAR.m,
     },
@@ -74,8 +71,8 @@ const HAN: RealData = RealData {
     absolute_magnitude: -3.20,
     apparent_magnitude: 2.54,
     temperature: Temperature { K: 34_300. },
-    right_ascension: RightAscension::new(16, 37, 10),
-    declination: Declination::new(Sgn::Neg, 10, 34, 2),
+    right_ascension: RightAscension::new(16, 37, 10.),
+    declination: Declination::new(Sgn::Neg, 10, 34, 2.),
     distance: Distance {
         m: 458. * LIGHT_YEAR.m,
     },
@@ -101,8 +98,8 @@ const YED_PRIOR: RealData = RealData {
     apparent_magnitude: 2.73,
     temperature: Temperature { K: 3679. },
     age: None,
-    right_ascension: RightAscension::new(16, 14, 21),
-    declination: Declination::new(Sgn::Neg, 3, 41, 40),
+    right_ascension: RightAscension::new(16, 14, 21.),
+    declination: Declination::new(Sgn::Neg, 3, 41, 40.),
     distance: Distance {
         m: 171. * LIGHT_YEAR.m,
     },
@@ -124,8 +121,8 @@ const CEBALRAI: RealData = RealData {
     absolute_magnitude: 0.77,
     apparent_magnitude: 2.76,
     temperature: Temperature { K: 4467. },
-    right_ascension: RightAscension::new(17, 43, 28),
-    declination: Declination::new(Sgn::Pos, 4, 34, 2),
+    right_ascension: RightAscension::new(17, 43, 28.),
+    declination: Declination::new(Sgn::Pos, 4, 34, 2.),
     distance: Distance {
         m: 81.8 * LIGHT_YEAR.m,
     },

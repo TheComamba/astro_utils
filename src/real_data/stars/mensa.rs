@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_MENSAE: RealData = RealData {
     common_name: "",
     astronomical_name: "α Mensae",
     constellation: "Mensa",
-    right_ascension: RightAscension::new(6, 10, 14),
-    declination: Declination::new(Sgn::Neg, 74, 45, 11),
+    right_ascension: RightAscension::new(6, 10, 14.),
+    declination: Declination::new(Sgn::Neg, 74, 45, 11.),
     apparent_magnitude: 5.09,
     distance: Distance {
         m: 33.31 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const BETA_MENSAE: RealData = RealData {
     common_name: "",
     astronomical_name: "β Mensae",
     constellation: "Mensa",
-    right_ascension: RightAscension::new(5, 2, 43),
-    declination: Declination::new(Sgn::Neg, 71, 18, 51),
+    right_ascension: RightAscension::new(5, 2, 43.),
+    declination: Declination::new(Sgn::Neg, 71, 18, 51.),
     apparent_magnitude: 5.31,
     distance: Distance {
         m: 641.7 * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const GAMMA_MENSAE: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Mensae",
     constellation: "Mensa",
-    right_ascension: RightAscension::new(5, 31, 53),
-    declination: Declination::new(Sgn::Neg, 76, 20, 27),
+    right_ascension: RightAscension::new(5, 31, 53.),
+    declination: Declination::new(Sgn::Neg, 76, 20, 27.),
     apparent_magnitude: 5.19,
     distance: Distance {
         m: 104.9 * LIGHT_YEAR.m,

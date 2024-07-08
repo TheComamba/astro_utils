@@ -1,4 +1,4 @@
-use astro_coordinates::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::CartesianCoordinates;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Luminosity, Mass, Temperature, Time};
 

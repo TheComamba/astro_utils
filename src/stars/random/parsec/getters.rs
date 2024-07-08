@@ -1,4 +1,4 @@
-use astro_coordinates::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::CartesianCoordinates;
 use simple_si_units::base::{Luminosity, Mass, Time};
 
 use crate::stars::data::StarData;
@@ -113,7 +113,7 @@ impl ParsecData {
 
 #[cfg(test)]
 mod tests {
-    use astro_coordinates::direction::Direction;
+    use astro_coords::direction::Direction;
     use simple_si_units::base::Distance;
 
     use super::*;

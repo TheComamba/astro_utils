@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const BETA_TRIANGULI: RealData = RealData {
     common_name: "",
     astronomical_name: "β Trianguli",
     constellation: "Triangulum",
-    right_ascension: RightAscension::new(2, 9, 33),
-    declination: Declination::new(Sgn::Pos, 34, 59, 14),
+    right_ascension: RightAscension::new(2, 9, 33.),
+    declination: Declination::new(Sgn::Pos, 34, 59, 14.),
     apparent_magnitude: 3.,
     distance: Distance {
         m: 127. * LIGHT_YEAR.m,
@@ -41,8 +38,8 @@ const ALPHA_TRIANGULI: RealData = RealData {
     common_name: "",
     astronomical_name: "α Trianguli",
     constellation: "Triangulum",
-    right_ascension: RightAscension::new(1, 53, 5),
-    declination: Declination::new(Sgn::Pos, 29, 34, 44),
+    right_ascension: RightAscension::new(1, 53, 5.),
+    declination: Declination::new(Sgn::Pos, 29, 34, 44.),
     apparent_magnitude: 3.42,
     distance: Distance {
         m: 63.3 * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_TRIANGULI: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Trianguli",
     constellation: "Triangulum",
-    right_ascension: RightAscension::new(2, 17, 19),
-    declination: Declination::new(Sgn::Pos, 33, 50, 50),
+    right_ascension: RightAscension::new(2, 17, 19.),
+    declination: Declination::new(Sgn::Pos, 33, 50, 50.),
     apparent_magnitude: 4.01,
     distance: Distance {
         m: 112.3 * LIGHT_YEAR.m,

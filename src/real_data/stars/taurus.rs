@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const ALDEBARAN: RealData = RealData {
     age: Some(Time {
         s: 5.5 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(4, 35, 55),
-    declination: Declination::new(Sgn::Pos, 16, 30, 33),
+    right_ascension: RightAscension::new(4, 35, 55.),
+    declination: Declination::new(Sgn::Pos, 16, 30, 33.),
     distance: Distance {
         m: 65. * LIGHT_YEAR.m,
     },
@@ -55,8 +52,8 @@ const ALNATH: RealData = RealData {
     age: Some(Time {
         s: 0.1 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(5, 26, 18),
-    declination: Declination::new(Sgn::Pos, 28, 36, 27),
+    right_ascension: RightAscension::new(5, 26, 18.),
+    declination: Declination::new(Sgn::Pos, 28, 36, 27.),
     distance: Distance {
         m: 131. * LIGHT_YEAR.m,
     },
@@ -69,8 +66,8 @@ const GAMMA_TAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Tauri",
     constellation: "Taurus",
-    right_ascension: RightAscension::new(4, 19, 48),
-    declination: Declination::new(Sgn::Pos, 15, 37, 40),
+    right_ascension: RightAscension::new(4, 19, 48.),
+    declination: Declination::new(Sgn::Pos, 15, 37, 40.),
     apparent_magnitude: 3.654,
     distance: Distance {
         m: 154. * LIGHT_YEAR.m,
@@ -95,8 +92,8 @@ const EPSILON_TAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Tauri",
     constellation: "Taurus",
-    right_ascension: RightAscension::new(4, 28, 37),
-    declination: Declination::new(Sgn::Pos, 19, 10, 50),
+    right_ascension: RightAscension::new(4, 28, 37.),
+    declination: Declination::new(Sgn::Pos, 19, 10, 50.),
     apparent_magnitude: 3.53,
     distance: Distance {
         m: 146. * LIGHT_YEAR.m,
@@ -121,8 +118,8 @@ const LAMBDA_TAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "λ Tauri",
     constellation: "Taurus",
-    right_ascension: RightAscension::new(4, 0, 41),
-    declination: Declination::new(Sgn::Pos, 12, 29, 25),
+    right_ascension: RightAscension::new(4, 0, 41.),
+    declination: Declination::new(Sgn::Pos, 12, 29, 25.),
     apparent_magnitude: 3.37,
     distance: Distance {
         m: 480. * LIGHT_YEAR.m,
@@ -147,8 +144,8 @@ const ZETA_TAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Tauri",
     constellation: "Taurus",
-    right_ascension: RightAscension::new(5, 37, 39),
-    declination: Declination::new(Sgn::Pos, 21, 8, 33),
+    right_ascension: RightAscension::new(5, 37, 39.),
+    declination: Declination::new(Sgn::Pos, 21, 8, 33.),
     apparent_magnitude: 3.010,
     distance: Distance {
         m: 440. * LIGHT_YEAR.m,

@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -30,8 +27,8 @@ const ALPHA_APODIS: RealData = RealData {
     lifetime: Time {
         s: 5.06543331 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(14, 47, 52),
-    declination: Declination::new(Sgn::Neg, 79, 2, 41),
+    right_ascension: RightAscension::new(14, 47, 52.),
+    declination: Declination::new(Sgn::Neg, 79, 2, 41.),
     distance: Distance {
         m: 411.1 * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const GAMMA_APODIS: RealData = RealData {
     lifetime: Time {
         s: 11.7800188 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(16, 33, 27),
-    declination: Declination::new(Sgn::Neg, 78, 53, 50),
+    right_ascension: RightAscension::new(16, 33, 27.),
+    declination: Declination::new(Sgn::Neg, 78, 53, 50.),
     distance: Distance {
         m: 150. * LIGHT_YEAR.m,
     },
@@ -76,8 +73,8 @@ const BETA_APODIS: RealData = RealData {
     lifetime: Time {
         s: 1.65092742 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(16, 43, 5),
-    declination: Declination::new(Sgn::Neg, 77, 31, 3),
+    right_ascension: RightAscension::new(16, 43, 5.),
+    declination: Declination::new(Sgn::Neg, 77, 31, 3.),
     distance: Distance {
         m: 149. * LIGHT_YEAR.m,
     },

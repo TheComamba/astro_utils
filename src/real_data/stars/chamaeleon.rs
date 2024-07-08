@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_CHAMAELEONTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Chamaeleontis",
     constellation: "Chamaeleon",
-    right_ascension: RightAscension::new(8, 18, 32),
-    declination: Declination::new(Sgn::Neg, 76, 55, 11),
+    right_ascension: RightAscension::new(8, 18, 32.),
+    declination: Declination::new(Sgn::Neg, 76, 55, 11.),
     apparent_magnitude: 4.06,
     distance: Distance {
         m: 63.8 * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const GAMMA_CHAMAELEONTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Chamaeleontis",
     constellation: "Chamaeleon",
-    right_ascension: RightAscension::new(10, 35, 28),
-    declination: Declination::new(Sgn::Neg, 78, 36, 28),
+    right_ascension: RightAscension::new(10, 35, 28.),
+    declination: Declination::new(Sgn::Neg, 78, 36, 28.),
     apparent_magnitude: 4.12,
     distance: Distance {
         m: 418. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const BETA_CHAMAELEONIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Chamaeleontis",
     constellation: "Chamaeleon",
-    right_ascension: RightAscension::new(12, 18, 21),
-    declination: Declination::new(Sgn::Neg, 79, 18, 44),
+    right_ascension: RightAscension::new(12, 18, 21.),
+    declination: Declination::new(Sgn::Neg, 79, 18, 44.),
     apparent_magnitude: 4.24,
     distance: Distance {
         m: 298. * LIGHT_YEAR.m,

@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const GAMMA1_VOLANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ¹ Volantis",
     constellation: "Volans",
-    right_ascension: RightAscension::new(7, 8, 42),
-    declination: Declination::new(Sgn::Neg, 70, 29, 50),
+    right_ascension: RightAscension::new(7, 8, 42.),
+    declination: Declination::new(Sgn::Neg, 70, 29, 50.),
     apparent_magnitude: 5.704,
     distance: Distance {
         m: 143. * LIGHT_YEAR.m,
@@ -41,8 +38,8 @@ const BETA_VOLANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Volantis",
     constellation: "Volans",
-    right_ascension: RightAscension::new(8, 25, 44),
-    declination: Declination::new(Sgn::Neg, 66, 8, 13),
+    right_ascension: RightAscension::new(8, 25, 44.),
+    declination: Declination::new(Sgn::Neg, 66, 8, 13.),
     apparent_magnitude: 3.75,
     distance: Distance {
         m: 107.5 * LIGHT_YEAR.m,
@@ -63,8 +60,8 @@ const ZETA_VOLANTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Volantis",
     constellation: "Volans",
-    right_ascension: RightAscension::new(7, 41, 49),
-    declination: Declination::new(Sgn::Neg, 72, 36, 22),
+    right_ascension: RightAscension::new(7, 41, 49.),
+    declination: Declination::new(Sgn::Neg, 72, 36, 22.),
     apparent_magnitude: 3.93,
     distance: Distance {
         m: 141. * LIGHT_YEAR.m,

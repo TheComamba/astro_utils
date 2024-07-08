@@ -5,7 +5,7 @@ use crate::{
     planets::planet_brightness::planet_brightness,
     stars::{appearance::StarAppearance, data::StarData},
 };
-use astro_coordinates::{cartesian::CartesianCoordinates, direction::Direction};
+use astro_coords::{cartesian::CartesianCoordinates, direction::Direction};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
     base::{Distance, Mass, Time},
@@ -135,7 +135,7 @@ impl PlanetData {
             self.params.geometric_albedo,
         )?;
         let relative_position = planet_pos - observer_position;
-        let pos = relative_position.to_ecliptic();
+        let pos = relative_position.to_ecliptic()?;
         Ok(StarAppearance {
             name: self.name.clone(),
             illuminance: brightness,

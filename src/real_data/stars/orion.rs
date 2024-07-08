@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const RIGEL: RealData = RealData {
     age: Some(Time {
         s: 0.008 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(5, 14, 32),
-    declination: Declination::new(Sgn::Neg, 8, 12, 6),
+    right_ascension: RightAscension::new(5, 14, 32.),
+    declination: Declination::new(Sgn::Neg, 8, 12, 6.),
     distance: Distance {
         m: 773. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const BETELGEUSE: RealData = RealData {
     absolute_magnitude: -5.14,
     apparent_magnitude: 0.9,
     temperature: Temperature { K: 3600. },
-    right_ascension: RightAscension::new(5, 55, 10),
-    declination: Declination::new(Sgn::Pos, 7, 24, 25),
+    right_ascension: RightAscension::new(5, 55, 10.),
+    declination: Declination::new(Sgn::Pos, 7, 24, 25.),
     distance: Distance {
         m: 522. * LIGHT_YEAR.m,
     },
@@ -81,8 +78,8 @@ const BELLATRIX: RealData = RealData {
     age: Some(Time {
         s: 0.0252 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(5, 25, 8),
-    declination: Declination::new(Sgn::Pos, 6, 20, 59),
+    right_ascension: RightAscension::new(5, 25, 8.),
+    declination: Declination::new(Sgn::Pos, 6, 20, 59.),
     distance: Distance {
         m: 243. * LIGHT_YEAR.m,
     },
@@ -104,8 +101,8 @@ const ALNILAM: RealData = RealData {
     absolute_magnitude: -6.38,
     apparent_magnitude: 1.69,
     temperature: Temperature { K: 27_000. },
-    right_ascension: RightAscension::new(5, 36, 13),
-    declination: Declination::new(Sgn::Neg, 1, 12, 7),
+    right_ascension: RightAscension::new(5, 36, 13.),
+    declination: Declination::new(Sgn::Neg, 1, 12, 7.),
     distance: Distance {
         m: 1342. * LIGHT_YEAR.m,
     },
@@ -130,8 +127,8 @@ const ALNITAK: RealData = RealData {
     absolute_magnitude: -5.26,
     apparent_magnitude: 1.74,
     temperature: Temperature { K: 29_500. },
-    right_ascension: RightAscension::new(5, 40, 46),
-    declination: Declination::new(Sgn::Neg, 1, 56, 34),
+    right_ascension: RightAscension::new(5, 40, 46.),
+    declination: Declination::new(Sgn::Neg, 1, 56, 34.),
     distance: Distance {
         m: 817. * LIGHT_YEAR.m,
     },
@@ -159,8 +156,8 @@ const SAIPH: RealData = RealData {
     age: Some(Time {
         s: 0.0111 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(5, 47, 45),
-    declination: Declination::new(Sgn::Neg, 9, 40, 11),
+    right_ascension: RightAscension::new(5, 47, 45.),
+    declination: Declination::new(Sgn::Neg, 9, 40, 11.),
     distance: Distance {
         m: 721.2 * LIGHT_YEAR.m,
     },
@@ -182,8 +179,8 @@ const MINTAKA: RealData = RealData {
     absolute_magnitude: -4.99,
     apparent_magnitude: 2.25,
     temperature: Temperature { K: 29_500. },
-    right_ascension: RightAscension::new(5, 32, 0),
-    declination: Declination::new(Sgn::Neg, 0, 17, 57),
+    right_ascension: RightAscension::new(5, 32, 0.),
+    declination: Declination::new(Sgn::Neg, 0, 17, 57.),
     distance: Distance {
         m: 916. * LIGHT_YEAR.m,
     },

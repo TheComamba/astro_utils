@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -32,8 +29,8 @@ const SADALSUUD: RealData = RealData {
     lifetime: Time {
         s: 0.111 * BILLION_YEARS.s,
     },
-    right_ascension: RightAscension::new(21, 31, 34),
-    declination: Declination::new(Sgn::Neg, 5, 34, 16),
+    right_ascension: RightAscension::new(21, 31, 34.),
+    declination: Declination::new(Sgn::Neg, 5, 34, 16.),
     distance: Distance {
         m: 540. * LIGHT_YEAR.m,
     },
@@ -52,8 +49,8 @@ const SADALMELIK: RealData = RealData {
     absolute_magnitude: -3.882,
     apparent_magnitude: 2.942,
     temperature: Temperature { K: 5383. },
-    right_ascension: RightAscension::new(22, 5, 47),
-    declination: Declination::new(Sgn::Neg, 0, 19, 11),
+    right_ascension: RightAscension::new(22, 5, 47.),
+    declination: Declination::new(Sgn::Neg, 0, 19, 11.),
     distance: Distance {
         m: 758.1 * LIGHT_YEAR.m,
     },
@@ -78,8 +75,8 @@ const SKAT: RealData = RealData {
     absolute_magnitude: -0.178,
     apparent_magnitude: 3.27,
     temperature: Temperature { K: 8650. },
-    right_ascension: RightAscension::new(22, 54, 39),
-    declination: Declination::new(Sgn::Neg, 15, 49, 15),
+    right_ascension: RightAscension::new(22, 54, 39.),
+    declination: Declination::new(Sgn::Neg, 15, 49, 15.),
     distance: Distance {
         m: 159.5 * LIGHT_YEAR.m,
     },

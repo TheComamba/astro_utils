@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -27,8 +24,8 @@ const UNUKALHAI: RealData = RealData {
     apparent_magnitude: 2.63,
     temperature: Temperature { K: 4498. },
     age: None,
-    right_ascension: RightAscension::new(15, 44, 16),
-    declination: Declination::new(Sgn::Pos, 6, 25, 32),
+    right_ascension: RightAscension::new(15, 44, 16.),
+    declination: Declination::new(Sgn::Pos, 6, 25, 32.),
     distance: Distance {
         m: 74. * LIGHT_YEAR.m,
     },
@@ -41,8 +38,8 @@ const BETA_SERPENTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Serpentis",
     constellation: "Serpens",
-    right_ascension: RightAscension::new(15, 46, 11),
-    declination: Declination::new(Sgn::Pos, 15, 25, 19),
+    right_ascension: RightAscension::new(15, 46, 11.),
+    declination: Declination::new(Sgn::Pos, 15, 25, 19.),
     apparent_magnitude: 3.65,
     distance: Distance {
         m: 155. * LIGHT_YEAR.m,
@@ -65,8 +62,8 @@ const MU_SERPENTIS: RealData = RealData {
     common_name: "",
     astronomical_name: "μ Serpentis",
     constellation: "Serpens",
-    right_ascension: RightAscension::new(15, 49, 37),
-    declination: Declination::new(Sgn::Neg, 3, 25, 49),
+    right_ascension: RightAscension::new(15, 49, 37.),
+    declination: Declination::new(Sgn::Neg, 3, 25, 49.),
     apparent_magnitude: 3.543,
     distance: Distance {
         m: 170. * LIGHT_YEAR.m,

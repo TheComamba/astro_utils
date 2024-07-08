@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const ALDERAMIN: RealData = RealData {
     absolute_magnitude: 1.58,
     apparent_magnitude: 2.45,
     temperature: Temperature { K: 7700. },
-    right_ascension: RightAscension::new(21, 18, 35),
-    declination: Declination::new(Sgn::Pos, 62, 35, 8),
+    right_ascension: RightAscension::new(21, 18, 35.),
+    declination: Declination::new(Sgn::Pos, 62, 35, 8.),
     distance: Distance {
         m: 49. * LIGHT_YEAR.m,
     },
@@ -43,8 +40,8 @@ const ALFIRK: RealData = RealData {
     common_name: "Alfirk",
     astronomical_name: "β Cephei",
     constellation: "Cepheus",
-    right_ascension: RightAscension::new(21, 28, 40),
-    declination: Declination::new(Sgn::Pos, 70, 33, 39),
+    right_ascension: RightAscension::new(21, 28, 40.),
+    declination: Declination::new(Sgn::Pos, 70, 33, 39.),
     apparent_magnitude: 3.23,
     distance: Distance {
         m: 594.9 * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const ERRAI: RealData = RealData {
     common_name: "Errai",
     astronomical_name: "γ Cephei",
     constellation: "Cepheus",
-    right_ascension: RightAscension::new(23, 39, 21),
-    declination: Declination::new(Sgn::Pos, 77, 37, 57),
+    right_ascension: RightAscension::new(23, 39, 21.),
+    declination: Declination::new(Sgn::Pos, 77, 37, 57.),
     apparent_magnitude: 3.21,
     distance: Distance {
         m: 44.98 * LIGHT_YEAR.m,
@@ -95,8 +92,8 @@ const DELTA_CEPHERI: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Cephei",
     constellation: "Cepheus",
-    right_ascension: RightAscension::new(22, 29, 10),
-    declination: Declination::new(Sgn::Pos, 58, 24, 55),
+    right_ascension: RightAscension::new(22, 29, 10.),
+    declination: Declination::new(Sgn::Pos, 58, 24, 55.),
     apparent_magnitude: 4.07,
     distance: Distance {
         m: 981.9 * LIGHT_YEAR.m,
@@ -121,8 +118,8 @@ const ETA_CEPHEI: RealData = RealData {
     common_name: "",
     astronomical_name: "η Cephei",
     constellation: "Cepheus",
-    right_ascension: RightAscension::new(20, 45, 17),
-    declination: Declination::new(Sgn::Pos, 61, 50, 20),
+    right_ascension: RightAscension::new(20, 45, 17.),
+    declination: Declination::new(Sgn::Pos, 61, 50, 20.),
     apparent_magnitude: 3.426,
     distance: Distance {
         m: 46.53 * LIGHT_YEAR.m,
@@ -147,8 +144,8 @@ const IOTA_CEPHEI: RealData = RealData {
     common_name: "",
     astronomical_name: "ι Cephei",
     constellation: "Cepheus",
-    right_ascension: RightAscension::new(22, 49, 41),
-    declination: Declination::new(Sgn::Pos, 66, 12, 1),
+    right_ascension: RightAscension::new(22, 49, 41.),
+    declination: Declination::new(Sgn::Pos, 66, 12, 1.),
     apparent_magnitude: 3.507,
     distance: Distance {
         m: 115.3 * LIGHT_YEAR.m,
@@ -173,8 +170,8 @@ const ZETA_CEPHEI: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Cephei",
     constellation: "Cepheus",
-    right_ascension: RightAscension::new(22, 10, 51),
-    declination: Declination::new(Sgn::Pos, 58, 12, 5),
+    right_ascension: RightAscension::new(22, 10, 51.),
+    declination: Declination::new(Sgn::Pos, 58, 12, 5.),
     apparent_magnitude: 3.39,
     distance: Distance {
         m: 726.1 * LIGHT_YEAR.m,
@@ -206,8 +203,8 @@ const ERAKIS: RealData = RealData {
     absolute_magnitude: -6.5,
     apparent_magnitude: 3.43,
     temperature: Temperature { K: 3551. },
-    right_ascension: RightAscension::new(21, 43, 30),
-    declination: Declination::new(Sgn::Pos, 58, 46, 48),
+    right_ascension: RightAscension::new(21, 43, 30.),
+    declination: Declination::new(Sgn::Pos, 58, 46, 48.),
     distance: Distance {
         m: 3066. * LIGHT_YEAR.m,
     },

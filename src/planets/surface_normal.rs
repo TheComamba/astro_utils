@@ -1,4 +1,4 @@
-use astro_coordinates::{direction::Direction, equatorial::EquatorialCoordinates};
+use astro_coords::{direction::Direction, equatorial::EquatorialCoordinates};
 use simple_si_units::{base::Time, geometry::Angle};
 
 use crate::units::angle::FULL_CIRC;
@@ -12,14 +12,14 @@ pub fn surface_normal_at_time(
     if siderial_day.to_seconds().abs() > 1. {
         let time_of_siderial_day = Time::from_s(time_since_epoch.s % siderial_day.s);
         let rotation = angle_at_epoch + (time_of_siderial_day / siderial_day) * FULL_CIRC;
-        observer.set_longitude(observer.get_longitude() + rotation);
+        observer.spherical.longitude = observer.spherical.longitude + rotation;
     }
     observer.to_direction()
 }
 
 #[cfg(test)]
 mod tests {
-    use astro_coordinates::spherical::SphericalCoordinates;
+    use astro_coords::spherical::SphericalCoordinates;
 
     use crate::{
         tests::TEST_ACCURACY,

@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const SUALOCIN: RealData = RealData {
     common_name: "Sualocin",
     astronomical_name: "α Delphini",
     constellation: "Delphinus",
-    right_ascension: RightAscension::new(20, 39, 38),
-    declination: Declination::new(Sgn::Pos, 15, 54, 43),
+    right_ascension: RightAscension::new(20, 39, 38.),
+    declination: Declination::new(Sgn::Pos, 15, 54, 43.),
     apparent_magnitude: 3.777,
     distance: Distance {
         m: 254. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const ROTANEV: RealData = RealData {
     common_name: "Rotanev",
     astronomical_name: "β Delphini",
     constellation: "Delphinus",
-    right_ascension: RightAscension::new(20, 37, 33),
-    declination: Declination::new(Sgn::Pos, 14, 35, 42),
+    right_ascension: RightAscension::new(20, 37, 33.),
+    declination: Declination::new(Sgn::Pos, 14, 35, 42.),
     apparent_magnitude: 3.64,
     distance: Distance {
         m: 97.34 * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const GAMMA_DELPHINI: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Delphini",
     constellation: "Delphinus",
-    right_ascension: RightAscension::new(20, 46, 39),
-    declination: Declination::new(Sgn::Pos, 16, 7, 27),
+    right_ascension: RightAscension::new(20, 46, 39.),
+    declination: Declination::new(Sgn::Pos, 16, 7, 27.),
     apparent_magnitude: 5.14,
     distance: Distance {
         m: 114.8 * LIGHT_YEAR.m,
@@ -93,8 +90,8 @@ const DELTA_DELPHINI: RealData = RealData {
     common_name: "",
     astronomical_name: "δ Delphini",
     constellation: "Delphinus",
-    right_ascension: RightAscension::new(20, 43, 28),
-    declination: Declination::new(Sgn::Pos, 15, 4, 28),
+    right_ascension: RightAscension::new(20, 43, 28.),
+    declination: Declination::new(Sgn::Pos, 15, 4, 28.),
     apparent_magnitude: 4.43,
     distance: Distance {
         m: 223. * LIGHT_YEAR.m,
@@ -119,8 +116,8 @@ const ALDULFIN: RealData = RealData {
     common_name: "Aldulfin",
     astronomical_name: "ε Delphini",
     constellation: "Delphinus",
-    right_ascension: RightAscension::new(20, 33, 13),
-    declination: Declination::new(Sgn::Pos, 11, 18, 12),
+    right_ascension: RightAscension::new(20, 33, 13.),
+    declination: Declination::new(Sgn::Pos, 11, 18, 12.),
     apparent_magnitude: 4.03,
     distance: Distance {
         m: 358.6 * LIGHT_YEAR.m,

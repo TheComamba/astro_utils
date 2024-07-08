@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -29,8 +26,8 @@ const ALIOTH: RealData = RealData {
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(12, 54, 2),
-    declination: Declination::new(Sgn::Pos, 55, 57, 36),
+    right_ascension: RightAscension::new(12, 54, 2.),
+    declination: Declination::new(Sgn::Pos, 55, 57, 36.),
     distance: Distance {
         m: 81. * LIGHT_YEAR.m,
     },
@@ -55,8 +52,8 @@ const DUBHE: RealData = RealData {
     age: Some(Time {
         s: 0.28 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(11, 3, 44),
-    declination: Declination::new(Sgn::Pos, 61, 45, 4),
+    right_ascension: RightAscension::new(11, 3, 44.),
+    declination: Declination::new(Sgn::Pos, 61, 45, 4.),
     distance: Distance {
         m: 124. * LIGHT_YEAR.m,
     },
@@ -81,8 +78,8 @@ const ALKAID: RealData = RealData {
     age: Some(Time {
         s: 0.01 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(13, 47, 32),
-    declination: Declination::new(Sgn::Pos, 49, 18, 48),
+    right_ascension: RightAscension::new(13, 47, 32.),
+    declination: Declination::new(Sgn::Pos, 49, 18, 48.),
     distance: Distance {
         m: 101. * LIGHT_YEAR.m,
     },
@@ -107,8 +104,8 @@ const MIZAR: RealData = RealData {
     age: Some(Time {
         s: 0.37 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(13, 23, 56),
-    declination: Declination::new(Sgn::Pos, 54, 55, 31),
+    right_ascension: RightAscension::new(13, 23, 56.),
+    declination: Declination::new(Sgn::Pos, 54, 55, 31.),
     distance: Distance {
         m: 78. * LIGHT_YEAR.m,
     },
@@ -133,8 +130,8 @@ const MERAK: RealData = RealData {
     age: Some(Time {
         s: 0.5 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(11, 1, 50),
-    declination: Declination::new(Sgn::Pos, 56, 22, 57),
+    right_ascension: RightAscension::new(11, 1, 50.),
+    declination: Declination::new(Sgn::Pos, 56, 22, 57.),
     distance: Distance {
         m: 79. * LIGHT_YEAR.m,
     },
@@ -159,8 +156,8 @@ const PHECDA: RealData = RealData {
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(11, 53, 50),
-    declination: Declination::new(Sgn::Pos, 53, 41, 41),
+    right_ascension: RightAscension::new(11, 53, 50.),
+    declination: Declination::new(Sgn::Pos, 53, 41, 41.),
     distance: Distance {
         m: 84. * LIGHT_YEAR.m,
     },
@@ -183,8 +180,8 @@ const TANIA_AUSTRALIS: RealData = RealData {
     apparent_magnitude: 3.06,
     temperature: Temperature { K: 3899. },
     age: None,
-    right_ascension: RightAscension::new(10, 22, 20),
-    declination: Declination::new(Sgn::Pos, 41, 29, 58),
+    right_ascension: RightAscension::new(10, 22, 20.),
+    declination: Declination::new(Sgn::Pos, 41, 29, 58.),
     distance: Distance {
         m: 230.0 * LIGHT_YEAR.m,
     },
@@ -209,8 +206,8 @@ const MEGREZ: RealData = RealData {
     age: Some(Time {
         s: 0.3 * BILLION_YEARS.s,
     }),
-    right_ascension: RightAscension::new(12, 15, 26),
-    declination: Declination::new(Sgn::Pos, 57, 1, 57),
+    right_ascension: RightAscension::new(12, 15, 26.),
+    declination: Declination::new(Sgn::Pos, 57, 1, 57.),
     distance: Distance {
         m: 80.5 * LIGHT_YEAR.m,
     },

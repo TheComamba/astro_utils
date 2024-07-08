@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -26,8 +23,8 @@ const PROCYON: RealData = RealData {
     absolute_magnitude: 2.68,
     apparent_magnitude: 0.40,
     temperature: Temperature { K: 6530. },
-    right_ascension: RightAscension::new(7, 39, 18),
-    declination: Declination::new(Sgn::Pos, 5, 13, 30),
+    right_ascension: RightAscension::new(7, 39, 18.),
+    declination: Declination::new(Sgn::Pos, 5, 13, 30.),
     distance: Distance {
         m: 11. * LIGHT_YEAR.m,
     },
@@ -43,8 +40,8 @@ const GOMEISA: RealData = RealData {
     common_name: "Gomeisa",
     astronomical_name: "β Canis Minoris",
     constellation: "Canis Minor",
-    right_ascension: RightAscension::new(7, 27, 9),
-    declination: Declination::new(Sgn::Pos, 8, 17, 22),
+    right_ascension: RightAscension::new(7, 27, 9.),
+    declination: Declination::new(Sgn::Pos, 8, 17, 22.),
     apparent_magnitude: 2.84,
     distance: Distance {
         m: 160. * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Canis Minoris",
     constellation: "Canis Minor",
-    right_ascension: RightAscension::new(7, 28, 10),
-    declination: Declination::new(Sgn::Pos, 8, 55, 32),
+    right_ascension: RightAscension::new(7, 28, 10.),
+    declination: Declination::new(Sgn::Pos, 8, 55, 32.),
     apparent_magnitude: 4.33,
     distance: Distance {
         m: 320. * LIGHT_YEAR.m,

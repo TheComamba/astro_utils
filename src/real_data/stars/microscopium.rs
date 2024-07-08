@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const GAMMA_MICROSCOPII: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Microscopii",
     constellation: "Microscopium",
-    right_ascension: RightAscension::new(21, 1, 17),
-    declination: Declination::new(Sgn::Neg, 32, 15, 28),
+    right_ascension: RightAscension::new(21, 1, 17.),
+    declination: Declination::new(Sgn::Neg, 32, 15, 28.),
     apparent_magnitude: 4.680,
     distance: Distance {
         m: 223. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const EPSILON_MICROSCOPII: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Microscopii",
     constellation: "Microscopium",
-    right_ascension: RightAscension::new(21, 17, 56),
-    declination: Declination::new(Sgn::Neg, 32, 10, 21),
+    right_ascension: RightAscension::new(21, 17, 56.),
+    declination: Declination::new(Sgn::Neg, 32, 10, 21.),
     apparent_magnitude: 4.71,
     distance: Distance {
         m: 166. * LIGHT_YEAR.m,
@@ -69,8 +66,8 @@ const THETA1_MICROSCOPII: RealData = RealData {
     common_name: "",
     astronomical_name: "θ¹ Microscopii",
     constellation: "Microscopium",
-    right_ascension: RightAscension::new(21, 20, 46),
-    declination: Declination::new(Sgn::Neg, 40, 48, 34),
+    right_ascension: RightAscension::new(21, 20, 46.),
+    declination: Declination::new(Sgn::Neg, 40, 48, 34.),
     apparent_magnitude: 4.82,
     distance: Distance {
         m: 179. * LIGHT_YEAR.m,

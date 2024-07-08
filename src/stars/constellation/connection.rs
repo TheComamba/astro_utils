@@ -195,7 +195,7 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
 
 #[cfg(test)]
 mod tests {
-    use astro_coordinates::spherical::SphericalCoordinates;
+    use astro_coords::spherical::SphericalCoordinates;
     use simple_si_units::electromagnetic::Illuminance;
 
     use crate::{

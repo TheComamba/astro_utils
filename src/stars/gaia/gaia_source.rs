@@ -4,7 +4,7 @@ use crate::{
     stars::appearance::StarAppearance,
     units::{illuminance::apparent_magnitude_to_illuminance, time::TIME_ZERO},
 };
-use astro_coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
+use astro_coords::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{
@@ -196,8 +196,8 @@ mod tests {
                 let closest = find_closest_star(gaia_star, &known_stars).unwrap();
                 println!("gaia_star: {:?}", gaia_star.name);
                 println!("closest_star: {:?}", closest.name);
-                let (gaia_ra, gaia_dec) = gaia_star.pos.get_spherical().to_ra_and_dec();
-                let (closest_ra, closest_dec) = closest.pos.get_spherical().to_ra_and_dec();
+                let (gaia_ra, gaia_dec) = gaia_star.pos.spherical.to_ra_and_dec();
+                let (closest_ra, closest_dec) = closest.pos.spherical.to_ra_and_dec();
                 let angle_difference = gaia_star.pos.angle_to(&closest.pos);
                 if angle_difference > Angle::from_degrees(0.03) {
                     println!("gaia_star position: {}, {}", gaia_ra, gaia_dec);

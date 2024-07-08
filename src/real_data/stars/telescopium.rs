@@ -1,7 +1,4 @@
-use astro_coordinates::{
-    declination::{Declination, Sgn},
-    right_ascension::RightAscension,
-};
+use astro_coords::ra_and_dec::*;
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
 
 use crate::{
@@ -17,8 +14,8 @@ const ALPHA_TELESCOPII: RealData = RealData {
     common_name: "",
     astronomical_name: "α Telescopii",
     constellation: "Telescopium",
-    right_ascension: RightAscension::new(18, 26, 58),
-    declination: Declination::new(Sgn::Neg, 45, 58, 6),
+    right_ascension: RightAscension::new(18, 26, 58.),
+    declination: Declination::new(Sgn::Neg, 45, 58, 6.),
     apparent_magnitude: 3.51,
     distance: Distance {
         m: 278. * LIGHT_YEAR.m,
@@ -43,8 +40,8 @@ const ZETA_TELESCOPII: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Telescopii",
     constellation: "Telescopium",
-    right_ascension: RightAscension::new(18, 28, 50),
-    declination: Declination::new(Sgn::Neg, 49, 4, 14),
+    right_ascension: RightAscension::new(18, 28, 50.),
+    declination: Declination::new(Sgn::Neg, 49, 4, 14.),
     apparent_magnitude: 4.13,
     distance: Distance {
         m: 126. * LIGHT_YEAR.m,
@@ -67,8 +64,8 @@ const EPSILON_TELESCOPII: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Telescopii",
     constellation: "Telescopium",
-    right_ascension: RightAscension::new(18, 11, 14),
-    declination: Declination::new(Sgn::Neg, 45, 57, 16),
+    right_ascension: RightAscension::new(18, 11, 14.),
+    declination: Declination::new(Sgn::Neg, 45, 57, 16.),
     apparent_magnitude: 4.50,
     distance: Distance {
         m: 410. * LIGHT_YEAR.m,
