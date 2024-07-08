@@ -1,4 +1,4 @@
-use astro_coordinates::ecliptic::EclipticCoordinates;
+use astro_coords::ecliptic::EclipticCoordinates;
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Time, electromagnetic::Illuminance, geometry::Angle};
 

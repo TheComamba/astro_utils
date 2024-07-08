@@ -1,6 +1,4 @@
-use astro_coordinates::{
-    cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates,
-};
+use astro_coords::{cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{

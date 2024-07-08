@@ -1,4 +1,4 @@
-use astro_coordinates::{direction::Direction, equatorial::EquatorialCoordinates};
+use astro_coords::{direction::Direction, equatorial::EquatorialCoordinates};
 use simple_si_units::{base::Time, geometry::Angle};
 
 use crate::units::angle::FULL_CIRC;
@@ -19,7 +19,7 @@ pub fn surface_normal_at_time(
 
 #[cfg(test)]
 mod tests {
-    use astro_coordinates::spherical::SphericalCoordinates;
+    use astro_coords::spherical::SphericalCoordinates;
 
     use crate::{
         tests::TEST_ACCURACY,

@@ -5,7 +5,7 @@ use crate::{
     planets::planet_brightness::planet_brightness,
     stars::{appearance::StarAppearance, data::StarData},
 };
-use astro_coordinates::{cartesian::CartesianCoordinates, direction::Direction};
+use astro_coords::{cartesian::CartesianCoordinates, direction::Direction};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
     base::{Distance, Mass, Time},

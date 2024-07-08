@@ -16,7 +16,7 @@ pub(crate) struct ParsecData {
 
 #[cfg(test)]
 mod tests {
-    use astro_coordinates::cartesian::CartesianCoordinates;
+    use astro_coords::cartesian::CartesianCoordinates;
 
     use crate::{
         real_data::stars::{all::get_many_stars, SUN},

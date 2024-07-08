@@ -1,4 +1,4 @@
-use astro_coordinates::{
+use astro_coords::{
     declination::Declination, earth_equatorial::EarthEquatorialCoordinates,
     right_ascension::RightAscension,
 };

@@ -3,7 +3,7 @@ use super::{
     physical_parameters::StarPhysicalParameters,
 };
 use crate::{color::srgb::sRGBColor, units::luminous_intensity::luminous_intensity_to_illuminance};
-use astro_coordinates::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::CartesianCoordinates;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 

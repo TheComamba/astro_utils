@@ -4,7 +4,7 @@ use crate::{
     stars::appearance::StarAppearance,
     units::{illuminance::apparent_magnitude_to_illuminance, time::TIME_ZERO},
 };
-use astro_coordinates::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
+use astro_coords::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{

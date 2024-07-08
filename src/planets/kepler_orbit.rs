@@ -1,4 +1,4 @@
-use astro_coordinates::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates};
+use astro_coords::{cartesian::CartesianCoordinates, spherical::SphericalCoordinates};
 use simple_si_units::{
     base::{Distance, Mass, Time},
     geometry::Angle,

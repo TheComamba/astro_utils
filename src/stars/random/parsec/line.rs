@@ -4,7 +4,7 @@ use crate::{
     stars::random::random_stars::DIMMEST_ILLUMINANCE,
     units::{distance::distance_to_sun_radii, luminous_intensity::SOLAR_LUMINOUS_INTENSITY},
 };
-use astro_coordinates::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::CartesianCoordinates;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity};
 
