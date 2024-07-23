@@ -3,7 +3,7 @@ use super::{
     physical_parameters::StarPhysicalParameters,
 };
 use crate::{color::srgb::sRGBColor, units::luminous_intensity::luminous_intensity_to_illuminance};
-use astro_coords::{cartesian::CartesianCoordinates, ecliptic::EclipticCoordinates};
+use astro_coords::{cartesian::Cartesian, ecliptic::Ecliptic};
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
 
@@ -12,7 +12,7 @@ pub struct StarData {
     pub(super) name: String,
     pub(super) constellation: Option<String>,
     pub(super) params: StarPhysicalParameters,
-    pub(super) pos: CartesianCoordinates,
+    pub(super) pos: Cartesian,
     pub(super) evolution: StarDataEvolution,
 }
 
@@ -21,7 +21,7 @@ impl StarData {
         name: String,
         constellation: Option<String>,
         params: StarPhysicalParameters,
-        pos: CartesianCoordinates,
+        pos: Cartesian,
         evolution: StarDataEvolution,
     ) -> Self {
         Self {
@@ -91,11 +91,11 @@ impl StarData {
         self.get_pos(time).length()
     }
 
-    pub const fn get_pos_at_epoch(&self) -> &CartesianCoordinates {
+    pub const fn get_pos_at_epoch(&self) -> &Cartesian {
         &self.pos
     }
 
-    pub fn get_pos(&self, _time: Time<f64>) -> CartesianCoordinates {
+    pub fn get_pos(&self, _time: Time<f64>) -> Cartesian {
         self.pos.clone()
     }
 
@@ -147,7 +147,7 @@ impl StarData {
         self.pos = direction.to_cartesian(distance);
     }
 
-    pub fn set_pos_at_epoch(&mut self, pos: CartesianCoordinates) {
+    pub fn set_pos_at_epoch(&mut self, pos: Cartesian) {
         self.pos = pos;
     }
 
@@ -171,7 +171,7 @@ impl StarData {
         let pos = self
             .get_pos(time_since_epoch)
             .to_ecliptic()
-            .unwrap_or(EclipticCoordinates::X_DIRECTION);
+            .unwrap_or(Ecliptic::X_DIRECTION);
 
         StarAppearance {
             name: self.name.clone(),

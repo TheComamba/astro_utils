@@ -195,7 +195,7 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
 
 #[cfg(test)]
 mod tests {
-    use astro_coords::spherical::SphericalCoordinates;
+    use astro_coords::spherical::Spherical;
     use simple_si_units::electromagnetic::Illuminance;
 
     use crate::{
@@ -213,7 +213,7 @@ mod tests {
             // Making distances distinct
             let longitude = Angle::from_degrees(10. * i as f64 + (i as f64).powi(2) / 100.);
             assert!(longitude.to_degrees() < 179.0);
-            let pos = SphericalCoordinates::new(longitude, ANGLE_ZERO).to_ecliptic();
+            let pos = Spherical::new(longitude, ANGLE_ZERO).to_ecliptic();
             stars.push(StarAppearance::new(
                 format!("Star {}", i),
                 Illuminance::from_lux(1.0),

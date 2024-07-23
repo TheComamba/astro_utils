@@ -4,7 +4,7 @@ use crate::{
     stars::random::random_stars::DIMMEST_ILLUMINANCE,
     units::{distance::distance_to_sun_radii, luminous_intensity::SOLAR_LUMINOUS_INTENSITY},
 };
-use astro_coords::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::Cartesian;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Distance, Luminosity};
 
@@ -101,7 +101,7 @@ impl ParsecLine {
 }
 
 impl ParsedParsecLine {
-    pub(super) fn is_visible(&self, pos: &CartesianCoordinates) -> bool {
+    pub(super) fn is_visible(&self, pos: &Cartesian) -> bool {
         let min_luminous_intensity = Luminosity {
             cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
         };

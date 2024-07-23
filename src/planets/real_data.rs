@@ -1,4 +1,4 @@
-use astro_coords::earth_equatorial::EarthEquatorialCoordinates;
+use astro_coords::earth_equatorial::EarthEquatorial;
 use simple_si_units::{
     base::{Distance, Mass, Time},
     geometry::Angle,
@@ -21,7 +21,7 @@ pub struct RealData {
     pub mass: Mass<f64>,
     pub siderial_rotation_period: Time<f64>,
     pub axis_tilt: Angle<f64>,
-    pub rotation_axis: EarthEquatorialCoordinates,
+    pub rotation_axis: EarthEquatorial,
 }
 
 impl RealData {

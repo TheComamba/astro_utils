@@ -1,4 +1,4 @@
-use astro_coords::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::Cartesian;
 use simple_si_units::{
     base::{Distance, Luminosity},
     electromagnetic::Illuminance,
@@ -30,9 +30,9 @@ fn illuminated_fraction(reflection_angle: &Angle<f64>) -> f64 {
 
 pub fn planet_brightness(
     star_luminous_intensity: Luminosity<f64>,
-    star_position: &CartesianCoordinates,
-    planet_position: &CartesianCoordinates,
-    observer_position: &CartesianCoordinates,
+    star_position: &Cartesian,
+    planet_position: &Cartesian,
+    observer_position: &Cartesian,
     planet_radius: Distance<f64>,
     geometric_albedo: f64,
 ) -> Result<Illuminance<f64>, AstroUtilError> {
@@ -65,13 +65,13 @@ mod tests {
     fn venus_at_occultation() {
         let accuracy = Illuminance::from_lux(1e-11);
         let expected = Illuminance::from_lux(0.);
-        let star_position = CartesianCoordinates::ORIGIN;
-        let planet_position = CartesianCoordinates::new(
+        let star_position = Cartesian::ORIGIN;
+        let planet_position = Cartesian::new(
             VENUS.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
         );
-        let observer_position = CartesianCoordinates::new(
+        let observer_position = Cartesian::new(
             EARTH.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
@@ -95,13 +95,13 @@ mod tests {
     fn mars_at_opposition() {
         let expected = apparent_magnitude_to_illuminance(-2.94);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let star_position = CartesianCoordinates::ORIGIN;
-        let planet_position = CartesianCoordinates::new(
+        let star_position = Cartesian::ORIGIN;
+        let planet_position = Cartesian::new(
             MARS.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
         );
-        let observer_position = CartesianCoordinates::new(
+        let observer_position = Cartesian::new(
             EARTH.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
@@ -125,13 +125,13 @@ mod tests {
     fn jupiter_at_opposition() {
         let expected = apparent_magnitude_to_illuminance(-2.94);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let star_position = CartesianCoordinates::ORIGIN;
-        let planet_position = CartesianCoordinates::new(
+        let star_position = Cartesian::ORIGIN;
+        let planet_position = Cartesian::new(
             JUPITER.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
         );
-        let observer_position = CartesianCoordinates::new(
+        let observer_position = Cartesian::new(
             EARTH.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
@@ -155,13 +155,13 @@ mod tests {
     fn saturn_at_opposition() {
         let expected = apparent_magnitude_to_illuminance(-0.55);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let star_position = CartesianCoordinates::ORIGIN;
-        let planet_position = CartesianCoordinates::new(
+        let star_position = Cartesian::ORIGIN;
+        let planet_position = Cartesian::new(
             SATURN.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
         );
-        let observer_position = CartesianCoordinates::new(
+        let observer_position = Cartesian::new(
             EARTH.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
@@ -185,13 +185,13 @@ mod tests {
     fn uranus_at_opposition() {
         let expected = apparent_magnitude_to_illuminance(5.38);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let star_position = CartesianCoordinates::ORIGIN;
-        let planet_position = CartesianCoordinates::new(
+        let star_position = Cartesian::ORIGIN;
+        let planet_position = Cartesian::new(
             URANUS.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
         );
-        let observer_position = CartesianCoordinates::new(
+        let observer_position = Cartesian::new(
             EARTH.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
@@ -215,13 +215,13 @@ mod tests {
     fn neptune_at_opposition() {
         let expected = apparent_magnitude_to_illuminance(7.67);
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
-        let star_position = CartesianCoordinates::ORIGIN;
-        let planet_position = CartesianCoordinates::new(
+        let star_position = Cartesian::ORIGIN;
+        let planet_position = Cartesian::new(
             NEPTUNE.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,
         );
-        let observer_position = CartesianCoordinates::new(
+        let observer_position = Cartesian::new(
             EARTH.orbit.get_semi_major_axis(),
             DISTANCE_ZERO,
             DISTANCE_ZERO,

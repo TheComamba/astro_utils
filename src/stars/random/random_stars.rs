@@ -7,7 +7,7 @@ use crate::{
     },
     units::time::TEN_MILLENIA,
 };
-use astro_coords::{cartesian::CartesianCoordinates, direction::Direction};
+use astro_coords::{cartesian::Cartesian, direction::Direction};
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use simple_si_units::{
@@ -114,7 +114,7 @@ pub fn generate_random_star(
     let mut star =
         definetely_generate_visible_random_star(parsec_data, max_distance_or_1, parsec_distr);
     if max_distance.is_none() {
-        star.pos = CartesianCoordinates::ORIGIN;
+        star.pos = Cartesian::ORIGIN;
     }
     Ok(star)
 }
@@ -131,7 +131,7 @@ fn definetely_generate_visible_random_star(
             None => {
                 star = generate_visible_random_star(
                     parsec_data,
-                    &CartesianCoordinates::ORIGIN,
+                    &Cartesian::ORIGIN,
                     max_distance_or_1,
                     AGE_OF_MILKY_WAY_THIN_DISK,
                     &mut rng,
@@ -145,7 +145,7 @@ fn definetely_generate_visible_random_star(
 
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
-    origin: &CartesianCoordinates,
+    origin: &Cartesian,
     max_distance: Distance<f64>,
     age: Time<f64>,
     rng: &mut ThreadRng,
@@ -157,7 +157,7 @@ fn generate_visible_random_star(
     Some(star)
 }
 
-fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
+fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> Cartesian {
     let distr = Uniform::new(-1., 1.);
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     while x * x + y * y + z * z > 1. {
@@ -166,13 +166,10 @@ fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> CartesianCoordinates {
     let x = Distance { m: x };
     let y = Distance { m: y };
     let z = Distance { m: z };
-    CartesianCoordinates::new(x, y, z)
+    Cartesian::new(x, y, z)
 }
 
-fn random_point_in_sphere(
-    rng: &mut ThreadRng,
-    max_distance: Distance<f64>,
-) -> CartesianCoordinates {
+fn random_point_in_sphere(rng: &mut ThreadRng, max_distance: Distance<f64>) -> Cartesian {
     let point = random_point_in_unit_sphere(rng);
     point * max_distance.m
 }

@@ -1,4 +1,4 @@
-use astro_coords::{cartesian::CartesianCoordinates, direction::Direction};
+use astro_coords::{cartesian::Cartesian, direction::Direction};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
     base::{Distance, Mass, Time},
@@ -61,7 +61,7 @@ impl OrbitParameters {
         body_mass: Mass<f64>,
         central_body_mass: Mass<f64>,
         time: Time<f64>,
-    ) -> CartesianCoordinates {
+    ) -> Cartesian {
         let orbital_period = orbital_period(self.semi_major_axis, body_mass, central_body_mass);
         let mean_anomaly = mean_anomaly(orbital_period, time);
         let eccentric_anomaly = eccentric_anomaly(mean_anomaly, self.eccentricity);
@@ -74,10 +74,7 @@ impl OrbitParameters {
         )
     }
 
-    pub(crate) fn apply_orientation_to(
-        &self,
-        position_in_plane: CartesianCoordinates,
-    ) -> CartesianCoordinates {
+    pub(crate) fn apply_orientation_to(&self, position_in_plane: Cartesian) -> Cartesian {
         let position = position_in_plane.rotated(self.inclination, &Direction::X);
         let position = position.rotated(self.longitude_of_ascending_node, &Direction::Z);
         position.rotated(self.argument_of_periapsis, &self.normal())

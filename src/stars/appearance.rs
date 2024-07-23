@@ -1,4 +1,4 @@
-use astro_coords::ecliptic::EclipticCoordinates;
+use astro_coords::ecliptic::Ecliptic;
 use serde::{Deserialize, Serialize};
 use simple_si_units::{base::Time, electromagnetic::Illuminance, geometry::Angle};
 
@@ -9,7 +9,7 @@ pub struct StarAppearance {
     pub(crate) name: String,
     pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
-    pub(crate) pos: EclipticCoordinates,
+    pub(crate) pos: Ecliptic,
     pub(crate) time_since_epoch: Time<f64>,
 }
 
@@ -18,7 +18,7 @@ impl StarAppearance {
         name: String,
         illuminance: Illuminance<f64>,
         color: sRGBColor,
-        pos: EclipticCoordinates,
+        pos: Ecliptic,
         time_since_epoch: Time<f64>,
     ) -> Self {
         Self {
@@ -42,7 +42,7 @@ impl StarAppearance {
         &self.color
     }
 
-    pub const fn get_pos(&self) -> &EclipticCoordinates {
+    pub const fn get_pos(&self) -> &Ecliptic {
         &self.pos
     }
 
@@ -50,7 +50,7 @@ impl StarAppearance {
         &self.time_since_epoch
     }
 
-    pub fn set_pos(&mut self, direction: EclipticCoordinates) {
+    pub fn set_pos(&mut self, direction: Ecliptic) {
         self.pos = direction;
     }
 
@@ -92,7 +92,7 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            EclipticCoordinates::X_DIRECTION,
+            Ecliptic::X_DIRECTION,
             TIME_ZERO,
         );
 
@@ -105,11 +105,11 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            EclipticCoordinates::X_DIRECTION,
+            Ecliptic::X_DIRECTION,
             TIME_ZERO,
         );
         let mut other = star.clone();
-        other.pos = EclipticCoordinates::Y_DIRECTION;
+        other.pos = Ecliptic::Y_DIRECTION;
 
         assert!(!star.apparently_the_same(&other));
     }
@@ -120,7 +120,7 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            EclipticCoordinates::X_DIRECTION,
+            Ecliptic::X_DIRECTION,
             TIME_ZERO,
         );
         let mut other = star.clone();

@@ -1,4 +1,4 @@
-use astro_coords::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::Cartesian;
 use serde::{Deserialize, Serialize};
 use simple_si_units::base::{Luminosity, Mass, Temperature, Time};
 
@@ -105,7 +105,7 @@ impl Trajectory {
         self.params.is_empty()
     }
 
-    pub(super) fn is_visible_supernova(&self, pos: &CartesianCoordinates) -> bool {
+    pub(super) fn is_visible_supernova(&self, pos: &Cartesian) -> bool {
         if self.initial_mass < Mass::from_solar_mass(8.) {
             return false;
         }
@@ -115,7 +115,7 @@ impl Trajectory {
         self.peak_lifetime_luminous_intensity >= min_luminous_intensity
     }
 
-    pub(super) fn to_star(&self, age: Time<f64>, pos: CartesianCoordinates) -> StarData {
+    pub(super) fn to_star(&self, age: Time<f64>, pos: Cartesian) -> StarData {
         let age_index = self.get_closest_params_index(age.to_yr());
         let mut star = self.to_star_without_evolution(age_index, pos.clone());
         let other_age_index = if age_index == 0 {
@@ -132,7 +132,7 @@ impl Trajectory {
         star
     }
 
-    fn to_star_without_evolution(&self, age_index: usize, pos: CartesianCoordinates) -> StarData {
+    fn to_star_without_evolution(&self, age_index: usize, pos: Cartesian) -> StarData {
         let params = self.get_params_by_index_unchecked(age_index);
         let mass = Mass::from_solar_mass(params.mass_in_solar_masses);
         let luminous_intensity = params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;

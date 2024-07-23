@@ -1,10 +1,10 @@
-use astro_coords::{direction::Direction, equatorial::EquatorialCoordinates};
+use astro_coords::{direction::Direction, equatorial::Equatorial};
 use simple_si_units::{base::Time, geometry::Angle};
 
 use crate::units::angle::FULL_CIRC;
 
 pub fn surface_normal_at_time(
-    mut observer: EquatorialCoordinates,
+    mut observer: Equatorial,
     angle_at_epoch: Angle<f64>,
     time_since_epoch: Time<f64>,
     siderial_day: Time<f64>,
@@ -19,7 +19,7 @@ pub fn surface_normal_at_time(
 
 #[cfg(test)]
 mod tests {
-    use astro_coords::spherical::SphericalCoordinates;
+    use astro_coords::spherical::Spherical;
 
     use crate::{
         tests::TEST_ACCURACY,
@@ -31,8 +31,7 @@ mod tests {
     #[test]
     fn surface_normal_at_time_zero_in_x_direction() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::X_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -48,8 +47,7 @@ mod tests {
     #[test]
     fn surface_normal_at_time_zero_in_y_direction() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::Y_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -65,8 +63,7 @@ mod tests {
     #[test]
     fn surface_normal_at_time_zero_in_z_direction() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::Z_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::Z_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -82,8 +79,7 @@ mod tests {
     #[test]
     fn surface_normal_at_quarter_rotation_in_x_direction() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::X_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -99,8 +95,7 @@ mod tests {
     #[test]
     fn surface_normal_at_quarter_rotation_in_y_direction() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::Y_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -116,8 +111,7 @@ mod tests {
     #[test]
     fn surface_normal_at_quarter_rotation_in_z_direction() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::Z_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::Z_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -133,8 +127,7 @@ mod tests {
     #[test]
     fn surface_normal_at_half_rotation_in_x_direction() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::X_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -150,8 +143,7 @@ mod tests {
     #[test]
     fn surface_normal_of_body_with_retrograde_rotation() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::X_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(-1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -167,8 +159,7 @@ mod tests {
     #[test]
     fn surface_normal_at_time_zero_in_x_direction_with_tilted_axis() {
         let rotation_axis = Direction::Y;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::X_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -184,8 +175,7 @@ mod tests {
     #[test]
     fn surface_normal_after_quarter_turn_in_x_direction_with_tilted_axis() {
         let rotation_axis = Direction::Y;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::X_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = ANGLE_ZERO;
@@ -201,8 +191,7 @@ mod tests {
     #[test]
     fn surface_normal_with_angle_at_epoch() {
         let rotation_axis = Direction::Z;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::X_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::X_DIRECTION, rotation_axis.clone());
         let siderial_day = Time::from_yr(1.);
 
         let angle_at_epoch = Angle::from_degrees(90.);
@@ -218,8 +207,7 @@ mod tests {
     #[test]
     fn surface_normal_of_non_rotating_body_with_axis_tilt() {
         let rotation_axis = Direction::Y;
-        let observer =
-            EquatorialCoordinates::new(SphericalCoordinates::Y_DIRECTION, rotation_axis.clone());
+        let observer = Equatorial::new(Spherical::Y_DIRECTION, rotation_axis.clone());
         let siderial_day = TIME_ZERO;
 
         let angle_at_epoch = ANGLE_ZERO;

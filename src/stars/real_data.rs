@@ -1,5 +1,5 @@
 use astro_coords::{
-    earth_equatorial::EarthEquatorialCoordinates,
+    earth_equatorial::EarthEquatorial,
     ra_and_dec::{Declination, RightAscension},
 };
 use simple_si_units::base::{Distance, Mass, Temperature, Time};
@@ -64,7 +64,7 @@ impl RealData {
 
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
-        let pos = EarthEquatorialCoordinates::new(ra, dec)
+        let pos = EarthEquatorial::new(ra, dec)
             .to_direction()
             .to_cartesian(self.distance);
 
@@ -87,7 +87,7 @@ impl RealData {
         };
         let ra = self.right_ascension.to_angle();
         let dec = self.declination.to_angle();
-        let pos = EarthEquatorialCoordinates::new(ra, dec).to_ecliptic();
+        let pos = EarthEquatorial::new(ra, dec).to_ecliptic();
         let illuminance = apparent_magnitude_to_illuminance(self.apparent_magnitude);
         let color = sRGBColor::from_temperature(self.temperature);
         StarAppearance {

@@ -5,7 +5,7 @@ use crate::{
     planets::planet_brightness::planet_brightness,
     stars::{appearance::StarAppearance, data::StarData},
 };
-use astro_coords::{cartesian::CartesianCoordinates, direction::Direction};
+use astro_coords::{cartesian::Cartesian, direction::Direction};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
     base::{Distance, Mass, Time},
@@ -121,14 +121,14 @@ impl PlanetData {
     pub fn to_star_appearance(
         &self,
         central_body: &StarData,
-        planet_pos: &CartesianCoordinates,
-        observer_position: &CartesianCoordinates,
+        planet_pos: &Cartesian,
+        observer_position: &Cartesian,
         time_since_epoch: Time<f64>,
     ) -> Result<StarAppearance, AstroUtilError> {
         let central_body_luminous_intensity = central_body.get_luminous_intensity_at_epoch();
         let brightness = planet_brightness(
             central_body_luminous_intensity,
-            &CartesianCoordinates::ORIGIN,
+            &Cartesian::ORIGIN,
             planet_pos,
             observer_position,
             self.params.radius,

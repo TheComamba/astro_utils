@@ -1,4 +1,4 @@
-use astro_coords::earth_equatorial::EarthEquatorialCoordinates;
+use astro_coords::earth_equatorial::EarthEquatorial;
 use simple_si_units::base::Time;
 use simple_si_units::base::{Distance, Mass};
 use simple_si_units::geometry::Angle;
@@ -35,7 +35,7 @@ pub const MERCURY: RealData = RealData {
     axis_tilt: Angle {
         rad: 0.034 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 281.01 * DEGREE.rad,
         },
@@ -73,7 +73,7 @@ pub const VENUS: RealData = RealData {
     axis_tilt: Angle {
         rad: 2.64 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 272.76 * DEGREE.rad,
         },
@@ -111,7 +111,7 @@ pub const EARTH: RealData = RealData {
     axis_tilt: Angle {
         rad: 23.439_281 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(ANGLE_ZERO, QUARTER_CIRC),
+    rotation_axis: EarthEquatorial::new(ANGLE_ZERO, QUARTER_CIRC),
 };
 
 pub const MARS: RealData = RealData {
@@ -142,7 +142,7 @@ pub const MARS: RealData = RealData {
     axis_tilt: Angle {
         rad: 25.19 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 317.681 * DEGREE.rad,
         },
@@ -180,7 +180,7 @@ pub const CERES: RealData = RealData {
     axis_tilt: Angle {
         rad: 4. * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 291.42744 * DEGREE.rad,
         },
@@ -218,7 +218,7 @@ pub const JUPITER: RealData = RealData {
     axis_tilt: Angle {
         rad: 3.13 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 268.057 * DEGREE.rad,
         },
@@ -254,7 +254,7 @@ pub const SATURN: RealData = RealData {
     axis_tilt: Angle {
         rad: 26.73 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 40.589 * DEGREE.rad,
         },
@@ -290,7 +290,7 @@ pub const URANUS: RealData = RealData {
     axis_tilt: Angle {
         rad: 82.23 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 257.311 * DEGREE.rad,
         },
@@ -326,7 +326,7 @@ pub const NEPTUNE: RealData = RealData {
     axis_tilt: Angle {
         rad: 28.32 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 299.3 * DEGREE.rad,
         },
@@ -364,7 +364,7 @@ pub const PLUTO: RealData = RealData {
     axis_tilt: Angle {
         rad: 119.51 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 132.99 * DEGREE.rad,
         },
@@ -400,7 +400,7 @@ pub const MOON: RealData = RealData {
     axis_tilt: Angle {
         rad: 6.68 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorialCoordinates::new(
+    rotation_axis: EarthEquatorial::new(
         Angle {
             rad: 266.86 * DEGREE.rad,
         },

@@ -1,4 +1,4 @@
-use astro_coords::{cartesian::CartesianCoordinates, earth_equatorial::EarthEquatorialCoordinates};
+use astro_coords::{cartesian::Cartesian, earth_equatorial::EarthEquatorial};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{
@@ -48,14 +48,14 @@ fn get_luminous_intensity(map: &HashMap<Col, GaiaCellData>) -> Option<Luminosity
     Some(absolute_magnitude_to_luminous_intensity(mag))
 }
 
-fn get_pos(map: &HashMap<Col, GaiaCellData>) -> Option<CartesianCoordinates> {
+fn get_pos(map: &HashMap<Col, GaiaCellData>) -> Option<Cartesian> {
     let ra = get_float(map.get(&Col::ra)?)?;
     let ra = Angle::from_deg(ra);
     let dec = get_float(map.get(&Col::dec)?)?;
     let dec = Angle::from_deg(dec);
     let distance = get_float(map.get(&Col::barycentric_distance)?)?;
     let distance = Distance::from_parsec(distance);
-    let pos = EarthEquatorialCoordinates::new(ra, dec)
+    let pos = EarthEquatorial::new(ra, dec)
         .to_direction()
         .to_cartesian(distance);
     Some(pos)

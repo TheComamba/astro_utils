@@ -1,4 +1,4 @@
-use astro_coords::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::Cartesian;
 use simple_si_units::base::{Luminosity, Mass, Time};
 
 use crate::stars::data::StarData;
@@ -60,7 +60,7 @@ impl ParsecData {
         &self,
         mass_index: usize,
         age: Time<f64>,
-        pos: CartesianCoordinates,
+        pos: Cartesian,
     ) -> Option<StarData> {
         let trajectory = self.get_trajectory_via_index(mass_index);
         let was_alive_10_millenia_ago = age - TEN_MILLENIA < trajectory.lifetime;
@@ -194,7 +194,7 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             parsec_data
-                .get_star_data_if_visible(mass_index, TIME_ZERO, CartesianCoordinates::ORIGIN)
+                .get_star_data_if_visible(mass_index, TIME_ZERO, Cartesian::ORIGIN)
                 .unwrap()
         };
         assert!(star
@@ -219,7 +219,7 @@ mod tests {
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             let trajectory = &parsec_data.get_trajectory_via_index(mass_index);
             let age = trajectory.lifetime;
-            parsec_data.get_star_data_if_visible(mass_index, age, CartesianCoordinates::ORIGIN)
+            parsec_data.get_star_data_if_visible(mass_index, age, Cartesian::ORIGIN)
         };
         let star = star.unwrap();
         assert!(star
@@ -245,7 +245,7 @@ mod tests {
             let trajectory = &parsec_data.get_trajectory_via_index(mass_index);
             let age = trajectory.lifetime / 2.;
             parsec_data
-                .get_star_data_if_visible(mass_index, age, CartesianCoordinates::ORIGIN)
+                .get_star_data_if_visible(mass_index, age, Cartesian::ORIGIN)
                 .unwrap()
         };
         assert!(star.evolution.get_lifestage_mass_per_year().kg < 0.);

@@ -1,4 +1,4 @@
-use astro_coords::cartesian::CartesianCoordinates;
+use astro_coords::cartesian::Cartesian;
 use simple_si_units::base::{Distance, Time};
 
 use crate::units::distance::DISTANCE_ZERO;
@@ -12,7 +12,7 @@ use super::{
 };
 
 pub(super) struct GenerationParams {
-    pub(super) pos: CartesianCoordinates,
+    pub(super) pos: Cartesian,
     pub(super) max_age: Time<f64>,
     pub(super) radius: Distance<f64>,
     pub(super) number: usize,
@@ -20,7 +20,7 @@ pub(super) struct GenerationParams {
 
 impl GenerationParams {
     pub(super) fn old_stars(max_distance: Distance<f64>) -> Self {
-        let pos = CartesianCoordinates::ORIGIN;
+        let pos = Cartesian::ORIGIN;
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let radius = max_distance;
         let number = number_in_sphere(STARS_PER_LY_CUBED, radius);
@@ -32,7 +32,7 @@ impl GenerationParams {
         }
     }
 
-    pub(super) fn nursery(pos: CartesianCoordinates, max_age: Time<f64>) -> Self {
+    pub(super) fn nursery(pos: Cartesian, max_age: Time<f64>) -> Self {
         let radius = STELLAR_VELOCITY * max_age;
         let number = NUMBER_OF_STARS_FORMED_IN_NURSERY;
         GenerationParams {

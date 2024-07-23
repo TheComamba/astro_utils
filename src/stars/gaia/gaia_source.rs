@@ -4,7 +4,7 @@ use crate::{
     stars::appearance::StarAppearance,
     units::{illuminance::apparent_magnitude_to_illuminance, time::TIME_ZERO},
 };
-use astro_coords::{ecliptic::EclipticCoordinates, spherical::SphericalCoordinates};
+use astro_coords::{ecliptic::Ecliptic, spherical::Spherical};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{
@@ -70,7 +70,7 @@ fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, A
                 get_ecl_lon(map).ok_or(AstroUtilError::DataNotAvailable("lon".to_string()))?;
             let lat =
                 get_ecl_lat(map).ok_or(AstroUtilError::DataNotAvailable("lat".to_string()))?;
-            let pos = EclipticCoordinates::new(SphericalCoordinates::new(lon, lat));
+            let pos = Ecliptic::new(Spherical::new(lon, lat));
 
             let star = StarAppearance {
                 name,
