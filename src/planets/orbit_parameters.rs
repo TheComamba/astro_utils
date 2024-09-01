@@ -1,4 +1,4 @@
-use astro_coords::{cartesian::Cartesian, direction::Direction};
+use astro_coords::{cartesian::Cartesian, direction::Direction, traits::*};
 use serde::{Deserialize, Serialize};
 use simple_si_units::{
     base::{Distance, Mass, Time},
