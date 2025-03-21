@@ -1,8 +1,4 @@
 use astro_coords::{cartesian::Cartesian, spherical::Spherical};
-use simple_si_units::{
-    base::{Distance, Mass, Time},
-    geometry::Angle,
-};
 
 use crate::units::angle::{normalized_angle, ANGLE_ZERO, FULL_CIRC};
 

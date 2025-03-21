@@ -1,4 +1,7 @@
-use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
+use std::f64::consts::PI;
+
+use fraction::Fraction;
+
 use crate::{
     astro_display::AstroDisplay,
     error::AstroUtilError,
@@ -8,13 +11,8 @@ use crate::{
         luminosity::luminous_intensity_to_luminosity,
     },
 };
-use fraction::Fraction;
-use simple_si_units::{
-    base::{Distance, Luminosity, Mass, Temperature, Time},
-    geometry::Angle,
-    mechanical::{Acceleration, Density, Velocity},
-};
-use std::f64::consts::PI;
+
+use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
 
 #[derive(Debug, Clone)]
 pub struct DerivedPlanetData {

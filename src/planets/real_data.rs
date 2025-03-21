@@ -1,8 +1,4 @@
 use astro_coords::earth_equatorial::EarthEquatorial;
-use simple_si_units::{
-    base::{Distance, Mass, Time},
-    geometry::Angle,
-};
 
 use crate::color::srgb::sRGBColor;
 

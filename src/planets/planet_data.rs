@@ -1,16 +1,14 @@
-use super::{orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters};
+use astro_coords::{cartesian::Cartesian, direction::Direction};
+use serde::{Deserialize, Serialize};
+
 use crate::{
     color::srgb::sRGBColor,
     error::AstroUtilError,
     planets::planet_brightness::planet_brightness,
     stars::{appearance::StarAppearance, data::StarData},
 };
-use astro_coords::{cartesian::Cartesian, direction::Direction};
-use serde::{Deserialize, Serialize};
-use simple_si_units::{
-    base::{Distance, Mass, Time},
-    geometry::Angle,
-};
+
+use super::{orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PlanetData {

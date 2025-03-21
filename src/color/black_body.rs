@@ -1,5 +1,3 @@
-use simple_si_units::base::{Distance, Temperature};
-
 pub(crate) fn planck_radiant_emittance(
     wavelength: Distance<f64>,
     temperature: Temperature<f64>,

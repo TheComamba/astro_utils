@@ -1,17 +1,14 @@
 use std::f64::consts::PI;
 
-use super::{
-    orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters,
-    planet_data::PlanetData,
-};
+use rand::Rng;
+
 use crate::{
     color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
 };
-use rand::Rng;
-use simple_si_units::{
-    base::{Distance, Time},
-    geometry::Angle,
-    mechanical::Density,
+
+use super::{
+    orbit_parameters::OrbitParameters, physical_parameters::PlanetPhysicalParameters,
+    planet_data::PlanetData,
 };
 
 pub fn generate_random_planet() -> PlanetData {

@@ -1,6 +1,5 @@
 use astro_coords::direction::Direction;
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Mass, Time};
 
 use crate::color::srgb::sRGBColor;
 

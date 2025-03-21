@@ -1,6 +1,5 @@
 use super::color_matching_functions::*;
 use super::srgb::sRGBColor;
-use simple_si_units::base::{Distance, Temperature};
 
 #[allow(non_snake_case)]
 pub(super) struct XYZColor {

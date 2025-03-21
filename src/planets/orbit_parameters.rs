@@ -1,9 +1,5 @@
 use astro_coords::{cartesian::Cartesian, direction::Direction, traits::*};
 use serde::{Deserialize, Serialize};
-use simple_si_units::{
-    base::{Distance, Mass, Time},
-    geometry::Angle,
-};
 
 use crate::planets::kepler_orbit::{
     eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,

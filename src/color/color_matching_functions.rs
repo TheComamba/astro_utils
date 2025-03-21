@@ -1,5 +1,4 @@
 use crate::color::black_body::planck_radiant_emittance;
-use simple_si_units::base::{Distance, Temperature};
 
 fn tilted_gaussian(lambda: f64, mean: f64, sigma1: f64, sigma2: f64) -> f64 {
     let nominator = -0.5 * (lambda - mean).powi(2);

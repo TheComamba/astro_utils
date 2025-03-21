@@ -4,7 +4,6 @@ use std::ops::{Add, Mul, Neg, Sub};
 use crate::astro_display::AstroDisplay;
 use serde::{ser::SerializeTuple, Serializer};
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::Temperature;
 
 use super::xyz::XYZColor;
 

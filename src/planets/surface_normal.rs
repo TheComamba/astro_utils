@@ -1,5 +1,4 @@
 use astro_coords::{direction::Direction, equatorial::Equatorial};
-use simple_si_units::{base::Time, geometry::Angle};
 
 use crate::units::angle::FULL_CIRC;
 
