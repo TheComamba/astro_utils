@@ -44,7 +44,7 @@ impl PlanetData {
         self.params.mass
     }
 
-    pub fn get_radius(&self) -> Distance<f64> {
+    pub fn get_radius(&self) -> Length {
         self.params.radius
     }
 
@@ -76,7 +76,7 @@ impl PlanetData {
         self.params.mass = mass;
     }
 
-    pub fn set_radius(&mut self, radius: Distance<f64>) {
+    pub fn set_radius(&mut self, radius: Length) {
         self.params.radius = radius;
     }
 
@@ -88,7 +88,7 @@ impl PlanetData {
         self.params.color = color;
     }
 
-    pub fn set_semi_major_axis(&mut self, semi_major_axis: Distance<f64>) {
+    pub fn set_semi_major_axis(&mut self, semi_major_axis: Length) {
         self.orbital_parameters.semi_major_axis = semi_major_axis;
     }
 
@@ -126,7 +126,7 @@ impl PlanetData {
         let central_body_luminous_intensity = central_body.get_luminous_intensity_at_epoch();
         let brightness = planet_brightness(
             central_body_luminous_intensity,
-            &Cartesian::ORIGIN,
+            &Cartesian::origin(),
             planet_pos,
             observer_position,
             self.params.radius,

@@ -14,13 +14,13 @@ use super::{
 pub(super) struct GenerationParams {
     pub(super) pos: Cartesian,
     pub(super) max_age: Time<f64>,
-    pub(super) radius: Distance<f64>,
+    pub(super) radius: Length,
     pub(super) number: usize,
 }
 
 impl GenerationParams {
-    pub(super) fn old_stars(max_distance: Distance<f64>) -> Self {
-        let pos = Cartesian::ORIGIN;
+    pub(super) fn old_stars(max_distance: Length) -> Self {
+        let pos = Cartesian::origin();
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let radius = max_distance;
         let number = number_in_sphere(STARS_PER_LY_CUBED, radius);

@@ -33,7 +33,7 @@ pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
 pub(super) const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 
-pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
+pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data_mutex = PARSEC_DATA
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;
@@ -71,7 +71,7 @@ pub(crate) fn get_min_age(max_age: Time<f64>) -> Time<f64> {
     max_age - NURSERY_LIFETIME - TEN_MILLENIA
 }
 
-pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) -> usize {
+pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Length) -> usize {
     (num_per_lyr * 4. / 3. * PI * max_distance.to_lyr().powi(3)) as usize
 }
 
@@ -100,9 +100,7 @@ fn generate_random_stars_with_params(
         .collect::<Vec<StarData>>()
 }
 
-pub fn generate_random_star(
-    max_distance: Option<Distance<f64>>,
-) -> Result<StarData, AstroUtilError> {
+pub fn generate_random_star(max_distance: Option<Length>) -> Result<StarData, AstroUtilError> {
     let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
 
     let parsec_data_mutex = PARSEC_DATA
@@ -114,14 +112,14 @@ pub fn generate_random_star(
     let mut star =
         definetely_generate_visible_random_star(parsec_data, max_distance_or_1, parsec_distr);
     if max_distance.is_none() {
-        star.pos = Cartesian::ORIGIN;
+        star.pos = Cartesian::origin();
     }
     Ok(star)
 }
 
 fn definetely_generate_visible_random_star(
     parsec_data: &ParsecData,
-    max_distance_or_1: Distance<f64>,
+    max_distance_or_1: Length,
     parsec_distr: ParsecDistribution,
 ) -> StarData {
     let mut rng = rand::thread_rng();
@@ -131,7 +129,7 @@ fn definetely_generate_visible_random_star(
             None => {
                 star = generate_visible_random_star(
                     parsec_data,
-                    &Cartesian::ORIGIN,
+                    &Cartesian::origin(),
                     max_distance_or_1,
                     AGE_OF_MILKY_WAY_THIN_DISK,
                     &mut rng,
@@ -146,7 +144,7 @@ fn definetely_generate_visible_random_star(
 fn generate_visible_random_star(
     parsec_data: &ParsecData,
     origin: &Cartesian,
-    max_distance: Distance<f64>,
+    max_distance: Length,
     age: Time<f64>,
     rng: &mut ThreadRng,
     parsec_distr: &ParsecDistribution,
@@ -169,7 +167,7 @@ fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> Cartesian {
     Cartesian::new(x, y, z)
 }
 
-fn random_point_in_sphere(rng: &mut ThreadRng, max_distance: Distance<f64>) -> Cartesian {
+fn random_point_in_sphere(rng: &mut ThreadRng, max_distance: Length) -> Cartesian {
     let point = random_point_in_unit_sphere(rng);
     point * max_distance.m
 }

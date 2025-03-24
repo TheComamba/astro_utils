@@ -39,7 +39,7 @@ mod tests {
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             parsec_data
                 .get_trajectory_via_index(mass_index)
-                .to_star(age, Cartesian::ORIGIN)
+                .to_star(age, Cartesian::origin())
         };
         let real_sun = SUN.to_star_data();
         println!(
@@ -104,7 +104,7 @@ mod tests {
 
                     let calculated_star = parsec_data
                         .get_trajectory_via_index(mass_index)
-                        .to_star(age, Cartesian::ORIGIN);
+                        .to_star(age, Cartesian::origin());
                     let real_star = data.to_star_data();
                     if calculated_star.similar_within_order_of_magnitude(&real_star) {
                         num_success += 1;

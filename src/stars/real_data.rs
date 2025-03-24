@@ -23,7 +23,7 @@ pub struct RealData {
     pub astronomical_name: &'static str,
     pub constellation: &'static str,
     pub mass: Mass<f64>,
-    pub radius: Option<Distance<f64>>,
+    pub radius: Option<Length>,
     pub absolute_magnitude: f64,
     pub apparent_magnitude: f64,
     pub temperature: Temperature<f64>,
@@ -31,12 +31,12 @@ pub struct RealData {
     pub lifetime: Time<f64>,
     pub right_ascension: RightAscension,
     pub declination: Declination,
-    pub distance: Distance<f64>,
+    pub distance: Length,
 }
 
 impl Display for RealData {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        <Distance<f64> as Display>::fmt(&self.distance, f)
+        <Length as Display>::fmt(&self.distance, f)
     }
 }
 

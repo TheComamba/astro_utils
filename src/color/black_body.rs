@@ -1,7 +1,4 @@
-pub(crate) fn planck_radiant_emittance(
-    wavelength: Distance<f64>,
-    temperature: Temperature<f64>,
-) -> f64 {
+pub(crate) fn planck_radiant_emittance(wavelength: Length, temperature: Temperature<f64>) -> f64 {
     const H: f64 = 6.62607015e-34;
     const C: f64 = 299792458.0;
     const K: f64 = 1.380649e-23;
@@ -19,7 +16,7 @@ mod tests {
     use super::*;
 
     struct TestExpectance {
-        wavelength: Distance<f64>,
+        wavelength: Length,
         temperature: Temperature<f64>,
         expected: f64,
     }

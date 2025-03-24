@@ -49,11 +49,11 @@ impl StarData {
         Some(self.evolution.apply_to_mass(self.params.mass?, time))
     }
 
-    pub const fn get_radius_at_epoch(&self) -> Option<Distance<f64>> {
+    pub const fn get_radius_at_epoch(&self) -> Option<Length> {
         self.params.radius
     }
 
-    pub fn get_radius(&self, time: Time<f64>) -> Option<Distance<f64>> {
+    pub fn get_radius(&self, time: Time<f64>) -> Option<Length> {
         Some(self.evolution.apply_to_radius(self.params.radius?, time))
     }
 
@@ -83,11 +83,11 @@ impl StarData {
         self.evolution.age.map(|age| age + time)
     }
 
-    pub fn get_distance_at_epoch(&self) -> Distance<f64> {
+    pub fn get_distance_at_epoch(&self) -> Length {
         self.pos.length()
     }
 
-    pub fn get_distance(&self, time: Time<f64>) -> Distance<f64> {
+    pub fn get_distance(&self, time: Time<f64>) -> Length {
         self.get_pos(time).length()
     }
 
@@ -123,7 +123,7 @@ impl StarData {
         self.params.mass = mass;
     }
 
-    pub fn set_radius_at_epoch(&mut self, radius: Option<Distance<f64>>) {
+    pub fn set_radius_at_epoch(&mut self, radius: Option<Length>) {
         self.params.radius = radius;
     }
 
@@ -139,7 +139,7 @@ impl StarData {
         self.evolution.age = age;
     }
 
-    pub fn set_distance_at_epoch(&mut self, distance: Distance<f64>) {
+    pub fn set_distance_at_epoch(&mut self, distance: Length) {
         let direction = match self.pos.to_direction() {
             Ok(direction) => direction,
             Err(_) => return,

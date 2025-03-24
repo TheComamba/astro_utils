@@ -10,11 +10,7 @@ pub(crate) const GRAVITATIONAL_CONSTANT: f64 = 6.67430e-11;
  * The orbital period is the time it takes for a given object to make one full orbit around another object.
  * https://en.wikipedia.org/wiki/Orbital_period
  */
-pub fn orbital_period(
-    semi_major_axis: Distance<f64>,
-    mass1: Mass<f64>,
-    mass2: Mass<f64>,
-) -> Time<f64> {
+pub fn orbital_period(semi_major_axis: Length, mass1: Mass<f64>, mass2: Mass<f64>) -> Time<f64> {
     let semi_major_axis_cubed = semi_major_axis * semi_major_axis * semi_major_axis;
     let total_mass = mass1 + mass2;
     let orbital_period = FULL_CIRC.rad
@@ -76,10 +72,10 @@ pub fn true_anomaly(eccentric_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f
  * https://en.wikipedia.org/wiki/Ellipse#Distance_from_focus
  */
 fn distance_from_focus(
-    semi_major_axis: Distance<f64>,
+    semi_major_axis: Length,
     true_anomaly: Angle<f64>,
     eccentricity: f64,
-) -> Distance<f64> {
+) -> Length {
     let numerator = 1. - eccentricity * eccentricity;
     let denominator = 1. + eccentricity * true_anomaly.rad.cos();
     semi_major_axis * numerator / denominator
@@ -90,7 +86,7 @@ fn distance_from_focus(
  * https://en.wikipedia.org/wiki/Orbital_elements#Position_relative_to_the_central_body
  */
 pub fn position_relative_to_central_body(
-    semi_major_axis: Distance<f64>,
+    semi_major_axis: Length,
     eccentricity: f64,
     true_anomaly: Angle<f64>,
     orientation: &OrbitParameters,

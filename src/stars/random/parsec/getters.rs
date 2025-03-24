@@ -194,7 +194,7 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             parsec_data
-                .get_star_data_if_visible(mass_index, TIME_ZERO, Cartesian::ORIGIN)
+                .get_star_data_if_visible(mass_index, TIME_ZERO, Cartesian::origin())
                 .unwrap()
         };
         assert!(star
@@ -219,7 +219,7 @@ mod tests {
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             let trajectory = &parsec_data.get_trajectory_via_index(mass_index);
             let age = trajectory.lifetime;
-            parsec_data.get_star_data_if_visible(mass_index, age, Cartesian::ORIGIN)
+            parsec_data.get_star_data_if_visible(mass_index, age, Cartesian::origin())
         };
         let star = star.unwrap();
         assert!(star
@@ -245,7 +245,7 @@ mod tests {
             let trajectory = &parsec_data.get_trajectory_via_index(mass_index);
             let age = trajectory.lifetime / 2.;
             parsec_data
-                .get_star_data_if_visible(mass_index, age, Cartesian::ORIGIN)
+                .get_star_data_if_visible(mass_index, age, Cartesian::origin())
                 .unwrap()
         };
         assert!(star.evolution.get_lifestage_mass_per_year().kg < 0.);

@@ -8,7 +8,7 @@ use crate::planets::kepler_orbit::{
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OrbitParameters {
-    pub(crate) semi_major_axis: Distance<f64>,
+    pub(crate) semi_major_axis: Length,
     pub(crate) eccentricity: f64,
     pub(crate) inclination: Angle<f64>, // The angle between the orbital plane and the reference plane
     pub(crate) longitude_of_ascending_node: Angle<f64>, // The angle between the reference plane and the ascending node
@@ -17,7 +17,7 @@ pub struct OrbitParameters {
 
 impl OrbitParameters {
     pub fn new(
-        semi_major_axis: Distance<f64>,
+        semi_major_axis: Length,
         eccentricity: f64,
         inclination: Angle<f64>, // The angle between the orbital plane and the reference plane
         longitude_of_ascending_node: Angle<f64>, // The angle between the reference plane and the ascending node
@@ -32,7 +32,7 @@ impl OrbitParameters {
         }
     }
 
-    pub fn get_semi_major_axis(&self) -> Distance<f64> {
+    pub fn get_semi_major_axis(&self) -> Length {
         self.semi_major_axis
     }
 

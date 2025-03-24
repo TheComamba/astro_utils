@@ -108,11 +108,11 @@ impl DerivedPlanetData {
     }
 }
 
-fn surface_gravity(mass: Mass<f64>, radius: Distance<f64>) -> Acceleration<f64> {
+fn surface_gravity(mass: Mass<f64>, radius: Length) -> Acceleration<f64> {
     mass.to_earth_mass() / distance_to_earth_radii(&radius).powi(2) * EARTH_SURFACE_GRAVITY
 }
 
-fn escape_velocity(mass: Mass<f64>, radius: Distance<f64>) -> Velocity<f64> {
+fn escape_velocity(mass: Mass<f64>, radius: Length) -> Velocity<f64> {
     let gravity = surface_gravity(mass, radius);
     Velocity {
         mps: (2. * gravity.mps2 * radius.m).sqrt(),

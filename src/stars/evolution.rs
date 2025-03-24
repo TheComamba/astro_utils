@@ -95,11 +95,7 @@ impl StarDataEvolution {
         mass
     }
 
-    pub(crate) fn apply_to_radius(
-        &self,
-        radius: Distance<f64>,
-        time_since_epoch: Time<f64>,
-    ) -> Distance<f64> {
+    pub(crate) fn apply_to_radius(&self, radius: Length, time_since_epoch: Time<f64>) -> Length {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death < TIME_ZERO {
                 return self.fate.apply_to_radius();
@@ -156,7 +152,7 @@ impl StarDataEvolution {
             .unwrap_or(MASS_ZERO)
     }
 
-    pub fn get_lifestage_radius_per_year(&self) -> Distance<f64> {
+    pub fn get_lifestage_radius_per_year(&self) -> Length {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.radius_per_year)
@@ -181,7 +177,7 @@ impl StarDataEvolution {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub(crate) struct StarDataLifestageEvolution {
     mass_per_year: Mass<f64>,
-    radius_per_year: Distance<f64>,
+    radius_per_year: Length,
     luminous_intensity_per_year: Luminosity<f64>,
     temperature_per_year: Temperature<f64>,
 }

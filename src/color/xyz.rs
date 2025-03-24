@@ -28,9 +28,9 @@ impl XYZColor {
 
     #[allow(non_snake_case)]
     pub(super) fn from_temperature(temperature: Temperature<f64>) -> Self {
-        let x_fun = Box::new(|lambda: Distance<f64>| x_color_matching(lambda));
-        let y_fun = Box::new(|lambda: Distance<f64>| y_color_matching(lambda));
-        let z_fun = Box::new(|lambda: Distance<f64>| z_color_matching(lambda));
+        let x_fun = Box::new(|lambda: Length| x_color_matching(lambda));
+        let y_fun = Box::new(|lambda: Length| y_color_matching(lambda));
+        let z_fun = Box::new(|lambda: Length| z_color_matching(lambda));
         let X = convolute_with_black_body(x_fun, temperature);
         let Y = convolute_with_black_body(y_fun, temperature);
         let Z = convolute_with_black_body(z_fun, temperature);

@@ -38,7 +38,7 @@ fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass<f64>> {
     Some(Mass::from_solar_mass(mass))
 }
 
-fn get_radius(map: &HashMap<Col, GaiaCellData>) -> Option<Distance<f64>> {
+fn get_radius(map: &HashMap<Col, GaiaCellData>) -> Option<Length> {
     let radius = get_float(map.get(&Col::radius)?)?;
     Some(radius * SOLAR_RADIUS)
 }
@@ -105,7 +105,7 @@ pub(crate) fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, Ast
 }
 
 pub(crate) fn query_nearest_simulated_stars(
-    distance_threshold: Distance<f64>,
+    distance_threshold: Length,
     magnitude_threshold: Option<f64>,
 ) -> Result<GaiaResult<Col>, AstroUtilError> {
     let mut query = GaiaQueryBuilder::new(gaiadr3, gaia_universe_model)

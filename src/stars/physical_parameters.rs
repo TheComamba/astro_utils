@@ -4,7 +4,7 @@ use simple_si_units::base::{Distance, Luminosity, Mass, Temperature};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarPhysicalParameters {
     pub(super) mass: Option<Mass<f64>>,
-    pub(super) radius: Option<Distance<f64>>,
+    pub(super) radius: Option<Length>,
     pub(super) luminous_intensity: Luminosity<f64>,
     pub(super) temperature: Temperature<f64>,
 }
@@ -12,7 +12,7 @@ pub struct StarPhysicalParameters {
 impl StarPhysicalParameters {
     pub fn new(
         mass: Option<Mass<f64>>,
-        radius: Option<Distance<f64>>,
+        radius: Option<Length>,
         luminous_intensity: Luminosity<f64>,
         temperature: Temperature<f64>,
     ) -> Self {
@@ -28,7 +28,7 @@ impl StarPhysicalParameters {
         self.mass
     }
 
-    pub fn radius(&self) -> Option<Distance<f64>> {
+    pub fn radius(&self) -> Option<Length> {
         self.radius
     }
 

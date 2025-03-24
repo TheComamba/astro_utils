@@ -6,7 +6,7 @@ use crate::color::srgb::sRGBColor;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PlanetPhysicalParameters {
     pub(super) mass: Mass<f64>,
-    pub(super) radius: Distance<f64>,
+    pub(super) radius: Length,
     pub(super) geometric_albedo: f64,
     pub(super) color: sRGBColor,
     pub(super) sideral_rotation_period: Time<f64>,
@@ -16,7 +16,7 @@ pub struct PlanetPhysicalParameters {
 impl PlanetPhysicalParameters {
     pub fn new(
         mass: Mass<f64>,
-        radius: Distance<f64>,
+        radius: Length,
         geometric_albedo: f64,
         color: sRGBColor,
         sideral_rotation_period: Time<f64>,
@@ -36,7 +36,7 @@ impl PlanetPhysicalParameters {
         self.mass
     }
 
-    pub fn radius(&self) -> Distance<f64> {
+    pub fn radius(&self) -> Length {
         self.radius
     }
 

@@ -16,23 +16,20 @@ impl AstroDisplay for SolidAngle<f64> {
 
 pub fn area_and_distance_to_solid_angle(
     surface_area: Area<f64>,
-    distance: Distance<f64>,
+    distance: Length,
 ) -> SolidAngle<f64> {
     SolidAngle {
         sr: surface_area / (distance * distance),
     }
 }
 
-pub fn radius_and_distance_to_solid_angle(
-    radius: Distance<f64>,
-    distance: Distance<f64>,
-) -> SolidAngle<f64> {
+pub fn radius_and_distance_to_solid_angle(radius: Length, distance: Length) -> SolidAngle<f64> {
     area_and_distance_to_solid_angle(PI * radius * radius, distance)
 }
 
 pub fn solid_angle_to_area_at_distance(
     solid_angle: SolidAngle<f64>,
-    distance: Distance<f64>,
+    distance: Length,
 ) -> Area<f64> {
     solid_angle.sr * (distance * distance)
 }

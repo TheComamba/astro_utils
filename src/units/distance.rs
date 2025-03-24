@@ -3,11 +3,11 @@ use crate::astro_display::AstroDisplay;
 use super::DISPLAY_THRESHOLD;
 use simple_si_units::base::Distance;
 
-pub const DISTANCE_ZERO: Distance<f64> = Distance { m: 0. };
-pub const EARTH_RADIUS: Distance<f64> = Distance { m: 6.371e6 };
-pub const SOLAR_RADIUS: Distance<f64> = Distance { m: 6.957e8 };
-pub const ASTRONOMICAL_UNIT: Distance<f64> = Distance { m: 1.496e11 };
-pub const LIGHT_YEAR: Distance<f64> = Distance { m: 9.461e15 };
+pub const DISTANCE_ZERO: Length = Distance { m: 0. };
+pub const EARTH_RADIUS: Length = Distance { m: 6.371e6 };
+pub const SOLAR_RADIUS: Length = Distance { m: 6.957e8 };
+pub const ASTRONOMICAL_UNIT: Length = Distance { m: 1.496e11 };
+pub const LIGHT_YEAR: Length = Distance { m: 9.461e15 };
 
 pub enum DistanceUnit {
     Nanometers,
@@ -21,15 +21,15 @@ pub enum DistanceUnit {
     LightYears,
 }
 
-pub fn distance_to_earth_radii(distance: &Distance<f64>) -> f64 {
+pub fn distance_to_earth_radii(distance: &Length) -> f64 {
     distance / &EARTH_RADIUS
 }
 
-pub fn distance_to_sun_radii(distance: &Distance<f64>) -> f64 {
+pub fn distance_to_sun_radii(distance: &Length) -> f64 {
     distance / &SOLAR_RADIUS
 }
 
-pub fn display_distance_in_units(distance: &Distance<f64>, units: DistanceUnit) -> String {
+pub fn display_distance_in_units(distance: &Length, units: DistanceUnit) -> String {
     match units {
         DistanceUnit::Nanometers => format!("{:.2} nm", distance.to_nm()),
         DistanceUnit::Micrometers => format!("{:.2} μm", distance.to_um()),
@@ -43,7 +43,7 @@ pub fn display_distance_in_units(distance: &Distance<f64>, units: DistanceUnit) 
     }
 }
 
-impl AstroDisplay for Distance<f64> {
+impl AstroDisplay for Length {
     fn astro_display(&self) -> String {
         let units = if self.to_lyr().abs() > DISPLAY_THRESHOLD {
             DistanceUnit::LightYears
@@ -94,9 +94,9 @@ mod tests {
     fn test_distance_negative_display() {
         let d = Distance::from_nm(-1.23);
         assert_eq!(d.astro_display(), "-1.23 nm");
-        let d: Distance<f64> = Distance::from_meters(-1.23);
+        let d: Length = Distance::from_meters(-1.23);
         assert_eq!(d.astro_display(), "-1.23 m");
-        let d: Distance<f64> = Distance::from_km(-1.23);
+        let d: Length = Distance::from_km(-1.23);
         assert_eq!(d.astro_display(), "-1.23 km");
         let d = -1.23 as f64 * EARTH_RADIUS;
         assert_eq!(d.astro_display(), "-1.23 R🜨");

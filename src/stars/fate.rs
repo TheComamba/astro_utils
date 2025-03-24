@@ -42,7 +42,7 @@ impl StarFate {
         }
     }
 
-    pub(crate) fn apply_to_radius(&self) -> Distance<f64> {
+    pub(crate) fn apply_to_radius(&self) -> Length {
         match self {
             StarFate::WhiteDwarf => 0.0084 * SOLAR_RADIUS, // Sirius B
             StarFate::TypeIISupernova => Distance::from_km(20.), // Neutron star or black hole
