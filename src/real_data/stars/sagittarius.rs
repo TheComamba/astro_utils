@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const KAUS_AUSTRALIS: RealData = RealData {
     common_name: "Kaus Australis",
     astronomical_name: "ε Sagittarii",
     constellation: "Sagittarius",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 6.8 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const KAUS_AUSTRALIS: RealData = RealData {
     }),
     right_ascension: RightAscension::new(18, 24, 10.),
     declination: Declination::new(Sgn::Neg, 34, 23, 5.),
-    distance: Distance {
+    distance: Length {
         m: 145. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -40,7 +40,7 @@ const NUNKI: RealData = RealData {
     common_name: "Nunki",
     astronomical_name: "σ Sagittarii",
     constellation: "Sagittarius",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -54,7 +54,7 @@ const NUNKI: RealData = RealData {
     }),
     right_ascension: RightAscension::new(18, 55, 16.),
     declination: Declination::new(Sgn::Neg, 26, 17, 49.),
-    distance: Distance {
+    distance: Length {
         m: 224. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -76,7 +76,7 @@ const NAMALWARID: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(18, 17, 38.),
     declination: Declination::new(Sgn::Neg, 36, 45, 42.),
-    distance: Distance {
+    distance: Length {
         m: 149.1 * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -88,7 +88,7 @@ const KAUS_MEDIA: RealData = RealData {
     common_name: "Kaus Media",
     astronomical_name: "δ Sagittarii",
     constellation: "Sagittarius",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 16. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -102,7 +102,7 @@ const KAUS_MEDIA: RealData = RealData {
     }),
     right_ascension: RightAscension::new(18, 20, 60.),
     declination: Declination::new(Sgn::Neg, 29, 49, 41.),
-    distance: Distance {
+    distance: Length {
         m: 305.5 * LIGHT_YEAR.m,
     },
     lifetime: Time {

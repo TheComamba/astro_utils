@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const ALPHA_HYDRI: RealData = RealData {
     right_ascension: RightAscension::new(1, 58, 46.),
     declination: Declination::new(Sgn::Neg, 61, 34, 11.),
     apparent_magnitude: 2.9,
-    distance: Distance {
+    distance: Length {
         m: 71.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.153,
     mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.040 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 7087. },
@@ -43,14 +43,14 @@ const BETA_HYDRI: RealData = RealData {
     right_ascension: RightAscension::new(0, 25, 45.),
     declination: Declination::new(Sgn::Neg, 77, 15, 15.),
     apparent_magnitude: 2.8,
-    distance: Distance {
+    distance: Length {
         m: 24.33 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.45,
     mass: Mass {
         kg: 1.08 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.809 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5872. },
@@ -66,7 +66,7 @@ const GAMMA_HYDRI: RealData = RealData {
     common_name: "",
     astronomical_name: "γ Hydri",
     constellation: "Hydrus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 62. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -77,7 +77,7 @@ const GAMMA_HYDRI: RealData = RealData {
     temperature: Temperature { K: 3499. },
     right_ascension: RightAscension::new(3, 47, 14.),
     declination: Declination::new(Sgn::Neg, 74, 14, 20.),
-    distance: Distance {
+    distance: Length {
         m: 214. * LIGHT_YEAR.m,
     },
     age: None,

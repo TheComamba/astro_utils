@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ENIF: RealData = RealData {
     common_name: "Enif",
     astronomical_name: "ε Pegasi",
     constellation: "Pegasus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 211. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const ENIF: RealData = RealData {
     }),
     right_ascension: RightAscension::new(21, 44, 11.),
     declination: Declination::new(Sgn::Pos, 9, 52, 30.),
-    distance: Distance {
+    distance: Length {
         m: 672. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -40,7 +40,7 @@ const SCHEAT: RealData = RealData {
     common_name: "Scheat",
     astronomical_name: "β Pegasi",
     constellation: "Pegasus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 95. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -52,7 +52,7 @@ const SCHEAT: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(23, 3, 46.),
     declination: Declination::new(Sgn::Pos, 28, 4, 58.),
-    distance: Distance {
+    distance: Length {
         m: 199. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -64,7 +64,7 @@ const MARKAB: RealData = RealData {
     common_name: "Markab",
     astronomical_name: "α Pegasi",
     constellation: "Pegasus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.62 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -78,7 +78,7 @@ const MARKAB: RealData = RealData {
     }),
     right_ascension: RightAscension::new(23, 4, 46.),
     declination: Declination::new(Sgn::Pos, 15, 12, 19.),
-    distance: Distance {
+    distance: Length {
         m: 140. * LIGHT_YEAR.m,
     },
     lifetime: Time {

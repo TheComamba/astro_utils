@@ -13,7 +13,7 @@ const ALPHA_ANTLIAE: RealData = RealData {
     common_name: "",
     astronomical_name: "α Antliae",
     constellation: "Antlia",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 41. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const ALPHA_ANTLIAE: RealData = RealData {
     },
     right_ascension: RightAscension::new(10, 27, 9.),
     declination: Declination::new(Sgn::Neg, 31, 4, 4.),
-    distance: Distance {
+    distance: Length {
         m: 366.3 * LIGHT_YEAR.m,
     },
 };
@@ -37,7 +37,7 @@ const EPSILON_ANTLIAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ε Antliae",
     constellation: "Antlia",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 56.3 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -52,7 +52,7 @@ const EPSILON_ANTLIAE: RealData = RealData {
     },
     right_ascension: RightAscension::new(9, 29, 15.),
     declination: Declination::new(Sgn::Neg, 35, 57, 5.),
-    distance: Distance {
+    distance: Length {
         m: 699.6 * LIGHT_YEAR.m,
     },
 };
@@ -61,7 +61,7 @@ const IOTA_ANTLIAE: RealData = RealData {
     common_name: "",
     astronomical_name: "ι Antliae",
     constellation: "Antlia",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 12.1 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -78,7 +78,7 @@ const IOTA_ANTLIAE: RealData = RealData {
     },
     right_ascension: RightAscension::new(10, 56, 43.),
     declination: Declination::new(Sgn::Neg, 37, 8, 16.),
-    distance: Distance {
+    distance: Length {
         m: 198.8 * LIGHT_YEAR.m,
     },
 };

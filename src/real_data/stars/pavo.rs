@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const PEACOCK: RealData = RealData {
     common_name: "Peacock",
     astronomical_name: "α Pavonis",
     constellation: "Pavo",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.83 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const PEACOCK: RealData = RealData {
     }),
     right_ascension: RightAscension::new(20, 25, 39.),
     declination: Declination::new(Sgn::Neg, 56, 44, 6.),
-    distance: Distance {
+    distance: Length {
         m: 183. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -43,14 +43,14 @@ const BETA_PAVONIS: RealData = RealData {
     right_ascension: RightAscension::new(20, 44, 57.),
     declination: Declination::new(Sgn::Neg, 66, 12, 12.),
     apparent_magnitude: 3.42,
-    distance: Distance {
+    distance: Length {
         m: 135.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.33,
     mass: Mass {
         kg: 2.51 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.3 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8184. },
@@ -69,14 +69,14 @@ const DELTA_PAVONIS: RealData = RealData {
     right_ascension: RightAscension::new(20, 8, 44.),
     declination: Declination::new(Sgn::Neg, 66, 10, 55.),
     apparent_magnitude: 3.56,
-    distance: Distance {
+    distance: Length {
         m: 19.89 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 4.62,
     mass: Mass {
         kg: 1.051 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.197 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5571. },

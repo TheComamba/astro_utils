@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const HAMAL: RealData = RealData {
     common_name: "Hamal",
     astronomical_name: "α Arietis",
     constellation: "Aries",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 14.9 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const HAMAL: RealData = RealData {
     temperature: Temperature { K: 4480. },
     right_ascension: RightAscension::new(2, 7, 10.),
     declination: Declination::new(Sgn::Pos, 23, 27, 45.),
-    distance: Distance {
+    distance: Length {
         m: 66. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -43,14 +43,14 @@ const BETA_ARIETIS: RealData = RealData {
     right_ascension: RightAscension::new(1, 54, 38.),
     declination: Declination::new(Sgn::Pos, 20, 48, 29.),
     apparent_magnitude: 2.655,
-    distance: Distance {
+    distance: Length {
         m: 59.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.55,
     mass: Mass {
         kg: 2.34 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 23. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 9000. },
@@ -69,7 +69,7 @@ const BHARANI: RealData = RealData {
     right_ascension: RightAscension::new(2, 49, 59.),
     declination: Declination::new(Sgn::Pos, 27, 15, 38.),
     apparent_magnitude: 3.63,
-    distance: Distance {
+    distance: Length {
         m: 166. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.163,

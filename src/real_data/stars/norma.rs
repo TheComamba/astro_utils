@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -13,7 +13,7 @@ const GAMMA2_NORMAE: RealData = RealData {
     right_ascension: RightAscension::new(16, 19, 50.),
     declination: Declination::new(Sgn::Neg, 50, 9, 20.),
     apparent_magnitude: 4.02,
-    distance: Distance {
+    distance: Length {
         m: 129. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.057,
@@ -35,7 +35,7 @@ const EPSILON_NORMAE: RealData = RealData {
     right_ascension: RightAscension::new(16, 27, 11.),
     declination: Declination::new(Sgn::Neg, 47, 33, 17.),
     apparent_magnitude: 4.46,
-    distance: Distance {
+    distance: Length {
         m: 399.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.982,
@@ -59,7 +59,7 @@ const IOTA1_NORMAE: RealData = RealData {
     right_ascension: RightAscension::new(16, 3, 32.),
     declination: Declination::new(Sgn::Neg, 57, 46, 30.),
     apparent_magnitude: 4.69,
-    distance: Distance {
+    distance: Length {
         m: 128. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.46,

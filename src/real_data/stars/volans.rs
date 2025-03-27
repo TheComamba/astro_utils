@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,7 +17,7 @@ const GAMMA1_VOLANTIS: RealData = RealData {
     right_ascension: RightAscension::new(7, 8, 42.),
     declination: Declination::new(Sgn::Neg, 70, 29, 50.),
     apparent_magnitude: 5.704,
-    distance: Distance {
+    distance: Length {
         m: 143. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.51,
@@ -41,7 +41,7 @@ const BETA_VOLANTIS: RealData = RealData {
     right_ascension: RightAscension::new(8, 25, 44.),
     declination: Declination::new(Sgn::Neg, 66, 8, 13.),
     apparent_magnitude: 3.75,
-    distance: Distance {
+    distance: Length {
         m: 107.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.18,
@@ -63,14 +63,14 @@ const ZETA_VOLANTIS: RealData = RealData {
     right_ascension: RightAscension::new(7, 41, 49.),
     declination: Declination::new(Sgn::Neg, 72, 36, 22.),
     apparent_magnitude: 3.93,
-    distance: Distance {
+    distance: Length {
         m: 141. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.75,
     mass: Mass {
         kg: 1.74 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 11. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4721. },

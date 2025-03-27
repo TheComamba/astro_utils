@@ -17,8 +17,9 @@ pub(super) const DISPLAY_THRESHOLD: f64 = 0.099;
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use crate::tests::TEST_ACCURACY;
-    use simple_si_units::geometry::Angle;
+    use uom::si::f64::Angle;
 
-    pub(crate) const ANGLE_TEST_ACCURACY: Angle<f64> = Angle { rad: TEST_ACCURACY };
+    use crate::tests::TEST_ACCURACY;
+
+    pub(crate) const ANGLE_TEST_ACCURACY: Angle = Angle { rad: TEST_ACCURACY };
 }

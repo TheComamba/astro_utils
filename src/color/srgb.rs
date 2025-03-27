@@ -4,6 +4,7 @@ use std::ops::{Add, Mul, Neg, Sub};
 use crate::astro_display::AstroDisplay;
 use serde::{ser::SerializeTuple, Serializer};
 use serde::{Deserialize, Serialize};
+use uom::si::f64::ThermodynamicTemperature;
 
 use super::xyz::XYZColor;
 
@@ -49,7 +50,7 @@ impl sRGBColor {
         sRGBColor { R, G, B }
     }
 
-    pub fn from_temperature(temperature: Temperature<f64>) -> sRGBColor {
+    pub fn from_temperature(temperature: ThermodynamicTemperature) -> sRGBColor {
         XYZColor::from_temperature(temperature).to_sRGB()
     }
 

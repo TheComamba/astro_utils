@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const RIGEL: RealData = RealData {
     common_name: "Rigel",
     astronomical_name: "β Orionis",
     constellation: "Orion",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 78.9 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const RIGEL: RealData = RealData {
     }),
     right_ascension: RightAscension::new(5, 14, 32.),
     declination: Declination::new(Sgn::Neg, 8, 12, 6.),
-    distance: Distance {
+    distance: Length {
         m: 773. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -40,7 +40,7 @@ const BETELGEUSE: RealData = RealData {
     common_name: "Betelgeuse",
     astronomical_name: "α Orionis",
     constellation: "Orion",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 887. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const BETELGEUSE: RealData = RealData {
     temperature: Temperature { K: 3600. },
     right_ascension: RightAscension::new(5, 55, 10.),
     declination: Declination::new(Sgn::Pos, 7, 24, 25.),
-    distance: Distance {
+    distance: Length {
         m: 522. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -66,7 +66,7 @@ const BELLATRIX: RealData = RealData {
     common_name: "Bellatrix",
     astronomical_name: "γ Orionis",
     constellation: "Orion",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 5.75 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -80,7 +80,7 @@ const BELLATRIX: RealData = RealData {
     }),
     right_ascension: RightAscension::new(5, 25, 8.),
     declination: Declination::new(Sgn::Pos, 6, 20, 59.),
-    distance: Distance {
+    distance: Length {
         m: 243. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -92,7 +92,7 @@ const ALNILAM: RealData = RealData {
     common_name: "Alnilam",
     astronomical_name: "ε Orionis",
     constellation: "Orion",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 42. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -103,7 +103,7 @@ const ALNILAM: RealData = RealData {
     temperature: Temperature { K: 27_000. },
     right_ascension: RightAscension::new(5, 36, 13.),
     declination: Declination::new(Sgn::Neg, 1, 12, 7.),
-    distance: Distance {
+    distance: Length {
         m: 1342. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -118,7 +118,7 @@ const ALNITAK: RealData = RealData {
     common_name: "Alnitak",
     astronomical_name: "ζ Orionis",
     constellation: "Orion",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 20. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -129,7 +129,7 @@ const ALNITAK: RealData = RealData {
     temperature: Temperature { K: 29_500. },
     right_ascension: RightAscension::new(5, 40, 46.),
     declination: Declination::new(Sgn::Neg, 1, 56, 34.),
-    distance: Distance {
+    distance: Length {
         m: 817. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -144,7 +144,7 @@ const SAIPH: RealData = RealData {
     common_name: "Saiph",
     astronomical_name: "κ Orionis",
     constellation: "Orion",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 22.2 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -158,7 +158,7 @@ const SAIPH: RealData = RealData {
     }),
     right_ascension: RightAscension::new(5, 47, 45.),
     declination: Declination::new(Sgn::Neg, 9, 40, 11.),
-    distance: Distance {
+    distance: Length {
         m: 721.2 * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -170,7 +170,7 @@ const MINTAKA: RealData = RealData {
     common_name: "Mintaka",
     astronomical_name: "δ Orionis",
     constellation: "Orion",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 16.5 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -181,7 +181,7 @@ const MINTAKA: RealData = RealData {
     temperature: Temperature { K: 29_500. },
     right_ascension: RightAscension::new(5, 32, 0.),
     declination: Declination::new(Sgn::Neg, 0, 17, 57.),
-    distance: Distance {
+    distance: Length {
         m: 916. * LIGHT_YEAR.m,
     },
     age: Some(Time {

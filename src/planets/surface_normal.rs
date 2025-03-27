@@ -1,12 +1,13 @@
 use astro_coords::{direction::Direction, equatorial::Equatorial};
+use uom::si::f64::{Angle, Time};
 
 use crate::units::angle::FULL_CIRC;
 
 pub fn surface_normal_at_time(
     mut observer: Equatorial,
-    angle_at_epoch: Angle<f64>,
-    time_since_epoch: Time<f64>,
-    siderial_day: Time<f64>,
+    angle_at_epoch: Angle,
+    time_since_epoch: Time,
+    siderial_day: Time,
 ) -> Direction {
     if siderial_day.to_seconds().abs() > 1. {
         let time_of_siderial_day = Time::from_s(time_since_epoch.s % siderial_day.s);

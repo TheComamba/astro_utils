@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const ALPHA_CIRCINI: RealData = RealData {
     right_ascension: RightAscension::new(14, 42, 30.),
     declination: Declination::new(Sgn::Neg, 64, 58, 30.),
     apparent_magnitude: 3.18,
-    distance: Distance {
+    distance: Length {
         m: 54. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.18,
     mass: Mass {
         kg: 1.6 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.967 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 7500. },
@@ -43,14 +43,14 @@ const BETA_CIRCINI: RealData = RealData {
     right_ascension: RightAscension::new(15, 17, 31.),
     declination: Declination::new(Sgn::Neg, 58, 48, 4.),
     apparent_magnitude: 4.069,
-    distance: Distance {
+    distance: Length {
         m: 93. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.64,
     mass: Mass {
         kg: 2.2 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8676. },
@@ -69,7 +69,7 @@ const GAMMA_CIRCINI: RealData = RealData {
     right_ascension: RightAscension::new(15, 23, 23.),
     declination: Declination::new(Sgn::Neg, 59, 19, 15.),
     apparent_magnitude: 4.51,
-    distance: Distance {
+    distance: Length {
         m: 450. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.18,

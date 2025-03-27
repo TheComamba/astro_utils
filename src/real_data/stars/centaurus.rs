@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const RIGEL_KENTAURUS: RealData = RealData {
     common_name: "Rigel Kentaurus",
     astronomical_name: "α Centauri",
     constellation: "Centaurus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.2175 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const RIGEL_KENTAURUS: RealData = RealData {
     temperature: Temperature { K: 5790. },
     right_ascension: RightAscension::new(14, 39, 36.),
     declination: Declination::new(Sgn::Neg, 60, 50, 2.),
-    distance: Distance {
+    distance: Length {
         m: 4. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const HADAR: RealData = RealData {
     common_name: "Hadar",
     astronomical_name: "β Centauri",
     constellation: "Centaurus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 9. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const HADAR: RealData = RealData {
     temperature: Temperature { K: 25_000. },
     right_ascension: RightAscension::new(14, 3, 49.),
     declination: Declination::new(Sgn::Neg, 60, 22, 23.),
-    distance: Distance {
+    distance: Length {
         m: 526. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -66,7 +66,7 @@ const MENKENT: RealData = RealData {
     common_name: "Menkent",
     astronomical_name: "θ Centauri",
     constellation: "Centaurus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 10.6 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -77,7 +77,7 @@ const MENKENT: RealData = RealData {
     temperature: Temperature { K: 4980. },
     right_ascension: RightAscension::new(14, 6, 41.),
     declination: Declination::new(Sgn::Neg, 36, 22, 11.),
-    distance: Distance {
+    distance: Length {
         m: 61. * LIGHT_YEAR.m,
     },
     age: None,
@@ -99,7 +99,7 @@ const MUHLIFAIN: RealData = RealData {
     temperature: Temperature { K: 9082. },
     right_ascension: RightAscension::new(12, 41, 31.),
     declination: Declination::new(Sgn::Neg, 48, 57, 35.),
-    distance: Distance {
+    distance: Length {
         m: 130. * LIGHT_YEAR.m,
     },
     age: None,
@@ -121,7 +121,7 @@ const EPSILON_CENTAURI: RealData = RealData {
     temperature: Temperature { K: 24_000. },
     right_ascension: RightAscension::new(13, 39, 53.),
     declination: Declination::new(Sgn::Neg, 53, 27, 59.),
-    distance: Distance {
+    distance: Length {
         m: 376. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -136,7 +136,7 @@ const ETA_CENTAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "η Centauri",
     constellation: "Centaurus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 6.1 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -147,7 +147,7 @@ const ETA_CENTAURI: RealData = RealData {
     temperature: Temperature { K: 25_700. },
     right_ascension: RightAscension::new(14, 35, 30.),
     declination: Declination::new(Sgn::Neg, 42, 9, 28.),
-    distance: Distance {
+    distance: Length {
         m: 308. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -162,7 +162,7 @@ const ZETA_CENTAURI: RealData = RealData {
     common_name: "",
     astronomical_name: "ζ Centauri",
     constellation: "Centaurus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 5.8 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -173,7 +173,7 @@ const ZETA_CENTAURI: RealData = RealData {
     temperature: Temperature { K: 23_561. },
     right_ascension: RightAscension::new(13, 55, 33.),
     declination: Declination::new(Sgn::Neg, 47, 17, 18.),
-    distance: Distance {
+    distance: Length {
         m: 384. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -188,7 +188,7 @@ const MA_WEI: RealData = RealData {
     common_name: "Ma Wei",
     astronomical_name: "δ Centauri",
     constellation: "Centaurus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 6.5 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -199,7 +199,7 @@ const MA_WEI: RealData = RealData {
     temperature: Temperature { K: 22_360. },
     right_ascension: RightAscension::new(12, 8, 21.),
     declination: Declination::new(Sgn::Neg, 50, 43, 21.),
-    distance: Distance {
+    distance: Length {
         m: 395. * LIGHT_YEAR.m,
     },
     age: Some(Time {

@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const SADALSUUD: RealData = RealData {
     common_name: "Sadalsuud",
     astronomical_name: "β Aquarii",
     constellation: "Aquarius",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 47.88 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -31,7 +31,7 @@ const SADALSUUD: RealData = RealData {
     },
     right_ascension: RightAscension::new(21, 31, 34.),
     declination: Declination::new(Sgn::Neg, 5, 34, 16.),
-    distance: Distance {
+    distance: Length {
         m: 540. * LIGHT_YEAR.m,
     },
 };
@@ -40,7 +40,7 @@ const SADALMELIK: RealData = RealData {
     common_name: "Sadalmelik",
     astronomical_name: "α Aquarii",
     constellation: "Aquarius",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 53.89 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const SADALMELIK: RealData = RealData {
     temperature: Temperature { K: 5383. },
     right_ascension: RightAscension::new(22, 5, 47.),
     declination: Declination::new(Sgn::Neg, 0, 19, 11.),
-    distance: Distance {
+    distance: Length {
         m: 758.1 * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -66,7 +66,7 @@ const SKAT: RealData = RealData {
     common_name: "Skat",
     astronomical_name: "δ Aquarii",
     constellation: "Aquarius",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -77,7 +77,7 @@ const SKAT: RealData = RealData {
     temperature: Temperature { K: 8650. },
     right_ascension: RightAscension::new(22, 54, 39.),
     declination: Declination::new(Sgn::Neg, 15, 49, 15.),
-    distance: Distance {
+    distance: Length {
         m: 159.5 * LIGHT_YEAR.m,
     },
     age: Some(Time {

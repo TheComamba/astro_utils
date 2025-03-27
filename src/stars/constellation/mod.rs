@@ -1,6 +1,6 @@
 use crate::stars::{appearance::StarAppearance, data::StarData};
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::Time;
+use uom::si::f64::Time;
 
 use self::connection::{collect_connections, Connection};
 
@@ -56,7 +56,7 @@ fn collect_stars_in_constellation<'a>(
 
 pub fn collect_constellations(
     all_stars: &[StarData],
-    time_since_epoch: Time<f64>,
+    time_since_epoch: Time,
 ) -> Vec<Constellation> {
     let constellation_names = collect_constellation_names(all_stars);
     let mut constellations: Vec<Constellation> = Vec::new();

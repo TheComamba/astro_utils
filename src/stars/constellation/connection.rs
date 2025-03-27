@@ -1,13 +1,13 @@
 use crate::stars::appearance::StarAppearance;
 use serde::{Deserialize, Serialize};
-use simple_si_units::geometry::Angle;
 use std::cmp::Ordering;
+use uom::si::f64::Angle;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Connection {
     from: usize,
     to: usize,
-    distance: Angle<f64>,
+    distance: Angle,
 }
 
 impl Connection {
@@ -196,7 +196,6 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
 #[cfg(test)]
 mod tests {
     use astro_coords::spherical::Spherical;
-    use simple_si_units::electromagnetic::Illuminance;
 
     use crate::{
         color::srgb::sRGBColor,

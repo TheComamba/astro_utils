@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const DENEB: RealData = RealData {
     common_name: "Deneb",
     astronomical_name: "α Cygni",
     constellation: "Cygnus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 203. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const DENEB: RealData = RealData {
     temperature: Temperature { K: 8515. },
     right_ascension: RightAscension::new(20, 41, 26.),
     declination: Declination::new(Sgn::Pos, 45, 16, 49.),
-    distance: Distance {
+    distance: Length {
         m: 1548. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const SADIR: RealData = RealData {
     common_name: "Sadir",
     astronomical_name: "γ Cygni",
     constellation: "Cygnus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 150. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -57,7 +57,7 @@ const SADIR: RealData = RealData {
     },
     right_ascension: RightAscension::new(20, 22, 14.),
     declination: Declination::new(Sgn::Pos, 40, 15, 24.),
-    distance: Distance {
+    distance: Length {
         m: 1522. * LIGHT_YEAR.m,
     },
 };
@@ -66,7 +66,7 @@ const ALJANAH: RealData = RealData {
     common_name: "Aljanah",
     astronomical_name: "ε Cygni",
     constellation: "Cygnus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 10.82 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -83,7 +83,7 @@ const ALJANAH: RealData = RealData {
     },
     right_ascension: RightAscension::new(20, 46, 13.),
     declination: Declination::new(Sgn::Pos, 33, 58, 13.),
-    distance: Distance {
+    distance: Length {
         m: 72. * LIGHT_YEAR.m,
     },
 };

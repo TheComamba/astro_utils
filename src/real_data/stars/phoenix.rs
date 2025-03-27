@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ANKAA: RealData = RealData {
     common_name: "Ankaa",
     astronomical_name: "α Phoenicis",
     constellation: "Phoenix",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 15. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -26,7 +26,7 @@ const ANKAA: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(0, 26, 17.),
     declination: Declination::new(Sgn::Neg, 42, 18, 21.),
-    distance: Distance {
+    distance: Length {
         m: 77. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -41,7 +41,7 @@ const BETA_PHOENICIS: RealData = RealData {
     right_ascension: RightAscension::new(1, 6, 5.),
     declination: Declination::new(Sgn::Neg, 46, 43, 6.),
     apparent_magnitude: 3.32,
-    distance: Distance {
+    distance: Length {
         m: 198.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.598,
@@ -63,14 +63,14 @@ const GAMMA_PHOENICIS: RealData = RealData {
     right_ascension: RightAscension::new(1, 28, 22.),
     declination: Declination::new(Sgn::Neg, 43, 19, 6.),
     apparent_magnitude: 3.41,
-    distance: Distance {
+    distance: Length {
         m: 234. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.86,
     mass: Mass {
         kg: 1.3 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 52. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 3802. },

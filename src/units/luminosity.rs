@@ -1,5 +1,4 @@
 use super::luminous_intensity::SOLAR_LUMINOUS_INTENSITY;
-use simple_si_units::base::Luminosity;
 
 const SOLAR_LUMINOSITY: f64 = 3.828e26; //Watts
 

@@ -13,7 +13,7 @@ const ALPHA_APODIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Apodis",
     constellation: "Apus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 48. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const ALPHA_APODIS: RealData = RealData {
     },
     right_ascension: RightAscension::new(14, 47, 52.),
     declination: Declination::new(Sgn::Neg, 79, 2, 41.),
-    distance: Distance {
+    distance: Length {
         m: 411.1 * LIGHT_YEAR.m,
     },
 };
@@ -50,7 +50,7 @@ const GAMMA_APODIS: RealData = RealData {
     },
     right_ascension: RightAscension::new(16, 33, 27.),
     declination: Declination::new(Sgn::Neg, 78, 53, 50.),
-    distance: Distance {
+    distance: Length {
         m: 150. * LIGHT_YEAR.m,
     },
 };
@@ -59,7 +59,7 @@ const BETA_APODIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Apodis",
     constellation: "Apus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 11. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -74,7 +74,7 @@ const BETA_APODIS: RealData = RealData {
     },
     right_ascension: RightAscension::new(16, 43, 5.),
     declination: Declination::new(Sgn::Neg, 77, 31, 3.),
-    distance: Distance {
+    distance: Length {
         m: 149. * LIGHT_YEAR.m,
     },
 };

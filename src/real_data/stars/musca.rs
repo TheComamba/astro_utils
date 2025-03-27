@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const ALPHA_MUSCAE: RealData = RealData {
     right_ascension: RightAscension::new(12, 37, 11.),
     declination: Declination::new(Sgn::Neg, 69, 8, 8.),
     apparent_magnitude: 2.69,
-    distance: Distance {
+    distance: Length {
         m: 315. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.2,
     mass: Mass {
         kg: 8.8 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.8 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 21_400. },
@@ -43,7 +43,7 @@ const BETA_MUSCAE: RealData = RealData {
     right_ascension: RightAscension::new(12, 46, 17.),
     declination: Declination::new(Sgn::Neg, 68, 6, 29.),
     apparent_magnitude: 3.05,
-    distance: Distance {
+    distance: Length {
         m: 340. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.06,
@@ -67,7 +67,7 @@ const DELTA_MUSCAE: RealData = RealData {
     right_ascension: RightAscension::new(13, 2, 16.),
     declination: Declination::new(Sgn::Neg, 71, 32, 56.),
     apparent_magnitude: 3.61,
-    distance: Distance {
+    distance: Length {
         m: 91. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.38,

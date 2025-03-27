@@ -1,20 +1,20 @@
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Luminosity, Mass, Temperature};
+use uom::si::f64::{Length, Mass, ThermodynamicTemperature};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarPhysicalParameters {
-    pub(super) mass: Option<Mass<f64>>,
+    pub(super) mass: Option<Mass>,
     pub(super) radius: Option<Length>,
     pub(super) luminous_intensity: Luminosity<f64>,
-    pub(super) temperature: Temperature<f64>,
+    pub(super) temperature: ThermodynamicTemperature,
 }
 
 impl StarPhysicalParameters {
     pub fn new(
-        mass: Option<Mass<f64>>,
+        mass: Option<Mass>,
         radius: Option<Length>,
         luminous_intensity: Luminosity<f64>,
-        temperature: Temperature<f64>,
+        temperature: ThermodynamicTemperature,
     ) -> Self {
         Self {
             mass,
@@ -24,7 +24,7 @@ impl StarPhysicalParameters {
         }
     }
 
-    pub fn mass(&self) -> Option<Mass<f64>> {
+    pub fn mass(&self) -> Option<Mass> {
         self.mass
     }
 
@@ -36,7 +36,7 @@ impl StarPhysicalParameters {
         self.luminous_intensity
     }
 
-    pub fn temperature(&self) -> Temperature<f64> {
+    pub fn temperature(&self) -> ThermodynamicTemperature {
         self.temperature
     }
 }

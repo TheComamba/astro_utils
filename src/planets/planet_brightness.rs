@@ -1,6 +1,7 @@
 use std::f64::consts::PI;
 
 use astro_coords::cartesian::Cartesian;
+use uom::si::f64::Length;
 
 use crate::{
     error::AstroUtilError,
@@ -20,7 +21,7 @@ use crate::{
 /*
  * https://www.physicsforums.com/threads/illuminated-fraction-of-the-moon.515983/
  */
-fn illuminated_fraction(reflection_angle: &Angle<f64>) -> f64 {
+fn illuminated_fraction(reflection_angle: &Angle) -> f64 {
     (1. + reflection_angle.rad.cos()) / 2.
 }
 

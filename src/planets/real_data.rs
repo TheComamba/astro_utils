@@ -1,4 +1,5 @@
 use astro_coords::earth_equatorial::EarthEquatorial;
+use uom::si::f64::{Angle, Length, Time};
 
 use crate::color::srgb::sRGBColor;
 
@@ -14,9 +15,9 @@ pub struct RealData {
     pub bond_albedo: Option<f64>,
     pub color: sRGBColor,
     pub radius: Length,
-    pub mass: Mass<f64>,
-    pub siderial_rotation_period: Time<f64>,
-    pub axis_tilt: Angle<f64>,
+    pub mass: Mass,
+    pub siderial_rotation_period: Time,
+    pub axis_tilt: Angle,
     pub rotation_axis: EarthEquatorial,
 }
 

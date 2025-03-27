@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const ALPHA_ARAE: RealData = RealData {
     right_ascension: RightAscension::new(17, 31, 50.),
     declination: Declination::new(Sgn::Neg, 49, 52, 34.),
     apparent_magnitude: 2.93,
-    distance: Distance {
+    distance: Length {
         m: 270. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.72,
     mass: Mass {
         kg: 9.6 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 18_044. },
@@ -40,7 +40,7 @@ const BETA_ARAE: RealData = RealData {
     common_name: "",
     astronomical_name: "β Arae",
     constellation: "Ara",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 142. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const BETA_ARAE: RealData = RealData {
     temperature: Temperature { K: 4197. },
     right_ascension: RightAscension::new(17, 25, 18.),
     declination: Declination::new(Sgn::Neg, 55, 31, 48.),
-    distance: Distance {
+    distance: Length {
         m: 602.6 * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -69,14 +69,14 @@ const GAMMA_ARAE: RealData = RealData {
     right_ascension: RightAscension::new(17, 25, 24.),
     declination: Declination::new(Sgn::Neg, 56, 22, 40.),
     apparent_magnitude: 3.31,
-    distance: Distance {
+    distance: Length {
         m: 1136. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -4.4,
     mass: Mass {
         kg: 20. * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 23. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 21_500. },
@@ -95,14 +95,14 @@ const DELTA_ARAE: RealData = RealData {
     right_ascension: RightAscension::new(17, 31, 6.),
     declination: Declination::new(Sgn::Neg, 60, 41, 2.),
     apparent_magnitude: 3.62,
-    distance: Distance {
+    distance: Length {
         m: 198. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.31,
     mass: Mass {
         kg: 3.56 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.12 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 11_962. },
@@ -121,14 +121,14 @@ const ZETA_ARAE: RealData = RealData {
     right_ascension: RightAscension::new(16, 58, 37.),
     declination: Declination::new(Sgn::Neg, 55, 59, 25.),
     apparent_magnitude: 3.12,
-    distance: Distance {
+    distance: Length {
         m: 573.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.11,
     mass: Mass {
         kg: 7.5 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 114. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4246. },

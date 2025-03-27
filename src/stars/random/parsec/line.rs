@@ -6,7 +6,7 @@ use crate::{
 };
 use astro_coords::cartesian::Cartesian;
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Luminosity};
+use uom::si::f64::Length;
 
 pub(super) struct ParsecLine {
     mass: f64,
@@ -89,7 +89,7 @@ impl ParsecLine {
     }
 
     fn parse(self) -> ParsedParsecLine {
-        let radius = Distance::from_cm(10f64.powf(self.log_r));
+        let radius = Length::from_cm(10f64.powf(self.log_r));
         ParsedParsecLine {
             mass_in_solar_masses: self.mass,
             age_in_years: self.age,

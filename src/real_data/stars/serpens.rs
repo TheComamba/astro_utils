@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const UNUKALHAI: RealData = RealData {
     common_name: "Unukalhai",
     astronomical_name: "α Serpentis",
     constellation: "Serpens",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 13.48 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -26,7 +26,7 @@ const UNUKALHAI: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(15, 44, 16.),
     declination: Declination::new(Sgn::Pos, 6, 25, 32.),
-    distance: Distance {
+    distance: Length {
         m: 74. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -41,7 +41,7 @@ const BETA_SERPENTIS: RealData = RealData {
     right_ascension: RightAscension::new(15, 46, 11.),
     declination: Declination::new(Sgn::Pos, 15, 25, 19.),
     apparent_magnitude: 3.65,
-    distance: Distance {
+    distance: Length {
         m: 155. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.30,
@@ -65,7 +65,7 @@ const MU_SERPENTIS: RealData = RealData {
     right_ascension: RightAscension::new(15, 49, 37.),
     declination: Declination::new(Sgn::Neg, 3, 25, 49.),
     apparent_magnitude: 3.543,
-    distance: Distance {
+    distance: Length {
         m: 170. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.04,

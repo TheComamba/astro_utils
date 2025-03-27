@@ -1,6 +1,6 @@
 use astro_coords::earth_equatorial::EarthEquatorial;
 use simple_si_units::base::Time;
-use simple_si_units::base::{Distance, Mass};
+use simple_si_units::base::{Length, Mass};
 use simple_si_units::geometry::Angle;
 
 use crate::color::srgb::sRGBColor;
@@ -12,7 +12,7 @@ use crate::units::time::*;
 pub const MERCURY: RealData = RealData {
     name: "Mercury",
     orbit: OrbitParameters {
-        semi_major_axis: Distance { m: 57_909_050_000. },
+        semi_major_axis: Length { m: 57_909_050_000. },
         eccentricity: 0.205_630_69,
         inclination: Angle {
             rad: 7.00487 * DEGREE.rad,
@@ -27,7 +27,7 @@ pub const MERCURY: RealData = RealData {
     geometric_albedo: 0.142,
     bond_albedo: Some(0.088),
     color: sRGBColor::from_sRGB(0.6, 0.58, 0.58),
-    radius: Distance { m: 2_439_700. },
+    radius: Length { m: 2_439_700. },
     mass: Mass { kg: 3.3011e23 },
     siderial_rotation_period: Time {
         s: 58.646_2 * DAY.s,
@@ -48,7 +48,7 @@ pub const MERCURY: RealData = RealData {
 pub const VENUS: RealData = RealData {
     name: "Venus",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 108_208_000_000.,
         },
         eccentricity: 0.006_773_23,
@@ -65,7 +65,7 @@ pub const VENUS: RealData = RealData {
     geometric_albedo: 0.689,
     bond_albedo: Some(0.76),
     color: sRGBColor::from_sRGB(0.75, 0.74, 0.71),
-    radius: Distance { m: 6_051_800. },
+    radius: Length { m: 6_051_800. },
     mass: Mass { kg: 4.8675e24 },
     siderial_rotation_period: Time {
         s: -243.022_6 * DAY.s,
@@ -86,7 +86,7 @@ pub const VENUS: RealData = RealData {
 pub const EARTH: RealData = RealData {
     name: "Earth",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 149_598_023_000.,
         },
         eccentricity: 0.016_708_6,
@@ -103,7 +103,7 @@ pub const EARTH: RealData = RealData {
     geometric_albedo: 0.367,
     bond_albedo: Some(0.306),
     color: sRGBColor::from_sRGB(0.38, 0.39, 0.48),
-    radius: Distance { m: 6_371_009. },
+    radius: Length { m: 6_371_009. },
     mass: Mass { kg: 5.97e24 },
     siderial_rotation_period: Time {
         s: 0.997_269_68 * DAY.s,
@@ -117,7 +117,7 @@ pub const EARTH: RealData = RealData {
 pub const MARS: RealData = RealData {
     name: "Mars",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 227_939_200_000.,
         },
         eccentricity: 0.093_394_1,
@@ -134,7 +134,7 @@ pub const MARS: RealData = RealData {
     geometric_albedo: 0.17,
     bond_albedo: Some(0.25),
     color: sRGBColor::from_sRGB(0.59, 0.38, 0.19),
-    radius: Distance { m: 3_389_500. },
+    radius: Length { m: 3_389_500. },
     mass: Mass { kg: 6.4171e23 },
     siderial_rotation_period: Time {
         s: 1.025_956_75 * DAY.s,
@@ -155,7 +155,7 @@ pub const MARS: RealData = RealData {
 pub const CERES: RealData = RealData {
     name: "Ceres",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 413_690_250_000.,
         },
         eccentricity: 0.075_823_9,
@@ -172,7 +172,7 @@ pub const CERES: RealData = RealData {
     geometric_albedo: 0.09,
     bond_albedo: None,
     color: sRGBColor::from_sRGB(1., 1., 1.), //Color unknown, taking grey
-    radius: Distance { m: 476_200. },
+    radius: Length { m: 476_200. },
     mass: Mass { kg: 9.393e20 },
     siderial_rotation_period: Time {
         s: 9.074_170 * HOUR.s,
@@ -193,7 +193,7 @@ pub const CERES: RealData = RealData {
 pub const JUPITER: RealData = RealData {
     name: "Jupiter",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 778_547_200_000.,
         },
         eccentricity: 0.048_386_24,
@@ -210,7 +210,7 @@ pub const JUPITER: RealData = RealData {
     geometric_albedo: 0.538,
     bond_albedo: Some(0.503),
     color: sRGBColor::from_sRGB(0.76, 0.7, 0.67),
-    radius: Distance { m: 69_950_000. },
+    radius: Length { m: 69_950_000. },
     mass: Mass { kg: 1.898e27 },
     siderial_rotation_period: Time {
         s: 9.925_8 * HOUR.s,
@@ -231,7 +231,7 @@ pub const JUPITER: RealData = RealData {
 pub const SATURN: RealData = RealData {
     name: "Saturn",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 1_433_449_370_000.,
         },
         eccentricity: 0.054_150_60,
@@ -248,7 +248,7 @@ pub const SATURN: RealData = RealData {
     geometric_albedo: 0.499,
     bond_albedo: Some(0.342),
     color: sRGBColor::from_sRGB(0.77, 0.7, 0.56),
-    radius: Distance { m: 58_232_000. },
+    radius: Length { m: 58_232_000. },
     mass: Mass { kg: 5.6834e26 },
     siderial_rotation_period: Time { s: 10.656 * HOUR.s },
     axis_tilt: Angle {
@@ -267,7 +267,7 @@ pub const SATURN: RealData = RealData {
 pub const URANUS: RealData = RealData {
     name: "Uranus",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 2_872_463_710_000.,
         },
         eccentricity: 0.047_167_71,
@@ -284,7 +284,7 @@ pub const URANUS: RealData = RealData {
     geometric_albedo: 0.488,
     bond_albedo: Some(0.300),
     color: sRGBColor::from_sRGB(0.57, 0.75, 0.83),
-    radius: Distance { m: 25_362_000. },
+    radius: Length { m: 25_362_000. },
     mass: Mass { kg: 8.6810e25 },
     siderial_rotation_period: Time { s: -17.24 * HOUR.s },
     axis_tilt: Angle {
@@ -303,7 +303,7 @@ pub const URANUS: RealData = RealData {
 pub const NEPTUNE: RealData = RealData {
     name: "Neptune",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 4_495_060_000_000.,
         },
         eccentricity: 0.008_585_87,
@@ -320,7 +320,7 @@ pub const NEPTUNE: RealData = RealData {
     geometric_albedo: 0.442,
     bond_albedo: Some(0.290),
     color: sRGBColor::from_sRGB(0.56, 0.75, 0.88),
-    radius: Distance { m: 24_622_000. },
+    radius: Length { m: 24_622_000. },
     mass: Mass { kg: 1.0243e26 },
     siderial_rotation_period: Time { s: 16.11 * HOUR.s },
     axis_tilt: Angle {
@@ -339,7 +339,7 @@ pub const NEPTUNE: RealData = RealData {
 pub const PLUTO: RealData = RealData {
     name: "Pluto",
     orbit: OrbitParameters {
-        semi_major_axis: Distance {
+        semi_major_axis: Length {
             m: 5_906_380_000_000.,
         },
         eccentricity: 0.248_807_66,
@@ -356,7 +356,7 @@ pub const PLUTO: RealData = RealData {
     geometric_albedo: 0.52,
     bond_albedo: Some(0.72),
     color: sRGBColor::from_sRGB(0.63, 0.48, 0.37),
-    radius: Distance { m: 1_188_300. },
+    radius: Length { m: 1_188_300. },
     mass: Mass { kg: 1.303e22 },
     siderial_rotation_period: Time {
         s: -6.387_230 * DAY.s,
@@ -377,7 +377,7 @@ pub const PLUTO: RealData = RealData {
 pub const MOON: RealData = RealData {
     name: "Moon",
     orbit: OrbitParameters {
-        semi_major_axis: Distance { m: 384_399_000. },
+        semi_major_axis: Length { m: 384_399_000. },
         eccentricity: 0.054_9,
         inclination: Angle {
             rad: 5.145 * DEGREE.rad,
@@ -392,7 +392,7 @@ pub const MOON: RealData = RealData {
     geometric_albedo: 0.120,
     bond_albedo: Some(0.110),
     color: sRGBColor::from_sRGB(0.59, 0.53, 0.52),
-    radius: Distance { m: 1_737_400. },
+    radius: Length { m: 1_737_400. },
     mass: Mass { kg: 7.3459e22 },
     siderial_rotation_period: Time {
         s: 27.321_661 * DAY.s,

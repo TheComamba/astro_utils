@@ -1,16 +1,17 @@
+use uom::si::f64::Time;
+
 use crate::astro_display::AstroDisplay;
 
 use super::DISPLAY_THRESHOLD;
-use simple_si_units::base::Time;
 
-pub const TIME_ZERO: Time<f64> = Time { s: 0. };
-pub const HOUR: Time<f64> = Time { s: 60. * 60. };
-pub const DAY: Time<f64> = Time { s: 24. * HOUR.s };
-pub const YEAR: Time<f64> = Time { s: 365.25 * DAY.s };
-pub(crate) const TEN_MILLENIA: Time<f64> = Time {
+pub const TIME_ZERO: Time = Time { s: 0. };
+pub const HOUR: Time = Time { s: 60. * 60. };
+pub const DAY: Time = Time { s: 24. * HOUR.s };
+pub const YEAR: Time = Time { s: 365.25 * DAY.s };
+pub(crate) const TEN_MILLENIA: Time = Time {
     s: 10_000. * 365.25 * 24. * 60. * 60.,
 };
-pub const BILLION_YEARS: Time<f64> = Time { s: 1e9 * YEAR.s };
+pub const BILLION_YEARS: Time = Time { s: 1e9 * YEAR.s };
 
 pub enum TimeUnit {
     Seconds,
@@ -23,7 +24,7 @@ pub enum TimeUnit {
     BillionYears,
 }
 
-pub(crate) fn display_time_in_units(time: &Time<f64>, units: TimeUnit) -> String {
+pub(crate) fn display_time_in_units(time: &Time, units: TimeUnit) -> String {
     match units {
         TimeUnit::Seconds => format!("{:.2} sec", time.to_seconds()),
         TimeUnit::Minutes => format!("{:.2} min", time.to_min()),
@@ -36,7 +37,7 @@ pub(crate) fn display_time_in_units(time: &Time<f64>, units: TimeUnit) -> String
     }
 }
 
-impl AstroDisplay for Time<f64> {
+impl AstroDisplay for Time {
     fn astro_display(&self) -> String {
         let units = if self.to_Gyr().abs() > DISPLAY_THRESHOLD {
             TimeUnit::BillionYears

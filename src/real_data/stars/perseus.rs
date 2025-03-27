@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const MIRPHAK: RealData = RealData {
     common_name: "Mirphak",
     astronomical_name: "α Persei",
     constellation: "Perseus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 68. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const MIRPHAK: RealData = RealData {
     temperature: Temperature { K: 6350. },
     right_ascension: RightAscension::new(3, 24, 19.),
     declination: Declination::new(Sgn::Pos, 49, 51, 40.),
-    distance: Distance {
+    distance: Length {
         m: 592. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const ALGOL: RealData = RealData {
     common_name: "Algol",
     astronomical_name: "β Persei",
     constellation: "Perseus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.73 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const ALGOL: RealData = RealData {
     temperature: Temperature { K: 13_000. },
     right_ascension: RightAscension::new(3, 8, 10.),
     declination: Declination::new(Sgn::Pos, 40, 57, 20.),
-    distance: Distance {
+    distance: Length {
         m: 93. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -66,7 +66,7 @@ const GORGONEA_TERTIA: RealData = RealData {
     common_name: "Gorgonea Tertia",
     astronomical_name: "ρ Persei",
     constellation: "Perseus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 143. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -80,7 +80,7 @@ const GORGONEA_TERTIA: RealData = RealData {
     }),
     right_ascension: RightAscension::new(3, 5, 11.),
     declination: Declination::new(Sgn::Pos, 38, 50, 25.),
-    distance: Distance {
+    distance: Length {
         m: 325. * LIGHT_YEAR.m,
     },
     lifetime: Time {

@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const ALKES: RealData = RealData {
     right_ascension: RightAscension::new(10, 59, 46.),
     declination: Declination::new(Sgn::Neg, 18, 17, 56.),
     apparent_magnitude: 4.08,
-    distance: Distance {
+    distance: Length {
         m: 174.2 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.44,
     mass: Mass {
         kg: 1.81 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 12.32 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4691. },
@@ -43,7 +43,7 @@ const BETA_CRATERIS: RealData = RealData {
     right_ascension: RightAscension::new(11, 11, 39.),
     declination: Declination::new(Sgn::Neg, 22, 49, 33.),
     apparent_magnitude: 4.46,
-    distance: Distance {
+    distance: Length {
         m: 296. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.62,
@@ -65,14 +65,14 @@ const GAMMA_CRATERIS: RealData = RealData {
     right_ascension: RightAscension::new(11, 24, 53.),
     declination: Declination::new(Sgn::Neg, 17, 41, 2.),
     apparent_magnitude: 4.06,
-    distance: Distance {
+    distance: Length {
         m: 85.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.05,
     mass: Mass {
         kg: 1.81 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8020. },
@@ -91,14 +91,14 @@ const DELTA_CRATERIS: RealData = RealData {
     right_ascension: RightAscension::new(11, 19, 20.),
     declination: Declination::new(Sgn::Neg, 14, 46, 42.),
     apparent_magnitude: 3.56,
-    distance: Distance {
+    distance: Length {
         m: 194.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.321,
     mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 22.44 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4510. },

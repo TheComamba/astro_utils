@@ -9,11 +9,8 @@ use gaia_access::{
     result::*,
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
-use simple_si_units::{
-    base::{Distance, Luminosity, Mass, Temperature, Time},
-    geometry::Angle,
-};
 use std::collections::HashMap;
+use uom::si::f64::{Angle, Length, Mass, ThermodynamicTemperature};
 
 use crate::{
     error::AstroUtilError,
@@ -28,12 +25,12 @@ fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
     Some(id.to_string())
 }
 
-fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<Temperature<f64>> {
+fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemperature> {
     let temperature = get_float(map.get(&Col::teff)?)?;
     Some(Temperature::from_K(temperature))
 }
 
-fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass<f64>> {
+fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass> {
     let mass = get_float(map.get(&Col::mass)?)?;
     Some(Mass::from_solar_mass(mass))
 }
@@ -54,14 +51,14 @@ fn get_pos(map: &HashMap<Col, GaiaCellData>) -> Option<Cartesian> {
     let dec = get_float(map.get(&Col::dec)?)?;
     let dec = Angle::from_deg(dec);
     let distance = get_float(map.get(&Col::barycentric_distance)?)?;
-    let distance = Distance::from_parsec(distance);
+    let distance = Length::from_parsec(distance);
     let pos = EarthEquatorial::new(ra, dec)
         .to_direction()
         .to_cartesian(distance);
     Some(pos)
 }
 
-fn get_age(map: &HashMap<Col, GaiaCellData>) -> Option<Time<f64>> {
+fn get_age(map: &HashMap<Col, GaiaCellData>) -> Option<Time> {
     let age = get_float(map.get(&Col::age)?)?;
     Some(Time::from_Gyr(age))
 }
@@ -132,7 +129,7 @@ pub(crate) fn query_nearest_simulated_stars(
 }
 
 pub fn fetch_brightest_stars_simulated_data() -> Result<Vec<StarData>, AstroUtilError> {
-    let max_distance = Distance::from_lyr(100_000.);
+    let max_distance = Length::from_lyr(100_000.);
     let min_brightness = Some(6.5);
     let resp = query_nearest_simulated_stars(max_distance, min_brightness)?;
     let gaia_stars = to_star_data(resp)?;
@@ -145,7 +142,7 @@ mod tests {
 
     #[test]
     fn every_model_star_has_a_mass() {
-        let max_distance = Distance::from_lyr(100_000.);
+        let max_distance = Length::from_lyr(100_000.);
         let min_brightness = Some(4.);
         let resp = query_nearest_simulated_stars(max_distance, min_brightness).unwrap();
         let stars = to_star_data(resp).unwrap();

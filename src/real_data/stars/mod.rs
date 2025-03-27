@@ -22,10 +22,10 @@ use crate::{
 //     right_ascension: RightAscension::new(),
 //     declination: Declination::new(),
 //     apparent_magnitude: ,
-//     distance: Distance{m:  * LIGHT_YEAR.m},
+//     distance: Length{m:  * LIGHT_YEAR.m},
 //     absolute_magnitude: ,
 //     mass: Some(Mass{kg: * SOLAR_MASS.kg}),
-//     radius: Some(Distance{m: * SOLAR_RADIUS.m}),
+//     radius: Some(Length{m: * SOLAR_RADIUS.m}),
 //     temperature: Temperature{K:}),
 //     age: Some(Time{s:* BILLION_YEARS.s}),
 // };

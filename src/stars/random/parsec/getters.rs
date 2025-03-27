@@ -1,5 +1,5 @@
 use astro_coords::cartesian::Cartesian;
-use simple_si_units::base::{Luminosity, Mass, Time};
+use uom::si::f64::Time;
 
 use crate::stars::data::StarData;
 use crate::stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE;
@@ -59,7 +59,7 @@ impl ParsecData {
     pub(crate) fn get_star_data_if_visible(
         &self,
         mass_index: usize,
-        age: Time<f64>,
+        age: Time,
         pos: Cartesian,
     ) -> Option<StarData> {
         let trajectory = self.get_trajectory_via_index(mass_index);
@@ -81,10 +81,7 @@ impl ParsecData {
         }
     }
 
-    pub(crate) fn get_most_luminous_intensity_possible(
-        &self,
-        max_age: Time<f64>,
-    ) -> Luminosity<f64> {
+    pub(crate) fn get_most_luminous_intensity_possible(&self, max_age: Time) -> Luminosity<f64> {
         let mut max_luminous_intensity = LUMINOSITY_ZERO;
         let min_age = get_min_age(max_age);
         for trajectory in self.data.iter() {
@@ -114,7 +111,6 @@ impl ParsecData {
 #[cfg(test)]
 mod tests {
     use astro_coords::direction::Direction;
-    use simple_si_units::base::Distance;
 
     use super::*;
     use crate::{
@@ -341,7 +337,7 @@ mod tests {
 
     #[test]
     fn distant_small_stars_are_invisible() {
-        let pos = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
+        let pos = Direction::Z.to_cartesian(Length::from_lyr(1000.));
         let age = Time::from_Gyr(1.);
         for mass_index in 0..30 {
             let star = {

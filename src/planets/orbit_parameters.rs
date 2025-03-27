@@ -1,5 +1,6 @@
 use astro_coords::{cartesian::Cartesian, direction::Direction, traits::*};
 use serde::{Deserialize, Serialize};
+use uom::si::f64::{Angle, Length, Time};
 
 use crate::planets::kepler_orbit::{
     eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,
@@ -10,18 +11,18 @@ use crate::planets::kepler_orbit::{
 pub struct OrbitParameters {
     pub(crate) semi_major_axis: Length,
     pub(crate) eccentricity: f64,
-    pub(crate) inclination: Angle<f64>, // The angle between the orbital plane and the reference plane
-    pub(crate) longitude_of_ascending_node: Angle<f64>, // The angle between the reference plane and the ascending node
-    pub(crate) argument_of_periapsis: Angle<f64>, // The angle between the ascending node and the periapsis
+    pub(crate) inclination: Angle, // The angle between the orbital plane and the reference plane
+    pub(crate) longitude_of_ascending_node: Angle, // The angle between the reference plane and the ascending node
+    pub(crate) argument_of_periapsis: Angle, // The angle between the ascending node and the periapsis
 }
 
 impl OrbitParameters {
     pub fn new(
         semi_major_axis: Length,
         eccentricity: f64,
-        inclination: Angle<f64>, // The angle between the orbital plane and the reference plane
-        longitude_of_ascending_node: Angle<f64>, // The angle between the reference plane and the ascending node
-        argument_of_periapsis: Angle<f64>, // The angle between the ascending node and the periapsis
+        inclination: Angle, // The angle between the orbital plane and the reference plane
+        longitude_of_ascending_node: Angle, // The angle between the reference plane and the ascending node
+        argument_of_periapsis: Angle, // The angle between the ascending node and the periapsis
     ) -> Self {
         OrbitParameters {
             semi_major_axis,
@@ -40,23 +41,23 @@ impl OrbitParameters {
         self.eccentricity
     }
 
-    pub fn get_inclination(&self) -> Angle<f64> {
+    pub fn get_inclination(&self) -> Angle {
         self.inclination
     }
 
-    pub fn get_longitude_of_ascending_node(&self) -> Angle<f64> {
+    pub fn get_longitude_of_ascending_node(&self) -> Angle {
         self.longitude_of_ascending_node
     }
 
-    pub fn get_argument_of_periapsis(&self) -> Angle<f64> {
+    pub fn get_argument_of_periapsis(&self) -> Angle {
         self.argument_of_periapsis
     }
 
     pub fn calculate_position(
         &self,
-        body_mass: Mass<f64>,
-        central_body_mass: Mass<f64>,
-        time: Time<f64>,
+        body_mass: Mass,
+        central_body_mass: Mass,
+        time: Time,
     ) -> Cartesian {
         let orbital_period = orbital_period(self.semi_major_axis, body_mass, central_body_mass);
         let mean_anomaly = mean_anomaly(orbital_period, time);
@@ -89,7 +90,7 @@ mod test {
 
     use crate::{real_data::planets::*, units::angle::angle_eq_within};
 
-    const TILT_ACCURACY: Angle<f64> = Angle { rad: 2e-3 };
+    const TILT_ACCURACY: Angle = Angle { rad: 2e-3 };
 
     #[test]
     fn axis_tilt_of_mercury() {

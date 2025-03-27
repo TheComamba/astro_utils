@@ -1,3 +1,5 @@
+use uom::si::f64::{Length, ThermodynamicTemperature};
+
 use super::color_matching_functions::*;
 use super::srgb::sRGBColor;
 
@@ -27,7 +29,7 @@ impl XYZColor {
     }
 
     #[allow(non_snake_case)]
-    pub(super) fn from_temperature(temperature: Temperature<f64>) -> Self {
+    pub(super) fn from_temperature(temperature: ThermodynamicTemperature) -> Self {
         let x_fun = Box::new(|lambda: Length| x_color_matching(lambda));
         let y_fun = Box::new(|lambda: Length| y_color_matching(lambda));
         let z_fun = Box::new(|lambda: Length| z_color_matching(lambda));

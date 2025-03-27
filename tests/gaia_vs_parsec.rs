@@ -10,12 +10,12 @@ use astro_utils::{
         time::TIME_ZERO,
     },
 };
-use simple_si_units::base::{Distance, Temperature};
+use simple_si_units::base::{Length, Temperature};
 
 #[test]
 #[ignore]
 fn parsec_generates_data_similar_to_gaia() {
-    let max_distance: Length = Distance::from_lyr(15_000.);
+    let max_distance: Length = Length::from_lyr(15_000.);
 
     let randoms_stars = generate_random_stars(max_distance).unwrap();
     println!(
@@ -194,8 +194,8 @@ fn number_of_stars_in_apparent_magnitude_range_is_similar(
 fn number_of_stars_in_temperature_range_is_similar(
     parsec: &[StarData],
     gaia: &[StarData],
-    lower: Temperature<f64>,
-    upper: Temperature<f64>,
+    lower: ThermodynamicTemperature,
+    upper: ThermodynamicTemperature,
 ) -> bool {
     let parsec_in_range = parsec
         .iter()

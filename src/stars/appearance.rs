@@ -1,6 +1,6 @@
 use astro_coords::ecliptic::Ecliptic;
 use serde::{Deserialize, Serialize};
-use simple_si_units::{base::Time, electromagnetic::Illuminance, geometry::Angle};
+use uom::si::f64::Time;
 
 use crate::{astro_display::AstroDisplay, color::srgb::sRGBColor};
 
@@ -10,7 +10,7 @@ pub struct StarAppearance {
     pub(crate) illuminance: Illuminance<f64>,
     pub(crate) color: sRGBColor,
     pub(crate) pos: Ecliptic,
-    pub(crate) time_since_epoch: Time<f64>,
+    pub(crate) time_since_epoch: Time,
 }
 
 impl StarAppearance {
@@ -19,7 +19,7 @@ impl StarAppearance {
         illuminance: Illuminance<f64>,
         color: sRGBColor,
         pos: Ecliptic,
-        time_since_epoch: Time<f64>,
+        time_since_epoch: Time,
     ) -> Self {
         Self {
             name,
@@ -46,7 +46,7 @@ impl StarAppearance {
         &self.pos
     }
 
-    pub const fn get_time_since_epoch(&self) -> &Time<f64> {
+    pub const fn get_time_since_epoch(&self) -> &Time {
         &self.time_since_epoch
     }
 

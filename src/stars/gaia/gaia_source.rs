@@ -16,8 +16,8 @@ use gaia_access::{
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
-use simple_si_units::{base::Temperature, electromagnetic::Illuminance, geometry::Angle};
 use std::{collections::HashMap, time::Instant};
+use uom::si::f64::{Angle, ThermodynamicTemperature};
 
 #[derive(Serialize, Deserialize)]
 struct GaiaMetadataLine {
@@ -35,17 +35,17 @@ fn get_designation(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
     get_string(map.get(&Col::designation)?)
 }
 
-fn get_ecl_lon(map: &HashMap<Col, GaiaCellData>) -> Option<Angle<f64>> {
+fn get_ecl_lon(map: &HashMap<Col, GaiaCellData>) -> Option<Angle> {
     let ecl_lon = get_float(map.get(&Col::ecl_lon)?)?;
     Some(Angle::from_degrees(ecl_lon))
 }
 
-fn get_ecl_lat(map: &HashMap<Col, GaiaCellData>) -> Option<Angle<f64>> {
+fn get_ecl_lat(map: &HashMap<Col, GaiaCellData>) -> Option<Angle> {
     let ecl_lat = get_float(map.get(&Col::ecl_lat)?)?;
     Some(Angle::from_degrees(ecl_lat))
 }
 
-fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<Temperature<f64>> {
+fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemperature> {
     let temperature = get_float(map.get(&Col::teff_gspphot)?)?;
     Some(Temperature::from_K(temperature))
 }

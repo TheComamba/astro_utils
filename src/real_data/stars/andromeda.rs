@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use uom::si::f64::{Length, Mass, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -13,7 +14,7 @@ const ALPHERATZ: RealData = RealData {
     common_name: "Alpheratz",
     astronomical_name: "α Andromedae",
     constellation: "Andromeda",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.7 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -30,7 +31,7 @@ const ALPHERATZ: RealData = RealData {
     },
     right_ascension: RightAscension::new(0, 8, 23.),
     declination: Declination::new(Sgn::Pos, 29, 5, 26.),
-    distance: Distance {
+    distance: Length {
         m: 97.0 * LIGHT_YEAR.m,
     },
 };
@@ -39,7 +40,7 @@ const MIRACH: RealData = RealData {
     common_name: "Mirach",
     astronomical_name: "β Andromedae",
     constellation: "Andromeda",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 100. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -54,7 +55,7 @@ const MIRACH: RealData = RealData {
     },
     right_ascension: RightAscension::new(1, 9, 44.),
     declination: Declination::new(Sgn::Pos, 35, 37, 14.),
-    distance: Distance {
+    distance: Length {
         m: 199. * LIGHT_YEAR.m,
     },
 };
@@ -63,7 +64,7 @@ const ALMACH: RealData = RealData {
     common_name: "Almach",
     astronomical_name: "γ Andromedae",
     constellation: "Andromeda",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 80. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -80,7 +81,7 @@ const ALMACH: RealData = RealData {
     },
     right_ascension: RightAscension::new(2, 3, 54.),
     declination: Declination::new(Sgn::Pos, 42, 19, 47.),
-    distance: Distance {
+    distance: Length {
         m: 355. * LIGHT_YEAR.m,
     },
 };

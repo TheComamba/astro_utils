@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const REGULUS: RealData = RealData {
     common_name: "Regulus",
     astronomical_name: "α Leonis",
     constellation: "Leo",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.35 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -31,7 +31,7 @@ const REGULUS: RealData = RealData {
     },
     right_ascension: RightAscension::new(10, 8, 22.),
     declination: Declination::new(Sgn::Pos, 11, 58, 2.),
-    distance: Distance {
+    distance: Length {
         m: 77. * LIGHT_YEAR.m,
     },
 };
@@ -40,7 +40,7 @@ const ALGIEBA: RealData = RealData {
     common_name: "Algieba",
     astronomical_name: "γ Leonis",
     constellation: "Leo",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 31.88 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const ALGIEBA: RealData = RealData {
     temperature: Temperature { K: 4470. },
     right_ascension: RightAscension::new(10, 19, 58.),
     declination: Declination::new(Sgn::Pos, 19, 50, 29.),
-    distance: Distance {
+    distance: Length {
         m: 126. * LIGHT_YEAR.m,
     },
     age: None,
@@ -64,7 +64,7 @@ const DENEBOLA: RealData = RealData {
     common_name: "Denebola",
     astronomical_name: "β Leonis",
     constellation: "Leo",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.728 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -81,7 +81,7 @@ const DENEBOLA: RealData = RealData {
     },
     right_ascension: RightAscension::new(11, 49, 3.),
     declination: Declination::new(Sgn::Pos, 14, 34, 19.),
-    distance: Distance {
+    distance: Length {
         m: 36. * LIGHT_YEAR.m,
     },
 };
@@ -90,7 +90,7 @@ const ZOSMA: RealData = RealData {
     common_name: "Zosma",
     astronomical_name: "δ Leonis",
     constellation: "Leo",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.14 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -104,7 +104,7 @@ const ZOSMA: RealData = RealData {
     }),
     right_ascension: RightAscension::new(11, 14, 7.),
     declination: Declination::new(Sgn::Pos, 20, 31, 25.),
-    distance: Distance {
+    distance: Length {
         m: 58. * LIGHT_YEAR.m,
     },
     lifetime: Time {

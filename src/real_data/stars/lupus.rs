@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -29,7 +29,7 @@ const ALPHA_LUPI: RealData = RealData {
     },
     right_ascension: RightAscension::new(14, 41, 56.),
     declination: Declination::new(Sgn::Neg, 47, 23, 18.),
-    distance: Distance {
+    distance: Length {
         m: 548. * LIGHT_YEAR.m,
     },
 };
@@ -41,14 +41,14 @@ const BETA_LUPI: RealData = RealData {
     right_ascension: RightAscension::new(14, 58, 32.),
     declination: Declination::new(Sgn::Neg, 43, 8, 2.),
     apparent_magnitude: 2.68,
-    distance: Distance {
+    distance: Length {
         m: 523.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.35,
     mass: Mass {
         kg: 8.8 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 6.6 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 24_090. },
@@ -67,7 +67,7 @@ const GAMMA_LUPI: RealData = RealData {
     right_ascension: RightAscension::new(15, 35, 8.),
     declination: Declination::new(Sgn::Neg, 41, 10, 0.),
     apparent_magnitude: 2.77,
-    distance: Distance {
+    distance: Length {
         m: 567. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.4,

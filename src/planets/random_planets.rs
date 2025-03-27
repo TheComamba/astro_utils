@@ -1,6 +1,7 @@
 use std::f64::consts::PI;
 
 use rand::Rng;
+use uom::si::f64::{Length, Time};
 
 use crate::{
     color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
@@ -18,7 +19,7 @@ pub fn generate_random_planet() -> PlanetData {
 
     let min = MERCURY.radius * 0.5;
     let max = JUPITER.radius * 2.0;
-    let radius = Distance {
+    let radius = Length {
         m: rng.gen_range(min.m..max.m),
     };
 
@@ -44,7 +45,7 @@ pub fn generate_random_planet() -> PlanetData {
 
     let min = MERCURY.orbit.semi_major_axis * 0.5;
     let max = NEPTUNE.orbit.semi_major_axis * 2.0;
-    let semi_major_axis = Distance {
+    let semi_major_axis = Length {
         m: rng.gen_range(min.m..max.m),
     };
 

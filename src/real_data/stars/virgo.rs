@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const SPICA: RealData = RealData {
     common_name: "Spica",
     astronomical_name: "α Virginis",
     constellation: "Virgo",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 7.47 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const SPICA: RealData = RealData {
     }),
     right_ascension: RightAscension::new(13, 25, 12.),
     declination: Declination::new(Sgn::Neg, 11, 9, 41.),
-    distance: Distance {
+    distance: Length {
         m: 262. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -40,7 +40,7 @@ const MINELAUVA: RealData = RealData {
     common_name: "Minelauva",
     astronomical_name: "δ Virginis",
     constellation: "Virgo",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 48. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -52,7 +52,7 @@ const MINELAUVA: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(12, 55, 36.),
     declination: Declination::new(Sgn::Pos, 3, 23, 51.),
-    distance: Distance {
+    distance: Length {
         m: 202.4 * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -67,14 +67,14 @@ const ZAVIJAVA: RealData = RealData {
     right_ascension: RightAscension::new(11, 50, 42.),
     declination: Declination::new(Sgn::Pos, 1, 45, 53.),
     apparent_magnitude: 3.604,
-    distance: Distance {
+    distance: Length {
         m: 35.65 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.41,
     mass: Mass {
         kg: 1.413 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.681 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6132. },
@@ -93,14 +93,14 @@ const SYRMA: RealData = RealData {
     right_ascension: RightAscension::new(14, 16, 1.),
     declination: Declination::new(Sgn::Neg, 6, 0, 2.),
     apparent_magnitude: 4.08,
-    distance: Distance {
+    distance: Length {
         m: 72.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.4,
     mass: Mass {
         kg: 1.5 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6282. },
@@ -117,14 +117,14 @@ const HEZE: RealData = RealData {
     right_ascension: RightAscension::new(13, 34, 42.),
     declination: Declination::new(Sgn::Neg, 0, 35, 45.),
     apparent_magnitude: 3.376,
-    distance: Distance {
+    distance: Length {
         m: 74.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.64,
     mass: Mass {
         kg: 2.041 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.079 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8247. },
@@ -143,14 +143,14 @@ const VINDEMIATRIX: RealData = RealData {
     right_ascension: RightAscension::new(13, 2, 11.),
     declination: Declination::new(Sgn::Pos, 10, 57, 33.),
     apparent_magnitude: 2.826,
-    distance: Distance {
+    distance: Length {
         m: 109.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.37,
     mass: Mass {
         kg: 2.64 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 10.6 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5086. },
@@ -169,7 +169,7 @@ const PORRIMA: RealData = RealData {
     right_ascension: RightAscension::new(12, 41, 40.),
     declination: Declination::new(Sgn::Neg, 1, 26, 58.),
     apparent_magnitude: 2.74,
-    distance: Distance {
+    distance: Length {
         m: 38.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.41,

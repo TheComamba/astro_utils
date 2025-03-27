@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ALPHA_LYNCIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Lyncis",
     constellation: "Lynx",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 54.5 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const ALPHA_LYNCIS: RealData = RealData {
     temperature: Temperature { K: 3882. },
     right_ascension: RightAscension::new(9, 21, 3.),
     declination: Declination::new(Sgn::Pos, 34, 23, 33.),
-    distance: Distance {
+    distance: Length {
         m: 221.9 * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -43,14 +43,14 @@ const THIRTYEIGHT_LYNCIS: RealData = RealData {
     right_ascension: RightAscension::new(9, 18, 51.),
     declination: Declination::new(Sgn::Pos, 36, 48, 9.),
     apparent_magnitude: 3.82,
-    distance: Distance {
+    distance: Length {
         m: 117. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.98,
     mass: Mass {
         kg: 1.9 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.07 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8862. },
@@ -69,14 +69,14 @@ const THIRTYONE_LYNCIS: RealData = RealData {
     right_ascension: RightAscension::new(8, 22, 50.),
     declination: Declination::new(Sgn::Pos, 43, 11, 17.),
     apparent_magnitude: 4.25,
-    distance: Distance {
+    distance: Length {
         m: 380. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.09,
     mass: Mass {
         kg: 1.95 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 53.27 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 3921. },

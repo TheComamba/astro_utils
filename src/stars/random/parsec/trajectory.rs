@@ -1,6 +1,6 @@
 use astro_coords::cartesian::Cartesian;
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Luminosity, Mass, Temperature, Time};
+use uom::si::f64::{Mass, Time};
 
 use crate::{
     stars::{
@@ -25,8 +25,8 @@ use super::line::ParsedParsecLine;
 #[derive(Deserialize, Serialize, Clone)]
 pub(super) struct Trajectory {
     params: Vec<ParsedParsecLine>,
-    pub(super) initial_mass: Mass<f64>,
-    pub(super) lifetime: Time<f64>,
+    pub(super) initial_mass: Mass,
+    pub(super) lifetime: Time,
     pub(super) peak_lifetime_luminous_intensity: Luminosity<f64>,
 }
 
@@ -115,7 +115,7 @@ impl Trajectory {
         self.peak_lifetime_luminous_intensity >= min_luminous_intensity
     }
 
-    pub(super) fn to_star(&self, age: Time<f64>, pos: Cartesian) -> StarData {
+    pub(super) fn to_star(&self, age: Time, pos: Cartesian) -> StarData {
         let age_index = self.get_closest_params_index(age.to_yr());
         let mut star = self.to_star_without_evolution(age_index, pos.clone());
         let other_age_index = if age_index == 0 {
@@ -167,7 +167,7 @@ fn get_lifestage_evolution(
 
 fn get_peak_lifetime_luminous_intensity(
     params: &[ParsedParsecLine],
-    initial_mass: Mass<f64>,
+    initial_mass: Mass,
 ) -> Luminosity<f64> {
     let peak_lifetime_luminous_intensity = params
         .iter()

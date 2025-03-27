@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ALIOTH: RealData = RealData {
     common_name: "Alioth",
     astronomical_name: "ε Ursae Majoris",
     constellation: "Ursa Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.14 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const ALIOTH: RealData = RealData {
     }),
     right_ascension: RightAscension::new(12, 54, 2.),
     declination: Declination::new(Sgn::Pos, 55, 57, 36.),
-    distance: Distance {
+    distance: Length {
         m: 81. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -40,7 +40,7 @@ const DUBHE: RealData = RealData {
     common_name: "Dubhe",
     astronomical_name: "α Ursae Majoris",
     constellation: "Ursa Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 17.03 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -54,7 +54,7 @@ const DUBHE: RealData = RealData {
     }),
     right_ascension: RightAscension::new(11, 3, 44.),
     declination: Declination::new(Sgn::Pos, 61, 45, 4.),
-    distance: Distance {
+    distance: Length {
         m: 124. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -66,7 +66,7 @@ const ALKAID: RealData = RealData {
     common_name: "Alkaid",
     astronomical_name: "η Ursae Majoris",
     constellation: "Ursa Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.4 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -80,7 +80,7 @@ const ALKAID: RealData = RealData {
     }),
     right_ascension: RightAscension::new(13, 47, 32.),
     declination: Declination::new(Sgn::Pos, 49, 18, 48.),
-    distance: Distance {
+    distance: Length {
         m: 101. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -92,7 +92,7 @@ const MIZAR: RealData = RealData {
     common_name: "Mizar",
     astronomical_name: "ζ Ursae Majoris",
     constellation: "Ursa Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -106,7 +106,7 @@ const MIZAR: RealData = RealData {
     }),
     right_ascension: RightAscension::new(13, 23, 56.),
     declination: Declination::new(Sgn::Pos, 54, 55, 31.),
-    distance: Distance {
+    distance: Length {
         m: 78. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -118,7 +118,7 @@ const MERAK: RealData = RealData {
     common_name: "Merak",
     astronomical_name: "β Ursae Majoris",
     constellation: "Ursa Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.021 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -132,7 +132,7 @@ const MERAK: RealData = RealData {
     }),
     right_ascension: RightAscension::new(11, 1, 50.),
     declination: Declination::new(Sgn::Pos, 56, 22, 57.),
-    distance: Distance {
+    distance: Length {
         m: 79. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -144,7 +144,7 @@ const PHECDA: RealData = RealData {
     common_name: "Phecda",
     astronomical_name: "γ Ursae Majoris",
     constellation: "Ursa Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.04 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -158,7 +158,7 @@ const PHECDA: RealData = RealData {
     }),
     right_ascension: RightAscension::new(11, 53, 50.),
     declination: Declination::new(Sgn::Pos, 53, 41, 41.),
-    distance: Distance {
+    distance: Length {
         m: 84. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -170,7 +170,7 @@ const TANIA_AUSTRALIS: RealData = RealData {
     common_name: "Tania Australis",
     astronomical_name: "μ Ursae Majoris",
     constellation: "Ursa Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 75. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -182,7 +182,7 @@ const TANIA_AUSTRALIS: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(10, 22, 20.),
     declination: Declination::new(Sgn::Pos, 41, 29, 58.),
-    distance: Distance {
+    distance: Length {
         m: 230.0 * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -194,7 +194,7 @@ const MEGREZ: RealData = RealData {
     common_name: "Megrez",
     astronomical_name: "δ Ursae Majoris",
     constellation: "Ursa Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.4 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -208,7 +208,7 @@ const MEGREZ: RealData = RealData {
     }),
     right_ascension: RightAscension::new(12, 15, 26.),
     declination: Declination::new(Sgn::Pos, 57, 1, 57.),
-    distance: Distance {
+    distance: Length {
         m: 80.5 * LIGHT_YEAR.m,
     },
     lifetime: Time {

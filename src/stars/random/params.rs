@@ -1,5 +1,5 @@
 use astro_coords::cartesian::Cartesian;
-use simple_si_units::base::{Distance, Time};
+use uom::si::f64::{Length, Time};
 
 use crate::units::distance::DISTANCE_ZERO;
 
@@ -13,7 +13,7 @@ use super::{
 
 pub(super) struct GenerationParams {
     pub(super) pos: Cartesian,
-    pub(super) max_age: Time<f64>,
+    pub(super) max_age: Time,
     pub(super) radius: Length,
     pub(super) number: usize,
 }
@@ -32,7 +32,7 @@ impl GenerationParams {
         }
     }
 
-    pub(super) fn nursery(pos: Cartesian, max_age: Time<f64>) -> Self {
+    pub(super) fn nursery(pos: Cartesian, max_age: Time) -> Self {
         let radius = STELLAR_VELOCITY * max_age;
         let number = NUMBER_OF_STARS_FORMED_IN_NURSERY;
         GenerationParams {
@@ -47,7 +47,7 @@ impl GenerationParams {
         let original_radius = self.radius;
         let most_luminous_intensity =
             parsec_data.get_most_luminous_intensity_possible(self.max_age);
-        let required_distance = Distance {
+        let required_distance = Length {
             m: (most_luminous_intensity.cd / DIMMEST_ILLUMINANCE.lux).sqrt(),
         };
         let distance_to_origin = self.pos.length();
@@ -78,7 +78,7 @@ mod tests {
 
     #[test]
     fn large_distance_for_old_stars_is_adjusted() {
-        let max_distance = Distance::from_lyr(10_000.);
+        let max_distance = Length::from_lyr(10_000.);
         let mut params = GenerationParams::old_stars(max_distance);
         {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
@@ -90,7 +90,7 @@ mod tests {
 
     #[test]
     fn short_distance_for_old_stars_is_not_adjusted() {
-        let max_distance = Distance::from_lyr(10.);
+        let max_distance = Length::from_lyr(10.);
         let mut params = GenerationParams::old_stars(max_distance);
         {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
@@ -107,7 +107,7 @@ mod tests {
     #[test]
     fn old_stars_far_away_are_adjusted() {
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
-        let origin = Direction::Z.to_cartesian(Distance::from_lyr(10_000.));
+        let origin = Direction::Z.to_cartesian(Length::from_lyr(10_000.));
         let mut params = GenerationParams::nursery(origin, max_age);
         {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
@@ -120,7 +120,7 @@ mod tests {
     #[test]
     fn young_stars_far_away_are_not_adjusted() {
         let max_age = TEN_MILLENIA;
-        let origin = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
+        let origin = Direction::Z.to_cartesian(Length::from_lyr(1000.));
         let mut params = GenerationParams::nursery(origin, max_age);
         let max_distance = params.radius;
         {

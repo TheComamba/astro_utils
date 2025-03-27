@@ -1,3 +1,5 @@
+use uom::si::f64::Length;
+
 use crate::color::black_body::planck_radiant_emittance;
 
 fn tilted_gaussian(lambda: f64, mean: f64, sigma1: f64, sigma2: f64) -> f64 {
@@ -29,11 +31,11 @@ pub(crate) fn z_color_matching(lambda: Length) -> f64 {
 
 pub(crate) fn convolute_with_black_body(
     fun: Box<dyn Fn(Length) -> f64>,
-    temperature: Temperature<f64>,
+    temperature: ThermodynamicTemperature,
 ) -> f64 {
-    let step = Distance::from_nm(1.);
+    let step = Length::from_nm(1.);
     let mut sum = 0.;
-    let mut lambda = Distance::from_nm(380.);
+    let mut lambda = Length::from_nm(380.);
     while lambda.to_nm() < 780. {
         let value = fun(lambda);
         let planck = planck_radiant_emittance(lambda, temperature);
@@ -49,7 +51,7 @@ mod tests {
 
     #[test]
     fn color_matching_functions_are_between_zero_and_two() {
-        let mut lambda = Distance::from_nm(380.);
+        let mut lambda = Length::from_nm(380.);
         while lambda.to_nm() < 780. {
             let x = x_color_matching(lambda);
             let y = y_color_matching(lambda);
@@ -57,7 +59,7 @@ mod tests {
             assert!(x >= 0. && x <= 2.);
             assert!(y >= 0. && y <= 2.);
             assert!(z >= 0. && z <= 2.);
-            lambda += Distance::from_nm(1.);
+            lambda += Length::from_nm(1.);
         }
     }
 }

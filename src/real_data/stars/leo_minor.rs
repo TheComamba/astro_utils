@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const PRAECIPUA: RealData = RealData {
     right_ascension: RightAscension::new(10, 53, 19.),
     declination: Declination::new(Sgn::Pos, 34, 12, 54.),
     apparent_magnitude: 3.83,
-    distance: Distance {
+    distance: Length {
         m: 94.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.45,
     mass: Mass {
         kg: 1.69 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 8.22 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4670. },
@@ -43,14 +43,14 @@ const BETA_LEONIS_MINORIS: RealData = RealData {
     right_ascension: RightAscension::new(10, 27, 53.),
     declination: Declination::new(Sgn::Pos, 36, 42, 26.),
     apparent_magnitude: 4.21,
-    distance: Distance {
+    distance: Length {
         m: 154. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.85,
     mass: Mass {
         kg: 2.98 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 9.4 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4097. },
@@ -69,14 +69,14 @@ const TWENTYFOUR_LEONIS_MINORIS: RealData = RealData {
     right_ascension: RightAscension::new(10, 7, 26.),
     declination: Declination::new(Sgn::Pos, 35, 14, 41.),
     apparent_magnitude: 4.5,
-    distance: Distance {
+    distance: Length {
         m: 92.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.43,
     mass: Mass {
         kg: 1.75 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.75 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 7839. },

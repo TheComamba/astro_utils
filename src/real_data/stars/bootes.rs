@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ARCTURUS: RealData = RealData {
     common_name: "Arcturus",
     astronomical_name: "α Boötis",
     constellation: "Boötes",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 25.4 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const ARCTURUS: RealData = RealData {
     temperature: Temperature { K: 4286. },
     right_ascension: RightAscension::new(14, 15, 40.),
     declination: Declination::new(Sgn::Pos, 19, 10, 56.),
-    distance: Distance {
+    distance: Length {
         m: 37. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const IZAR: RealData = RealData {
     common_name: "Izar",
     astronomical_name: "ε Boötis",
     constellation: "Boötes",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 33. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const IZAR: RealData = RealData {
     temperature: Temperature { K: 4550. },
     right_ascension: RightAscension::new(14, 44, 59.),
     declination: Declination::new(Sgn::Pos, 27, 4, 27.),
-    distance: Distance {
+    distance: Length {
         m: 210. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -69,14 +69,14 @@ const GAMMA_BOOTIS: RealData = RealData {
     right_ascension: RightAscension::new(14, 32, 5.),
     declination: Declination::new(Sgn::Pos, 38, 18, 30.),
     apparent_magnitude: 3.03,
-    distance: Distance {
+    distance: Length {
         m: 86.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.93,
     mass: Mass {
         kg: 2.10 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 5.16 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 7800. },
@@ -95,14 +95,14 @@ const DELTA_BOOTIS: RealData = RealData {
     right_ascension: RightAscension::new(15, 15, 30.),
     declination: Declination::new(Sgn::Pos, 33, 18, 53.),
     apparent_magnitude: 3.482,
-    distance: Distance {
+    distance: Length {
         m: 121.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.7,
     mass: Mass {
         kg: 1.1 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 10.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4847. },
@@ -119,14 +119,14 @@ const BETA_BOOTIS: RealData = RealData {
     right_ascension: RightAscension::new(15, 1, 57.),
     declination: Declination::new(Sgn::Pos, 40, 23, 26.),
     apparent_magnitude: 3.488,
-    distance: Distance {
+    distance: Length {
         m: 225. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.7,
     mass: Mass {
         kg: 3.4 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 21.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4932. },
@@ -145,14 +145,14 @@ const MUPHRID: RealData = RealData {
     right_ascension: RightAscension::new(13, 54, 41.),
     declination: Declination::new(Sgn::Pos, 18, 23, 52.),
     apparent_magnitude: 2.680,
-    distance: Distance {
+    distance: Length {
         m: 37.2 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.41,
     mass: Mass {
         kg: 1.71 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.672 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6100. },

@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const FORMALHAUT: RealData = RealData {
     common_name: "Formalhaut",
     astronomical_name: "α Piscis Austrini",
     constellation: "Piscis Austrinus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.842 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const FORMALHAUT: RealData = RealData {
     }),
     right_ascension: RightAscension::new(22, 57, 39.),
     declination: Declination::new(Sgn::Neg, 29, 37, 20.),
-    distance: Distance {
+    distance: Length {
         m: 25. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -43,7 +43,7 @@ const DELTA_PISCIS_AUSTRINI: RealData = RealData {
     right_ascension: RightAscension::new(22, 55, 57.),
     declination: Declination::new(Sgn::Neg, 32, 32, 23.),
     apparent_magnitude: 4.175,
-    distance: Distance {
+    distance: Length {
         m: 172. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.636,
@@ -67,14 +67,14 @@ const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
     right_ascension: RightAscension::new(22, 40, 39.),
     declination: Declination::new(Sgn::Neg, 27, 2, 37.),
     apparent_magnitude: 4.18,
-    distance: Distance {
+    distance: Length {
         m: 744.3 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.61,
     mass: Mass {
         kg: 4.1 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 11_066. },
@@ -91,7 +91,7 @@ const IOTA_PISCIS_AUSTRINI: RealData = RealData {
     right_ascension: RightAscension::new(21, 44, 57.),
     declination: Declination::new(Sgn::Neg, 33, 1, 33.),
     apparent_magnitude: 4.35,
-    distance: Distance {
+    distance: Length {
         m: 204. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.37,

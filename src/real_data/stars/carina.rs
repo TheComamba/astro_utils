@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const CANOPUS: RealData = RealData {
     common_name: "Canopus",
     astronomical_name: "α Carinae",
     constellation: "Carina",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 72. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const CANOPUS: RealData = RealData {
     temperature: Temperature { K: 7400. },
     right_ascension: RightAscension::new(6, 23, 57.),
     declination: Declination::new(Sgn::Neg, 52, 41, 44.),
-    distance: Distance {
+    distance: Length {
         m: 313. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const MIAPLACIDUS: RealData = RealData {
     common_name: "Miaplacidus",
     astronomical_name: "β Carinae",
     constellation: "Carina",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 6.8 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const MIAPLACIDUS: RealData = RealData {
     temperature: Temperature { K: 8866. },
     right_ascension: RightAscension::new(9, 13, 12.),
     declination: Declination::new(Sgn::Neg, 69, 43, 2.),
-    distance: Distance {
+    distance: Length {
         m: 111. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -75,7 +75,7 @@ const AVIOR: RealData = RealData {
     temperature: Temperature { K: 3523. },
     right_ascension: RightAscension::new(8, 22, 31.),
     declination: Declination::new(Sgn::Neg, 59, 30, 34.),
-    distance: Distance {
+    distance: Length {
         m: 632. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -90,7 +90,7 @@ const ASPIDISKE: RealData = RealData {
     common_name: "Aspidiske",
     astronomical_name: "ι Carinae",
     constellation: "Carina",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 43. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -101,7 +101,7 @@ const ASPIDISKE: RealData = RealData {
     temperature: Temperature { K: 7500. },
     right_ascension: RightAscension::new(9, 17, 5.),
     declination: Declination::new(Sgn::Neg, 59, 16, 30.),
-    distance: Distance {
+    distance: Length {
         m: 694. * LIGHT_YEAR.m,
     },
     age: Some(Time {

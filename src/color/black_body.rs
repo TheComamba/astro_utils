@@ -1,4 +1,9 @@
-pub(crate) fn planck_radiant_emittance(wavelength: Length, temperature: Temperature<f64>) -> f64 {
+use uom::si::f64::{Length, ThermodynamicTemperature};
+
+pub(crate) fn planck_radiant_emittance(
+    wavelength: Length,
+    temperature: ThermodynamicTemperature,
+) -> f64 {
     const H: f64 = 6.62607015e-34;
     const C: f64 = 299792458.0;
     const K: f64 = 1.380649e-23;
@@ -17,7 +22,7 @@ mod tests {
 
     struct TestExpectance {
         wavelength: Length,
-        temperature: Temperature<f64>,
+        temperature: ThermodynamicTemperature,
         expected: f64,
     }
 
@@ -25,32 +30,32 @@ mod tests {
     fn test_planck_radiant_emittance() {
         let expectations = vec![
             TestExpectance {
-                wavelength: Distance::from_nm(100.),
+                wavelength: Length::from_nm(100.),
                 temperature: Temperature::from_K(5000.0),
                 expected: 3.792e6,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(500.),
+                wavelength: Length::from_nm(500.),
                 temperature: Temperature::from_K(5000.0),
                 expected: 1.211e13,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(1_000.),
+                wavelength: Length::from_nm(1_000.),
                 temperature: Temperature::from_K(5000.0),
                 expected: 7.102e12,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(100.),
+                wavelength: Length::from_nm(100.),
                 temperature: Temperature::from_K(6000.0),
                 expected: 4.589e8,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(500.),
+                wavelength: Length::from_nm(500.),
                 temperature: Temperature::from_K(6000.0),
                 expected: 3.176e13,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(1000.),
+                wavelength: Length::from_nm(1000.),
                 temperature: Temperature::from_K(6000.0),
                 expected: 1.191e13,
             },

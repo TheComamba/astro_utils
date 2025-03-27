@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const REGOR: RealData = RealData {
     common_name: "Regor",
     astronomical_name: "γ Velorum",
     constellation: "Vela",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 17. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const REGOR: RealData = RealData {
     }),
     right_ascension: RightAscension::new(8, 9, 32.),
     declination: Declination::new(Sgn::Neg, 47, 20, 12.),
-    distance: Distance {
+    distance: Length {
         m: 840. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -40,7 +40,7 @@ const ALSEPHINA: RealData = RealData {
     common_name: "Alsephina",
     astronomical_name: "δ Velorum",
     constellation: "Vela",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -54,7 +54,7 @@ const ALSEPHINA: RealData = RealData {
     }),
     right_ascension: RightAscension::new(8, 44, 42.),
     declination: Declination::new(Sgn::Neg, 54, 42, 32.),
-    distance: Distance {
+    distance: Length {
         m: 80. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -66,7 +66,7 @@ const SUHAIL: RealData = RealData {
     common_name: "Suhail",
     astronomical_name: "λ Velorum",
     constellation: "Vela",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 210. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -80,7 +80,7 @@ const SUHAIL: RealData = RealData {
     }),
     right_ascension: RightAscension::new(9, 7, 60.),
     declination: Declination::new(Sgn::Neg, 43, 25, 57.),
-    distance: Distance {
+    distance: Length {
         m: 573. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -92,7 +92,7 @@ const MARKEB: RealData = RealData {
     common_name: "Markeb",
     astronomical_name: "κ Velorum",
     constellation: "Vela",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 9.1 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -106,7 +106,7 @@ const MARKEB: RealData = RealData {
     }),
     right_ascension: RightAscension::new(9, 22, 7.),
     declination: Declination::new(Sgn::Neg, 55, 0, 38.),
-    distance: Distance {
+    distance: Length {
         m: 539. * LIGHT_YEAR.m,
     },
     lifetime: Time {

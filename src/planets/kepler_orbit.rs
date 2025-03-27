@@ -1,4 +1,5 @@
 use astro_coords::{cartesian::Cartesian, spherical::Spherical};
+use uom::si::f64::{Length, Time};
 
 use crate::units::angle::{normalized_angle, ANGLE_ZERO, FULL_CIRC};
 
@@ -10,7 +11,7 @@ pub(crate) const GRAVITATIONAL_CONSTANT: f64 = 6.67430e-11;
  * The orbital period is the time it takes for a given object to make one full orbit around another object.
  * https://en.wikipedia.org/wiki/Orbital_period
  */
-pub fn orbital_period(semi_major_axis: Length, mass1: Mass<f64>, mass2: Mass<f64>) -> Time<f64> {
+pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time {
     let semi_major_axis_cubed = semi_major_axis * semi_major_axis * semi_major_axis;
     let total_mass = mass1 + mass2;
     let orbital_period = FULL_CIRC.rad
@@ -25,7 +26,7 @@ pub fn orbital_period(semi_major_axis: Length, mass1: Mass<f64>, mass2: Mass<f64
  *
  * Output is normalised to the range [-π, π].
  */
-pub fn mean_anomaly(orbital_period: Time<f64>, time: Time<f64>) -> Angle<f64> {
+pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
     let mean_motion = FULL_CIRC / orbital_period;
     let time_in_orbit = Time::from_s(time.s % orbital_period.s);
     let mean_anomaly = mean_motion * time_in_orbit;
@@ -37,7 +38,7 @@ pub fn mean_anomaly(orbital_period: Time<f64>, time: Time<f64>) -> Angle<f64> {
  * as seen from the center of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/Eccentric_anomaly
  */
-pub fn eccentric_anomaly(mean_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f64> {
+pub fn eccentric_anomaly(mean_anomaly: Angle, eccentricity: f64) -> Angle {
     const ACCURACY: f64 = 1e-6;
     let mean_anomaly = mean_anomaly.to_radians();
     let mut eccentric_anomaly = mean_anomaly;
@@ -59,7 +60,7 @@ pub fn eccentric_anomaly(mean_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f
  * as seen from the main focus of the ellipse (the point around which the object orbits).
  * https://en.wikipedia.org/wiki/True_anomaly
  */
-pub fn true_anomaly(eccentric_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f64> {
+pub fn true_anomaly(eccentric_anomaly: Angle, eccentricity: f64) -> Angle {
     let sqrt_arg = (1. + eccentricity) / (1. - eccentricity);
     let artan_arg = (eccentric_anomaly.to_radians() / 2.).tan() * sqrt_arg.sqrt();
     let true_anomaly = 2. * artan_arg.atan();
@@ -69,13 +70,9 @@ pub fn true_anomaly(eccentric_anomaly: Angle<f64>, eccentricity: f64) -> Angle<f
 /*
  * The distance from the focus is the distance between the orbiting body and the main focus of the ellipse
  * (the point around which the object orbits).
- * https://en.wikipedia.org/wiki/Ellipse#Distance_from_focus
+ * https://en.wikipedia.org/wiki/Ellipse#Length_from_focus
  */
-fn distance_from_focus(
-    semi_major_axis: Length,
-    true_anomaly: Angle<f64>,
-    eccentricity: f64,
-) -> Length {
+fn distance_from_focus(semi_major_axis: Length, true_anomaly: Angle, eccentricity: f64) -> Length {
     let numerator = 1. - eccentricity * eccentricity;
     let denominator = 1. + eccentricity * true_anomaly.rad.cos();
     semi_major_axis * numerator / denominator
@@ -88,7 +85,7 @@ fn distance_from_focus(
 pub fn position_relative_to_central_body(
     semi_major_axis: Length,
     eccentricity: f64,
-    true_anomaly: Angle<f64>,
+    true_anomaly: Angle,
     orientation: &OrbitParameters,
 ) -> Cartesian {
     let ecliptic_from_focus = Spherical::new(true_anomaly, ANGLE_ZERO);
@@ -179,7 +176,7 @@ mod tests {
 
     #[test]
     fn mean_anomaly_is_stable_after_loads_of_revolutions() {
-        let local_test_angle_accuracy: Angle<f64> = 5e-3 * FULL_CIRC;
+        let local_test_angle_accuracy: Angle = 5e-3 * FULL_CIRC;
 
         let expected_mean_anomaly = QUARTER_CIRC;
         let passed_time = Time::from_yr(1e5 + 0.25);
@@ -294,8 +291,8 @@ mod tests {
 
     #[test]
     fn distance_from_focus_for_eccentric_ellipse() {
-        let semi_major_axis = Distance::from_meters(2.);
-        let semi_minor_axis = Distance::from_meters(1.);
+        let semi_major_axis = Length::from_meters(2.);
+        let semi_minor_axis = Length::from_meters(1.);
         let eccentricity = (1. - ((semi_minor_axis / semi_major_axis) as f64).powi(2)).sqrt();
         let linear_eccentricity = semi_major_axis * eccentricity;
         let focal_point = Cartesian::new(linear_eccentricity, DISTANCE_ZERO, DISTANCE_ZERO);

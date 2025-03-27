@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const POLARIS: RealData = RealData {
     common_name: "Polaris",
     astronomical_name: "α Ursae Minoris",
     constellation: "Ursa Minor",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 37.5 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const POLARIS: RealData = RealData {
     }),
     right_ascension: RightAscension::new(2, 31, 49.),
     declination: Declination::new(Sgn::Pos, 89, 15, 51.),
-    distance: Distance {
+    distance: Length {
         m: 431. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -40,7 +40,7 @@ const KOCHAB: RealData = RealData {
     common_name: "Kochab",
     astronomical_name: "β Ursae Minoris",
     constellation: "Ursa Minor",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 42.06 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -52,7 +52,7 @@ const KOCHAB: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(14, 50, 42.),
     declination: Declination::new(Sgn::Pos, 74, 9, 20.),
-    distance: Distance {
+    distance: Length {
         m: 126. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -67,14 +67,14 @@ const ZETA_URSAE_MINORIS: RealData = RealData {
     right_ascension: RightAscension::new(15, 44, 4.),
     declination: Declination::new(Sgn::Pos, 77, 47, 40.),
     apparent_magnitude: 4.29,
-    distance: Distance {
+    distance: Length {
         m: 369. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.98,
     mass: Mass {
         kg: 3.4 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 6.15 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8720. },
@@ -93,14 +93,14 @@ const DELTA_URSAE_MINORIS: RealData = RealData {
     right_ascension: RightAscension::new(17, 32, 13.),
     declination: Declination::new(Sgn::Pos, 86, 35, 11.),
     apparent_magnitude: 4.36,
-    distance: Distance {
+    distance: Length {
         m: 172. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.62,
     mass: Mass {
         kg: 2.35 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.8 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 9911. },
@@ -119,14 +119,14 @@ const ETA_URSAE_MINORIS: RealData = RealData {
     right_ascension: RightAscension::new(16, 17, 30.),
     declination: Declination::new(Sgn::Pos, 75, 45, 19.),
     apparent_magnitude: 4.95,
-    distance: Distance {
+    distance: Length {
         m: 97.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.61,
     mass: Mass {
         kg: 1.35 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.0 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6858. },
@@ -145,14 +145,14 @@ const PHERKAD: RealData = RealData {
     right_ascension: RightAscension::new(15, 20, 44.),
     declination: Declination::new(Sgn::Pos, 71, 50, 2.),
     apparent_magnitude: 3.05,
-    distance: Distance {
+    distance: Length {
         m: 487. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.84,
     mass: Mass {
         kg: 9. * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 15. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8280. },
@@ -171,7 +171,7 @@ const EPSILON_URSAE_MINORIS: RealData = RealData {
     right_ascension: RightAscension::new(16, 45, 58.),
     declination: Declination::new(Sgn::Pos, 82, 2, 14.),
     apparent_magnitude: 4.19,
-    distance: Distance {
+    distance: Length {
         m: 300. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.922,

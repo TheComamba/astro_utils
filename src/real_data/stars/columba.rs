@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const PHACT: RealData = RealData {
     right_ascension: RightAscension::new(5, 39, 39.),
     declination: Declination::new(Sgn::Neg, 34, 4, 27.),
     apparent_magnitude: 2.645,
-    distance: Distance {
+    distance: Length {
         m: 261. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.87,
     mass: Mass {
         kg: 4.5 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 5.8 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 12_963. },
@@ -43,14 +43,14 @@ const WAZN: RealData = RealData {
     right_ascension: RightAscension::new(5, 50, 58.),
     declination: Declination::new(Sgn::Neg, 35, 46, 6.),
     apparent_magnitude: 3.105,
-    distance: Distance {
+    distance: Length {
         m: 87.41 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.01,
     mass: Mass {
         kg: 1.1 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 11.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4545. },
@@ -69,7 +69,7 @@ const DELTA_COLUMBAE: RealData = RealData {
     right_ascension: RightAscension::new(6, 22, 7.),
     declination: Declination::new(Sgn::Neg, 33, 26, 11.),
     apparent_magnitude: 3.85,
-    distance: Distance {
+    distance: Length {
         m: 234. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.32,
@@ -91,14 +91,14 @@ const EPSILON_COLUMBAE: RealData = RealData {
     right_ascension: RightAscension::new(5, 31, 13.),
     declination: Declination::new(Sgn::Neg, 35, 28, 14.),
     apparent_magnitude: 3.87,
-    distance: Distance {
+    distance: Length {
         m: 262. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.67,
     mass: Mass {
         kg: 2.47 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 25.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4575. },

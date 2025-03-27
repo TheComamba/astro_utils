@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const PROCYON: RealData = RealData {
     common_name: "Procyon",
     astronomical_name: "α Canis Minoris",
     constellation: "Canis Minor",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.048 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const PROCYON: RealData = RealData {
     temperature: Temperature { K: 6530. },
     right_ascension: RightAscension::new(7, 39, 18.),
     declination: Declination::new(Sgn::Pos, 5, 13, 30.),
-    distance: Distance {
+    distance: Length {
         m: 11. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -43,14 +43,14 @@ const GOMEISA: RealData = RealData {
     right_ascension: RightAscension::new(7, 27, 9.),
     declination: Declination::new(Sgn::Pos, 8, 17, 22.),
     apparent_magnitude: 2.84,
-    distance: Distance {
+    distance: Length {
         m: 160. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.59,
     mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 11_772. },
@@ -69,14 +69,14 @@ const GAMMA_CANIS_MINORIS: RealData = RealData {
     right_ascension: RightAscension::new(7, 28, 10.),
     declination: Declination::new(Sgn::Pos, 8, 55, 32.),
     apparent_magnitude: 4.33,
-    distance: Distance {
+    distance: Length {
         m: 320. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.5,
     mass: Mass {
         kg: 1.88 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 36.8 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4036. },

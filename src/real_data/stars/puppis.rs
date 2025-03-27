@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const NAOS: RealData = RealData {
     common_name: "Naos",
     astronomical_name: "ζ Puppis",
     constellation: "Puppis",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 20. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const NAOS: RealData = RealData {
     }),
     right_ascension: RightAscension::new(8, 3, 35.),
     declination: Declination::new(Sgn::Neg, 40, 0, 12.),
-    distance: Distance {
+    distance: Length {
         m: 1399. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -40,7 +40,7 @@ const AHADI: RealData = RealData {
     common_name: "Ahadi",
     astronomical_name: "π Puppis",
     constellation: "Puppis",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 235. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const AHADI: RealData = RealData {
     temperature: Temperature { K: 4000. },
     right_ascension: RightAscension::new(7, 17, 9.),
     declination: Declination::new(Sgn::Neg, 37, 5, 51.),
-    distance: Distance {
+    distance: Length {
         m: 1094. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -69,14 +69,14 @@ const RHO_PUPPIS: RealData = RealData {
     right_ascension: RightAscension::new(8, 7, 33.),
     declination: Declination::new(Sgn::Neg, 24, 18, 16.),
     apparent_magnitude: 2.78,
-    distance: Distance {
+    distance: Length {
         m: 63.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.41,
     mass: Mass {
         kg: 1.85 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.41 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6920. },
@@ -95,14 +95,14 @@ const TAU_PUPPIS: RealData = RealData {
     right_ascension: RightAscension::new(6, 49, 56.),
     declination: Declination::new(Sgn::Neg, 50, 36, 52.),
     apparent_magnitude: 2.95,
-    distance: Distance {
+    distance: Length {
         m: 174. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.80,
     mass: Mass {
         kg: 3.19 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 27. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4489. },
@@ -121,14 +121,14 @@ const NU_PUPPIS: RealData = RealData {
     right_ascension: RightAscension::new(6, 37, 46.),
     declination: Declination::new(Sgn::Neg, 43, 11, 45.),
     apparent_magnitude: 3.173,
-    distance: Distance {
+    distance: Length {
         m: 370. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -2.11,
     mass: Mass {
         kg: 5.2 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 12_120. },

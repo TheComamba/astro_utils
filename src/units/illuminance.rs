@@ -1,5 +1,4 @@
 use crate::astro_display::AstroDisplay;
-use simple_si_units::electromagnetic::Illuminance;
 
 pub const IRRADIANCE_ZERO: Illuminance<f64> = Illuminance { lux: 0. };
 pub const APARENT_VISIBLE_MAGNITUDE_ZERO: Illuminance<f64> = Illuminance { lux: 2.6e-6 };
@@ -27,12 +26,13 @@ impl AstroDisplay for Illuminance<f64> {
 
 #[cfg(test)]
 mod tests {
+    use uom::si::f64::Length;
+
     use super::*;
     use crate::{
         tests::{eq, eq_within},
         units::luminous_intensity::{luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY},
     };
-    use simple_si_units::base::Distance;
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
 
@@ -61,7 +61,7 @@ mod tests {
     #[test]
     fn test_sunlight() {
         let luminous_intensity = SOLAR_LUMINOUS_INTENSITY;
-        let distance = Distance::from_au(1.);
+        let distance = Length::from_au(1.);
         let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
         let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
         let expected_app_mag = -26.74;
@@ -84,7 +84,7 @@ mod tests {
     #[test]
     fn test_sirius() {
         let luminous_intensity = 22. * SOLAR_LUMINOUS_INTENSITY;
-        let distance = Distance::from_lyr(8.6);
+        let distance = Length::from_lyr(8.6);
         let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
         let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
         let expected_app_mag = -1.46;

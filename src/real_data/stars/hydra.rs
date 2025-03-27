@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ALPHARD: RealData = RealData {
     common_name: "Alphard",
     astronomical_name: "α Hydrae",
     constellation: "Hydra",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 50.5 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -31,7 +31,7 @@ const ALPHARD: RealData = RealData {
     },
     right_ascension: RightAscension::new(9, 27, 35.),
     declination: Declination::new(Sgn::Neg, 8, 39, 30.),
-    distance: Distance {
+    distance: Length {
         m: 177. * LIGHT_YEAR.m,
     },
 };
@@ -43,14 +43,14 @@ const GAMMA_HYDRAE: RealData = RealData {
     right_ascension: RightAscension::new(13, 18, 55.),
     declination: Declination::new(Sgn::Neg, 23, 10, 17.),
     apparent_magnitude: 2.993,
-    distance: Distance {
+    distance: Length {
         m: 133.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.15,
     mass: Mass {
         kg: 2.94 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 16. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5087. },
@@ -69,14 +69,14 @@ const ZETA_HYDRAE: RealData = RealData {
     right_ascension: RightAscension::new(8, 55, 24.),
     declination: Declination::new(Sgn::Pos, 5, 56, 44.),
     apparent_magnitude: 3.1,
-    distance: Distance {
+    distance: Length {
         m: 167. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.24,
     mass: Mass {
         kg: 4.2 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 17.9 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4925. },
@@ -95,14 +95,14 @@ const NU_HYDRAE: RealData = RealData {
     right_ascension: RightAscension::new(10, 49, 37.),
     declination: Declination::new(Sgn::Neg, 16, 11, 37.),
     apparent_magnitude: 3.115,
-    distance: Distance {
+    distance: Length {
         m: 137.1 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.11,
     mass: Mass {
         kg: 2.0 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 21. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4335. },

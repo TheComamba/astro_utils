@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const RASALHAGUE: RealData = RealData {
     common_name: "Rasalhague",
     astronomical_name: "α Ophiuchi",
     constellation: "Ophiuchus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.6 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -28,7 +28,7 @@ const RASALHAGUE: RealData = RealData {
     }),
     right_ascension: RightAscension::new(17, 34, 56.),
     declination: Declination::new(Sgn::Pos, 12, 33, 37.),
-    distance: Distance {
+    distance: Length {
         m: 47. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -50,7 +50,7 @@ const SABIK: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(17, 10, 23.),
     declination: Declination::new(Sgn::Neg, 15, 43, 30.),
-    distance: Distance {
+    distance: Length {
         m: 84. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -62,7 +62,7 @@ const HAN: RealData = RealData {
     common_name: "Han",
     astronomical_name: "ζ Ophiuchi",
     constellation: "Ophiuchus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 8.5 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -73,7 +73,7 @@ const HAN: RealData = RealData {
     temperature: Temperature { K: 34_300. },
     right_ascension: RightAscension::new(16, 37, 10.),
     declination: Declination::new(Sgn::Neg, 10, 34, 2.),
-    distance: Distance {
+    distance: Length {
         m: 458. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -88,7 +88,7 @@ const YED_PRIOR: RealData = RealData {
     common_name: "Yed Prior",
     astronomical_name: "δ Ophiuchi",
     constellation: "Ophiuchus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 59. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -100,7 +100,7 @@ const YED_PRIOR: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(16, 14, 21.),
     declination: Declination::new(Sgn::Neg, 3, 41, 40.),
-    distance: Distance {
+    distance: Length {
         m: 171. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -112,7 +112,7 @@ const CEBALRAI: RealData = RealData {
     common_name: "Cebalrai",
     astronomical_name: "β Ophiuchi",
     constellation: "Ophiuchus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 12.42 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -123,7 +123,7 @@ const CEBALRAI: RealData = RealData {
     temperature: Temperature { K: 4467. },
     right_ascension: RightAscension::new(17, 43, 28.),
     declination: Declination::new(Sgn::Pos, 4, 34, 2.),
-    distance: Distance {
+    distance: Length {
         m: 81.8 * LIGHT_YEAR.m,
     },
     age: Some(Time {

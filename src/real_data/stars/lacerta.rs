@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const ALPHA_LACERTAE: RealData = RealData {
     right_ascension: RightAscension::new(22, 31, 18.),
     declination: Declination::new(Sgn::Pos, 50, 16, 57.),
     apparent_magnitude: 3.76,
-    distance: Distance {
+    distance: Length {
         m: 102.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.27,
     mass: Mass {
         kg: 2.194 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.1432 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 9050. },
@@ -43,14 +43,14 @@ const BETA_LACERTAE: RealData = RealData {
     right_ascension: RightAscension::new(22, 23, 34.),
     declination: Declination::new(Sgn::Pos, 52, 13, 45.),
     apparent_magnitude: 4.43,
-    distance: Distance {
+    distance: Length {
         m: 170. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.67,
     mass: Mass {
         kg: 0.97 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 10.96 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4803. },
@@ -69,14 +69,14 @@ const FIVE_LACERTAE: RealData = RealData {
     right_ascension: RightAscension::new(22, 29, 32.),
     declination: Declination::new(Sgn::Pos, 47, 42, 25.),
     apparent_magnitude: 4.34,
-    distance: Distance {
+    distance: Length {
         m: 1164. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.42,
     mass: Mass {
         kg: 5.11 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 319.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 3713. },

@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const TARF: RealData = RealData {
     common_name: "Tarf",
     astronomical_name: "β Cancri",
     constellation: "Cancer",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 47.2 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const TARF: RealData = RealData {
     temperature: Temperature { K: 4092. },
     right_ascension: RightAscension::new(8, 16, 31.),
     declination: Declination::new(Sgn::Pos, 9, 11, 8.),
-    distance: Distance {
+    distance: Length {
         m: 290. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const ASELLUS_AUSTRALIS: RealData = RealData {
     common_name: "Asellus Australis",
     astronomical_name: "δ Cancri",
     constellation: "Cancer",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 11. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const ASELLUS_AUSTRALIS: RealData = RealData {
     temperature: Temperature { K: 4637. },
     right_ascension: RightAscension::new(8, 44, 41.),
     declination: Declination::new(Sgn::Pos, 18, 9, 16.),
-    distance: Distance {
+    distance: Length {
         m: 131. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -66,7 +66,7 @@ const IOTA_CANCRI: RealData = RealData {
     common_name: "",
     astronomical_name: "ι Cancri",
     constellation: "Cancer",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 21. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -77,7 +77,7 @@ const IOTA_CANCRI: RealData = RealData {
     temperature: Temperature { K: 4954. },
     right_ascension: RightAscension::new(8, 46, 42.),
     declination: Declination::new(Sgn::Pos, 28, 45, 36.),
-    distance: Distance {
+    distance: Length {
         m: 330. * LIGHT_YEAR.m,
     },
     age: None,

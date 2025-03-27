@@ -5,7 +5,7 @@ use super::{
 use crate::{color::srgb::sRGBColor, units::luminous_intensity::luminous_intensity_to_illuminance};
 use astro_coords::{cartesian::Cartesian, ecliptic::Ecliptic};
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
+use uom::si::f64::{Length, Mass, ThermodynamicTemperature, Time};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
@@ -41,11 +41,11 @@ impl StarData {
         &self.constellation
     }
 
-    pub const fn get_mass_at_epoch(&self) -> Option<Mass<f64>> {
+    pub const fn get_mass_at_epoch(&self) -> Option<Mass> {
         self.params.mass
     }
 
-    pub fn get_mass(&self, time: Time<f64>) -> Option<Mass<f64>> {
+    pub fn get_mass(&self, time: Time) -> Option<Mass> {
         Some(self.evolution.apply_to_mass(self.params.mass?, time))
     }
 
@@ -53,7 +53,7 @@ impl StarData {
         self.params.radius
     }
 
-    pub fn get_radius(&self, time: Time<f64>) -> Option<Length> {
+    pub fn get_radius(&self, time: Time) -> Option<Length> {
         Some(self.evolution.apply_to_radius(self.params.radius?, time))
     }
 
@@ -61,25 +61,25 @@ impl StarData {
         self.params.luminous_intensity
     }
 
-    pub fn get_luminous_intensity(&self, time: Time<f64>) -> Luminosity<f64> {
+    pub fn get_luminous_intensity(&self, time: Time) -> Luminosity<f64> {
         self.evolution
             .apply_to_luminous_intensity(self.params.luminous_intensity, time)
     }
 
-    pub const fn get_temperature_at_epoch(&self) -> Temperature<f64> {
+    pub const fn get_temperature_at_epoch(&self) -> ThermodynamicTemperature {
         self.params.temperature
     }
 
-    pub fn get_temperature(&self, time: Time<f64>) -> Temperature<f64> {
+    pub fn get_temperature(&self, time: Time) -> ThermodynamicTemperature {
         self.evolution
             .apply_to_temperature(self.params.temperature, time)
     }
 
-    pub const fn get_age_at_epoch(&self) -> Option<Time<f64>> {
+    pub const fn get_age_at_epoch(&self) -> Option<Time> {
         self.evolution.age
     }
 
-    pub fn get_age(&self, time: Time<f64>) -> Option<Time<f64>> {
+    pub fn get_age(&self, time: Time) -> Option<Time> {
         self.evolution.age.map(|age| age + time)
     }
 
@@ -87,7 +87,7 @@ impl StarData {
         self.pos.length()
     }
 
-    pub fn get_distance(&self, time: Time<f64>) -> Length {
+    pub fn get_distance(&self, time: Time) -> Length {
         self.get_pos(time).length()
     }
 
@@ -95,15 +95,15 @@ impl StarData {
         &self.pos
     }
 
-    pub fn get_pos(&self, _time: Time<f64>) -> Cartesian {
+    pub fn get_pos(&self, _time: Time) -> Cartesian {
         self.pos.clone()
     }
 
-    pub fn get_time_until_death(&self, time_since_epoch: Time<f64>) -> Option<Time<f64>> {
+    pub fn get_time_until_death(&self, time_since_epoch: Time) -> Option<Time> {
         self.evolution.time_until_death(time_since_epoch)
     }
 
-    pub fn get_lifetime(&self) -> Time<f64> {
+    pub fn get_lifetime(&self) -> Time {
         self.evolution.lifetime
     }
 
@@ -119,7 +119,7 @@ impl StarData {
         self.constellation = constellation;
     }
 
-    pub fn set_mass_at_epoch(&mut self, mass: Option<Mass<f64>>) {
+    pub fn set_mass_at_epoch(&mut self, mass: Option<Mass>) {
         self.params.mass = mass;
     }
 
@@ -131,11 +131,11 @@ impl StarData {
         self.params.luminous_intensity = luminous_intensity;
     }
 
-    pub fn set_temperature_at_epoch(&mut self, temperature: Temperature<f64>) {
+    pub fn set_temperature_at_epoch(&mut self, temperature: ThermodynamicTemperature) {
         self.params.temperature = temperature;
     }
 
-    pub fn set_age_at_epoch(&mut self, age: Option<Time<f64>>) {
+    pub fn set_age_at_epoch(&mut self, age: Option<Time>) {
         self.evolution.age = age;
     }
 
@@ -155,11 +155,11 @@ impl StarData {
         &self.evolution
     }
 
-    pub fn has_changed(&self, then: Time<f64>, now: Time<f64>) -> bool {
+    pub fn has_changed(&self, then: Time, now: Time) -> bool {
         self.evolution.has_changed(then, now)
     }
 
-    pub fn to_star_appearance(&self, time_since_epoch: Time<f64>) -> StarAppearance {
+    pub fn to_star_appearance(&self, time_since_epoch: Time) -> StarAppearance {
         let luminous_intensity = self.get_luminous_intensity(time_since_epoch);
         let illuminance = luminous_intensity_to_illuminance(
             &luminous_intensity,
@@ -361,7 +361,7 @@ mod tests {
                     Some(star.get_distance_at_epoch().m),
                     Some(star.get_distance(TIME_ZERO).m)
                 ),
-                "Star {}\nDistance {:?}\nDistance {:?}",
+                "Star {}\nLength {:?}\nLength {:?}",
                 star.get_name(),
                 star.get_distance_at_epoch(),
                 star.get_distance(TIME_ZERO)

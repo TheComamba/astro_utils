@@ -2,8 +2,8 @@ use astro_coords::{
     earth_equatorial::EarthEquatorial,
     ra_and_dec::{Declination, RightAscension},
 };
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
 use std::fmt::Display;
+use uom::si::f64::{Length, Mass, ThermodynamicTemperature, Time};
 
 use crate::{
     color::srgb::sRGBColor,
@@ -22,13 +22,13 @@ pub struct RealData {
     pub common_name: &'static str,
     pub astronomical_name: &'static str,
     pub constellation: &'static str,
-    pub mass: Mass<f64>,
+    pub mass: Mass,
     pub radius: Option<Length>,
     pub absolute_magnitude: f64,
     pub apparent_magnitude: f64,
-    pub temperature: Temperature<f64>,
-    pub age: Option<Time<f64>>,
-    pub lifetime: Time<f64>,
+    pub temperature: ThermodynamicTemperature,
+    pub age: Option<Time>,
+    pub lifetime: Time,
     pub right_ascension: RightAscension,
     pub declination: Declination,
     pub distance: Length,
@@ -102,7 +102,8 @@ impl RealData {
 
 #[cfg(test)]
 mod tests {
-    use simple_si_units::base::Mass;
+
+    use uom::si::f64::Mass;
 
     use crate::{
         real_data::stars::all::get_many_stars,

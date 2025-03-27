@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ARNEB: RealData = RealData {
     common_name: "Arneb",
     astronomical_name: "α Leporis",
     constellation: "Lepus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 75. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -31,7 +31,7 @@ const ARNEB: RealData = RealData {
     },
     right_ascension: RightAscension::new(5, 32, 44.),
     declination: Declination::new(Sgn::Neg, 17, 49, 20.),
-    distance: Distance {
+    distance: Length {
         m: 1283. * LIGHT_YEAR.m,
     },
 };
@@ -43,14 +43,14 @@ const BETA_LEPORIS: RealData = RealData {
     right_ascension: RightAscension::new(5, 28, 15.),
     declination: Declination::new(Sgn::Neg, 20, 45, 34.),
     apparent_magnitude: 2.84,
-    distance: Distance {
+    distance: Length {
         m: 160. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.65,
     mass: Mass {
         kg: 3.5 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 16. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5450. },
@@ -69,14 +69,14 @@ const EPSILON_LEPORIS: RealData = RealData {
     right_ascension: RightAscension::new(5, 5, 28.),
     declination: Declination::new(Sgn::Neg, 22, 22, 16.),
     apparent_magnitude: 3.166,
-    distance: Distance {
+    distance: Length {
         m: 209. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.02,
     mass: Mass {
         kg: 1.7 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 40.1 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4131. },

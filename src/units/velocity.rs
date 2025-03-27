@@ -1,6 +1,5 @@
 use super::DISPLAY_THRESHOLD;
 use crate::astro_display::AstroDisplay;
-use simple_si_units::mechanical::Velocity;
 
 pub enum VelocityUnit {
     MetresPerSecond,
@@ -32,7 +31,6 @@ impl AstroDisplay for Velocity<f64> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use simple_si_units::mechanical::Velocity;
 
     #[test]
     fn test_velocity_display() {

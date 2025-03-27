@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const ALPHA_SEXTANTIS: RealData = RealData {
     right_ascension: RightAscension::new(10, 7, 56.),
     declination: Declination::new(Sgn::Neg, 0, 22, 18.),
     apparent_magnitude: 4.49,
-    distance: Distance {
+    distance: Length {
         m: 280. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.29,
     mass: Mass {
         kg: 2.57 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.07 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 9984. },
@@ -43,7 +43,7 @@ const GAMMA_SEXTANTIS: RealData = RealData {
     right_ascension: RightAscension::new(9, 52, 30.),
     declination: Declination::new(Sgn::Neg, 8, 6, 18.),
     apparent_magnitude: 5.05,
-    distance: Distance {
+    distance: Length {
         m: 280. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.43,
@@ -67,14 +67,14 @@ const BETA_SEXTANTIS: RealData = RealData {
     right_ascension: RightAscension::new(10, 30, 17.),
     declination: Declination::new(Sgn::Neg, 0, 38, 13.),
     apparent_magnitude: 5.07,
-    distance: Distance {
+    distance: Length {
         m: 364. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.38,
     mass: Mass {
         kg: 5.1 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.2 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 14_570. },

@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ALNAIR: RealData = RealData {
     common_name: "Alnair",
     astronomical_name: "α Gruis",
     constellation: "Grus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.4 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -31,7 +31,7 @@ const ALNAIR: RealData = RealData {
     },
     right_ascension: RightAscension::new(22, 8, 14.),
     declination: Declination::new(Sgn::Neg, 46, 57, 40.),
-    distance: Distance {
+    distance: Length {
         m: 101. * LIGHT_YEAR.m,
     },
 };
@@ -40,7 +40,7 @@ const TIAKI: RealData = RealData {
     common_name: "Tiaki",
     astronomical_name: "β Gruis",
     constellation: "Grus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 180. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -55,7 +55,7 @@ const TIAKI: RealData = RealData {
     },
     right_ascension: RightAscension::new(22, 42, 40.),
     declination: Declination::new(Sgn::Neg, 46, 53, 4.),
-    distance: Distance {
+    distance: Length {
         m: 170. * LIGHT_YEAR.m,
     },
 };
@@ -67,14 +67,14 @@ const ALDHANAB: RealData = RealData {
     right_ascension: RightAscension::new(21, 53, 56.),
     declination: Declination::new(Sgn::Neg, 37, 21, 53.),
     apparent_magnitude: 3.003,
-    distance: Distance {
+    distance: Length {
         m: 211. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.05,
     mass: Mass {
         kg: 3.06 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 12_520. },

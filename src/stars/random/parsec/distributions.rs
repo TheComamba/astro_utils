@@ -86,7 +86,6 @@ fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
 #[cfg(test)]
 mod tests {
     use rayon::iter::{IntoParallelIterator, ParallelIterator};
-    use simple_si_units::base::Distance;
 
     use crate::stars::random::random_stars::{number_in_sphere, STARS_PER_LY_CUBED};
 
@@ -160,7 +159,7 @@ mod tests {
     #[test]
     fn there_are_less_than_10_supermassive_stars_within_1000_lyr() {
         // The closest star above 50 Sun masses ist 3000 lyr away.
-        let max_distance = Distance::from_lyr(1000.);
+        let max_distance = Length::from_lyr(1000.);
         let num_stars = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
         println!("Number of stars: {}", num_stars);
         let distribution = get_mass_distribution().unwrap();

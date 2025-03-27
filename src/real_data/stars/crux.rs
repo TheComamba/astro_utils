@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ACRUX: RealData = RealData {
     common_name: "Acrux",
     astronomical_name: "α Crucis",
     constellation: "Crux",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 7.8 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -31,7 +31,7 @@ const ACRUX: RealData = RealData {
     },
     right_ascension: RightAscension::new(12, 26, 36.),
     declination: Declination::new(Sgn::Neg, 63, 5, 57.),
-    distance: Distance {
+    distance: Length {
         m: 321. * LIGHT_YEAR.m,
     },
 };
@@ -40,7 +40,7 @@ const MIMOSA: RealData = RealData {
     common_name: "Mimosa",
     astronomical_name: "β Crucis",
     constellation: "Crux",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 8.4 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -54,7 +54,7 @@ const MIMOSA: RealData = RealData {
     }),
     right_ascension: RightAscension::new(12, 47, 43.),
     declination: Declination::new(Sgn::Neg, 59, 41, 20.),
-    distance: Distance {
+    distance: Length {
         m: 352. * LIGHT_YEAR.m,
     },
     lifetime: Time {
@@ -66,7 +66,7 @@ const GACRUX: RealData = RealData {
     common_name: "Gacrux",
     astronomical_name: "γ Crucis",
     constellation: "Crux",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 120. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -78,7 +78,7 @@ const GACRUX: RealData = RealData {
     age: None,
     right_ascension: RightAscension::new(12, 31, 10.),
     declination: Declination::new(Sgn::Neg, 57, 6, 48.),
-    distance: Distance {
+    distance: Length {
         m: 88. * LIGHT_YEAR.m,
     },
     lifetime: Time {

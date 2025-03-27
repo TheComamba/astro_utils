@@ -1,5 +1,4 @@
 use crate::astro_display::AstroDisplay;
-use simple_si_units::mechanical::Acceleration;
 
 pub const EARTH_SURFACE_GRAVITY: Acceleration<f64> = Acceleration { mps2: 9.80665 };
 

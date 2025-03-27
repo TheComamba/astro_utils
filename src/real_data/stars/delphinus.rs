@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const SUALOCIN: RealData = RealData {
     right_ascension: RightAscension::new(20, 39, 38.),
     declination: Declination::new(Sgn::Pos, 15, 54, 43.),
     apparent_magnitude: 3.777,
-    distance: Distance {
+    distance: Length {
         m: 254. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.4,
     mass: Mass {
         kg: 3.83 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.92 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 11_643. },
@@ -43,7 +43,7 @@ const ROTANEV: RealData = RealData {
     right_ascension: RightAscension::new(20, 37, 33.),
     declination: Declination::new(Sgn::Pos, 14, 35, 42.),
     apparent_magnitude: 3.64,
-    distance: Distance {
+    distance: Length {
         m: 97.34 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.26,
@@ -67,14 +67,14 @@ const GAMMA_DELPHINI: RealData = RealData {
     right_ascension: RightAscension::new(20, 46, 39.),
     declination: Declination::new(Sgn::Pos, 16, 7, 27.),
     apparent_magnitude: 5.14,
-    distance: Distance {
+    distance: Length {
         m: 114.8 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.24,
     mass: Mass {
         kg: 1.61 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.6 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6295. },
@@ -93,14 +93,14 @@ const DELTA_DELPHINI: RealData = RealData {
     right_ascension: RightAscension::new(20, 43, 28.),
     declination: Declination::new(Sgn::Pos, 15, 4, 28.),
     apparent_magnitude: 4.43,
-    distance: Distance {
+    distance: Length {
         m: 223. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.25,
     mass: Mass {
         kg: 1.78 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.43 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 7440. },
@@ -119,14 +119,14 @@ const ALDULFIN: RealData = RealData {
     right_ascension: RightAscension::new(20, 33, 13.),
     declination: Declination::new(Sgn::Pos, 11, 18, 12.),
     apparent_magnitude: 4.03,
-    distance: Distance {
+    distance: Length {
         m: 358.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.18,
     mass: Mass {
         kg: 6.4 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.6 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 13_614. },

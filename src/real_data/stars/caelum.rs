@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ALPHA_CAELI: RealData = RealData {
     common_name: "",
     astronomical_name: "α Caeli",
     constellation: "Caelum",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const ALPHA_CAELI: RealData = RealData {
     temperature: Temperature { K: 6991. },
     right_ascension: RightAscension::new(4, 40, 34.),
     declination: Declination::new(Sgn::Neg, 41, 51, 50.),
-    distance: Distance {
+    distance: Length {
         m: 65.63 * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const GAMMA1_CAELI: RealData = RealData {
     common_name: "",
     astronomical_name: "γ¹ Caeli",
     constellation: "Caelum",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 14.31 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const GAMMA1_CAELI: RealData = RealData {
     temperature: Temperature { K: 4411. },
     right_ascension: RightAscension::new(5, 4, 24.),
     declination: Declination::new(Sgn::Neg, 35, 28, 59.),
-    distance: Distance {
+    distance: Length {
         m: 185. * LIGHT_YEAR.m,
     },
     age: None,
@@ -64,7 +64,7 @@ const BETA_CAELI: RealData = RealData {
     common_name: "",
     astronomical_name: "β Caeli",
     constellation: "Caelum",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.3 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -75,7 +75,7 @@ const BETA_CAELI: RealData = RealData {
     temperature: Temperature { K: 6763. },
     right_ascension: RightAscension::new(4, 42, 3.),
     declination: Declination::new(Sgn::Neg, 37, 8, 39.),
-    distance: Distance {
+    distance: Length {
         m: 94. * LIGHT_YEAR.m,
     },
     age: Some(Time {

@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const ALPHA_DORADUS: RealData = RealData {
     right_ascension: RightAscension::new(4, 33, 60.),
     declination: Declination::new(Sgn::Neg, 55, 2, 42.),
     apparent_magnitude: 3.27,
-    distance: Distance {
+    distance: Length {
         m: 169. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.357,
     mass: Mass {
         kg: 3.33 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.5 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 11_588. },
@@ -41,14 +41,14 @@ const BETA_DORADUS: RealData = RealData {
     right_ascension: RightAscension::new(5, 33, 38.),
     declination: Declination::new(Sgn::Neg, 62, 29, 23.),
     apparent_magnitude: 3.5,
-    distance: Distance {
+    distance: Length {
         m: 1050. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -3.91,
     mass: Mass {
         kg: 7.7 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 67.8 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5445. },
@@ -67,14 +67,14 @@ const GAMMA_DORADUS: RealData = RealData {
     right_ascension: RightAscension::new(4, 16, 2.),
     declination: Declination::new(Sgn::Neg, 51, 29, 12.),
     apparent_magnitude: 4.25,
-    distance: Distance {
+    distance: Length {
         m: 66.7 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.72,
     mass: Mass {
         kg: 1.56 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.85 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6906. },
@@ -90,7 +90,7 @@ const R_DORADUS: RealData = RealData {
     common_name: "",
     astronomical_name: "R Doradus",
     constellation: "",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 298. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -107,7 +107,7 @@ const R_DORADUS: RealData = RealData {
     },
     right_ascension: RightAscension::new(4, 36, 46.),
     declination: Declination::new(Sgn::Neg, 62, 4, 38.),
-    distance: Distance {
+    distance: Length {
         m: 203.5 * LIGHT_YEAR.m,
     },
 };

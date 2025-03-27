@@ -1,6 +1,7 @@
 use std::f64::consts::PI;
 
 use fraction::Fraction;
+use uom::si::f64::Angle;
 
 use crate::{
     astro_display::AstroDisplay,
@@ -19,11 +20,11 @@ pub struct DerivedPlanetData {
     density: Density<f64>,
     surface_gravity: Acceleration<f64>,
     escape_velocity: Velocity<f64>,
-    orbital_period: Time<f64>,
+    orbital_period: Time,
     orbital_resonance: Option<Fraction>,
-    mean_synodic_day: Time<f64>,
-    axial_tilt: Angle<f64>,
-    black_body_temperature: Temperature<f64>,
+    mean_synodic_day: Time,
+    axial_tilt: Angle,
+    black_body_temperature: ThermodynamicTemperature,
 }
 
 impl DerivedPlanetData {
@@ -87,7 +88,7 @@ impl DerivedPlanetData {
         self.escape_velocity
     }
 
-    pub fn get_orbital_period(&self) -> Time<f64> {
+    pub fn get_orbital_period(&self) -> Time {
         self.orbital_period
     }
 
@@ -95,24 +96,24 @@ impl DerivedPlanetData {
         self.orbital_resonance
     }
 
-    pub fn get_mean_synodic_day(&self) -> Time<f64> {
+    pub fn get_mean_synodic_day(&self) -> Time {
         self.mean_synodic_day
     }
 
-    pub fn get_axial_tilt(&self) -> Angle<f64> {
+    pub fn get_axial_tilt(&self) -> Angle {
         self.axial_tilt
     }
 
-    pub fn get_black_body_temperature(&self) -> Temperature<f64> {
+    pub fn get_black_body_temperature(&self) -> ThermodynamicTemperature {
         self.black_body_temperature
     }
 }
 
-fn surface_gravity(mass: Mass<f64>, radius: Length) -> Acceleration<f64> {
+fn surface_gravity(mass: Mass, radius: Length) -> Acceleration<f64> {
     mass.to_earth_mass() / distance_to_earth_radii(&radius).powi(2) * EARTH_SURFACE_GRAVITY
 }
 
-fn escape_velocity(mass: Mass<f64>, radius: Length) -> Velocity<f64> {
+fn escape_velocity(mass: Mass, radius: Length) -> Velocity<f64> {
     let gravity = surface_gravity(mass, radius);
     Velocity {
         mps: (2. * gravity.mps2 * radius.m).sqrt(),
@@ -128,7 +129,7 @@ impl AstroDisplay for Fraction {
 const RESONANCE_TOLERANCE: f64 = 0.01;
 const RESONANCE_MAX_INT: u8 = 6;
 
-fn orbital_resonance(period1: Time<f64>, period2: Time<f64>) -> Option<Fraction> {
+fn orbital_resonance(period1: Time, period2: Time) -> Option<Fraction> {
     let large = period1.s.max(period2.s);
     let small = period1.s.min(period2.s);
     let ratio = small / large;
@@ -143,7 +144,7 @@ fn orbital_resonance(period1: Time<f64>, period2: Time<f64>) -> Option<Fraction>
     None
 }
 
-fn mean_synodic_day(siderial_day: Time<f64>, orbital_period: Time<f64>) -> Time<f64> {
+fn mean_synodic_day(siderial_day: Time, orbital_period: Time) -> Time {
     1. / (1. / siderial_day - 1. / orbital_period)
 }
 
@@ -153,7 +154,7 @@ fn mean_synodic_day(siderial_day: Time<f64>, orbital_period: Time<f64>) -> Time<
 fn black_body_temperature(
     central_body_luminous_intensity: Luminosity<f64>,
     data: &PlanetData,
-) -> Temperature<f64> {
+) -> ThermodynamicTemperature {
     const STEFAN_BOLTZMANN: f64 = 5.67e-8;
 
     let luminosity = luminous_intensity_to_luminosity(&central_body_luminous_intensity);
@@ -166,7 +167,7 @@ fn black_body_temperature(
     }
 }
 
-fn axis_tilt(data: &PlanetData) -> Angle<f64> {
+fn axis_tilt(data: &PlanetData) -> Angle {
     data.orbital_parameters
         .normal()
         .angle_to(&data.params.rotation_axis)

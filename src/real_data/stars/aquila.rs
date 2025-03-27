@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ALTAIR: RealData = RealData {
     common_name: "Altair",
     astronomical_name: "α Aquilae",
     constellation: "Aquila",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.63 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const ALTAIR: RealData = RealData {
     temperature: Temperature { K: 7670. },
     right_ascension: RightAscension::new(19, 50, 47.),
     declination: Declination::new(Sgn::Pos, 8, 52, 6.),
-    distance: Distance {
+    distance: Length {
         m: 17. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const TARAZED: RealData = RealData {
     common_name: "Tarazed",
     astronomical_name: "γ Aquilae",
     constellation: "Aquila",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 91.82 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const TARAZED: RealData = RealData {
     temperature: Temperature { K: 4098. },
     right_ascension: RightAscension::new(19, 46, 16.),
     declination: Declination::new(Sgn::Pos, 10, 36, 48.),
-    distance: Distance {
+    distance: Length {
         m: 460.5 * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -69,14 +69,14 @@ const OKAB: RealData = RealData {
     right_ascension: RightAscension::new(19, 5, 25.),
     declination: Declination::new(Sgn::Pos, 13, 51, 49.),
     apparent_magnitude: 2.983,
-    distance: Distance {
+    distance: Length {
         m: 83.0 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.96,
     mass: Mass {
         kg: 2.37 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.27 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 9620. },
@@ -95,14 +95,14 @@ const THETA_AQUILAE: RealData = RealData {
     right_ascension: RightAscension::new(20, 11, 18.),
     declination: Declination::new(Sgn::Neg, 0, 49, 17.),
     apparent_magnitude: 3.26,
-    distance: Distance {
+    distance: Length {
         m: 286. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.39,
     mass: Mass {
         kg: 3.564 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.76 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 10_300. },
@@ -121,14 +121,14 @@ const DELTA_AQUILAE: RealData = RealData {
     right_ascension: RightAscension::new(19, 25, 30.),
     declination: Declination::new(Sgn::Pos, 3, 6, 53.),
     apparent_magnitude: 3.365,
-    distance: Distance {
+    distance: Length {
         m: 50.6 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 2.46,
     mass: Mass {
         kg: 1.65 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.04 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 7016. },
@@ -145,14 +145,14 @@ const LAMBDA_AQUILAE: RealData = RealData {
     right_ascension: RightAscension::new(19, 6, 15.),
     declination: Declination::new(Sgn::Neg, 4, 52, 57.),
     apparent_magnitude: 3.43,
-    distance: Distance {
+    distance: Length {
         m: 125. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.54,
     mass: Mass {
         kg: 3.1 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.9 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 11_780. },

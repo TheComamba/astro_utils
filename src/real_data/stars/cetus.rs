@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const DIPHDA: RealData = RealData {
     common_name: "Diphda",
     astronomical_name: "β Ceti",
     constellation: "Cetus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 16.78 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const DIPHDA: RealData = RealData {
     temperature: Temperature { K: 4797. },
     right_ascension: RightAscension::new(0, 43, 35.),
     declination: Declination::new(Sgn::Neg, 17, 59, 12.),
-    distance: Distance {
+    distance: Length {
         m: 96. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const MENKAR: RealData = RealData {
     common_name: "Menkar",
     astronomical_name: "α Ceti",
     constellation: "Cetus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 89. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const MENKAR: RealData = RealData {
     temperature: Temperature { K: 3795. },
     right_ascension: RightAscension::new(3, 2, 17.),
     declination: Declination::new(Sgn::Pos, 4, 5, 23.),
-    distance: Distance {
+    distance: Length {
         m: 220. * LIGHT_YEAR.m,
     },
     age: None,
@@ -67,14 +67,14 @@ const MIRA: RealData = RealData {
     right_ascension: RightAscension::new(2, 19, 21.),
     declination: Declination::new(Sgn::Neg, 2, 58, 39.),
     apparent_magnitude: 6.47,
-    distance: Distance {
+    distance: Length {
         m: 418.5 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.928,
     mass: Mass {
         kg: 1.18 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 350. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 3000. },
@@ -93,14 +93,14 @@ const BATEN_KAITOS: RealData = RealData {
     right_ascension: RightAscension::new(1, 51, 28.),
     declination: Declination::new(Sgn::Neg, 10, 20, 6.),
     apparent_magnitude: 3.742,
-    distance: Distance {
+    distance: Length {
         m: 235. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.54,
     mass: Mass {
         kg: 2.34 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 25. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4581. },
@@ -119,14 +119,14 @@ const KAFFALJIDHMA: RealData = RealData {
     right_ascension: RightAscension::new(2, 43, 18.),
     declination: Declination::new(Sgn::Pos, 3, 14, 9.),
     apparent_magnitude: 3.47,
-    distance: Distance {
+    distance: Length {
         m: 80. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 1.53,
     mass: Mass {
         kg: 1.88 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.9 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8551. },
@@ -145,14 +145,14 @@ const IOTA_CETI: RealData = RealData {
     right_ascension: RightAscension::new(0, 19, 26.),
     declination: Declination::new(Sgn::Neg, 8, 49, 26.),
     apparent_magnitude: 3.562,
-    distance: Distance {
+    distance: Length {
         m: 275. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -1.2,
     mass: Mass {
         kg: 2.78 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 34. * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4446. },
@@ -171,14 +171,14 @@ const DENEB_ALGENUBI: RealData = RealData {
     right_ascension: RightAscension::new(1, 8, 35.),
     declination: Declination::new(Sgn::Neg, 10, 10, 56.),
     apparent_magnitude: 3.446,
-    distance: Distance {
+    distance: Length {
         m: 123.9 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.68,
     mass: Mass {
         kg: 1.84 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 15.10 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4543. },
@@ -197,14 +197,14 @@ const TAU_CETI: RealData = RealData {
     right_ascension: RightAscension::new(1, 44, 4.),
     declination: Declination::new(Sgn::Neg, 15, 56, 15.),
     apparent_magnitude: 3.50,
-    distance: Distance {
+    distance: Length {
         m: 11.912 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 5.69,
     mass: Mass {
         kg: 0.783 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 0.793 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 5320. },

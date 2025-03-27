@@ -1,5 +1,6 @@
 use astro_coords::{cartesian::Cartesian, direction::Direction};
 use serde::{Deserialize, Serialize};
+use uom::si::f64::{Length, Time};
 
 use crate::{
     color::srgb::sRGBColor,
@@ -40,7 +41,7 @@ impl PlanetData {
         &self.name
     }
 
-    pub fn get_mass(&self) -> Mass<f64> {
+    pub fn get_mass(&self) -> Mass {
         self.params.mass
     }
 
@@ -60,7 +61,7 @@ impl PlanetData {
         &self.orbital_parameters
     }
 
-    pub fn get_sideral_rotation_period(&self) -> Time<f64> {
+    pub fn get_sideral_rotation_period(&self) -> Time {
         self.params.sideral_rotation_period
     }
 
@@ -72,7 +73,7 @@ impl PlanetData {
         self.name = name;
     }
 
-    pub fn set_mass(&mut self, mass: Mass<f64>) {
+    pub fn set_mass(&mut self, mass: Mass) {
         self.params.mass = mass;
     }
 
@@ -96,19 +97,19 @@ impl PlanetData {
         self.orbital_parameters.eccentricity = eccentricity;
     }
 
-    pub fn set_inclination(&mut self, inclination: Angle<f64>) {
+    pub fn set_inclination(&mut self, inclination: Angle) {
         self.orbital_parameters.inclination = inclination;
     }
 
-    pub fn set_longitude_of_ascending_node(&mut self, longitude_of_ascending_node: Angle<f64>) {
+    pub fn set_longitude_of_ascending_node(&mut self, longitude_of_ascending_node: Angle) {
         self.orbital_parameters.longitude_of_ascending_node = longitude_of_ascending_node;
     }
 
-    pub fn set_argument_of_periapsis(&mut self, argument_of_periapsis: Angle<f64>) {
+    pub fn set_argument_of_periapsis(&mut self, argument_of_periapsis: Angle) {
         self.orbital_parameters.argument_of_periapsis = argument_of_periapsis;
     }
 
-    pub fn set_sideral_rotation_period(&mut self, sideral_rotation_period: Time<f64>) {
+    pub fn set_sideral_rotation_period(&mut self, sideral_rotation_period: Time) {
         self.params.sideral_rotation_period = sideral_rotation_period;
     }
 
@@ -121,7 +122,7 @@ impl PlanetData {
         central_body: &StarData,
         planet_pos: &Cartesian,
         observer_position: &Cartesian,
-        time_since_epoch: Time<f64>,
+        time_since_epoch: Time,
     ) -> Result<StarAppearance, AstroUtilError> {
         let central_body_luminous_intensity = central_body.get_luminous_intensity_at_epoch();
         let brightness = planet_brightness(

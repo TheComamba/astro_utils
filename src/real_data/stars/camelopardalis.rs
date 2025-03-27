@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const BETA_CAMELOPARDALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "β Camelopardalis",
     constellation: "Camelopardalis",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 58. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const BETA_CAMELOPARDALIS: RealData = RealData {
     temperature: Temperature { K: 5300. },
     right_ascension: RightAscension::new(5, 3, 25.),
     declination: Declination::new(Sgn::Pos, 60, 26, 32.),
-    distance: Distance {
+    distance: Length {
         m: 870. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "CS Camelopardalis",
     constellation: "Camelopardalis",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 85.7 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const CS_CAMELOPARDALIS: RealData = RealData {
     temperature: Temperature { K: 10_800. },
     right_ascension: RightAscension::new(3, 29, 4.),
     declination: Declination::new(Sgn::Pos, 59, 56, 25.),
-    distance: Distance {
+    distance: Length {
         m: 4289. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -66,7 +66,7 @@ const ALPHA_CAMELOPARDALIS: RealData = RealData {
     common_name: "",
     astronomical_name: "α Camelopardalis",
     constellation: "Camelopardalis",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 32.5 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -77,7 +77,7 @@ const ALPHA_CAMELOPARDALIS: RealData = RealData {
     temperature: Temperature { K: 29_000. },
     right_ascension: RightAscension::new(4, 54, 3.),
     declination: Declination::new(Sgn::Pos, 66, 20, 34.),
-    distance: Distance {
+    distance: Length {
         m: 6_000. * LIGHT_YEAR.m,
     },
     age: Some(Time {

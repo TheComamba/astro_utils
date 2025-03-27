@@ -1,12 +1,13 @@
+use uom::si::f64::Mass;
+
 use crate::astro_display::AstroDisplay;
 
 use super::DISPLAY_THRESHOLD;
-use simple_si_units::base::Mass;
 
-pub const MASS_ZERO: Mass<f64> = Mass { kg: 0. };
-pub const LUNAR_MASS: Mass<f64> = Mass { kg: 7.346e22 };
-pub const EARTH_MASS: Mass<f64> = Mass { kg: 5.972e24 };
-pub const SOLAR_MASS: Mass<f64> = Mass { kg: 1.988e30 };
+pub const MASS_ZERO: Mass = Mass { kg: 0. };
+pub const LUNAR_MASS: Mass = Mass { kg: 7.346e22 };
+pub const EARTH_MASS: Mass = Mass { kg: 5.972e24 };
+pub const SOLAR_MASS: Mass = Mass { kg: 1.988e30 };
 
 pub enum MassUnit {
     Kilograms,
@@ -19,23 +20,23 @@ pub enum MassUnit {
     SolarMasses,
 }
 
-pub fn mass_to_kilotonnes(mass: &Mass<f64>) -> f64 {
+pub fn mass_to_kilotonnes(mass: &Mass) -> f64 {
     mass.to_tons() * 1e-3
 }
 
-pub fn mass_to_megatonnes(mass: &Mass<f64>) -> f64 {
+pub fn mass_to_megatonnes(mass: &Mass) -> f64 {
     mass.to_tons() * 1e-6
 }
 
-pub fn mass_to_gigatonnes(mass: &Mass<f64>) -> f64 {
+pub fn mass_to_gigatonnes(mass: &Mass) -> f64 {
     mass.to_tons() * 1e-9
 }
 
-pub fn mass_to_lunar_masses(mass: &Mass<f64>) -> f64 {
+pub fn mass_to_lunar_masses(mass: &Mass) -> f64 {
     mass / &LUNAR_MASS
 }
 
-pub fn display_mass_in_units(mass: &Mass<f64>, units: MassUnit) -> String {
+pub fn display_mass_in_units(mass: &Mass, units: MassUnit) -> String {
     match units {
         MassUnit::Kilograms => format!("{:.2} kg", mass.to_kilograms()),
         MassUnit::Tonne => format!("{:.2} t", mass.to_tons()),
@@ -48,7 +49,7 @@ pub fn display_mass_in_units(mass: &Mass<f64>, units: MassUnit) -> String {
     }
 }
 
-impl AstroDisplay for Mass<f64> {
+impl AstroDisplay for Mass {
     fn astro_display(&self) -> String {
         let units = if self.to_solar_mass().abs() > DISPLAY_THRESHOLD {
             MassUnit::SolarMasses

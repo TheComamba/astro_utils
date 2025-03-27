@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const ACHERNAR: RealData = RealData {
     common_name: "Achernar",
     astronomical_name: "α Eridani",
     constellation: "Eridanus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 6.78 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -31,7 +31,7 @@ const ACHERNAR: RealData = RealData {
     },
     right_ascension: RightAscension::new(1, 37, 43.),
     declination: Declination::new(Sgn::Neg, 57, 14, 12.),
-    distance: Distance {
+    distance: Length {
         m: 144. * LIGHT_YEAR.m,
     },
 };
@@ -40,7 +40,7 @@ const ZAURAK: RealData = RealData {
     common_name: "Zaurak",
     astronomical_name: "γ Eridani",
     constellation: "Eridanus",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 80. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const ZAURAK: RealData = RealData {
     temperature: Temperature { K: 3811. },
     right_ascension: RightAscension::new(3, 58, 2.),
     declination: Declination::new(Sgn::Neg, 13, 30, 31.),
-    distance: Distance {
+    distance: Length {
         m: 221. * LIGHT_YEAR.m,
     },
     age: None,
@@ -67,14 +67,14 @@ const CURSA: RealData = RealData {
     right_ascension: RightAscension::new(5, 7, 51.),
     declination: Declination::new(Sgn::Neg, 5, 5, 11.),
     apparent_magnitude: 2.796,
-    distance: Distance {
+    distance: Length {
         m: 90. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.59,
     mass: Mass {
         kg: 2. * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.4 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8360. },
@@ -91,14 +91,14 @@ const ACAMAR: RealData = RealData {
     right_ascension: RightAscension::new(2, 58, 16.),
     declination: Declination::new(Sgn::Neg, 40, 18, 17.),
     apparent_magnitude: 3.18,
-    distance: Distance {
+    distance: Length {
         m: 164. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.59,
     mass: Mass {
         kg: 2.6 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 4.85 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 8200. },

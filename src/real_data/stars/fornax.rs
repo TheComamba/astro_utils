@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -17,14 +17,14 @@ const DALIM: RealData = RealData {
     right_ascension: RightAscension::new(3, 12, 5.),
     declination: Declination::new(Sgn::Neg, 28, 59, 15.),
     apparent_magnitude: 3.85,
-    distance: Distance {
+    distance: Length {
         m: 45.66 * LIGHT_YEAR.m,
     },
     absolute_magnitude: 3.08,
     mass: Mass {
         kg: 1.33 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 2.04 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 6240. },
@@ -43,14 +43,14 @@ const BETA_FORNACIS: RealData = RealData {
     right_ascension: RightAscension::new(2, 49, 5.),
     declination: Declination::new(Sgn::Neg, 32, 24, 21.),
     apparent_magnitude: 4.46,
-    distance: Distance {
+    distance: Length {
         m: 178. * LIGHT_YEAR.m,
     },
     absolute_magnitude: 0.894,
     mass: Mass {
         kg: 1.53 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 11.02 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 4820. },
@@ -67,14 +67,14 @@ const NU_FORNACIS: RealData = RealData {
     right_ascension: RightAscension::new(2, 4, 29.),
     declination: Declination::new(Sgn::Neg, 29, 17, 49.),
     apparent_magnitude: 4.69,
-    distance: Distance {
+    distance: Length {
         m: 370. * LIGHT_YEAR.m,
     },
     absolute_magnitude: -0.6,
     mass: Mass {
         kg: 3.65 * SOLAR_MASS.kg,
     },
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 3.44 * SOLAR_RADIUS.m,
     }),
     temperature: Temperature { K: 13_400. },

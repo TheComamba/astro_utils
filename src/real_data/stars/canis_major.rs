@@ -1,5 +1,5 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
@@ -14,7 +14,7 @@ const SIRIUS: RealData = RealData {
     common_name: "Sirius",
     astronomical_name: "α Canis Majoris",
     constellation: "Canis Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 1.711 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -25,7 +25,7 @@ const SIRIUS: RealData = RealData {
     temperature: Temperature { K: 9940. },
     right_ascension: RightAscension::new(6, 45, 9.),
     declination: Declination::new(Sgn::Neg, 16, 42, 58.),
-    distance: Distance {
+    distance: Length {
         m: 9. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -40,7 +40,7 @@ const ADHARA: RealData = RealData {
     common_name: "Adhara",
     astronomical_name: "ε Canis Majoris",
     constellation: "Canis Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 13.9 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -51,7 +51,7 @@ const ADHARA: RealData = RealData {
     temperature: Temperature { K: 22_900. },
     right_ascension: RightAscension::new(6, 58, 38.),
     declination: Declination::new(Sgn::Neg, 28, 58, 19.),
-    distance: Distance {
+    distance: Length {
         m: 431. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -66,7 +66,7 @@ const WEZEN: RealData = RealData {
     common_name: "Wezen",
     astronomical_name: "δ Canis Majoris",
     constellation: "Canis Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 215. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -77,7 +77,7 @@ const WEZEN: RealData = RealData {
     temperature: Temperature { K: 6390. },
     right_ascension: RightAscension::new(7, 8, 23.),
     declination: Declination::new(Sgn::Neg, 26, 23, 36.),
-    distance: Distance {
+    distance: Length {
         m: 1791. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -92,7 +92,7 @@ const MIRZAM: RealData = RealData {
     common_name: "Mirzam",
     astronomical_name: "β Canis Majoris",
     constellation: "Canis Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 9.7 * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -103,7 +103,7 @@ const MIRZAM: RealData = RealData {
     temperature: Temperature { K: 25_000. },
     right_ascension: RightAscension::new(6, 22, 42.),
     declination: Declination::new(Sgn::Neg, 17, 57, 21.),
-    distance: Distance {
+    distance: Length {
         m: 499. * LIGHT_YEAR.m,
     },
     age: Some(Time {
@@ -118,7 +118,7 @@ const ALUDRA: RealData = RealData {
     common_name: "Aludra",
     astronomical_name: "η Canis Majoris",
     constellation: "Canis Major",
-    radius: Some(Distance {
+    radius: Some(Length {
         m: 54. * SOLAR_RADIUS.m,
     }),
     mass: Mass {
@@ -129,7 +129,7 @@ const ALUDRA: RealData = RealData {
     temperature: Temperature { K: 15_500. },
     right_ascension: RightAscension::new(7, 24, 6.),
     declination: Declination::new(Sgn::Neg, 29, 18, 11.),
-    distance: Distance {
+    distance: Length {
         m: 3196. * LIGHT_YEAR.m,
     },
     age: Some(Time {

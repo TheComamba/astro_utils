@@ -1,7 +1,7 @@
 use std::ops::Range;
 
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Luminosity, Mass, Temperature, Time};
+use uom::si::f64::{Length, Mass, ThermodynamicTemperature, Time};
 
 use crate::{
     astro_display::AstroDisplay,
@@ -21,7 +21,7 @@ pub enum StarFate {
 }
 
 impl StarFate {
-    pub(crate) fn new(initial_mass: Mass<f64>) -> Self {
+    pub(crate) fn new(initial_mass: Mass) -> Self {
         if initial_mass < Mass::from_solar_mass(8.) {
             StarFate::WhiteDwarf
         } else {
@@ -29,7 +29,7 @@ impl StarFate {
         }
     }
 
-    pub(crate) fn apply_to_mass(&self, mass: Mass<f64>) -> Mass<f64> {
+    pub(crate) fn apply_to_mass(&self, mass: Mass) -> Mass {
         match self {
             StarFate::WhiteDwarf => 0.3 * mass, // rough estimate after shedding outer layers
             StarFate::TypeIISupernova => {
@@ -45,14 +45,14 @@ impl StarFate {
     pub(crate) fn apply_to_radius(&self) -> Length {
         match self {
             StarFate::WhiteDwarf => 0.0084 * SOLAR_RADIUS, // Sirius B
-            StarFate::TypeIISupernova => Distance::from_km(20.), // Neutron star or black hole
+            StarFate::TypeIISupernova => Length::from_km(20.), // Neutron star or black hole
         }
     }
 
     pub(crate) fn apply_to_luminous_intensity(
         &self,
         luminous_intensity: Luminosity<f64>,
-        time_since_death: Time<f64>,
+        time_since_death: Time,
     ) -> Luminosity<f64> {
         match self {
             StarFate::WhiteDwarf => absolute_magnitude_to_luminous_intensity(11.18), // Sirius B
@@ -64,9 +64,9 @@ impl StarFate {
 
     pub(crate) fn apply_to_temperature(
         &self,
-        temperature: Temperature<f64>,
-        time_since_death: Time<f64>,
-    ) -> Temperature<f64> {
+        temperature: ThermodynamicTemperature,
+        time_since_death: Time,
+    ) -> ThermodynamicTemperature {
         match self {
             StarFate::WhiteDwarf => Temperature::from_celsius(25_000.), // Sirius B
             StarFate::TypeIISupernova => {
@@ -83,7 +83,7 @@ pub(crate) const TYPE_II_SUPERNOVA_PEAK_MAGNITUDE: f64 = -16.8;
 
 fn type_2_supernova_luminous_intensity(
     initial: Luminosity<f64>,
-    time_since_death: Time<f64>,
+    time_since_death: Time,
 ) -> Luminosity<f64> {
     const PLATEAU_MAGNITUDE: f64 = -16.3;
 
@@ -113,11 +113,11 @@ fn type_2_supernova_luminous_intensity(
 }
 
 fn type_2_supernova_temperature(
-    initial: Temperature<f64>,
-    time_since_death: Time<f64>,
-) -> Temperature<f64> {
-    const PEAK_TEMPERATURE: Temperature<f64> = Temperature { K: 100_000. };
-    const PLATEAU_TEMPERATURE: Temperature<f64> = Temperature { K: 4_500. };
+    initial: ThermodynamicTemperature,
+    time_since_death: Time,
+) -> ThermodynamicTemperature {
+    const PEAK_TEMPERATURE: ThermodynamicTemperature = Temperature { K: 100_000. };
+    const PLATEAU_TEMPERATURE: ThermodynamicTemperature = Temperature { K: 4_500. };
 
     let days = time_since_death.to_days();
     if days < 0. {
