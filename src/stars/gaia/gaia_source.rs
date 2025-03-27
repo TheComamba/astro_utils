@@ -1,9 +1,3 @@
-use crate::{
-    color::srgb::sRGBColor,
-    error::AstroUtilError,
-    stars::appearance::StarAppearance,
-    units::{illuminance::apparent_magnitude_to_illuminance, time::TIME_ZERO},
-};
 use astro_coords::{ecliptic::Ecliptic, spherical::Spherical};
 use gaia_access::{
     condition::GaiaCondition,
@@ -20,7 +14,14 @@ use std::{collections::HashMap, time::Instant};
 use uom::si::{
     angle::degree,
     f64::{Angle, ThermodynamicTemperature},
-    temperature_interval::kelvin,
+    thermodynamic_temperature::kelvin,
+};
+
+use crate::{
+    color::srgb::sRGBColor,
+    error::AstroUtilError,
+    stars::appearance::StarAppearance,
+    units::{illuminance::apparent_magnitude_to_illuminance, time::TIME_ZERO},
 };
 
 #[derive(Serialize, Deserialize)]

@@ -77,7 +77,7 @@ mod tests {
         assert_eq!(time.astro_display(), "1.00 min");
         let time = Time::new::<hour>(1.);
         assert_eq!(time.astro_display(), "1.00 hrs");
-        let time = Time::from_days(1.);
+        let time = Time::new::<day>(1.);
         assert_eq!(time.astro_display(), "1.00 days");
         let time = Time::new::<year>(1.);
         assert_eq!(time.astro_display(), "1.00 yrs");
@@ -97,7 +97,7 @@ mod tests {
         assert_eq!(time.astro_display(), "-1.00 min");
         let time = Time::new::<hour>(-1.);
         assert_eq!(time.astro_display(), "-1.00 hrs");
-        let time = Time::from_days(-1.);
+        let time = Time::new::<day>(-1.);
         assert_eq!(time.astro_display(), "-1.00 days");
         let time = Time::new::<year>(-1.);
         assert_eq!(time.astro_display(), "-1.00 yrs");

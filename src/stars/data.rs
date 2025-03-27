@@ -171,7 +171,7 @@ impl StarData {
         let pos = self
             .get_pos(time_since_epoch)
             .to_ecliptic()
-            .unwrap_or(Ecliptic::X_DIRECTION);
+            .unwrap_or(Ecliptic::x_direction());
 
         StarAppearance {
             name: self.name.clone(),

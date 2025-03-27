@@ -1,8 +1,12 @@
 use std::f64::consts::PI;
 
 use fraction::Fraction;
-use uom::si::f64::{
-    Acceleration, Angle, Length, Mass, MassDensity, ThermodynamicTemperature, Time, Velocity,
+use uom::si::{
+    f64::{
+        Acceleration, Angle, Length, Mass, MassDensity, ThermodynamicTemperature, Time, Velocity,
+    },
+    length::meter,
+    thermodynamic_temperature::kelvin,
 };
 
 use crate::{
@@ -117,9 +121,7 @@ fn surface_gravity(mass: Mass, radius: Length) -> Acceleration {
 
 fn escape_velocity(mass: Mass, radius: Length) -> Velocity {
     let gravity = surface_gravity(mass, radius);
-    Velocity {
-        mps: (2. * gravity.mps2 * radius.m).sqrt(),
-    }
+    (2. * gravity * radius).sqrt()
 }
 
 impl AstroDisplay for Fraction {
@@ -132,8 +134,8 @@ const RESONANCE_TOLERANCE: f64 = 0.01;
 const RESONANCE_MAX_INT: u8 = 6;
 
 fn orbital_resonance(period1: Time, period2: Time) -> Option<Fraction> {
-    let large = period1.s.max(period2.s);
-    let small = period1.s.min(period2.s);
+    let large = period1.max(period2);
+    let small = period1.min(period2);
     let ratio = small / large;
     for denominator in 1..=RESONANCE_MAX_INT {
         let numerator_float = ratio * denominator as f64;
@@ -162,11 +164,9 @@ fn black_body_temperature(
     let luminosity = luminous_intensity_to_luminosity(&central_body_luminous_intensity);
     let distance = data.get_orbital_parameters().semi_major_axis;
     let albedo = data.get_geometric_albedo();
-    let t_to_the_4 =
-        luminosity.cd * (1. - albedo) / (16. * STEFAN_BOLTZMANN * PI * distance.m * distance.m);
-    Temperature {
-        K: t_to_the_4.powf(1. / 4.),
-    }
+    let t_to_the_4 = luminosity.cd * (1. - albedo)
+        / (16. * STEFAN_BOLTZMANN * PI * distance.get::<meter>().powi(2));
+    ThermodynamicTemperature::new::<kelvin>(t_to_the_4.powf(1. / 4.))
 }
 
 fn axis_tilt(data: &PlanetData) -> Angle {
@@ -177,6 +177,13 @@ fn axis_tilt(data: &PlanetData) -> Angle {
 
 #[cfg(test)]
 mod tests {
+    use uom::si::{
+        acceleration::{kilometer_per_second_squared, meter_per_second_squared},
+        angle::degree,
+        time::{day, second, year},
+        velocity::kilometer_per_second,
+    };
+
     use super::*;
     use crate::{
         real_data::{
@@ -193,7 +200,11 @@ mod tests {
         let mass = EARTH.to_planet_data().params.mass;
         let radius = EARTH.to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
-        assert!(eq_within(gravity.to_mps2(), 9.81, ACCURACY));
+        assert!(eq_within(
+            gravity.get::<meter_per_second_squared>(),
+            9.81,
+            ACCURACY
+        ));
     }
 
     #[test]
@@ -201,7 +212,11 @@ mod tests {
         let mass = MERCURY.to_planet_data().params.mass;
         let radius = MERCURY.to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
-        assert!(eq_within(gravity.to_mps2(), 3.7, ACCURACY));
+        assert!(eq_within(
+            gravity.get::<meter_per_second_squared>(),
+            3.7,
+            ACCURACY
+        ));
     }
 
     #[test]
@@ -209,7 +224,11 @@ mod tests {
         let mass = EARTH.to_planet_data().params.mass;
         let radius = EARTH.to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
-        assert!(eq_within(velocity.to_kmps(), 11.2, 10. * ACCURACY));
+        assert!(eq_within(
+            velocity.get::<kilometer_per_second>(),
+            11.2,
+            10. * ACCURACY
+        ));
     }
 
     #[test]
@@ -217,21 +236,25 @@ mod tests {
         let mass = MERCURY.to_planet_data().params.mass;
         let radius = MERCURY.to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
-        assert!(eq_within(velocity.to_kmps(), 4.3, 10. * ACCURACY));
+        assert!(eq_within(
+            velocity.get::<kilometer_per_second>(),
+            4.3,
+            10. * ACCURACY
+        ));
     }
 
     #[test]
     fn black_body_temperature_of_earth() {
         let luminosity = SUN.to_star_data().get_luminous_intensity_at_epoch();
         let temperature = black_body_temperature(luminosity, &EARTH.to_planet_data());
-        assert!(eq_within(temperature.to_K(), 255., 20.));
+        assert!(eq_within(temperature.get::<kelvin>(), 255., 20.));
     }
 
     #[test]
     fn black_body_temperature_of_mercury() {
         let luminosity = SUN.to_star_data().get_luminous_intensity_at_epoch();
         let temperature = black_body_temperature(luminosity, &MERCURY.to_planet_data());
-        assert!(eq_within(temperature.to_K(), 442., 20.));
+        assert!(eq_within(temperature.get::<kelvin>(), 442., 20.));
     }
 
     #[test]
@@ -269,8 +292,8 @@ mod tests {
             for large in small..=RESONANCE_MAX_INT {
                 let small = Time::new::<second>(small as f64);
                 let large = Time::new::<second>(large as f64 * factor);
-                let ratio = large.s / small.s;
-                println!("{:.2}/{:.2} = {:.4}", large.s, small.s, ratio);
+                let ratio = large.value / small.value;
+                println!("{:.2}/{:.2} = {:.4}", large.value, small.value, ratio);
                 let resonance = orbital_resonance(small, large);
                 if let Some(resonance) = resonance {
                     println!("Found resonance: {}", resonance);
@@ -288,8 +311,12 @@ mod tests {
 
     #[test]
     fn tidally_locked_planet_has_synodic_period_of_infinity() {
-        let synodic_day = mean_synodic_day(Time::from_days(1.), Time::from_days(1.));
-        assert!(synodic_day.s.is_infinite() || synodic_day.s.is_nan() || synodic_day.s > 1e20);
+        let synodic_day = mean_synodic_day(Time::new::<day>(1.), Time::new::<day>(1.));
+        assert!(
+            synodic_day.value.is_infinite()
+                || synodic_day.value.is_nan()
+                || synodic_day.value > 1e20
+        );
     }
 
     #[test]

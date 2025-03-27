@@ -95,7 +95,7 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            Ecliptic::X_DIRECTION,
+            Ecliptic::x_direction(),
             TIME_ZERO,
         );
 
@@ -108,11 +108,11 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            Ecliptic::X_DIRECTION,
+            Ecliptic::x_direction(),
             TIME_ZERO,
         );
         let mut other = star.clone();
-        other.pos = Ecliptic::Y_DIRECTION;
+        other.pos = Ecliptic::y_direction();
 
         assert!(!star.apparently_the_same(&other));
     }
@@ -123,7 +123,7 @@ mod tests {
             "Schnuffelpuff".to_string(),
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
-            Ecliptic::X_DIRECTION,
+            Ecliptic::x_direction(),
             TIME_ZERO,
         );
         let mut other = star.clone();

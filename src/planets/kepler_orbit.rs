@@ -111,7 +111,7 @@ mod tests {
 
     #[test]
     fn orbital_period_of_earth() {
-        let expected_orbital_period = Time::from_days(365.256);
+        let expected_orbital_period = Time::new::<day>(365.256);
         let earth_semi_major_axis = EARTH.orbit.get_semi_major_axis();
         let orbital_period = orbital_period(earth_semi_major_axis, EARTH.mass, SOLAR_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
@@ -125,7 +125,7 @@ mod tests {
 
     #[test]
     fn orbital_period_of_jupiter() {
-        let expected_orbital_period = Time::from_days(4332.59);
+        let expected_orbital_period = Time::new::<day>(4332.59);
         let jupiter_semi_major_axis = JUPITER.orbit.get_semi_major_axis();
         let orbital_period = orbital_period(jupiter_semi_major_axis, JUPITER.mass, SOLAR_MASS);
         println!("Expected orbital period: {}", expected_orbital_period);
@@ -139,7 +139,7 @@ mod tests {
 
     #[test]
     fn orbital_period_of_moon() {
-        let expected_orbital_period = Time::from_days(27.321);
+        let expected_orbital_period = Time::new::<day>(27.321);
         let moon_semi_major_axis = MOON.orbit.get_semi_major_axis();
         let orbital_period = orbital_period(moon_semi_major_axis, MOON.mass, EARTH.mass);
         println!("Expected orbital period: {}", expected_orbital_period);

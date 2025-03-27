@@ -12,7 +12,9 @@ pub enum VelocityUnit {
 pub fn display_velocity_in_units(velocity: &Velocity, units: VelocityUnit) -> String {
     match units {
         VelocityUnit::MetresPerSecond => format!("{:.2} m/s", velocity.to_mps()),
-        VelocityUnit::KilometresPerSecond => format!("{:.2} km/s", velocity.to_kmps()),
+        VelocityUnit::KilometresPerSecond => {
+            format!("{:.2} km/s", velocity.get::<kilometer_per_second>())
+        }
         VelocityUnit::SpeedOfLight => format!("{:.2} c", velocity.to_c()),
     }
 }
@@ -21,7 +23,7 @@ impl AstroDisplay for Velocity {
     fn astro_display(&self) -> String {
         let units = if self.to_c().abs() > DISPLAY_THRESHOLD {
             VelocityUnit::SpeedOfLight
-        } else if self.to_kmps().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<kilometer_per_second>().abs() > DISPLAY_THRESHOLD {
             VelocityUnit::KilometresPerSecond
         } else {
             VelocityUnit::MetresPerSecond

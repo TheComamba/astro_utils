@@ -277,7 +277,7 @@ mod tests {
             Time::new::<second>(1.),
             Time::from_min(1.),
             Time::new::<hour>(1.),
-            Time::from_days(1.),
+            Time::new::<day>(1.),
             Time::new::<year>(1.),
         ];
         let age = Some(lifetime);
