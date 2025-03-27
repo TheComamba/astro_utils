@@ -10,7 +10,12 @@ use gaia_access::{
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use std::collections::HashMap;
-use uom::si::f64::{Angle, Length, Mass, ThermodynamicTemperature};
+use uom::si::{
+    angle::degree,
+    f64::{Angle, Length, Mass, ThermodynamicTemperature, Time},
+    length::parsec,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     error::AstroUtilError,
@@ -27,7 +32,7 @@ fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
 
 fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemperature> {
     let temperature = get_float(map.get(&Col::teff)?)?;
-    Some(ThermodynamicTemperature::from_K(temperature))
+    Some(ThermodynamicTemperature::new::<kelvin>(temperature))
 }
 
 fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass> {
@@ -47,11 +52,11 @@ fn get_luminous_intensity(map: &HashMap<Col, GaiaCellData>) -> Option<Luminosity
 
 fn get_pos(map: &HashMap<Col, GaiaCellData>) -> Option<Cartesian> {
     let ra = get_float(map.get(&Col::ra)?)?;
-    let ra = Angle::from_deg(ra);
+    let ra = Angle::new::<degree>(ra);
     let dec = get_float(map.get(&Col::dec)?)?;
-    let dec = Angle::from_deg(dec);
+    let dec = Angle::new::<degree>(dec);
     let distance = get_float(map.get(&Col::barycentric_distance)?)?;
-    let distance = Length::from_parsec(distance);
+    let distance = Length::new::<parsec>(distance);
     let pos = EarthEquatorial::new(ra, dec)
         .to_direction()
         .to_cartesian(distance);
@@ -76,7 +81,8 @@ pub(crate) fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, Ast
         .map(|map| {
             let name = get_id(map).ok_or(AstroUtilError::DataNotAvailable("name".to_string()))?;
 
-            let temperature = get_temperature(map).unwrap_or(ThermodynamicTemperature::from_K(0.));
+            let temperature =
+                get_temperature(map).unwrap_or(ThermodynamicTemperature::new::<kelvin>(0.));
             let mass = get_mass(map);
             let radius = get_radius(map);
             let luminous_intensity = get_luminous_intensity(map).ok_or(

@@ -67,7 +67,7 @@ pub(crate) fn angle_eq(actual: Angle, expected: Angle) -> bool {
 
 impl AstroDisplay for Angle {
     fn astro_display(&self) -> String {
-        format!("{:.2} °", self.to_degrees())
+        format!("{:.2} °", self.get::<degree>())
     }
 }
 

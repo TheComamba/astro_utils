@@ -238,8 +238,8 @@ mod tests {
     fn orbital_resonance_is_never_larger_than_1() {
         for i in 1..=RESONANCE_MAX_INT {
             for j in 1..=RESONANCE_MAX_INT {
-                let period_1 = Time::from_seconds(i as f64);
-                let period_2 = Time::from_seconds(j as f64);
+                let period_1 = Time::new::<second>(i as f64);
+                let period_2 = Time::new::<second>(j as f64);
                 let resonance = orbital_resonance(period_1, period_2).unwrap();
                 assert!(resonance <= Fraction::new(1u64, 1u64));
             }
@@ -252,8 +252,8 @@ mod tests {
             for large in small..=RESONANCE_MAX_INT {
                 let expected = Fraction::new(small, large);
                 println!("{}/{} = {}", large, small, expected);
-                let small = Time::from_seconds(small as f64);
-                let large = Time::from_seconds(large as f64);
+                let small = Time::new::<second>(small as f64);
+                let large = Time::new::<second>(large as f64);
                 let resonance = orbital_resonance(small, large);
                 assert!(resonance.is_some());
                 let resonance = resonance.unwrap();
@@ -267,8 +267,8 @@ mod tests {
         let factor = 1.0 + RESONANCE_TOLERANCE * 2.;
         for small in 1..=RESONANCE_MAX_INT {
             for large in small..=RESONANCE_MAX_INT {
-                let small = Time::from_seconds(small as f64);
-                let large = Time::from_seconds(large as f64 * factor);
+                let small = Time::new::<second>(small as f64);
+                let large = Time::new::<second>(large as f64 * factor);
                 let ratio = large.s / small.s;
                 println!("{:.2}/{:.2} = {:.4}", large.s, small.s, ratio);
                 let resonance = orbital_resonance(small, large);
@@ -282,8 +282,8 @@ mod tests {
 
     #[test]
     fn earth_has_synodic_period_of_1_day() {
-        let synodic_day = mean_synodic_day(EARTH.siderial_rotation_period, Time::from_yr(1.));
-        assert!(eq(synodic_day.to_days(), 1.));
+        let synodic_day = mean_synodic_day(EARTH.siderial_rotation_period, Time::new::<year>(1.));
+        assert!(eq(synodic_day.get::<day>(), 1.));
     }
 
     #[test]
@@ -295,12 +295,12 @@ mod tests {
     #[test]
     fn axis_tilt_of_earth() {
         let tilt = axis_tilt(&EARTH.to_planet_data());
-        assert!(eq_within(tilt.to_degrees(), 23.44, ACCURACY));
+        assert!(eq_within(tilt.get::<degree>(), 23.44, ACCURACY));
     }
 
     #[test]
     fn axis_tilt_of_mercury() {
         let tilt = axis_tilt(&MERCURY.to_planet_data());
-        assert!(eq_within(tilt.to_degrees(), 0.034, ACCURACY));
+        assert!(eq_within(tilt.get::<degree>(), 0.034, ACCURACY));
     }
 }

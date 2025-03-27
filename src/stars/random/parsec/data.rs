@@ -17,6 +17,7 @@ pub(crate) struct ParsecData {
 #[cfg(test)]
 mod tests {
     use astro_coords::cartesian::Cartesian;
+    use uom::si::thermodynamic_temperature::kelvin;
 
     use crate::{
         real_data::stars::{all::get_many_stars, SUN},

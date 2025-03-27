@@ -1,3 +1,5 @@
+use uom::si::f64::MassDensity;
+
 use crate::astro_display::AstroDisplay;
 
 impl AstroDisplay for MassDensity {

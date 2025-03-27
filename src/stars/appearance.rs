@@ -1,6 +1,9 @@
 use astro_coords::ecliptic::Ecliptic;
 use serde::{Deserialize, Serialize};
-use uom::si::f64::Time;
+use uom::si::{
+    angle::degree,
+    f64::{Angle, Time},
+};
 
 use crate::{astro_display::AstroDisplay, color::srgb::sRGBColor};
 
@@ -55,7 +58,7 @@ impl StarAppearance {
     }
 
     pub fn apparently_the_same(&self, other: &Self) -> bool {
-        let angle_accuracy = Angle::from_degrees(0.03); //Rather high due to accos inaccuracy
+        let angle_accuracy = Angle::new::<degree>(0.03); //Rather high due to accos inaccuracy
 
         if !self.pos.eq_within(&other.pos, angle_accuracy) {
             return false;

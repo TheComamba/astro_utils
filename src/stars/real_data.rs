@@ -103,7 +103,7 @@ impl RealData {
 #[cfg(test)]
 mod tests {
 
-    use uom::si::f64::Mass;
+    use uom::si::{f64::Mass, time::year};
 
     use crate::{
         real_data::stars::all::get_many_stars,
@@ -180,7 +180,7 @@ mod tests {
         for star_data in get_many_stars() {
             if let Some(age) = star_data.age {
                 assert!(
-                    age.to_yr() < 13.8e9,
+                    age.get::<year>() < 13.8e9,
                     "{} is older than the universe",
                     star_data.astronomical_name
                 );

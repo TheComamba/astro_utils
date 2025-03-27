@@ -1,4 +1,7 @@
-use uom::si::f64::Time;
+use uom::si::{
+    f64::Time,
+    time::{day, second, year},
+};
 
 use crate::astro_display::AstroDisplay;
 
@@ -26,11 +29,11 @@ pub enum TimeUnit {
 
 pub(crate) fn display_time_in_units(time: &Time, units: TimeUnit) -> String {
     match units {
-        TimeUnit::Seconds => format!("{:.2} sec", time.to_seconds()),
+        TimeUnit::Seconds => format!("{:.2} sec", time.get::<second>()),
         TimeUnit::Minutes => format!("{:.2} min", time.to_min()),
         TimeUnit::Hours => format!("{:.2} hrs", time.to_hr()),
-        TimeUnit::Days => format!("{:.2} days", time.to_days()),
-        TimeUnit::Years => format!("{:.2} yrs", time.to_yr()),
+        TimeUnit::Days => format!("{:.2} days", time.get::<day>()),
+        TimeUnit::Years => format!("{:.2} yrs", time.get::<year>()),
         TimeUnit::ThousandYears => format!("{:.2} kyr", time.to_kyr()),
         TimeUnit::MillionYears => format!("{:.2} Myrs", time.to_Myr()),
         TimeUnit::BillionYears => format!("{:.2} Gyrs", time.to_Gyr()),
@@ -45,9 +48,9 @@ impl AstroDisplay for Time {
             TimeUnit::MillionYears
         } else if self.to_kyr().abs() > DISPLAY_THRESHOLD {
             TimeUnit::ThousandYears
-        } else if self.to_yr().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<year>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::Years
-        } else if self.to_days().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<day>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::Days
         } else if self.to_hr().abs() > DISPLAY_THRESHOLD {
             TimeUnit::Hours
@@ -68,15 +71,15 @@ mod tests {
 
     #[test]
     fn test_time_display() {
-        let time = Time::from_seconds(1.);
+        let time = Time::new::<second>(1.);
         assert_eq!(time.astro_display(), "1.00 sec");
         let time = Time::from_min(1.);
         assert_eq!(time.astro_display(), "1.00 min");
-        let time = Time::from_hr(1.);
+        let time = Time::new::<hour>(1.);
         assert_eq!(time.astro_display(), "1.00 hrs");
         let time = Time::from_days(1.);
         assert_eq!(time.astro_display(), "1.00 days");
-        let time = Time::from_yr(1.);
+        let time = Time::new::<year>(1.);
         assert_eq!(time.astro_display(), "1.00 yrs");
         let time = Time::from_kyr(1.);
         assert_eq!(time.astro_display(), "1.00 kyr");
@@ -88,15 +91,15 @@ mod tests {
 
     #[test]
     fn test_time_negative_display() {
-        let time = Time::from_seconds(-1.);
+        let time = Time::new::<second>(-1.);
         assert_eq!(time.astro_display(), "-1.00 sec");
         let time = Time::from_min(-1.);
         assert_eq!(time.astro_display(), "-1.00 min");
-        let time = Time::from_hr(-1.);
+        let time = Time::new::<hour>(-1.);
         assert_eq!(time.astro_display(), "-1.00 hrs");
         let time = Time::from_days(-1.);
         assert_eq!(time.astro_display(), "-1.00 days");
-        let time = Time::from_yr(-1.);
+        let time = Time::new::<year>(-1.);
         assert_eq!(time.astro_display(), "-1.00 yrs");
         let time = Time::from_kyr(-1.);
         assert_eq!(time.astro_display(), "-1.00 kyr");

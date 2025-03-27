@@ -1,7 +1,11 @@
 use std::ops::Range;
 
 use serde::{Deserialize, Serialize};
-use uom::si::f64::{Length, Mass, ThermodynamicTemperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::kilometer,
+    time::day,
+};
 
 use crate::{
     astro_display::AstroDisplay,
@@ -45,7 +49,7 @@ impl StarFate {
     pub(crate) fn apply_to_radius(&self) -> Length {
         match self {
             StarFate::WhiteDwarf => 0.0084 * SOLAR_RADIUS, // Sirius B
-            StarFate::TypeIISupernova => Length::from_km(20.), // Neutron star or black hole
+            StarFate::TypeIISupernova => Length::new::<kilometer>(20.), // Neutron star or black hole
         }
     }
 
@@ -87,7 +91,7 @@ fn type_2_supernova_luminous_intensity(
 ) -> Luminosity<f64> {
     const PLATEAU_MAGNITUDE: f64 = -16.3;
 
-    let days = time_since_death.to_days();
+    let days = time_since_death.get::<day>();
     if days < 0. {
         initial
     } else if SN_PHASE_1_INCREASE.contains(&days) {
@@ -119,7 +123,7 @@ fn type_2_supernova_temperature(
     const PEAK_TEMPERATURE: ThermodynamicTemperature = Temperature { K: 100_000. };
     const PLATEAU_TEMPERATURE: ThermodynamicTemperature = Temperature { K: 4_500. };
 
-    let days = time_since_death.to_days();
+    let days = time_since_death.get::<day>();
     if days < 0. {
         initial
     } else if SN_PHASE_1_INCREASE.contains(&days) {
@@ -136,7 +140,7 @@ fn type_2_supernova_temperature(
         PLATEAU_TEMPERATURE
     } else {
         let offset = PLATEAU_TEMPERATURE;
-        let slope = -PLATEAU_TEMPERATURE / Time::from_kyr(10.).to_days();
+        let slope = -PLATEAU_TEMPERATURE / Time::from_kyr(10.).get::<day>();
         let t = offset + slope * (days - SN_PHASE_3_PLATEAU.end);
         if t > TEMPERATURE_ZERO {
             t

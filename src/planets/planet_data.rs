@@ -1,6 +1,6 @@
 use astro_coords::{cartesian::Cartesian, direction::Direction};
 use serde::{Deserialize, Serialize};
-use uom::si::f64::{Length, Time};
+use uom::si::f64::{Angle, Length, Mass, Time};
 
 use crate::{
     color::srgb::sRGBColor,

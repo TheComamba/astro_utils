@@ -1,5 +1,5 @@
 use astro_coords::earth_equatorial::EarthEquatorial;
-use uom::si::f64::{Angle, Length, Time};
+use uom::si::f64::{Angle, Length, Mass, Time};
 
 use crate::color::srgb::sRGBColor;
 

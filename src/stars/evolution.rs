@@ -93,7 +93,7 @@ impl StarDataEvolution {
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return mass + lifestage_evolution.mass_per_year * time_since_epoch.to_yr();
+            return mass + lifestage_evolution.mass_per_year * time_since_epoch.get::<year>();
         }
         mass
     }
@@ -105,7 +105,7 @@ impl StarDataEvolution {
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return radius + lifestage_evolution.radius_per_year * time_since_epoch.to_yr();
+            return radius + lifestage_evolution.radius_per_year * time_since_epoch.get::<year>();
         }
         radius
     }
@@ -124,7 +124,7 @@ impl StarDataEvolution {
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return luminous_intensity
-                + lifestage_evolution.luminous_intensity_per_year * time_since_epoch.to_yr();
+                + lifestage_evolution.luminous_intensity_per_year * time_since_epoch.get::<year>();
         }
         luminous_intensity
     }
@@ -143,7 +143,7 @@ impl StarDataEvolution {
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             return temperature
-                + lifestage_evolution.temperature_per_year * time_since_epoch.to_yr();
+                + lifestage_evolution.temperature_per_year * time_since_epoch.get::<year>();
         }
         temperature
     }
@@ -215,20 +215,20 @@ mod tests {
     #[test]
     fn has_changed_is_symmetric() {
         let times = vec![
-            Time::from_yr(0.),
-            Time::from_yr(1.),
-            Time::from_yr(10.),
-            Time::from_yr(100.),
-            Time::from_yr(1_000.),
-            Time::from_yr(10_000.),
-            Time::from_yr(-1.),
-            Time::from_yr(-10.),
-            Time::from_yr(-100.),
-            Time::from_yr(-1_000.),
-            Time::from_yr(-10_000.),
+            Time::new::<year>(0.),
+            Time::new::<year>(1.),
+            Time::new::<year>(10.),
+            Time::new::<year>(100.),
+            Time::new::<year>(1_000.),
+            Time::new::<year>(10_000.),
+            Time::new::<year>(-1.),
+            Time::new::<year>(-10.),
+            Time::new::<year>(-100.),
+            Time::new::<year>(-1_000.),
+            Time::new::<year>(-10_000.),
         ];
         let evolution =
-            StarDataEvolution::new(None, None, Time::from_yr(10_000.), StarFate::WhiteDwarf);
+            StarDataEvolution::new(None, None, Time::new::<year>(10_000.), StarFate::WhiteDwarf);
         for now in times.clone().into_iter() {
             for then in times.clone().into_iter() {
                 assert_eq!(
@@ -241,8 +241,8 @@ mod tests {
 
     #[test]
     fn star_has_changed_if_2000_years_have_passed() {
-        let then = Time::from_yr(0.);
-        let now = Time::from_yr(2000.);
+        let then = Time::new::<year>(0.);
+        let now = Time::new::<year>(2000.);
         let lifestage_evolution = StarDataLifestageEvolution {
             mass_per_year: MASS_ZERO,
             radius_per_year: DISTANCE_ZERO,
@@ -252,7 +252,7 @@ mod tests {
         let evolution = StarDataEvolution::new(
             Some(lifestage_evolution),
             None,
-            Time::from_yr(10_000.),
+            Time::new::<year>(10_000.),
             StarFate::WhiteDwarf,
         );
         assert!(evolution.has_changed(then, now));
@@ -261,10 +261,10 @@ mod tests {
 
     #[test]
     fn star_has_changed_when_it_crosses_death() {
-        let then = Time::from_yr(0.);
-        let now = Time::from_yr(10_000.);
-        let age = Some(Time::from_yr(1_000.));
-        let lifetime = Time::from_yr(5_000.);
+        let then = Time::new::<year>(0.);
+        let now = Time::new::<year>(10_000.);
+        let age = Some(Time::new::<year>(1_000.));
+        let lifetime = Time::new::<year>(5_000.);
         let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);
         assert!(evolution.has_changed(then, now));
         assert!(evolution.has_changed(now, then));
@@ -274,11 +274,11 @@ mod tests {
     fn star_changes_rapidly_shortly_after_death() {
         let lifetime = Time::from_Gyr(1.);
         let small_steps = vec![
-            Time::from_s(1.),
+            Time::new::<second>(1.),
             Time::from_min(1.),
-            Time::from_hr(1.),
+            Time::new::<hour>(1.),
             Time::from_days(1.),
-            Time::from_yr(1.),
+            Time::new::<year>(1.),
         ];
         let age = Some(lifetime);
         let evolution = StarDataEvolution::new(None, age, lifetime, StarFate::WhiteDwarf);

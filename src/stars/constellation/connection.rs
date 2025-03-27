@@ -196,6 +196,7 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
 #[cfg(test)]
 mod tests {
     use astro_coords::spherical::Spherical;
+    use uom::si::angle::degree;
 
     use crate::{
         color::srgb::sRGBColor,
@@ -210,8 +211,8 @@ mod tests {
         let mut stars = Vec::new();
         for i in 0..size {
             // Making distances distinct
-            let longitude = Angle::from_degrees(10. * i as f64 + (i as f64).powi(2) / 100.);
-            assert!(longitude.to_degrees() < 179.0);
+            let longitude = Angle::new::<degree>(10. * i as f64 + (i as f64).powi(2) / 100.);
+            assert!(longitude.get::<degree>() < 179.0);
             let pos = Spherical::new(longitude, ANGLE_ZERO).to_ecliptic();
             stars.push(StarAppearance::new(
                 format!("Star {}", i),

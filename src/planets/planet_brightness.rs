@@ -1,7 +1,7 @@
 use std::f64::consts::PI;
 
 use astro_coords::cartesian::Cartesian;
-use uom::si::f64::Length;
+use uom::si::f64::{Angle, Length};
 
 use crate::{
     error::AstroUtilError,

@@ -1,5 +1,6 @@
 use astro_coords::cartesian::Cartesian;
-use uom::si::f64::Time;
+use uom::si::f64::{Mass, Time};
+use uom::si::time::year;
 
 use crate::stars::data::StarData;
 use crate::stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE;
@@ -68,7 +69,7 @@ impl ParsecData {
             return None;
         }
 
-        let age_index = trajectory.get_closest_params_index(age.to_yr());
+        let age_index = trajectory.get_closest_params_index(age.get::<year>());
         let params = trajectory.get_params_by_index(age_index)?;
 
         let is_currently_visible = params.is_visible(&pos);
@@ -93,8 +94,8 @@ impl ParsecData {
             {
                 return absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE);
             }
-            let min_age_index = trajectory.get_closest_params_index(min_age.to_yr());
-            let max_age_index = trajectory.get_closest_params_index(max_age.to_yr());
+            let min_age_index = trajectory.get_closest_params_index(min_age.get::<year>());
+            let max_age_index = trajectory.get_closest_params_index(max_age.get::<year>());
             for age_index in min_age_index..=max_age_index {
                 let params = trajectory.get_params_by_index_unchecked(age_index);
                 let luminous_intensity =

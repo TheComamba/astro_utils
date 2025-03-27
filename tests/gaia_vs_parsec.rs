@@ -81,38 +81,38 @@ fn parsec_generates_data_similar_to_gaia() {
     let temperatures_in_range_1_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        ThermodynamicTemperature::from_K(10.),
-        ThermodynamicTemperature::from_K(2_000.),
+        ThermodynamicTemperature::new::<kelvin>(10.),
+        ThermodynamicTemperature::new::<kelvin>(2_000.),
     );
     let temperatures_in_range_2_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        ThermodynamicTemperature::from_K(2_000.),
-        ThermodynamicTemperature::from_K(4_000.),
+        ThermodynamicTemperature::new::<kelvin>(2_000.),
+        ThermodynamicTemperature::new::<kelvin>(4_000.),
     );
     let temperatures_in_range_3_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        ThermodynamicTemperature::from_K(4_000.),
-        ThermodynamicTemperature::from_K(8_000.),
+        ThermodynamicTemperature::new::<kelvin>(4_000.),
+        ThermodynamicTemperature::new::<kelvin>(8_000.),
     );
     let temperatures_in_range_4_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        ThermodynamicTemperature::from_K(8_000.),
-        ThermodynamicTemperature::from_K(16_000.),
+        ThermodynamicTemperature::new::<kelvin>(8_000.),
+        ThermodynamicTemperature::new::<kelvin>(16_000.),
     );
     let temperatures_in_range_5_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        ThermodynamicTemperature::from_K(16_000.),
-        ThermodynamicTemperature::from_K(32_000.),
+        ThermodynamicTemperature::new::<kelvin>(16_000.),
+        ThermodynamicTemperature::new::<kelvin>(32_000.),
     );
     let temperatures_in_range_6_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        ThermodynamicTemperature::from_K(32_000.),
-        ThermodynamicTemperature::from_K(64_000.),
+        ThermodynamicTemperature::new::<kelvin>(32_000.),
+        ThermodynamicTemperature::new::<kelvin>(64_000.),
     );
     let temperature_is_similar = mean_temperature_is_similar(&parsec_data, &gaia_simulated_data);
     assert!(total_num_is_similar);

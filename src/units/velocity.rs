@@ -1,3 +1,5 @@
+use uom::si::f64::Velocity;
+
 use super::DISPLAY_THRESHOLD;
 use crate::astro_display::AstroDisplay;
 

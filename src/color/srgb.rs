@@ -131,6 +131,8 @@ impl Mul<f64> for &sRGBColor {
 
 #[cfg(test)]
 mod tests {
+    use uom::si::thermodynamic_temperature::kelvin;
+
     use crate::tests::eq_within;
 
     use super::*;
@@ -144,7 +146,7 @@ mod tests {
 
     #[test]
     fn fivehundred_kelvin_is_red() {
-        let color = sRGBColor::from_temperature(ThermodynamicTemperature::from_K(500.0));
+        let color = sRGBColor::from_temperature(ThermodynamicTemperature::new::<kelvin>(500.0));
         let expected = maximized_color_tuple((0.9, 0.1, 0.));
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
@@ -156,7 +158,7 @@ mod tests {
 
     #[test]
     fn fivethousandfivehounded_kelvin_is_white() {
-        let color = sRGBColor::from_temperature(ThermodynamicTemperature::from_K(5500.0));
+        let color = sRGBColor::from_temperature(ThermodynamicTemperature::new::<kelvin>(5500.0));
         let expected = maximized_color_tuple((1., 1., 1.));
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);
@@ -168,7 +170,7 @@ mod tests {
 
     #[test]
     fn fourtythousand_kelvin_is_blue() {
-        let color = sRGBColor::from_temperature(ThermodynamicTemperature::from_K(40_000.0));
+        let color = sRGBColor::from_temperature(ThermodynamicTemperature::new::<kelvin>(40_000.0));
         let expected = maximized_color_tuple((0.25, 0.5, 1.0));
         let actual = color.maximized_sRGB_tuple();
         println!("expected: {:?}", expected);

@@ -1,7 +1,11 @@
 use std::f64::consts::PI;
 
 use rand::Rng;
-use uom::si::f64::{Length, Time};
+use uom::si::{
+    angle::degree,
+    f64::{Angle, Length, MassDensity, Time},
+    time::hour,
+};
 
 use crate::{
     color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
@@ -25,7 +29,7 @@ pub fn generate_random_planet() -> PlanetData {
 
     let min = SATURN.mass / (4. / 3. * PI * SATURN.radius * SATURN.radius * SATURN.radius) * 0.9;
     let max = EARTH.mass / (4. / 3. * PI * EARTH.radius * EARTH.radius * EARTH.radius) * 1.1;
-    let density = Density {
+    let density = MassDensity {
         kgpm3: rng.gen_range(min.kgpm3..max.kgpm3),
     };
 
@@ -41,7 +45,7 @@ pub fn generate_random_planet() -> PlanetData {
 
     let min = -500.;
     let max = 500.;
-    let rotation_period = Time::from_hr(rng.gen_range(min..max));
+    let rotation_period = Time::new::<hour>(rng.gen_range(min..max));
 
     let min = MERCURY.orbit.semi_major_axis * 0.5;
     let max = NEPTUNE.orbit.semi_major_axis * 2.0;
@@ -53,13 +57,13 @@ pub fn generate_random_planet() -> PlanetData {
     let max = PLUTO.orbit.eccentricity * 2.0;
     let eccentricity = rng.gen_range(min..max);
 
-    let min = -PLUTO.orbit.inclination.to_degrees();
-    let max = PLUTO.orbit.inclination.to_degrees();
-    let inclination = Angle::from_degrees(rng.gen_range(min..max));
+    let min = -PLUTO.orbit.inclination.get::<degree>();
+    let max = PLUTO.orbit.inclination.get::<degree>();
+    let inclination = Angle::new::<degree>(rng.gen_range(min..max));
 
-    let longitude_of_ascending_node = Angle::from_degrees(rng.gen_range(0.0..360.0));
+    let longitude_of_ascending_node = Angle::new::<degree>(rng.gen_range(0.0..360.0));
 
-    let argument_of_periapsis = Angle::from_degrees(rng.gen_range(0.0..360.0));
+    let argument_of_periapsis = Angle::new::<degree>(rng.gen_range(0.0..360.0));
 
     let rotation_axis = random_direction(&mut rng);
 

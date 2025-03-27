@@ -1,4 +1,4 @@
-use uom::si::f64::ThermodynamicTemperature;
+use uom::si::{f64::ThermodynamicTemperature, thermodynamic_temperature::kelvin};
 
 use crate::astro_display::AstroDisplay;
 

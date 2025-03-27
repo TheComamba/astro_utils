@@ -12,13 +12,13 @@ pub fn luminous_intensity_to_solar_luminosities(luminous_intensity: Luminosity<f
 }
 
 pub fn absolute_magnitude_to_luminous_intensity(absolute_magnitude: f64) -> Luminosity<f64> {
-    let ten_pc = Length::from_parsec(10.);
+    let ten_pc = Length::new::<parsec>(10.);
     let illuminance = apparent_magnitude_to_illuminance(absolute_magnitude);
     illuminance_to_luminous_intensity(&illuminance, &ten_pc)
 }
 
 pub fn luminous_intensity_to_absolute_magnitude(luminous_intensity: Luminosity<f64>) -> f64 {
-    let ten_pc = Length::from_parsec(10.);
+    let ten_pc = Length::new::<parsec>(10.);
     let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &ten_pc);
     illuminance_to_apparent_magnitude(&illuminance)
 }
@@ -111,7 +111,7 @@ mod tests {
 
     #[test]
     fn apparent_and_absolute_magnitude_at_ten_parsecs_are_equal() {
-        let ten_pc = Length::from_parsec(10.);
+        let ten_pc = Length::new::<parsec>(10.);
         for i in -10..10 {
             let input = i as f64;
             let luminous_intensity = absolute_magnitude_to_luminous_intensity(input);

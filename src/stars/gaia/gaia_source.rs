@@ -17,7 +17,11 @@ use gaia_access::{
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, time::Instant};
-use uom::si::f64::{Angle, ThermodynamicTemperature};
+use uom::si::{
+    angle::degree,
+    f64::{Angle, ThermodynamicTemperature},
+    temperature_interval::kelvin,
+};
 
 #[derive(Serialize, Deserialize)]
 struct GaiaMetadataLine {
@@ -37,17 +41,17 @@ fn get_designation(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
 
 fn get_ecl_lon(map: &HashMap<Col, GaiaCellData>) -> Option<Angle> {
     let ecl_lon = get_float(map.get(&Col::ecl_lon)?)?;
-    Some(Angle::from_degrees(ecl_lon))
+    Some(Angle::new::<degree>(ecl_lon))
 }
 
 fn get_ecl_lat(map: &HashMap<Col, GaiaCellData>) -> Option<Angle> {
     let ecl_lat = get_float(map.get(&Col::ecl_lat)?)?;
-    Some(Angle::from_degrees(ecl_lat))
+    Some(Angle::new::<degree>(ecl_lat))
 }
 
 fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemperature> {
     let temperature = get_float(map.get(&Col::teff_gspphot)?)?;
-    Some(ThermodynamicTemperature::from_K(temperature))
+    Some(ThermodynamicTemperature::new::<kelvin>(temperature))
 }
 
 fn get_illuminance(map: &HashMap<Col, GaiaCellData>) -> Option<Illuminance<f64>> {
@@ -65,7 +69,7 @@ fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, A
             let illuminance = get_illuminance(map)
                 .ok_or(AstroUtilError::DataNotAvailable("illuminance".to_string()))?;
             let temperature =
-                get_temperature(map).unwrap_or(ThermodynamicTemperature::from_K(4000.));
+                get_temperature(map).unwrap_or(ThermodynamicTemperature::new::<kelvin>(4000.));
             let color = sRGBColor::from_temperature(temperature);
             let lon =
                 get_ecl_lon(map).ok_or(AstroUtilError::DataNotAvailable("lon".to_string()))?;
@@ -158,7 +162,7 @@ mod tests {
         known_stars: &[StarAppearance],
     ) -> Option<StarAppearance> {
         let mut closest_star = None;
-        let mut closest_distance = Angle::from_degrees(90.);
+        let mut closest_distance = Angle::new::<degree>(90.);
         for known_star in known_stars.iter() {
             let distance = gaia_star.pos.angle_to(&known_star.pos);
             if distance < closest_distance {
@@ -200,7 +204,7 @@ mod tests {
                 let (gaia_ra, gaia_dec) = gaia_star.pos.spherical.to_ra_and_dec();
                 let (closest_ra, closest_dec) = closest.pos.spherical.to_ra_and_dec();
                 let angle_difference = gaia_star.pos.angle_to(&closest.pos);
-                if angle_difference > Angle::from_degrees(0.03) {
+                if angle_difference > Angle::new::<degree>(0.03) {
                     println!("gaia_star position: {}, {}", gaia_ra, gaia_dec);
                     println!("closest_star position: {}, {}", closest_ra, closest_dec);
                     println!(

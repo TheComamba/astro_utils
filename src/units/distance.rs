@@ -32,7 +32,7 @@ pub fn distance_to_sun_radii(distance: &Length) -> f64 {
 
 pub fn display_distance_in_units(distance: &Length, units: LengthUnit) -> String {
     match units {
-        LengthUnit::Nanometers => format!("{:.2} nm", distance.to_nm()),
+        LengthUnit::Nanometers => format!("{:.2} nm", distance.get::<nanometer>()),
         LengthUnit::Micrometers => format!("{:.2} μm", distance.to_um()),
         LengthUnit::Millimeters => format!("{:.2} mm", distance.to_mm()),
         LengthUnit::Meters => format!("{:.2} m", distance.m),
@@ -75,11 +75,11 @@ mod tests {
 
     #[test]
     fn test_distance_display() {
-        let d = Length::from_nm(1.23);
+        let d = Length::new::<nanometer>(1.23);
         assert_eq!(d.astro_display(), "1.23 nm");
         let d = Length::from_meters(1.23);
         assert_eq!(d.astro_display(), "1.23 m");
-        let d = Length::from_km(1.23);
+        let d = Length::new::<kilometer>(1.23);
         assert_eq!(d.astro_display(), "1.23 km");
         let d = 1.23 as f64 * EARTH_RADIUS;
         assert_eq!(d.astro_display(), "1.23 R🜨");
@@ -93,11 +93,11 @@ mod tests {
 
     #[test]
     fn test_distance_negative_display() {
-        let d = Length::from_nm(-1.23);
+        let d = Length::new::<nanometer>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 nm");
         let d: Length = Length::from_meters(-1.23);
         assert_eq!(d.astro_display(), "-1.23 m");
-        let d: Length = Length::from_km(-1.23);
+        let d: Length = Length::new::<kilometer>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 km");
         let d = -1.23 as f64 * EARTH_RADIUS;
         assert_eq!(d.astro_display(), "-1.23 R🜨");
@@ -117,7 +117,7 @@ mod tests {
         assert_eq!(d.astro_display(), "0.10 mm");
         let d = Length::from_meters(0.1);
         assert_eq!(d.astro_display(), "0.10 m");
-        let d = Length::from_km(0.1);
+        let d = Length::new::<kilometer>(0.1);
         assert_eq!(d.astro_display(), "0.10 km");
         let d = 0.1 as f64 * EARTH_RADIUS;
         assert_eq!(d.astro_display(), "0.10 R🜨");

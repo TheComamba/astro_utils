@@ -253,6 +253,8 @@ impl StarData {
 
 #[cfg(test)]
 mod tests {
+    use uom::si::thermodynamic_temperature::kelvin;
+
     use super::*;
     use crate::{real_data::stars::all::get_many_stars, units::time::TIME_ZERO};
 

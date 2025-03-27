@@ -1,6 +1,10 @@
 use astro_coords::cartesian::Cartesian;
 use serde::{Deserialize, Serialize};
-use uom::si::f64::{Mass, Time};
+use uom::si::{
+    f64::{Mass, ThermodynamicTemperature, Time},
+    thermodynamic_temperature::kelvin,
+    time::year,
+};
 
 use crate::{
     stars::{
@@ -41,7 +45,7 @@ impl Trajectory {
     pub(super) fn new(params: Vec<ParsedParsecLine>) -> Self {
         let initial_mass = Mass::from_solar_mass(params[0].mass_in_solar_masses);
         let lifetime = match params.last() {
-            Some(last) => Time::from_yr(last.age_in_years),
+            Some(last) => Time::new::<year>(last.age_in_years),
             None => TIME_ZERO,
         };
         let peak_lifetime_luminous_intensity =
@@ -116,7 +120,7 @@ impl Trajectory {
     }
 
     pub(super) fn to_star(&self, age: Time, pos: Cartesian) -> StarData {
-        let age_index = self.get_closest_params_index(age.to_yr());
+        let age_index = self.get_closest_params_index(age.get::<year>());
         let mut star = self.to_star_without_evolution(age_index, pos.clone());
         let other_age_index = if age_index == 0 {
             age_index + 1
@@ -136,7 +140,7 @@ impl Trajectory {
         let params = self.get_params_by_index_unchecked(age_index);
         let mass = Mass::from_solar_mass(params.mass_in_solar_masses);
         let luminous_intensity = params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
-        let temperature = ThermodynamicTemperature::from_K(params.temperature_in_kelvin);
+        let temperature = ThermodynamicTemperature::new::<kelvin>(params.temperature_in_kelvin);
         let radius = params.radius_in_solar_radii * SOLAR_RADIUS;
         let physical_parameters = StarPhysicalParameters {
             mass: Some(mass),
@@ -145,7 +149,7 @@ impl Trajectory {
             radius: Some(radius),
         };
         let mut evolution = StarDataEvolution::NONE;
-        evolution.age = Some(Time::from_yr(params.age_in_years));
+        evolution.age = Some(Time::new::<year>(params.age_in_years));
         StarData {
             name: "".to_string(),
             params: physical_parameters,
@@ -160,7 +164,8 @@ fn get_lifestage_evolution(
     star: &StarData,
     other_star: StarData,
 ) -> Option<StarDataLifestageEvolution> {
-    let year_difference = star.evolution.age?.to_yr() - other_star.evolution.age?.to_yr();
+    let year_difference =
+        star.evolution.age?.get::<year>() - other_star.evolution.age?.get::<year>();
     let lifestage_evolution = StarDataLifestageEvolution::new(star, &other_star, year_difference);
     Some(lifestage_evolution)
 }
