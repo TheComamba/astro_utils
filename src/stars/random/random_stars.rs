@@ -26,7 +26,7 @@ pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time = Time {
 };
 const NURSERIES_PER_LY_CUBED: f64 = 6_000. / 8e12 * 10.; //* AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
 pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
-pub(super) const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
+pub(super) const STELLAR_VELOCITY: Velocity = Velocity { mps: 20_000. };
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 
 pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, AstroUtilError> {
@@ -184,7 +184,6 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 #[cfg(test)]
 mod tests {
-    use simple_si_units::base::Mass;
 
     use crate::{
         astro_display::AstroDisplay,

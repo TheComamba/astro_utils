@@ -27,7 +27,7 @@ fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
 
 fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemperature> {
     let temperature = get_float(map.get(&Col::teff)?)?;
-    Some(Temperature::from_K(temperature))
+    Some(ThermodynamicTemperature::from_K(temperature))
 }
 
 fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass> {
@@ -76,7 +76,7 @@ pub(crate) fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, Ast
         .map(|map| {
             let name = get_id(map).ok_or(AstroUtilError::DataNotAvailable("name".to_string()))?;
 
-            let temperature = get_temperature(map).unwrap_or(Temperature::from_K(0.));
+            let temperature = get_temperature(map).unwrap_or(ThermodynamicTemperature::from_K(0.));
             let mass = get_mass(map);
             let radius = get_radius(map);
             let luminous_intensity = get_luminous_intensity(map).ok_or(

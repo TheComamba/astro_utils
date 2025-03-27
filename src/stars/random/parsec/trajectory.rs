@@ -136,7 +136,7 @@ impl Trajectory {
         let params = self.get_params_by_index_unchecked(age_index);
         let mass = Mass::from_solar_mass(params.mass_in_solar_masses);
         let luminous_intensity = params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
-        let temperature = Temperature::from_K(params.temperature_in_kelvin);
+        let temperature = ThermodynamicTemperature::from_K(params.temperature_in_kelvin);
         let radius = params.radius_in_solar_radii * SOLAR_RADIUS;
         let physical_parameters = StarPhysicalParameters {
             mass: Some(mass),

@@ -1,7 +1,4 @@
 use astro_coords::earth_equatorial::EarthEquatorial;
-use simple_si_units::base::Time;
-use simple_si_units::base::{Length, Mass};
-use simple_si_units::geometry::Angle;
 
 use crate::color::srgb::sRGBColor;
 use crate::planets::orbit_parameters::OrbitParameters;

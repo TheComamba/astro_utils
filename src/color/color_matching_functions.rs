@@ -42,7 +42,7 @@ pub(crate) fn convolute_with_black_body(
         sum += value * planck;
         lambda += step;
     }
-    sum * step.to_meters()
+    sum * step.get::<meter>()
 }
 
 #[cfg(test)]

@@ -47,7 +47,7 @@ fn get_ecl_lat(map: &HashMap<Col, GaiaCellData>) -> Option<Angle> {
 
 fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemperature> {
     let temperature = get_float(map.get(&Col::teff_gspphot)?)?;
-    Some(Temperature::from_K(temperature))
+    Some(ThermodynamicTemperature::from_K(temperature))
 }
 
 fn get_illuminance(map: &HashMap<Col, GaiaCellData>) -> Option<Illuminance<f64>> {
@@ -64,7 +64,8 @@ fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, A
                 get_designation(map).ok_or(AstroUtilError::DataNotAvailable("name".to_string()))?;
             let illuminance = get_illuminance(map)
                 .ok_or(AstroUtilError::DataNotAvailable("illuminance".to_string()))?;
-            let temperature = get_temperature(map).unwrap_or(Temperature::from_K(4000.));
+            let temperature =
+                get_temperature(map).unwrap_or(ThermodynamicTemperature::from_K(4000.));
             let color = sRGBColor::from_temperature(temperature);
             let lon =
                 get_ecl_lon(map).ok_or(AstroUtilError::DataNotAvailable("lon".to_string()))?;

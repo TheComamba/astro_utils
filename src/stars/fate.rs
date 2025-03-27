@@ -68,7 +68,7 @@ impl StarFate {
         time_since_death: Time,
     ) -> ThermodynamicTemperature {
         match self {
-            StarFate::WhiteDwarf => Temperature::from_celsius(25_000.), // Sirius B
+            StarFate::WhiteDwarf => ThermodynamicTemperature::from_celsius(25_000.), // Sirius B
             StarFate::TypeIISupernova => {
                 type_2_supernova_temperature(temperature, time_since_death)
             }
@@ -258,14 +258,14 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_is_smooth() {
-        let initial = Temperature::from_celsius(50_000.);
+        let initial = ThermodynamicTemperature::from_celsius(50_000.);
         let mut last = initial;
         for count in -3..20_000 {
             let time_since_death = Time::from_days(count as f64 / 25.);
             let current = type_2_supernova_temperature(initial, time_since_death);
             let diff = current - last;
             assert!(
-                diff.K.abs() < 1e-1 * current.K.abs(),
+                diff.value.abs() < 1e-1 * current.value.abs(),
                 "days: {} current: {} last: {}",
                 time_since_death.astro_display(),
                 current.astro_display(),
@@ -277,7 +277,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_increases_during_phase_1() {
-        let initial = Temperature::from_celsius(5_000.);
+        let initial = ThermodynamicTemperature::from_celsius(5_000.);
         let mut last = initial;
         for days in (SN_PHASE_1_INCREASE.start as i32 + 1)..=SN_PHASE_1_INCREASE.end as i32 {
             let time_since_death = Time::from_days(days as f64);
@@ -295,7 +295,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_decreases_during_phase_2() {
-        let initial = Temperature::from_celsius(5_000.);
+        let initial = ThermodynamicTemperature::from_celsius(5_000.);
         let last_time = Time::from_days(SN_PHASE_2_DECREASE.start);
         let mut last = type_2_supernova_temperature(initial, last_time);
         for days in (SN_PHASE_2_DECREASE.start as i32 + 1)..=SN_PHASE_2_DECREASE.end as i32 {
@@ -314,7 +314,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_plateaus_during_phase_3() {
-        let initial = Temperature::from_celsius(5_000.);
+        let initial = ThermodynamicTemperature::from_celsius(5_000.);
         let last_time = Time::from_days(SN_PHASE_3_PLATEAU.start);
         let mut last = type_2_supernova_temperature(initial, last_time);
         for days in (SN_PHASE_3_PLATEAU.start as i32 + 1)..=SN_PHASE_3_PLATEAU.end as i32 {
@@ -322,7 +322,7 @@ mod tests {
             let current = type_2_supernova_temperature(initial, time_since_death);
             let diff = current - last;
             assert!(
-                diff.K < 1.,
+                diff.get::<kelvin>() < 1.,
                 "days: {} current: {} last: {}",
                 days,
                 current.astro_display(),
@@ -334,7 +334,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_decreases_after_phase_3() {
-        let initial = Temperature::from_celsius(5_000.);
+        let initial = ThermodynamicTemperature::from_celsius(5_000.);
         let last_time = Time::from_days(SN_PHASE_3_PLATEAU.end);
         let mut last = type_2_supernova_temperature(initial, last_time);
         for days in (SN_PHASE_3_PLATEAU.end as i32 + 1)..(SN_PHASE_3_PLATEAU.end as i32 + 100) {

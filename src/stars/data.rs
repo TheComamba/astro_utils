@@ -338,8 +338,8 @@ mod tests {
             );
             assert!(
                 kinda_equal(
-                    Some(star.get_temperature_at_epoch().K),
-                    Some(star.get_temperature(TIME_ZERO).K)
+                    Some(star.get_temperature_at_epoch().get::<kelvin>()),
+                    Some(star.get_temperature(TIME_ZERO).get::<kelvin>())
                 ),
                 "Star {}\nTemperature {:?}\nTemperature {:?}",
                 star.get_name(),

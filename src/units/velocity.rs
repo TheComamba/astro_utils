@@ -7,7 +7,7 @@ pub enum VelocityUnit {
     SpeedOfLight,
 }
 
-pub fn display_velocity_in_units(velocity: &Velocity<f64>, units: VelocityUnit) -> String {
+pub fn display_velocity_in_units(velocity: &Velocity, units: VelocityUnit) -> String {
     match units {
         VelocityUnit::MetresPerSecond => format!("{:.2} m/s", velocity.to_mps()),
         VelocityUnit::KilometresPerSecond => format!("{:.2} km/s", velocity.to_kmps()),
@@ -15,7 +15,7 @@ pub fn display_velocity_in_units(velocity: &Velocity<f64>, units: VelocityUnit) 
     }
 }
 
-impl AstroDisplay for Velocity<f64> {
+impl AstroDisplay for Velocity {
     fn astro_display(&self) -> String {
         let units = if self.to_c().abs() > DISPLAY_THRESHOLD {
             VelocityUnit::SpeedOfLight

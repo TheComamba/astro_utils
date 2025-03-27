@@ -56,7 +56,7 @@ impl AstroDisplay for Length {
             LengthUnit::EarthRadii
         } else if self.to_km().abs() > DISPLAY_THRESHOLD {
             LengthUnit::Kilometers
-        } else if self.to_meters().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<meter>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::Meters
         } else if self.to_mm().abs() > DISPLAY_THRESHOLD {
             LengthUnit::Millimeters

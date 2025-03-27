@@ -1,6 +1,6 @@
 use astro_coords::{cartesian::Cartesian, direction::Direction, traits::*};
 use serde::{Deserialize, Serialize};
-use uom::si::f64::{Angle, Length, Time};
+use uom::si::f64::{Angle, Length, Mass, Time};
 
 use crate::planets::kepler_orbit::{
     eccentric_anomaly, mean_anomaly, orbital_period, position_relative_to_central_body,
@@ -86,7 +86,6 @@ impl OrbitParameters {
 
 #[cfg(test)]
 mod test {
-    use simple_si_units::geometry::Angle;
 
     use crate::{real_data::planets::*, units::angle::angle_eq_within};
 

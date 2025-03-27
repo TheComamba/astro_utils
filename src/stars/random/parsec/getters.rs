@@ -203,7 +203,7 @@ mod tests {
         assert!(star
             .evolution
             .get_lifestage_temperature_per_year()
-            .K
+            .get::<kelvin>()
             .is_finite());
     }
 
@@ -228,7 +228,7 @@ mod tests {
         assert!(star
             .evolution
             .get_lifestage_temperature_per_year()
-            .K
+            .get::<kelvin>()
             .is_finite());
     }
 

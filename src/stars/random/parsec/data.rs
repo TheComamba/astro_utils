@@ -78,8 +78,8 @@ mod tests {
             0.5 * SOLAR_LUMINOUS_INTENSITY.cd
         ));
         assert!(eq_within(
-            calculated_sun.get_temperature_at_epoch().K,
-            real_sun.get_temperature_at_epoch().K,
+            calculated_sun.get_temperature_at_epoch().get::<kelvin>(),
+            real_sun.get_temperature_at_epoch().get::<kelvin>(),
             500.
         ));
     }

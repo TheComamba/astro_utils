@@ -1,7 +1,9 @@
 use std::f64::consts::PI;
 
 use fraction::Fraction;
-use uom::si::f64::Angle;
+use uom::si::f64::{
+    Acceleration, Angle, Length, Mass, MassDensity, ThermodynamicTemperature, Time, Velocity,
+};
 
 use crate::{
     astro_display::AstroDisplay,
@@ -17,9 +19,9 @@ use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
 
 #[derive(Debug, Clone)]
 pub struct DerivedPlanetData {
-    density: Density<f64>,
-    surface_gravity: Acceleration<f64>,
-    escape_velocity: Velocity<f64>,
+    density: MassDensity,
+    surface_gravity: Acceleration,
+    escape_velocity: Velocity,
     orbital_period: Time,
     orbital_resonance: Option<Fraction>,
     mean_synodic_day: Time,
@@ -76,15 +78,15 @@ impl DerivedPlanetData {
         Ok(derived_data)
     }
 
-    pub fn get_density(&self) -> Density<f64> {
+    pub fn get_density(&self) -> MassDensity {
         self.density
     }
 
-    pub fn get_surface_gravity(&self) -> Acceleration<f64> {
+    pub fn get_surface_gravity(&self) -> Acceleration {
         self.surface_gravity
     }
 
-    pub fn get_escape_velocity(&self) -> Velocity<f64> {
+    pub fn get_escape_velocity(&self) -> Velocity {
         self.escape_velocity
     }
 
@@ -109,11 +111,11 @@ impl DerivedPlanetData {
     }
 }
 
-fn surface_gravity(mass: Mass, radius: Length) -> Acceleration<f64> {
+fn surface_gravity(mass: Mass, radius: Length) -> Acceleration {
     mass.to_earth_mass() / distance_to_earth_radii(&radius).powi(2) * EARTH_SURFACE_GRAVITY
 }
 
-fn escape_velocity(mass: Mass, radius: Length) -> Velocity<f64> {
+fn escape_velocity(mass: Mass, radius: Length) -> Velocity {
     let gravity = surface_gravity(mass, radius);
     Velocity {
         mps: (2. * gravity.mps2 * radius.m).sqrt(),
