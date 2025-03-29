@@ -34,7 +34,7 @@ mod tests {
     fn test_caluclate_sun() {
         let mass = SUN.mass;
         let age = SUN.age.unwrap();
-        let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
+        let mass_index = ParsecData::get_closest_mass_index(mass.get::<solar>());
         let calculated_sun = {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
@@ -95,7 +95,7 @@ mod tests {
             for data in get_many_stars().iter() {
                 if let Some(age) = data.age {
                     let age = age;
-                    let mass_index = ParsecData::get_closest_mass_index(data.mass.to_solar_mass());
+                    let mass_index = ParsecData::get_closest_mass_index(data.mass.get::<solar>());
                     let trajectory = parsec_data.get_trajectory_via_index(mass_index);
                     let age_expectancy = trajectory.lifetime;
                     if age_expectancy < 0.3 * BILLION_YEARS {

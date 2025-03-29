@@ -1,13 +1,11 @@
 use serde::{Deserialize, Serialize};
 use uom::si::{
-    f64::{Mass, ThermodynamicTemperature, Time},
-    length::Length,
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    thermodynamic_temperature::kelvin,
+    time::year,
 };
 
-use crate::units::{
-    length::DISTANCE_ZERO, luminous_intensity::LUMINOSITY_ZERO, mass::MASS_ZERO,
-    temperature::TEMPERATURE_ZERO, time::TIME_ZERO,
-};
+use crate::units::{length::solar_radii, mass::solar, time::gigayear};
 
 use super::{data::StarData, fate::StarFate};
 
@@ -42,7 +40,7 @@ impl StarDataEvolution {
     }
 
     pub(crate) fn from_age_and_mass(age: Time, mass: Mass) -> Self {
-        let lifetime = Time::from_Gyr(10.) * mass.to_solar_mass().powf(-2.5); //TODO: find a better formula
+        let lifetime = Time::new::<gigayear>(10.) * mass.get::<solar>().powf(-2.5); //TODO: find a better formula
         let fate = StarFate::new(mass);
         Self {
             lifestage_evolution: None,
@@ -56,27 +54,24 @@ impl StarDataEvolution {
         if let (Some(until_death_then), Some(until_death_now)) =
             (self.time_until_death(then), self.time_until_death(now))
         {
-            const DEATH_TIMESCALE: Time = Time {
-                s: -10. * 365.25 * 24. * 60. * 60.,
-            }; // 10 years (negative because it counts time until death)
+            // negative because it counts time until death
+            let death_timescale = Time::new::<year>(-10.);
+            let zero = Time::new::<year>(0.);
 
-            let has_crossed_death = until_death_then.s.signum() != until_death_now.s.signum();
-            let shortly_after_death = DEATH_TIMESCALE.s..0.;
-            let then_was_shortly_after_death = shortly_after_death.contains(&until_death_then.s);
-            let now_is_shortly_after_death = shortly_after_death.contains(&until_death_now.s);
+            let has_crossed_death =
+                until_death_then.value.signum() != until_death_now.value.signum();
+            let shortly_after_death = death_timescale..zero;
+            let then_was_shortly_after_death = shortly_after_death.contains(&until_death_then);
+            let now_is_shortly_after_death = shortly_after_death.contains(&until_death_now);
             if has_crossed_death || then_was_shortly_after_death || now_is_shortly_after_death {
                 return true;
             }
         }
 
-        let diff = Time {
-            s: (then.s - now.s).abs(),
-        };
-        const EVOLUTION_TIMESCALE: Time = Time {
-            s: 1_000. * 365.25 * 24. * 60. * 60.,
-        }; // 1_000 years
+        let diff = (then - now).abs();
+        let evolution_timescale = Time::new::<year>(1_000.);
 
-        if self.lifestage_evolution.is_some() && diff > EVOLUTION_TIMESCALE {
+        if self.lifestage_evolution.is_some() && diff > evolution_timescale {
             return true;
         }
         false
@@ -88,7 +83,7 @@ impl StarDataEvolution {
 
     pub(crate) fn apply_to_mass(&self, mass: Mass, time_since_epoch: Time) -> Mass {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
-            if time_until_death < TIME_ZERO {
+            if time_until_death.value < 0. {
                 return self.fate.apply_to_mass(mass);
             }
         }
@@ -100,7 +95,7 @@ impl StarDataEvolution {
 
     pub(crate) fn apply_to_radius(&self, radius: Length, time_since_epoch: Time) -> Length {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
-            if time_until_death < TIME_ZERO {
+            if time_until_death.value < 0. {
                 return self.fate.apply_to_radius();
             }
         }
@@ -116,7 +111,7 @@ impl StarDataEvolution {
         time_since_epoch: Time,
     ) -> Luminosity<f64> {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
-            if time_until_death < TIME_ZERO {
+            if time_until_death.value < 0. {
                 return self
                     .fate
                     .apply_to_luminous_intensity(luminous_intensity, -time_until_death);
@@ -135,7 +130,7 @@ impl StarDataEvolution {
         time_since_epoch: Time,
     ) -> ThermodynamicTemperature {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
-            if time_until_death < TIME_ZERO {
+            if time_until_death.value < 0. {
                 return self
                     .fate
                     .apply_to_temperature(temperature, -time_until_death);
@@ -152,14 +147,14 @@ impl StarDataEvolution {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.mass_per_year)
-            .unwrap_or(MASS_ZERO)
+            .unwrap_or_else(|| Mass::new::<solar>(0.))
     }
 
     pub fn get_lifestage_radius_per_year(&self) -> Length {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.radius_per_year)
-            .unwrap_or(DISTANCE_ZERO)
+            .unwrap_or_else(|| Length::new::<solar_radii>(0.))
     }
 
     pub fn get_lifestage_luminous_intensity_per_year(&self) -> Luminosity<f64> {
@@ -173,7 +168,7 @@ impl StarDataEvolution {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.temperature_per_year)
-            .unwrap_or(TEMPERATURE_ZERO)
+            .unwrap_or_else(|| ThermodynamicTemperature::new::<kelvin>(0.))
     }
 }
 
@@ -189,11 +184,11 @@ impl StarDataLifestageEvolution {
     pub(crate) fn new(now: &StarData, then: &StarData, years: f64) -> Self {
         let mass_per_year = match (now.params.mass, then.params.mass) {
             (Some(now_mass), Some(then_mass)) => (now_mass - then_mass) / years,
-            _ => MASS_ZERO,
+            _ => Mass::new::<solar>(0.),
         };
         let radius_per_year = match (now.params.radius, then.params.radius) {
             (Some(now_radius), Some(then_radius)) => (now_radius - then_radius) / years,
-            _ => DISTANCE_ZERO,
+            _ => Length::new::<solar_radii>(0.),
         };
         let luminous_intensity_per_year =
             (now.params.luminous_intensity - then.params.luminous_intensity) / years;
@@ -210,6 +205,8 @@ impl StarDataLifestageEvolution {
 
 #[cfg(test)]
 mod tests {
+    use uom::si::time::{day, hour, minute, second};
+
     use super::*;
 
     #[test]
@@ -244,10 +241,10 @@ mod tests {
         let then = Time::new::<year>(0.);
         let now = Time::new::<year>(2000.);
         let lifestage_evolution = StarDataLifestageEvolution {
-            mass_per_year: MASS_ZERO,
-            radius_per_year: DISTANCE_ZERO,
+            mass_per_year: Mass::new::<solar>(0.),
+            radius_per_year: Length::new::<solar_radii>(0.),
             luminous_intensity_per_year: LUMINOSITY_ZERO,
-            temperature_per_year: TEMPERATURE_ZERO,
+            temperature_per_year: ThermodynamicTemperature::new::<kelvin>(0.),
         };
         let evolution = StarDataEvolution::new(
             Some(lifestage_evolution),
@@ -272,10 +269,10 @@ mod tests {
 
     #[test]
     fn star_changes_rapidly_shortly_after_death() {
-        let lifetime = Time::from_Gyr(1.);
+        let lifetime = Time::new::<gigayear>(1.);
         let small_steps = vec![
             Time::new::<second>(1.),
-            Time::from_min(1.),
+            Time::new::<minute>(1.),
             Time::new::<hour>(1.),
             Time::new::<day>(1.),
             Time::new::<year>(1.),

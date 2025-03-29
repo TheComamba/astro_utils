@@ -253,7 +253,7 @@ mod tests {
         for star in stars {
             let mass = star.mass;
             let lifetime = star.lifetime;
-            let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
+            let mass_index = ParsecData::get_closest_mass_index(mass.get::<solar>());
             let expected_lifetime = {
                 let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
                 let parsec_data = parsec_data_mutex.as_ref().unwrap();
@@ -312,7 +312,7 @@ mod tests {
             }
             let mass = mass.unwrap();
             let age = age.unwrap();
-            let mass_index = ParsecData::get_closest_mass_index(mass.to_solar_mass());
+            let mass_index = ParsecData::get_closest_mass_index(mass.get::<solar>());
             let pos = star.pos.clone();
             let generated = {
                 let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
@@ -338,7 +338,7 @@ mod tests {
     #[test]
     fn distant_small_stars_are_invisible() {
         let pos = Direction::Z.to_cartesian(Length::from_lyr(1000.));
-        let age = Time::from_Gyr(1.);
+        let age = Time::new::<gigayear>(1.);
         for mass_index in 0..30 {
             let star = {
                 let parsec_data_mutex = PARSEC_DATA.lock().unwrap();

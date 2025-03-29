@@ -65,7 +65,7 @@ fn get_pos(map: &HashMap<Col, GaiaCellData>) -> Option<Cartesian> {
 
 fn get_age(map: &HashMap<Col, GaiaCellData>) -> Option<Time> {
     let age = get_float(map.get(&Col::age)?)?;
-    Some(Time::from_Gyr(age))
+    Some(Time::new::<gigayear>(age))
 }
 
 fn get_evolution(map: &HashMap<Col, GaiaCellData>) -> Option<StarDataEvolution> {
