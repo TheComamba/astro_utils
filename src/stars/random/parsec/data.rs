@@ -23,7 +23,7 @@ mod tests {
         real_data::stars::{all::get_many_stars, SUN},
         tests::eq_within,
         units::{
-            distance::SOLAR_RADIUS, luminous_intensity::SOLAR_LUMINOUS_INTENSITY, mass::SOLAR_MASS,
+            length::SOLAR_RADIUS, luminous_intensity::SOLAR_LUMINOUS_INTENSITY, mass::SOLAR_MASS,
             time::BILLION_YEARS,
         },
     };

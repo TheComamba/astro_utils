@@ -14,7 +14,7 @@ use crate::{
     error::AstroUtilError,
     stars::data::StarData,
     units::{
-        acceleration::EARTH_SURFACE_GRAVITY, distance::distance_to_earth_radii,
+        acceleration::EARTH_SURFACE_GRAVITY, length::distance_to_earth_radii,
         luminosity::luminous_intensity_to_luminosity,
     },
 };

@@ -1,14 +1,19 @@
-use uom::si::f64::Length;
+use uom::si::{
+    f64::Length,
+    length::{astronomical_unit, kilometer, light_year, meter, micrometer, millimeter, nanometer},
+};
 
 use crate::astro_display::AstroDisplay;
 
 use super::DISPLAY_THRESHOLD;
 
-pub const DISTANCE_ZERO: Length = Length { m: 0. };
-pub const EARTH_RADIUS: Length = Length { m: 6.371e6 };
-pub const SOLAR_RADIUS: Length = Length { m: 6.957e8 };
-pub const ASTRONOMICAL_UNIT: Length = Length { m: 1.496e11 };
-pub const LIGHT_YEAR: Length = Length { m: 9.461e15 };
+unit! {
+    system: uom::si;
+
+    quantity: uom::si::length;
+    @earth_radii: 6.371e6; "R🜨", "Earth radius", "Earth radii";
+    @solar_radii: 6.957e8; "R☉", "solar radius", "solar radii";
+}
 
 pub enum LengthUnit {
     Nanometers,
@@ -22,45 +27,37 @@ pub enum LengthUnit {
     LightYears,
 }
 
-pub fn distance_to_earth_radii(distance: &Length) -> f64 {
-    distance / &EARTH_RADIUS
-}
-
-pub fn distance_to_sun_radii(distance: &Length) -> f64 {
-    distance / &SOLAR_RADIUS
-}
-
 pub fn display_distance_in_units(distance: &Length, units: LengthUnit) -> String {
     match units {
         LengthUnit::Nanometers => format!("{:.2} nm", distance.get::<nanometer>()),
-        LengthUnit::Micrometers => format!("{:.2} μm", distance.to_um()),
-        LengthUnit::Millimeters => format!("{:.2} mm", distance.to_mm()),
-        LengthUnit::Meters => format!("{:.2} m", distance.m),
-        LengthUnit::Kilometers => format!("{:.2} km", distance.to_km()),
-        LengthUnit::EarthRadii => format!("{:.2} R🜨", distance_to_earth_radii(distance)),
-        LengthUnit::SunRadii => format!("{:.2} R☉", distance_to_sun_radii(distance)),
-        LengthUnit::AstronomicalUnits => format!("{:.2} AU", distance.to_au()),
-        LengthUnit::LightYears => format!("{:.2} lyr", distance.to_lyr()),
+        LengthUnit::Micrometers => format!("{:.2} μm", distance.get::<micrometer>()),
+        LengthUnit::Millimeters => format!("{:.2} mm", distance.get::<millimeter>()),
+        LengthUnit::Meters => format!("{:.2} m", distance.get::<meter>()),
+        LengthUnit::Kilometers => format!("{:.2} km", distance.get::<kilometer>()),
+        LengthUnit::EarthRadii => format!("{:.2} R🜨", distance.get::<earth_radii>()),
+        LengthUnit::SunRadii => format!("{:.2} R☉", distance.get::<solar_radii>()),
+        LengthUnit::AstronomicalUnits => format!("{:.2} AU", distance.get::<astronomical_unit>()),
+        LengthUnit::LightYears => format!("{:.2} lyr", distance.get::<light_year>()),
     }
 }
 
 impl AstroDisplay for Length {
     fn astro_display(&self) -> String {
-        let units = if self.to_lyr().abs() > DISPLAY_THRESHOLD {
+        let units = if self.get::<light_year>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::LightYears
-        } else if self.to_au().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<astronomical_unit>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::AstronomicalUnits
-        } else if distance_to_sun_radii(self).abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<solar_radii>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::SunRadii
-        } else if distance_to_earth_radii(self).abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<earth_radii>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::EarthRadii
-        } else if self.to_km().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<kilometer>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::Kilometers
         } else if self.get::<meter>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::Meters
-        } else if self.to_mm().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<millimeter>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::Millimeters
-        } else if self.to_um().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<micrometer>().abs() > DISPLAY_THRESHOLD {
             LengthUnit::Micrometers
         } else {
             LengthUnit::Nanometers
@@ -77,17 +74,17 @@ mod tests {
     fn test_distance_display() {
         let d = Length::new::<nanometer>(1.23);
         assert_eq!(d.astro_display(), "1.23 nm");
-        let d = Length::from_meters(1.23);
+        let d = Length::new::<meter>(1.23);
         assert_eq!(d.astro_display(), "1.23 m");
         let d = Length::new::<kilometer>(1.23);
         assert_eq!(d.astro_display(), "1.23 km");
-        let d = 1.23 as f64 * EARTH_RADIUS;
+        let d = Length::new::<earth_radii>(1.23);
         assert_eq!(d.astro_display(), "1.23 R🜨");
-        let d = 1.23 as f64 * SOLAR_RADIUS;
+        let d = Length::new::<solar_radii>(1.23);
         assert_eq!(d.astro_display(), "1.23 R☉");
-        let d = Length::from_au(1.23);
+        let d = Length::new::<astronomical_unit>(1.23);
         assert_eq!(d.astro_display(), "1.23 AU");
-        let d = Length::from_lyr(1.23);
+        let d = Length::new::<light_year>(1.23);
         assert_eq!(d.astro_display(), "1.23 lyr");
     }
 
@@ -95,37 +92,37 @@ mod tests {
     fn test_distance_negative_display() {
         let d = Length::new::<nanometer>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 nm");
-        let d: Length = Length::from_meters(-1.23);
+        let d: Length = Length::new::<meter>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 m");
         let d: Length = Length::new::<kilometer>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 km");
-        let d = -1.23 as f64 * EARTH_RADIUS;
+        let d: Length = Length::new::<earth_radii>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 R🜨");
-        let d = -1.23 as f64 * SOLAR_RADIUS;
+        let d: Length = Length::new::<solar_radii>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 R☉");
-        let d = Length::from_au(-1.23);
+        let d: Length = Length::new::<astronomical_unit>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 AU");
-        let d = Length::from_lyr(-1.23);
+        let d: Length = Length::new::<light_year>(-1.23);
         assert_eq!(d.astro_display(), "-1.23 lyr");
     }
 
     #[test]
     fn test_distance_display_thresholds() {
-        let d = Length::from_um(0.1);
+        let d = Length::new::<micrometer>(0.1);
         assert_eq!(d.astro_display(), "0.10 μm");
-        let d = Length::from_mm(0.1);
+        let d = Length::new::<millimeter>(0.1);
         assert_eq!(d.astro_display(), "0.10 mm");
-        let d = Length::from_meters(0.1);
+        let d = Length::new::<meter>(0.1);
         assert_eq!(d.astro_display(), "0.10 m");
         let d = Length::new::<kilometer>(0.1);
         assert_eq!(d.astro_display(), "0.10 km");
-        let d = 0.1 as f64 * EARTH_RADIUS;
+        let d = Length::new::<earth_radii>(0.1);
         assert_eq!(d.astro_display(), "0.10 R🜨");
-        let d = 0.1 as f64 * SOLAR_RADIUS;
+        let d = Length::new::<solar_radii>(0.1);
         assert_eq!(d.astro_display(), "0.10 R☉");
-        let d = Length::from_au(0.1);
+        let d = Length::new::<astronomical_unit>(0.1);
         assert_eq!(d.astro_display(), "0.10 AU");
-        let d = Length::from_lyr(0.1);
+        let d = Length::new::<light_year>(0.1);
         assert_eq!(d.astro_display(), "0.10 lyr");
     }
 }

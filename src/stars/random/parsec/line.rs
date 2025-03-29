@@ -2,7 +2,7 @@ use super::data::ParsecData;
 use crate::{
     error::AstroUtilError,
     stars::random::random_stars::DIMMEST_ILLUMINANCE,
-    units::{distance::distance_to_sun_radii, luminous_intensity::SOLAR_LUMINOUS_INTENSITY},
+    units::{length::distance_to_sun_radii, luminous_intensity::SOLAR_LUMINOUS_INTENSITY},
 };
 use astro_coords::cartesian::Cartesian;
 use serde::{Deserialize, Serialize};

@@ -104,7 +104,7 @@ mod tests {
     use crate::{
         real_data::planets::*,
         tests::{eq, eq_within},
-        units::{angle::*, distance::DISTANCE_ZERO, mass::SOLAR_MASS},
+        units::{angle::*, length::DISTANCE_ZERO, mass::SOLAR_MASS},
     };
 
     use super::*;
@@ -295,8 +295,8 @@ mod tests {
 
     #[test]
     fn distance_from_focus_for_eccentric_ellipse() {
-        let semi_major_axis = Length::from_meters(2.);
-        let semi_minor_axis = Length::from_meters(1.);
+        let semi_major_axis = Length::new::<meter>(2.);
+        let semi_minor_axis = Length::new::<meter>(1.);
         let eccentricity = (1. - ((semi_minor_axis / semi_major_axis) as f64).powi(2)).sqrt();
         let linear_eccentricity = semi_major_axis * eccentricity;
         let focal_point = Cartesian::new(linear_eccentricity, DISTANCE_ZERO, DISTANCE_ZERO);

@@ -1,21 +1,29 @@
 use std::f64::consts::PI;
 
-use uom::si::f64::Angle;
+use uom::si::{
+    angle::{degree, radian},
+    f64::Angle,
+};
 
 use crate::astro_display::AstroDisplay;
 
-pub const ANGLE_ZERO: Angle = Angle { rad: 0. };
-pub(crate) const FULL_CIRC: Angle = Angle { rad: 2. * PI };
-pub(crate) const QUARTER_CIRC: Angle = Angle { rad: 2. * PI / 4. };
-pub(crate) const HALF_CIRC: Angle = Angle { rad: 2. * PI / 2. };
+pub fn ANGLE_ZERO() -> Angle {
+    Angle::new::<radian>(0.)
+}
+pub(crate) fn FULL_CIRC() -> Angle {
+    Angle::new::<radian>(2. * PI)
+}
+pub(crate) fn QUARTER_CIRC() -> Angle {
+    Angle::new::<radian>(2. * PI / 4.)
+}
+pub(crate) fn HALF_CIRC() -> Angle {
+    Angle::new::<radian>(2. * PI / 2.)
+}
 #[cfg(test)]
-pub(crate) const THREE_QUARTER_CIRC: Angle = Angle {
-    rad: 2. * PI * 3. / 4.,
-};
+pub(crate) fn THREE_QUARTER_CIRC() -> Angle {
+    Angle::new::<radian>(2. * PI * 3. / 4.)
+}
 
-pub const DEGREE: Angle = Angle {
-    rad: 2. * PI / 360.,
-};
 pub const ARCSEC: Angle = Angle {
     rad: 2. * PI / (360. * 60. * 60.),
 };
@@ -43,11 +51,11 @@ pub fn angle_to_second_angle(angle: &Angle) -> f64 {
 * Normalize the angle to a range of −π to +π radians, -180° to 180°.
 */
 pub fn normalized_angle(mut angle: Angle) -> Angle {
-    angle.rad %= FULL_CIRC.rad;
-    if angle > HALF_CIRC {
-        angle -= FULL_CIRC;
-    } else if angle < -HALF_CIRC {
-        angle += FULL_CIRC;
+    angle %= FULL_CIRC();
+    if angle > HALF_CIRC() {
+        angle -= FULL_CIRC();
+    } else if angle < -HALF_CIRC() {
+        angle += FULL_CIRC();
     }
     angle
 }
@@ -55,14 +63,16 @@ pub fn normalized_angle(mut angle: Angle) -> Angle {
 #[cfg(test)]
 pub(crate) fn angle_eq_within(actual: Angle, expected: Angle, accuracy: Angle) -> bool {
     let diff = normalized_angle(actual - expected);
-    diff.rad.abs() < accuracy.rad
+    diff.abs() < accuracy
 }
 
 #[cfg(test)]
 pub(crate) fn angle_eq(actual: Angle, expected: Angle) -> bool {
+    use uom::si::angle::radian;
+
     use crate::tests::TEST_ACCURACY;
 
-    angle_eq_within(actual, expected, Angle { rad: TEST_ACCURACY })
+    angle_eq_within(actual, expected, Angle::new::<radian>(TEST_ACCURACY))
 }
 
 impl AstroDisplay for Angle {

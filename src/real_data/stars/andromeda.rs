@@ -4,7 +4,7 @@ use uom::si::f64::{Length, Mass, Time};
 use crate::{
     stars::real_data::RealData,
     units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
+        length::{LIGHT_YEAR, SOLAR_RADIUS},
         mass::SOLAR_MASS,
         time::BILLION_YEARS,
     },

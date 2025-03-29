@@ -10,7 +10,7 @@ use uom::si::{
 use crate::{
     astro_display::AstroDisplay,
     units::{
-        distance::SOLAR_RADIUS,
+        length::SOLAR_RADIUS,
         luminous_intensity::{
             absolute_magnitude_to_luminous_intensity, luminous_intensity_to_absolute_magnitude,
         },

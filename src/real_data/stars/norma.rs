@@ -3,7 +3,7 @@ use simple_si_units::base::{Length, Mass, Temperature, Time};
 
 use crate::{
     stars::real_data::RealData,
-    units::{distance::LIGHT_YEAR, mass::SOLAR_MASS, time::BILLION_YEARS},
+    units::{length::LIGHT_YEAR, mass::SOLAR_MASS, time::BILLION_YEARS},
 };
 
 const GAMMA2_NORMAE: RealData = RealData {

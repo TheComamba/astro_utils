@@ -4,7 +4,7 @@ use simple_si_units::base::{Temperature, Time};
 use crate::{
     stars::real_data::RealData,
     units::{
-        distance::{DISTANCE_ZERO, SOLAR_RADIUS},
+        length::{DISTANCE_ZERO, SOLAR_RADIUS},
         mass::SOLAR_MASS,
         time::BILLION_YEARS,
     },

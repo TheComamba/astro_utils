@@ -5,7 +5,7 @@ use uom::si::{
 };
 
 use crate::units::{
-    distance::DISTANCE_ZERO, luminous_intensity::LUMINOSITY_ZERO, mass::MASS_ZERO,
+    length::DISTANCE_ZERO, luminous_intensity::LUMINOSITY_ZERO, mass::MASS_ZERO,
     temperature::TEMPERATURE_ZERO, time::TIME_ZERO,
 };
 

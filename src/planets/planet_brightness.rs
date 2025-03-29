@@ -52,7 +52,7 @@ mod tests {
         real_data::planets::*,
         tests::eq_within,
         units::{
-            distance::DISTANCE_ZERO, illuminance::apparent_magnitude_to_illuminance,
+            illuminance::apparent_magnitude_to_illuminance, length::DISTANCE_ZERO,
             luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
         },
     };

@@ -1,7 +1,7 @@
 use astro_coords::cartesian::Cartesian;
 use uom::si::f64::{Length, Time};
 
-use crate::units::distance::DISTANCE_ZERO;
+use crate::units::length::DISTANCE_ZERO;
 
 use super::{
     parsec::data::ParsecData,

@@ -15,7 +15,7 @@ use crate::{
         random::random_stars::DIMMEST_ILLUMINANCE,
     },
     units::{
-        distance::SOLAR_RADIUS,
+        length::SOLAR_RADIUS,
         luminous_intensity::{
             absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
         },
