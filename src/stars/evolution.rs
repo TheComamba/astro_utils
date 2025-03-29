@@ -5,7 +5,7 @@ use uom::si::{
     time::year,
 };
 
-use crate::units::{length::solar_radii, mass::solar, time::gigayear};
+use crate::units::{length::solar_radii, mass::solar_mass, time::gigayear};
 
 use super::{data::StarData, fate::StarFate};
 
@@ -40,7 +40,7 @@ impl StarDataEvolution {
     }
 
     pub(crate) fn from_age_and_mass(age: Time, mass: Mass) -> Self {
-        let lifetime = Time::new::<gigayear>(10.) * mass.get::<solar>().powf(-2.5); //TODO: find a better formula
+        let lifetime = Time::new::<gigayear>(10.) * mass.get::<solar_mass>().powf(-2.5); //TODO: find a better formula
         let fate = StarFate::new(mass);
         Self {
             lifestage_evolution: None,
@@ -147,7 +147,7 @@ impl StarDataEvolution {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.mass_per_year)
-            .unwrap_or_else(|| Mass::new::<solar>(0.))
+            .unwrap_or_else(|| Mass::new::<solar_mass>(0.))
     }
 
     pub fn get_lifestage_radius_per_year(&self) -> Length {
@@ -184,7 +184,7 @@ impl StarDataLifestageEvolution {
     pub(crate) fn new(now: &StarData, then: &StarData, years: f64) -> Self {
         let mass_per_year = match (now.params.mass, then.params.mass) {
             (Some(now_mass), Some(then_mass)) => (now_mass - then_mass) / years,
-            _ => Mass::new::<solar>(0.),
+            _ => Mass::new::<solar_mass>(0.),
         };
         let radius_per_year = match (now.params.radius, then.params.radius) {
             (Some(now_radius), Some(then_radius)) => (now_radius - then_radius) / years,
@@ -241,7 +241,7 @@ mod tests {
         let then = Time::new::<year>(0.);
         let now = Time::new::<year>(2000.);
         let lifestage_evolution = StarDataLifestageEvolution {
-            mass_per_year: Mass::new::<solar>(0.),
+            mass_per_year: Mass::new::<solar_mass>(0.),
             radius_per_year: Length::new::<solar_radii>(0.),
             luminous_intensity_per_year: LUMINOSITY_ZERO,
             temperature_per_year: ThermodynamicTemperature::new::<kelvin>(0.),

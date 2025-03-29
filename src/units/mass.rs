@@ -14,9 +14,9 @@ unit! {
     @kiloton: 1e6; "kt", "kiloton", "kilotons";
     @megaton: 1e9; "Mt", "megaton", "megatonnes";
     @gigaton: 1e12; "Gt", "gigaton", "gigatons";
-    @lunar: 7.346e22; "M☽", "lunar mass", "lunar masses";
-    @earth: 5.9722e24; "M🜨", "earth mass", "earth masses";
-    @solar: 1.988416E30; "M☉", "solar mass", "solar masses";
+    @lunar_mass: 7.346e22; "M☽", "lunar mass", "lunar masses";
+    @earth_mass: 5.9722e24; "M🜨", "earth mass", "earth masses";
+    @solar_mass: 1.988416E30; "M☉", "solar mass", "solar masses";
 }
 
 pub enum MassUnit {
@@ -37,19 +37,19 @@ pub fn display_mass_in_units(mass: &Mass, units: MassUnit) -> String {
         MassUnit::Kilotonne => format!("{:.2} kt", mass.get::<kiloton>()),
         MassUnit::Megatonne => format!("{:.2} Mt", mass.get::<megaton>()),
         MassUnit::Gigatonne => format!("{:.2} Gt", mass.get::<gigaton>()),
-        MassUnit::LunarMasses => format!("{:.2} M☽", mass.get::<lunar>()),
-        MassUnit::EarthMasses => format!("{:.2} M🜨", mass.get::<earth>()),
-        MassUnit::SolarMasses => format!("{:.2} M☉", mass.get::<solar>()),
+        MassUnit::LunarMasses => format!("{:.2} M☽", mass.get::<lunar_mass>()),
+        MassUnit::EarthMasses => format!("{:.2} M🜨", mass.get::<earth_mass>()),
+        MassUnit::SolarMasses => format!("{:.2} M☉", mass.get::<solar_mass>()),
     }
 }
 
 impl AstroDisplay for Mass {
     fn astro_display(&self) -> String {
-        let units = if self.abs().get::<solar>() > DISPLAY_THRESHOLD {
+        let units = if self.abs().get::<solar_mass>() > DISPLAY_THRESHOLD {
             MassUnit::SolarMasses
-        } else if self.abs().get::<earth>() > DISPLAY_THRESHOLD {
+        } else if self.abs().get::<earth_mass>() > DISPLAY_THRESHOLD {
             MassUnit::EarthMasses
-        } else if self.abs().get::<lunar>() > DISPLAY_THRESHOLD {
+        } else if self.abs().get::<lunar_mass>() > DISPLAY_THRESHOLD {
             MassUnit::LunarMasses
         } else if self.abs().get::<gigaton>() > DISPLAY_THRESHOLD {
             MassUnit::Gigatonne
@@ -82,11 +82,11 @@ mod tests {
         assert_eq!(mass.astro_display(), "1.23 Mt");
         let mass = Mass::new::<ton>(1.23e9);
         assert_eq!(mass.astro_display(), "1.23 Gt");
-        let mass = Mass::new::<lunar>(1.23);
+        let mass = Mass::new::<lunar_mass>(1.23);
         assert_eq!(mass.astro_display(), "1.23 M☽");
-        let mass = Mass::new::<earth>(1.23);
+        let mass = Mass::new::<earth_mass>(1.23);
         assert_eq!(mass.astro_display(), "1.23 M🜨");
-        let mass = Mass::new::<solar>(1.23);
+        let mass = Mass::new::<solar_mass>(1.23);
         assert_eq!(mass.astro_display(), "1.23 M☉");
     }
 
@@ -102,11 +102,11 @@ mod tests {
         assert_eq!(mass.astro_display(), "-1.23 Mt");
         let mass = Mass::new::<ton>(-1.23e9);
         assert_eq!(mass.astro_display(), "-1.23 Gt");
-        let mass = Mass::new::<lunar>(-1.23);
+        let mass = Mass::new::<lunar_mass>(-1.23);
         assert_eq!(mass.astro_display(), "-1.23 M☽");
-        let mass = Mass::new::<earth>(-1.23);
+        let mass = Mass::new::<earth_mass>(-1.23);
         assert_eq!(mass.astro_display(), "-1.23 M🜨");
-        let mass = Mass::new::<solar>(-1.23);
+        let mass = Mass::new::<solar_mass>(-1.23);
         assert_eq!(mass.astro_display(), "-1.23 M☉");
     }
 
@@ -122,11 +122,11 @@ mod tests {
         assert_eq!(mass.astro_display(), "0.10 Mt");
         let mass = Mass::new::<ton>(0.1e9);
         assert_eq!(mass.astro_display(), "0.10 Gt");
-        let mass = Mass::new::<lunar>(0.1);
+        let mass = Mass::new::<lunar_mass>(0.1);
         assert_eq!(mass.astro_display(), "0.10 M☽");
-        let mass = Mass::new::<earth>(0.1);
+        let mass = Mass::new::<earth_mass>(0.1);
         assert_eq!(mass.astro_display(), "0.10 M🜨");
-        let mass = Mass::new::<solar>(0.1);
+        let mass = Mass::new::<solar_mass>(0.1);
         assert_eq!(mass.astro_display(), "0.10 M☉");
     }
 }
