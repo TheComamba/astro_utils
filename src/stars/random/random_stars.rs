@@ -1,17 +1,18 @@
-use super::{params::GenerationParams, parsec::data::ParsecData};
+use astro_coords::{cartesian::Cartesian, direction::Direction};
+use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
+use std::f64::consts::PI;
+use uom::si::f64::{Length, Time};
+
 use crate::{
     error::AstroUtilError,
     stars::{
         data::StarData,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
     },
-    units::time::TEN_MILLENIA,
 };
-use astro_coords::{cartesian::Cartesian, direction::Direction};
-use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
-use rayon::iter::{IntoParallelIterator, ParallelIterator};
-use std::f64::consts::PI;
-use uom::si::f64::{Length, Time};
+
+use super::{params::GenerationParams, parsec::data::ParsecData};
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // But more or less arbitrarily adjusted to reproduce Gaia data.
@@ -64,7 +65,7 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
 }
 
 pub(crate) fn get_min_age(max_age: Time) -> Time {
-    max_age - NURSERY_LIFETIME - TEN_MILLENIA
+    max_age - NURSERY_LIFETIME - Time::new::<kiloyear>(10.)
 }
 
 pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Length) -> usize {

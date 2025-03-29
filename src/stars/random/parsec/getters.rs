@@ -8,7 +8,6 @@ use crate::stars::random::random_stars::get_min_age;
 use crate::units::luminous_intensity::{
     absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
 };
-use crate::units::time::TEN_MILLENIA;
 
 use super::data::ParsecData;
 use super::trajectory::Trajectory;
@@ -64,7 +63,7 @@ impl ParsecData {
         pos: Cartesian,
     ) -> Option<StarData> {
         let trajectory = self.get_trajectory_via_index(mass_index);
-        let was_alive_10_millenia_ago = age - TEN_MILLENIA < trajectory.lifetime;
+        let was_alive_10_millenia_ago = age - Time::new::<kiloyear>(10.) < trajectory.lifetime;
         if !was_alive_10_millenia_ago {
             return None;
         }
@@ -73,8 +72,8 @@ impl ParsecData {
         let params = trajectory.get_params_by_index(age_index)?;
 
         let is_currently_visible = params.is_visible(&pos);
-        let has_visible_death_within_10k_years =
-            trajectory.is_visible_supernova(&pos) && age + TEN_MILLENIA > trajectory.lifetime;
+        let has_visible_death_within_10k_years = trajectory.is_visible_supernova(&pos)
+            && age + Time::new::<kiloyear>(10.) > trajectory.lifetime;
         if is_currently_visible || has_visible_death_within_10k_years {
             Some(trajectory.to_star(age, pos))
         } else {

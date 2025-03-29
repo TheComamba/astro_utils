@@ -71,7 +71,7 @@ mod tests {
     use crate::{
         stars::random::parsec::data::PARSEC_DATA,
         tests::{eq_within, TEST_ACCURACY},
-        units::time::TEN_MILLENIA,
+        units::time::kiloyear,
     };
 
     use super::*;
@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn young_stars_far_away_are_not_adjusted() {
-        let max_age = TEN_MILLENIA;
+        let max_age = Time::new::<kiloyear>(10.);
         let origin = Direction::Z.to_cartesian(Length::from_lyr(1000.));
         let mut params = GenerationParams::nursery(origin, max_age);
         let max_distance = params.radius;
