@@ -20,7 +20,6 @@ use crate::{
             absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
         },
         mass::MASS_ZERO,
-        time::TIME_ZERO,
     },
 };
 
@@ -38,15 +37,15 @@ impl Trajectory {
     pub(super) const EMPTY: Trajectory = Trajectory {
         params: Vec::new(),
         initial_mass: MASS_ZERO,
-        lifetime: TIME_ZERO,
+        lifetime: Time::new::<year>(0.),
         peak_lifetime_luminous_intensity: LUMINOSITY_ZERO,
     };
 
     pub(super) fn new(params: Vec<ParsedParsecLine>) -> Self {
-        let initial_mass = Mass::from_solar_mass(params[0].mass_in_solar_masses);
+        let initial_mass = Mass::new::<solar_mass>(params[0].mass_in_solar_masses);
         let lifetime = match params.last() {
             Some(last) => Time::new::<year>(last.age_in_years),
-            None => TIME_ZERO,
+            None => Time::new::<year>(0.),
         };
         let peak_lifetime_luminous_intensity =
             get_peak_lifetime_luminous_intensity(&params, initial_mass);
@@ -110,7 +109,7 @@ impl Trajectory {
     }
 
     pub(super) fn is_visible_supernova(&self, pos: &Cartesian) -> bool {
-        if self.initial_mass < Mass::from_solar_mass(8.) {
+        if self.initial_mass < Mass::new::<solar_mass>(8.) {
             return false;
         }
         let min_luminous_intensity = Luminosity {
@@ -138,7 +137,7 @@ impl Trajectory {
 
     fn to_star_without_evolution(&self, age_index: usize, pos: Cartesian) -> StarData {
         let params = self.get_params_by_index_unchecked(age_index);
-        let mass = Mass::from_solar_mass(params.mass_in_solar_masses);
+        let mass = Mass::new::<solar_mass>(params.mass_in_solar_masses);
         let luminous_intensity = params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
         let temperature = ThermodynamicTemperature::new::<kelvin>(params.temperature_in_kelvin);
         let radius = params.radius_in_solar_radii * SOLAR_RADIUS;
@@ -179,7 +178,7 @@ fn get_peak_lifetime_luminous_intensity(
         .map(|p| p.luminous_intensity_in_solar)
         .max_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal))
         .unwrap_or_default();
-    if initial_mass < Mass::from_solar_mass(8.) {
+    if initial_mass < Mass::new::<solar_mass>(8.) {
         peak_lifetime_luminous_intensity * SOLAR_LUMINOUS_INTENSITY
     } else {
         absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE)

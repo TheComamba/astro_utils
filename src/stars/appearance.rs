@@ -85,7 +85,6 @@ impl AstroDisplay for StarAppearance {
 
 #[cfg(test)]
 mod tests {
-    use crate::units::time::TIME_ZERO;
 
     use super::*;
 
@@ -96,7 +95,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             Ecliptic::x_direction(),
-            TIME_ZERO,
+            Time::new::<year>(0.),
         );
 
         assert!(star.apparently_the_same(&star));
@@ -109,7 +108,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             Ecliptic::x_direction(),
-            TIME_ZERO,
+            Time::new::<year>(0.),
         );
         let mut other = star.clone();
         other.pos = Ecliptic::y_direction();
@@ -124,7 +123,7 @@ mod tests {
             Illuminance::from_lux(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             Ecliptic::x_direction(),
-            TIME_ZERO,
+            Time::new::<year>(0.),
         );
         let mut other = star.clone();
         other.illuminance = Illuminance::from_lux(100.0);

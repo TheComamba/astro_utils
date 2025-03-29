@@ -18,10 +18,8 @@ use uom::si::{
 };
 
 use crate::{
-    color::srgb::sRGBColor,
-    error::AstroUtilError,
-    stars::appearance::StarAppearance,
-    units::{illuminance::apparent_magnitude_to_illuminance, time::TIME_ZERO},
+    color::srgb::sRGBColor, error::AstroUtilError, stars::appearance::StarAppearance,
+    units::illuminance::apparent_magnitude_to_illuminance,
 };
 
 #[derive(Serialize, Deserialize)]
@@ -83,7 +81,7 @@ fn to_star_appearances(result: GaiaResult<Col>) -> Result<Vec<StarAppearance>, A
                 illuminance,
                 color,
                 pos,
-                time_since_epoch: TIME_ZERO,
+                time_since_epoch: Time::new::<year>(0.),
             };
             Ok(star)
         })

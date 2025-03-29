@@ -202,7 +202,7 @@ mod tests {
         color::srgb::sRGBColor,
         real_data::stars::all::get_many_stars,
         stars::constellation::collect_constellations,
-        units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY, time::TIME_ZERO},
+        units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY},
     };
 
     use super::*;
@@ -219,7 +219,7 @@ mod tests {
                 Illuminance::from_lux(1.0),
                 sRGBColor::WHITE,
                 pos,
-                TIME_ZERO,
+                Time::new::<year>(0.),
             ));
         }
         stars
@@ -290,7 +290,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
+        let all_consteallations = collect_constellations(&all_stars[..], Time::new::<year>(0.));
         for constellation in all_consteallations {
             let mst = minimum_spanning_tree(&constellation.get_stars());
             assert!(mst.len() == constellation.get_stars().len() - 1);
@@ -303,7 +303,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
+        let all_consteallations = collect_constellations(&all_stars[..], Time::new::<year>(0.));
         for constellation in all_consteallations {
             println!("\nChecking {}", constellation.get_name());
             let connections = constellation.get_connections();
@@ -349,7 +349,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
+        let all_consteallations = collect_constellations(&all_stars[..], Time::new::<year>(0.));
         for constellation in all_consteallations {
             println!("\nChecking {}", constellation.get_name());
             let connections = constellation.get_connections();

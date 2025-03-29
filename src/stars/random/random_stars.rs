@@ -187,10 +187,8 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 mod tests {
 
     use crate::{
-        astro_display::AstroDisplay,
-        stars::fate::StarFate,
-        tests::eq,
-        units::{illuminance::illuminance_to_apparent_magnitude, time::TIME_ZERO},
+        astro_display::AstroDisplay, stars::fate::StarFate, tests::eq,
+        units::illuminance::illuminance_to_apparent_magnitude,
     };
 
     use super::*;
@@ -245,7 +243,7 @@ mod tests {
         let max_distance = Length::from_lyr(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
-            assert!(star.get_lifetime() > TIME_ZERO);
+            assert!(star.get_lifetime() > Time::new::<year>(0.));
         }
     }
 
@@ -254,7 +252,7 @@ mod tests {
         let max_distance = Length::from_lyr(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
-            if star.params.mass.unwrap() < Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() < Mass::new::<solar_mass>(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::WhiteDwarf);
             }
         }
@@ -265,7 +263,7 @@ mod tests {
         let max_distance = Length::from_lyr(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
-            if star.params.mass.unwrap() > Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() > Mass::new::<solar_mass>(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::TypeIISupernova);
             }
         }

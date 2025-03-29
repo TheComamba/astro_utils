@@ -89,7 +89,7 @@ impl ParsecData {
                 continue;
             }
             if (min_age..max_age).contains(&trajectory.lifetime)
-                && trajectory.initial_mass > Mass::from_solar_mass(8.)
+                && trajectory.initial_mass > Mass::new::<solar_mass>(8.)
             {
                 return absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE);
             }
@@ -114,10 +114,9 @@ mod tests {
 
     use super::*;
     use crate::{
-        astro_display::AstroDisplay,
-        real_data::stars::all::get_many_stars,
+        astro_display::AstroDisplay, real_data::stars::all::get_many_stars,
         stars::random::parsec::data::PARSEC_DATA,
-        units::{luminous_intensity::luminous_intensity_to_illuminance, time::TIME_ZERO},
+        units::luminous_intensity::luminous_intensity_to_illuminance,
     };
 
     #[test]
@@ -190,7 +189,7 @@ mod tests {
             let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
             let parsec_data = parsec_data_mutex.as_ref().unwrap();
             parsec_data
-                .get_star_data_if_visible(mass_index, TIME_ZERO, Cartesian::origin())
+                .get_star_data_if_visible(mass_index, Time::new::<year>(0.), Cartesian::origin())
                 .unwrap()
         };
         assert!(star

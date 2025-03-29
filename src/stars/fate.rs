@@ -4,17 +4,19 @@ use serde::{Deserialize, Serialize};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::kilometer,
+    thermodynamic_temperature::kelvin,
     time::day,
 };
 
 use crate::{
     astro_display::AstroDisplay,
     units::{
-        length::SOLAR_RADIUS,
+        length::solar_radii,
         luminous_intensity::{
             absolute_magnitude_to_luminous_intensity, luminous_intensity_to_absolute_magnitude,
         },
-        temperature::TEMPERATURE_ZERO,
+        mass::solar_mass,
+        time::kiloyear,
     },
 };
 
@@ -26,7 +28,7 @@ pub enum StarFate {
 
 impl StarFate {
     pub(crate) fn new(initial_mass: Mass) -> Self {
-        if initial_mass < Mass::from_solar_mass(8.) {
+        if initial_mass < Mass::new::<solar_mass>(8.) {
             StarFate::WhiteDwarf
         } else {
             StarFate::TypeIISupernova
@@ -37,10 +39,10 @@ impl StarFate {
         match self {
             StarFate::WhiteDwarf => 0.3 * mass, // rough estimate after shedding outer layers
             StarFate::TypeIISupernova => {
-                if mass < Mass::from_solar_mass(25.) {
-                    Mass::from_solar_mass(1.4) // Typical Neutron Star
+                if mass < Mass::new::<solar_mass>(25.) {
+                    Mass::new::<solar_mass>(1.4) // Typical Neutron Star
                 } else {
-                    Mass::from_solar_mass(7.0) // Typical Black Hole
+                    Mass::new::<solar_mass>(7.0) // Typical Black Hole
                 }
             }
         }
@@ -48,7 +50,7 @@ impl StarFate {
 
     pub(crate) fn apply_to_radius(&self) -> Length {
         match self {
-            StarFate::WhiteDwarf => 0.0084 * SOLAR_RADIUS, // Sirius B
+            StarFate::WhiteDwarf => Length::new::<solar_radii>(0.0084), // Sirius B
             StarFate::TypeIISupernova => Length::new::<kilometer>(20.), // Neutron star or black hole
         }
     }
@@ -72,7 +74,7 @@ impl StarFate {
         time_since_death: Time,
     ) -> ThermodynamicTemperature {
         match self {
-            StarFate::WhiteDwarf => ThermodynamicTemperature::from_celsius(25_000.), // Sirius B
+            StarFate::WhiteDwarf => ThermodynamicTemperature::new::<kelvin>(25_000.), // Sirius B
             StarFate::TypeIISupernova => {
                 type_2_supernova_temperature(temperature, time_since_death)
             }
@@ -120,8 +122,8 @@ fn type_2_supernova_temperature(
     initial: ThermodynamicTemperature,
     time_since_death: Time,
 ) -> ThermodynamicTemperature {
-    const PEAK_TEMPERATURE: ThermodynamicTemperature = Temperature { K: 100_000. };
-    const PLATEAU_TEMPERATURE: ThermodynamicTemperature = Temperature { K: 4_500. };
+    let peak_temperature = ThermodynamicTemperature::new::<kelvin>(100_000.);
+    let plateau_temperature = ThermodynamicTemperature::new::<kelvin>(4_500.);
 
     let days = time_since_death.get::<day>();
     if days < 0. {
@@ -129,23 +131,23 @@ fn type_2_supernova_temperature(
     } else if SN_PHASE_1_INCREASE.contains(&days) {
         let offset = initial;
         let slope =
-            (PEAK_TEMPERATURE - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
+            (peak_temperature - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
         offset + slope * (days - SN_PHASE_1_INCREASE.start)
     } else if SN_PHASE_2_DECREASE.contains(&days) {
-        let offset = PEAK_TEMPERATURE;
+        let offset = peak_temperature;
         let slope =
-            (PLATEAU_TEMPERATURE - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
+            (plateau_temperature - offset) / (SN_PHASE_2_DECREASE.end - SN_PHASE_2_DECREASE.start);
         offset + slope * (days - SN_PHASE_2_DECREASE.start)
     } else if SN_PHASE_3_PLATEAU.contains(&days) {
-        PLATEAU_TEMPERATURE
+        plateau_temperature
     } else {
-        let offset = PLATEAU_TEMPERATURE;
-        let slope = -PLATEAU_TEMPERATURE / Time::from_kyr(10.).get::<day>();
+        let offset = plateau_temperature;
+        let slope = -plateau_temperature / Time::new::<kiloyear>(10.).get::<day>();
         let t = offset + slope * (days - SN_PHASE_3_PLATEAU.end);
-        if t > TEMPERATURE_ZERO {
+        if t.value > 0. {
             t
         } else {
-            TEMPERATURE_ZERO
+            ThermodynamicTemperature::new::<kelvin>(0.)
         }
     }
 }
@@ -262,7 +264,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_is_smooth() {
-        let initial = ThermodynamicTemperature::from_celsius(50_000.);
+        let initial = ThermodynamicTemperature::new::<kelvin>(50_000.);
         let mut last = initial;
         for count in -3..20_000 {
             let time_since_death = Time::new::<day>(count as f64 / 25.);
@@ -281,7 +283,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_increases_during_phase_1() {
-        let initial = ThermodynamicTemperature::from_celsius(5_000.);
+        let initial = ThermodynamicTemperature::new::<kelvin>(5_000.);
         let mut last = initial;
         for days in (SN_PHASE_1_INCREASE.start as i32 + 1)..=SN_PHASE_1_INCREASE.end as i32 {
             let time_since_death = Time::new::<day>(days as f64);
@@ -299,7 +301,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_decreases_during_phase_2() {
-        let initial = ThermodynamicTemperature::from_celsius(5_000.);
+        let initial = ThermodynamicTemperature::new::<kelvin>(5_000.);
         let last_time = Time::new::<day>(SN_PHASE_2_DECREASE.start);
         let mut last = type_2_supernova_temperature(initial, last_time);
         for days in (SN_PHASE_2_DECREASE.start as i32 + 1)..=SN_PHASE_2_DECREASE.end as i32 {
@@ -318,7 +320,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_plateaus_during_phase_3() {
-        let initial = ThermodynamicTemperature::from_celsius(5_000.);
+        let initial = ThermodynamicTemperature::new::<kelvin>(5_000.);
         let last_time = Time::new::<day>(SN_PHASE_3_PLATEAU.start);
         let mut last = type_2_supernova_temperature(initial, last_time);
         for days in (SN_PHASE_3_PLATEAU.start as i32 + 1)..=SN_PHASE_3_PLATEAU.end as i32 {
@@ -338,7 +340,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_temperature_decreases_after_phase_3() {
-        let initial = ThermodynamicTemperature::from_celsius(5_000.);
+        let initial = ThermodynamicTemperature::new::<kelvin>(5_000.);
         let last_time = Time::new::<day>(SN_PHASE_3_PLATEAU.end);
         let mut last = type_2_supernova_temperature(initial, last_time);
         for days in (SN_PHASE_3_PLATEAU.end as i32 + 1)..(SN_PHASE_3_PLATEAU.end as i32 + 100) {

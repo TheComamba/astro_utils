@@ -25,10 +25,7 @@ mod tests {
     use astro_coords::spherical::Spherical;
     use uom::si::{angle::degree, time::year};
 
-    use crate::{
-        tests::TEST_ACCURACY,
-        units::{angle::ANGLE_ZERO, time::TIME_ZERO},
-    };
+    use crate::{tests::TEST_ACCURACY, units::angle::ANGLE_ZERO};
 
     use super::*;
 
@@ -212,10 +209,10 @@ mod tests {
     fn surface_normal_of_non_rotating_body_with_axis_tilt() {
         let rotation_axis = Direction::Y;
         let observer = Equatorial::new(Spherical::y_direction(), rotation_axis.clone());
-        let siderial_day = TIME_ZERO;
+        let siderial_day = Time::new::<year>(0.);
 
         let angle_at_epoch = ANGLE_ZERO;
-        let time_since_epoch = TIME_ZERO;
+        let time_since_epoch = Time::new::<year>(0.);
 
         let expected = -&Direction::Z;
         let actual =

@@ -37,7 +37,7 @@ fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemp
 
 fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass> {
     let mass = get_float(map.get(&Col::mass)?)?;
-    Some(Mass::from_solar_mass(mass))
+    Some(Mass::new::<solar_mass>(mass))
 }
 
 fn get_radius(map: &HashMap<Col, GaiaCellData>) -> Option<Length> {

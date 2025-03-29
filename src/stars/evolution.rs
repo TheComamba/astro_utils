@@ -21,7 +21,7 @@ impl StarDataEvolution {
     pub const NONE: StarDataEvolution = StarDataEvolution {
         lifestage_evolution: None,
         age: None,
-        lifetime: TIME_ZERO,
+        lifetime: Time::new::<year>(0.),
         fate: StarFate::WhiteDwarf,
     };
 

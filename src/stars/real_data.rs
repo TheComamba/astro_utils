@@ -3,13 +3,16 @@ use astro_coords::{
     ra_and_dec::{Declination, RightAscension},
 };
 use std::fmt::Display;
-use uom::si::f64::{Length, Mass, ThermodynamicTemperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    time::year,
+};
 
 use crate::{
     color::srgb::sRGBColor,
     units::{
         illuminance::apparent_magnitude_to_illuminance,
-        luminous_intensity::absolute_magnitude_to_luminous_intensity, time::TIME_ZERO,
+        luminous_intensity::absolute_magnitude_to_luminous_intensity,
     },
 };
 
@@ -95,7 +98,7 @@ impl RealData {
             illuminance,
             color,
             pos,
-            time_since_epoch: TIME_ZERO,
+            time_since_epoch: Time::new::<year>(0.),
         }
     }
 }
@@ -109,7 +112,7 @@ mod tests {
         real_data::stars::all::get_many_stars,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
-            luminous_intensity::luminous_intensity_to_illuminance, time::TIME_ZERO,
+            luminous_intensity::luminous_intensity_to_illuminance,
         },
     };
 
@@ -140,7 +143,7 @@ mod tests {
         for star_data in get_many_stars() {
             let star_data = star_data.to_star_data();
             assert!(!star_data.name.is_empty());
-            let star_appearance = star_data.to_star_appearance(TIME_ZERO);
+            let star_appearance = star_data.to_star_appearance(Time::new::<year>(0.));
             assert!(!star_appearance.name.is_empty());
         }
     }
@@ -191,7 +194,7 @@ mod tests {
     #[test]
     fn no_star_is_older_than_its_lifetime() {
         for star_data in get_many_stars() {
-            assert!(star_data.lifetime > TIME_ZERO);
+            assert!(star_data.lifetime > Time::new::<year>(0.));
             if let Some(age) = star_data.age {
                 assert!(
                     age < star_data.lifetime,
@@ -205,11 +208,11 @@ mod tests {
     #[test]
     fn all_supernova_stars_have_a_time_until_death() {
         for star_data in get_many_stars() {
-            if star_data.mass > Mass::from_solar_mass(8.) {
+            if star_data.mass > Mass::new::<solar_mass>(8.) {
                 assert!(
                     star_data
                         .to_star_data()
-                        .get_time_until_death(TIME_ZERO)
+                        .get_time_until_death(Time::new::<year>(0.))
                         .is_some(),
                     "{} is a supernova star without a time until death",
                     star_data.astronomical_name

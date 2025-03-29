@@ -256,13 +256,13 @@ mod tests {
     use uom::si::thermodynamic_temperature::kelvin;
 
     use super::*;
-    use crate::{real_data::stars::all::get_many_stars, units::time::TIME_ZERO};
+    use crate::real_data::stars::all::get_many_stars;
 
     #[test]
     fn real_stars_have_a_non_vanishing_lifetime() {
         let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
         for star in star_data {
-            assert!(star.get_lifetime() > TIME_ZERO);
+            assert!(star.get_lifetime() > Time::new::<year>(0.));
         }
     }
 
@@ -270,8 +270,8 @@ mod tests {
     fn real_stars_have_not_died_yet() {
         let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
         for star in star_data {
-            if let Some(time_until_death) = star.get_time_until_death(TIME_ZERO) {
-                assert!(time_until_death > TIME_ZERO);
+            if let Some(time_until_death) = star.get_time_until_death(Time::new::<year>(0.)) {
+                assert!(time_until_death > Time::new::<year>(0.));
             }
         }
     }
@@ -280,7 +280,7 @@ mod tests {
     fn stars_below_8_sun_masses_become_white_dwarfs() {
         let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
         for star in star_data {
-            if star.params.mass.unwrap() < Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() < Mass::new::<solar_mass>(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::WhiteDwarf);
             }
         }
@@ -290,7 +290,7 @@ mod tests {
     fn stars_above_8_sun_masses_go_supernova() {
         let star_data: Vec<StarData> = get_many_stars().iter().map(|s| s.to_star_data()).collect();
         for star in star_data {
-            if star.params.mass.unwrap() > Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() > Mass::new::<solar_mass>(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::TypeIISupernova);
             }
         }
@@ -311,74 +311,74 @@ mod tests {
             assert!(
                 kinda_equal(
                     star.get_mass_at_epoch().map(|m| m.kg),
-                    star.get_mass(TIME_ZERO).map(|m| m.kg),
+                    star.get_mass(Time::new::<year>(0.)).map(|m| m.kg),
                 ),
                 "Star {}\nMass {:?}\nMass {:?}",
                 star.get_name(),
                 star.get_mass_at_epoch(),
-                star.get_mass(TIME_ZERO)
+                star.get_mass(Time::new::<year>(0.))
             );
             assert!(
                 kinda_equal(
                     star.get_radius_at_epoch().map(|r| r.m),
-                    star.get_radius(TIME_ZERO).map(|r| r.m)
+                    star.get_radius(Time::new::<year>(0.)).map(|r| r.m)
                 ),
                 "Star {}\nRadius {:?}\nRadius {:?}",
                 star.get_name(),
                 star.get_radius_at_epoch(),
-                star.get_radius(TIME_ZERO)
+                star.get_radius(Time::new::<year>(0.))
             );
             assert!(
                 kinda_equal(
                     Some(star.get_luminous_intensity_at_epoch().cd),
-                    Some(star.get_luminous_intensity(TIME_ZERO).cd)
+                    Some(star.get_luminous_intensity(Time::new::<year>(0.)).cd)
                 ),
                 "Star {}\nLuminous intensity {:?}\nLuminous intensity {:?}",
                 star.get_name(),
                 star.get_luminous_intensity_at_epoch(),
-                star.get_luminous_intensity(TIME_ZERO)
+                star.get_luminous_intensity(Time::new::<year>(0.))
             );
             assert!(
                 kinda_equal(
                     Some(star.get_temperature_at_epoch().get::<kelvin>()),
-                    Some(star.get_temperature(TIME_ZERO).get::<kelvin>())
+                    Some(star.get_temperature(Time::new::<year>(0.)).get::<kelvin>())
                 ),
                 "Star {}\nTemperature {:?}\nTemperature {:?}",
                 star.get_name(),
                 star.get_temperature_at_epoch(),
-                star.get_temperature(TIME_ZERO)
+                star.get_temperature(Time::new::<year>(0.))
             );
             assert!(
                 kinda_equal(
                     star.get_age_at_epoch().map(|t| t.s),
-                    star.get_age(TIME_ZERO).map(|t| t.s)
+                    star.get_age(Time::new::<year>(0.)).map(|t| t.s)
                 ),
                 "Star {}\nAge {:?}\nAge {:?}",
                 star.get_name(),
                 star.get_age_at_epoch(),
-                star.get_age(TIME_ZERO)
+                star.get_age(Time::new::<year>(0.))
             );
             assert!(
                 kinda_equal(
                     Some(star.get_distance_at_epoch().m),
-                    Some(star.get_distance(TIME_ZERO).m)
+                    Some(star.get_distance(Time::new::<year>(0.)).m)
                 ),
                 "Star {}\nLength {:?}\nLength {:?}",
                 star.get_name(),
                 star.get_distance_at_epoch(),
-                star.get_distance(TIME_ZERO)
+                star.get_distance(Time::new::<year>(0.))
             );
             assert!(kinda_equal(
                 Some(star.get_pos_at_epoch().x.to_lyr()),
-                Some(star.get_pos(TIME_ZERO).x.to_lyr())
+                Some(star.get_pos(Time::new::<year>(0.)).x.to_lyr())
             ));
             assert!(kinda_equal(
                 Some(star.get_pos_at_epoch().y.to_lyr()),
-                Some(star.get_pos(TIME_ZERO).y.to_lyr())
+                Some(star.get_pos(Time::new::<year>(0.)).y.to_lyr())
             ));
             assert!(kinda_equal(
                 Some(star.get_pos_at_epoch().z.to_lyr()),
-                Some(star.get_pos(TIME_ZERO).z.to_lyr())
+                Some(star.get_pos(Time::new::<year>(0.)).z.to_lyr())
             ));
         }
     }

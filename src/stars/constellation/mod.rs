@@ -78,7 +78,7 @@ pub fn collect_constellations(
 
 #[cfg(test)]
 mod tests {
-    use crate::{real_data::stars::all::get_many_stars, units::time::TIME_ZERO};
+    use crate::real_data::stars::all::get_many_stars;
 
     use super::*;
 
@@ -180,7 +180,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let constellations = collect_constellations(&all_stars, TIME_ZERO);
+        let constellations = collect_constellations(&all_stars, Time::new::<year>(0.));
         let mut constellation_names = constellations
             .iter()
             .map(|constellation| constellation.get_name())
@@ -209,7 +209,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let constellations = collect_constellations(&all_stars, TIME_ZERO);
+        let constellations = collect_constellations(&all_stars, Time::new::<year>(0.));
         for constellation in constellations {
             assert!(
                 constellation.get_stars().len() >= 3,

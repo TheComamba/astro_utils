@@ -5,10 +5,7 @@ use astro_utils::{
         gaia::gaia_universe_simulation::fetch_brightest_stars_simulated_data,
         random::random_stars::generate_random_stars,
     },
-    units::{
-        illuminance::illuminance_to_apparent_magnitude, temperature::TEMPERATURE_ZERO,
-        time::TIME_ZERO,
-    },
+    units::illuminance::illuminance_to_apparent_magnitude,
 };
 
 #[test]
@@ -28,7 +25,7 @@ fn parsec_generates_data_similar_to_gaia() {
         .collect();
     let parsec_stars = parsec_data
         .iter()
-        .map(|s| s.to_star_appearance(TIME_ZERO))
+        .map(|s| s.to_star_appearance(Time::new::<year>(0.)))
         .collect::<Vec<_>>();
     let gaia_simulated_data = fetch_brightest_stars_simulated_data()
         .unwrap()
@@ -37,7 +34,7 @@ fn parsec_generates_data_similar_to_gaia() {
         .collect::<Vec<_>>();
     let gaia_stars = gaia_simulated_data
         .iter()
-        .map(|s| s.to_star_appearance(TIME_ZERO))
+        .map(|s| s.to_star_appearance(Time::new::<year>(0.)))
         .collect::<Vec<_>>();
 
     let total_num_is_similar = total_number_is_similar(&parsec_stars, &gaia_stars);
