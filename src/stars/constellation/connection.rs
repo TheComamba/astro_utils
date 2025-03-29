@@ -176,7 +176,7 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
         let mut current_best = Connection {
             to: 0,
             from: 0,
-            distance: FULL_CIRC,
+            distance: FULL_CIRC(),
         };
         for i in &visited {
             let nn = find_nearest_neighbour(*i, stars, &visited);

@@ -108,7 +108,7 @@ pub const EARTH: RealData = RealData {
     axis_tilt: Angle {
         rad: 23.439_281 * DEGREE.rad,
     },
-    rotation_axis: EarthEquatorial::new(ANGLE_ZERO, QUARTER_CIRC),
+    rotation_axis: EarthEquatorial::new(ANGLE_ZERO, QUARTER_CIRC()),
 };
 
 pub const MARS: RealData = RealData {

@@ -10,13 +10,8 @@ use uom::si::{
 };
 
 use crate::{
-    astro_display::AstroDisplay,
-    error::AstroUtilError,
-    stars::data::StarData,
-    units::{
-        acceleration::EARTH_SURFACE_GRAVITY, length::distance_to_earth_radii,
-        luminosity::luminous_intensity_to_luminosity,
-    },
+    astro_display::AstroDisplay, error::AstroUtilError, stars::data::StarData,
+    units::luminosity::luminous_intensity_to_luminosity,
 };
 
 use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
