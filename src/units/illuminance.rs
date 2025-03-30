@@ -26,7 +26,10 @@ impl AstroDisplay for Illuminance<f64> {
 
 #[cfg(test)]
 mod tests {
-    use uom::si::f64::Length;
+    use uom::si::{
+        f64::Length,
+        length::{astronomical_unit, light_year},
+    };
 
     use super::*;
     use crate::{
@@ -60,9 +63,9 @@ mod tests {
 
     #[test]
     fn test_sunlight() {
-        let luminous_intensity = SOLAR_LUMINOUS_INTENSITY;
-        let distance = Length::from_au(1.);
-        let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
+        let luminous_intensity = SOLAR_LUMINOUS_INTENSITY();
+        let distance = Length::new::<astronomical_unit>(1.);
+        let illuminance = luminous_intensity_to_illuminance(luminous_intensity, &distance);
         let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
         let expected_app_mag = -26.74;
         assert!(eq_within(apparent_magnitude, expected_app_mag, 0.05));
@@ -83,8 +86,8 @@ mod tests {
 
     #[test]
     fn test_sirius() {
-        let luminous_intensity = 22. * SOLAR_LUMINOUS_INTENSITY;
-        let distance = Length::from_lyr(8.6);
+        let luminous_intensity = 22. * SOLAR_LUMINOUS_INTENSITY();
+        let distance = Length::new::<light_year>(8.6);
         let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
         let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
         let expected_app_mag = -1.46;
