@@ -13,8 +13,8 @@ pub fn surface_normal_at_time(
     siderial_day: Time,
 ) -> Direction {
     if siderial_day.get::<second>().abs() > 1. {
-        let time_of_siderial_day = Time::new::<second>(time_since_epoch.s % siderial_day.s);
-        let rotation = angle_at_epoch + (time_of_siderial_day / siderial_day) * FULL_CIRC();
+        let time_of_siderial_day = time_since_epoch % siderial_day;
+        let rotation = angle_at_epoch + (time_of_siderial_day / siderial_day).value * FULL_CIRC();
         observer.spherical.longitude = observer.spherical.longitude + rotation;
     }
     observer.to_direction()
@@ -35,7 +35,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::x_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.);
 
         let expected = Direction::X;
@@ -51,7 +51,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::y_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.);
 
         let expected = Direction::Y;
@@ -67,7 +67,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::z_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.);
 
         let expected = Direction::Z;
@@ -83,7 +83,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::x_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.25);
 
         let expected = Direction::Y;
@@ -99,7 +99,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::y_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.25);
 
         let expected = -&Direction::X;
@@ -115,7 +115,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::z_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.25);
 
         let expected = Direction::Z;
@@ -131,7 +131,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::x_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.5);
 
         let expected = -&Direction::X;
@@ -147,7 +147,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::x_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(-1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.25);
 
         let expected = -&Direction::Y;
@@ -163,7 +163,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::x_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.);
 
         let expected = Direction::X;
@@ -179,7 +179,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::x_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(1.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.25);
 
         let expected = -&Direction::Z;
@@ -211,7 +211,7 @@ mod tests {
         let observer = Equatorial::new(Spherical::y_direction(), rotation_axis.clone());
         let siderial_day = Time::new::<year>(0.);
 
-        let angle_at_epoch = ANGLE_ZERO;
+        let angle_at_epoch = ANGLE_ZERO();
         let time_since_epoch = Time::new::<year>(0.);
 
         let expected = -&Direction::Z;

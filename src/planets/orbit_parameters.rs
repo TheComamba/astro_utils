@@ -87,9 +87,15 @@ impl OrbitParameters {
 #[cfg(test)]
 mod test {
 
-    use crate::{real_data::planets::*, units::angle::angle_eq_within};
+    use uom::si::{angle::radian, f64::Angle};
 
-    const TILT_ACCURACY: Angle = Angle { rad: 2e-3 };
+    use crate::{
+        astro_display::AstroDisplay, real_data::planets::*, units::angle::angle_eq_within,
+    };
+
+    fn TILT_ACCURACY() -> Angle {
+        Angle::new::<radian>(2e-3)
+    }
 
     #[test]
     fn axis_tilt_of_mercury() {
@@ -99,8 +105,12 @@ mod test {
         println!("north: {}", north);
         let expected = MERCURY.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -111,8 +121,12 @@ mod test {
         println!("north: {}", north);
         let expected = VENUS.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -123,8 +137,12 @@ mod test {
         println!("north: {}", north);
         let expected = EARTH.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -135,8 +153,12 @@ mod test {
         println!("north: {}", north);
         let expected = MARS.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -147,8 +169,12 @@ mod test {
         println!("north: {}", north);
         let expected = CERES.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -159,8 +185,12 @@ mod test {
         println!("north: {}", north);
         let expected = JUPITER.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -171,8 +201,12 @@ mod test {
         println!("north: {}", north);
         let expected = SATURN.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -183,8 +217,12 @@ mod test {
         println!("north: {}", north);
         let expected = URANUS.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -195,8 +233,12 @@ mod test {
         println!("north: {}", north);
         let expected = NEPTUNE.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 
     #[test]
@@ -207,7 +249,11 @@ mod test {
         println!("north: {}", north);
         let expected = PLUTO.axis_tilt;
         let actual = orbit_normal.angle_to(&north);
-        println!("expected: {}, actual: {}", expected, actual);
-        assert!(angle_eq_within(actual, expected, TILT_ACCURACY));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        assert!(angle_eq_within(actual, expected, TILT_ACCURACY()));
     }
 }

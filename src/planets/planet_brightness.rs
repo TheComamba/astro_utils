@@ -1,7 +1,10 @@
 use std::f64::consts::PI;
 
 use astro_coords::cartesian::Cartesian;
-use uom::si::f64::{Angle, Length};
+use uom::si::{
+    angle::radian,
+    f64::{Angle, Length, LuminousIntensity},
+};
 
 use crate::{
     error::AstroUtilError,
@@ -22,11 +25,11 @@ use crate::{
  * https://www.physicsforums.com/threads/illuminated-fraction-of-the-moon.515983/
  */
 fn illuminated_fraction(reflection_angle: &Angle) -> f64 {
-    (1. + reflection_angle.rad.cos()) / 2.
+    (1. + reflection_angle.get::<radian>().cos()) / 2.
 }
 
 pub fn planet_brightness(
-    star_luminous_intensity: Luminosity<f64>,
+    star_luminous_intensity: LuminousIntensity,
     star_position: &Cartesian,
     planet_position: &Cartesian,
     observer_position: &Cartesian,
@@ -76,7 +79,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY,
+            SOLAR_LUMINOUS_INTENSITY(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -106,7 +109,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY,
+            SOLAR_LUMINOUS_INTENSITY(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -136,7 +139,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY,
+            SOLAR_LUMINOUS_INTENSITY(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -166,7 +169,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY,
+            SOLAR_LUMINOUS_INTENSITY(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -196,7 +199,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY,
+            SOLAR_LUMINOUS_INTENSITY(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -226,7 +229,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY,
+            SOLAR_LUMINOUS_INTENSITY(),
             &star_position,
             &planet_position,
             &observer_position,
