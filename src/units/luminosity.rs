@@ -1,9 +1,18 @@
+use uom::si::{
+    f64::{LuminousIntensity, Power},
+    power::watt,
+};
+
 use super::luminous_intensity::SOLAR_LUMINOUS_INTENSITY;
 
-const SOLAR_LUMINOSITY: f64 = 3.828e26; //Watts
+pub type Luminosity = Power;
+
+fn SOLAR_LUMINOSITY() -> Power {
+    Power::new::<watt>(3.828e26)
+}
 
 pub(crate) fn luminous_intensity_to_luminosity(
-    luminous_intensity: &Luminosity<f64>,
-) -> Luminosity<f64> {
-    SOLAR_LUMINOSITY / SOLAR_LUMINOUS_INTENSITY.cd * luminous_intensity
+    luminous_intensity: LuminousIntensity,
+) -> Luminosity {
+    (luminous_intensity / SOLAR_LUMINOUS_INTENSITY()) * SOLAR_LUMINOSITY()
 }

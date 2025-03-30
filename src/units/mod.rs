@@ -13,13 +13,15 @@ pub mod temperature;
 pub mod time;
 pub mod velocity;
 
-pub(super) const DISPLAY_THRESHOLD: f64 = 0.099;
+pub(super) const DISPLAY_THRESHOLD: f64 = 0.085;
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use uom::si::f64::Angle;
+    use uom::si::{angle::radian, f64::Angle};
 
     use crate::tests::TEST_ACCURACY;
 
-    pub(crate) const ANGLE_TEST_ACCURACY: Angle = Angle { rad: TEST_ACCURACY };
+    pub(crate) fn ANGLE_TEST_ACCURACY() -> Angle {
+        Angle::new::<radian>(TEST_ACCURACY)
+    }
 }

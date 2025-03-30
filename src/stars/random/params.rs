@@ -1,7 +1,7 @@
 use astro_coords::cartesian::Cartesian;
 use uom::si::f64::{Length, Time};
 
-use crate::units::length::DISTANCE_ZERO;
+use crate::units::length::solar_radii;
 
 use super::{
     parsec::data::ParsecData,
@@ -55,7 +55,7 @@ impl GenerationParams {
         let farthest_possible = distance_to_origin + self.radius;
         if distance_to_origin > self.radius {
             if closest_possible > required_distance {
-                self.radius = DISTANCE_ZERO;
+                self.radius = Length::new::<solar_radii>(0.);
             }
         } else if farthest_possible > required_distance {
             self.radius = required_distance - distance_to_origin

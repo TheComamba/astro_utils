@@ -2,16 +2,21 @@ use std::f64::consts::PI;
 
 use fraction::Fraction;
 use uom::si::{
+    acceleration::standard_gravity,
     f64::{
-        Acceleration, Angle, Length, Mass, MassDensity, ThermodynamicTemperature, Time, Velocity,
+        Acceleration, Angle, Length, LuminousIntensity, Mass, MassDensity,
+        ThermodynamicTemperature, Time, Velocity,
     },
     length::meter,
+    power::watt,
     thermodynamic_temperature::kelvin,
 };
 
 use crate::{
-    astro_display::AstroDisplay, error::AstroUtilError, stars::data::StarData,
-    units::luminosity::luminous_intensity_to_luminosity,
+    astro_display::AstroDisplay,
+    error::AstroUtilError,
+    stars::data::StarData,
+    units::{length::earth_radii, luminosity::luminous_intensity_to_luminosity, mass::earth_mass},
 };
 
 use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
@@ -111,7 +116,8 @@ impl DerivedPlanetData {
 }
 
 fn surface_gravity(mass: Mass, radius: Length) -> Acceleration {
-    mass.to_earth_mass() / distance_to_earth_radii(&radius).powi(2) * EARTH_SURFACE_GRAVITY
+    mass.get::<earth_mass>() / radius.get::<earth_radii>().powi(2)
+        * Acceleration::new::<standard_gravity>(1.)
 }
 
 fn escape_velocity(mass: Mass, radius: Length) -> Velocity {
@@ -131,7 +137,7 @@ const RESONANCE_MAX_INT: u8 = 6;
 fn orbital_resonance(period1: Time, period2: Time) -> Option<Fraction> {
     let large = period1.max(period2);
     let small = period1.min(period2);
-    let ratio = small / large;
+    let ratio: f64 = (small / large).into();
     for denominator in 1..=RESONANCE_MAX_INT {
         let numerator_float = ratio * denominator as f64;
         let numerator_int = numerator_float.round() as u8;
@@ -151,15 +157,15 @@ fn mean_synodic_day(siderial_day: Time, orbital_period: Time) -> Time {
  * http://www.jeff-hester.com/wp-content/uploads/2015/10/Thermal-Equilibrium-of-Planets.pdf
  */
 fn black_body_temperature(
-    central_body_luminous_intensity: Luminosity<f64>,
+    central_body_luminous_intensity: LuminousIntensity,
     data: &PlanetData,
 ) -> ThermodynamicTemperature {
     const STEFAN_BOLTZMANN: f64 = 5.67e-8;
 
-    let luminosity = luminous_intensity_to_luminosity(&central_body_luminous_intensity);
+    let luminosity = luminous_intensity_to_luminosity(central_body_luminous_intensity);
     let distance = data.get_orbital_parameters().semi_major_axis;
     let albedo = data.get_geometric_albedo();
-    let t_to_the_4 = luminosity.cd * (1. - albedo)
+    let t_to_the_4 = luminosity.get::<watt>() * (1. - albedo)
         / (16. * STEFAN_BOLTZMANN * PI * distance.get::<meter>().powi(2));
     ThermodynamicTemperature::new::<kelvin>(t_to_the_4.powf(1. / 4.))
 }
@@ -173,7 +179,7 @@ fn axis_tilt(data: &PlanetData) -> Angle {
 #[cfg(test)]
 mod tests {
     use uom::si::{
-        acceleration::{kilometer_per_second_squared, meter_per_second_squared},
+        acceleration::meter_per_second_squared,
         angle::degree,
         time::{day, second, year},
         velocity::kilometer_per_second,

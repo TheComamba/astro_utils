@@ -1,13 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Temperature, Time};
+use uom::si::{f64::Length, length::light_year};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{DISTANCE_ZERO, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::SOLAR_RADIUS, mass::SOLAR_MASS, time::BILLION_YEARS},
 };
 
 //https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html
@@ -44,7 +40,7 @@ pub const SUN: RealData = RealData {
     }),
     right_ascension: RightAscension::new(0, 0, 0.),
     declination: Declination::new(Sgn::Pos, 0, 0, 0.),
-    distance: DISTANCE_ZERO,
+    distance: Length::new::<light_year>(0.),
     lifetime: Time {
         s: 10.0 * BILLION_YEARS.s,
     },
