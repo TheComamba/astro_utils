@@ -69,7 +69,7 @@ pub(crate) fn get_min_age(max_age: Time) -> Time {
 }
 
 pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Length) -> usize {
-    (num_per_lyr * 4. / 3. * PI * max_distance.to_lyr().powi(3)) as usize
+    (num_per_lyr * 4. / 3. * PI * max_distance.get::<light_year>().powi(3)) as usize
 }
 
 fn generate_random_stars_with_params(

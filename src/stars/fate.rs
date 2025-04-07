@@ -57,9 +57,9 @@ impl StarFate {
 
     pub(crate) fn apply_to_luminous_intensity(
         &self,
-        luminous_intensity: Luminosity<f64>,
+        luminous_intensity: LuminousIntensity,
         time_since_death: Time,
-    ) -> Luminosity<f64> {
+    ) -> LuminousIntensity {
         match self {
             StarFate::WhiteDwarf => absolute_magnitude_to_luminous_intensity(11.18), // Sirius B
             StarFate::TypeIISupernova => {
@@ -88,9 +88,9 @@ const SN_PHASE_3_PLATEAU: Range<f64> = 20.0..110.0;
 pub(crate) const TYPE_II_SUPERNOVA_PEAK_MAGNITUDE: f64 = -16.8;
 
 fn type_2_supernova_luminous_intensity(
-    initial: Luminosity<f64>,
+    initial: LuminousIntensity,
     time_since_death: Time,
-) -> Luminosity<f64> {
+) -> LuminousIntensity {
     const PLATEAU_MAGNITUDE: f64 = -16.3;
 
     let days = time_since_death.get::<day>();
@@ -163,7 +163,7 @@ impl AstroDisplay for StarFate {
 
 #[cfg(test)]
 mod tests {
-    use crate::units::luminous_intensity::SOLAR_LUMINOUS_INTENSITY;
+    use crate::units::luminous_intensity::solar_luminous_intensity;
 
     use super::*;
 
@@ -188,7 +188,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_luminous_intensity_increases_during_phase_1() {
-        let initial = 10. * SOLAR_LUMINOUS_INTENSITY;
+        let initial = 10. * solar_luminous_intensity;
         let mut last = initial;
         for days in (SN_PHASE_1_INCREASE.start as i32 + 1)..=SN_PHASE_1_INCREASE.end as i32 {
             let time_since_death = Time::new::<day>(days as f64);
@@ -206,7 +206,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_luminous_intensity_decreases_during_phase_2() {
-        let initial = 10. * SOLAR_LUMINOUS_INTENSITY;
+        let initial = 10. * solar_luminous_intensity;
         let last_time = Time::new::<day>(SN_PHASE_2_DECREASE.start);
         let mut last = type_2_supernova_luminous_intensity(initial, last_time);
         for days in (SN_PHASE_2_DECREASE.start as i32 + 1)..=SN_PHASE_2_DECREASE.end as i32 {
@@ -225,7 +225,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_luminous_intensity_plateaus_during_phase_3() {
-        let initial = 10. * SOLAR_LUMINOUS_INTENSITY;
+        let initial = 10. * solar_luminous_intensity;
         let last_time = Time::new::<day>(SN_PHASE_3_PLATEAU.start);
         let mut last = type_2_supernova_luminous_intensity(initial, last_time);
         for days in (SN_PHASE_3_PLATEAU.start as i32 + 1)..=SN_PHASE_3_PLATEAU.end as i32 {
@@ -245,7 +245,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_luminous_intensity_decreases_after_phase_3() {
-        let initial = 10. * SOLAR_LUMINOUS_INTENSITY;
+        let initial = 10. * solar_luminous_intensity;
         let last_time = Time::new::<day>(SN_PHASE_2_DECREASE.end);
         let mut last = type_2_supernova_luminous_intensity(initial, last_time);
         for days in (SN_PHASE_3_PLATEAU.end as i32 + 1)..(SN_PHASE_3_PLATEAU.end as i32 + 100) {

@@ -106,13 +106,16 @@ impl RealData {
 #[cfg(test)]
 mod tests {
 
-    use uom::si::{f64::Mass, time::year};
+    use uom::si::{
+        f64::{Mass, Time},
+        time::year,
+    };
 
     use crate::{
         real_data::stars::all::get_many_stars,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
-            luminous_intensity::luminous_intensity_to_illuminance,
+            luminous_intensity::luminous_intensity_to_illuminance, mass::solar_mass,
         },
     };
 
@@ -121,11 +124,9 @@ mod tests {
         for star_data in get_many_stars() {
             let star = star_data.to_star_data();
             let luminous_intensity = star.get_luminous_intensity_at_epoch();
-            let illuminance = luminous_intensity_to_illuminance(
-                &luminous_intensity,
-                &star.get_distance_at_epoch(),
-            );
-            let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+            let illuminance =
+                luminous_intensity_to_illuminance(luminous_intensity, star.get_distance_at_epoch());
+            let apparent_magnitude = illuminance_to_apparent_magnitude(illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             assert!(
                 difference.abs() < 0.3,

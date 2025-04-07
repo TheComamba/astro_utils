@@ -215,7 +215,7 @@ mod tests {
                     println!("closest_star_illuminance: {}", closest.illuminance);
                     println!(
                         "Illuminance difference: {} lx",
-                        (gaia_star.illuminance - closest.illuminance).to_lux()
+                        (gaia_star.illuminance - closest.illuminance).get::<lux>()
                     );
                 }
                 failure_count += 1;
@@ -275,7 +275,7 @@ mod tests {
 
         let brightest_gaia_star = gaia_stars
             .iter()
-            .min_by_key(|star| (star.illuminance.to_lux() * 1e5) as u64)
+            .min_by_key(|star| (star.illuminance.get::<lux>() * 1e5) as u64)
             .unwrap();
         assert!(
             illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
@@ -327,17 +327,17 @@ mod tests {
         let acceptable_difference = apparent_magnitude_to_illuminance(4.);
         println!(
             "mean_brightness_difference: \n{} lx",
-            mean_brightness_difference.to_lux()
+            mean_brightness_difference.get::<lux>()
         );
         println!(
             "acceptable_difference: \n{} lx",
-            acceptable_difference.to_lux()
+            acceptable_difference.get::<lux>()
         );
         println!(
             "ratio: {}",
             mean_brightness_difference / acceptable_difference
         );
-        assert!(mean_brightness_difference.to_lux().abs() < acceptable_difference.to_lux());
+        assert!(mean_brightness_difference.get::<lux>().abs() < acceptable_difference.get::<lux>());
     }
 
     #[test]

@@ -2,11 +2,14 @@ use super::data::ParsecData;
 use crate::{
     error::AstroUtilError,
     stars::random::random_stars::DIMMEST_ILLUMINANCE,
-    units::{length::distance_to_sun_radii, luminous_intensity::SOLAR_LUMINOUS_INTENSITY},
+    units::{length::distance_to_sun_radii, luminous_intensity::solar_luminous_intensity},
 };
 use astro_coords::cartesian::Cartesian;
 use serde::{Deserialize, Serialize};
-use uom::si::{f64::Length, length::centimeter};
+use uom::si::{
+    f64::{Length, LuminousIntensity},
+    length::centimeter,
+};
 
 pub(super) struct ParsecLine {
     mass: f64,
@@ -102,9 +105,9 @@ impl ParsecLine {
 
 impl ParsedParsecLine {
     pub(super) fn is_visible(&self, pos: &Cartesian) -> bool {
-        let min_luminous_intensity = Luminosity {
-            cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
+        let min_luminous_intensity = LuminousIntensity {
+            cd: DIMMEST_ILLUMINANCE.get::<lux>() * pos.length_squared().m2,
         };
-        self.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY >= min_luminous_intensity
+        self.luminous_intensity_in_solar * solar_luminous_intensity >= min_luminous_intensity
     }
 }

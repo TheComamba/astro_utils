@@ -23,7 +23,7 @@ mod tests {
         real_data::stars::{all::get_many_stars, SUN},
         tests::eq_within,
         units::{
-            length::SOLAR_RADIUS, luminous_intensity::SOLAR_LUMINOUS_INTENSITY, mass::SOLAR_MASS,
+            length::SOLAR_RADIUS, luminous_intensity::solar_luminous_intensity, mass::SOLAR_MASS,
             time::BILLION_YEARS,
         },
     };
@@ -76,7 +76,7 @@ mod tests {
         assert!(eq_within(
             calculated_sun.get_luminous_intensity_at_epoch().cd,
             real_sun.get_luminous_intensity_at_epoch().cd,
-            0.5 * SOLAR_LUMINOUS_INTENSITY.cd
+            0.5 * solar_luminous_intensity.cd
         ));
         assert!(eq_within(
             calculated_sun.get_temperature_at_epoch().get::<kelvin>(),

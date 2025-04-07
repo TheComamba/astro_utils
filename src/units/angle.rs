@@ -39,20 +39,24 @@ pub const SECOND_ANGLE: Angle = Angle {
     rad: 2. * PI / (24. * 60. * 60.),
 };
 
+#[inline(always)]
 pub fn angle_from_arcsecs(arcsec: f64) -> Angle {
     arcsec * ARCSEC
 }
 
-pub fn angle_to_arcsecs(angle: &Angle) -> f64 {
-    angle / &ARCSEC
+#[inline(always)]
+pub fn angle_to_arcsecs(angle: Angle) -> f64 {
+    angle / ARCSEC
 }
 
+#[inline(always)]
 pub fn angle_from_second_angle(second_angle: f64) -> Angle {
     second_angle * SECOND_ANGLE
 }
 
-pub fn angle_to_second_angle(angle: &Angle) -> f64 {
-    angle / &SECOND_ANGLE
+#[inline(always)]
+pub fn angle_to_second_angle(angle: Angle) -> f64 {
+    angle / SECOND_ANGLE
 }
 
 /*

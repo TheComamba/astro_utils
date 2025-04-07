@@ -2,10 +2,10 @@ use uom::si::heat_flux_density::watt_per_square_meter;
 
 use crate::astro_display::AstroDisplay;
 
-type Illuminance = uom::si::f64::Luminance; // Hack until https://github.com/iliekturtles/uom/pull/512 is merged
+pub type Illuminance = uom::si::f64::Luminance; // Hack until https://github.com/iliekturtles/uom/pull/512 is merged
 #[allow(non_camel_case_types)]
-type lux = uom::si::luminance::candela_per_square_meter;
-type Irradiance = uom::si::f64::HeatFluxDensity;
+pub type lux = uom::si::luminance::candela_per_square_meter;
+pub type Irradiance = uom::si::f64::HeatFluxDensity;
 
 #[inline(always)]
 pub fn aparent_visible_magnitude_zero() -> Illuminance {
@@ -47,7 +47,7 @@ mod tests {
     use super::*;
     use crate::{
         tests::{eq, eq_within},
-        units::luminous_intensity::{luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY},
+        units::luminous_intensity::{luminous_intensity_to_illuminance, solar_luminous_intensity},
     };
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
@@ -76,10 +76,10 @@ mod tests {
 
     #[test]
     fn test_sunlight() {
-        let luminous_intensity = SOLAR_LUMINOUS_INTENSITY();
+        let luminous_intensity = solar_luminous_intensity();
         let distance = Length::new::<astronomical_unit>(1.);
         let illuminance = luminous_intensity_to_illuminance(luminous_intensity, distance);
-        let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+        let apparent_magnitude = illuminance_to_apparent_magnitude(illuminance);
         let expected_app_mag = -26.74;
         assert!(eq_within(apparent_magnitude, expected_app_mag, 0.05));
     }
@@ -99,10 +99,10 @@ mod tests {
 
     #[test]
     fn test_sirius() {
-        let luminous_intensity = 22. * SOLAR_LUMINOUS_INTENSITY();
+        let luminous_intensity = 22. * solar_luminous_intensity();
         let distance = Length::new::<light_year>(8.6);
         let illuminance = luminous_intensity_to_illuminance(luminous_intensity, distance);
-        let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+        let apparent_magnitude = illuminance_to_apparent_magnitude(illuminance);
         let expected_app_mag = -1.46;
         assert!(eq_within(apparent_magnitude, expected_app_mag, 0.05));
     }

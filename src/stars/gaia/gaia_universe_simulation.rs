@@ -45,7 +45,7 @@ fn get_radius(map: &HashMap<Col, GaiaCellData>) -> Option<Length> {
     Some(radius * SOLAR_RADIUS)
 }
 
-fn get_luminous_intensity(map: &HashMap<Col, GaiaCellData>) -> Option<Luminosity<f64>> {
+fn get_luminous_intensity(map: &HashMap<Col, GaiaCellData>) -> Option<LuminousIntensity> {
     let mag = get_float(map.get(&Col::mean_absolute_v)?)?;
     Some(absolute_magnitude_to_luminous_intensity(mag))
 }

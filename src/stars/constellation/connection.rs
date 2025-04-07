@@ -196,13 +196,18 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
 #[cfg(test)]
 mod tests {
     use astro_coords::spherical::Spherical;
-    use uom::si::angle::degree;
+    use uom::si::{angle::degree, f64::Time, time::year};
 
     use crate::{
+        astro_display::AstroDisplay,
         color::srgb::sRGBColor,
         real_data::stars::all::get_many_stars,
         stars::constellation::collect_constellations,
-        units::{angle::angle_zero, tests::ANGLE_TEST_ACCURACY},
+        units::{
+            angle::angle_zero,
+            illuminance::{lux, Illuminance},
+            tests::ANGLE_TEST_ACCURACY,
+        },
     };
 
     use super::*;
@@ -213,7 +218,7 @@ mod tests {
             // Making distances distinct
             let longitude = Angle::new::<degree>(10. * i as f64 + (i as f64).powi(2) / 100.);
             assert!(longitude.get::<degree>() < 179.0);
-            let pos = Spherical::new(longitude, angle_zero).to_ecliptic();
+            let pos = Spherical::new(longitude, angle_zero()).to_ecliptic();
             stars.push(StarAppearance::new(
                 format!("Star {}", i),
                 Illuminance::new::<lux>(1.0),
@@ -231,7 +236,7 @@ mod tests {
             connections.push(Connection {
                 from: i,
                 to: i + 1,
-                distance: angle_zero,
+                distance: angle_zero(),
             });
         }
         connections
@@ -339,7 +344,12 @@ mod tests {
                 stars[connection.to].get_name(),
             ];
             names.sort();
-            println!("{} - {} : {}", names[0], names[1], connection.distance);
+            println!(
+                "{} - {} : {}",
+                names[0],
+                names[1],
+                connection.distance.astro_display()
+            );
         }
     }
 

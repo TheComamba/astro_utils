@@ -1,7 +1,8 @@
 use astro_coords::cartesian::Cartesian;
 use serde::{Deserialize, Serialize};
 use uom::si::{
-    f64::{Mass, ThermodynamicTemperature, Time},
+    f64::{LuminousIntensity, Mass, ThermodynamicTemperature, Time},
+    luminous_intensity::candela,
     thermodynamic_temperature::kelvin,
     time::year,
 };
@@ -15,11 +16,9 @@ use crate::{
         random::random_stars::DIMMEST_ILLUMINANCE,
     },
     units::{
-        length::SOLAR_RADIUS,
-        luminous_intensity::{
-            absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
-        },
-        mass::MASS_ZERO,
+        illuminance::lux,
+        luminous_intensity::{absolute_magnitude_to_luminous_intensity, solar_luminous_intensity},
+        mass::solar_mass,
     },
 };
 
@@ -30,15 +29,15 @@ pub(super) struct Trajectory {
     params: Vec<ParsedParsecLine>,
     pub(super) initial_mass: Mass,
     pub(super) lifetime: Time,
-    pub(super) peak_lifetime_luminous_intensity: Luminosity<f64>,
+    pub(super) peak_lifetime_luminous_intensity: LuminousIntensity,
 }
 
 impl Trajectory {
     pub(super) const EMPTY: Trajectory = Trajectory {
         params: Vec::new(),
-        initial_mass: MASS_ZERO,
+        initial_mass: Mass::new::<solar_mass>(0.),
         lifetime: Time::new::<year>(0.),
-        peak_lifetime_luminous_intensity: LUMINOSITY_ZERO,
+        peak_lifetime_luminous_intensity: LuminousIntensity::new::<candela>(0.),
     };
 
     pub(super) fn new(params: Vec<ParsedParsecLine>) -> Self {
@@ -112,8 +111,8 @@ impl Trajectory {
         if self.initial_mass < Mass::new::<solar_mass>(8.) {
             return false;
         }
-        let min_luminous_intensity = Luminosity {
-            cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
+        let min_luminous_intensity = LuminousIntensity {
+            cd: DIMMEST_ILLUMINANCE.get::<lux>() * pos.length_squared().m2,
         };
         self.peak_lifetime_luminous_intensity >= min_luminous_intensity
     }
@@ -138,7 +137,7 @@ impl Trajectory {
     fn to_star_without_evolution(&self, age_index: usize, pos: Cartesian) -> StarData {
         let params = self.get_params_by_index_unchecked(age_index);
         let mass = Mass::new::<solar_mass>(params.mass_in_solar_masses);
-        let luminous_intensity = params.luminous_intensity_in_solar * SOLAR_LUMINOUS_INTENSITY;
+        let luminous_intensity = params.luminous_intensity_in_solar * solar_luminous_intensity;
         let temperature = ThermodynamicTemperature::new::<kelvin>(params.temperature_in_kelvin);
         let radius = params.radius_in_solar_radii * SOLAR_RADIUS;
         let physical_parameters = StarPhysicalParameters {
@@ -172,14 +171,14 @@ fn get_lifestage_evolution(
 fn get_peak_lifetime_luminous_intensity(
     params: &[ParsedParsecLine],
     initial_mass: Mass,
-) -> Luminosity<f64> {
+) -> LuminousIntensity {
     let peak_lifetime_luminous_intensity = params
         .iter()
         .map(|p| p.luminous_intensity_in_solar)
         .max_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal))
         .unwrap_or_default();
     if initial_mass < Mass::new::<solar_mass>(8.) {
-        peak_lifetime_luminous_intensity * SOLAR_LUMINOUS_INTENSITY
+        peak_lifetime_luminous_intensity * solar_luminous_intensity
     } else {
         absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE)
     }

@@ -48,7 +48,7 @@ impl GenerationParams {
         let most_luminous_intensity =
             parsec_data.get_most_luminous_intensity_possible(self.max_age);
         let required_distance = Length {
-            m: (most_luminous_intensity.cd / DIMMEST_ILLUMINANCE.lux).sqrt(),
+            m: (most_luminous_intensity.cd / DIMMEST_ILLUMINANCE.get::<lux>()).sqrt(),
         };
         let distance_to_origin = self.pos.length();
         let closest_possible = distance_to_origin - self.radius;
@@ -98,8 +98,8 @@ mod tests {
             params.adjust_distance_for_performance(parsec_data)
         };
         assert!(eq_within(
-            params.radius.to_lyr(),
-            max_distance.to_lyr(),
+            params.radius.get::<light_year>(),
+            max_distance.get::<light_year>(),
             TEST_ACCURACY
         ));
     }
@@ -129,8 +129,8 @@ mod tests {
             params.adjust_distance_for_performance(parsec_data)
         };
         assert!(eq_within(
-            params.radius.to_lyr(),
-            max_distance.to_lyr(),
+            params.radius.get::<light_year>(),
+            max_distance.get::<light_year>(),
             TEST_ACCURACY
         ));
     }

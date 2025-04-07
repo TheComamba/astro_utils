@@ -78,6 +78,8 @@ pub fn collect_constellations(
 
 #[cfg(test)]
 mod tests {
+    use uom::si::time::year;
+
     use crate::real_data::stars::all::get_many_stars;
 
     use super::*;

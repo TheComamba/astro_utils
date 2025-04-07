@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use uom::si::{
-    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time},
+    luminous_intensity::candela,
     thermodynamic_temperature::kelvin,
     time::year,
 };
@@ -107,9 +108,9 @@ impl StarDataEvolution {
 
     pub(crate) fn apply_to_luminous_intensity(
         &self,
-        luminous_intensity: Luminosity<f64>,
+        luminous_intensity: LuminousIntensity,
         time_since_epoch: Time,
-    ) -> Luminosity<f64> {
+    ) -> LuminousIntensity {
         if let Some(time_until_death) = self.time_until_death(time_since_epoch) {
             if time_until_death.value < 0. {
                 return self
@@ -157,11 +158,11 @@ impl StarDataEvolution {
             .unwrap_or_else(|| Length::new::<solar_radii>(0.))
     }
 
-    pub fn get_lifestage_luminous_intensity_per_year(&self) -> Luminosity<f64> {
+    pub fn get_lifestage_luminous_intensity_per_year(&self) -> LuminousIntensity {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.luminous_intensity_per_year)
-            .unwrap_or(LUMINOSITY_ZERO)
+            .unwrap_or(LuminousIntensity::new::<candela>(0.))
     }
 
     pub fn get_lifestage_temperature_per_year(&self) -> ThermodynamicTemperature {
@@ -176,7 +177,7 @@ impl StarDataEvolution {
 pub(crate) struct StarDataLifestageEvolution {
     mass_per_year: Mass,
     radius_per_year: Length,
-    luminous_intensity_per_year: Luminosity<f64>,
+    luminous_intensity_per_year: LuminousIntensity,
     temperature_per_year: ThermodynamicTemperature,
 }
 
@@ -243,7 +244,7 @@ mod tests {
         let lifestage_evolution = StarDataLifestageEvolution {
             mass_per_year: Mass::new::<solar_mass>(0.),
             radius_per_year: Length::new::<solar_radii>(0.),
-            luminous_intensity_per_year: LUMINOSITY_ZERO,
+            luminous_intensity_per_year: LuminousIntensity::new::<candela>(0.),
             temperature_per_year: ThermodynamicTemperature::new::<kelvin>(0.),
         };
         let evolution = StarDataEvolution::new(

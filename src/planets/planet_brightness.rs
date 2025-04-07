@@ -4,12 +4,13 @@ use astro_coords::cartesian::Cartesian;
 use uom::si::{
     angle::radian,
     f64::{Angle, Length, LuminousIntensity},
+    solid_angle::steradian,
 };
 
 use crate::{
     error::AstroUtilError,
     units::{
-        luminous_intensity::luminous_intensity_to_illuminance,
+        illuminance::Illuminance, luminous_intensity::luminous_intensity_to_illuminance,
         solid_angle::radius_and_distance_to_solid_angle,
     },
 };
@@ -40,12 +41,12 @@ pub fn planet_brightness(
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer)?;
     let planet_illuminance =
-        luminous_intensity_to_illuminance(&star_luminous_intensity, &planet_to_star.length());
+        luminous_intensity_to_illuminance(star_luminous_intensity, planet_to_star.length());
     let planet_flat_surface_luminance = (planet_illuminance * geometric_albedo) / PI;
     let solid_angle =
         radius_and_distance_to_solid_angle(planet_radius, planet_to_observer.length());
     let luminating_solid_angle = solid_angle * illuminated_fraction(&reflection_angle);
-    Ok(planet_flat_surface_luminance * luminating_solid_angle.sr)
+    Ok(planet_flat_surface_luminance * luminating_solid_angle.get::<steradian>())
 }
 
 #[cfg(test)]
@@ -54,11 +55,12 @@ mod tests {
 
     use super::*;
     use crate::{
+        astro_display::AstroDisplay,
         real_data::planets::*,
         tests::eq_within,
         units::{
-            illuminance::apparent_magnitude_to_illuminance,
-            luminous_intensity::SOLAR_LUMINOUS_INTENSITY,
+            illuminance::{apparent_magnitude_to_illuminance, lux},
+            luminous_intensity::solar_luminous_intensity,
         },
     };
     const REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR: f64 = 0.5;
@@ -79,7 +81,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY(),
+            solar_luminous_intensity(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -87,10 +89,22 @@ mod tests {
             VENUS.geometric_albedo,
         )
         .unwrap();
-        println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.to_lux() / expected.to_lux());
-        println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        println!("ratio: {}", actual.get::<lux>() / expected.get::<lux>());
+        println!(
+            "diff: {}, accuracy: {}",
+            (actual - expected).astro_display(),
+            accuracy.astro_display()
+        );
+        assert!(eq_within(
+            actual.get::<lux>(),
+            expected.get::<lux>(),
+            accuracy.get::<lux>()
+        ));
     }
 
     #[test]
@@ -109,7 +123,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY(),
+            solar_luminous_intensity(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -117,10 +131,22 @@ mod tests {
             MARS.geometric_albedo * 2., //For some reason obscure to me, mars is brighter than expected
         )
         .unwrap();
-        println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.to_lux() / expected.to_lux());
-        println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        println!("ratio: {}", actual.get::<lux>() / expected.get::<lux>());
+        println!(
+            "diff: {}, accuracy: {}",
+            (actual - expected).astro_display(),
+            accuracy.astro_display()
+        );
+        assert!(eq_within(
+            actual.get::<lux>(),
+            expected.get::<lux>(),
+            accuracy.get::<lux>()
+        ));
     }
 
     #[test]
@@ -139,7 +165,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY(),
+            solar_luminous_intensity(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -147,10 +173,22 @@ mod tests {
             JUPITER.geometric_albedo,
         )
         .unwrap();
-        println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.to_lux() / expected.to_lux());
-        println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        println!("ratio: {}", actual.get::<lux>() / expected.get::<lux>());
+        println!(
+            "diff: {}, accuracy: {}",
+            (actual - expected).astro_display(),
+            accuracy.astro_display()
+        );
+        assert!(eq_within(
+            actual.get::<lux>(),
+            expected.get::<lux>(),
+            accuracy.get::<lux>()
+        ));
     }
 
     #[test]
@@ -169,7 +207,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY(),
+            solar_luminous_intensity(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -177,10 +215,22 @@ mod tests {
             SATURN.geometric_albedo * 2., //Saturn's rings break the whole model
         )
         .unwrap();
-        println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.to_lux() / expected.to_lux());
-        println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        println!("ratio: {}", actual.get::<lux>() / expected.get::<lux>());
+        println!(
+            "diff: {}, accuracy: {}",
+            (actual - expected).astro_display(),
+            accuracy.astro_display()
+        );
+        assert!(eq_within(
+            actual.get::<lux>(),
+            expected.get::<lux>(),
+            accuracy.get::<lux>()
+        ));
     }
 
     #[test]
@@ -199,7 +249,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY(),
+            solar_luminous_intensity(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -207,10 +257,22 @@ mod tests {
             URANUS.geometric_albedo,
         )
         .unwrap();
-        println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.to_lux() / expected.to_lux());
-        println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        println!("ratio: {}", actual.get::<lux>() / expected.get::<lux>());
+        println!(
+            "diff: {}, accuracy: {}",
+            (actual - expected).astro_display(),
+            accuracy.astro_display()
+        );
+        assert!(eq_within(
+            actual.get::<lux>(),
+            expected.get::<lux>(),
+            accuracy.get::<lux>()
+        ));
     }
 
     #[test]
@@ -229,7 +291,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let actual = planet_brightness(
-            SOLAR_LUMINOUS_INTENSITY(),
+            solar_luminous_intensity(),
             &star_position,
             &planet_position,
             &observer_position,
@@ -237,9 +299,21 @@ mod tests {
             NEPTUNE.geometric_albedo,
         )
         .unwrap();
-        println!("expected: {}, actual: {}", expected, actual);
-        println!("ratio: {}", actual.to_lux() / expected.to_lux());
-        println!("diff: {}, accuracy: {}", actual - expected, accuracy);
-        assert!(eq_within(actual.lux, expected.lux, accuracy.lux));
+        println!(
+            "expected: {}, actual: {}",
+            expected.astro_display(),
+            actual.astro_display()
+        );
+        println!("ratio: {}", actual.get::<lux>() / expected.get::<lux>());
+        println!(
+            "diff: {}, accuracy: {}",
+            (actual - expected).astro_display(),
+            accuracy.astro_display()
+        );
+        assert!(eq_within(
+            actual.get::<lux>(),
+            expected.get::<lux>(),
+            accuracy.get::<lux>()
+        ));
     }
 }

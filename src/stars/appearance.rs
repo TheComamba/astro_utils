@@ -5,7 +5,11 @@ use uom::si::{
     f64::{Angle, Time},
 };
 
-use crate::{astro_display::AstroDisplay, color::srgb::sRGBColor};
+use crate::{
+    astro_display::AstroDisplay,
+    color::srgb::sRGBColor,
+    units::illuminance::{lux, Illuminance},
+};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
@@ -63,7 +67,7 @@ impl StarAppearance {
         if !self.pos.eq_within(&other.pos, angle_accuracy) {
             return false;
         }
-        let illuminance_ratio = self.illuminance.to_lux() / other.illuminance.to_lux();
+        let illuminance_ratio = self.illuminance.get::<lux>() / other.illuminance.get::<lux>();
         if !(0.1..=10.0).contains(&illuminance_ratio) {
             return false;
         }
@@ -85,6 +89,8 @@ impl AstroDisplay for StarAppearance {
 
 #[cfg(test)]
 mod tests {
+
+    use uom::si::time::year;
 
     use super::*;
 

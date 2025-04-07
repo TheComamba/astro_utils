@@ -5,7 +5,7 @@ use super::{
 use crate::{color::srgb::sRGBColor, units::luminous_intensity::luminous_intensity_to_illuminance};
 use astro_coords::{cartesian::Cartesian, ecliptic::Ecliptic};
 use serde::{Deserialize, Serialize};
-use uom::si::f64::{Length, Mass, ThermodynamicTemperature, Time};
+use uom::si::f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarData {
@@ -57,11 +57,11 @@ impl StarData {
         Some(self.evolution.apply_to_radius(self.params.radius?, time))
     }
 
-    pub const fn get_luminous_intensity_at_epoch(&self) -> Luminosity<f64> {
+    pub const fn get_luminous_intensity_at_epoch(&self) -> LuminousIntensity {
         self.params.luminous_intensity
     }
 
-    pub fn get_luminous_intensity(&self, time: Time) -> Luminosity<f64> {
+    pub fn get_luminous_intensity(&self, time: Time) -> LuminousIntensity {
         self.evolution
             .apply_to_luminous_intensity(self.params.luminous_intensity, time)
     }
@@ -127,7 +127,7 @@ impl StarData {
         self.params.radius = radius;
     }
 
-    pub fn set_luminous_intensity_at_epoch(&mut self, luminous_intensity: Luminosity<f64>) {
+    pub fn set_luminous_intensity_at_epoch(&mut self, luminous_intensity: LuminousIntensity) {
         self.params.luminous_intensity = luminous_intensity;
     }
 
@@ -162,8 +162,8 @@ impl StarData {
     pub fn to_star_appearance(&self, time_since_epoch: Time) -> StarAppearance {
         let luminous_intensity = self.get_luminous_intensity(time_since_epoch);
         let illuminance = luminous_intensity_to_illuminance(
-            &luminous_intensity,
-            &self.get_distance(time_since_epoch),
+            luminous_intensity,
+            self.get_distance(time_since_epoch),
         );
 
         let color = sRGBColor::from_temperature(self.get_temperature(time_since_epoch));
@@ -184,31 +184,34 @@ impl StarData {
 
     #[cfg(test)]
     pub(crate) fn similar_within_order_of_magnitude(&self, other: &Self) -> bool {
-        use crate::units::luminous_intensity::luminous_intensity_to_absolute_magnitude;
+        use crate::{
+            astro_display::AstroDisplay,
+            units::luminous_intensity::luminous_intensity_to_absolute_magnitude,
+        };
 
         let mass_ratio = match (self.params.mass, other.params.mass) {
-            (Some(self_mass), Some(other_mass)) => self_mass / other_mass,
+            (Some(self_mass), Some(other_mass)) => (self_mass / other_mass).value,
             _ => 1.0,
         };
         let radius_ratio = match (self.params.radius, other.params.radius) {
-            (Some(self_radius), Some(other_radius)) => self_radius / other_radius,
+            (Some(self_radius), Some(other_radius)) => (self_radius / other_radius).value,
             _ => 1.0,
         };
         let luminous_intensity_difference =
             (luminous_intensity_to_absolute_magnitude(self.params.luminous_intensity)
                 - luminous_intensity_to_absolute_magnitude(other.params.luminous_intensity))
             .abs();
-        let temperature_ratio = self.params.temperature / other.params.temperature;
+        let temperature_ratio = (self.params.temperature / other.params.temperature).value;
         let age_ratio = match (self.evolution.age, other.evolution.age) {
-            (Some(self_age), Some(other_age)) => self_age / other_age,
+            (Some(self_age), Some(other_age)) => (self_age / other_age).value,
             _ => 1.0,
         };
         let mut result = true;
         if mass_ratio < 0.1 || mass_ratio > 10.0 {
             println!(
                 "mass1: {}, mass2: {}, ratio: {}",
-                self.params.mass.unwrap(),
-                other.params.mass.unwrap(),
+                self.params.mass.unwrap().astro_display(),
+                other.params.mass.unwrap().astro_display(),
                 mass_ratio
             );
             result = false;
@@ -216,8 +219,8 @@ impl StarData {
         if radius_ratio < 0.1 || radius_ratio > 10.0 {
             println!(
                 "radius1: {}, radius2: {}, ratio: {}",
-                self.params.radius.unwrap(),
-                other.params.radius.unwrap(),
+                self.params.radius.unwrap().astro_display(),
+                other.params.radius.unwrap().astro_display(),
                 radius_ratio
             );
             result = false;
@@ -234,15 +237,17 @@ impl StarData {
         if temperature_ratio < 0.1 || temperature_ratio > 10.0 {
             println!(
                 "temperature1: {}, temperature2: {}, ratio: {}",
-                self.params.temperature, other.params.temperature, temperature_ratio
+                self.params.temperature.astro_display(),
+                other.params.temperature.astro_display(),
+                temperature_ratio
             );
             result = false;
         }
         if age_ratio < 0.1 || age_ratio > 10.0 {
             println!(
                 "age1: {}, age2: {}, ratio: {}",
-                self.evolution.age.unwrap(),
-                other.evolution.age.unwrap(),
+                self.evolution.age.unwrap().astro_display(),
+                other.evolution.age.unwrap().astro_display(),
                 age_ratio
             );
             result = false;
@@ -253,10 +258,16 @@ impl StarData {
 
 #[cfg(test)]
 mod tests {
-    use uom::si::thermodynamic_temperature::kelvin;
+    use uom::si::{
+        length::{light_year, meter},
+        luminous_intensity::candela,
+        mass::kilogram,
+        thermodynamic_temperature::kelvin,
+        time::year,
+    };
 
     use super::*;
-    use crate::real_data::stars::all::get_many_stars;
+    use crate::{real_data::stars::all::get_many_stars, units::mass::solar_mass};
 
     #[test]
     fn real_stars_have_a_non_vanishing_lifetime() {
@@ -310,8 +321,9 @@ mod tests {
         for star in star_data {
             assert!(
                 kinda_equal(
-                    star.get_mass_at_epoch().map(|m| m.kg),
-                    star.get_mass(Time::new::<year>(0.)).map(|m| m.kg),
+                    star.get_mass_at_epoch().map(|m| m.get::<kilogram>()),
+                    star.get_mass(Time::new::<year>(0.))
+                        .map(|m| m.get::<kilogram>()),
                 ),
                 "Star {}\nMass {:?}\nMass {:?}",
                 star.get_name(),
@@ -320,8 +332,9 @@ mod tests {
             );
             assert!(
                 kinda_equal(
-                    star.get_radius_at_epoch().map(|r| r.m),
-                    star.get_radius(Time::new::<year>(0.)).map(|r| r.m)
+                    star.get_radius_at_epoch().map(|r| r.get::<meter>()),
+                    star.get_radius(Time::new::<year>(0.))
+                        .map(|r| r.get::<meter>())
                 ),
                 "Star {}\nRadius {:?}\nRadius {:?}",
                 star.get_name(),
@@ -330,8 +343,11 @@ mod tests {
             );
             assert!(
                 kinda_equal(
-                    Some(star.get_luminous_intensity_at_epoch().cd),
-                    Some(star.get_luminous_intensity(Time::new::<year>(0.)).cd)
+                    Some(star.get_luminous_intensity_at_epoch().get::<candela>()),
+                    Some(
+                        star.get_luminous_intensity(Time::new::<year>(0.))
+                            .get::<candela>()
+                    )
                 ),
                 "Star {}\nLuminous intensity {:?}\nLuminous intensity {:?}",
                 star.get_name(),
@@ -350,8 +366,8 @@ mod tests {
             );
             assert!(
                 kinda_equal(
-                    star.get_age_at_epoch().map(|t| t.s),
-                    star.get_age(Time::new::<year>(0.)).map(|t| t.s)
+                    star.get_age_at_epoch().map(|t| t.get::<year>()),
+                    star.get_age(Time::new::<year>(0.)).map(|t| t.get::<year>())
                 ),
                 "Star {}\nAge {:?}\nAge {:?}",
                 star.get_name(),
@@ -360,8 +376,8 @@ mod tests {
             );
             assert!(
                 kinda_equal(
-                    Some(star.get_distance_at_epoch().m),
-                    Some(star.get_distance(Time::new::<year>(0.)).m)
+                    Some(star.get_distance_at_epoch().get::<meter>()),
+                    Some(star.get_distance(Time::new::<year>(0.)).get::<meter>())
                 ),
                 "Star {}\nLength {:?}\nLength {:?}",
                 star.get_name(),
@@ -369,16 +385,16 @@ mod tests {
                 star.get_distance(Time::new::<year>(0.))
             );
             assert!(kinda_equal(
-                Some(star.get_pos_at_epoch().x.to_lyr()),
-                Some(star.get_pos(Time::new::<year>(0.)).x.to_lyr())
+                Some(star.get_pos_at_epoch().x.get::<light_year>()),
+                Some(star.get_pos(Time::new::<year>(0.)).x.get::<light_year>())
             ));
             assert!(kinda_equal(
-                Some(star.get_pos_at_epoch().y.to_lyr()),
-                Some(star.get_pos(Time::new::<year>(0.)).y.to_lyr())
+                Some(star.get_pos_at_epoch().y.get::<light_year>()),
+                Some(star.get_pos(Time::new::<year>(0.)).y.get::<light_year>())
             ));
             assert!(kinda_equal(
-                Some(star.get_pos_at_epoch().z.to_lyr()),
-                Some(star.get_pos(Time::new::<year>(0.)).z.to_lyr())
+                Some(star.get_pos_at_epoch().z.get::<light_year>()),
+                Some(star.get_pos(Time::new::<year>(0.)).z.get::<light_year>())
             ));
         }
     }
