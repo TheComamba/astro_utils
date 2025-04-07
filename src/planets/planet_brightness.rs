@@ -35,7 +35,7 @@ pub fn planet_brightness(
     observer_position: &Cartesian,
     planet_radius: Length,
     geometric_albedo: f64,
-) -> Result<Illuminance<f64>, AstroUtilError> {
+) -> Result<Illuminance, AstroUtilError> {
     let planet_to_star = star_position - planet_position;
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer)?;
@@ -65,8 +65,8 @@ mod tests {
 
     #[test]
     fn venus_at_occultation() {
-        let accuracy = Illuminance::from_lux(1e-11);
-        let expected = Illuminance::from_lux(0.);
+        let accuracy = Illuminance::new::<lux>(1e-11);
+        let expected = Illuminance::new::<lux>(0.);
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
             VENUS.orbit.get_semi_major_axis(),

@@ -53,7 +53,7 @@ fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemp
     Some(ThermodynamicTemperature::new::<kelvin>(temperature))
 }
 
-fn get_illuminance(map: &HashMap<Col, GaiaCellData>) -> Option<Illuminance<f64>> {
+fn get_illuminance(map: &HashMap<Col, GaiaCellData>) -> Option<Illuminance> {
     let mag = get_float(map.get(&Col::phot_g_mean_mag)?)?;
     Some(apparent_magnitude_to_illuminance(mag))
 }

@@ -10,7 +10,7 @@ use crate::{astro_display::AstroDisplay, color::srgb::sRGBColor};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {
     pub(crate) name: String,
-    pub(crate) illuminance: Illuminance<f64>,
+    pub(crate) illuminance: Illuminance,
     pub(crate) color: sRGBColor,
     pub(crate) pos: Ecliptic,
     pub(crate) time_since_epoch: Time,
@@ -19,7 +19,7 @@ pub struct StarAppearance {
 impl StarAppearance {
     pub fn new(
         name: String,
-        illuminance: Illuminance<f64>,
+        illuminance: Illuminance,
         color: sRGBColor,
         pos: Ecliptic,
         time_since_epoch: Time,
@@ -37,7 +37,7 @@ impl StarAppearance {
         &self.name
     }
 
-    pub const fn get_illuminance(&self) -> &Illuminance<f64> {
+    pub const fn get_illuminance(&self) -> &Illuminance {
         &self.illuminance
     }
 
@@ -92,7 +92,7 @@ mod tests {
     fn star_is_apparently_the_same_with_itself() {
         let star = StarAppearance::new(
             "Schnuffelpuff".to_string(),
-            Illuminance::from_lux(1.0),
+            Illuminance::new::<lux>(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             Ecliptic::x_direction(),
             Time::new::<year>(0.),
@@ -105,7 +105,7 @@ mod tests {
     fn star_is_not_the_same_if_direction_is_too_different() {
         let star = StarAppearance::new(
             "Schnuffelpuff".to_string(),
-            Illuminance::from_lux(1.0),
+            Illuminance::new::<lux>(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             Ecliptic::x_direction(),
             Time::new::<year>(0.),
@@ -120,13 +120,13 @@ mod tests {
     fn star_is_not_the_same_if_brightness_is_too_different() {
         let star = StarAppearance::new(
             "Schnuffelpuff".to_string(),
-            Illuminance::from_lux(1.0),
+            Illuminance::new::<lux>(1.0),
             sRGBColor::from_sRGB(1.0, 1.0, 1.0),
             Ecliptic::x_direction(),
             Time::new::<year>(0.),
         );
         let mut other = star.clone();
-        other.illuminance = Illuminance::from_lux(100.0);
+        other.illuminance = Illuminance::new::<lux>(100.0);
 
         assert!(!star.apparently_the_same(&other));
     }

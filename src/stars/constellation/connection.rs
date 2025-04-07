@@ -216,7 +216,7 @@ mod tests {
             let pos = Spherical::new(longitude, ANGLE_ZERO).to_ecliptic();
             stars.push(StarAppearance::new(
                 format!("Star {}", i),
-                Illuminance::from_lux(1.0),
+                Illuminance::new::<lux>(1.0),
                 sRGBColor::WHITE,
                 pos,
                 Time::new::<year>(0.),

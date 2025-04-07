@@ -32,12 +32,12 @@ pub fn luminous_intensity_to_absolute_magnitude(luminous_intensity: LuminousInte
 pub fn luminous_intensity_to_illuminance(
     luminous_intensity: LuminousIntensity,
     distance: Length,
-) -> Illuminance<f64> {
+) -> Illuminance {
     luminous_intensity * SolidAngle::new::<steradian>(1.) / (distance * distance)
 }
 
 pub fn illuminance_to_luminous_intensity(
-    illuminance: Illuminance<f64>,
+    illuminance: Illuminance,
     distance: Length,
 ) -> LuminousIntensity {
     illuminance * (distance * distance) / SolidAngle::new::<steradian>(1.)
