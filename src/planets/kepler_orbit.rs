@@ -8,7 +8,7 @@ use uom::si::{
     time::second,
 };
 
-use crate::units::angle::{normalized_angle, FULL_CIRC};
+use crate::units::angle::{full_circ, normalized_angle};
 
 use super::orbit_parameters::OrbitParameters;
 
@@ -37,7 +37,7 @@ pub fn orbital_period(semi_major_axis: Length, mass1: Mass, mass2: Mass) -> Time
  * Output is normalised to the range [-π, π].
  */
 pub fn mean_anomaly(orbital_period: Time, time: Time) -> Angle {
-    let mean_motion = FULL_CIRC() / orbital_period;
+    let mean_motion = full_circ() / orbital_period;
     let time_in_orbit = time % orbital_period;
     let mean_anomaly = mean_motion * time_in_orbit;
     normalized_angle(mean_anomaly.into())
@@ -192,7 +192,7 @@ mod tests {
 
     #[test]
     fn mean_anomaly_a_quarter_circle() {
-        let expected_mean_anomaly = QUARTER_CIRC();
+        let expected_mean_anomaly = quarter_circ();
         let mean_anomaly = mean_anomaly(Time::new::<year>(4.), Time::new::<year>(1.));
         println!(
             "Expected mean anomaly: {}",
@@ -204,7 +204,7 @@ mod tests {
 
     #[test]
     fn mean_anomaly_a_half_circle() {
-        let expected_mean_anomaly = HALF_CIRC();
+        let expected_mean_anomaly = half_circ();
         let mean_anomaly = mean_anomaly(Time::new::<year>(4.), Time::new::<year>(2.));
         println!(
             "Expected mean anomaly: {}",
@@ -216,7 +216,7 @@ mod tests {
 
     #[test]
     fn mean_anomaly_three_quarters_circle() {
-        let expected_mean_anomaly = THREE_QUARTER_CIRC();
+        let expected_mean_anomaly = three_quarter_circ();
         let mean_anomaly = mean_anomaly(Time::new::<year>(4.), Time::new::<year>(-1.));
         println!(
             "Expected mean anomaly: {}",
@@ -228,9 +228,9 @@ mod tests {
 
     #[test]
     fn mean_anomaly_is_stable_after_loads_of_revolutions() {
-        let local_test_angle_accuracy: Angle = 5e-3 * FULL_CIRC();
+        let local_test_angle_accuracy: Angle = 5e-3 * full_circ();
 
-        let expected_mean_anomaly = QUARTER_CIRC();
+        let expected_mean_anomaly = quarter_circ();
         let passed_time = Time::new::<year>(1e5 + 0.25);
         let mean_anomaly = mean_anomaly(Time::new::<year>(1.), passed_time);
         println!(
@@ -247,8 +247,8 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_quarter_circle_mean_anomaly_and_zero_eccentricity() {
-        let expected_eccentric_anomaly = QUARTER_CIRC();
-        let eccentric_anomaly = eccentric_anomaly(QUARTER_CIRC(), 0.);
+        let expected_eccentric_anomaly = quarter_circ();
+        let eccentric_anomaly = eccentric_anomaly(quarter_circ(), 0.);
         println!(
             "Expected eccentric anomaly: {}",
             expected_eccentric_anomaly.astro_display()
@@ -262,8 +262,8 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_half_circle_mean_anomaly_and_zero_eccentricity() {
-        let expected_eccentric_anomaly = HALF_CIRC();
-        let eccentric_anomaly = eccentric_anomaly(HALF_CIRC(), 0.);
+        let expected_eccentric_anomaly = half_circ();
+        let eccentric_anomaly = eccentric_anomaly(half_circ(), 0.);
         println!(
             "Expected eccentric anomaly: {}",
             expected_eccentric_anomaly.astro_display()
@@ -277,8 +277,8 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_three_quarters_circle_mean_anomaly_and_zero_eccentricity() {
-        let expected_eccentric_anomaly = THREE_QUARTER_CIRC();
-        let eccentric_anomaly = eccentric_anomaly(THREE_QUARTER_CIRC(), 0.);
+        let expected_eccentric_anomaly = three_quarter_circ();
+        let eccentric_anomaly = eccentric_anomaly(three_quarter_circ(), 0.);
         println!(
             "Expected eccentric anomaly: {}",
             expected_eccentric_anomaly.astro_display()
@@ -292,8 +292,8 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_negative_quarter_circle_mean_anomaly_and_zero_eccentricity() {
-        let expected_eccentric_anomaly = -QUARTER_CIRC();
-        let eccentric_anomaly = eccentric_anomaly(-QUARTER_CIRC(), 0.);
+        let expected_eccentric_anomaly = -quarter_circ();
+        let eccentric_anomaly = eccentric_anomaly(-quarter_circ(), 0.);
         println!(
             "Expected eccentric anomaly: {}",
             expected_eccentric_anomaly.astro_display()
@@ -308,7 +308,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_quarter_circle_mean_anomaly_and_half_eccentricity() {
         let expected_eccentric_anomaly = Angle::new::<degree>(115.79362093315422);
-        let eccentric_anomaly = eccentric_anomaly(QUARTER_CIRC(), 0.5);
+        let eccentric_anomaly = eccentric_anomaly(quarter_circ(), 0.5);
         println!(
             "Expected eccentric anomaly: {}",
             expected_eccentric_anomaly.astro_display()
@@ -322,8 +322,8 @@ mod tests {
 
     #[test]
     fn eccentric_anomaly_from_half_circle_mean_anomaly_and_half_eccentricity() {
-        let expected_eccentric_anomaly = HALF_CIRC();
-        let eccentric_anomaly = eccentric_anomaly(HALF_CIRC(), 0.5);
+        let expected_eccentric_anomaly = half_circ();
+        let eccentric_anomaly = eccentric_anomaly(half_circ(), 0.5);
         println!(
             "Expected eccentric anomaly: {}",
             expected_eccentric_anomaly.astro_display()
@@ -338,7 +338,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_three_quarters_circle_mean_anomaly_and_half_eccentricity() {
         let expected_eccentric_anomaly = Angle::new::<degree>(-115.79362093315422);
-        let eccentric_anomaly = eccentric_anomaly(THREE_QUARTER_CIRC(), 0.5);
+        let eccentric_anomaly = eccentric_anomaly(three_quarter_circ(), 0.5);
         println!(
             "Expected eccentric anomaly: {}",
             expected_eccentric_anomaly.astro_display()
@@ -353,7 +353,7 @@ mod tests {
     #[test]
     fn eccentric_anomaly_from_negative_quarter_circle_mean_anomaly_and_half_eccentricity() {
         let expected_eccentric_anomaly = Angle::new::<degree>(-115.79362093315422);
-        let eccentric_anomaly = eccentric_anomaly(-QUARTER_CIRC(), 0.5);
+        let eccentric_anomaly = eccentric_anomaly(-quarter_circ(), 0.5);
         println!(
             "Expected eccentric anomaly: {}",
             expected_eccentric_anomaly.astro_display()
@@ -367,8 +367,8 @@ mod tests {
 
     #[test]
     fn true_anomaly_from_quarter_circle_eccentric_anomaly_and_zero_eccentricity() {
-        let expected_true_anomaly = QUARTER_CIRC();
-        let true_anomaly = true_anomaly(QUARTER_CIRC(), 0.);
+        let expected_true_anomaly = quarter_circ();
+        let true_anomaly = true_anomaly(quarter_circ(), 0.);
         println!(
             "Expected true anomaly: {}",
             expected_true_anomaly.astro_display()
@@ -379,8 +379,8 @@ mod tests {
 
     #[test]
     fn true_anomaly_from_half_circle_eccentric_anomaly_and_zero_eccentricity() {
-        let expected_true_anomaly = HALF_CIRC();
-        let true_anomaly = true_anomaly(HALF_CIRC(), 0.);
+        let expected_true_anomaly = half_circ();
+        let true_anomaly = true_anomaly(half_circ(), 0.);
         println!(
             "Expected true anomaly: {}",
             expected_true_anomaly.astro_display()
@@ -391,8 +391,8 @@ mod tests {
 
     #[test]
     fn true_anomaly_from_three_quarters_circle_eccentric_anomaly_and_zero_eccentricity() {
-        let expected_true_anomaly = THREE_QUARTER_CIRC();
-        let true_anomaly = true_anomaly(THREE_QUARTER_CIRC(), 0.);
+        let expected_true_anomaly = three_quarter_circ();
+        let true_anomaly = true_anomaly(three_quarter_circ(), 0.);
         println!(
             "Expected true anomaly: {}",
             expected_true_anomaly.astro_display()
@@ -413,7 +413,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
 
-        let eccentric_anom = ANGLE_ZERO();
+        let eccentric_anom = angle_zero();
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
         let point = Cartesian::new(
             semi_major_axis,
@@ -426,7 +426,7 @@ mod tests {
         println!("Calculated distance from focus: {}", actual.astro_display());
         assert!(eq(actual.value, expected.value));
 
-        let eccentric_anom = QUARTER_CIRC();
+        let eccentric_anom = quarter_circ();
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
         let point = Cartesian::new(
             Length::new::<astronomical_unit>(0.),
@@ -439,7 +439,7 @@ mod tests {
         println!("Calculated distance from focus: {}", actual.astro_display());
         assert!(eq(actual.value, expected.value));
 
-        let eccentric_anom = HALF_CIRC();
+        let eccentric_anom = half_circ();
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
         let point = Cartesian::new(
             -semi_major_axis,
@@ -452,7 +452,7 @@ mod tests {
         println!("Calculated distance from focus: {}", actual.astro_display());
         assert!(eq(actual.value, expected.value));
 
-        let eccentric_anom = THREE_QUARTER_CIRC();
+        let eccentric_anom = three_quarter_circ();
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
         let point = Cartesian::new(
             Length::new::<astronomical_unit>(0.),

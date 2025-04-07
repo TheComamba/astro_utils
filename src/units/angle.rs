@@ -7,20 +7,28 @@ use uom::si::{
 
 use crate::astro_display::AstroDisplay;
 
-pub fn ANGLE_ZERO() -> Angle {
+#[inline(always)]
+pub fn angle_zero() -> Angle {
     Angle::new::<radian>(0.)
 }
-pub(crate) fn FULL_CIRC() -> Angle {
+
+#[inline(always)]
+pub(crate) fn full_circ() -> Angle {
     Angle::new::<radian>(2. * PI)
 }
-pub(crate) fn QUARTER_CIRC() -> Angle {
+
+#[inline(always)]
+pub(crate) fn quarter_circ() -> Angle {
     Angle::new::<radian>(2. * PI / 4.)
 }
-pub(crate) fn HALF_CIRC() -> Angle {
+
+#[inline(always)]
+pub(crate) fn half_circ() -> Angle {
     Angle::new::<radian>(2. * PI / 2.)
 }
 #[cfg(test)]
-pub(crate) fn THREE_QUARTER_CIRC() -> Angle {
+#[inline(always)]
+pub(crate) fn three_quarter_circ() -> Angle {
     Angle::new::<radian>(2. * PI * 3. / 4.)
 }
 
@@ -51,11 +59,11 @@ pub fn angle_to_second_angle(angle: &Angle) -> f64 {
 * Normalize the angle to a range of −π to +π radians, -180° to 180°.
 */
 pub fn normalized_angle(mut angle: Angle) -> Angle {
-    angle %= FULL_CIRC();
-    if angle > HALF_CIRC() {
-        angle -= FULL_CIRC();
-    } else if angle < -HALF_CIRC() {
-        angle += FULL_CIRC();
+    angle %= full_circ();
+    if angle > half_circ() {
+        angle -= full_circ();
+    } else if angle < -half_circ() {
+        angle += full_circ();
     }
     angle
 }

@@ -164,7 +164,7 @@ fn find_nearest_neighbour(
 
 #[cfg(test)]
 fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
-    use crate::units::angle::FULL_CIRC;
+    use crate::units::angle::full_circ;
 
     // This is Prim's algorithm
     let mut connections = Vec::new();
@@ -176,7 +176,7 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
         let mut current_best = Connection {
             to: 0,
             from: 0,
-            distance: FULL_CIRC(),
+            distance: full_circ(),
         };
         for i in &visited {
             let nn = find_nearest_neighbour(*i, stars, &visited);
@@ -202,7 +202,7 @@ mod tests {
         color::srgb::sRGBColor,
         real_data::stars::all::get_many_stars,
         stars::constellation::collect_constellations,
-        units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY},
+        units::{angle::angle_zero, tests::ANGLE_TEST_ACCURACY},
     };
 
     use super::*;
@@ -213,7 +213,7 @@ mod tests {
             // Making distances distinct
             let longitude = Angle::new::<degree>(10. * i as f64 + (i as f64).powi(2) / 100.);
             assert!(longitude.get::<degree>() < 179.0);
-            let pos = Spherical::new(longitude, ANGLE_ZERO).to_ecliptic();
+            let pos = Spherical::new(longitude, angle_zero).to_ecliptic();
             stars.push(StarAppearance::new(
                 format!("Star {}", i),
                 Illuminance::new::<lux>(1.0),
@@ -231,7 +231,7 @@ mod tests {
             connections.push(Connection {
                 from: i,
                 to: i + 1,
-                distance: ANGLE_ZERO,
+                distance: angle_zero,
             });
         }
         connections
