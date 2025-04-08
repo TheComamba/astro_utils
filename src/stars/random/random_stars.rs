@@ -1,14 +1,22 @@
 use astro_coords::{cartesian::Cartesian, direction::Direction};
-use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
+use rand::{distr::Uniform, rngs::ThreadRng, Rng};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use std::f64::consts::PI;
-use uom::si::f64::{Length, Time};
+use uom::si::{
+    f64::{Length, Time, Velocity},
+    length::light_year,
+    velocity::kilometer_per_second,
+};
 
 use crate::{
     error::AstroUtilError,
     stars::{
         data::StarData,
         random::parsec::{data::PARSEC_DATA, distributions::ParsecDistribution},
+    },
+    units::{
+        illuminance::{lux, Illuminance},
+        time::{kiloyear, megayear},
     },
 };
 
@@ -19,16 +27,24 @@ use super::{params::GenerationParams, parsec::data::ParsecData};
 pub(super) const STARS_PER_LY_CUBED: f64 = 3e-3;
 // https://ui.adsabs.harvard.edu/abs/1985ApJ...289..373S/abstract
 // 6000 star forming regions are currently in the milky way
-pub(super) const NURSERY_LIFETIME: Time = Time {
-    s: 5e7 * 365.25 * 24. * 60. * 60.,
-};
-pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time = Time {
-    s: 8.8e9 * 365.25 * 24. * 3600.,
-};
+#[inline(always)]
+pub(super) fn nursery_lifetime() -> Time {
+    Time::new::<megayear>(50.)
+}
+#[inline(always)]
+pub(super) fn age_of_milky_way_thin_disk() -> Time {
+    Time::new::<megayear>(8.8e3)
+}
 const NURSERIES_PER_LY_CUBED: f64 = 6_000. / 8e12 * 10.; //* AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
 pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
-pub(super) const STELLAR_VELOCITY: Velocity = Velocity { mps: 20_000. };
-pub(super) const DIMMEST_ILLUMINANCE: Illuminance = Illuminance { lux: 6.5309e-9 };
+#[inline(always)]
+pub(super) fn stellar_velocity() -> Velocity {
+    Velocity::new::<kilometer_per_second>(20.)
+}
+#[inline(always)]
+pub(super) fn dimmest_illuminance() -> Illuminance {
+    Illuminance::new::<lux>(6.5309e-9)
+}
 
 pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data_mutex = PARSEC_DATA
@@ -38,7 +54,7 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
     let parsec_distr = ParsecDistribution::new()?;
 
     let number_star_forming_regions = number_in_sphere(NURSERIES_PER_LY_CUBED, max_distance) + 1;
-    let age_distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s);
+    let age_distribution = Uniform::new(0., age_of_milky_way_thin_disk().get::<megayear>())?;
     println!(
         "Number of star forming regions: {}",
         number_star_forming_regions
@@ -46,14 +62,12 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
     let stars = (0..number_star_forming_regions)
         .into_par_iter()
         .map(|i| {
-            let mut rng = rand::thread_rng();
+            let mut rng = rand::rng();
             let mut params = if i == 0 {
                 GenerationParams::old_stars(max_distance)
             } else {
                 let pos = random_point_in_sphere(&mut rng, max_distance);
-                let max_age = Time {
-                    s: rng.sample(age_distribution),
-                };
+                let max_age = Time::new::<megayear>(rng.sample(age_distribution));
                 GenerationParams::nursery(pos, max_age)
             };
             params.adjust_distance_for_performance(parsec_data);
@@ -65,7 +79,7 @@ pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, Astr
 }
 
 pub(crate) fn get_min_age(max_age: Time) -> Time {
-    max_age - NURSERY_LIFETIME - Time::new::<kiloyear>(10.)
+    max_age - nursery_lifetime() - Time::new::<kiloyear>(10.)
 }
 
 pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Length) -> usize {
@@ -77,14 +91,11 @@ fn generate_random_stars_with_params(
     parsec_data: &ParsecData,
     parsec_distr: &ParsecDistribution,
 ) -> Vec<StarData> {
-    let age_distribution = Uniform::new(0., NURSERY_LIFETIME.s);
+    let age_distribution = Uniform::new(0., nursery_lifetime().get::<megayear>());
     (0..=params.number)
         .filter_map(|_| {
-            let mut rng = rand::thread_rng();
-            let age = params.max_age
-                - Time {
-                    s: rng.sample(age_distribution),
-                };
+            let mut rng = rand::rng();
+            let age = params.max_age - Time::new::<megayear>(rng.sample(age_distribution));
             generate_visible_random_star(
                 parsec_data,
                 &params.pos,
@@ -128,7 +139,7 @@ fn definetely_generate_visible_random_star(
                     parsec_data,
                     &Cartesian::origin(),
                     max_distance_or_1,
-                    AGE_OF_MILKY_WAY_THIN_DISK,
+                    age_of_milky_way_thin_disk,
                     &mut rng,
                     &parsec_distr,
                 );
@@ -196,7 +207,7 @@ mod tests {
 
     #[test]
     fn dimmest_illuminance_is_magnitude_6_5() {
-        let dimmest = illuminance_to_apparent_magnitude(&DIMMEST_ILLUMINANCE);
+        let dimmest = illuminance_to_apparent_magnitude(&dimmest_illuminance);
         assert!(eq(dimmest, 6.5));
     }
 

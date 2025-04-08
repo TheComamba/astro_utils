@@ -13,7 +13,7 @@ use crate::{
         evolution::{StarDataEvolution, StarDataLifestageEvolution},
         fate::{StarFate, TYPE_II_SUPERNOVA_PEAK_MAGNITUDE},
         physical_parameters::StarPhysicalParameters,
-        random::random_stars::DIMMEST_ILLUMINANCE,
+        random::random_stars::dimmest_illuminance,
     },
     units::{
         illuminance::lux,
@@ -112,7 +112,7 @@ impl Trajectory {
             return false;
         }
         let min_luminous_intensity = LuminousIntensity {
-            cd: DIMMEST_ILLUMINANCE.get::<lux>() * pos.length_squared().m2,
+            cd: dimmest_illuminance.get::<lux>() * pos.length_squared().m2,
         };
         self.peak_lifetime_luminous_intensity >= min_luminous_intensity
     }

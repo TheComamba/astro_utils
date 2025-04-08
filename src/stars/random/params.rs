@@ -6,8 +6,8 @@ use crate::units::length::solar_radii;
 use super::{
     parsec::data::ParsecData,
     random_stars::{
-        number_in_sphere, AGE_OF_MILKY_WAY_THIN_DISK, DIMMEST_ILLUMINANCE,
-        NUMBER_OF_STARS_FORMED_IN_NURSERY, STARS_PER_LY_CUBED, STELLAR_VELOCITY,
+        age_of_milky_way_thin_disk, dimmest_illuminance, number_in_sphere, stellar_velocity,
+        NUMBER_OF_STARS_FORMED_IN_NURSERY, STARS_PER_LY_CUBED,
     },
 };
 
@@ -21,7 +21,7 @@ pub(super) struct GenerationParams {
 impl GenerationParams {
     pub(super) fn old_stars(max_distance: Length) -> Self {
         let pos = Cartesian::origin();
-        let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
+        let max_age = age_of_milky_way_thin_disk;
         let radius = max_distance;
         let number = number_in_sphere(STARS_PER_LY_CUBED, radius);
         GenerationParams {
@@ -33,7 +33,7 @@ impl GenerationParams {
     }
 
     pub(super) fn nursery(pos: Cartesian, max_age: Time) -> Self {
-        let radius = STELLAR_VELOCITY * max_age;
+        let radius = stellar_velocity * max_age;
         let number = NUMBER_OF_STARS_FORMED_IN_NURSERY;
         GenerationParams {
             pos,
@@ -48,7 +48,7 @@ impl GenerationParams {
         let most_luminous_intensity =
             parsec_data.get_most_luminous_intensity_possible(self.max_age);
         let required_distance = Length {
-            m: (most_luminous_intensity.cd / DIMMEST_ILLUMINANCE.get::<lux>()).sqrt(),
+            m: (most_luminous_intensity.cd / dimmest_illuminance.get::<lux>()).sqrt(),
         };
         let distance_to_origin = self.pos.length();
         let closest_possible = distance_to_origin - self.radius;
@@ -106,7 +106,7 @@ mod tests {
 
     #[test]
     fn old_stars_far_away_are_adjusted() {
-        let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
+        let max_age = age_of_milky_way_thin_disk;
         let origin = Direction::Z.to_cartesian(Length::from_lyr(10_000.));
         let mut params = GenerationParams::nursery(origin, max_age);
         {
