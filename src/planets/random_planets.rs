@@ -17,7 +17,7 @@ use super::{
 };
 
 pub fn generate_random_planet() -> PlanetData {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
     let name = String::new();
 

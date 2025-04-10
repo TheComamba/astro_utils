@@ -173,8 +173,8 @@ mod tests {
     #[test]
     fn orbital_period_of_moon() {
         let expected_orbital_period = Time::new::<day>(27.321);
-        let moon_semi_major_axis = MOON.orbit.get_semi_major_axis();
-        let orbital_period = orbital_period(moon_semi_major_axis, MOON.mass, EARTH.mass);
+        let moon_semi_major_axis = luna.orbit.get_semi_major_axis();
+        let orbital_period = orbital_period(moon_semi_major_axis, luna.mass, EARTH.mass);
         println!(
             "Expected orbital period: {}",
             expected_orbital_period.astro_display()
