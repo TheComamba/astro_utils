@@ -21,16 +21,16 @@ pub fn generate_random_planet() -> PlanetData {
 
     let name = String::new();
 
-    let min = MERCURY().radius * 0.5;
-    let max = JUPITER().radius * 2.0;
+    let min = mercury().radius * 0.5;
+    let max = jupiter().radius * 2.0;
     let radius = Length {
         m: rng.gen_range(min.m..max.m),
     };
 
     let min =
-        SATURN().mass / (4. / 3. * PI * SATURN().radius * SATURN().radius * SATURN().radius) * 0.9;
+        saturn().mass / (4. / 3. * PI * saturn().radius * saturn().radius * saturn().radius) * 0.9;
     let max =
-        EARTH().mass / (4. / 3. * PI * EARTH().radius * EARTH().radius * EARTH().radius) * 1.1;
+        earth().mass / (4. / 3. * PI * earth().radius * earth().radius * earth().radius) * 1.1;
     let density = MassDensity {
         kgpm3: rng.gen_range(min.kgpm3..max.kgpm3),
     };
@@ -49,18 +49,18 @@ pub fn generate_random_planet() -> PlanetData {
     let max = 500.;
     let rotation_period = Time::new::<hour>(rng.gen_range(min..max));
 
-    let min = MERCURY().orbit.semi_major_axis * 0.5;
-    let max = NEPTUNE().orbit.semi_major_axis * 2.0;
+    let min = mercury().orbit.semi_major_axis * 0.5;
+    let max = neptune().orbit.semi_major_axis * 2.0;
     let semi_major_axis = Length {
         m: rng.gen_range(min.m..max.m),
     };
 
     let min = 0.;
-    let max = PLUTO().orbit.eccentricity * 2.0;
-    let eccentricity = rng.gen_range(min..max);
+    let max = pluto().orbit.eccentricity * 2.0;
+    let eccentrpluto = rng.gen_range(min..max);
 
-    let min = -PLUTO().orbit.inclination.get::<degree>();
-    let max = PLUTO().orbit.inclination.get::<degree>();
+    let min = -pluto().orbit.inclination.get::<degree>();
+    let max = pluto().orbit.inclination.get::<degree>();
     let inclination = Angle::new::<degree>(rng.gen_range(min..max));
 
     let longitude_of_ascending_node = Angle::new::<degree>(rng.gen_range(0.0..360.0));

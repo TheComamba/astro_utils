@@ -71,12 +71,12 @@ mod tests {
         let expected = Illuminance::new::<lux>(0.);
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            VENUS.orbit.get_semi_major_axis(),
+            venus.orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH().orbit.get_semi_major_axis(),
+            earth().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -85,8 +85,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            VENUS.radius,
-            VENUS.geometric_albedo,
+            venus.radius,
+            venus.geometric_albedo,
         )
         .unwrap();
         println!(
@@ -113,12 +113,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            MARS().orbit.get_semi_major_axis(),
+            mars().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH().orbit.get_semi_major_axis(),
+            earth().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -127,8 +127,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            MARS().radius,
-            MARS().geometric_albedo * 2., //For some reason obscure to me, mars is brighter than expected
+            mars().radius,
+            mars().geometric_albedo * 2., //For some reason obscure to me, mars is brighter than expected
         )
         .unwrap();
         println!(
@@ -155,12 +155,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            JUPITER().orbit.get_semi_major_axis(),
+            jupiter().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH().orbit.get_semi_major_axis(),
+            earth().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -169,8 +169,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            JUPITER().radius,
-            JUPITER().geometric_albedo,
+            jupiter().radius,
+            jupiter().geometric_albedo,
         )
         .unwrap();
         println!(
@@ -197,12 +197,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            SATURN().orbit.get_semi_major_axis(),
+            saturn().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH().orbit.get_semi_major_axis(),
+            earth().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -211,8 +211,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            SATURN().radius,
-            SATURN().geometric_albedo * 2., //Saturn's rings break the whole model
+            saturn().radius,
+            saturn().geometric_albedo * 2., //Saturn's rings break the whole model
         )
         .unwrap();
         println!(
@@ -239,12 +239,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            URANUS().orbit.get_semi_major_axis(),
+            uranus().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH().orbit.get_semi_major_axis(),
+            earth().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -253,8 +253,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            URANUS().radius,
-            URANUS().geometric_albedo,
+            uranus().radius,
+            uranus().geometric_albedo,
         )
         .unwrap();
         println!(
@@ -281,12 +281,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            NEPTUNE().orbit.get_semi_major_axis(),
+            neptune().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH().orbit.get_semi_major_axis(),
+            earth().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -295,8 +295,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            NEPTUNE().radius,
-            NEPTUNE().geometric_albedo,
+            neptune().radius,
+            neptune().geometric_albedo,
         )
         .unwrap();
         println!(
