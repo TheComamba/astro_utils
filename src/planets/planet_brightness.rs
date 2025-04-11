@@ -76,7 +76,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH.orbit.get_semi_major_axis(),
+            EARTH().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -113,12 +113,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            MARS.orbit.get_semi_major_axis(),
+            MARS().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH.orbit.get_semi_major_axis(),
+            EARTH().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -127,8 +127,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            MARS.radius,
-            MARS.geometric_albedo * 2., //For some reason obscure to me, mars is brighter than expected
+            MARS().radius,
+            MARS().geometric_albedo * 2., //For some reason obscure to me, mars is brighter than expected
         )
         .unwrap();
         println!(
@@ -155,12 +155,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            JUPITER.orbit.get_semi_major_axis(),
+            JUPITER().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH.orbit.get_semi_major_axis(),
+            EARTH().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -169,8 +169,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            JUPITER.radius,
-            JUPITER.geometric_albedo,
+            JUPITER().radius,
+            JUPITER().geometric_albedo,
         )
         .unwrap();
         println!(
@@ -197,12 +197,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            SATURN.orbit.get_semi_major_axis(),
+            SATURN().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH.orbit.get_semi_major_axis(),
+            EARTH().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -211,8 +211,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            SATURN.radius,
-            SATURN.geometric_albedo * 2., //Saturn's rings break the whole model
+            SATURN().radius,
+            SATURN().geometric_albedo * 2., //Saturn's rings break the whole model
         )
         .unwrap();
         println!(
@@ -239,12 +239,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            URANUS.orbit.get_semi_major_axis(),
+            URANUS().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH.orbit.get_semi_major_axis(),
+            EARTH().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -253,8 +253,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            URANUS.radius,
-            URANUS.geometric_albedo,
+            URANUS().radius,
+            URANUS().geometric_albedo,
         )
         .unwrap();
         println!(
@@ -281,12 +281,12 @@ mod tests {
         let accuracy = REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR * expected;
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            NEPTUNE.orbit.get_semi_major_axis(),
+            NEPTUNE().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
         let observer_position = Cartesian::new(
-            EARTH.orbit.get_semi_major_axis(),
+            EARTH().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -295,8 +295,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            NEPTUNE.radius,
-            NEPTUNE.geometric_albedo,
+            NEPTUNE().radius,
+            NEPTUNE().geometric_albedo,
         )
         .unwrap();
         println!(

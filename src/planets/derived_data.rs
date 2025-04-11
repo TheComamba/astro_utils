@@ -198,8 +198,8 @@ mod tests {
 
     #[test]
     fn surface_gravity_of_earth() {
-        let mass = EARTH.to_planet_data().params.mass;
-        let radius = EARTH.to_planet_data().get_radius();
+        let mass = EARTH().to_planet_data().params.mass;
+        let radius = EARTH().to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
         assert!(eq_within(
             gravity.get::<meter_per_second_squared>(),
@@ -210,8 +210,8 @@ mod tests {
 
     #[test]
     fn surface_gravity_of_mercury() {
-        let mass = MERCURY.to_planet_data().params.mass;
-        let radius = MERCURY.to_planet_data().get_radius();
+        let mass = MERCURY().to_planet_data().params.mass;
+        let radius = MERCURY().to_planet_data().get_radius();
         let gravity = surface_gravity(mass, radius);
         assert!(eq_within(
             gravity.get::<meter_per_second_squared>(),
@@ -222,8 +222,8 @@ mod tests {
 
     #[test]
     fn escape_velocity_of_earth() {
-        let mass = EARTH.to_planet_data().params.mass;
-        let radius = EARTH.to_planet_data().get_radius();
+        let mass = EARTH().to_planet_data().params.mass;
+        let radius = EARTH().to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
         assert!(eq_within(
             velocity.get::<kilometer_per_second>(),
@@ -234,8 +234,8 @@ mod tests {
 
     #[test]
     fn escape_velocity_of_mercury() {
-        let mass = MERCURY.to_planet_data().params.mass;
-        let radius = MERCURY.to_planet_data().get_radius();
+        let mass = MERCURY().to_planet_data().params.mass;
+        let radius = MERCURY().to_planet_data().get_radius();
         let velocity = escape_velocity(mass, radius);
         assert!(eq_within(
             velocity.get::<kilometer_per_second>(),
@@ -247,14 +247,14 @@ mod tests {
     #[test]
     fn black_body_temperature_of_earth() {
         let luminosity = SUN.to_star_data().get_luminous_intensity_at_epoch();
-        let temperature = black_body_temperature(luminosity, &EARTH.to_planet_data());
+        let temperature = black_body_temperature(luminosity, &EARTH().to_planet_data());
         assert!(eq_within(temperature.get::<kelvin>(), 255., 20.));
     }
 
     #[test]
     fn black_body_temperature_of_mercury() {
         let luminosity = SUN.to_star_data().get_luminous_intensity_at_epoch();
-        let temperature = black_body_temperature(luminosity, &MERCURY.to_planet_data());
+        let temperature = black_body_temperature(luminosity, &MERCURY().to_planet_data());
         assert!(eq_within(temperature.get::<kelvin>(), 442., 20.));
     }
 
@@ -306,7 +306,7 @@ mod tests {
 
     #[test]
     fn earth_has_synodic_period_of_1_day() {
-        let synodic_day = mean_synodic_day(EARTH.siderial_rotation_period, Time::new::<year>(1.));
+        let synodic_day = mean_synodic_day(EARTH().siderial_rotation_period, Time::new::<year>(1.));
         assert!(eq(synodic_day.get::<day>(), 1.));
     }
 
@@ -322,13 +322,13 @@ mod tests {
 
     #[test]
     fn axis_tilt_of_earth() {
-        let tilt = axis_tilt(&EARTH.to_planet_data());
+        let tilt = axis_tilt(&EARTH().to_planet_data());
         assert!(eq_within(tilt.get::<degree>(), 23.44, ACCURACY));
     }
 
     #[test]
     fn axis_tilt_of_mercury() {
-        let tilt = axis_tilt(&MERCURY.to_planet_data());
+        let tilt = axis_tilt(&MERCURY().to_planet_data());
         assert!(eq_within(tilt.get::<degree>(), 0.034, ACCURACY));
     }
 }

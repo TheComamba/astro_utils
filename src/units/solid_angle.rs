@@ -57,7 +57,7 @@ mod tests {
         let expected = SolidAngle::new::<steradian>(7e-5);
         let actual = radius_and_distance_to_solid_angle(
             Length::new::<solar_radii>(1.),
-            EARTH.orbit.get_semi_major_axis(),
+            EARTH().orbit.get_semi_major_axis(),
         );
         assert!(eq(actual.value, expected.value));
     }
