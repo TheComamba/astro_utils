@@ -14,12 +14,9 @@ use crate::{
     },
 };
 
-use super::{
-    parsec::data::ParsecData,
-    random_stars::{
-        get_min_age, number_in_sphere, AGE_OF_MILKY_WAY_THIN_DISK, DIMMEST_ILLUMINANCE,
-        METALLICITY_INDEX, NUMBER_OF_STARS_FORMED_IN_NURSERY, STARS_PER_LY_CUBED, STELLAR_VELOCITY,
-    },
+use super::random_stars::{
+    get_min_age, number_in_sphere, AGE_OF_MILKY_WAY_THIN_DISK, DIMMEST_ILLUMINANCE,
+    METALLICITY_INDEX, NUMBER_OF_STARS_FORMED_IN_NURSERY, STARS_PER_LY_CUBED, STELLAR_VELOCITY,
 };
 
 pub(super) struct GenerationParams {
@@ -54,7 +51,7 @@ impl GenerationParams {
         }
     }
 
-    pub(super) fn adjust_distance_for_performance(&mut self, parsec_data: &ParsecData) {
+    pub(super) fn adjust_distance_for_performance(&mut self) {
         let original_radius = self.radius;
         let most_luminous_intensity = self.get_most_luminous_intensity_possible();
         let required_distance = Distance {
@@ -105,9 +102,9 @@ impl GenerationParams {
 #[cfg(test)]
 mod tests {
     use astro_coords::direction::Direction;
+    use parsec_access::getters::is_data_ready;
 
     use crate::{
-        stars::random::parsec::data::PARSEC_DATA,
         tests::{eq_within, TEST_ACCURACY},
         units::time::TEN_MILLENIA,
     };
@@ -118,11 +115,8 @@ mod tests {
     fn large_distance_for_old_stars_is_adjusted() {
         let max_distance = Distance::from_lyr(10_000.);
         let mut params = GenerationParams::old_stars(max_distance);
-        {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            params.adjust_distance_for_performance(parsec_data)
-        };
+        assert!(is_data_ready());
+        params.adjust_distance_for_performance();
         assert!(params.radius < max_distance);
     }
 
@@ -130,11 +124,8 @@ mod tests {
     fn short_distance_for_old_stars_is_not_adjusted() {
         let max_distance = Distance::from_lyr(10.);
         let mut params = GenerationParams::old_stars(max_distance);
-        {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            params.adjust_distance_for_performance(parsec_data)
-        };
+        assert!(is_data_ready());
+        params.adjust_distance_for_performance();
         assert!(eq_within(
             params.radius.to_lyr(),
             max_distance.to_lyr(),
@@ -147,11 +138,8 @@ mod tests {
         let max_age = AGE_OF_MILKY_WAY_THIN_DISK;
         let origin = Direction::Z.to_cartesian(Distance::from_lyr(10_000.));
         let mut params = GenerationParams::nursery(origin, max_age);
-        {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            params.adjust_distance_for_performance(parsec_data)
-        };
+        assert!(is_data_ready());
+        params.adjust_distance_for_performance();
         assert!(params.radius.m < 1.);
     }
 
@@ -161,11 +149,8 @@ mod tests {
         let origin = Direction::Z.to_cartesian(Distance::from_lyr(1000.));
         let mut params = GenerationParams::nursery(origin, max_age);
         let max_distance = params.radius;
-        {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            params.adjust_distance_for_performance(parsec_data)
-        };
+        assert!(is_data_ready());
+        params.adjust_distance_for_performance();
         assert!(eq_within(
             params.radius.to_lyr(),
             max_distance.to_lyr(),

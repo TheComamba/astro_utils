@@ -61,7 +61,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
                 };
                 GenerationParams::nursery(pos, max_age)
             };
-            params.adjust_distance_for_performance(parsec_data);
+            params.adjust_distance_for_performance();
             generate_random_stars_with_params(params, parsec_data, &parsec_distr)
         })
         .flatten()
