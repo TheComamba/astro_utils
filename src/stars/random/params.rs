@@ -1,13 +1,24 @@
 use astro_coords::cartesian::Cartesian;
-use simple_si_units::base::{Distance, Time};
+use parsec_access::getters::{
+    get_closest_age_index, get_masses_in_solar, get_parameters, get_trajectory,
+};
+use simple_si_units::base::{Distance, Luminosity, Mass, Time};
 
-use crate::units::distance::DISTANCE_ZERO;
+use crate::{
+    stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE,
+    units::{
+        distance::DISTANCE_ZERO,
+        luminous_intensity::{
+            absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
+        },
+    },
+};
 
 use super::{
     parsec::data::ParsecData,
     random_stars::{
-        number_in_sphere, AGE_OF_MILKY_WAY_THIN_DISK, DIMMEST_ILLUMINANCE,
-        NUMBER_OF_STARS_FORMED_IN_NURSERY, STARS_PER_LY_CUBED, STELLAR_VELOCITY,
+        get_min_age, number_in_sphere, AGE_OF_MILKY_WAY_THIN_DISK, DIMMEST_ILLUMINANCE,
+        METALLICITY_INDEX, NUMBER_OF_STARS_FORMED_IN_NURSERY, STARS_PER_LY_CUBED, STELLAR_VELOCITY,
     },
 };
 
@@ -45,8 +56,7 @@ impl GenerationParams {
 
     pub(super) fn adjust_distance_for_performance(&mut self, parsec_data: &ParsecData) {
         let original_radius = self.radius;
-        let most_luminous_intensity =
-            parsec_data.get_most_luminous_intensity_possible(self.max_age);
+        let most_luminous_intensity = self.get_most_luminous_intensity_possible();
         let required_distance = Distance {
             m: (most_luminous_intensity.cd / DIMMEST_ILLUMINANCE.lux).sqrt(),
         };
@@ -61,6 +71,34 @@ impl GenerationParams {
             self.radius = required_distance - distance_to_origin
         }
         self.number = (self.number as f64 * (self.radius / original_radius).powi(3)) as usize;
+    }
+
+    pub(crate) fn get_most_luminous_intensity_possible(&self) -> Luminosity<f64> {
+        let mut max_luminous_intensity = LUMINOSITY_ZERO;
+        let max_age = self.max_age;
+        let min_age = get_min_age(max_age);
+        let masses = get_masses_in_solar(METALLICITY_INDEX);
+        for (mass_index, _mass) in masses.iter().enumerate() {
+            let trajectory = get_trajectory(METALLICITY_INDEX, mass_index);
+            if min_age > trajectory.lifetime {
+                continue;
+            }
+            if trajectory.initial_mass > Mass::from_solar_mass(8.)
+                && (min_age..max_age).contains(&trajectory.lifetime)
+            {
+                return absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE);
+            }
+            let min_age_index = get_closest_age_index(METALLICITY_INDEX, mass_index, min_age);
+            let max_age_index = get_closest_age_index(METALLICITY_INDEX, mass_index, max_age);
+            for age_index in min_age_index..=max_age_index {
+                let params = get_parameters(METALLICITY_INDEX, mass_index, age_index);
+                let luminous_intensity = params.luminosity_in_solar * SOLAR_LUMINOUS_INTENSITY;
+                if luminous_intensity > max_luminous_intensity {
+                    max_luminous_intensity = luminous_intensity;
+                }
+            }
+        }
+        max_luminous_intensity
     }
 }
 

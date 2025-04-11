@@ -33,6 +33,8 @@ pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
 pub(super) const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
 pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
 
+pub(super) const METALLICITY_INDEX: usize = 8;
+
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
     let parsec_data_mutex = PARSEC_DATA
         .lock()
@@ -190,6 +192,7 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 #[cfg(test)]
 mod tests {
+    use parsec_access::getters::get_closest_metallicity_index_from_mass_fraction;
     use simple_si_units::base::Mass;
 
     use crate::{
@@ -201,6 +204,12 @@ mod tests {
 
     use super::*;
     use std::time::Instant;
+
+    #[test]
+    fn metallicity_index_corresponds_to_that_of_sun() {
+        let correct_index = get_closest_metallicity_index_from_mass_fraction(0.01);
+        assert_eq!(correct_index, METALLICITY_INDEX);
+    }
 
     #[test]
     fn dimmest_illuminance_is_magnitude_6_5() {
