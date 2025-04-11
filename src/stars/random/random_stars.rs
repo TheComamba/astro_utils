@@ -216,7 +216,7 @@ mod tests {
     fn generate_random_stars_stress_test() {
         drop(PARSEC_DATA.lock()); // Load the parsec data.
 
-        let max_distance = Length::from_lyr(25_000.);
+        let max_distance = Length::new::<light_year>(25_000.);
         let max_seconds = 60;
 
         let start = Instant::now();
@@ -236,13 +236,13 @@ mod tests {
 
     #[test]
     fn generating_a_distant_random_star() {
-        let max_distance = Length::from_lyr(1000.);
+        let max_distance = Length::new::<light_year>(1000.);
         let _ = generate_random_star(Some(max_distance)).unwrap();
     }
 
     #[test]
     fn generated_stars_are_not_further_away_than_max_distance() {
-        let max_distance = Length::from_lyr(100.);
+        let max_distance = Length::new::<light_year>(100.);
         let stars = generate_random_stars(max_distance).unwrap();
         for star in stars {
             assert!(star.get_distance_at_epoch() < max_distance * 1.01);
@@ -251,7 +251,7 @@ mod tests {
 
     #[test]
     fn random_stars_have_a_non_vanishing_lifetime() {
-        let max_distance = Length::from_lyr(500.);
+        let max_distance = Length::new::<light_year>(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
             assert!(star.get_lifetime() > Time::new::<year>(0.));
@@ -260,7 +260,7 @@ mod tests {
 
     #[test]
     fn random_stars_below_8_sun_masses_become_white_dwarfs() {
-        let max_distance = Length::from_lyr(500.);
+        let max_distance = Length::new::<light_year>(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
             if star.params.mass.unwrap() < Mass::new::<solar_mass>(8.0) {
@@ -271,7 +271,7 @@ mod tests {
 
     #[test]
     fn random_stars_above_8_sun_masses_go_supernova() {
-        let max_distance = Length::from_lyr(500.);
+        let max_distance = Length::new::<light_year>(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
             if star.params.mass.unwrap() > Mass::new::<solar_mass>(8.0) {
@@ -282,7 +282,7 @@ mod tests {
 
     #[test]
     fn random_stars_have_an_age() {
-        let max_distance = Length::from_lyr(500.);
+        let max_distance = Length::new::<light_year>(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
             assert!(star.get_age_at_epoch().is_some());

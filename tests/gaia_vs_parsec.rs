@@ -11,7 +11,7 @@ use astro_utils::{
 #[test]
 #[ignore]
 fn parsec_generates_data_similar_to_gaia() {
-    let max_distance: Length = Length::from_lyr(15_000.);
+    let max_distance: Length = Length::new::<light_year>(15_000.);
 
     let randoms_stars = generate_random_stars(max_distance).unwrap();
     println!(

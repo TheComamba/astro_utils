@@ -71,7 +71,7 @@ mod tests {
         let expected = Illuminance::new::<lux>(0.);
         let star_position = Cartesian::origin();
         let planet_position = Cartesian::new(
-            venus.orbit.get_semi_major_axis(),
+            venus().orbit.get_semi_major_axis(),
             Length::new::<astronomical_unit>(0.),
             Length::new::<astronomical_unit>(0.),
         );
@@ -85,8 +85,8 @@ mod tests {
             &star_position,
             &planet_position,
             &observer_position,
-            venus.radius,
-            venus.geometric_albedo,
+            venus().radius,
+            venus().geometric_albedo,
         )
         .unwrap();
         println!(

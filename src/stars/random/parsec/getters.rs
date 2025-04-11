@@ -336,7 +336,7 @@ mod tests {
 
     #[test]
     fn distant_small_stars_are_invisible() {
-        let pos = Direction::Z.to_cartesian(Length::from_lyr(1000.));
+        let pos = Direction::Z.to_cartesian(Length::new::<light_year>(1000.));
         let age = Time::new::<gigayear>(1.);
         for mass_index in 0..30 {
             let star = {

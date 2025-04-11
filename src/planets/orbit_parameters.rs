@@ -115,11 +115,11 @@ mod test {
 
     #[test]
     fn axis_tilt_of_venus() {
-        let orbit_normal = venus.orbit.normal();
-        let north = venus.rotation_axis.to_direction();
+        let orbit_normal = venus().orbit.normal();
+        let north = venus().rotation_axis.to_direction();
         println!("orbit_normal: {}", orbit_normal);
         println!("north: {}", north);
-        let expected = venus.axis_tilt;
+        let expected = venus().axis_tilt;
         let actual = orbit_normal.angle_to(&north);
         println!(
             "expected: {}, actual: {}",

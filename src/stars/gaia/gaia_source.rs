@@ -13,13 +13,16 @@ use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, time::Instant};
 use uom::si::{
     angle::degree,
-    f64::{Angle, ThermodynamicTemperature},
+    f64::{Angle, ThermodynamicTemperature, Time},
     thermodynamic_temperature::kelvin,
+    time::year,
 };
 
 use crate::{
-    color::srgb::sRGBColor, error::AstroUtilError, stars::appearance::StarAppearance,
-    units::illuminance::apparent_magnitude_to_illuminance,
+    color::srgb::sRGBColor,
+    error::AstroUtilError,
+    stars::appearance::StarAppearance,
+    units::illuminance::{apparent_magnitude_to_illuminance, Illuminance},
 };
 
 #[derive(Serialize, Deserialize)]
@@ -150,7 +153,7 @@ mod tests {
         real_data::stars::all::get_many_stars,
         units::{
             angle::angle_to_arcsecs,
-            illuminance::{illuminance_to_apparent_magnitude, IRRADIANCE_ZERO},
+            illuminance::{illuminance_to_apparent_magnitude, lux, Illuminance},
         },
     };
 
@@ -208,11 +211,17 @@ mod tests {
                     println!("closest_star position: {}, {}", closest_ra, closest_dec);
                     println!(
                         "Angle difference: {} arcsecs",
-                        angle_to_arcsecs(&angle_difference)
+                        angle_to_arcsecs(angle_difference)
                     );
                 } else {
-                    println!("gaia_star_illuminance: {}", gaia_star.illuminance);
-                    println!("closest_star_illuminance: {}", closest.illuminance);
+                    println!(
+                        "gaia_star_illuminance: {}",
+                        gaia_star.illuminance.astro_display()
+                    );
+                    println!(
+                        "closest_star_illuminance: {}",
+                        closest.illuminance.astro_display()
+                    );
                     println!(
                         "Illuminance difference: {} lx",
                         (gaia_star.illuminance - closest.illuminance).get::<lux>()
@@ -278,10 +287,10 @@ mod tests {
             .min_by_key(|star| (star.illuminance.get::<lux>() * 1e5) as u64)
             .unwrap();
         assert!(
-            illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
+            illuminance_to_apparent_magnitude(brightest_gaia_star.illuminance)
                 < UPPER_BRIGHTNESS_THRESHOLD,
             "Brightest gaia star illuminance: {} mag",
-            illuminance_to_apparent_magnitude(&brightest_gaia_star.illuminance)
+            illuminance_to_apparent_magnitude(brightest_gaia_star.illuminance)
         );
 
         for known_star in known_stars.iter() {
@@ -318,7 +327,7 @@ mod tests {
             "star_pairs.len(): {}",
             star_pairs.len()
         );
-        let mut mean_brightness_difference = IRRADIANCE_ZERO;
+        let mut mean_brightness_difference = Illuminance::new::<lux>(0.);
         for (gaia_star, known_star) in star_pairs.iter() {
             let brightness_difference = known_star.illuminance - gaia_star.illuminance;
             mean_brightness_difference += brightness_difference;
@@ -335,7 +344,7 @@ mod tests {
         );
         println!(
             "ratio: {}",
-            mean_brightness_difference / acceptable_difference
+            (mean_brightness_difference / acceptable_difference).value
         );
         assert!(mean_brightness_difference.get::<lux>().abs() < acceptable_difference.get::<lux>());
     }

@@ -12,8 +12,8 @@ use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use std::collections::HashMap;
 use uom::si::{
     angle::degree,
-    f64::{Angle, Length, Mass, ThermodynamicTemperature, Time},
-    length::parsec,
+    f64::{Angle, Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time},
+    length::{light_year, parsec},
     thermodynamic_temperature::kelvin,
 };
 
@@ -22,7 +22,10 @@ use crate::{
     stars::{
         data::StarData, evolution::StarDataEvolution, physical_parameters::StarPhysicalParameters,
     },
-    units::{length::SOLAR_RADIUS, luminous_intensity::absolute_magnitude_to_luminous_intensity},
+    units::{
+        luminous_intensity::absolute_magnitude_to_luminous_intensity, mass::solar_mass,
+        time::gigayear,
+    },
 };
 
 fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
@@ -125,7 +128,7 @@ pub(crate) fn query_nearest_simulated_stars(
         ])
         .where_clause(GaiaCondition::LessThan(
             Col::barycentric_distance,
-            distance_threshold.to_parsec(),
+            distance_threshold.get::<parsec>(),
         ))
         .where_clause(GaiaCondition::GreaterThan(Col::mass, 0.08));
     if let Some(mag) = magnitude_threshold {
@@ -135,7 +138,7 @@ pub(crate) fn query_nearest_simulated_stars(
 }
 
 pub fn fetch_brightest_stars_simulated_data() -> Result<Vec<StarData>, AstroUtilError> {
-    let max_distance = Length::from_lyr(100_000.);
+    let max_distance = Length::new::<light_year>(100_000.);
     let min_brightness = Some(6.5);
     let resp = query_nearest_simulated_stars(max_distance, min_brightness)?;
     let gaia_stars = to_star_data(resp)?;
@@ -148,7 +151,7 @@ mod tests {
 
     #[test]
     fn every_model_star_has_a_mass() {
-        let max_distance = Length::from_lyr(100_000.);
+        let max_distance = Length::new::<light_year>(100_000.);
         let min_brightness = Some(4.);
         let resp = query_nearest_simulated_stars(max_distance, min_brightness).unwrap();
         let stars = to_star_data(resp).unwrap();
