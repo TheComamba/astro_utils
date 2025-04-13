@@ -43,7 +43,7 @@ pub(super) fn get_most_luminous_intensity_possible(max_age: Time<f64>) -> Lumino
     max_luminous_intensity
 }
 
-fn get_mass_distribution() -> Result<WeightedAliasIndex<f64>, AstroUtilError> {
+pub(super) fn get_mass_index_distribution() -> Result<WeightedAliasIndex<f64>, AstroUtilError> {
     let weights = kroupa_weights();
     WeightedAliasIndex::new(weights).map_err(AstroUtilError::from)
 }
@@ -148,7 +148,7 @@ mod tests {
     fn kroupa_integral_and_sampling_agree() {
         let masses = get_masses_in_solar(METALLICITY_INDEX);
         let num_stars = 100_000;
-        let distribution = get_mass_distribution().unwrap();
+        let distribution = get_mass_index_distribution().unwrap();
         let gen_masses =
             (0..num_stars).map(|_| masses[distribution.sample(&mut rand::thread_rng())]);
         let mut thresholds = Vec::new();
@@ -180,7 +180,7 @@ mod tests {
         let max_distance = Distance::from_lyr(1000.);
         let num_stars = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
         println!("Number of stars: {}", num_stars);
-        let distribution = get_mass_distribution().unwrap();
+        let distribution = get_mass_index_distribution().unwrap();
         let num_supermassive_stars = (0..num_stars)
             .into_par_iter()
             .map(|_| {
