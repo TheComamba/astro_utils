@@ -37,6 +37,11 @@ pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.53
 pub(super) const METALLICITY_INDEX: usize = 8;
 
 pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
+    if !parsec_access::getters::is_data_ready() {
+        return Err(AstroUtilError::DataNotAvailable(
+            "Parsec data not ready".to_string(),
+        ));
+    }
     let parsec_data_mutex = PARSEC_DATA
         .lock()
         .map_err(|_| AstroUtilError::MutexPoison)?;

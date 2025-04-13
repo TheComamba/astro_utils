@@ -1,20 +1,72 @@
-use parsec_access::getters::{
-    get_closest_age_index, get_masses_in_solar, get_parameters, get_trajectory,
+use astro_coords::cartesian::Cartesian;
+use parsec_access::{
+    getters::{
+        get_closest_age_index, get_closest_data, get_closest_parameters, get_masses_in_solar,
+        get_parameters, get_trajectory,
+    },
+    line::ParsecLine,
+    trajectory::Trajectory,
 };
 use rand_distr::WeightedAliasIndex;
 use simple_si_units::base::{Luminosity, Mass, Time};
 
 use crate::{
     error::AstroUtilError,
-    stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE,
-    units::luminous_intensity::{
-        absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
+    stars::{data::StarData, fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE},
+    units::{
+        luminous_intensity::{
+            absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
+        },
+        time::TEN_MILLENIA,
     },
 };
 
-use super::random_stars::{get_min_age, METALLICITY_INDEX};
+use super::random_stars::{get_min_age, DIMMEST_ILLUMINANCE, METALLICITY_INDEX};
 
 const MIN_MASS_FOR_HYDROGEN_FUSION: f64 = 0.08;
+
+pub(crate) fn get_star_data_if_visible(
+    mass_index: usize,
+    age: Time<f64>,
+    pos: Cartesian,
+) -> Option<StarData> {
+    let trajectory = get_trajectory(METALLICITY_INDEX, mass_index);
+    let was_alive_10_millenia_ago = age - TEN_MILLENIA < trajectory.lifetime;
+    if !was_alive_10_millenia_ago {
+        return None;
+    }
+
+    let age_index = get_closest_age_index(METALLICITY_INDEX, mass_index, age);
+    let params = get_parameters(METALLICITY_INDEX, mass_index, age_index);
+
+    let is_currently_visible = is_visible(params, &pos);
+    if is_currently_visible {
+        return Some(trajectory.to_star(age, pos));
+    }
+    let has_visible_death_within_10k_years =
+        is_visible_supernova(trajectory, &pos) && age + TEN_MILLENIA > trajectory.lifetime;
+    if has_visible_death_within_10k_years {
+        return Some(trajectory.to_star(age, pos));
+    }
+    None
+}
+
+fn is_visible(line: &ParsecLine, pos: &Cartesian) -> bool {
+    let min_luminous_intensity = Luminosity {
+        cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
+    };
+    line.luminosity_in_solar * SOLAR_LUMINOUS_INTENSITY >= min_luminous_intensity
+}
+
+fn is_visible_supernova(trajectory: &Trajectory, pos: &Cartesian) -> bool {
+    if trajectory.initial_mass < Mass::from_solar_mass(8.) {
+        return false;
+    }
+    let min_luminous_intensity = Luminosity {
+        cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
+    };
+    trajectory.peak_lifetime_luminous_intensity >= min_luminous_intensity
+}
 
 pub(super) fn get_most_luminous_intensity_possible(max_age: Time<f64>) -> Luminosity<f64> {
     let mut max_luminous_intensity = LUMINOSITY_ZERO;
