@@ -1,10 +1,7 @@
-use super::{params::GenerationParams, parsec::data::ParsecData};
+use super::{params::GenerationParams, parsec_handling::get_star_data_if_visible};
 use crate::{
     error::AstroUtilError,
-    stars::{
-        data::StarData,
-        random::{parsec::data::PARSEC_DATA, parsec_handling::get_mass_index_distribution},
-    },
+    stars::{data::StarData, random::parsec_handling::get_mass_index_distribution},
     units::time::TEN_MILLENIA,
 };
 use astro_coords::{cartesian::Cartesian, direction::Direction};
@@ -42,10 +39,6 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
             "Parsec data not ready".to_string(),
         ));
     }
-    let parsec_data_mutex = PARSEC_DATA
-        .lock()
-        .map_err(|_| AstroUtilError::MutexPoison)?;
-    let parsec_data = parsec_data_mutex.as_ref()?;
     let mass_index_distr = get_mass_index_distribution()?;
 
     let number_star_forming_regions = number_in_sphere(NURSERIES_PER_LY_CUBED, max_distance) + 1;
@@ -68,7 +61,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
                 GenerationParams::nursery(pos, max_age)
             };
             params.adjust_distance_for_performance();
-            generate_random_stars_with_params(params, parsec_data, &mass_index_distr)
+            generate_random_stars_with_params(params, &mass_index_distr)
         })
         .flatten()
         .collect();
@@ -85,7 +78,6 @@ pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) ->
 
 fn generate_random_stars_with_params(
     params: GenerationParams,
-    parsec_data: &ParsecData,
     mass_index_distr: &WeightedAliasIndex<f64>,
 ) -> Vec<StarData> {
     let age_distribution = Uniform::new(0., NURSERY_LIFETIME.s);
@@ -97,7 +89,6 @@ fn generate_random_stars_with_params(
                     s: rng.sample(age_distribution),
                 };
             generate_visible_random_star(
-                parsec_data,
                 &params.pos,
                 params.radius,
                 age,
@@ -113,14 +104,9 @@ pub fn generate_random_star(
 ) -> Result<StarData, AstroUtilError> {
     let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
 
-    let parsec_data_mutex = PARSEC_DATA
-        .lock()
-        .map_err(|_| AstroUtilError::MutexPoison)?;
-    let parsec_data = parsec_data_mutex.as_ref()?;
     let mass_index_distr = get_mass_index_distribution()?;
 
-    let mut star =
-        definetely_generate_visible_random_star(parsec_data, max_distance_or_1, mass_index_distr);
+    let mut star = definetely_generate_visible_random_star(max_distance_or_1, mass_index_distr);
     if max_distance.is_none() {
         star.pos = Cartesian::ORIGIN;
     }
@@ -128,7 +114,6 @@ pub fn generate_random_star(
 }
 
 fn definetely_generate_visible_random_star(
-    parsec_data: &ParsecData,
     max_distance_or_1: Distance<f64>,
     mass_distr: WeightedAliasIndex<f64>,
 ) -> StarData {
@@ -138,7 +123,6 @@ fn definetely_generate_visible_random_star(
         match star {
             None => {
                 star = generate_visible_random_star(
-                    parsec_data,
                     &Cartesian::ORIGIN,
                     max_distance_or_1,
                     AGE_OF_MILKY_WAY_THIN_DISK,
@@ -152,7 +136,6 @@ fn definetely_generate_visible_random_star(
 }
 
 fn generate_visible_random_star(
-    parsec_data: &ParsecData,
     origin: &Cartesian,
     max_distance: Distance<f64>,
     age: Time<f64>,
@@ -161,7 +144,7 @@ fn generate_visible_random_star(
 ) -> Option<StarData> {
     let mass_index = mass_index_distr.sample(rng);
     let pos = origin + &random_point_in_sphere(rng, max_distance);
-    let star = parsec_data.get_star_data_if_visible(mass_index, age, pos)?;
+    let star = get_star_data_if_visible(mass_index, age, pos)?;
     Some(star)
 }
 
@@ -226,7 +209,7 @@ mod tests {
     #[test]
     #[ignore]
     fn generate_random_stars_stress_test() {
-        drop(PARSEC_DATA.lock()); // Load the parsec data.
+        assert!(parsec_access::getters::is_data_ready());
 
         let max_distance = Distance::from_lyr(25_000.);
         let max_seconds = 60;
