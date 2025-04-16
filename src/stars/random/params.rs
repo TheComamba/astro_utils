@@ -4,7 +4,7 @@ use uom::si::f64::{Length, Time};
 use crate::units::length::solar_radii;
 
 use super::{
-    parsec::data::ParsecData,
+    parsec::getters::get_most_luminous_intensity_possible,
     random_stars::{
         age_of_milky_way_thin_disk, dimmest_illuminance, number_in_sphere, stellar_velocity,
         NUMBER_OF_STARS_FORMED_IN_NURSERY, STARS_PER_LY_CUBED,
@@ -43,10 +43,10 @@ impl GenerationParams {
         }
     }
 
-    pub(super) fn adjust_distance_for_performance(&mut self, parsec_data: &ParsecData) {
+    pub(super) fn adjust_distance_for_performance(&mut self) {
         let original_radius = self.radius;
         let most_luminous_intensity =
-            parsec_data.get_most_luminous_intensity_possible(self.max_age);
+            get_most_luminous_intensity_possible(self.max_age);
         let required_distance = Length {
             m: (most_luminous_intensity.cd / dimmest_illuminance.get::<lux>()).sqrt(),
         };
@@ -67,9 +67,9 @@ impl GenerationParams {
 #[cfg(test)]
 mod tests {
     use astro_coords::direction::Direction;
+    use parsec_access::getters::is_data_ready;
 
     use crate::{
-        stars::random::parsec::data::PARSEC_DATA,
         tests::{eq_within, TEST_ACCURACY},
         units::time::kiloyear,
     };
@@ -80,11 +80,8 @@ mod tests {
     fn large_distance_for_old_stars_is_adjusted() {
         let max_distance = Length::new::<light_year>(10_000.);
         let mut params = GenerationParams::old_stars(max_distance);
-        {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            params.adjust_distance_for_performance(parsec_data)
-        };
+        assert!(is_data_ready());
+        params.adjust_distance_for_performance();
         assert!(params.radius < max_distance);
     }
 
@@ -92,11 +89,8 @@ mod tests {
     fn short_distance_for_old_stars_is_not_adjusted() {
         let max_distance = Length::new::<light_year>(10.);
         let mut params = GenerationParams::old_stars(max_distance);
-        {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            params.adjust_distance_for_performance(parsec_data)
-        };
+        assert!(is_data_ready());
+        params.adjust_distance_for_performance();
         assert!(eq_within(
             params.radius.get::<light_year>(),
             max_distance.get::<light_year>(),
@@ -109,11 +103,8 @@ mod tests {
         let max_age = age_of_milky_way_thin_disk;
         let origin = Direction::Z.to_cartesian(Length::new::<light_year>(10_000.));
         let mut params = GenerationParams::nursery(origin, max_age);
-        {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            params.adjust_distance_for_performance(parsec_data)
-        };
+        assert!(is_data_ready());
+        params.adjust_distance_for_performance();
         assert!(params.radius.m < 1.);
     }
 
@@ -123,11 +114,8 @@ mod tests {
         let origin = Direction::Z.to_cartesian(Length::new::<light_year>(1000.));
         let mut params = GenerationParams::nursery(origin, max_age);
         let max_distance = params.radius;
-        {
-            let parsec_data_mutex = PARSEC_DATA.lock().unwrap();
-            let parsec_data = parsec_data_mutex.as_ref().unwrap();
-            params.adjust_distance_for_performance(parsec_data)
-        };
+        assert!(is_data_ready());
+        params.adjust_distance_for_performance();
         assert!(eq_within(
             params.radius.get::<light_year>(),
             max_distance.get::<light_year>(),
