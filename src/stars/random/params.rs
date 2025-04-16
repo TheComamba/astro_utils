@@ -4,7 +4,7 @@ use simple_si_units::base::{Distance, Time};
 use crate::units::distance::DISTANCE_ZERO;
 
 use super::{
-    parsec_handling::get_most_luminous_intensity_possible,
+    parsec::getters::get_most_luminous_intensity_possible,
     random_stars::{
         number_in_sphere, AGE_OF_MILKY_WAY_THIN_DISK, DIMMEST_ILLUMINANCE,
         NUMBER_OF_STARS_FORMED_IN_NURSERY, STARS_PER_LY_CUBED, STELLAR_VELOCITY,

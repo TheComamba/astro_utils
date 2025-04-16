@@ -1,7 +1,7 @@
-use super::{params::GenerationParams, parsec_handling::get_star_data_if_visible};
+use super::{params::GenerationParams, parsec::getters::get_star_data_if_visible};
 use crate::{
     error::AstroUtilError,
-    stars::{data::StarData, random::parsec_handling::get_mass_index_distribution},
+    stars::{data::StarData, random::parsec::distributions::get_mass_index_distribution},
     units::time::TEN_MILLENIA,
 };
 use astro_coords::{cartesian::Cartesian, direction::Direction};

@@ -1,6 +1,6 @@
 pub(super) mod data;
 pub(super) mod distributions;
 mod file;
-mod getters;
+pub(super) mod getters;
 mod line;
-mod trajectory;
+pub(super) mod trajectory;

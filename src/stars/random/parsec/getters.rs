@@ -1,16 +1,21 @@
 use astro_coords::cartesian::Cartesian;
+use parsec_access::getters::{
+    get_closest_age_index, get_masses_in_solar, get_parameters, get_trajectory,
+};
+use parsec_access::line::ParsecLine;
+use parsec_access::trajectory::Trajectory;
 use simple_si_units::base::{Luminosity, Mass, Time};
 
 use crate::stars::data::StarData;
 use crate::stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE;
-use crate::stars::random::random_stars::get_min_age;
+use crate::stars::random::random_stars::{get_min_age, DIMMEST_ILLUMINANCE, METALLICITY_INDEX};
 use crate::units::luminous_intensity::{
     absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
 };
 use crate::units::time::TEN_MILLENIA;
 
 use super::data::ParsecData;
-use super::trajectory::Trajectory;
+use super::trajectory::get_star;
 
 impl ParsecData {
     pub(super) const SORTED_MASSES: [f64; 100] = [
@@ -44,7 +49,7 @@ impl ParsecData {
         }
     }
 
-    pub(super) fn get_trajectory_via_index(&self, i: usize) -> &Trajectory {
+    pub(super) fn get_trajectory_via_index(&self, i: usize) -> &super::trajectory::Trajectory {
         &self.data[i]
     }
 
@@ -109,6 +114,78 @@ impl ParsecData {
         }
         max_luminous_intensity
     }
+}
+
+pub(crate) fn get_star_data_if_visible(
+    mass_index: usize,
+    age: Time<f64>,
+    pos: Cartesian,
+) -> Option<StarData> {
+    let trajectory = get_trajectory(METALLICITY_INDEX, mass_index);
+    let was_alive_10_millenia_ago = age - TEN_MILLENIA < trajectory.lifetime;
+    if !was_alive_10_millenia_ago {
+        return None;
+    }
+
+    let age_index = get_closest_age_index(METALLICITY_INDEX, mass_index, age);
+    let params = get_parameters(METALLICITY_INDEX, mass_index, age_index);
+
+    let is_currently_visible = is_visible(params, &pos);
+    if is_currently_visible {
+        return Some(get_star(mass_index, age, pos));
+    }
+    let has_visible_death_within_10k_years =
+        is_visible_supernova(trajectory, &pos) && age + TEN_MILLENIA > trajectory.lifetime;
+    if has_visible_death_within_10k_years {
+        return Some(get_star(mass_index, age, pos));
+    }
+    None
+}
+
+fn is_visible(line: &ParsecLine, pos: &Cartesian) -> bool {
+    let min_luminous_intensity = Luminosity {
+        cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
+    };
+    line.luminosity_in_solar * SOLAR_LUMINOUS_INTENSITY >= min_luminous_intensity
+}
+
+fn is_visible_supernova(trajectory: &Trajectory, pos: &Cartesian) -> bool {
+    if trajectory.initial_mass < Mass::from_solar_mass(8.) {
+        return false;
+    }
+    let min_luminous_intensity = Luminosity {
+        cd: DIMMEST_ILLUMINANCE.lux * pos.length_squared().m2,
+    };
+    let supernova_luminous_intensity =
+        absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE);
+    supernova_luminous_intensity >= min_luminous_intensity
+}
+
+pub(crate) fn get_most_luminous_intensity_possible(max_age: Time<f64>) -> Luminosity<f64> {
+    let mut max_luminous_intensity = LUMINOSITY_ZERO;
+    let min_age = get_min_age(max_age);
+    let masses = get_masses_in_solar(METALLICITY_INDEX);
+    for (mass_index, _mass) in masses.iter().enumerate() {
+        let trajectory = get_trajectory(METALLICITY_INDEX, mass_index);
+        if min_age > trajectory.lifetime {
+            continue;
+        }
+        if trajectory.initial_mass > Mass::from_solar_mass(8.)
+            && (min_age..max_age).contains(&trajectory.lifetime)
+        {
+            return absolute_magnitude_to_luminous_intensity(TYPE_II_SUPERNOVA_PEAK_MAGNITUDE);
+        }
+        let min_age_index = get_closest_age_index(METALLICITY_INDEX, mass_index, min_age);
+        let max_age_index = get_closest_age_index(METALLICITY_INDEX, mass_index, max_age);
+        for age_index in min_age_index..=max_age_index {
+            let params = get_parameters(METALLICITY_INDEX, mass_index, age_index);
+            let luminous_intensity = params.luminosity_in_solar * SOLAR_LUMINOUS_INTENSITY;
+            if luminous_intensity > max_luminous_intensity {
+                max_luminous_intensity = luminous_intensity;
+            }
+        }
+    }
+    max_luminous_intensity
 }
 
 #[cfg(test)]
