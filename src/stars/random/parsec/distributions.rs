@@ -1,88 +1,9 @@
 use crate::{error::AstroUtilError, stars::random::random_stars::METALLICITY_INDEX};
 
-use super::data::ParsecData;
 use parsec_access::getters::get_masses_in_solar;
-use rand::{distributions::Distribution, rngs::ThreadRng};
 use rand_distr::WeightedAliasIndex;
 
 const MIN_MASS_FOR_HYDROGEN_FUSION: f64 = 0.08;
-
-pub(crate) struct ParsecDistribution {
-    mass_distribution: WeightedAliasIndex<f64>,
-}
-
-impl ParsecDistribution {
-    pub(crate) fn new() -> Result<Self, AstroUtilError> {
-        let mass_distribution = get_mass_distribution()?;
-        Ok(ParsecDistribution { mass_distribution })
-    }
-
-    pub(crate) fn get_random_mass_index(&self, rng: &mut ThreadRng) -> usize {
-        self.mass_distribution.sample(rng)
-    }
-}
-
-fn get_mass_distribution() -> Result<WeightedAliasIndex<f64>, AstroUtilError> {
-    let weights = kroupa_weights_old();
-    WeightedAliasIndex::new(weights).map_err(AstroUtilError::from)
-}
-
-fn kroupa_weights_old() -> Vec<f64> {
-    let mut weights = Vec::new();
-    for m in 0..ParsecData::SORTED_MASSES.len() {
-        let lower = if m == 0 {
-            0.
-        } else {
-            geometric_mean_old(
-                ParsecData::SORTED_MASSES[m - 1],
-                ParsecData::SORTED_MASSES[m],
-            )
-        };
-        let upper = if m == ParsecData::SORTED_MASSES.len() - 1 {
-            1000.
-        } else {
-            geometric_mean_old(
-                ParsecData::SORTED_MASSES[m],
-                ParsecData::SORTED_MASSES[m + 1],
-            )
-        };
-        let weight = integrate_kroupa_old(lower, upper);
-        weights.push(weight);
-    }
-    weights
-}
-
-fn geometric_mean_old(a: f64, b: f64) -> f64 {
-    (a * b).sqrt()
-}
-
-fn kroupa_mass_distribution_old(m_in_solar_masses: f64) -> f64 {
-    const NORMALIZATION: f64 = 0.12499960249873866;
-    if m_in_solar_masses < MIN_MASS_FOR_HYDROGEN_FUSION {
-        return 0.; // Brown dwarfs
-    }
-    let (alpha, prefactor) = if m_in_solar_masses <= 0.5 {
-        (1.3, 0.5f64.powf(-2.3) / 0.5f64.powf(-1.3))
-    } else if m_in_solar_masses <= 1. {
-        (2.3, 1.)
-    } else if m_in_solar_masses <= 20. {
-        (2.7, 1.)
-    } else {
-        (5., 20f64.powf(-2.7) / 20f64.powf(-5.)) //Adjusted high mass tail
-    };
-    prefactor * m_in_solar_masses.powf(-alpha) * NORMALIZATION
-}
-
-fn integrate_kroupa_old(lower: f64, upper: f64) -> f64 {
-    let mut integral = 0.;
-    let mut x = lower;
-    while x < upper {
-        let dx = (upper - x).min(0.01);
-        integral += kroupa_mass_distribution_old(x) * dx;
-        x += dx;
-    }
-    integral
-}
 
 pub(crate) fn get_mass_index_distribution() -> Result<WeightedAliasIndex<f64>, AstroUtilError> {
     let weights = kroupa_weights();
