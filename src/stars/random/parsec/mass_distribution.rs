@@ -66,6 +66,7 @@ fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
 mod tests {
     use rand_distr::Distribution;
     use rayon::iter::{IntoParallelIterator, ParallelIterator};
+    use uom::si::{f64::Length, length::light_year};
 
     use crate::stars::random::random_stars::{number_in_sphere, STARS_PER_LY_CUBED};
 
@@ -110,8 +111,7 @@ mod tests {
         let masses = get_masses_in_solar(METALLICITY_INDEX);
         let num_stars = 100_000;
         let distribution = get_mass_index_distribution().unwrap();
-        let gen_masses =
-            (0..num_stars).map(|_| masses[distribution.sample(&mut rand::thread_rng())]);
+        let gen_masses = (0..num_stars).map(|_| masses[distribution.sample(&mut rand::rng())]);
         let mut thresholds = Vec::new();
         for i in 0..gen_masses.len() - 1 {
             thresholds.push(geometric_mean(masses[i], masses[i + 1]));
@@ -145,7 +145,7 @@ mod tests {
         let num_supermassive_stars = (0..num_stars)
             .into_par_iter()
             .map(|_| {
-                let mut rng = rand::thread_rng();
+                let mut rng = rand::rng();
                 masses[distribution.sample(&mut rng)]
             })
             .filter(|&m| m >= 99.)

@@ -1,24 +1,21 @@
 use astro_coords::cartesian::Cartesian;
-use uom::si::f64::{Mass, Time};
-use uom::si::time::year;
 use parsec_access::getters::{
     get_closest_age_index, get_masses_in_solar, get_parameters, get_trajectory,
 };
 use parsec_access::line::ParsecLine;
 use parsec_access::trajectory::Trajectory;
+use uom::si::f64::{Mass, Time};
 
 use crate::stars::data::StarData;
 use crate::stars::evolution::{StarDataEvolution, StarDataLifestageEvolution};
 use crate::stars::fate::{StarFate, TYPE_II_SUPERNOVA_PEAK_MAGNITUDE};
 use crate::stars::physical_parameters::StarPhysicalParameters;
-use crate::stars::random::random_stars::{get_min_age, DIMMEST_ILLUMINANCE, METALLICITY_INDEX};
-use crate::units::luminous_intensity::{
-    absolute_magnitude_to_luminous_intensity, solar_luminous_intensity,
-};
+use crate::stars::random::random_stars::{get_min_age, METALLICITY_INDEX};
+use crate::units::luminous_intensity::absolute_magnitude_to_luminous_intensity;
 
 pub(crate) fn get_star_data_if_visible(
     mass_index: usize,
-    age: Time<f64>,
+    age: Time,
     pos: Cartesian,
 ) -> Option<StarData> {
     let trajectory = get_trajectory(METALLICITY_INDEX, mass_index);
@@ -146,7 +143,6 @@ mod tests {
         units::luminous_intensity::luminous_intensity_to_illuminance,
     };
     use parsec_access::getters::get_closest_mass_index;
-
 
     #[test]
     fn infant_star_has_valid_evolution() {

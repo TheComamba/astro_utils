@@ -4,11 +4,19 @@ use astro_coords::{cartesian::Cartesian, direction::Direction};
 use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
 use rand_distr::{Distribution, WeightedAliasIndex};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
-
+use uom::si::{
+    f64::{Length, Time, Velocity},
+    length::{astronomical_unit, light_year, meter},
+    velocity::kilometer_per_second,
+};
 
 use crate::{
     error::AstroUtilError,
     stars::{data::StarData, random::parsec::mass_distribution::get_mass_index_distribution},
+    units::{
+        illuminance::{lux, Illuminance},
+        time::{kiloyear, megayear},
+    },
 };
 
 use super::{params::GenerationParams, parsec::getters::get_star_data_if_visible};
@@ -39,7 +47,7 @@ pub(super) fn dimmest_illuminance() -> Illuminance {
 
 pub(super) const METALLICITY_INDEX: usize = 8;
 
-pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
+pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, AstroUtilError> {
     if !parsec_access::getters::is_data_ready() {
         return Err(AstroUtilError::DataNotAvailable(
             "Parsec data not ready".to_string(),
@@ -101,7 +109,7 @@ fn generate_random_stars_with_params(
 }
 
 pub fn generate_random_star(max_distance: Option<Length>) -> Result<StarData, AstroUtilError> {
-    let max_distance_or_1 = max_distance.unwrap_or(Length { m: 1. });
+    let max_distance_or_1 = max_distance.unwrap_or(Length::new::<astronomical_unit>(1.));
 
     let mass_index_distr = get_mass_index_distribution()?;
 
@@ -113,10 +121,10 @@ pub fn generate_random_star(max_distance: Option<Length>) -> Result<StarData, As
 }
 
 fn definetely_generate_visible_random_star(
-    max_distance_or_1: Distance<f64>,
+    max_distance_or_1: Length,
     mass_distr: WeightedAliasIndex<f64>,
 ) -> StarData {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
     let mut star = None;
     loop {
         match star {
@@ -124,7 +132,7 @@ fn definetely_generate_visible_random_star(
                 star = generate_visible_random_star(
                     &Cartesian::ORIGIN,
                     max_distance_or_1,
-                    age_of_milky_way_thin_disk,
+                    age_of_milky_way_thin_disk(),
                     &mut rng,
                     &mass_distr,
                 );
@@ -153,9 +161,9 @@ fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> Cartesian {
     while x * x + y * y + z * z > 1. {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     }
-    let x = Length { m: x };
-    let y = Length { m: y };
-    let z = Length { m: z };
+    let x = Length::new::<meter>(x);
+    let y = Length::new::<meter>(y);
+    let z = Length::new::<meter>(z);
     Cartesian::new(x, y, z)
 }
 
@@ -181,11 +189,13 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 #[cfg(test)]
 mod tests {
     use parsec_access::getters::get_closest_metallicity_index_from_mass_fraction;
-    use simple_si_units::base::Mass;
+    use uom::si::{f64::Mass, time::year};
 
     use crate::{
-        astro_display::AstroDisplay, stars::fate::StarFate, tests::eq,
-        units::illuminance::illuminance_to_apparent_magnitude,
+        astro_display::AstroDisplay,
+        stars::fate::StarFate,
+        tests::eq,
+        units::{illuminance::illuminance_to_apparent_magnitude, mass::solar_mass},
     };
 
     use super::*;
@@ -199,7 +209,7 @@ mod tests {
 
     #[test]
     fn dimmest_illuminance_is_magnitude_6_5() {
-        let dimmest = illuminance_to_apparent_magnitude(&dimmest_illuminance);
+        let dimmest = illuminance_to_apparent_magnitude(dimmest_illuminance());
         assert!(eq(dimmest, 6.5));
     }
 

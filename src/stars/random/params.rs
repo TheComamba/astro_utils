@@ -21,7 +21,7 @@ pub(super) struct GenerationParams {
 impl GenerationParams {
     pub(super) fn old_stars(max_distance: Length) -> Self {
         let pos = Cartesian::origin();
-        let max_age = age_of_milky_way_thin_disk;
+        let max_age = age_of_milky_way_thin_disk();
         let radius = max_distance;
         let number = number_in_sphere(STARS_PER_LY_CUBED, radius);
         GenerationParams {
@@ -33,7 +33,7 @@ impl GenerationParams {
     }
 
     pub(super) fn nursery(pos: Cartesian, max_age: Time) -> Self {
-        let radius = stellar_velocity * max_age;
+        let radius = stellar_velocity() * max_age;
         let number = NUMBER_OF_STARS_FORMED_IN_NURSERY;
         GenerationParams {
             pos,
@@ -45,10 +45,9 @@ impl GenerationParams {
 
     pub(super) fn adjust_distance_for_performance(&mut self) {
         let original_radius = self.radius;
-        let most_luminous_intensity =
-            get_most_luminous_intensity_possible(self.max_age);
+        let most_luminous_intensity = get_most_luminous_intensity_possible(self.max_age);
         let required_distance = Length {
-            m: (most_luminous_intensity.cd / dimmest_illuminance.get::<lux>()).sqrt(),
+            m: (most_luminous_intensity.cd / dimmest_illuminance().get::<lux>()).sqrt(),
         };
         let distance_to_origin = self.pos.length();
         let closest_possible = distance_to_origin - self.radius;
@@ -68,6 +67,7 @@ impl GenerationParams {
 mod tests {
     use astro_coords::direction::Direction;
     use parsec_access::getters::is_data_ready;
+    use uom::si::length::light_year;
 
     use crate::{
         tests::{eq_within, TEST_ACCURACY},
