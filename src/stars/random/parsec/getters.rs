@@ -7,14 +7,14 @@ use parsec_access::trajectory::Trajectory;
 use simple_si_units::base::{Luminosity, Mass, Time};
 
 use crate::stars::data::StarData;
-use crate::stars::fate::TYPE_II_SUPERNOVA_PEAK_MAGNITUDE;
+use crate::stars::evolution::{StarDataEvolution, StarDataLifestageEvolution};
+use crate::stars::fate::{StarFate, TYPE_II_SUPERNOVA_PEAK_MAGNITUDE};
+use crate::stars::physical_parameters::StarPhysicalParameters;
 use crate::stars::random::random_stars::{get_min_age, DIMMEST_ILLUMINANCE, METALLICITY_INDEX};
 use crate::units::luminous_intensity::{
     absolute_magnitude_to_luminous_intensity, LUMINOSITY_ZERO, SOLAR_LUMINOUS_INTENSITY,
 };
 use crate::units::time::TEN_MILLENIA;
-
-use super::trajectory::get_star;
 
 pub(crate) fn get_star_data_if_visible(
     mass_index: usize,
@@ -86,6 +86,53 @@ pub(crate) fn get_most_luminous_intensity_possible(max_age: Time<f64>) -> Lumino
         }
     }
     max_luminous_intensity
+}
+
+fn get_star(mass_index: usize, age: Time<f64>, pos: Cartesian) -> StarData {
+    let age_index = get_closest_age_index(METALLICITY_INDEX, mass_index, age);
+    let mut star = star_without_evolution(mass_index, age_index, pos.clone());
+    let other_age_index = if age_index == 0 {
+        age_index + 1
+    } else {
+        age_index - 1
+    };
+    let other_star = star_without_evolution(mass_index, other_age_index, pos);
+
+    let lifestage_evolution = get_lifestage_evolution(&star, other_star);
+    let trajectory = get_trajectory(METALLICITY_INDEX, mass_index);
+    let fate = StarFate::new(trajectory.initial_mass);
+    star.evolution =
+        StarDataEvolution::new(lifestage_evolution, Some(age), trajectory.lifetime, fate);
+    star
+}
+
+fn star_without_evolution(mass_index: usize, age_index: usize, pos: Cartesian) -> StarData {
+    let params = get_parameters(METALLICITY_INDEX, mass_index, age_index);
+    let luminous_intensity = params.luminosity_in_solar * SOLAR_LUMINOUS_INTENSITY;
+    let physical_parameters = StarPhysicalParameters {
+        mass: Some(params.mass),
+        luminous_intensity,
+        temperature: params.temperature,
+        radius: Some(params.radius),
+    };
+    let mut evolution = StarDataEvolution::NONE;
+    evolution.age = Some(params.age);
+    StarData {
+        name: "".to_string(),
+        params: physical_parameters,
+        pos,
+        constellation: None,
+        evolution,
+    }
+}
+
+fn get_lifestage_evolution(
+    star: &StarData,
+    other_star: StarData,
+) -> Option<StarDataLifestageEvolution> {
+    let year_difference = star.evolution.age?.to_yr() - other_star.evolution.age?.to_yr();
+    let lifestage_evolution = StarDataLifestageEvolution::new(star, &other_star, year_difference);
+    Some(lifestage_evolution)
 }
 
 #[cfg(test)]

@@ -1,3 +1,2 @@
-pub(super) mod distributions;
 pub(super) mod getters;
-pub(super) mod trajectory;
+pub(super) mod mass_distribution;

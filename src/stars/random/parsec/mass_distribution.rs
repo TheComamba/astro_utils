@@ -61,6 +61,7 @@ fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
     }
     integral
 }
+
 #[cfg(test)]
 mod tests {
     use rand_distr::Distribution;
