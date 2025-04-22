@@ -1,8 +1,8 @@
 use std::f64::consts::PI;
 
 use astro_coords::{cartesian::Cartesian, direction::Direction};
-use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
-use rand_distr::{Distribution, WeightedAliasIndex};
+use rand::{distr::Uniform, rngs::ThreadRng, Rng};
+use rand_distr::{weighted::WeightedAliasIndex, Distribution};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use uom::si::{
     f64::{Length, Time, Velocity},
@@ -92,7 +92,13 @@ fn generate_random_stars_with_params(
     params: GenerationParams,
     mass_index_distr: &WeightedAliasIndex<f64>,
 ) -> Vec<StarData> {
-    let age_distribution = Uniform::new(0., nursery_lifetime().get::<megayear>());
+    let age_distribution = match Uniform::new(0., nursery_lifetime().get::<megayear>()) {
+        Ok(distr) => distr,
+        Err(e) => {
+            eprintln!("Error creating age distribution: {}", e);
+            return vec![];
+        }
+    };
     (0..=params.number)
         .filter_map(|_| {
             let mut rng = rand::rng();
@@ -130,7 +136,7 @@ fn definetely_generate_visible_random_star(
         match star {
             None => {
                 star = generate_visible_random_star(
-                    &Cartesian::ORIGIN,
+                    &Cartesian::origin(),
                     max_distance_or_1,
                     age_of_milky_way_thin_disk(),
                     &mut rng,
@@ -156,7 +162,13 @@ fn generate_visible_random_star(
 }
 
 fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> Cartesian {
-    let distr = Uniform::new(-1., 1.);
+    let distr = match Uniform::new(-1., 1.) {
+        Ok(distr) => distr,
+        Err(e) => {
+            eprintln!("Error creating uniform distribution: {}", e);
+            return Cartesian::origin();
+        }
+    };
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     while x * x + y * y + z * z > 1. {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
@@ -169,7 +181,7 @@ fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> Cartesian {
 
 fn random_point_in_sphere(rng: &mut ThreadRng, max_distance: Length) -> Cartesian {
     let point = random_point_in_unit_sphere(rng);
-    point * max_distance.m
+    point * max_distance.get::<meter>()
 }
 
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {

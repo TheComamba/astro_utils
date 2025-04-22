@@ -46,9 +46,7 @@ impl GenerationParams {
     pub(super) fn adjust_distance_for_performance(&mut self) {
         let original_radius = self.radius;
         let most_luminous_intensity = get_most_luminous_intensity_possible(self.max_age);
-        let required_distance = Length {
-            m: (most_luminous_intensity.cd / dimmest_illuminance().get::<lux>()).sqrt(),
-        };
+        let required_distance = (most_luminous_intensity / dimmest_illuminance()).sqrt();
         let distance_to_origin = self.pos.length();
         let closest_possible = distance_to_origin - self.radius;
         let farthest_possible = distance_to_origin + self.radius;
@@ -59,7 +57,7 @@ impl GenerationParams {
         } else if farthest_possible > required_distance {
             self.radius = required_distance - distance_to_origin
         }
-        self.number = (self.number as f64 * (self.radius / original_radius).powi(3)) as usize;
+        self.number = (self.number as f64 * (self.radius / original_radius).value.powi(3)) as usize;
     }
 }
 
@@ -67,7 +65,7 @@ impl GenerationParams {
 mod tests {
     use astro_coords::direction::Direction;
     use parsec_access::getters::is_data_ready;
-    use uom::si::length::light_year;
+    use uom::si::length::{light_year, meter};
 
     use crate::{
         tests::{eq_within, TEST_ACCURACY},
@@ -100,12 +98,12 @@ mod tests {
 
     #[test]
     fn old_stars_far_away_are_adjusted() {
-        let max_age = age_of_milky_way_thin_disk;
+        let max_age = age_of_milky_way_thin_disk();
         let origin = Direction::Z.to_cartesian(Length::new::<light_year>(10_000.));
         let mut params = GenerationParams::nursery(origin, max_age);
         assert!(is_data_ready());
         params.adjust_distance_for_performance();
-        assert!(params.radius.m < 1.);
+        assert!(params.radius.get::<meter>() < 1.);
     }
 
     #[test]

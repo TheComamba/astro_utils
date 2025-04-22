@@ -1,7 +1,7 @@
 use crate::{error::AstroUtilError, stars::random::random_stars::METALLICITY_INDEX};
 
 use parsec_access::getters::get_masses_in_solar;
-use rand_distr::WeightedAliasIndex;
+use rand_distr::weighted::WeightedAliasIndex;
 
 const MIN_MASS_FOR_HYDROGEN_FUSION: f64 = 0.08;
 
