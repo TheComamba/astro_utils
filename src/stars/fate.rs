@@ -2,7 +2,7 @@ use std::ops::Range;
 
 use serde::{Deserialize, Serialize};
 use uom::si::{
-    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time},
     length::kilometer,
     thermodynamic_temperature::kelvin,
     time::day,
@@ -163,6 +163,11 @@ impl AstroDisplay for StarFate {
 
 #[cfg(test)]
 mod tests {
+    use uom::si::{
+        f64::TemperatureInterval, luminous_intensity::candela, temperature_interval,
+        thermodynamic_temperature,
+    };
+
     use crate::units::luminous_intensity::solar_luminous_intensity;
 
     use super::*;
@@ -176,7 +181,7 @@ mod tests {
             let current = type_2_supernova_luminous_intensity(initial, time_since_death);
             let diff = current - last;
             assert!(
-                diff.cd.abs() < 1e-1 * current.cd.abs(),
+                diff.get::<candela>().abs() < 1e-1 * current.get::<candela>().abs(),
                 "days: {} current: {} last: {}",
                 time_since_death.astro_display(),
                 current.astro_display(),
@@ -188,7 +193,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_luminous_intensity_increases_during_phase_1() {
-        let initial = 10. * solar_luminous_intensity;
+        let initial = 10. * solar_luminous_intensity();
         let mut last = initial;
         for days in (SN_PHASE_1_INCREASE.start as i32 + 1)..=SN_PHASE_1_INCREASE.end as i32 {
             let time_since_death = Time::new::<day>(days as f64);
@@ -206,7 +211,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_luminous_intensity_decreases_during_phase_2() {
-        let initial = 10. * solar_luminous_intensity;
+        let initial = 10. * solar_luminous_intensity();
         let last_time = Time::new::<day>(SN_PHASE_2_DECREASE.start);
         let mut last = type_2_supernova_luminous_intensity(initial, last_time);
         for days in (SN_PHASE_2_DECREASE.start as i32 + 1)..=SN_PHASE_2_DECREASE.end as i32 {
@@ -225,7 +230,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_luminous_intensity_plateaus_during_phase_3() {
-        let initial = 10. * solar_luminous_intensity;
+        let initial = 10. * solar_luminous_intensity();
         let last_time = Time::new::<day>(SN_PHASE_3_PLATEAU.start);
         let mut last = type_2_supernova_luminous_intensity(initial, last_time);
         for days in (SN_PHASE_3_PLATEAU.start as i32 + 1)..=SN_PHASE_3_PLATEAU.end as i32 {
@@ -233,7 +238,7 @@ mod tests {
             let current = type_2_supernova_luminous_intensity(initial, time_since_death);
             let diff = current - last;
             assert!(
-                diff.cd < 1.,
+                diff.get::<candela>() < 1.,
                 "days: {} current: {} last: {}",
                 days,
                 current.astro_display(),
@@ -245,7 +250,7 @@ mod tests {
 
     #[test]
     fn type_2_supernova_luminous_intensity_decreases_after_phase_3() {
-        let initial = 10. * solar_luminous_intensity;
+        let initial = 10. * solar_luminous_intensity();
         let last_time = Time::new::<day>(SN_PHASE_2_DECREASE.end);
         let mut last = type_2_supernova_luminous_intensity(initial, last_time);
         for days in (SN_PHASE_3_PLATEAU.end as i32 + 1)..(SN_PHASE_3_PLATEAU.end as i32 + 100) {
@@ -269,9 +274,10 @@ mod tests {
         for count in -3..20_000 {
             let time_since_death = Time::new::<day>(count as f64 / 25.);
             let current = type_2_supernova_temperature(initial, time_since_death);
-            let diff = current - last;
+            let diff: TemperatureInterval = current.into() - last;
             assert!(
-                diff.value.abs() < 1e-1 * current.value.abs(),
+                diff.get::<temperature_interval::kelvin>().abs()
+                    < 1e-1 * current.get::<thermodynamic_temperature::kelvin>().abs(),
                 "days: {} current: {} last: {}",
                 time_since_death.astro_display(),
                 current.astro_display(),
@@ -326,9 +332,9 @@ mod tests {
         for days in (SN_PHASE_3_PLATEAU.start as i32 + 1)..=SN_PHASE_3_PLATEAU.end as i32 {
             let time_since_death = Time::new::<day>(days as f64);
             let current = type_2_supernova_temperature(initial, time_since_death);
-            let diff = current - last;
+            let diff: TemperatureInterval = current.into() - last;
             assert!(
-                diff.get::<kelvin>() < 1.,
+                diff.get::<temperature_interval::kelvin>() < 1.,
                 "days: {} current: {} last: {}",
                 days,
                 current.astro_display(),

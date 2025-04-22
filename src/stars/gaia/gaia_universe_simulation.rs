@@ -23,8 +23,8 @@ use crate::{
         data::StarData, evolution::StarDataEvolution, physical_parameters::StarPhysicalParameters,
     },
     units::{
-        luminous_intensity::absolute_magnitude_to_luminous_intensity, mass::solar_mass,
-        time::gigayear,
+        length::solar_radii, luminous_intensity::absolute_magnitude_to_luminous_intensity,
+        mass::solar_mass, time::gigayear,
     },
 };
 
@@ -45,7 +45,7 @@ fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass> {
 
 fn get_radius(map: &HashMap<Col, GaiaCellData>) -> Option<Length> {
     let radius = get_float(map.get(&Col::radius)?)?;
-    Some(radius * SOLAR_RADIUS)
+    Some(Length::new::<solar_radii>(radius))
 }
 
 fn get_luminous_intensity(map: &HashMap<Col, GaiaCellData>) -> Option<LuminousIntensity> {

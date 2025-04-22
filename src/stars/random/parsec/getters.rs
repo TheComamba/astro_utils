@@ -114,7 +114,7 @@ fn star_without_evolution(mass_index: usize, age_index: usize, pos: Cartesian) -
         temperature: params.temperature,
         radius: Some(params.radius),
     };
-    let mut evolution = StarDataEvolution::NONE;
+    let mut evolution = StarDataEvolution::none();
     evolution.age = Some(params.age);
     StarData {
         name: "".to_string(),

@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 use uom::si::{
-    f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time},
+    f64::{Length, LuminousIntensity, Mass, TemperatureInterval, ThermodynamicTemperature, Time},
     luminous_intensity::candela,
-    thermodynamic_temperature::kelvin,
+    temperature_interval::kelvin,
     time::year,
 };
 
@@ -19,12 +19,15 @@ pub struct StarDataEvolution {
 }
 
 impl StarDataEvolution {
-    pub const NONE: StarDataEvolution = StarDataEvolution {
-        lifestage_evolution: None,
-        age: None,
-        lifetime: Time::new::<year>(0.),
-        fate: StarFate::WhiteDwarf,
-    };
+    #[inline(always)]
+    pub fn none() -> StarDataEvolution {
+        Self {
+            lifestage_evolution: None,
+            age: None,
+            lifetime: Time::new::<year>(0.),
+            fate: StarFate::WhiteDwarf,
+        }
+    }
 
     pub(crate) fn new(
         lifestage_evolution: Option<StarDataLifestageEvolution>,
@@ -138,8 +141,9 @@ impl StarDataEvolution {
             }
         }
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
-            return temperature
-                + lifestage_evolution.temperature_per_year * time_since_epoch.get::<year>();
+            let temp_diff =
+                lifestage_evolution.temperature_per_year * time_since_epoch.get::<year>();
+            return temperature + temp_diff.into();
         }
         temperature
     }
@@ -165,11 +169,11 @@ impl StarDataEvolution {
             .unwrap_or(LuminousIntensity::new::<candela>(0.))
     }
 
-    pub fn get_lifestage_temperature_per_year(&self) -> ThermodynamicTemperature {
+    pub fn get_lifestage_temperature_per_year(&self) -> TemperatureInterval {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.temperature_per_year)
-            .unwrap_or_else(|| ThermodynamicTemperature::new::<kelvin>(0.))
+            .unwrap_or_else(|| TemperatureInterval::new::<kelvin>(0.))
     }
 }
 
@@ -178,7 +182,7 @@ pub(crate) struct StarDataLifestageEvolution {
     mass_per_year: Mass,
     radius_per_year: Length,
     luminous_intensity_per_year: LuminousIntensity,
-    temperature_per_year: ThermodynamicTemperature,
+    temperature_per_year: TemperatureInterval,
 }
 
 impl StarDataLifestageEvolution {
@@ -194,7 +198,8 @@ impl StarDataLifestageEvolution {
         let luminous_intensity_per_year =
             (now.params.luminous_intensity - then.params.luminous_intensity) / years;
 
-        let temperature_per_year = (now.params.temperature - then.params.temperature) / years;
+        let temperature_per_year =
+            (now.params.temperature.into() - then.params.temperature) / years;
         Self {
             mass_per_year,
             radius_per_year,
@@ -245,7 +250,7 @@ mod tests {
             mass_per_year: Mass::new::<solar_mass>(0.),
             radius_per_year: Length::new::<solar_radii>(0.),
             luminous_intensity_per_year: LuminousIntensity::new::<candela>(0.),
-            temperature_per_year: ThermodynamicTemperature::new::<kelvin>(0.),
+            temperature_per_year: TemperatureInterval::new::<kelvin>(0.),
         };
         let evolution = StarDataEvolution::new(
             Some(lifestage_evolution),
