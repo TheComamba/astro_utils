@@ -4,11 +4,14 @@ use rand::Rng;
 use uom::si::{
     angle::degree,
     f64::{Angle, Length, MassDensity, Time},
+    length::astronomical_unit,
+    mass_density::kilogram_per_cubic_meter,
     time::hour,
 };
 
 use crate::{
     color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
+    units::length::earth_radii,
 };
 
 use super::{
@@ -21,51 +24,43 @@ pub fn generate_random_planet() -> PlanetData {
 
     let name = String::new();
 
-    let min = mercury().radius * 0.5;
-    let max = jupiter().radius * 2.0;
-    let radius = Length {
-        m: rng.gen_range(min.m..max.m),
-    };
+    let min = mercury().radius.get::<earth_radii>() * 0.5;
+    let max = jupiter().radius.get::<earth_radii>() * 2.0;
+    let radius = Length::new::<earth_radii>(rng.random_range(min..max));
 
-    let min =
-        saturn().mass / (4. / 3. * PI * saturn().radius * saturn().radius * saturn().radius) * 0.9;
-    let max =
-        earth().mass / (4. / 3. * PI * earth().radius * earth().radius * earth().radius) * 1.1;
-    let density = MassDensity {
-        kgpm3: rng.gen_range(min.kgpm3..max.kgpm3),
-    };
+    let min = saturn().mass_density().get::<kilogram_per_cubic_meter>() * 0.9;
+    let max = earth().mass_density().get::<kilogram_per_cubic_meter>() * 1.1;
+    let density = MassDensity::new::<kilogram_per_cubic_meter>(rng.random_range(min..max));
 
     let mass = density * (4. / 3. * PI * radius * radius * radius);
 
-    let geometric_albedo = rng.gen_range(0.0..1.0);
+    let geometric_albedo = rng.random_range(0.0..1.0);
 
     let color = sRGBColor::from_sRGB(
-        rng.gen_range(0.0..1.0),
-        rng.gen_range(0.0..1.0),
-        rng.gen_range(0.0..1.0),
+        rng.random_range(0.0..1.0),
+        rng.random_range(0.0..1.0),
+        rng.random_range(0.0..1.0),
     );
 
     let min = -500.;
     let max = 500.;
-    let rotation_period = Time::new::<hour>(rng.gen_range(min..max));
+    let rotation_period = Time::new::<hour>(rng.random_range(min..max));
 
-    let min = mercury().orbit.semi_major_axis * 0.5;
-    let max = neptune().orbit.semi_major_axis * 2.0;
-    let semi_major_axis = Length {
-        m: rng.gen_range(min.m..max.m),
-    };
+    let min = mercury().orbit.semi_major_axis.get::<astronomical_unit>() * 0.5;
+    let max = neptune().orbit.semi_major_axis.get::<astronomical_unit>() * 2.0;
+    let semi_major_axis = Length::new::<astronomical_unit>(rng.random_range(min..max));
 
     let min = 0.;
     let max = pluto().orbit.eccentricity * 2.0;
-    let eccentrpluto = rng.gen_range(min..max);
+    let eccentricity = rng.random_range(min..max);
 
     let min = -pluto().orbit.inclination.get::<degree>();
     let max = pluto().orbit.inclination.get::<degree>();
-    let inclination = Angle::new::<degree>(rng.gen_range(min..max));
+    let inclination = Angle::new::<degree>(rng.random_range(min..max));
 
-    let longitude_of_ascending_node = Angle::new::<degree>(rng.gen_range(0.0..360.0));
+    let longitude_of_ascending_node = Angle::new::<degree>(rng.random_range(0.0..360.0));
 
-    let argument_of_periapsis = Angle::new::<degree>(rng.gen_range(0.0..360.0));
+    let argument_of_periapsis = Angle::new::<degree>(rng.random_range(0.0..360.0));
 
     let rotation_axis = random_direction(&mut rng);
 
