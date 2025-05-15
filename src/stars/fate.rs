@@ -164,10 +164,7 @@ impl AstroDisplay for StarFate {
 
 #[cfg(test)]
 mod tests {
-    use uom::si::{
-        f64::TemperatureInterval, luminous_intensity::candela, temperature_interval,
-        thermodynamic_temperature,
-    };
+    use uom::si::luminous_intensity::candela;
 
     use crate::units::luminous_intensity::solar_luminous_intensity;
 
@@ -275,10 +272,9 @@ mod tests {
         for count in -3..20_000 {
             let time_since_death = Time::new::<day>(count as f64 / 25.);
             let current = type_2_supernova_temperature(initial, time_since_death);
-            let diff: TemperatureInterval = current.into() - last;
+            let diff = current.get::<kelvin>() - last.get::<kelvin>();
             assert!(
-                diff.get::<temperature_interval::kelvin>().abs()
-                    < 1e-1 * current.get::<thermodynamic_temperature::kelvin>().abs(),
+                diff.abs() < 1e-1 * current.get::<kelvin>().abs(),
                 "days: {} current: {} last: {}",
                 time_since_death.astro_display(),
                 current.astro_display(),
@@ -333,9 +329,9 @@ mod tests {
         for days in (SN_PHASE_3_PLATEAU.start as i32 + 1)..=SN_PHASE_3_PLATEAU.end as i32 {
             let time_since_death = Time::new::<day>(days as f64);
             let current = type_2_supernova_temperature(initial, time_since_death);
-            let diff: TemperatureInterval = current.into() - last;
+            let diff = current.get::<kelvin>() - last.get::<kelvin>();
             assert!(
-                diff.get::<temperature_interval::kelvin>() < 1.,
+                diff < 1.,
                 "days: {} current: {} last: {}",
                 days,
                 current.astro_display(),

@@ -3,6 +3,7 @@ use uom::si::{
     f64::{Length, LuminousIntensity, Mass, TemperatureInterval, ThermodynamicTemperature, Time},
     luminous_intensity::candela,
     temperature_interval::kelvin,
+    thermodynamic_temperature,
     time::year,
 };
 
@@ -198,9 +199,15 @@ impl StarDataLifestageEvolution {
         let luminous_intensity_per_year =
             (now.params.luminous_intensity - then.params.luminous_intensity) / years;
 
-        let temp_diff: TemperatureInterval =
-            now.params.temperature.into() - then.params.temperature;
-        let temperature_per_year = temp_diff / years;
+        let temp_diff = now
+            .params
+            .temperature
+            .get::<thermodynamic_temperature::kelvin>()
+            - then
+                .params
+                .temperature
+                .get::<thermodynamic_temperature::kelvin>();
+        let temperature_per_year = TemperatureInterval::new::<kelvin>(temp_diff / years);
         Self {
             mass_per_year,
             radius_per_year,
