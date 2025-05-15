@@ -198,8 +198,9 @@ impl StarDataLifestageEvolution {
         let luminous_intensity_per_year =
             (now.params.luminous_intensity - then.params.luminous_intensity) / years;
 
-        let temperature_per_year =
-            (now.params.temperature.into() - then.params.temperature) / years;
+        let temp_diff: TemperatureInterval =
+            now.params.temperature.into() - then.params.temperature;
+        let temperature_per_year = temp_diff / years;
         Self {
             mass_per_year,
             radius_per_year,

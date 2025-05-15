@@ -66,7 +66,7 @@ mod tests {
     fn solid_angle_of_full_moon() {
         let expected = SolidAngle::new::<steradian>(6.4e-5);
         let actual =
-            radius_and_distance_to_solid_angle(luna.radius, luna.orbit.get_semi_major_axis());
+            radius_and_distance_to_solid_angle(luna().radius, luna().orbit.get_semi_major_axis());
         assert!(eq(actual.value, expected.value));
     }
 }

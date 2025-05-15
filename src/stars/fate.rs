@@ -122,14 +122,14 @@ fn type_2_supernova_temperature(
     initial: ThermodynamicTemperature,
     time_since_death: Time,
 ) -> ThermodynamicTemperature {
-    let peak_temperature = ThermodynamicTemperature::new::<kelvin>(100_000.);
-    let plateau_temperature = ThermodynamicTemperature::new::<kelvin>(4_500.);
+    let peak_temperature = 100_000.;
+    let plateau_temperature = 4_500.;
 
     let days = time_since_death.get::<day>();
-    if days < 0. {
-        initial
+    let t = if days < 0. {
+        initial.get::<kelvin>()
     } else if SN_PHASE_1_INCREASE.contains(&days) {
-        let offset = initial;
+        let offset = initial.get::<kelvin>();
         let slope =
             (peak_temperature - offset) / (SN_PHASE_1_INCREASE.end - SN_PHASE_1_INCREASE.start);
         offset + slope * (days - SN_PHASE_1_INCREASE.start)
@@ -144,12 +144,13 @@ fn type_2_supernova_temperature(
         let offset = plateau_temperature;
         let slope = -plateau_temperature / Time::new::<kiloyear>(10.).get::<day>();
         let t = offset + slope * (days - SN_PHASE_3_PLATEAU.end);
-        if t.value > 0. {
+        if t > 0. {
             t
         } else {
-            ThermodynamicTemperature::new::<kelvin>(0.)
+            0.
         }
-    }
+    };
+    ThermodynamicTemperature::new::<kelvin>(t)
 }
 
 impl AstroDisplay for StarFate {
