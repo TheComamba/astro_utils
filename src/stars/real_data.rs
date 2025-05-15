@@ -2,7 +2,6 @@ use astro_coords::{
     earth_equatorial::EarthEquatorial,
     ra_and_dec::{Declination, RightAscension},
 };
-use std::fmt::Display;
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     time::year,
@@ -35,12 +34,6 @@ pub struct RealData {
     pub right_ascension: RightAscension,
     pub declination: Declination,
     pub distance: Length,
-}
-
-impl Display for RealData {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        <Length as Display>::fmt(&self.distance, f)
-    }
 }
 
 impl RealData {

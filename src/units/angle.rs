@@ -32,31 +32,19 @@ pub(crate) fn three_quarter_circ() -> Angle {
     Angle::new::<radian>(2. * PI * 3. / 4.)
 }
 
-pub const ARCSEC: Angle = Angle {
-    rad: 2. * PI / (360. * 60. * 60.),
-};
-pub const SECOND_ANGLE: Angle = Angle {
-    rad: 2. * PI / (24. * 60. * 60.),
-};
-
 #[inline(always)]
-pub fn angle_from_arcsecs(arcsec: f64) -> Angle {
-    arcsec * ARCSEC
-}
-
-#[inline(always)]
-pub fn angle_to_arcsecs(angle: Angle) -> f64 {
-    angle / ARCSEC
+pub fn one_second_angle() -> Angle {
+    Angle::new::<radian>(2. * PI / (24. * 60. * 60.))
 }
 
 #[inline(always)]
 pub fn angle_from_second_angle(second_angle: f64) -> Angle {
-    second_angle * SECOND_ANGLE
+    second_angle * one_second_angle()
 }
 
 #[inline(always)]
 pub fn angle_to_second_angle(angle: Angle) -> f64 {
-    angle / SECOND_ANGLE
+    (angle / one_second_angle()).into()
 }
 
 /*
@@ -99,21 +87,11 @@ mod tests {
     use crate::tests::eq;
 
     #[test]
-    fn arcsec_roundtrip() {
-        for i in -10..10 {
-            let input = i as f64;
-            let angle = angle_from_arcsecs(input);
-            let output = angle_to_arcsecs(&angle);
-            assert!(eq(input, output));
-        }
-    }
-
-    #[test]
     fn second_angle_roundtrip() {
         for i in -10..10 {
             let input = i as f64;
             let angle = angle_from_second_angle(input);
-            let output = angle_to_second_angle(&angle);
+            let output = angle_to_second_angle(angle);
             assert!(eq(input, output));
         }
     }

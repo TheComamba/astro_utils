@@ -148,13 +148,12 @@ pub fn fetch_brightest_stars(
 
 #[cfg(test)]
 mod tests {
+    use uom::si::angle::second;
+
     use crate::{
         astro_display::AstroDisplay,
         real_data::stars::all::get_many_stars,
-        units::{
-            angle::angle_to_arcsecs,
-            illuminance::{illuminance_to_apparent_magnitude, lux, Illuminance},
-        },
+        units::illuminance::{illuminance_to_apparent_magnitude, lux, Illuminance},
     };
 
     use super::*;
@@ -211,7 +210,7 @@ mod tests {
                     println!("closest_star position: {}, {}", closest_ra, closest_dec);
                     println!(
                         "Angle difference: {} arcsecs",
-                        angle_to_arcsecs(angle_difference)
+                        angle_difference.get::<second>()
                     );
                 } else {
                     println!(
