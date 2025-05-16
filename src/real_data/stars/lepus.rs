@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -15,26 +19,16 @@ fn ARNEB() -> RealData {
         common_name: "Arneb",
         astronomical_name: "α Leporis",
         constellation: "Lepus",
-        radius: Some(Length {
-            m: 75. * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 13.9 * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(75.)),
+        mass: Mass::new::<solar_mass>(13.9),
         absolute_magnitude: -5.40,
         apparent_magnitude: 2.58,
         temperature: Temperature { K: 6_850. },
-        age: Some(Time {
-            s: 0.013 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.015362858 * BILLION_YEARS.s,
-        },
+        age: Some(Time::new::<gigayear>(0.013)),
+        lifetime: Time::new::<gigayear>(0.015362858),
         right_ascension: RightAscension::new(5, 32, 44.),
         declination: Declination::new(Sgn::Neg, 17, 49, 20.),
-        distance: Length {
-            m: 1283. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(1283.),
     }
 }
 
@@ -46,23 +40,13 @@ fn BETA_LEPORIS() -> RealData {
         right_ascension: RightAscension::new(5, 28, 15.),
         declination: Declination::new(Sgn::Neg, 20, 45, 34.),
         apparent_magnitude: 2.84,
-        distance: Length {
-            m: 160. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(160.),
         absolute_magnitude: -0.65,
-        mass: Mass {
-            kg: 3.5 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 16. * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 5450. },
-        age: Some(Time {
-            s: 0.240 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.297402042 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(3.5),
+        radius: Some(Length::new::<solar_radii>(16.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(5450.),
+        age: Some(Time::new::<gigayear>(0.240)),
+        lifetime: Time::new::<gigayear>(0.297402042),
     }
 }
 
@@ -74,23 +58,13 @@ fn EPSILON_LEPORIS() -> RealData {
         right_ascension: RightAscension::new(5, 5, 28.),
         declination: Declination::new(Sgn::Neg, 22, 22, 16.),
         apparent_magnitude: 3.166,
-        distance: Length {
-            m: 209. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(209.),
         absolute_magnitude: -1.02,
-        mass: Mass {
-            kg: 1.7 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 40.1 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4131. },
-        age: Some(Time {
-            s: 1.72 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 1.73766023 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.7),
+        radius: Some(Length::new::<solar_radii>(40.1)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4131.),
+        age: Some(Time::new::<gigayear>(1.72)),
+        lifetime: Time::new::<gigayear>(1.73766023),
     }
 }
 

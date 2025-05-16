@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -18,23 +22,13 @@ fn ALPHA_PYXIDIS() -> RealData {
         right_ascension: RightAscension::new(8, 43, 36.),
         declination: Declination::new(Sgn::Neg, 33, 11, 11.),
         apparent_magnitude: 3.67,
-        distance: Length {
-            m: 880. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(880.),
         absolute_magnitude: -3.47,
-        mass: Mass {
-            kg: 10.7 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 6.3 * SOLAR_RADIUS.m,
-        }),
+        mass: Mass::new::<solar_mass>(10.7),
+        radius: Some(Length::new::<solar_radii>(6.3)),
         temperature: Temperature { K: 24_300. },
-        age: Some(Time {
-            s: 0.026 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.026540021 * BILLION_YEARS.s,
-        },
+        age: Some(Time::new::<gigayear>(0.026)),
+        lifetime: Time::new::<gigayear>(0.026540021),
     }
 }
 
@@ -46,21 +40,13 @@ fn BETA_PYXIDIS() -> RealData {
         right_ascension: RightAscension::new(8, 40, 6.),
         declination: Declination::new(Sgn::Neg, 35, 18, 30.),
         apparent_magnitude: 3.97,
-        distance: Length {
-            m: 388.1 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(388.1),
         absolute_magnitude: -1.41,
-        mass: Mass {
-            kg: 1.2 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 24. * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 5124. },
+        mass: Mass::new::<solar_mass>(1.2),
+        radius: Some(Length::new::<solar_radii>(24.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(5124.),
         age: None,
-        lifetime: Time {
-            s: 5.06543331 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(5.06543331),
     }
 }
 
@@ -72,23 +58,13 @@ fn GAMMA_PYXIDIS() -> RealData {
         right_ascension: RightAscension::new(8, 50, 32.),
         declination: Declination::new(Sgn::Neg, 27, 42, 35.),
         apparent_magnitude: 4.010,
-        distance: Length {
-            m: 207. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(207.),
         absolute_magnitude: 0.,
-        mass: Mass {
-            kg: 1.64 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 21.87 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4270. },
-        age: Some(Time {
-            s: 1.8 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 1.89665739 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.64),
+        radius: Some(Length::new::<solar_radii>(21.87)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4270.),
+        age: Some(Time::new::<gigayear>(1.8)),
+        lifetime: Time::new::<gigayear>(1.89665739),
     }
 }
 

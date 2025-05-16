@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -33,24 +37,16 @@ fn MIRACH() -> RealData {
         common_name: "Mirach",
         astronomical_name: "β Andromedae",
         constellation: "Andromeda",
-        radius: Some(Length {
-            m: 100. * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 2.49 * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(100.)),
+        mass: Mass::new::<solar_mass>(2.49),
         absolute_magnitude: -1.86,
         apparent_magnitude: 2.07,
-        temperature: Temperature { K: 3842. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(3842.),
         age: None,
-        lifetime: Time {
-            s: 0.800458342 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(0.800458342),
         right_ascension: RightAscension::new(1, 9, 44.),
         declination: Declination::new(Sgn::Pos, 35, 37, 14.),
-        distance: Length {
-            m: 199. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(199.),
     }
 }
 
@@ -59,26 +55,16 @@ fn ALMACH() -> RealData {
         common_name: "Almach",
         astronomical_name: "γ Andromedae",
         constellation: "Andromeda",
-        radius: Some(Length {
-            m: 80. * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 23.7 * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(80.)),
+        mass: Mass::new::<solar_mass>(23.7),
         absolute_magnitude: -3.08,
         apparent_magnitude: 2.1,
-        temperature: Temperature { K: 4250. },
-        age: Some(Time {
-            s: 0.0065 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.008063854 * BILLION_YEARS.s,
-        },
+        temperature: ThermodynamicTemperature::new::<kelvin>(4250.),
+        age: Some(Time::new::<gigayear>(0.0065)),
+        lifetime: Time::new::<gigayear>(0.008063854),
         right_ascension: RightAscension::new(2, 3, 54.),
         declination: Declination::new(Sgn::Pos, 42, 19, 47.),
-        distance: Length {
-            m: 355. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(355.),
     }
 }
 

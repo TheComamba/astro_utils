@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -15,24 +19,16 @@ fn ANKAA() -> RealData {
         common_name: "Ankaa",
         astronomical_name: "α Phoenicis",
         constellation: "Phoenix",
-        radius: Some(Length {
-            m: 15. * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 1.57 * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(15.)),
+        mass: Mass::new::<solar_mass>(1.57),
         absolute_magnitude: 0.52,
         apparent_magnitude: 2.4,
-        temperature: Temperature { K: 4436. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(4436.),
         age: None,
         right_ascension: RightAscension::new(0, 26, 17.),
         declination: Declination::new(Sgn::Neg, 42, 18, 21.),
-        distance: Length {
-            m: 77. * LIGHT_YEAR.m,
-        },
-        lifetime: Time {
-            s: 2.29668629 * BILLION_YEARS.s,
-        },
+        distance: Length::new::<light_year>(77.),
+        lifetime: Time::new::<gigayear>(2.29668629),
     }
 }
 
@@ -44,19 +40,13 @@ fn BETA_PHOENICIS() -> RealData {
         right_ascension: RightAscension::new(1, 6, 5.),
         declination: Declination::new(Sgn::Neg, 46, 43, 6.),
         apparent_magnitude: 3.32,
-        distance: Length {
-            m: 198.1 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(198.1),
         absolute_magnitude: -0.598,
-        mass: Mass {
-            kg: 2.5 * SOLAR_MASS.kg,
-        },
+        mass: Mass::new::<solar_mass>(2.5),
         radius: None,
-        temperature: Temperature { K: 5090. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(5090.),
         age: None,
-        lifetime: Time {
-            s: 0.800458342 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(0.800458342),
     }
 }
 
@@ -68,21 +58,13 @@ fn GAMMA_PHOENICIS() -> RealData {
         right_ascension: RightAscension::new(1, 28, 22.),
         declination: Declination::new(Sgn::Neg, 43, 19, 6.),
         apparent_magnitude: 3.41,
-        distance: Length {
-            m: 234. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(234.),
         absolute_magnitude: -0.86,
-        mass: Mass {
-            kg: 1.3 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 52. * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 3802. },
+        mass: Mass::new::<solar_mass>(1.3),
+        radius: Some(Length::new::<solar_radii>(52.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(3802.),
         age: None,
-        lifetime: Time {
-            s: 3.9126515 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(3.9126515),
     }
 }
 

@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -15,24 +19,16 @@ fn UNUKALHAI() -> RealData {
         common_name: "Unukalhai",
         astronomical_name: "α Serpentis",
         constellation: "Serpens",
-        radius: Some(Length {
-            m: 13.48 * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 1.66 * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(13.48)),
+        mass: Mass::new::<solar_mass>(1.66),
         absolute_magnitude: 0.88,
         apparent_magnitude: 2.63,
-        temperature: Temperature { K: 4498. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(4498.),
         age: None,
         right_ascension: RightAscension::new(15, 44, 16.),
         declination: Declination::new(Sgn::Pos, 6, 25, 32.),
-        distance: Length {
-            m: 74. * LIGHT_YEAR.m,
-        },
-        lifetime: Time {
-            s: 1.89665739 * BILLION_YEARS.s,
-        },
+        distance: Length::new::<light_year>(74.),
+        lifetime: Time::new::<gigayear>(1.89665739),
     }
 }
 
@@ -44,21 +40,13 @@ fn BETA_SERPENTIS() -> RealData {
         right_ascension: RightAscension::new(15, 46, 11.),
         declination: Declination::new(Sgn::Pos, 15, 25, 19.),
         apparent_magnitude: 3.65,
-        distance: Length {
-            m: 155. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(155.),
         absolute_magnitude: 0.30,
-        mass: Mass {
-            kg: 1.94 * SOLAR_MASS.kg,
-        },
+        mass: Mass::new::<solar_mass>(1.94),
         radius: None,
-        temperature: Temperature { K: 8928. },
-        age: Some(Time {
-            s: 0.267 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 1.46316038 * BILLION_YEARS.s,
-        },
+        temperature: ThermodynamicTemperature::new::<kelvin>(8928.),
+        age: Some(Time::new::<gigayear>(0.267)),
+        lifetime: Time::new::<gigayear>(1.46316038),
     }
 }
 
@@ -70,19 +58,13 @@ fn MU_SERPENTIS() -> RealData {
         right_ascension: RightAscension::new(15, 49, 37.),
         declination: Declination::new(Sgn::Neg, 3, 25, 49.),
         apparent_magnitude: 3.543,
-        distance: Length {
-            m: 170. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(170.),
         absolute_magnitude: -0.04,
-        mass: Mass {
-            kg: 2.4 * SOLAR_MASS.kg,
-        },
+        mass: Mass::new::<solar_mass>(2.4),
         radius: None,
-        temperature: Temperature { K: 9487. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(9487.),
         age: None,
-        lifetime: Time {
-            s: 0.800458342 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(0.800458342),
     }
 }
 

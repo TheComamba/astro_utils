@@ -14,24 +14,16 @@ fn ALPHA_ANTLIAE() -> RealData {
         common_name: "",
         astronomical_name: "α Antliae",
         constellation: "Antlia",
-        radius: Some(Length {
-            m: 41. * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 2.2 * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(41.)),
+        mass: Mass::new::<solar_mass>(2.2),
         absolute_magnitude: -0.973,
         apparent_magnitude: 4.28,
-        temperature: Temperature { K: 4070. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(4070.),
         age: None,
-        lifetime: Time {
-            s: 1.03650581 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(1.03650581),
         right_ascension: RightAscension::new(10, 27, 9.),
         declination: Declination::new(Sgn::Neg, 31, 4, 4.),
-        distance: Length {
-            m: 366.3 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(366.3),
     }
 }
 
@@ -40,24 +32,16 @@ fn EPSILON_ANTLIAE() -> RealData {
         common_name: "",
         astronomical_name: "ε Antliae",
         constellation: "Antlia",
-        radius: Some(Length {
-            m: 56.3 * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 2. * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(56.3)),
+        mass: Mass::new::<solar_mass>(2.),
         absolute_magnitude: -2.15,
         apparent_magnitude: 4.51,
-        temperature: Temperature { K: 4237. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(4237.),
         age: None,
-        lifetime: Time {
-            s: 1.36020165 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(1.36020165),
         right_ascension: RightAscension::new(9, 29, 15.),
         declination: Declination::new(Sgn::Neg, 35, 57, 5.),
-        distance: Length {
-            m: 699.6 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(699.6),
     }
 }
 
@@ -66,26 +50,16 @@ fn IOTA_ANTLIAE() -> RealData {
         common_name: "",
         astronomical_name: "ι Antliae",
         constellation: "Antlia",
-        radius: Some(Length {
-            m: 12.1 * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 1.55 * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(12.1)),
+        mass: Mass::new::<solar_mass>(1.55),
         absolute_magnitude: 0.674,
         apparent_magnitude: 4.60,
-        temperature: Temperature { K: 4892. },
-        age: Some(Time {
-            s: 2.2 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 2.29668629 * BILLION_YEARS.s,
-        },
+        temperature: ThermodynamicTemperature::new::<kelvin>(4892.),
+        age: Some(Time::new::<gigayear>(2.2)),
+        lifetime: Time::new::<gigayear>(2.29668629),
         right_ascension: RightAscension::new(10, 56, 43.),
         declination: Declination::new(Sgn::Neg, 37, 8, 16.),
-        distance: Length {
-            m: 198.8 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(198.8),
     }
 }
 

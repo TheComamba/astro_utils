@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -18,21 +22,13 @@ fn BETA_TRIANGULI() -> RealData {
         right_ascension: RightAscension::new(2, 9, 33.),
         declination: Declination::new(Sgn::Pos, 34, 59, 14.),
         apparent_magnitude: 3.,
-        distance: Length {
-            m: 127. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(127.),
         absolute_magnitude: 0.05,
-        mass: Mass {
-            kg: 3.5 * SOLAR_MASS.kg,
-        },
+        mass: Mass::new::<solar_mass>(3.5),
         radius: None,
-        temperature: Temperature { K: 8186. },
-        age: Some(Time {
-            s: 0.29 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.297402042 * BILLION_YEARS.s,
-        },
+        temperature: ThermodynamicTemperature::new::<kelvin>(8186.),
+        age: Some(Time::new::<gigayear>(0.29)),
+        lifetime: Time::new::<gigayear>(0.297402042),
     }
 }
 
@@ -44,23 +40,13 @@ fn ALPHA_TRIANGULI() -> RealData {
         right_ascension: RightAscension::new(1, 53, 5.),
         declination: Declination::new(Sgn::Pos, 29, 34, 44.),
         apparent_magnitude: 3.42,
-        distance: Length {
-            m: 63.3 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(63.3),
         absolute_magnitude: 1.98,
-        mass: Mass {
-            kg: 1.70 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 3.22 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 6288. },
-        age: Some(Time {
-            s: 1.6 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 1.73766023 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.70),
+        radius: Some(Length::new::<solar_radii>(3.22)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(6288.),
+        age: Some(Time::new::<gigayear>(1.6)),
+        lifetime: Time::new::<gigayear>(1.73766023),
     }
 }
 
@@ -72,23 +58,13 @@ fn GAMMA_TRIANGULI() -> RealData {
         right_ascension: RightAscension::new(2, 17, 19.),
         declination: Declination::new(Sgn::Pos, 33, 50, 50.),
         apparent_magnitude: 4.01,
-        distance: Length {
-            m: 112.3 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(112.3),
         absolute_magnitude: 1.35,
-        mass: Mass {
-            kg: 2.7 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 1.96 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 9440. },
-        age: Some(Time {
-            s: 0.3 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.63513384 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(2.7),
+        radius: Some(Length::new::<solar_radii>(1.96)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(9440.),
+        age: Some(Time::new::<gigayear>(0.3)),
+        lifetime: Time::new::<gigayear>(0.63513384),
     }
 }
 

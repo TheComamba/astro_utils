@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -18,23 +22,13 @@ fn DALIM() -> RealData {
         right_ascension: RightAscension::new(3, 12, 5.),
         declination: Declination::new(Sgn::Neg, 28, 59, 15.),
         apparent_magnitude: 3.85,
-        distance: Length {
-            m: 45.66 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(45.66),
         absolute_magnitude: 3.08,
-        mass: Mass {
-            kg: 1.33 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 2.04 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 6240. },
-        age: Some(Time {
-            s: 2.9 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 3.46068223 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.33),
+        radius: Some(Length::new::<solar_radii>(2.04)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(6240.),
+        age: Some(Time::new::<gigayear>(2.9)),
+        lifetime: Time::new::<gigayear>(3.46068223),
     }
 }
 
@@ -46,21 +40,13 @@ fn BETA_FORNACIS() -> RealData {
         right_ascension: RightAscension::new(2, 49, 5.),
         declination: Declination::new(Sgn::Neg, 32, 24, 21.),
         apparent_magnitude: 4.46,
-        distance: Length {
-            m: 178. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(178.),
         absolute_magnitude: 0.894,
-        mass: Mass {
-            kg: 1.53 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 11.02 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4820. },
+        mass: Mass::new::<solar_mass>(1.53),
+        radius: Some(Length::new::<solar_radii>(11.02)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4820.),
         age: None,
-        lifetime: Time {
-            s: 2.29668629 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(2.29668629),
     }
 }
 
@@ -72,21 +58,13 @@ fn NU_FORNACIS() -> RealData {
         right_ascension: RightAscension::new(2, 4, 29.),
         declination: Declination::new(Sgn::Neg, 29, 17, 49.),
         apparent_magnitude: 4.69,
-        distance: Length {
-            m: 370. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(370.),
         absolute_magnitude: -0.6,
-        mass: Mass {
-            kg: 3.65 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 3.44 * SOLAR_RADIUS.m,
-        }),
+        mass: Mass::new::<solar_mass>(3.65),
+        radius: Some(Length::new::<solar_radii>(3.44)),
         temperature: Temperature { K: 13_400. },
         age: None,
-        lifetime: Time {
-            s: 0.254814649 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(0.254814649),
     }
 }
 

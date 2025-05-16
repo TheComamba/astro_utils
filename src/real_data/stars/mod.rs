@@ -34,16 +34,12 @@ pub const SUN: RealData = RealData {
     radius: Some(SOLAR_RADIUS),
     absolute_magnitude: 4.83,
     apparent_magnitude: -26.74, //seen from earth
-    temperature: Temperature { K: 5778.0 },
-    age: Some(Time {
-        s: 4.6 * BILLION_YEARS.s,
-    }),
+    temperature: ThermodynamicTemperature::new::<kelvin>(5778.0),
+    age: Some(Time::new::<gigayear>(4.6)),
     right_ascension: RightAscension::new(0, 0, 0.),
     declination: Declination::new(Sgn::Pos, 0, 0, 0.),
     distance: Length::new::<light_year>(0.),
-    lifetime: Time {
-        s: 10.0 * BILLION_YEARS.s,
-    },
+    lifetime: Time::new::<gigayear>(10.0),
 };
 
 pub mod all;

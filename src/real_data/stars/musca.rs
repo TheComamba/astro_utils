@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -18,23 +22,13 @@ fn ALPHA_MUSCAE() -> RealData {
         right_ascension: RightAscension::new(12, 37, 11.),
         declination: Declination::new(Sgn::Neg, 69, 8, 8.),
         apparent_magnitude: 2.69,
-        distance: Length {
-            m: 315. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(315.),
         absolute_magnitude: -2.2,
-        mass: Mass {
-            kg: 8.8 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 4.8 * SOLAR_RADIUS.m,
-        }),
+        mass: Mass::new::<solar_mass>(8.8),
+        radius: Some(Length::new::<solar_radii>(4.8)),
         temperature: Temperature { K: 21_400. },
-        age: Some(Time {
-            s: 0.0183 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.03224554 * BILLION_YEARS.s,
-        },
+        age: Some(Time::new::<gigayear>(0.0183)),
+        lifetime: Time::new::<gigayear>(0.03224554),
     }
 }
 
@@ -46,21 +40,13 @@ fn BETA_MUSCAE() -> RealData {
         right_ascension: RightAscension::new(12, 46, 17.),
         declination: Declination::new(Sgn::Neg, 68, 6, 29.),
         apparent_magnitude: 3.05,
-        distance: Length {
-            m: 340. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(340.),
         absolute_magnitude: -2.06,
-        mass: Mass {
-            kg: 7.35 * SOLAR_MASS.kg,
-        },
+        mass: Mass::new::<solar_mass>(7.35),
         radius: None,
         temperature: Temperature { K: 21_000. },
-        age: Some(Time {
-            s: 0.0151 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.052267043 * BILLION_YEARS.s,
-        },
+        age: Some(Time::new::<gigayear>(0.0151)),
+        lifetime: Time::new::<gigayear>(0.052267043),
     }
 }
 
@@ -72,19 +58,13 @@ fn DELTA_MUSCAE() -> RealData {
         right_ascension: RightAscension::new(13, 2, 16.),
         declination: Declination::new(Sgn::Neg, 71, 32, 56.),
         apparent_magnitude: 3.61,
-        distance: Length {
-            m: 91. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(91.),
         absolute_magnitude: 1.38,
-        mass: Mass {
-            kg: 1.1 * SOLAR_MASS.kg,
-        },
+        mass: Mass::new::<solar_mass>(1.1),
         radius: None,
         temperature: Temperature { K: 4_400. },
         age: None,
-        lifetime: Time {
-            s: 6.97272616 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(6.97272616),
     }
 }
 

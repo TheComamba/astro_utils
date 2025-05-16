@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -18,23 +22,13 @@ fn ALPHA_RETICULI() -> RealData {
         right_ascension: RightAscension::new(4, 14, 25.),
         declination: Declination::new(Sgn::Neg, 62, 28, 26.),
         apparent_magnitude: 3.315,
-        distance: Length {
-            m: 161.6 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(161.6),
         absolute_magnitude: -0.17,
-        mass: Mass {
-            kg: 3.11 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 12.8 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 5196. },
-        age: Some(Time {
-            s: 0.33 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.351318702 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(3.11),
+        radius: Some(Length::new::<solar_radii>(12.8)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(5196.),
+        age: Some(Time::new::<gigayear>(0.33)),
+        lifetime: Time::new::<gigayear>(0.351318702),
     }
 }
 
@@ -46,23 +40,13 @@ fn BETA_RETICULI() -> RealData {
         right_ascension: RightAscension::new(3, 44, 12.),
         declination: Declination::new(Sgn::Neg, 64, 48, 25.),
         apparent_magnitude: 3.84,
-        distance: Length {
-            m: 97. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(97.),
         absolute_magnitude: 1.46,
-        mass: Mass {
-            kg: 1.2 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 9.3 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4580. },
-        age: Some(Time {
-            s: 5. * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 5.06543331 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.2),
+        radius: Some(Length::new::<solar_radii>(9.3)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4580.),
+        age: Some(Time::new::<gigayear>(5.)),
+        lifetime: Time::new::<gigayear>(5.06543331),
     }
 }
 
@@ -74,23 +58,13 @@ fn EPSILON_RETICULI() -> RealData {
         right_ascension: RightAscension::new(4, 16, 29.),
         declination: Declination::new(Sgn::Neg, 59, 18, 8.),
         apparent_magnitude: 4.44,
-        distance: Length {
-            m: 60.1 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(60.1),
         absolute_magnitude: 3.1,
-        mass: Mass {
-            kg: 1.46 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 3.18 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4961. },
-        age: Some(Time {
-            s: 2.8 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 2.82957282 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.46),
+        radius: Some(Length::new::<solar_radii>(3.18)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4961.),
+        age: Some(Time::new::<gigayear>(2.8)),
+        lifetime: Time::new::<gigayear>(2.82957282),
     }
 }
 

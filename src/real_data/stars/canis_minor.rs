@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -15,26 +19,16 @@ fn PROCYON() -> RealData {
         common_name: "Procyon",
         astronomical_name: "α Canis Minoris",
         constellation: "Canis Minor",
-        radius: Some(Length {
-            m: 2.048 * SOLAR_RADIUS.m,
-        }),
-        mass: Mass {
-            kg: 1.499 * SOLAR_MASS.kg,
-        },
+        radius: Some(Length::new::<solar_radii>(2.048)),
+        mass: Mass::new::<solar_mass>(1.499),
         absolute_magnitude: 2.68,
         apparent_magnitude: 0.40,
-        temperature: Temperature { K: 6530. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(6530.),
         right_ascension: RightAscension::new(7, 39, 18.),
         declination: Declination::new(Sgn::Pos, 5, 13, 30.),
-        distance: Length {
-            m: 11. * LIGHT_YEAR.m,
-        },
-        age: Some(Time {
-            s: 1.37 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 2.54186931 * BILLION_YEARS.s,
-        },
+        distance: Length::new::<light_year>(11.),
+        age: Some(Time::new::<gigayear>(1.37)),
+        lifetime: Time::new::<gigayear>(2.54186931),
     }
 }
 
@@ -46,23 +40,13 @@ fn GOMEISA() -> RealData {
         right_ascension: RightAscension::new(7, 27, 9.),
         declination: Declination::new(Sgn::Pos, 8, 17, 22.),
         apparent_magnitude: 2.84,
-        distance: Length {
-            m: 160. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(160.),
         absolute_magnitude: -0.59,
-        mass: Mass {
-            kg: 3.5 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 3.5 * SOLAR_RADIUS.m,
-        }),
+        mass: Mass::new::<solar_mass>(3.5),
+        radius: Some(Length::new::<solar_radii>(3.5)),
         temperature: Temperature { K: 11_772. },
-        age: Some(Time {
-            s: 0.160 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.297402042 * BILLION_YEARS.s,
-        },
+        age: Some(Time::new::<gigayear>(0.160)),
+        lifetime: Time::new::<gigayear>(0.297402042),
     }
 }
 
@@ -74,23 +58,13 @@ fn GAMMA_CANIS_MINORIS() -> RealData {
         right_ascension: RightAscension::new(7, 28, 10.),
         declination: Declination::new(Sgn::Pos, 8, 55, 32.),
         apparent_magnitude: 4.33,
-        distance: Length {
-            m: 320. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(320.),
         absolute_magnitude: -0.5,
-        mass: Mass {
-            kg: 1.88 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 36.8 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4036. },
-        age: Some(Time {
-            s: 1.3 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 1.54706939 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.88),
+        radius: Some(Length::new::<solar_radii>(36.8)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4036.),
+        age: Some(Time::new::<gigayear>(1.3)),
+        lifetime: Time::new::<gigayear>(1.54706939),
     }
 }
 

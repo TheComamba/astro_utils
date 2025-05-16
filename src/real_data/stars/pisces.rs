@@ -1,5 +1,9 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -18,21 +22,13 @@ fn ALPHA_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(2, 2, 3.),
         declination: Declination::new(Sgn::Pos, 2, 45, 50.),
         apparent_magnitude: 3.82,
-        distance: Length {
-            m: 151. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(151.),
         absolute_magnitude: 0.5,
-        mass: Mass {
-            kg: 2.55 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 2.45 * SOLAR_RADIUS.m,
-        }),
+        mass: Mass::new::<solar_mass>(2.55),
+        radius: Some(Length::new::<solar_radii>(2.45)),
         temperature: Temperature { K: 10_233. },
         age: None,
-        lifetime: Time {
-            s: 0.63513384 * BILLION_YEARS.s,
-        },
+        lifetime: Time::new::<gigayear>(0.63513384),
     }
 }
 
@@ -44,23 +40,13 @@ fn DELTA_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(0, 48, 41.),
         declination: Declination::new(Sgn::Pos, 7, 35, 6.),
         apparent_magnitude: 4.416,
-        distance: Length {
-            m: 311. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(311.),
         absolute_magnitude: -0.46,
-        mass: Mass {
-            kg: 1.65 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 44. * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 3963. },
-        age: Some(Time {
-            s: 0.00298 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 1.89665739 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.65),
+        radius: Some(Length::new::<solar_radii>(44.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(3963.),
+        age: Some(Time::new::<gigayear>(0.00298)),
+        lifetime: Time::new::<gigayear>(1.89665739),
     }
 }
 
@@ -72,23 +58,13 @@ fn NU_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(1, 41, 26.),
         declination: Declination::new(Sgn::Pos, 5, 29, 15.),
         apparent_magnitude: 4.44,
-        distance: Length {
-            m: 363. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(363.),
         absolute_magnitude: -0.78,
-        mass: Mass {
-            kg: 1.66 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 34. * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4154. },
-        age: Some(Time {
-            s: 1.8 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 1.89665739 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.66),
+        radius: Some(Length::new::<solar_radii>(34.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4154.),
+        age: Some(Time::new::<gigayear>(1.8)),
+        lifetime: Time::new::<gigayear>(1.89665739),
     }
 }
 
@@ -100,23 +76,13 @@ fn IOTA_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(23, 39, 57.),
         declination: Declination::new(Sgn::Pos, 5, 37, 35.),
         apparent_magnitude: 4.13,
-        distance: Length {
-            m: 44.73 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(44.73),
         absolute_magnitude: 3.43,
-        mass: Mass {
-            kg: 1.3 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 1.595 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 6288. },
-        age: Some(Time {
-            s: 3.8 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 3.9126515 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.3),
+        radius: Some(Length::new::<solar_radii>(1.595)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(6288.),
+        age: Some(Time::new::<gigayear>(3.8)),
+        lifetime: Time::new::<gigayear>(3.9126515),
     }
 }
 
@@ -128,23 +94,13 @@ fn OMICRON_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(1, 45, 24.),
         declination: Declination::new(Sgn::Pos, 9, 9, 28.),
         apparent_magnitude: 4.27,
-        distance: Length {
-            m: 280. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(280.),
         absolute_magnitude: -0.22,
-        mass: Mass {
-            kg: 3.03 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 14.57 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 5004. },
-        age: Some(Time {
-            s: 0.390 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.420724107 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(3.03),
+        radius: Some(Length::new::<solar_radii>(14.57)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(5004.),
+        age: Some(Time::new::<gigayear>(0.390)),
+        lifetime: Time::new::<gigayear>(0.420724107),
     }
 }
 
@@ -156,23 +112,13 @@ fn EPSILON_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(1, 2, 57.),
         declination: Declination::new(Sgn::Pos, 7, 53, 24.),
         apparent_magnitude: 4.27,
-        distance: Length {
-            m: 182. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(182.),
         absolute_magnitude: 0.44,
-        mass: Mass {
-            kg: 2.27 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 10.9 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4814. },
-        age: Some(Time {
-            s: 0.9 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.964406929 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(2.27),
+        radius: Some(Length::new::<solar_radii>(10.9)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4814.),
+        age: Some(Time::new::<gigayear>(0.9)),
+        lifetime: Time::new::<gigayear>(0.964406929),
     }
 }
 
@@ -184,23 +130,13 @@ fn THETA_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(23, 27, 58.),
         declination: Declination::new(Sgn::Pos, 6, 22, 44.),
         apparent_magnitude: 4.27,
-        distance: Length {
-            m: 149. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(149.),
         absolute_magnitude: 0.83,
-        mass: Mass {
-            kg: 1.58 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 11. * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4684. },
-        age: Some(Time {
-            s: 0.00245 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 2.08398753 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(1.58),
+        radius: Some(Length::new::<solar_radii>(11.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4684.),
+        age: Some(Time::new::<gigayear>(0.00245)),
+        lifetime: Time::new::<gigayear>(2.08398753),
     }
 }
 
@@ -212,23 +148,13 @@ fn ETA_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(1, 31, 29.),
         declination: Declination::new(Sgn::Pos, 15, 20, 45.),
         apparent_magnitude: 3.611,
-        distance: Length {
-            m: 350. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(350.),
         absolute_magnitude: -1.52,
-        mass: Mass {
-            kg: 3.78 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 26.48 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4937. },
-        age: Some(Time {
-            s: 0.220 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 0.220601963 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(3.78),
+        radius: Some(Length::new::<solar_radii>(26.48)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4937.),
+        age: Some(Time::new::<gigayear>(0.220)),
+        lifetime: Time::new::<gigayear>(0.220601963),
     }
 }
 
@@ -240,23 +166,13 @@ fn GAMMA_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(23, 17, 10.),
         declination: Declination::new(Sgn::Pos, 3, 16, 56.),
         apparent_magnitude: 3.699,
-        distance: Length {
-            m: 135. * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(135.),
         absolute_magnitude: 0.68,
-        mass: Mass {
-            kg: 0.97 * SOLAR_MASS.kg,
-        },
-        radius: Some(Length {
-            m: 11.28 * SOLAR_RADIUS.m,
-        }),
-        temperature: Temperature { K: 4833. },
-        age: Some(Time {
-            s: 4.58 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 11.7800188 * BILLION_YEARS.s,
-        },
+        mass: Mass::new::<solar_mass>(0.97),
+        radius: Some(Length::new::<solar_radii>(11.28)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4833.),
+        age: Some(Time::new::<gigayear>(4.58)),
+        lifetime: Time::new::<gigayear>(11.7800188),
     }
 }
 
@@ -268,21 +184,13 @@ fn OMEGA_PISCIUM() -> RealData {
         right_ascension: RightAscension::new(23, 59, 19.),
         declination: Declination::new(Sgn::Pos, 6, 51, 48.),
         apparent_magnitude: 4.01,
-        distance: Length {
-            m: 104.3 * LIGHT_YEAR.m,
-        },
+        distance: Length::new::<light_year>(104.3),
         absolute_magnitude: 1.51,
-        mass: Mass {
-            kg: 1.22 * SOLAR_MASS.kg,
-        },
+        mass: Mass::new::<solar_mass>(1.22),
         radius: None,
-        temperature: Temperature { K: 6641. },
-        age: Some(Time {
-            s: 1.337 * BILLION_YEARS.s,
-        }),
-        lifetime: Time {
-            s: 5.06543331 * BILLION_YEARS.s,
-        },
+        temperature: ThermodynamicTemperature::new::<kelvin>(6641.),
+        age: Some(Time::new::<gigayear>(1.337)),
+        lifetime: Time::new::<gigayear>(5.06543331),
     }
 }
 
