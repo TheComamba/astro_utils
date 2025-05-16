@@ -246,14 +246,14 @@ mod tests {
 
     #[test]
     fn black_body_temperature_of_earth() {
-        let luminosity = SUN.to_star_data().get_luminous_intensity_at_epoch();
+        let luminosity = SUN().to_star_data().get_luminous_intensity_at_epoch();
         let temperature = black_body_temperature(luminosity, &earth().to_planet_data());
         assert!(eq_within(temperature.get::<kelvin>(), 255., 20.));
     }
 
     #[test]
     fn black_body_temperature_of_mercury() {
-        let luminosity = SUN.to_star_data().get_luminous_intensity_at_epoch();
+        let luminosity = SUN().to_star_data().get_luminous_intensity_at_epoch();
         let temperature = black_body_temperature(luminosity, &mercury().to_planet_data());
         assert!(eq_within(temperature.get::<kelvin>(), 442., 20.));
     }
