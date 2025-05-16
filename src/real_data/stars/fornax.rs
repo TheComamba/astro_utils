@@ -68,4 +68,4 @@ fn NU_FORNACIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [DALIM, BETA_FORNACIS, NU_FORNACIS];
+pub(crate) fn STARS() -> [RealData; 3] { [DALIM, BETA_FORNACIS, NU_FORNACIS] }

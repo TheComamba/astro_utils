@@ -68,4 +68,4 @@ fn DELTA_MUSCAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_MUSCAE, BETA_MUSCAE, DELTA_MUSCAE];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_MUSCAE, BETA_MUSCAE, DELTA_MUSCAE] }

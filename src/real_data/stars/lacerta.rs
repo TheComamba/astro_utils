@@ -68,4 +68,4 @@ fn FIVE_LACERTAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_LACERTAE, BETA_LACERTAE, FIVE_LACERTAE];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_LACERTAE, BETA_LACERTAE, FIVE_LACERTAE] }

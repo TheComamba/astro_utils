@@ -68,4 +68,4 @@ fn BRACHIUM() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ZUBENELGENUBI, ZUBENESCHAMALI, BRACHIUM];
+pub(crate) fn STARS() -> [RealData; 3] { [ZUBENELGENUBI, ZUBENESCHAMALI, BRACHIUM] }

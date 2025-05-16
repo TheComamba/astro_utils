@@ -68,4 +68,4 @@ fn BETA_SEXTANTIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_SEXTANTIS, GAMMA_SEXTANTIS, BETA_SEXTANTIS];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_SEXTANTIS, GAMMA_SEXTANTIS, BETA_SEXTANTIS] }

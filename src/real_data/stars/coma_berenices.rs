@@ -68,4 +68,4 @@ fn GAMMA_COMA_BERENICES() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [DIADEM, BETA_COMA_BERENICES, GAMMA_COMA_BERENICES];
+pub(crate) fn STARS() -> [RealData; 3] { [DIADEM, BETA_COMA_BERENICES, GAMMA_COMA_BERENICES] }

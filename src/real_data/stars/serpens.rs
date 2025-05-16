@@ -68,4 +68,4 @@ fn MU_SERPENTIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [UNUKALHAI, BETA_SERPENTIS, MU_SERPENTIS];
+pub(crate) fn STARS() -> [RealData; 3] { [UNUKALHAI, BETA_SERPENTIS, MU_SERPENTIS] }

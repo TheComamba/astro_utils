@@ -68,4 +68,4 @@ fn EPSILON_RETICULI() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_RETICULI, BETA_RETICULI, EPSILON_RETICULI];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_RETICULI, BETA_RETICULI, EPSILON_RETICULI] }

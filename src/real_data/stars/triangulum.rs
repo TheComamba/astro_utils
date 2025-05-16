@@ -68,4 +68,4 @@ fn GAMMA_TRIANGULI() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [BETA_TRIANGULI, ALPHA_TRIANGULI, GAMMA_TRIANGULI];
+pub(crate) fn STARS() -> [RealData; 3] { [BETA_TRIANGULI, ALPHA_TRIANGULI, GAMMA_TRIANGULI] }

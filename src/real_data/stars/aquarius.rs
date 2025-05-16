@@ -68,4 +68,4 @@ fn SKAT() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [SADALSUUD, SADALMELIK, SKAT];
+pub(crate) fn STARS() -> [RealData; 3] { [SADALSUUD, SADALMELIK, SKAT] }

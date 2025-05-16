@@ -86,4 +86,4 @@ fn EPSILON_CORVI() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 4] = [GHURAB, KRAZ, ALGORAB, EPSILON_CORVI];
+pub(crate) fn STARS() -> [RealData; 4] { [GHURAB, KRAZ, ALGORAB, EPSILON_CORVI] }

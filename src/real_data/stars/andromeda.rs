@@ -68,4 +68,6 @@ fn ALMACH() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHERATZ, MIRACH, ALMACH];
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALPHERATZ(), MIRACH(), ALMACH()]
+} 

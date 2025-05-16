@@ -68,4 +68,4 @@ fn GAMMA_CIRCINI() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_CIRCINI, BETA_CIRCINI, GAMMA_CIRCINI];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_CIRCINI, BETA_CIRCINI, GAMMA_CIRCINI] }

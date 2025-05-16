@@ -104,4 +104,4 @@ fn ZETA_ARAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 5] = [ALPHA_ARAE, BETA_ARAE, GAMMA_ARAE, DELTA_ARAE, ZETA_ARAE];
+pub(crate) fn STARS() -> [RealData; 5] { [ALPHA_ARAE, BETA_ARAE, GAMMA_ARAE, DELTA_ARAE, ZETA_ARAE] }

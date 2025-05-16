@@ -68,4 +68,4 @@ fn BETA_HOROLOGII() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_HOROLOGII, R_HOROLOGII, BETA_HOROLOGII];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_HOROLOGII, R_HOROLOGII, BETA_HOROLOGII] }

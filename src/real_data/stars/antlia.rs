@@ -1,4 +1,9 @@
 use astro_coords::ra_and_dec::*;
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
@@ -63,4 +68,4 @@ fn IOTA_ANTLIAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_ANTLIAE, EPSILON_ANTLIAE, IOTA_ANTLIAE];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_ANTLIAE, EPSILON_ANTLIAE, IOTA_ANTLIAE] }

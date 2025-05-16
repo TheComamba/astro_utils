@@ -68,4 +68,4 @@ fn DELTA_PAVONIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [PEACOCK, BETA_PAVONIS, DELTA_PAVONIS];
+pub(crate) fn STARS() -> [RealData; 3] { [PEACOCK, BETA_PAVONIS, DELTA_PAVONIS] }

@@ -68,4 +68,4 @@ fn HASSALEH() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [CAPELLA, MENKALINAN, HASSALEH];
+pub(crate) fn STARS() -> [RealData; 3] { [CAPELLA, MENKALINAN, HASSALEH] }

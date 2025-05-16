@@ -68,4 +68,4 @@ fn ALPHA_SAGITTAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [GAMMA_SAGITTAE, DELTA_SAGITTAE, ALPHA_SAGITTAE];
+pub(crate) fn STARS() -> [RealData; 3] { [GAMMA_SAGITTAE, DELTA_SAGITTAE, ALPHA_SAGITTAE] }

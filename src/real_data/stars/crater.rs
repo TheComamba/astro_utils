@@ -86,4 +86,4 @@ fn DELTA_CRATERIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 4] = [ALKES, BETA_CRATERIS, GAMMA_CRATERIS, DELTA_CRATERIS];
+pub(crate) fn STARS() -> [RealData; 4] { [ALKES, BETA_CRATERIS, GAMMA_CRATERIS, DELTA_CRATERIS] }

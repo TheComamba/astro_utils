@@ -68,4 +68,4 @@ fn GAMMA_CANIS_MINORIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [PROCYON, GOMEISA, GAMMA_CANIS_MINORIS];
+pub(crate) fn STARS() -> [RealData; 3] { [PROCYON, GOMEISA, GAMMA_CANIS_MINORIS] }

@@ -68,4 +68,4 @@ fn EPSILON_LEPORIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ARNEB, BETA_LEPORIS, EPSILON_LEPORIS];
+pub(crate) fn STARS() -> [RealData; 3] { [ARNEB, BETA_LEPORIS, EPSILON_LEPORIS] }

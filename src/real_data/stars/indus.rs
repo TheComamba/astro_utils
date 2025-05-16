@@ -68,4 +68,4 @@ fn ETA_INDI() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_INDI, BETA_INDI, ETA_INDI];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_INDI, BETA_INDI, ETA_INDI] }

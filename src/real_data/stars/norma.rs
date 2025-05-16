@@ -64,4 +64,4 @@ fn IOTA1_NORMAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [GAMMA2_NORMAE, EPSILON_NORMAE, IOTA1_NORMAE];
+pub(crate) fn STARS() -> [RealData; 3] { [GAMMA2_NORMAE, EPSILON_NORMAE, IOTA1_NORMAE] }

@@ -68,4 +68,4 @@ fn ZETA_TUCANAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_TUCANAE, GAMMA_TUCANAE, ZETA_TUCANAE];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_TUCANAE, GAMMA_TUCANAE, ZETA_TUCANAE] }

@@ -68,4 +68,4 @@ fn BETA_CAELI() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_CAELI, GAMMA1_CAELI, BETA_CAELI];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_CAELI, GAMMA1_CAELI, BETA_CAELI] }

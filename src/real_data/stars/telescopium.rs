@@ -68,4 +68,4 @@ fn EPSILON_TELESCOPII() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_TELESCOPII, ZETA_TELESCOPII, EPSILON_TELESCOPII];
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_TELESCOPII, ZETA_TELESCOPII, EPSILON_TELESCOPII] }
