@@ -7,6 +7,12 @@ use astro_utils::{
     },
     units::illuminance::illuminance_to_apparent_magnitude,
 };
+use uom::si::{
+    f64::{Length, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+    time::year,
+};
 
 #[test]
 #[ignore]
@@ -30,7 +36,7 @@ fn parsec_generates_data_similar_to_gaia() {
     let gaia_simulated_data = fetch_brightest_stars_simulated_data()
         .unwrap()
         .into_iter()
-        .filter(|s| s.get_temperature_at_epoch() > TEMPERATURE_ZERO)
+        .filter(|s| s.get_temperature_at_epoch().value > 0.)
         .collect::<Vec<_>>();
     let gaia_stars = gaia_simulated_data
         .iter()
@@ -228,7 +234,7 @@ fn mean_temperature(data: &[StarData]) -> f64 {
     let temperatures = data
         .iter()
         .map(|s| s.get_temperature_at_epoch())
-        .filter_map(|t| if t > TEMPERATURE_ZERO { Some(t) } else { None })
+        .filter_map(|t| if t.value > 0. { Some(t) } else { None })
         .map(|t| t.get::<kelvin>())
         .collect::<Vec<_>>();
     temperatures.iter().sum::<f64>() / temperatures.len() as f64

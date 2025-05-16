@@ -41,8 +41,8 @@ impl StarAppearance {
         &self.name
     }
 
-    pub const fn get_illuminance(&self) -> &Illuminance {
-        &self.illuminance
+    pub const fn get_illuminance(&self) -> Illuminance {
+        self.illuminance
     }
 
     pub const fn get_color(&self) -> &sRGBColor {
@@ -53,8 +53,8 @@ impl StarAppearance {
         &self.pos
     }
 
-    pub const fn get_time_since_epoch(&self) -> &Time {
-        &self.time_since_epoch
+    pub const fn get_time_since_epoch(&self) -> Time {
+        self.time_since_epoch
     }
 
     pub fn set_pos(&mut self, direction: Ecliptic) {
