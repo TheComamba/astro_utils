@@ -104,4 +104,4 @@ fn CEBALRAI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 5] { [RASALHAGUE, SABIK, HAN, YED_PRIOR, CEBALRAI] }
+pub(crate) fn STARS() -> [RealData; 5] { [RASALHAGUE(), SABIK(), HAN(), YED_PRIOR(), CEBALRAI()] }

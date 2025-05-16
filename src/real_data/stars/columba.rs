@@ -86,4 +86,4 @@ fn EPSILON_COLUMBAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [PHACT, WAZN, DELTA_COLUMBAE, EPSILON_COLUMBAE] }
+pub(crate) fn STARS() -> [RealData; 4] { [PHACT(), WAZN(), DELTA_COLUMBAE(), EPSILON_COLUMBAE()] }

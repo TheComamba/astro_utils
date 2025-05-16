@@ -68,4 +68,4 @@ fn GACRUX() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ACRUX, MIMOSA, GACRUX] }
+pub(crate) fn STARS() -> [RealData; 3] { [ACRUX(), MIMOSA(), GACRUX()] }

@@ -68,4 +68,4 @@ fn GAMMA_EQUULEI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [KITALPHA, DELTA_EQUULEI, GAMMA_EQUULEI] }
+pub(crate) fn STARS() -> [RealData; 3] { [KITALPHA(), DELTA_EQUULEI(), GAMMA_EQUULEI()] }

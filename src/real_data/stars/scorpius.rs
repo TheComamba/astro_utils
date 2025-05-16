@@ -140,4 +140,4 @@ fn ACRAB() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 7] { [ANTARES, SHAULA, SARGAS, DSCHUBBA, LARAWAG, GIRTAB, ACRAB] }
+pub(crate) fn STARS() -> [RealData; 7] { [ANTARES(), SHAULA(), SARGAS(), DSCHUBBA(), LARAWAG(), GIRTAB(), ACRAB()] }

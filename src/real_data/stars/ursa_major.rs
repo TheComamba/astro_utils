@@ -159,12 +159,12 @@ fn MEGREZ() -> RealData {
 }
 
 pub(crate) const STARS: [RealData; 8] = [
-    ALIOTH,
-    DUBHE,
-    ALKAID,
-    MIZAR,
-    MERAK,
-    PHECDA,
-    TANIA_AUSTRALIS,
-    MEGREZ,
+    ALIOTH(),
+    DUBHE(),
+    ALKAID(),
+    MIZAR(),
+    MERAK(),
+    PHECDA(),
+    TANIA_AUSTRALIS(),
+    MEGREZ(),
 ];

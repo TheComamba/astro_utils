@@ -68,4 +68,4 @@ fn MARKAB() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ENIF, SCHEAT, MARKAB] }
+pub(crate) fn STARS() -> [RealData; 3] { [ENIF(), SCHEAT(), MARKAB()] }

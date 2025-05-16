@@ -68,4 +68,4 @@ fn IOTA_CANCRI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [TARF, ASELLUS_AUSTRALIS, IOTA_CANCRI] }
+pub(crate) fn STARS() -> [RealData; 3] { [TARF(), ASELLUS_AUSTRALIS(), IOTA_CANCRI()] }

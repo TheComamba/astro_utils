@@ -159,12 +159,12 @@ fn ERAKIS() -> RealData {
 }
 
 pub(crate) const STARS: [RealData; 8] = [
-    ALDERAMIN,
-    ALFIRK,
-    ERRAI,
-    DELTA_CEPHERI,
-    ETA_CEPHEI,
-    IOTA_CEPHEI,
-    ZETA_CEPHEI,
-    ERAKIS,
+    ALDERAMIN(),
+    ALFIRK(),
+    ERRAI(),
+    DELTA_CEPHERI(),
+    ETA_CEPHEI(),
+    IOTA_CEPHEI(),
+    ZETA_CEPHEI(),
+    ERAKIS(),
 ];

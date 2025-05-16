@@ -86,4 +86,4 @@ fn KAUS_MEDIA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [KAUS_AUSTRALIS, NUNKI, NAMALWARID, KAUS_MEDIA] }
+pub(crate) fn STARS() -> [RealData; 4] { [KAUS_AUSTRALIS(), NUNKI(), NAMALWARID(), KAUS_MEDIA()] }

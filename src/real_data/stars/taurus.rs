@@ -123,10 +123,10 @@ fn ZETA_TAURI() -> RealData {
 }
 
 pub(crate) const STARS: [RealData; 6] = [
-    ALDEBARAN,
-    ALNATH,
-    GAMMA_TAURI,
-    EPSILON_TAURI,
-    LAMBDA_TAURI,
-    ZETA_TAURI,
+    ALDEBARAN(),
+    ALNATH(),
+    GAMMA_TAURI(),
+    EPSILON_TAURI(),
+    LAMBDA_TAURI(),
+    ZETA_TAURI(),
 ];

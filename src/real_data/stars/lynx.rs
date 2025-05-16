@@ -68,4 +68,4 @@ fn THIRTYONE_LYNCIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_LYNCIS, THIRTYEIGHT_LYNCIS, THIRTYONE_LYNCIS] }
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_LYNCIS(), THIRTYEIGHT_LYNCIS(), THIRTYONE_LYNCIS()] }

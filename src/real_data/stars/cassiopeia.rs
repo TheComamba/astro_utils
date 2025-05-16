@@ -68,4 +68,4 @@ fn CAPH() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [NAVI, SCHEDAR, CAPH] }
+pub(crate) fn STARS() -> [RealData; 3] { [NAVI(), SCHEDAR(), CAPH()] }

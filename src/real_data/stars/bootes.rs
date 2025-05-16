@@ -123,10 +123,10 @@ fn MUPHRID() -> RealData {
 }
 
 pub(crate) const STARS: [RealData; 6] = [
-    ARCTURUS,
-    IZAR,
-    GAMMA_BOOTIS,
-    DELTA_BOOTIS,
-    BETA_BOOTIS,
-    MUPHRID,
+    ARCTURUS(),
+    IZAR(),
+    GAMMA_BOOTIS(),
+    DELTA_BOOTIS(),
+    BETA_BOOTIS(),
+    MUPHRID(),
 ];

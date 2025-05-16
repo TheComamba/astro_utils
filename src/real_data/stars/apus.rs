@@ -68,4 +68,4 @@ fn BETA_APODIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_APODIS, GAMMA_APODIS, BETA_APODIS] }
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_APODIS(), GAMMA_APODIS(), BETA_APODIS()] }

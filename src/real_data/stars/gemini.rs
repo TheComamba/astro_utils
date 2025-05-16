@@ -104,4 +104,4 @@ fn PROPUS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 5] { [POLLUX, CASTOR, ALHENA, TEJAT, PROPUS] }
+pub(crate) fn STARS() -> [RealData; 5] { [POLLUX(), CASTOR(), ALHENA(), TEJAT(), PROPUS()] }

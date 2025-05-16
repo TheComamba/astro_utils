@@ -86,4 +86,4 @@ fn NU_HYDRAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [ALPHARD, GAMMA_HYDRAE, ZETA_HYDRAE, NU_HYDRAE] }
+pub(crate) fn STARS() -> [RealData; 4] { [ALPHARD(), GAMMA_HYDRAE(), ZETA_HYDRAE(), NU_HYDRAE()] }

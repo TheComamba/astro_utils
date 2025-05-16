@@ -86,4 +86,4 @@ fn R_DORADUS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [ALPHA_DORADUS, BETA_DORADUS, GAMMA_DORADUS, R_DORADUS] }
+pub(crate) fn STARS() -> [RealData; 4] { [ALPHA_DORADUS(), BETA_DORADUS(), GAMMA_DORADUS(), R_DORADUS()] }

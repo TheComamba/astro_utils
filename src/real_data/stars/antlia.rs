@@ -68,4 +68,4 @@ fn IOTA_ANTLIAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_ANTLIAE, EPSILON_ANTLIAE, IOTA_ANTLIAE] }
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_ANTLIAE(), EPSILON_ANTLIAE(), IOTA_ANTLIAE()] }

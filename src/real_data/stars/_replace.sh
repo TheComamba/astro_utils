@@ -25,5 +25,6 @@ for file in *.rs; do
     sed -i "s/mass::,/mass::{solar_mass, },/g" "$file"
     sed -i "s/time::,/time::{gigayear, },/g" "$file"
     sed -Ei 's/const STARS: ([^=]+) = ([^;]+);/fn STARS() -> \1 { \2 }/g' "$file"
-    sed -Ei 's/([A-Z0-9]+,)/\1(),/g'
+    sed -Ei 's/([A-Z][A-Z0-9_]+),/\1(),/g' "$file"
+    sed -Ei 's/([A-Z][A-Z0-9_]+)\]/\1()\]/g' "$file"
 done

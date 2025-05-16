@@ -86,4 +86,4 @@ fn ASPIDISKE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [CANOPUS, MIAPLACIDUS, AVIOR, ASPIDISKE] }
+pub(crate) fn STARS() -> [RealData; 4] { [CANOPUS(), MIAPLACIDUS(), AVIOR(), ASPIDISKE()] }

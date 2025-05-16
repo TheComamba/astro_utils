@@ -68,4 +68,4 @@ fn GAMMA_SULPTORIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_SCULPTORIS, BETA_SCULPTORIS, GAMMA_SULPTORIS] }
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_SCULPTORIS(), BETA_SCULPTORIS(), GAMMA_SULPTORIS()] }

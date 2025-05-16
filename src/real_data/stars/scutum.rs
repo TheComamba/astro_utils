@@ -68,4 +68,4 @@ fn ZETA_SCUTI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_SCUTI, BETA_SCUTI, ZETA_SCUTI] }
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_SCUTI(), BETA_SCUTI(), ZETA_SCUTI()] }

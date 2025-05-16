@@ -104,4 +104,4 @@ fn ALUDRA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 5] { [SIRIUS, ADHARA, WEZEN, MIRZAM, ALUDRA] }
+pub(crate) fn STARS() -> [RealData; 5] { [SIRIUS(), ADHARA(), WEZEN(), MIRZAM(), ALUDRA()] }

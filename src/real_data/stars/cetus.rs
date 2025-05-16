@@ -159,12 +159,12 @@ fn TAU_CETI() -> RealData {
 }
 
 pub(crate) const STARS: [RealData; 8] = [
-    DIPHDA,
-    MENKAR,
-    MIRA,
-    BATEN_KAITOS,
-    KAFFALJIDHMA,
-    IOTA_CETI,
-    DENEB_ALGENUBI,
-    TAU_CETI,
+    DIPHDA(),
+    MENKAR(),
+    MIRA(),
+    BATEN_KAITOS(),
+    KAFFALJIDHMA(),
+    IOTA_CETI(),
+    DENEB_ALGENUBI(),
+    TAU_CETI(),
 ];

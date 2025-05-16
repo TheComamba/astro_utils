@@ -68,4 +68,4 @@ fn GAMMA_PICTORIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_PICTORIS, BETA_PICTORIS, GAMMA_PICTORIS] }
+pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_PICTORIS(), BETA_PICTORIS(), GAMMA_PICTORIS()] }

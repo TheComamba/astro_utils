@@ -159,12 +159,12 @@ fn MA_WEI() -> RealData {
 }
 
 pub(crate) const STARS: [RealData; 8] = [
-    RIGEL_KENTAURUS,
-    HADAR,
-    MENKENT,
-    MUHLIFAIN,
-    EPSILON_CENTAURI,
-    ETA_CENTAURI,
-    ZETA_CENTAURI,
-    MA_WEI,
+    RIGEL_KENTAURUS(),
+    HADAR(),
+    MENKENT(),
+    MUHLIFAIN(),
+    EPSILON_CENTAURI(),
+    ETA_CENTAURI(),
+    ZETA_CENTAURI(),
+    MA_WEI(),
 ];

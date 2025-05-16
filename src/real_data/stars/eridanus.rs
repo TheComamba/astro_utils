@@ -86,4 +86,4 @@ fn ACAMAR() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [ACHERNAR, ZAURAK, CURSA, ACAMAR] }
+pub(crate) fn STARS() -> [RealData; 4] { [ACHERNAR(), ZAURAK(), CURSA(), ACAMAR()] }

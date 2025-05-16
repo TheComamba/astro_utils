@@ -86,4 +86,4 @@ fn ZOSMA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [REGULUS, ALGIEBA, DENEBOLA, ZOSMA] }
+pub(crate) fn STARS() -> [RealData; 4] { [REGULUS(), ALGIEBA(), DENEBOLA(), ZOSMA()] }
