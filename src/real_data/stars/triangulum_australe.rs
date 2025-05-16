@@ -68,5 +68,4 @@ fn GAMMA_TRIANGULI_AUSTRALIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] =
-    [ATRIA(), BETA_TRIANGULI_AUSTRALIS(), GAMMA_TRIANGULI_AUSTRALIS()];
+pub(crate) fn STARS() -> [RealData; 3] { [ATRIA(), BETA_TRIANGULI_AUSTRALIS(), GAMMA_TRIANGULI_AUSTRALIS()] }

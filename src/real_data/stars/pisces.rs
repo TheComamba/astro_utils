@@ -194,7 +194,7 @@ fn OMEGA_PISCIUM() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 10] = [
+pub(crate) fn STARS() -> [RealData; 10] { [
     ALPHA_PISCIUM(),
     DELTA_PISCIUM(),
     NU_PISCIUM(),
@@ -205,4 +205,4 @@ pub(crate) const STARS: [RealData; 10] = [
     ETA_PISCIUM(),
     GAMMA_PISCIUM(),
     OMEGA_PISCIUM(),
-];
+] }

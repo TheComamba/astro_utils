@@ -158,7 +158,7 @@ fn ERAKIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 8] = [
+pub(crate) fn STARS() -> [RealData; 8] { [
     ALDERAMIN(),
     ALFIRK(),
     ERRAI(),
@@ -167,4 +167,4 @@ pub(crate) const STARS: [RealData; 8] = [
     IOTA_CEPHEI(),
     ZETA_CEPHEI(),
     ERAKIS(),
-];
+] }

@@ -122,11 +122,11 @@ fn LAMBDA_AQUILAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 6] = [
+pub(crate) fn STARS() -> [RealData; 6] { [
     ALTAIR(),
     TARAZED(),
     OKAB(),
     THETA_AQUILAE(),
     DELTA_AQUILAE(),
     LAMBDA_AQUILAE(),
-];
+] }

@@ -158,7 +158,7 @@ fn MA_WEI() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 8] = [
+pub(crate) fn STARS() -> [RealData; 8] { [
     RIGEL_KENTAURUS(),
     HADAR(),
     MENKENT(),
@@ -167,4 +167,4 @@ pub(crate) const STARS: [RealData; 8] = [
     ETA_CENTAURI(),
     ZETA_CENTAURI(),
     MA_WEI(),
-];
+] }

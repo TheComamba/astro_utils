@@ -68,5 +68,4 @@ fn THETA1_MICROSCOPII() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] =
-    [GAMMA_MICROSCOPII(), EPSILON_MICROSCOPII(), THETA1_MICROSCOPII()];
+pub(crate) fn STARS() -> [RealData; 3] { [GAMMA_MICROSCOPII(), EPSILON_MICROSCOPII(), THETA1_MICROSCOPII()] }

@@ -140,7 +140,7 @@ fn PI_HERCULIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 7] = [
+pub(crate) fn STARS() -> [RealData; 7] { [
     RASALGETHI(),
     KORNEPHOROS(),
     SARIN(),
@@ -148,4 +148,4 @@ pub(crate) const STARS: [RealData; 7] = [
     MU_HERCULIS(),
     ZETA_HERCULIS(),
     PI_HERCULIS(),
-];
+] }

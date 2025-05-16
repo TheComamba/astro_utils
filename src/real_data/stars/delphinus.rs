@@ -104,5 +104,4 @@ fn ALDULFIN() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 5] =
-    [SUALOCIN(), ROTANEV(), GAMMA_DELPHINI(), DELTA_DELPHINI(), ALDULFIN()];
+pub(crate) fn STARS() -> [RealData; 5] { [SUALOCIN(), ROTANEV(), GAMMA_DELPHINI(), DELTA_DELPHINI(), ALDULFIN()] }

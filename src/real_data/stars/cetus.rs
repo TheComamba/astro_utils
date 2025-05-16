@@ -158,7 +158,7 @@ fn TAU_CETI() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 8] = [
+pub(crate) fn STARS() -> [RealData; 8] { [
     DIPHDA(),
     MENKAR(),
     MIRA(),
@@ -167,4 +167,4 @@ pub(crate) const STARS: [RealData; 8] = [
     IOTA_CETI(),
     DENEB_ALGENUBI(),
     TAU_CETI(),
-];
+] }

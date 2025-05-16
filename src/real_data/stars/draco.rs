@@ -248,7 +248,7 @@ fn RASTABAN() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 13] = [
+pub(crate) fn STARS() -> [RealData; 13] { [
     ELTANIN(),
     ATHEBYNE(),
     THETA_DRACONIS(),
@@ -262,4 +262,4 @@ pub(crate) const STARS: [RealData; 13] = [
     ALDHIBAH(),
     ALTAIS(),
     RASTABAN(),
-];
+] }

@@ -140,7 +140,7 @@ fn PORRIMA() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 7] = [
+pub(crate) fn STARS() -> [RealData; 7] { [
     SPICA(),
     MINELAUVA(),
     ZAVIJAVA(),
@@ -148,4 +148,4 @@ pub(crate) const STARS: [RealData; 7] = [
     HEZE(),
     VINDEMIATRIX(),
     PORRIMA(),
-];
+] }

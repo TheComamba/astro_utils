@@ -140,7 +140,7 @@ fn EPSILON_URSAE_MINORIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 7] = [
+pub(crate) fn STARS() -> [RealData; 7] { [
     POLARIS(),
     KOCHAB(),
     ZETA_URSAE_MINORIS(),
@@ -148,4 +148,4 @@ pub(crate) const STARS: [RealData; 7] = [
     ETA_URSAE_MINORIS(),
     PHERKAD(),
     EPSILON_URSAE_MINORIS(),
-];
+] }

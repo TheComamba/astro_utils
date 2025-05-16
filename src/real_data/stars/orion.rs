@@ -142,6 +142,6 @@ fn MINTAKA() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 7] = [
+pub(crate) fn STARS() -> [RealData; 7] { [
     RIGEL(), BETELGEUSE(), BELLATRIX(), ALNILAM(), ALNITAK(), SAIPH(), MINTAKA(),
-];
+] }

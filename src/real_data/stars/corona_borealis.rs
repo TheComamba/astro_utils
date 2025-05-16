@@ -142,7 +142,7 @@ fn THETA_CORONAE_BOREALIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 7] = [
+pub(crate) fn STARS() -> [RealData; 7] { [
     ALPHECCA(),
     NAUSAKAN(),
     GAMMA_CORONAE_BOREALIS(),
@@ -150,4 +150,4 @@ pub(crate) const STARS: [RealData; 7] = [
     EPSILON_CORONAE_BOREALIS(),
     IOTA_CORONAE_BOREALIS(),
     THETA_CORONAE_BOREALIS(),
-];
+] }

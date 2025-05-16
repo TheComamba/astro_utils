@@ -158,7 +158,7 @@ fn MEGREZ() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 8] = [
+pub(crate) fn STARS() -> [RealData; 8] { [
     ALIOTH(),
     DUBHE(),
     ALKAID(),
@@ -167,4 +167,4 @@ pub(crate) const STARS: [RealData; 8] = [
     PHECDA(),
     TANIA_AUSTRALIS(),
     MEGREZ(),
-];
+] }

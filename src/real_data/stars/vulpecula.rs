@@ -68,8 +68,8 @@ fn THIRTYONE_VULPECULAE() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] = [
+pub(crate) fn STARS() -> [RealData; 3] { [
     ALPHA_VULPECULAE(),
     TWENTYTHREE_VULPECULAE(),
     THIRTYONE_VULPECULAE(),
-];
+] }

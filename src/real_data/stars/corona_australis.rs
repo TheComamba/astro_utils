@@ -68,5 +68,4 @@ fn GAMMA_CORONAE_AUSTRALIS() -> RealData {
     }
 }
 
-pub(crate) const STARS: [RealData; 3] =
-    [MERIDIANA(), BETA_CORONAE_AUSTRALIS(), GAMMA_CORONAE_AUSTRALIS()];
+pub(crate) fn STARS() -> [RealData; 3] { [MERIDIANA(), BETA_CORONAE_AUSTRALIS(), GAMMA_CORONAE_AUSTRALIS()] }
