@@ -8,9 +8,9 @@ use uom::si::{
 use crate::{
     stars::real_data::RealData,
     units::{
-        length::{solar_radii, LIGHT_YEAR, SOLAR_RADIUS},
-        mass::{solar_mass, SOLAR_MASS},
-        time::{gigayear, BILLION_YEARS},
+        length::{solar_radii },
+        mass::{solar_mass, },
+        time::{gigayear, },
     },
 };
 

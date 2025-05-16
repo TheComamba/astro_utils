@@ -8,9 +8,9 @@ use uom::si::{
 use crate::{
     stars::real_data::RealData,
     units::{
-        length::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
+        length::{solar_radii },
+        mass::{solar_mass, },
+        time::{gigayear, },
     },
 };
 
@@ -119,7 +119,7 @@ fn IOTA_CORONAE_BOREALIS() -> RealData {
         temperature: Temperature { K: 10_727. },
         age: None,
         lifetime: Time {
-            s: 0.420724107 * BILLION_YEARS.s, //no idea
+            s: 0.420724107 * .s, //no idea
         },
     }
 }

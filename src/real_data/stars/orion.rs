@@ -8,9 +8,9 @@ use uom::si::{
 use crate::{
     stars::real_data::RealData,
     units::{
-        length::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
+        length::{solar_radii },
+        mass::{solar_mass, },
+        time::{gigayear, },
     },
 };
 
@@ -46,7 +46,7 @@ fn BETELGEUSE() -> RealData {
         declination: Declination::new(Sgn::Pos, 7, 24, 25.),
         distance: Length::new::<light_year>(522.),
         age: Some(Time {
-            s: 0.012799766 * BILLION_YEARS.s - 100. * 365.25 * 24. * 60. * 60.,
+            s: 0.012799766 * .s - 100. * 365.25 * 24. * 60. * 60.,
         }),
         lifetime: Time::new::<gigayear>(0.012799766),
     }

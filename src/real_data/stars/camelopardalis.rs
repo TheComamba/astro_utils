@@ -8,9 +8,9 @@ use uom::si::{
 use crate::{
     stars::real_data::RealData,
     units::{
-        length::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
+        length::{solar_radii },
+        mass::{solar_mass, },
+        time::{gigayear, },
     },
 };
 
@@ -63,7 +63,7 @@ fn ALPHA_CAMELOPARDALIS() -> RealData {
         right_ascension: RightAscension::new(4, 54, 3.),
         declination: Declination::new(Sgn::Pos, 66, 20, 34.),
         distance: Length {
-            m: 6_000. * LIGHT_YEAR.m,
+            m: 6_000. * .m,
         },
         age: Some(Time::new::<gigayear>(0.002)),
         lifetime: Time::new::<gigayear>(0.005279908),

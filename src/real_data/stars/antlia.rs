@@ -3,9 +3,9 @@ use astro_coords::ra_and_dec::*;
 use crate::{
     stars::real_data::RealData,
     units::{
-        length::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
+        length::{solar_radii },
+        mass::{solar_mass, },
+        time::{gigayear, },
     },
 };
 

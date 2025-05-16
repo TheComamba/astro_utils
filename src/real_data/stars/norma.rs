@@ -7,7 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{length::LIGHT_YEAR, mass::SOLAR_MASS, time::BILLION_YEARS},
+    units::{length::, mass::{solar_mass, }, time::},
 };
 
 fn GAMMA2_NORMAE() -> RealData {
