@@ -64,6 +64,6 @@ fn GORGONEA_TERTIA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [MIRPHAK(), ALGOL(), GORGONEA_TERTIA()]
 }

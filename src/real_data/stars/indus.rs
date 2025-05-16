@@ -64,6 +64,6 @@ fn ETA_INDI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_INDI(), BETA_INDI(), ETA_INDI()]
 }

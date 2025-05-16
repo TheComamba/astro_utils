@@ -118,7 +118,7 @@ fn ZETA_TAURI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 6] {
+pub(crate) fn stars() -> [RealData; 6] {
     [
         ALDEBARAN(),
         ALNATH(),

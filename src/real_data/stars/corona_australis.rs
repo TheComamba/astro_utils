@@ -64,7 +64,7 @@ fn GAMMA_CORONAE_AUSTRALIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [
         MERIDIANA(),
         BETA_CORONAE_AUSTRALIS(),

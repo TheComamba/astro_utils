@@ -64,7 +64,7 @@ fn DELTA_MONOCEROTIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [
         ALPHA_MONOCEROTIS(),
         GAMMA_MONOCEROTIS(),

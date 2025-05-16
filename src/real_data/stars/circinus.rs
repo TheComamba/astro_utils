@@ -64,6 +64,6 @@ fn GAMMA_CIRCINI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_CIRCINI(), BETA_CIRCINI(), GAMMA_CIRCINI()]
 }

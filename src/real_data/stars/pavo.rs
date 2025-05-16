@@ -64,6 +64,6 @@ fn DELTA_PAVONIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [PEACOCK(), BETA_PAVONIS(), DELTA_PAVONIS()]
 }

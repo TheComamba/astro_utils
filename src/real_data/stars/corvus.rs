@@ -82,6 +82,6 @@ fn EPSILON_CORVI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] {
+pub(crate) fn stars() -> [RealData; 4] {
     [GHURAB(), KRAZ(), ALGORAB(), EPSILON_CORVI()]
 }

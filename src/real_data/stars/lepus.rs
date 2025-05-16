@@ -64,6 +64,6 @@ fn EPSILON_LEPORIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ARNEB(), BETA_LEPORIS(), EPSILON_LEPORIS()]
 }

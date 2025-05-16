@@ -64,6 +64,6 @@ fn FIVE_LACERTAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_LACERTAE(), BETA_LACERTAE(), FIVE_LACERTAE()]
 }

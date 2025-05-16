@@ -154,7 +154,7 @@ fn TAU_CETI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 8] {
+pub(crate) fn stars() -> [RealData; 8] {
     [
         DIPHDA(),
         MENKAR(),

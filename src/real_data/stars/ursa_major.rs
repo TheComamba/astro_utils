@@ -154,7 +154,7 @@ fn MEGREZ() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 8] {
+pub(crate) fn stars() -> [RealData; 8] {
     [
         ALIOTH(),
         DUBHE(),

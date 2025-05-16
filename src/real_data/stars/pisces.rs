@@ -190,7 +190,7 @@ fn OMEGA_PISCIUM() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 10] {
+pub(crate) fn stars() -> [RealData; 10] {
     [
         ALPHA_PISCIUM(),
         DELTA_PISCIUM(),

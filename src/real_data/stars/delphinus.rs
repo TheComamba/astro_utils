@@ -100,7 +100,7 @@ fn ALDULFIN() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 5] {
+pub(crate) fn stars() -> [RealData; 5] {
     [
         SUALOCIN(),
         ROTANEV(),

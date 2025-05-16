@@ -64,6 +64,6 @@ fn ZETA_TUCANAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_TUCANAE(), GAMMA_TUCANAE(), ZETA_TUCANAE()]
 }

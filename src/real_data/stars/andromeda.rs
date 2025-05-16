@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHERATZ() -> RealData {
+fn alpheratz() -> RealData {
     RealData {
         common_name: "Alpheratz",
         astronomical_name: "α Andromedae",
@@ -28,7 +28,7 @@ fn ALPHERATZ() -> RealData {
     }
 }
 
-fn MIRACH() -> RealData {
+fn mirach() -> RealData {
     RealData {
         common_name: "Mirach",
         astronomical_name: "β Andromedae",
@@ -46,7 +46,7 @@ fn MIRACH() -> RealData {
     }
 }
 
-fn ALMACH() -> RealData {
+fn almach() -> RealData {
     RealData {
         common_name: "Almach",
         astronomical_name: "γ Andromedae",
@@ -64,6 +64,6 @@ fn ALMACH() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
-    [ALPHERATZ(), MIRACH(), ALMACH()]
+pub(crate) fn stars() -> [RealData; 3] {
+    [alpheratz(), mirach(), almach()]
 }

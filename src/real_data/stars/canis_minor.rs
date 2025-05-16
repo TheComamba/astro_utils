@@ -64,6 +64,6 @@ fn GAMMA_CANIS_MINORIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [PROCYON(), GOMEISA(), GAMMA_CANIS_MINORIS()]
 }

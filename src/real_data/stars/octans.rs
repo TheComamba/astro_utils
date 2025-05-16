@@ -64,6 +64,6 @@ fn DELTA_OCTANTIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [NU_OCTANTIS(), BETA_OCTANTIS(), DELTA_OCTANTIS()]
 }

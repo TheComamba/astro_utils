@@ -100,6 +100,6 @@ fn NU_PUPPIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 5] {
+pub(crate) fn stars() -> [RealData; 5] {
     [NAOS(), AHADI(), RHO_PUPPIS(), TAU_PUPPIS(), NU_PUPPIS()]
 }

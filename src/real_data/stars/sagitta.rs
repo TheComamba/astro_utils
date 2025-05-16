@@ -64,6 +64,6 @@ fn ALPHA_SAGITTAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [GAMMA_SAGITTAE(), DELTA_SAGITTAE(), ALPHA_SAGITTAE()]
 }

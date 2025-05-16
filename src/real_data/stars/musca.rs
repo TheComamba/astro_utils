@@ -64,6 +64,6 @@ fn DELTA_MUSCAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_MUSCAE(), BETA_MUSCAE(), DELTA_MUSCAE()]
 }

@@ -64,6 +64,6 @@ fn GAMMA_MENSAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_MENSAE(), BETA_MENSAE(), GAMMA_MENSAE()]
 }

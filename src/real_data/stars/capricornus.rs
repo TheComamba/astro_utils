@@ -64,6 +64,6 @@ fn OMEGA_CAPRICORNI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [DABIH(), DENEB_ALGEDI(), OMEGA_CAPRICORNI()]
 }

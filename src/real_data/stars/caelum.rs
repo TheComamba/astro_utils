@@ -64,6 +64,6 @@ fn BETA_CAELI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_CAELI(), GAMMA1_CAELI(), BETA_CAELI()]
 }

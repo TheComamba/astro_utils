@@ -82,7 +82,7 @@ fn IOTA_PISCIS_AUSTRINI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] {
+pub(crate) fn stars() -> [RealData; 4] {
     [
         FORMALHAUT(),
         DELTA_PISCIS_AUSTRINI(),

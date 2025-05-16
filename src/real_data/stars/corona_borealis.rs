@@ -136,7 +136,7 @@ fn THETA_CORONAE_BOREALIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 7] {
+pub(crate) fn stars() -> [RealData; 7] {
     [
         ALPHECCA(),
         NAUSAKAN(),

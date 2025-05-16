@@ -64,6 +64,6 @@ fn GAMMA_PHOENICIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ANKAA(), BETA_PHOENICIS(), GAMMA_PHOENICIS()]
 }

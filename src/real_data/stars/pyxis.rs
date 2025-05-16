@@ -64,6 +64,6 @@ fn GAMMA_PYXIDIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_PYXIDIS(), BETA_PYXIDIS(), GAMMA_PYXIDIS()]
 }

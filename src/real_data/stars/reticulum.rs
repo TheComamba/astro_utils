@@ -64,6 +64,6 @@ fn EPSILON_RETICULI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_RETICULI(), BETA_RETICULI(), EPSILON_RETICULI()]
 }

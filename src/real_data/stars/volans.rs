@@ -64,6 +64,6 @@ fn ZETA_VOLANTIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [GAMMA1_VOLANTIS(), BETA_VOLANTIS(), ZETA_VOLANTIS()]
 }

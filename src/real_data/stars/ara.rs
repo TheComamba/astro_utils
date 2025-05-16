@@ -100,7 +100,7 @@ fn ZETA_ARAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 5] {
+pub(crate) fn stars() -> [RealData; 5] {
     [
         ALPHA_ARAE(),
         BETA_ARAE(),

@@ -64,6 +64,6 @@ fn EPSILON_TELESCOPII() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_TELESCOPII(), ZETA_TELESCOPII(), EPSILON_TELESCOPII()]
 }

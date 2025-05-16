@@ -82,6 +82,6 @@ fn BETA_LYRAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] {
+pub(crate) fn stars() -> [RealData; 4] {
     [VEGA(), R_LYRAE(), GAMMA_LYRAE(), BETA_LYRAE()]
 }

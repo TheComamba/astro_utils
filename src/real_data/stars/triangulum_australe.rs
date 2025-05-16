@@ -64,7 +64,7 @@ fn GAMMA_TRIANGULI_AUSTRALIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [
         ATRIA(),
         BETA_TRIANGULI_AUSTRALIS(),

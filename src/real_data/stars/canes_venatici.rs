@@ -65,6 +65,6 @@ fn TWENTYFOUR_CANUM_VENATICORUM() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [COR_CAROLI(), CHARA(), TWENTYFOUR_CANUM_VENATICORUM()]
 }

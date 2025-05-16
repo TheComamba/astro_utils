@@ -154,7 +154,7 @@ fn MA_WEI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 8] {
+pub(crate) fn stars() -> [RealData; 8] {
     [
         RIGEL_KENTAURUS(),
         HADAR(),

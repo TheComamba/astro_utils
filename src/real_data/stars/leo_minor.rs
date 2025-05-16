@@ -64,7 +64,7 @@ fn TWENTYFOUR_LEONIS_MINORIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [
         BETA_LEONIS_MINORIS(),
         PRAECIPUA(),

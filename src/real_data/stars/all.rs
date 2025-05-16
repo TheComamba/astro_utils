@@ -4,268 +4,268 @@ use crate::stars::real_data::RealData;
 pub fn get_many_stars() -> Vec<RealData> {
     let mut all_stars: Vec<RealData> = Vec::new();
     // all_stars.append(&mut Corvus::get_stars());
-    andromeda::STARS()
+    andromeda::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    antlia::STARS()
+    antlia::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    apus::STARS()
+    apus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    aquarius::STARS()
+    aquarius::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    aquila::STARS()
+    aquila::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    ara::STARS()
+    ara::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    aries::STARS()
+    aries::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    auriga::STARS()
+    auriga::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    bootes::STARS()
+    bootes::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    caelum::STARS()
+    caelum::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    camelopardalis::STARS()
+    camelopardalis::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    cancer::STARS()
+    cancer::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    canes_venatici::STARS()
+    canes_venatici::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    canis_major::STARS()
+    canis_major::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    canis_minor::STARS()
+    canis_minor::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    capricornus::STARS()
+    capricornus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    carina::STARS()
+    carina::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    cassiopeia::STARS()
+    cassiopeia::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    centaurus::STARS()
+    centaurus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    cepheus::STARS()
+    cepheus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    cetus::STARS()
+    cetus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    chamaeleon::STARS()
+    chamaeleon::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    circinus::STARS()
+    circinus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    columba::STARS()
+    columba::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    coma_berenices::STARS()
+    coma_berenices::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    corona_australis::STARS()
+    corona_australis::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    corona_borealis::STARS()
+    corona_borealis::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    corvus::STARS()
+    corvus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    crater::STARS()
+    crater::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    crux::STARS()
+    crux::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    cygnus::STARS()
+    cygnus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    delphinus::STARS()
+    delphinus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    dorado::STARS()
+    dorado::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    draco::STARS()
+    draco::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    equuleus::STARS()
+    equuleus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    eridanus::STARS()
+    eridanus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    fornax::STARS()
+    fornax::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    gemini::STARS()
+    gemini::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    grus::STARS()
+    grus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    hercules::STARS()
+    hercules::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    horologium::STARS()
+    horologium::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    hydra::STARS()
+    hydra::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    hydrus::STARS()
+    hydrus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    indus::STARS()
+    indus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    lacerta::STARS()
+    lacerta::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    leo::STARS()
+    leo::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    leo_minor::STARS()
+    leo_minor::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    lepus::STARS()
+    lepus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    libra::STARS()
+    libra::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    lupus::STARS()
+    lupus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    lynx::STARS()
+    lynx::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    lyra::STARS()
+    lyra::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    mensa::STARS()
+    mensa::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    microscopium::STARS()
+    microscopium::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    monoceros::STARS()
+    monoceros::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    musca::STARS()
+    musca::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    norma::STARS()
+    norma::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    octans::STARS()
+    octans::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    ophiuchus::STARS()
+    ophiuchus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    orion::STARS()
+    orion::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    pavo::STARS()
+    pavo::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    pegasus::STARS()
+    pegasus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    perseus::STARS()
+    perseus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    phoenix::STARS()
+    phoenix::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    pictor::STARS()
+    pictor::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    pisces::STARS()
+    pisces::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    piscis_austrinus::STARS()
+    piscis_austrinus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    puppis::STARS()
+    puppis::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    pyxis::STARS()
+    pyxis::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    reticulum::STARS()
+    reticulum::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    sagitta::STARS()
+    sagitta::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    sagittarius::STARS()
+    sagittarius::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    scorpius::STARS()
+    scorpius::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    sculptor::STARS()
+    sculptor::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    scutum::STARS()
+    scutum::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    serpens::STARS()
+    serpens::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    sextans::STARS()
+    sextans::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    taurus::STARS()
+    taurus::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    telescopium::STARS()
+    telescopium::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    triangulum::STARS()
+    triangulum::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    triangulum_australe::STARS()
+    triangulum_australe::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    tucana::STARS()
+    tucana::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    ursa_major::STARS()
+    ursa_major::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    ursa_minor::STARS()
+    ursa_minor::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    vela::STARS()
+    vela::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    virgo::STARS()
+    virgo::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    volans::STARS()
+    volans::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    vulpecula::STARS()
+    vulpecula::stars()
         .into_iter()
         .for_each(|star| all_stars.push(star));
     all_stars

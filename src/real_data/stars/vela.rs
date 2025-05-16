@@ -82,6 +82,6 @@ fn MARKEB() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] {
+pub(crate) fn stars() -> [RealData; 4] {
     [REGOR(), ALSEPHINA(), SUHAIL(), MARKEB()]
 }

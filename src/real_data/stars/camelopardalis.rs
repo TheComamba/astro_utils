@@ -64,7 +64,7 @@ fn ALPHA_CAMELOPARDALIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [
         BETA_CAMELOPARDALIS(),
         CS_CAMELOPARDALIS(),

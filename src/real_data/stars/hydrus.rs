@@ -64,6 +64,6 @@ fn GAMMA_HYDRI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_HYDRI(), BETA_HYDRI(), GAMMA_HYDRI()]
 }

@@ -64,6 +64,6 @@ fn GAMMA_LUPI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [ALPHA_LUPI(), BETA_LUPI(), GAMMA_LUPI()]
 }

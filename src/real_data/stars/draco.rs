@@ -244,7 +244,7 @@ fn RASTABAN() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 13] {
+pub(crate) fn stars() -> [RealData; 13] {
     [
         ELTANIN(),
         ATHEBYNE(),

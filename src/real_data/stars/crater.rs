@@ -82,6 +82,6 @@ fn DELTA_CRATERIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] {
+pub(crate) fn stars() -> [RealData; 4] {
     [ALKES(), BETA_CRATERIS(), GAMMA_CRATERIS(), DELTA_CRATERIS()]
 }

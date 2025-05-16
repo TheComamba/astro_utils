@@ -64,6 +64,6 @@ fn ALJANAH() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [DENEB(), SADIR(), ALJANAH()]
 }

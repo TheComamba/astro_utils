@@ -64,6 +64,6 @@ fn GAMMA_COMA_BERENICES() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [DIADEM(), BETA_COMA_BERENICES(), GAMMA_COMA_BERENICES()]
 }

@@ -64,7 +64,7 @@ fn BETA_CHAMAELEONIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] {
+pub(crate) fn stars() -> [RealData; 3] {
     [
         ALPHA_CHAMAELEONTIS(),
         GAMMA_CHAMAELEONTIS(),
