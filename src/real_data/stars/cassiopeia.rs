@@ -23,7 +23,7 @@ fn NAVI() -> RealData {
         mass: Mass::new::<solar_mass>(13.),
         absolute_magnitude: -4.22,
         apparent_magnitude: 2.20,
-        temperature: Temperature { K: 25_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(25_000.),
         right_ascension: RightAscension::new(0, 56, 43.),
         declination: Declination::new(Sgn::Pos, 60, 43, 0.),
         distance: Length::new::<light_year>(613.),

@@ -62,7 +62,7 @@ fn GAMMA_LYRAE() -> RealData {
         absolute_magnitude: -3.140,
         mass: Mass::new::<solar_mass>(5.76),
         radius: Some(Length::new::<solar_radii>(15.40)),
-        temperature: Temperature { K: 10_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_000.),
         age: None,
         lifetime: Time::new::<gigayear>(0.078916095),
     }
@@ -80,7 +80,7 @@ fn BETA_LYRAE() -> RealData {
         absolute_magnitude: -3.82,
         mass: Mass::new::<solar_mass>(2.97),
         radius: Some(Length::new::<solar_radii>(15.2)),
-        temperature: Temperature { K: 13_300. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_300.),
         age: Some(Time::new::<gigayear>(0.023)),
         lifetime: Time::new::<gigayear>(0.420724107),
     }

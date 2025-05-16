@@ -23,7 +23,7 @@ fn ALNAIR() -> RealData {
         mass: Mass::new::<solar_mass>(4.),
         absolute_magnitude: -0.73,
         apparent_magnitude: 1.73,
-        temperature: Temperature { K: 13_920. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_920.),
         age: Some(Time::new::<gigayear>(0.1)),
         lifetime: Time::new::<gigayear>(0.193156929),
         right_ascension: RightAscension::new(22, 8, 14.),
@@ -62,7 +62,7 @@ fn ALDHANAB() -> RealData {
         absolute_magnitude: -1.05,
         mass: Mass::new::<solar_mass>(3.06),
         radius: Some(Length::new::<solar_radii>(4.5)),
-        temperature: Temperature { K: 12_520. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_520.),
         age: Some(Time::new::<gigayear>(0.075)),
         lifetime: Time::new::<gigayear>(0.420724107),
     }

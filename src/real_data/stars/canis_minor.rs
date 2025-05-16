@@ -44,7 +44,7 @@ fn GOMEISA() -> RealData {
         absolute_magnitude: -0.59,
         mass: Mass::new::<solar_mass>(3.5),
         radius: Some(Length::new::<solar_radii>(3.5)),
-        temperature: Temperature { K: 11_772. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_772.),
         age: Some(Time::new::<gigayear>(0.160)),
         lifetime: Time::new::<gigayear>(0.297402042),
     }

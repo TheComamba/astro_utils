@@ -26,7 +26,7 @@ fn ALPHA_TELESCOPII() -> RealData {
         absolute_magnitude: -1.25,
         mass: Mass::new::<solar_mass>(5.2),
         radius: Some(Length::new::<solar_radii>(3.3)),
-        temperature: Temperature { K: 16_700. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(16_700.),
         age: Some(Time::new::<gigayear>(0.0241)),
         lifetime: Time::new::<gigayear>(0.10143918),
     }

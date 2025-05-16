@@ -44,7 +44,7 @@ fn ZUBENESCHAMALI() -> RealData {
         absolute_magnitude: -1.16,
         mass: Mass::new::<solar_mass>(3.5),
         radius: Some(Length::new::<solar_radii>(4.9)),
-        temperature: Temperature { K: 12_300. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_300.),
         age: Some(Time::new::<gigayear>(0.08)),
         lifetime: Time::new::<gigayear>(0.297402042),
     }

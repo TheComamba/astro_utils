@@ -41,7 +41,7 @@ fn CS_CAMELOPARDALIS() -> RealData {
         mass: Mass::new::<solar_mass>(19.),
         absolute_magnitude: -6.39,
         apparent_magnitude: 4.21,
-        temperature: Temperature { K: 10_800. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_800.),
         right_ascension: RightAscension::new(3, 29, 4.),
         declination: Declination::new(Sgn::Pos, 59, 56, 25.),
         distance: Length::new::<light_year>(4289.),
@@ -59,7 +59,7 @@ fn ALPHA_CAMELOPARDALIS() -> RealData {
         mass: Mass::new::<solar_mass>(37.6),
         absolute_magnitude: -7.1,
         apparent_magnitude: 4.29,
-        temperature: Temperature { K: 29_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(29_000.),
         right_ascension: RightAscension::new(4, 54, 3.),
         declination: Declination::new(Sgn::Pos, 66, 20, 34.),
         distance: Length {

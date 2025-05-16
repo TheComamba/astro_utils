@@ -59,7 +59,7 @@ fn MARKAB() -> RealData {
         mass: Mass::new::<solar_mass>(3.5),
         absolute_magnitude: -0.67,
         apparent_magnitude: 2.49,
-        temperature: Temperature { K: 10_100. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_100.),
         age: Some(Time::new::<gigayear>(0.2)),
         right_ascension: RightAscension::new(23, 4, 46.),
         declination: Declination::new(Sgn::Pos, 15, 12, 19.),

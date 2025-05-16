@@ -41,7 +41,7 @@ fn ALNATH() -> RealData {
         mass: Mass::new::<solar_mass>(5.0),
         absolute_magnitude: -1.37,
         apparent_magnitude: 1.65,
-        temperature: Temperature { K: 13_824. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_824.),
         age: Some(Time::new::<gigayear>(0.1)),
         right_ascension: RightAscension::new(5, 26, 18.),
         declination: Declination::new(Sgn::Pos, 28, 36, 27.),
@@ -98,7 +98,7 @@ fn LAMBDA_TAURI() -> RealData {
         absolute_magnitude: -2.45,
         mass: Mass::new::<solar_mass>(7.18),
         radius: Some(Length::new::<solar_radii>(6.4)),
-        temperature: Temperature { K: 18_700. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(18_700.),
         age: Some(Time::new::<gigayear>(0.0332)),
         lifetime: Time::new::<gigayear>(0.052267043),
     }
@@ -116,7 +116,7 @@ fn ZETA_TAURI() -> RealData {
         absolute_magnitude: -2.67,
         mass: Mass::new::<solar_mass>(11.2),
         radius: Some(Length::new::<solar_radii>(5.5)),
-        temperature: Temperature { K: 15_500. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(15_500.),
         age: Some(Time::new::<gigayear>(0.019)),
         lifetime: Time::new::<gigayear>(0.019450199),
     }

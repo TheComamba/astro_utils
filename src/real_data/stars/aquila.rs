@@ -80,7 +80,7 @@ fn THETA_AQUILAE() -> RealData {
         absolute_magnitude: -1.39,
         mass: Mass::new::<solar_mass>(3.564),
         radius: Some(Length::new::<solar_radii>(4.76)),
-        temperature: Temperature { K: 10_300. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_300.),
         age: Some(Time::new::<gigayear>(0.0209)),
         lifetime: Time::new::<gigayear>(0.254814649),
     }
@@ -116,7 +116,7 @@ fn LAMBDA_AQUILAE() -> RealData {
         absolute_magnitude: 0.54,
         mass: Mass::new::<solar_mass>(3.1),
         radius: Some(Length::new::<solar_radii>(1.9)),
-        temperature: Temperature { K: 11_780. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_780.),
         age: Some(Time::new::<gigayear>(0.160)),
         lifetime: Time::new::<gigayear>(0.420724107),
     }

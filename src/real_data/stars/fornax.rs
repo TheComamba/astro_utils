@@ -62,7 +62,7 @@ fn NU_FORNACIS() -> RealData {
         absolute_magnitude: -0.6,
         mass: Mass::new::<solar_mass>(3.65),
         radius: Some(Length::new::<solar_radii>(3.44)),
-        temperature: Temperature { K: 13_400. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_400.),
         age: None,
         lifetime: Time::new::<gigayear>(0.254814649),
     }

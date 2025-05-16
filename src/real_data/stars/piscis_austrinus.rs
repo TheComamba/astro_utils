@@ -62,7 +62,7 @@ fn EPSILON_PISCIS_AUSTRINI() -> RealData {
         absolute_magnitude: -2.61,
         mass: Mass::new::<solar_mass>(4.1),
         radius: Some(Length::new::<solar_radii>(3.2)),
-        temperature: Temperature { K: 11_066. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_066.),
         age: None,
         lifetime: Time::new::<gigayear>(0.193156929),
     }

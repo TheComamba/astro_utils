@@ -23,7 +23,7 @@ fn SPICA() -> RealData {
         mass: Mass::new::<solar_mass>(11.43),
         absolute_magnitude: -3.55,
         apparent_magnitude: 0.98,
-        temperature: Temperature { K: 22_300. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(22_300.),
         age: Some(Time::new::<gigayear>(0.0125)),
         right_ascension: RightAscension::new(13, 25, 12.),
         declination: Declination::new(Sgn::Neg, 11, 9, 41.),

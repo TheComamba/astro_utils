@@ -44,7 +44,7 @@ fn ALFIRK() -> RealData {
         absolute_magnitude: -3.08,
         mass: Mass::new::<solar_mass>(7.4),
         radius: Some(Length::new::<solar_radii>(5.6)),
-        temperature: Temperature { K: 27_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(27_000.),
         age: Some(Time::new::<gigayear>(0.0087)),
         lifetime: Time::new::<gigayear>(0.052267043),
     }

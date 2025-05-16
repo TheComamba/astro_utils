@@ -59,7 +59,7 @@ fn HAN() -> RealData {
         mass: Mass::new::<solar_mass>(20.2),
         absolute_magnitude: -3.20,
         apparent_magnitude: 2.54,
-        temperature: Temperature { K: 34_300. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(34_300.),
         right_ascension: RightAscension::new(16, 37, 10.),
         declination: Declination::new(Sgn::Neg, 10, 34, 2.),
         distance: Length::new::<light_year>(458.),

@@ -62,7 +62,7 @@ fn GAMMA_CIRCINI() -> RealData {
         absolute_magnitude: -1.18,
         mass: Mass::new::<solar_mass>(6.),
         radius: None,
-        temperature: Temperature { K: 15_135. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(15_135.),
         age: Some(Time::new::<gigayear>(0.0631)),
         lifetime: Time::new::<gigayear>(0.073299383),
     }

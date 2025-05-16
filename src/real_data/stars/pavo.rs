@@ -23,7 +23,7 @@ fn PEACOCK() -> RealData {
         mass: Mass::new::<solar_mass>(5.91),
         absolute_magnitude: -1.81,
         apparent_magnitude: 1.94,
-        temperature: Temperature { K: 17_711. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(17_711.),
         age: Some(Time::new::<gigayear>(0.048)),
         right_ascension: RightAscension::new(20, 25, 39.),
         declination: Declination::new(Sgn::Neg, 56, 44, 6.),

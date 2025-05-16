@@ -23,7 +23,7 @@ fn GHURAB() -> RealData {
         mass: Mass::new::<solar_mass>(4.2),
         absolute_magnitude: -0.94,
         apparent_magnitude: 2.58,
-        temperature: Temperature { K: 12_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_000.),
         age: Some(Time::new::<gigayear>(0.160)),
         right_ascension: RightAscension::new(12, 15, 48.),
         declination: Declination::new(Sgn::Neg, 17, 32, 31.),
@@ -62,7 +62,7 @@ fn ALGORAB() -> RealData {
         absolute_magnitude: 0.787,
         mass: Mass::new::<solar_mass>(2.74),
         radius: None,
-        temperature: Temperature { K: 10_400. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_400.),
         age: Some(Time::new::<gigayear>(0.260)),
         lifetime: Time::new::<gigayear>(0.513076303),
     }

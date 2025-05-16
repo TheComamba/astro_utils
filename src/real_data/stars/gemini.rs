@@ -41,7 +41,7 @@ fn CASTOR() -> RealData {
         mass: Mass::new::<solar_mass>(2.37),
         absolute_magnitude: 0.59,
         apparent_magnitude: 1.58,
-        temperature: Temperature { K: 10_286. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_286.),
         age: Some(Time::new::<gigayear>(0.290)),
         lifetime: Time::new::<gigayear>(0.800458342),
         right_ascension: RightAscension::new(7, 34, 36.),

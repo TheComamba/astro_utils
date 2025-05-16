@@ -26,7 +26,7 @@ fn ALPHA_ARAE() -> RealData {
         absolute_magnitude: -1.72,
         mass: Mass::new::<solar_mass>(9.6),
         radius: Some(Length::new::<solar_radii>(4.5)),
-        temperature: Temperature { K: 18_044. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(18_044.),
         age: Some(Time::new::<gigayear>(0.026)),
         lifetime: Time::new::<gigayear>(0.026540021),
     }
@@ -62,7 +62,7 @@ fn GAMMA_ARAE() -> RealData {
         absolute_magnitude: -4.4,
         mass: Mass::new::<solar_mass>(20.),
         radius: Some(Length::new::<solar_radii>(23.)),
-        temperature: Temperature { K: 21_500. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(21_500.),
         age: Some(Time::new::<gigayear>(0.009)),
         lifetime: Time::new::<gigayear>(0.009767659),
     }
@@ -80,7 +80,7 @@ fn DELTA_ARAE() -> RealData {
         absolute_magnitude: -0.31,
         mass: Mass::new::<solar_mass>(3.56),
         radius: Some(Length::new::<solar_radii>(3.12)),
-        temperature: Temperature { K: 11_962. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_962.),
         age: Some(Time::new::<gigayear>(0.125)),
         lifetime: Time::new::<gigayear>(0.254814649),
     }

@@ -23,7 +23,7 @@ fn ARNEB() -> RealData {
         mass: Mass::new::<solar_mass>(13.9),
         absolute_magnitude: -5.40,
         apparent_magnitude: 2.58,
-        temperature: Temperature { K: 6_850. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(6_850.),
         age: Some(Time::new::<gigayear>(0.013)),
         lifetime: Time::new::<gigayear>(0.015362858),
         right_ascension: RightAscension::new(5, 32, 44.),

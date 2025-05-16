@@ -26,7 +26,7 @@ fn ALPHA_MUSCAE() -> RealData {
         absolute_magnitude: -2.2,
         mass: Mass::new::<solar_mass>(8.8),
         radius: Some(Length::new::<solar_radii>(4.8)),
-        temperature: Temperature { K: 21_400. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(21_400.),
         age: Some(Time::new::<gigayear>(0.0183)),
         lifetime: Time::new::<gigayear>(0.03224554),
     }
@@ -44,7 +44,7 @@ fn BETA_MUSCAE() -> RealData {
         absolute_magnitude: -2.06,
         mass: Mass::new::<solar_mass>(7.35),
         radius: None,
-        temperature: Temperature { K: 21_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(21_000.),
         age: Some(Time::new::<gigayear>(0.0151)),
         lifetime: Time::new::<gigayear>(0.052267043),
     }
@@ -62,7 +62,7 @@ fn DELTA_MUSCAE() -> RealData {
         absolute_magnitude: 1.38,
         mass: Mass::new::<solar_mass>(1.1),
         radius: None,
-        temperature: Temperature { K: 4_400. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(4_400.),
         age: None,
         lifetime: Time::new::<gigayear>(6.97272616),
     }

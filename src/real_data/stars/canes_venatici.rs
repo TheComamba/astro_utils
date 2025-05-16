@@ -23,7 +23,7 @@ fn COR_CAROLI() -> RealData {
         mass: Mass::new::<solar_mass>(2.97),
         absolute_magnitude: 0.246,
         apparent_magnitude: 2.89,
-        temperature: Temperature { K: 11_600. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_600.),
         age: Some(Time::new::<gigayear>(0.165)),
         lifetime: Time::new::<gigayear>(0.42),
 

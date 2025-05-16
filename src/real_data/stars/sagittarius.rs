@@ -41,7 +41,7 @@ fn NUNKI() -> RealData {
         mass: Mass::new::<solar_mass>(7.8),
         absolute_magnitude: -2.14,
         apparent_magnitude: 2.05,
-        temperature: Temperature { K: 18_890. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(18_890.),
         age: Some(Time::new::<gigayear>(0.0314)),
         right_ascension: RightAscension::new(18, 55, 16.),
         declination: Declination::new(Sgn::Neg, 26, 17, 49.),

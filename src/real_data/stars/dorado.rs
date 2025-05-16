@@ -26,7 +26,7 @@ fn ALPHA_DORADUS() -> RealData {
         absolute_magnitude: -0.357,
         mass: Mass::new::<solar_mass>(3.33),
         radius: Some(Length::new::<solar_radii>(3.5)),
-        temperature: Temperature { K: 11_588. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_588.),
         age: None,
         lifetime: Time::new::<gigayear>(0.297402042),
     }

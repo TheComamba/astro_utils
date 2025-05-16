@@ -116,7 +116,7 @@ fn IOTA_CORONAE_BOREALIS() -> RealData {
         absolute_magnitude: 0.08,
         mass: Mass::new::<solar_mass>(3.),
         radius: None,
-        temperature: Temperature { K: 10_727. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_727.),
         age: None,
         lifetime: Time {
             s: 0.420724107 * .s, //no idea
@@ -136,7 +136,7 @@ fn THETA_CORONAE_BOREALIS() -> RealData {
         absolute_magnitude: -1.16,
         mass: Mass::new::<solar_mass>(4.2),
         radius: Some(Length::new::<solar_radii>(3.3)),
-        temperature: Temperature { K: 14_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(14_000.),
         age: Some(Time::new::<gigayear>(0.085)),
         lifetime: Time::new::<gigayear>(0.170765802),
     }

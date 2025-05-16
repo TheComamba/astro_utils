@@ -62,7 +62,7 @@ fn BETA_SEXTANTIS() -> RealData {
         absolute_magnitude: -0.38,
         mass: Mass::new::<solar_mass>(5.1),
         radius: Some(Length::new::<solar_radii>(3.2)),
-        temperature: Temperature { K: 14_570. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(14_570.),
         age: None,
         lifetime: Time::new::<gigayear>(0.111319448),
     }

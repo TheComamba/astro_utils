@@ -23,7 +23,7 @@ fn ACHERNAR() -> RealData {
         mass: Mass::new::<solar_mass>(6.0),
         absolute_magnitude: -2.77,
         apparent_magnitude: 0.45,
-        temperature: Temperature { K: 14_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(14_000.),
         age: Some(Time::new::<gigayear>(0.063)),
         lifetime: Time::new::<gigayear>(0.073299383),
         right_ascension: RightAscension::new(1, 37, 43.),

@@ -62,7 +62,7 @@ fn BHARANI() -> RealData {
         absolute_magnitude: 0.163,
         mass: Mass::new::<solar_mass>(3.1),
         radius: None,
-        temperature: Temperature { K: 11_900. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_900.),
         age: Some(Time::new::<gigayear>(0.130)),
         lifetime: Time::new::<gigayear>(0.420724107),
     }

@@ -80,7 +80,7 @@ fn KAPPA_DRACONIS() -> RealData {
         absolute_magnitude: -1.95,
         mass: Mass::new::<solar_mass>(3.65),
         radius: Some(Length::new::<solar_radii>(5.85)),
-        temperature: Temperature { K: 13_982. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_982.),
         age: None,
         lifetime: Time::new::<gigayear>(0.254814649),
     }
@@ -152,7 +152,7 @@ fn THUBAN() -> RealData {
         absolute_magnitude: -1.2,
         mass: Mass::new::<solar_mass>(3.186),
         radius: Some(Length::new::<solar_radii>(4.932)),
-        temperature: Temperature { K: 10_225. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_225.),
         age: Some(Time::new::<gigayear>(0.280)),
         lifetime: Time::new::<gigayear>(0.351318702),
     }
@@ -206,7 +206,7 @@ fn ALDHIBAH() -> RealData {
         absolute_magnitude: -1.88,
         mass: Mass::new::<solar_mass>(3.5),
         radius: Some(Length::new::<solar_radii>(2.3)),
-        temperature: Temperature { K: 13_397. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_397.),
         age: None,
         lifetime: Time::new::<gigayear>(0.297402042),
     }

@@ -26,7 +26,7 @@ fn ALPHA_PYXIDIS() -> RealData {
         absolute_magnitude: -3.47,
         mass: Mass::new::<solar_mass>(10.7),
         radius: Some(Length::new::<solar_radii>(6.3)),
-        temperature: Temperature { K: 24_300. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(24_300.),
         age: Some(Time::new::<gigayear>(0.026)),
         lifetime: Time::new::<gigayear>(0.026540021),
     }

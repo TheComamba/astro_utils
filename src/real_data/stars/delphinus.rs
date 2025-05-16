@@ -26,7 +26,7 @@ fn SUALOCIN() -> RealData {
         absolute_magnitude: -0.4,
         mass: Mass::new::<solar_mass>(3.83),
         radius: Some(Length::new::<solar_radii>(3.92)),
-        temperature: Temperature { K: 11_643. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_643.),
         age: Some(Time::new::<gigayear>(0.22)),
         lifetime: Time::new::<gigayear>(0.220601963),
     }
@@ -98,7 +98,7 @@ fn ALDULFIN() -> RealData {
         absolute_magnitude: -1.18,
         mass: Mass::new::<solar_mass>(6.4),
         radius: Some(Length::new::<solar_radii>(4.6)),
-        temperature: Temperature { K: 13_614. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_614.),
         age: Some(Time::new::<gigayear>(0.06)),
         lifetime: Time::new::<gigayear>(0.063411557),
     }

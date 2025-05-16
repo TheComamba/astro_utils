@@ -26,7 +26,7 @@ fn ALPHA_PISCIUM() -> RealData {
         absolute_magnitude: 0.5,
         mass: Mass::new::<solar_mass>(2.55),
         radius: Some(Length::new::<solar_radii>(2.45)),
-        temperature: Temperature { K: 10_233. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_233.),
         age: None,
         lifetime: Time::new::<gigayear>(0.63513384),
     }

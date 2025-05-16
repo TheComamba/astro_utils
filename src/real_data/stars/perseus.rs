@@ -41,7 +41,7 @@ fn ALGOL() -> RealData {
         mass: Mass::new::<solar_mass>(3.17),
         absolute_magnitude: -0.18,
         apparent_magnitude: 2.09,
-        temperature: Temperature { K: 13_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_000.),
         right_ascension: RightAscension::new(3, 8, 10.),
         declination: Declination::new(Sgn::Pos, 40, 57, 20.),
         distance: Length::new::<light_year>(93.),

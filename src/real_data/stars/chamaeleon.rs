@@ -62,7 +62,7 @@ fn BETA_CHAMAELEONIS() -> RealData {
         absolute_magnitude: -0.57,
         mass: Mass::new::<solar_mass>(5.9),
         radius: Some(Length::new::<solar_radii>(2.84)),
-        temperature: Temperature { K: 14_495. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(14_495.),
         age: Some(Time::new::<gigayear>(0.0227)),
         lifetime: Time::new::<gigayear>(0.078916095),
     }

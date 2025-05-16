@@ -23,7 +23,7 @@ fn ALPHA_LUPI() -> RealData {
         mass: Mass::new::<solar_mass>(10.1),
         absolute_magnitude: -3.83,
         apparent_magnitude: 2.30,
-        temperature: Temperature { K: 21_820. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(21_820.),
         age: Some(Time::new::<gigayear>(0.018)),
         lifetime: Time::new::<gigayear>(0.026540021),
         right_ascension: RightAscension::new(14, 41, 56.),
@@ -44,7 +44,7 @@ fn BETA_LUPI() -> RealData {
         absolute_magnitude: -3.35,
         mass: Mass::new::<solar_mass>(8.8),
         radius: Some(Length::new::<solar_radii>(6.6)),
-        temperature: Temperature { K: 24_090. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(24_090.),
         age: Some(Time::new::<gigayear>(0.0246)),
         lifetime: Time::new::<gigayear>(0.03224554),
     }
@@ -62,7 +62,7 @@ fn GAMMA_LUPI() -> RealData {
         absolute_magnitude: -3.4,
         mass: Mass::new::<solar_mass>(9.5),
         radius: None,
-        temperature: Temperature { K: 20_900. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(20_900.),
         age: Some(Time::new::<gigayear>(0.0186)),
         lifetime: Time::new::<gigayear>(0.03224554),
     }

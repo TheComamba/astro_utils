@@ -40,7 +40,7 @@ fn EPSILON_NORMAE() -> RealData {
         absolute_magnitude: -0.982,
         mass: Mass::new::<solar_mass>(6.4),
         radius: None,
-        temperature: Temperature { K: 10_888. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_888.),
         age: Some(Time::new::<gigayear>(0.0501)),
         lifetime: Time::new::<gigayear>(0.063411557),
     }

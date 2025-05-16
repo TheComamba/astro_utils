@@ -26,7 +26,7 @@ fn ALPHA_SCULPTORIS() -> RealData {
         absolute_magnitude: -2.58,
         mass: Mass::new::<solar_mass>(5.01),
         radius: Some(Length::new::<solar_radii>(7.52)),
-        temperature: Temperature { K: 13_600. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_600.),
         age: Some(Time::new::<gigayear>(0.093)),
         lifetime: Time::new::<gigayear>(0.111319448),
     }
@@ -44,7 +44,7 @@ fn BETA_SCULPTORIS() -> RealData {
         absolute_magnitude: 0.74,
         mass: Mass::new::<solar_mass>(2.98),
         radius: Some(Length::new::<solar_radii>(2.0)),
-        temperature: Temperature { K: 12_110. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_110.),
         age: None,
         lifetime: Time::new::<gigayear>(0.420724107),
     }

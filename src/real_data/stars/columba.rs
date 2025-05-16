@@ -26,7 +26,7 @@ fn PHACT() -> RealData {
         absolute_magnitude: -1.87,
         mass: Mass::new::<solar_mass>(4.5),
         radius: Some(Length::new::<solar_radii>(5.8)),
-        temperature: Temperature { K: 12_963. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_963.),
         age: Some(Time::new::<gigayear>(0.093)),
         lifetime: Time::new::<gigayear>(0.151849866),
     }

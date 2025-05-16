@@ -23,7 +23,7 @@ fn NAOS() -> RealData {
         mass: Mass::new::<solar_mass>(56.1),
         absolute_magnitude: -5.95,
         apparent_magnitude: 2.21,
-        temperature: Temperature { K: 40_000. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(40_000.),
         age: Some(Time::new::<gigayear>(0.0032)),
         right_ascension: RightAscension::new(8, 3, 35.),
         declination: Declination::new(Sgn::Neg, 40, 0, 12.),
@@ -98,7 +98,7 @@ fn NU_PUPPIS() -> RealData {
         absolute_magnitude: -2.11,
         mass: Mass::new::<solar_mass>(5.2),
         radius: Some(Length::new::<solar_radii>(4.2)),
-        temperature: Temperature { K: 12_120. },
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_120.),
         age: None,
         lifetime: Time::new::<gigayear>(0.10143918),
     }
