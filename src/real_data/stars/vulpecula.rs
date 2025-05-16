@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_VULPECULAE() -> RealData {
@@ -68,8 +64,10 @@ fn THIRTYONE_VULPECULAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [
-    ALPHA_VULPECULAE(),
-    TWENTYTHREE_VULPECULAE(),
-    THIRTYONE_VULPECULAE(),
-] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [
+        ALPHA_VULPECULAE(),
+        TWENTYTHREE_VULPECULAE(),
+        THIRTYONE_VULPECULAE(),
+    ]
+}

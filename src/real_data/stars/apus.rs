@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_APODIS() -> RealData {
@@ -68,4 +64,6 @@ fn BETA_APODIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_APODIS(), GAMMA_APODIS(), BETA_APODIS()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALPHA_APODIS(), GAMMA_APODIS(), BETA_APODIS()]
+}

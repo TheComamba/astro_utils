@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ANTARES() -> RealData {
@@ -140,4 +136,14 @@ fn ACRAB() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 7] { [ANTARES(), SHAULA(), SARGAS(), DSCHUBBA(), LARAWAG(), GIRTAB(), ACRAB()] }
+pub(crate) fn STARS() -> [RealData; 7] {
+    [
+        ANTARES(),
+        SHAULA(),
+        SARGAS(),
+        DSCHUBBA(),
+        LARAWAG(),
+        GIRTAB(),
+        ACRAB(),
+    ]
+}

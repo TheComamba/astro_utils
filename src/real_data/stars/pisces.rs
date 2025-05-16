@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_PISCIUM() -> RealData {
@@ -194,15 +190,17 @@ fn OMEGA_PISCIUM() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 10] { [
-    ALPHA_PISCIUM(),
-    DELTA_PISCIUM(),
-    NU_PISCIUM(),
-    IOTA_PISCIUM(),
-    OMICRON_PISCIUM(),
-    EPSILON_PISCIUM(),
-    THETA_PISCIUM(),
-    ETA_PISCIUM(),
-    GAMMA_PISCIUM(),
-    OMEGA_PISCIUM(),
-] }
+pub(crate) fn STARS() -> [RealData; 10] {
+    [
+        ALPHA_PISCIUM(),
+        DELTA_PISCIUM(),
+        NU_PISCIUM(),
+        IOTA_PISCIUM(),
+        OMICRON_PISCIUM(),
+        EPSILON_PISCIUM(),
+        THETA_PISCIUM(),
+        ETA_PISCIUM(),
+        GAMMA_PISCIUM(),
+        OMEGA_PISCIUM(),
+    ]
+}

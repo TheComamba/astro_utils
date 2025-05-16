@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHECCA() -> RealData {
@@ -118,9 +114,7 @@ fn IOTA_CORONAE_BOREALIS() -> RealData {
         radius: None,
         temperature: ThermodynamicTemperature::new::<kelvin>(10_727.),
         age: None,
-        lifetime: Time {
-            s: 0.420724107 * .s, //no idea
-        },
+        lifetime: Time::new::<gigayear>(0.420724107),
     }
 }
 
@@ -142,12 +136,14 @@ fn THETA_CORONAE_BOREALIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 7] { [
-    ALPHECCA(),
-    NAUSAKAN(),
-    GAMMA_CORONAE_BOREALIS(),
-    DELTA_CORONAE_BOREALIS(),
-    EPSILON_CORONAE_BOREALIS(),
-    IOTA_CORONAE_BOREALIS(),
-    THETA_CORONAE_BOREALIS(),
-] }
+pub(crate) fn STARS() -> [RealData; 7] {
+    [
+        ALPHECCA(),
+        NAUSAKAN(),
+        GAMMA_CORONAE_BOREALIS(),
+        DELTA_CORONAE_BOREALIS(),
+        EPSILON_CORONAE_BOREALIS(),
+        IOTA_CORONAE_BOREALIS(),
+        THETA_CORONAE_BOREALIS(),
+    ]
+}

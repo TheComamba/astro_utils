@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_RETICULI() -> RealData {
@@ -68,4 +64,6 @@ fn EPSILON_RETICULI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_RETICULI(), BETA_RETICULI(), EPSILON_RETICULI()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALPHA_RETICULI(), BETA_RETICULI(), EPSILON_RETICULI()]
+}

@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn GAMMA_SAGITTAE() -> RealData {
@@ -68,4 +64,6 @@ fn ALPHA_SAGITTAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [GAMMA_SAGITTAE(), DELTA_SAGITTAE(), ALPHA_SAGITTAE()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [GAMMA_SAGITTAE(), DELTA_SAGITTAE(), ALPHA_SAGITTAE()]
+}

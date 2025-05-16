@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALNAIR() -> RealData {
@@ -68,4 +64,6 @@ fn ALDHANAB() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALNAIR(), TIAKI(), ALDHANAB()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALNAIR(), TIAKI(), ALDHANAB()]
+}

@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_MONOCEROTIS() -> RealData {
@@ -68,4 +64,10 @@ fn DELTA_MONOCEROTIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_MONOCEROTIS(), GAMMA_MONOCEROTIS(), DELTA_MONOCEROTIS()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [
+        ALPHA_MONOCEROTIS(),
+        GAMMA_MONOCEROTIS(),
+        DELTA_MONOCEROTIS(),
+    ]
+}

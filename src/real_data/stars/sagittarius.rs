@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn KAUS_AUSTRALIS() -> RealData {
@@ -86,4 +82,6 @@ fn KAUS_MEDIA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [KAUS_AUSTRALIS(), NUNKI(), NAMALWARID(), KAUS_MEDIA()] }
+pub(crate) fn STARS() -> [RealData; 4] {
+    [KAUS_AUSTRALIS(), NUNKI(), NAMALWARID(), KAUS_MEDIA()]
+}

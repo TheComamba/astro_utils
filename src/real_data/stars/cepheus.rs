@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALDERAMIN() -> RealData {
@@ -158,13 +154,15 @@ fn ERAKIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 8] { [
-    ALDERAMIN(),
-    ALFIRK(),
-    ERRAI(),
-    DELTA_CEPHERI(),
-    ETA_CEPHEI(),
-    IOTA_CEPHEI(),
-    ZETA_CEPHEI(),
-    ERAKIS(),
-] }
+pub(crate) fn STARS() -> [RealData; 8] {
+    [
+        ALDERAMIN(),
+        ALFIRK(),
+        ERRAI(),
+        DELTA_CEPHERI(),
+        ETA_CEPHEI(),
+        IOTA_CEPHEI(),
+        ZETA_CEPHEI(),
+        ERAKIS(),
+    ]
+}

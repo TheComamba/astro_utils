@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn MERIDIANA() -> RealData {
@@ -68,4 +64,10 @@ fn GAMMA_CORONAE_AUSTRALIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [MERIDIANA(), BETA_CORONAE_AUSTRALIS(), GAMMA_CORONAE_AUSTRALIS()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [
+        MERIDIANA(),
+        BETA_CORONAE_AUSTRALIS(),
+        GAMMA_CORONAE_AUSTRALIS(),
+    ]
+}

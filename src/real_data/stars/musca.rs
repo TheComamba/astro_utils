@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_MUSCAE() -> RealData {
@@ -68,4 +64,6 @@ fn DELTA_MUSCAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_MUSCAE(), BETA_MUSCAE(), DELTA_MUSCAE()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALPHA_MUSCAE(), BETA_MUSCAE(), DELTA_MUSCAE()]
+}

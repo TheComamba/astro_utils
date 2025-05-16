@@ -19,7 +19,9 @@ pub fn get_many_stars() -> Vec<RealData> {
     aquila::STARS()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    ara::STARS().into_iter().for_each(|star| all_stars.push(star));
+    ara::STARS()
+        .into_iter()
+        .for_each(|star| all_stars.push(star));
     aries::STARS()
         .into_iter()
         .for_each(|star| all_stars.push(star));
@@ -137,7 +139,9 @@ pub fn get_many_stars() -> Vec<RealData> {
     lacerta::STARS()
         .into_iter()
         .for_each(|star| all_stars.push(star));
-    leo::STARS().into_iter().for_each(|star| all_stars.push(star));
+    leo::STARS()
+        .into_iter()
+        .for_each(|star| all_stars.push(star));
     leo_minor::STARS()
         .into_iter()
         .for_each(|star| all_stars.push(star));

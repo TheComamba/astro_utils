@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn NAOS() -> RealData {
@@ -104,4 +100,6 @@ fn NU_PUPPIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 5] { [NAOS(), AHADI(), RHO_PUPPIS(), TAU_PUPPIS(), NU_PUPPIS()] }
+pub(crate) fn STARS() -> [RealData; 5] {
+    [NAOS(), AHADI(), RHO_PUPPIS(), TAU_PUPPIS(), NU_PUPPIS()]
+}

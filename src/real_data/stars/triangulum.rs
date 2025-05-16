@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn BETA_TRIANGULI() -> RealData {
@@ -68,4 +64,6 @@ fn GAMMA_TRIANGULI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [BETA_TRIANGULI(), ALPHA_TRIANGULI(), GAMMA_TRIANGULI()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [BETA_TRIANGULI(), ALPHA_TRIANGULI(), GAMMA_TRIANGULI()]
+}

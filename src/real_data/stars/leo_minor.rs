@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn PRAECIPUA() -> RealData {
@@ -68,4 +64,10 @@ fn TWENTYFOUR_LEONIS_MINORIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [BETA_LEONIS_MINORIS(), PRAECIPUA(), TWENTYFOUR_LEONIS_MINORIS()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [
+        BETA_LEONIS_MINORIS(),
+        PRAECIPUA(),
+        TWENTYFOUR_LEONIS_MINORIS(),
+    ]
+}

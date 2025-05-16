@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn VEGA() -> RealData {
@@ -86,4 +82,6 @@ fn BETA_LYRAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [VEGA(), R_LYRAE(), GAMMA_LYRAE(), BETA_LYRAE()] }
+pub(crate) fn STARS() -> [RealData; 4] {
+    [VEGA(), R_LYRAE(), GAMMA_LYRAE(), BETA_LYRAE()]
+}

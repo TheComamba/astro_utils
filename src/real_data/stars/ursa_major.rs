@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALIOTH() -> RealData {
@@ -158,13 +154,15 @@ fn MEGREZ() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 8] { [
-    ALIOTH(),
-    DUBHE(),
-    ALKAID(),
-    MIZAR(),
-    MERAK(),
-    PHECDA(),
-    TANIA_AUSTRALIS(),
-    MEGREZ(),
-] }
+pub(crate) fn STARS() -> [RealData; 8] {
+    [
+        ALIOTH(),
+        DUBHE(),
+        ALKAID(),
+        MIZAR(),
+        MERAK(),
+        PHECDA(),
+        TANIA_AUSTRALIS(),
+        MEGREZ(),
+    ]
+}

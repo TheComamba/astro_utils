@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn REGULUS() -> RealData {
@@ -86,4 +82,6 @@ fn ZOSMA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [REGULUS(), ALGIEBA(), DENEBOLA(), ZOSMA()] }
+pub(crate) fn STARS() -> [RealData; 4] {
+    [REGULUS(), ALGIEBA(), DENEBOLA(), ZOSMA()]
+}

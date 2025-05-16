@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn COR_CAROLI() -> RealData {
@@ -69,4 +65,6 @@ fn TWENTYFOUR_CANUM_VENATICORUM() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [COR_CAROLI(), CHARA(), TWENTYFOUR_CANUM_VENATICORUM()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [COR_CAROLI(), CHARA(), TWENTYFOUR_CANUM_VENATICORUM()]
+}

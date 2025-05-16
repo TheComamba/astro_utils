@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn POLARIS() -> RealData {
@@ -140,12 +136,14 @@ fn EPSILON_URSAE_MINORIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 7] { [
-    POLARIS(),
-    KOCHAB(),
-    ZETA_URSAE_MINORIS(),
-    DELTA_URSAE_MINORIS(),
-    ETA_URSAE_MINORIS(),
-    PHERKAD(),
-    EPSILON_URSAE_MINORIS(),
-] }
+pub(crate) fn STARS() -> [RealData; 7] {
+    [
+        POLARIS(),
+        KOCHAB(),
+        ZETA_URSAE_MINORIS(),
+        DELTA_URSAE_MINORIS(),
+        ETA_URSAE_MINORIS(),
+        PHERKAD(),
+        EPSILON_URSAE_MINORIS(),
+    ]
+}

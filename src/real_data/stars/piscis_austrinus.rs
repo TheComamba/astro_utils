@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn FORMALHAUT() -> RealData {
@@ -86,9 +82,11 @@ fn IOTA_PISCIS_AUSTRINI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [
-    FORMALHAUT(),
-    DELTA_PISCIS_AUSTRINI(),
-    EPSILON_PISCIS_AUSTRINI(),
-    IOTA_PISCIS_AUSTRINI(),
-] }
+pub(crate) fn STARS() -> [RealData; 4] {
+    [
+        FORMALHAUT(),
+        DELTA_PISCIS_AUSTRINI(),
+        EPSILON_PISCIS_AUSTRINI(),
+        IOTA_PISCIS_AUSTRINI(),
+    ]
+}

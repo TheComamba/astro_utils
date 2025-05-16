@@ -1,8 +1,13 @@
 use astro_coords::ra_and_dec::*;
-use uom::si::{f64::{Length, Mass, ThermodynamicTemperature, Time}, length::light_year, thermodynamic_temperature::kelvin};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
-    stars::real_data::RealData, units::{length::solar_radii, mass::solar_mass, time::gigayear},
+    stars::real_data::RealData,
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 //https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html
@@ -25,21 +30,23 @@ use crate::{
 //     age: Some(Time{s:* .s}),
 // };
 
-pub fn SUN() -> RealData { RealData {
-    common_name: "Sun",
-    astronomical_name: "Sol",
-    constellation: "",
-    mass: Mass::new::<solar_mass>(1.0),
-    radius: Some(Length::new::<solar_radii>(1.0)),
-    absolute_magnitude: 4.83,
-    apparent_magnitude: -26.74, //seen from earth
-    temperature: ThermodynamicTemperature::new::<kelvin>(5778.0),
-    age: Some(Time::new::<gigayear>(4.6)),
-    right_ascension: RightAscension::new(0, 0, 0.),
-    declination: Declination::new(Sgn::Pos, 0, 0, 0.),
-    distance: Length::new::<light_year>(0.),
-    lifetime: Time::new::<gigayear>(10.0),
-}}
+pub fn SUN() -> RealData {
+    RealData {
+        common_name: "Sun",
+        astronomical_name: "Sol",
+        constellation: "",
+        mass: Mass::new::<solar_mass>(1.0),
+        radius: Some(Length::new::<solar_radii>(1.0)),
+        absolute_magnitude: 4.83,
+        apparent_magnitude: -26.74, //seen from earth
+        temperature: ThermodynamicTemperature::new::<kelvin>(5778.0),
+        age: Some(Time::new::<gigayear>(4.6)),
+        right_ascension: RightAscension::new(0, 0, 0.),
+        declination: Declination::new(Sgn::Pos, 0, 0, 0.),
+        distance: Length::new::<light_year>(0.),
+        lifetime: Time::new::<gigayear>(10.0),
+    }
+}
 
 pub mod all;
 pub mod andromeda;

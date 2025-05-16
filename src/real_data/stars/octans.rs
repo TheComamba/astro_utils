@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn NU_OCTANTIS() -> RealData {
@@ -68,4 +64,6 @@ fn DELTA_OCTANTIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [NU_OCTANTIS(), BETA_OCTANTIS(), DELTA_OCTANTIS()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [NU_OCTANTIS(), BETA_OCTANTIS(), DELTA_OCTANTIS()]
+}

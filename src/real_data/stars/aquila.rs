@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALTAIR() -> RealData {
@@ -122,11 +118,13 @@ fn LAMBDA_AQUILAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 6] { [
-    ALTAIR(),
-    TARAZED(),
-    OKAB(),
-    THETA_AQUILAE(),
-    DELTA_AQUILAE(),
-    LAMBDA_AQUILAE(),
-] }
+pub(crate) fn STARS() -> [RealData; 6] {
+    [
+        ALTAIR(),
+        TARAZED(),
+        OKAB(),
+        THETA_AQUILAE(),
+        DELTA_AQUILAE(),
+        LAMBDA_AQUILAE(),
+    ]
+}

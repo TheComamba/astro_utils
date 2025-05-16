@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn MIRPHAK() -> RealData {
@@ -68,4 +64,6 @@ fn GORGONEA_TERTIA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [MIRPHAK(), ALGOL(), GORGONEA_TERTIA()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [MIRPHAK(), ALGOL(), GORGONEA_TERTIA()]
+}

@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_DORADUS() -> RealData {
@@ -86,4 +82,11 @@ fn R_DORADUS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [ALPHA_DORADUS(), BETA_DORADUS(), GAMMA_DORADUS(), R_DORADUS()] }
+pub(crate) fn STARS() -> [RealData; 4] {
+    [
+        ALPHA_DORADUS(),
+        BETA_DORADUS(),
+        GAMMA_DORADUS(),
+        R_DORADUS(),
+    ]
+}

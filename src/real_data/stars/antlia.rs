@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_ANTLIAE() -> RealData {
@@ -68,4 +64,6 @@ fn IOTA_ANTLIAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_ANTLIAE(), EPSILON_ANTLIAE(), IOTA_ANTLIAE()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALPHA_ANTLIAE(), EPSILON_ANTLIAE(), IOTA_ANTLIAE()]
+}

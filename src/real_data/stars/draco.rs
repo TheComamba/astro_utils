@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ELTANIN() -> RealData {
@@ -248,18 +244,20 @@ fn RASTABAN() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 13] { [
-    ELTANIN(),
-    ATHEBYNE(),
-    THETA_DRACONIS(),
-    KAPPA_DRACONIS(),
-    TYL(),
-    GIAUSAR(),
-    GRUMIUM(),
-    THUBAN(),
-    CHI_DRACONIS(),
-    EDASICH(),
-    ALDHIBAH(),
-    ALTAIS(),
-    RASTABAN(),
-] }
+pub(crate) fn STARS() -> [RealData; 13] {
+    [
+        ELTANIN(),
+        ATHEBYNE(),
+        THETA_DRACONIS(),
+        KAPPA_DRACONIS(),
+        TYL(),
+        GIAUSAR(),
+        GRUMIUM(),
+        THUBAN(),
+        CHI_DRACONIS(),
+        EDASICH(),
+        ALDHIBAH(),
+        ALTAIS(),
+        RASTABAN(),
+    ]
+}

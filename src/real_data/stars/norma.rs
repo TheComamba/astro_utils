@@ -7,7 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{length::, mass::{solar_mass, }, time::},
+    units::{mass::solar_mass, time::gigayear},
 };
 
 fn GAMMA2_NORMAE() -> RealData {
@@ -64,4 +64,6 @@ fn IOTA1_NORMAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [GAMMA2_NORMAE(), EPSILON_NORMAE(), IOTA1_NORMAE()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [GAMMA2_NORMAE(), EPSILON_NORMAE(), IOTA1_NORMAE()]
+}

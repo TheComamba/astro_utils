@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_HYDRI() -> RealData {
@@ -68,4 +64,6 @@ fn GAMMA_HYDRI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_HYDRI(), BETA_HYDRI(), GAMMA_HYDRI()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALPHA_HYDRI(), BETA_HYDRI(), GAMMA_HYDRI()]
+}

@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn SPICA() -> RealData {
@@ -140,12 +136,14 @@ fn PORRIMA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 7] { [
-    SPICA(),
-    MINELAUVA(),
-    ZAVIJAVA(),
-    SYRMA(),
-    HEZE(),
-    VINDEMIATRIX(),
-    PORRIMA(),
-] }
+pub(crate) fn STARS() -> [RealData; 7] {
+    [
+        SPICA(),
+        MINELAUVA(),
+        ZAVIJAVA(),
+        SYRMA(),
+        HEZE(),
+        VINDEMIATRIX(),
+        PORRIMA(),
+    ]
+}

@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn TARF() -> RealData {
@@ -68,4 +64,6 @@ fn IOTA_CANCRI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [TARF(), ASELLUS_AUSTRALIS(), IOTA_CANCRI()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [TARF(), ASELLUS_AUSTRALIS(), IOTA_CANCRI()]
+}

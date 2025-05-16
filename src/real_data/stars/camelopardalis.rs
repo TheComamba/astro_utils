@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn BETA_CAMELOPARDALIS() -> RealData {
@@ -62,12 +58,16 @@ fn ALPHA_CAMELOPARDALIS() -> RealData {
         temperature: ThermodynamicTemperature::new::<kelvin>(29_000.),
         right_ascension: RightAscension::new(4, 54, 3.),
         declination: Declination::new(Sgn::Pos, 66, 20, 34.),
-        distance: Length {
-            m: 6_000. * .m,
-        },
+        distance: Length::new::<light_year>(6_000.),
         age: Some(Time::new::<gigayear>(0.002)),
         lifetime: Time::new::<gigayear>(0.005279908),
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [BETA_CAMELOPARDALIS(), CS_CAMELOPARDALIS(), ALPHA_CAMELOPARDALIS()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [
+        BETA_CAMELOPARDALIS(),
+        CS_CAMELOPARDALIS(),
+        ALPHA_CAMELOPARDALIS(),
+    ]
+}

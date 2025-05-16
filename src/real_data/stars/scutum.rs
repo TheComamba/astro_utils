@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_SCUTI() -> RealData {
@@ -68,4 +64,6 @@ fn ZETA_SCUTI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_SCUTI(), BETA_SCUTI(), ZETA_SCUTI()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALPHA_SCUTI(), BETA_SCUTI(), ZETA_SCUTI()]
+}

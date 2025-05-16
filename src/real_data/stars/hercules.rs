@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn RASALGETHI() -> RealData {
@@ -140,12 +136,14 @@ fn PI_HERCULIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 7] { [
-    RASALGETHI(),
-    KORNEPHOROS(),
-    SARIN(),
-    ETA_HERCULIS(),
-    MU_HERCULIS(),
-    ZETA_HERCULIS(),
-    PI_HERCULIS(),
-] }
+pub(crate) fn STARS() -> [RealData; 7] {
+    [
+        RASALGETHI(),
+        KORNEPHOROS(),
+        SARIN(),
+        ETA_HERCULIS(),
+        MU_HERCULIS(),
+        ZETA_HERCULIS(),
+        PI_HERCULIS(),
+    ]
+}

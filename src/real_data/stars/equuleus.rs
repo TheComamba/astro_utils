@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn KITALPHA() -> RealData {
@@ -68,4 +64,6 @@ fn GAMMA_EQUULEI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [KITALPHA(), DELTA_EQUULEI(), GAMMA_EQUULEI()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [KITALPHA(), DELTA_EQUULEI(), GAMMA_EQUULEI()]
+}

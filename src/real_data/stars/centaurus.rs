@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn RIGEL_KENTAURUS() -> RealData {
@@ -158,13 +154,15 @@ fn MA_WEI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 8] { [
-    RIGEL_KENTAURUS(),
-    HADAR(),
-    MENKENT(),
-    MUHLIFAIN(),
-    EPSILON_CENTAURI(),
-    ETA_CENTAURI(),
-    ZETA_CENTAURI(),
-    MA_WEI(),
-] }
+pub(crate) fn STARS() -> [RealData; 8] {
+    [
+        RIGEL_KENTAURUS(),
+        HADAR(),
+        MENKENT(),
+        MUHLIFAIN(),
+        EPSILON_CENTAURI(),
+        ETA_CENTAURI(),
+        ZETA_CENTAURI(),
+        MA_WEI(),
+    ]
+}

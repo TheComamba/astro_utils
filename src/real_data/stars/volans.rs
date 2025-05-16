@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn GAMMA1_VOLANTIS() -> RealData {
@@ -68,4 +64,6 @@ fn ZETA_VOLANTIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [GAMMA1_VOLANTIS(), BETA_VOLANTIS(), ZETA_VOLANTIS()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [GAMMA1_VOLANTIS(), BETA_VOLANTIS(), ZETA_VOLANTIS()]
+}

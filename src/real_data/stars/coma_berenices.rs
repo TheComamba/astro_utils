@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn DIADEM() -> RealData {
@@ -68,4 +64,6 @@ fn GAMMA_COMA_BERENICES() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [DIADEM(), BETA_COMA_BERENICES(), GAMMA_COMA_BERENICES()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [DIADEM(), BETA_COMA_BERENICES(), GAMMA_COMA_BERENICES()]
+}

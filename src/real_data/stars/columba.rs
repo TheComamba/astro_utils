@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn PHACT() -> RealData {
@@ -86,4 +82,6 @@ fn EPSILON_COLUMBAE() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 4] { [PHACT(), WAZN(), DELTA_COLUMBAE(), EPSILON_COLUMBAE()] }
+pub(crate) fn STARS() -> [RealData; 4] {
+    [PHACT(), WAZN(), DELTA_COLUMBAE(), EPSILON_COLUMBAE()]
+}

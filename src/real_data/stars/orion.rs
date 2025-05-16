@@ -3,15 +3,12 @@ use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
+    time::year,
 };
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn RIGEL() -> RealData {
@@ -33,6 +30,7 @@ fn RIGEL() -> RealData {
 }
 
 fn BETELGEUSE() -> RealData {
+    let lifetime = Time::new::<gigayear>(0.012799766);
     RealData {
         common_name: "Betelgeuse",
         astronomical_name: "α Orionis",
@@ -45,10 +43,8 @@ fn BETELGEUSE() -> RealData {
         right_ascension: RightAscension::new(5, 55, 10.),
         declination: Declination::new(Sgn::Pos, 7, 24, 25.),
         distance: Length::new::<light_year>(522.),
-        age: Some(Time {
-            s: 0.012799766 * .s - 100. * 365.25 * 24. * 60. * 60.,
-        }),
-        lifetime: Time::new::<gigayear>(0.012799766),
+        age: Some(lifetime - Time::new::<year>(100.)),
+        lifetime,
     }
 }
 
@@ -142,6 +138,14 @@ fn MINTAKA() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 7] { [
-    RIGEL(), BETELGEUSE(), BELLATRIX(), ALNILAM(), ALNITAK(), SAIPH(), MINTAKA(),
-] }
+pub(crate) fn STARS() -> [RealData; 7] {
+    [
+        RIGEL(),
+        BETELGEUSE(),
+        BELLATRIX(),
+        ALNILAM(),
+        ALNITAK(),
+        SAIPH(),
+        MINTAKA(),
+    ]
+}

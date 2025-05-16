@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALPHA_PICTORIS() -> RealData {
@@ -68,4 +64,6 @@ fn GAMMA_PICTORIS() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [ALPHA_PICTORIS(), BETA_PICTORIS(), GAMMA_PICTORIS()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [ALPHA_PICTORIS(), BETA_PICTORIS(), GAMMA_PICTORIS()]
+}

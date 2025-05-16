@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn DABIH() -> RealData {
@@ -68,4 +64,6 @@ fn OMEGA_CAPRICORNI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 3] { [DABIH(), DENEB_ALGEDI(), OMEGA_CAPRICORNI()] }
+pub(crate) fn STARS() -> [RealData; 3] {
+    [DABIH(), DENEB_ALGEDI(), OMEGA_CAPRICORNI()]
+}

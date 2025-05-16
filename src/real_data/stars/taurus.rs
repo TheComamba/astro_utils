@@ -7,11 +7,7 @@ use uom::si::{
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        length::{solar_radii },
-        mass::{solar_mass, },
-        time::{gigayear, },
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 fn ALDEBARAN() -> RealData {
@@ -122,11 +118,13 @@ fn ZETA_TAURI() -> RealData {
     }
 }
 
-pub(crate) fn STARS() -> [RealData; 6] { [
-    ALDEBARAN(),
-    ALNATH(),
-    GAMMA_TAURI(),
-    EPSILON_TAURI(),
-    LAMBDA_TAURI(),
-    ZETA_TAURI(),
-] }
+pub(crate) fn STARS() -> [RealData; 6] {
+    [
+        ALDEBARAN(),
+        ALNATH(),
+        GAMMA_TAURI(),
+        EPSILON_TAURI(),
+        LAMBDA_TAURI(),
+        ZETA_TAURI(),
+    ]
+}
