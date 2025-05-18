@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn PEACOCK() -> RealData {
+fn peacock() -> RealData {
     RealData {
         common_name: "Peacock",
         astronomical_name: "α Pavonis",
@@ -28,7 +28,7 @@ fn PEACOCK() -> RealData {
     }
 }
 
-fn BETA_PAVONIS() -> RealData {
+fn beta_pavonis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Pavonis",
@@ -46,7 +46,7 @@ fn BETA_PAVONIS() -> RealData {
     }
 }
 
-fn DELTA_PAVONIS() -> RealData {
+fn delta_pavonis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Pavonis",
@@ -65,5 +65,5 @@ fn DELTA_PAVONIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [PEACOCK(), BETA_PAVONIS(), DELTA_PAVONIS()]
+    [peacock(), beta_pavonis(), delta_pavonis()]
 }

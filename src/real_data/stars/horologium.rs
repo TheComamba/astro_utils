@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_HOROLOGII() -> RealData {
+fn alpha_horologii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Horologii",
@@ -28,7 +28,7 @@ fn ALPHA_HOROLOGII() -> RealData {
     }
 }
 
-fn R_HOROLOGII() -> RealData {
+fn r_horologii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "R Horologii",
@@ -46,7 +46,7 @@ fn R_HOROLOGII() -> RealData {
     }
 }
 
-fn BETA_HOROLOGII() -> RealData {
+fn beta_horologii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Horologii",
@@ -65,5 +65,5 @@ fn BETA_HOROLOGII() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_HOROLOGII(), R_HOROLOGII(), BETA_HOROLOGII()]
+    [alpha_horologii(), r_horologii(), beta_horologii()]
 }

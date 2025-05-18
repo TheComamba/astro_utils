@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn NU_OCTANTIS() -> RealData {
+fn nu_octantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ν Octantis",
@@ -28,7 +28,7 @@ fn NU_OCTANTIS() -> RealData {
     }
 }
 
-fn BETA_OCTANTIS() -> RealData {
+fn beta_octantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Octantis",
@@ -46,7 +46,7 @@ fn BETA_OCTANTIS() -> RealData {
     }
 }
 
-fn DELTA_OCTANTIS() -> RealData {
+fn delta_octantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Octantis",
@@ -65,5 +65,5 @@ fn DELTA_OCTANTIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [NU_OCTANTIS(), BETA_OCTANTIS(), DELTA_OCTANTIS()]
+    [nu_octantis(), beta_octantis(), delta_octantis()]
 }

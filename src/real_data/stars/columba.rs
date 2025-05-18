@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn PHACT() -> RealData {
+fn phact() -> RealData {
     RealData {
         common_name: "Phact",
         astronomical_name: "α Columbae",
@@ -28,7 +28,7 @@ fn PHACT() -> RealData {
     }
 }
 
-fn WAZN() -> RealData {
+fn wazn() -> RealData {
     RealData {
         common_name: "Wazn",
         astronomical_name: "β Columbae",
@@ -46,7 +46,7 @@ fn WAZN() -> RealData {
     }
 }
 
-fn DELTA_COLUMBAE() -> RealData {
+fn delta_columbae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Columbae",
@@ -64,7 +64,7 @@ fn DELTA_COLUMBAE() -> RealData {
     }
 }
 
-fn EPSILON_COLUMBAE() -> RealData {
+fn epsilon_columbae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Columbae",
@@ -83,5 +83,5 @@ fn EPSILON_COLUMBAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [PHACT(), WAZN(), DELTA_COLUMBAE(), EPSILON_COLUMBAE()]
+    [phact(), wazn(), delta_columbae(), epsilon_columbae()]
 }

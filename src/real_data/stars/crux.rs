@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ACRUX() -> RealData {
+fn acrux() -> RealData {
     RealData {
         common_name: "Acrux",
         astronomical_name: "α Crucis",
@@ -28,7 +28,7 @@ fn ACRUX() -> RealData {
     }
 }
 
-fn MIMOSA() -> RealData {
+fn mimosa() -> RealData {
     RealData {
         common_name: "Mimosa",
         astronomical_name: "β Crucis",
@@ -46,7 +46,7 @@ fn MIMOSA() -> RealData {
     }
 }
 
-fn GACRUX() -> RealData {
+fn gacrux() -> RealData {
     RealData {
         common_name: "Gacrux",
         astronomical_name: "γ Crucis",
@@ -65,5 +65,5 @@ fn GACRUX() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ACRUX(), MIMOSA(), GACRUX()]
+    [acrux(), mimosa(), gacrux()]
 }

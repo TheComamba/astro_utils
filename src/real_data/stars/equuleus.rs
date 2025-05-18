@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn KITALPHA() -> RealData {
+fn kitalpha() -> RealData {
     RealData {
         common_name: "Kitalpha",
         astronomical_name: "α Equulei",
@@ -28,7 +28,7 @@ fn KITALPHA() -> RealData {
     }
 }
 
-fn DELTA_EQUULEI() -> RealData {
+fn delta_equulei() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Equulei",
@@ -46,7 +46,7 @@ fn DELTA_EQUULEI() -> RealData {
     }
 }
 
-fn GAMMA_EQUULEI() -> RealData {
+fn gamma_equulei() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Equulei",
@@ -65,5 +65,5 @@ fn GAMMA_EQUULEI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [KITALPHA(), DELTA_EQUULEI(), GAMMA_EQUULEI()]
+    [kitalpha(), delta_equulei(), gamma_equulei()]
 }

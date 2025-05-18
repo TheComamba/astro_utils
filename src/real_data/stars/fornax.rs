@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn DALIM() -> RealData {
+fn dalim() -> RealData {
     RealData {
         common_name: "Dalim",
         astronomical_name: "α Fornacis",
@@ -28,7 +28,7 @@ fn DALIM() -> RealData {
     }
 }
 
-fn BETA_FORNACIS() -> RealData {
+fn beta_fornacis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Fornacis",
@@ -46,7 +46,7 @@ fn BETA_FORNACIS() -> RealData {
     }
 }
 
-fn NU_FORNACIS() -> RealData {
+fn nu_fornacis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ν Fornacis",
@@ -65,5 +65,5 @@ fn NU_FORNACIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [DALIM(), BETA_FORNACIS(), NU_FORNACIS()]
+    [dalim(), beta_fornacis(), nu_fornacis()]
 }

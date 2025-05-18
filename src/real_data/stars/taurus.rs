@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALDEBARAN() -> RealData {
+fn aldebaran() -> RealData {
     RealData {
         common_name: "Aldebaran",
         astronomical_name: "α Tauri",
@@ -28,7 +28,7 @@ fn ALDEBARAN() -> RealData {
     }
 }
 
-fn ALNATH() -> RealData {
+fn alnath() -> RealData {
     RealData {
         common_name: "Alnath",
         astronomical_name: "β Tauri",
@@ -46,7 +46,7 @@ fn ALNATH() -> RealData {
     }
 }
 
-fn GAMMA_TAURI() -> RealData {
+fn gamma_tauri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Tauri",
@@ -64,7 +64,7 @@ fn GAMMA_TAURI() -> RealData {
     }
 }
 
-fn EPSILON_TAURI() -> RealData {
+fn epsilon_tauri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Tauri",
@@ -82,7 +82,7 @@ fn EPSILON_TAURI() -> RealData {
     }
 }
 
-fn LAMBDA_TAURI() -> RealData {
+fn lambda_tauri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "λ Tauri",
@@ -100,7 +100,7 @@ fn LAMBDA_TAURI() -> RealData {
     }
 }
 
-fn ZETA_TAURI() -> RealData {
+fn zeta_tauri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Tauri",
@@ -120,11 +120,11 @@ fn ZETA_TAURI() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 6] {
     [
-        ALDEBARAN(),
-        ALNATH(),
-        GAMMA_TAURI(),
-        EPSILON_TAURI(),
-        LAMBDA_TAURI(),
-        ZETA_TAURI(),
+        aldebaran(),
+        alnath(),
+        gamma_tauri(),
+        epsilon_tauri(),
+        lambda_tauri(),
+        zeta_tauri(),
     ]
 }

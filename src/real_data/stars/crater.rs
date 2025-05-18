@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALKES() -> RealData {
+fn alkes() -> RealData {
     RealData {
         common_name: "Alkes",
         astronomical_name: "α Crateris",
@@ -28,7 +28,7 @@ fn ALKES() -> RealData {
     }
 }
 
-fn BETA_CRATERIS() -> RealData {
+fn beta_crateris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Crateris",
@@ -46,7 +46,7 @@ fn BETA_CRATERIS() -> RealData {
     }
 }
 
-fn GAMMA_CRATERIS() -> RealData {
+fn gamma_crateris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Crateris",
@@ -64,7 +64,7 @@ fn GAMMA_CRATERIS() -> RealData {
     }
 }
 
-fn DELTA_CRATERIS() -> RealData {
+fn delta_crateris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Crateris",
@@ -83,5 +83,5 @@ fn DELTA_CRATERIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [ALKES(), BETA_CRATERIS(), GAMMA_CRATERIS(), DELTA_CRATERIS()]
+    [alkes(), beta_crateris(), gamma_crateris(), delta_crateris()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALNAIR() -> RealData {
+fn alnair() -> RealData {
     RealData {
         common_name: "Alnair",
         astronomical_name: "α Gruis",
@@ -28,7 +28,7 @@ fn ALNAIR() -> RealData {
     }
 }
 
-fn TIAKI() -> RealData {
+fn tiaki() -> RealData {
     RealData {
         common_name: "Tiaki",
         astronomical_name: "β Gruis",
@@ -46,7 +46,7 @@ fn TIAKI() -> RealData {
     }
 }
 
-fn ALDHANAB() -> RealData {
+fn aldhanab() -> RealData {
     RealData {
         common_name: "Aldhanab",
         astronomical_name: "γ Gruis",
@@ -65,5 +65,5 @@ fn ALDHANAB() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALNAIR(), TIAKI(), ALDHANAB()]
+    [alnair(), tiaki(), aldhanab()]
 }

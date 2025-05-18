@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ZUBENELGENUBI() -> RealData {
+fn zubenelgenubi() -> RealData {
     RealData {
         common_name: "Zubenelgenubi",
         astronomical_name: "α² Librae",
@@ -28,7 +28,7 @@ fn ZUBENELGENUBI() -> RealData {
     }
 }
 
-fn ZUBENESCHAMALI() -> RealData {
+fn zubeneschamali() -> RealData {
     RealData {
         common_name: "Zubeneschamali",
         astronomical_name: "β Librae",
@@ -46,7 +46,7 @@ fn ZUBENESCHAMALI() -> RealData {
     }
 }
 
-fn BRACHIUM() -> RealData {
+fn brachium() -> RealData {
     RealData {
         common_name: "Brachium",
         astronomical_name: "σ Librae",
@@ -65,5 +65,5 @@ fn BRACHIUM() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ZUBENELGENUBI(), ZUBENESCHAMALI(), BRACHIUM()]
+    [zubenelgenubi(), zubeneschamali(), brachium()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_LACERTAE() -> RealData {
+fn alpha_lacertae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Lacertae",
@@ -28,7 +28,7 @@ fn ALPHA_LACERTAE() -> RealData {
     }
 }
 
-fn BETA_LACERTAE() -> RealData {
+fn beta_lacertae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Lacertae",
@@ -46,7 +46,7 @@ fn BETA_LACERTAE() -> RealData {
     }
 }
 
-fn FIVE_LACERTAE() -> RealData {
+fn five_lacertae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "5 Lacertae",
@@ -65,5 +65,5 @@ fn FIVE_LACERTAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_LACERTAE(), BETA_LACERTAE(), FIVE_LACERTAE()]
+    [alpha_lacertae(), beta_lacertae(), five_lacertae()]
 }

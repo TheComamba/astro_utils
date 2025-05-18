@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn GAMMA_SAGITTAE() -> RealData {
+fn gamma_sagittae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Sagittae",
@@ -28,7 +28,7 @@ fn GAMMA_SAGITTAE() -> RealData {
     }
 }
 
-fn DELTA_SAGITTAE() -> RealData {
+fn delta_sagittae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Sagittae",
@@ -46,7 +46,7 @@ fn DELTA_SAGITTAE() -> RealData {
     }
 }
 
-fn ALPHA_SAGITTAE() -> RealData {
+fn alpha_sagittae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Sagittae",
@@ -65,5 +65,5 @@ fn ALPHA_SAGITTAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [GAMMA_SAGITTAE(), DELTA_SAGITTAE(), ALPHA_SAGITTAE()]
+    [gamma_sagittae(), delta_sagittae(), alpha_sagittae()]
 }

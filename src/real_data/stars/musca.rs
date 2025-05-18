@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_MUSCAE() -> RealData {
+fn alpha_muscae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Muscae",
@@ -28,7 +28,7 @@ fn ALPHA_MUSCAE() -> RealData {
     }
 }
 
-fn BETA_MUSCAE() -> RealData {
+fn beta_muscae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Muscae",
@@ -46,7 +46,7 @@ fn BETA_MUSCAE() -> RealData {
     }
 }
 
-fn DELTA_MUSCAE() -> RealData {
+fn delta_muscae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Muscae",
@@ -65,5 +65,5 @@ fn DELTA_MUSCAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_MUSCAE(), BETA_MUSCAE(), DELTA_MUSCAE()]
+    [alpha_muscae(), beta_muscae(), delta_muscae()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_MENSAE() -> RealData {
+fn alpha_mensae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Mensae",
@@ -28,7 +28,7 @@ fn ALPHA_MENSAE() -> RealData {
     }
 }
 
-fn BETA_MENSAE() -> RealData {
+fn beta_mensae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Mensae",
@@ -46,7 +46,7 @@ fn BETA_MENSAE() -> RealData {
     }
 }
 
-fn GAMMA_MENSAE() -> RealData {
+fn gamma_mensae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Mensae",
@@ -65,5 +65,5 @@ fn GAMMA_MENSAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_MENSAE(), BETA_MENSAE(), GAMMA_MENSAE()]
+    [alpha_mensae(), beta_mensae(), gamma_mensae()]
 }

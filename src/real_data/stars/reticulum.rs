@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_RETICULI() -> RealData {
+fn alpha_reticuli() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Reticuli",
@@ -28,7 +28,7 @@ fn ALPHA_RETICULI() -> RealData {
     }
 }
 
-fn BETA_RETICULI() -> RealData {
+fn beta_reticuli() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Reticuli",
@@ -46,7 +46,7 @@ fn BETA_RETICULI() -> RealData {
     }
 }
 
-fn EPSILON_RETICULI() -> RealData {
+fn epsilon_reticuli() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Reticuli",
@@ -65,5 +65,5 @@ fn EPSILON_RETICULI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_RETICULI(), BETA_RETICULI(), EPSILON_RETICULI()]
+    [alpha_reticuli(), beta_reticuli(), epsilon_reticuli()]
 }

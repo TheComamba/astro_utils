@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn CANOPUS() -> RealData {
+fn canopus() -> RealData {
     RealData {
         common_name: "Canopus",
         astronomical_name: "α Carinae",
@@ -28,7 +28,7 @@ fn CANOPUS() -> RealData {
     }
 }
 
-fn MIAPLACIDUS() -> RealData {
+fn miaplacidus() -> RealData {
     RealData {
         common_name: "Miaplacidus",
         astronomical_name: "β Carinae",
@@ -46,7 +46,7 @@ fn MIAPLACIDUS() -> RealData {
     }
 }
 
-fn AVIOR() -> RealData {
+fn avior() -> RealData {
     RealData {
         common_name: "Avior",
         astronomical_name: "ε Carinae",
@@ -64,7 +64,7 @@ fn AVIOR() -> RealData {
     }
 }
 
-fn ASPIDISKE() -> RealData {
+fn aspidiske() -> RealData {
     RealData {
         common_name: "Aspidiske",
         astronomical_name: "ι Carinae",
@@ -83,5 +83,5 @@ fn ASPIDISKE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [CANOPUS(), MIAPLACIDUS(), AVIOR(), ASPIDISKE()]
+    [canopus(), miaplacidus(), avior(), aspidiske()]
 }

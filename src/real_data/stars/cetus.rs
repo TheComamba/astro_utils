@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn DIPHDA() -> RealData {
+fn diphda() -> RealData {
     RealData {
         common_name: "Diphda",
         astronomical_name: "β Ceti",
@@ -28,7 +28,7 @@ fn DIPHDA() -> RealData {
     }
 }
 
-fn MENKAR() -> RealData {
+fn menkar() -> RealData {
     RealData {
         common_name: "Menkar",
         astronomical_name: "α Ceti",
@@ -46,7 +46,7 @@ fn MENKAR() -> RealData {
     }
 }
 
-fn MIRA() -> RealData {
+fn mira() -> RealData {
     RealData {
         common_name: "Mira",
         astronomical_name: "ο Ceti",
@@ -64,7 +64,7 @@ fn MIRA() -> RealData {
     }
 }
 
-fn BATEN_KAITOS() -> RealData {
+fn baten_kaitos() -> RealData {
     RealData {
         common_name: "Baten Kaitos",
         astronomical_name: "ζ Ceti",
@@ -82,7 +82,7 @@ fn BATEN_KAITOS() -> RealData {
     }
 }
 
-fn KAFFALJIDHMA() -> RealData {
+fn kaffaljidhma() -> RealData {
     RealData {
         common_name: "Kaffaljidhma",
         astronomical_name: "γ Ceti",
@@ -100,7 +100,7 @@ fn KAFFALJIDHMA() -> RealData {
     }
 }
 
-fn IOTA_CETI() -> RealData {
+fn iota_ceti() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ι Ceti",
@@ -118,7 +118,7 @@ fn IOTA_CETI() -> RealData {
     }
 }
 
-fn DENEB_ALGENUBI() -> RealData {
+fn deneb_algenubi() -> RealData {
     RealData {
         common_name: "Deneb Algenubi",
         astronomical_name: "η Ceti",
@@ -136,7 +136,7 @@ fn DENEB_ALGENUBI() -> RealData {
     }
 }
 
-fn TAU_CETI() -> RealData {
+fn tau_ceti() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "τ Ceti",
@@ -156,13 +156,13 @@ fn TAU_CETI() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 8] {
     [
-        DIPHDA(),
-        MENKAR(),
-        MIRA(),
-        BATEN_KAITOS(),
-        KAFFALJIDHMA(),
-        IOTA_CETI(),
-        DENEB_ALGENUBI(),
-        TAU_CETI(),
+        diphda(),
+        menkar(),
+        mira(),
+        baten_kaitos(),
+        kaffaljidhma(),
+        iota_ceti(),
+        deneb_algenubi(),
+        tau_ceti(),
     ]
 }

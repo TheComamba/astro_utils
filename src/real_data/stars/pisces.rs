@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_PISCIUM() -> RealData {
+fn alpha_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Piscium",
@@ -28,7 +28,7 @@ fn ALPHA_PISCIUM() -> RealData {
     }
 }
 
-fn DELTA_PISCIUM() -> RealData {
+fn delta_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Piscium",
@@ -46,7 +46,7 @@ fn DELTA_PISCIUM() -> RealData {
     }
 }
 
-fn NU_PISCIUM() -> RealData {
+fn nu_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ν Piscium",
@@ -64,7 +64,7 @@ fn NU_PISCIUM() -> RealData {
     }
 }
 
-fn IOTA_PISCIUM() -> RealData {
+fn iota_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ι Piscium",
@@ -82,7 +82,7 @@ fn IOTA_PISCIUM() -> RealData {
     }
 }
 
-fn OMICRON_PISCIUM() -> RealData {
+fn omicron_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ο Piscium",
@@ -100,7 +100,7 @@ fn OMICRON_PISCIUM() -> RealData {
     }
 }
 
-fn EPSILON_PISCIUM() -> RealData {
+fn epsilon_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Piscium",
@@ -118,7 +118,7 @@ fn EPSILON_PISCIUM() -> RealData {
     }
 }
 
-fn THETA_PISCIUM() -> RealData {
+fn theta_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "θ Piscium",
@@ -136,7 +136,7 @@ fn THETA_PISCIUM() -> RealData {
     }
 }
 
-fn ETA_PISCIUM() -> RealData {
+fn eta_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "η Piscium",
@@ -154,7 +154,7 @@ fn ETA_PISCIUM() -> RealData {
     }
 }
 
-fn GAMMA_PISCIUM() -> RealData {
+fn gamma_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Piscium",
@@ -172,7 +172,7 @@ fn GAMMA_PISCIUM() -> RealData {
     }
 }
 
-fn OMEGA_PISCIUM() -> RealData {
+fn omega_piscium() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ω Piscium",
@@ -192,15 +192,15 @@ fn OMEGA_PISCIUM() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 10] {
     [
-        ALPHA_PISCIUM(),
-        DELTA_PISCIUM(),
-        NU_PISCIUM(),
-        IOTA_PISCIUM(),
-        OMICRON_PISCIUM(),
-        EPSILON_PISCIUM(),
-        THETA_PISCIUM(),
-        ETA_PISCIUM(),
-        GAMMA_PISCIUM(),
-        OMEGA_PISCIUM(),
+        alpha_piscium(),
+        delta_piscium(),
+        nu_piscium(),
+        iota_piscium(),
+        omicron_piscium(),
+        epsilon_piscium(),
+        theta_piscium(),
+        eta_piscium(),
+        gamma_piscium(),
+        omega_piscium(),
     ]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_TUCANAE() -> RealData {
+fn alpha_tucanae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Tucanae",
@@ -28,7 +28,7 @@ fn ALPHA_TUCANAE() -> RealData {
     }
 }
 
-fn GAMMA_TUCANAE() -> RealData {
+fn gamma_tucanae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Tucanae",
@@ -46,7 +46,7 @@ fn GAMMA_TUCANAE() -> RealData {
     }
 }
 
-fn ZETA_TUCANAE() -> RealData {
+fn zeta_tucanae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Tucanae",
@@ -65,5 +65,5 @@ fn ZETA_TUCANAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_TUCANAE(), GAMMA_TUCANAE(), ZETA_TUCANAE()]
+    [alpha_tucanae(), gamma_tucanae(), zeta_tucanae()]
 }

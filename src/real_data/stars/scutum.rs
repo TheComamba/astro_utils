@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_SCUTI() -> RealData {
+fn alpha_scuti() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Scuti",
@@ -28,7 +28,7 @@ fn ALPHA_SCUTI() -> RealData {
     }
 }
 
-fn BETA_SCUTI() -> RealData {
+fn beta_scuti() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Scuti",
@@ -46,7 +46,7 @@ fn BETA_SCUTI() -> RealData {
     }
 }
 
-fn ZETA_SCUTI() -> RealData {
+fn zeta_scuti() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Scuti",
@@ -65,5 +65,5 @@ fn ZETA_SCUTI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_SCUTI(), BETA_SCUTI(), ZETA_SCUTI()]
+    [alpha_scuti(), beta_scuti(), zeta_scuti()]
 }

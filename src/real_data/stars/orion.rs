@@ -11,7 +11,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn RIGEL() -> RealData {
+fn rigel() -> RealData {
     RealData {
         common_name: "Rigel",
         astronomical_name: "β Orionis",
@@ -29,7 +29,7 @@ fn RIGEL() -> RealData {
     }
 }
 
-fn BETELGEUSE() -> RealData {
+fn betelgeuse() -> RealData {
     let lifetime = Time::new::<gigayear>(0.012799766);
     RealData {
         common_name: "Betelgeuse",
@@ -48,7 +48,7 @@ fn BETELGEUSE() -> RealData {
     }
 }
 
-fn BELLATRIX() -> RealData {
+fn bellatrix() -> RealData {
     RealData {
         common_name: "Bellatrix",
         astronomical_name: "γ Orionis",
@@ -66,7 +66,7 @@ fn BELLATRIX() -> RealData {
     }
 }
 
-fn ALNILAM() -> RealData {
+fn alnilam() -> RealData {
     RealData {
         common_name: "Alnilam",
         astronomical_name: "ε Orionis",
@@ -84,7 +84,7 @@ fn ALNILAM() -> RealData {
     }
 }
 
-fn ALNITAK() -> RealData {
+fn alnitak() -> RealData {
     RealData {
         common_name: "Alnitak",
         astronomical_name: "ζ Orionis",
@@ -102,7 +102,7 @@ fn ALNITAK() -> RealData {
     }
 }
 
-fn SAIPH() -> RealData {
+fn saiph() -> RealData {
     RealData {
         common_name: "Saiph",
         astronomical_name: "κ Orionis",
@@ -120,7 +120,7 @@ fn SAIPH() -> RealData {
     }
 }
 
-fn MINTAKA() -> RealData {
+fn mintaka() -> RealData {
     RealData {
         common_name: "Mintaka",
         astronomical_name: "δ Orionis",
@@ -140,12 +140,12 @@ fn MINTAKA() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 7] {
     [
-        RIGEL(),
-        BETELGEUSE(),
-        BELLATRIX(),
-        ALNILAM(),
-        ALNITAK(),
-        SAIPH(),
-        MINTAKA(),
+        rigel(),
+        betelgeuse(),
+        bellatrix(),
+        alnilam(),
+        alnitak(),
+        saiph(),
+        mintaka(),
     ]
 }

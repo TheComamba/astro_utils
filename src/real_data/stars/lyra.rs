@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn VEGA() -> RealData {
+fn vega() -> RealData {
     RealData {
         common_name: "Vega",
         astronomical_name: "α Lyrae",
@@ -28,7 +28,7 @@ fn VEGA() -> RealData {
     }
 }
 
-fn R_LYRAE() -> RealData {
+fn r_lyrae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "R Lyrae",
@@ -46,7 +46,7 @@ fn R_LYRAE() -> RealData {
     }
 }
 
-fn GAMMA_LYRAE() -> RealData {
+fn gamma_lyrae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Lyrae",
@@ -64,7 +64,7 @@ fn GAMMA_LYRAE() -> RealData {
     }
 }
 
-fn BETA_LYRAE() -> RealData {
+fn beta_lyrae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Lyrae",
@@ -83,5 +83,5 @@ fn BETA_LYRAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [VEGA(), R_LYRAE(), GAMMA_LYRAE(), BETA_LYRAE()]
+    [vega(), r_lyrae(), gamma_lyrae(), beta_lyrae()]
 }

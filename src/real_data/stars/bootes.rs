@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ARCTURUS() -> RealData {
+fn arcturus() -> RealData {
     RealData {
         common_name: "Arcturus",
         astronomical_name: "α Boötis",
@@ -28,7 +28,7 @@ fn ARCTURUS() -> RealData {
     }
 }
 
-fn IZAR() -> RealData {
+fn izar() -> RealData {
     RealData {
         common_name: "Izar",
         astronomical_name: "ε Boötis",
@@ -46,7 +46,7 @@ fn IZAR() -> RealData {
     }
 }
 
-fn GAMMA_BOOTIS() -> RealData {
+fn gamma_bootis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Boötis",
@@ -64,7 +64,7 @@ fn GAMMA_BOOTIS() -> RealData {
     }
 }
 
-fn DELTA_BOOTIS() -> RealData {
+fn delta_bootis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Boötis",
@@ -82,7 +82,7 @@ fn DELTA_BOOTIS() -> RealData {
     }
 }
 
-fn BETA_BOOTIS() -> RealData {
+fn beta_bootis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Boötis",
@@ -100,7 +100,7 @@ fn BETA_BOOTIS() -> RealData {
     }
 }
 
-fn MUPHRID() -> RealData {
+fn muphrid() -> RealData {
     RealData {
         common_name: "Muphrid",
         astronomical_name: "η Boötis",
@@ -120,11 +120,11 @@ fn MUPHRID() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 6] {
     [
-        ARCTURUS(),
-        IZAR(),
-        GAMMA_BOOTIS(),
-        DELTA_BOOTIS(),
-        BETA_BOOTIS(),
-        MUPHRID(),
+        arcturus(),
+        izar(),
+        gamma_bootis(),
+        delta_bootis(),
+        beta_bootis(),
+        muphrid(),
     ]
 }

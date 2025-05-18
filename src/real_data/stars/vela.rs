@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn REGOR() -> RealData {
+fn regor() -> RealData {
     RealData {
         common_name: "Regor",
         astronomical_name: "γ Velorum",
@@ -28,7 +28,7 @@ fn REGOR() -> RealData {
     }
 }
 
-fn ALSEPHINA() -> RealData {
+fn alsephina() -> RealData {
     RealData {
         common_name: "Alsephina",
         astronomical_name: "δ Velorum",
@@ -46,7 +46,7 @@ fn ALSEPHINA() -> RealData {
     }
 }
 
-fn SUHAIL() -> RealData {
+fn suhail() -> RealData {
     RealData {
         common_name: "Suhail",
         astronomical_name: "λ Velorum",
@@ -64,7 +64,7 @@ fn SUHAIL() -> RealData {
     }
 }
 
-fn MARKEB() -> RealData {
+fn markeb() -> RealData {
     RealData {
         common_name: "Markeb",
         astronomical_name: "κ Velorum",
@@ -83,5 +83,5 @@ fn MARKEB() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [REGOR(), ALSEPHINA(), SUHAIL(), MARKEB()]
+    [regor(), alsephina(), suhail(), markeb()]
 }

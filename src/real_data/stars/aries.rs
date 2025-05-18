@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn HAMAL() -> RealData {
+fn hamal() -> RealData {
     RealData {
         common_name: "Hamal",
         astronomical_name: "α Arietis",
@@ -28,7 +28,7 @@ fn HAMAL() -> RealData {
     }
 }
 
-fn BETA_ARIETIS() -> RealData {
+fn beta_arietis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Arietis",
@@ -46,7 +46,7 @@ fn BETA_ARIETIS() -> RealData {
     }
 }
 
-fn BHARANI() -> RealData {
+fn bharani() -> RealData {
     RealData {
         common_name: "Bharani",
         astronomical_name: "41 Arietis",
@@ -65,5 +65,5 @@ fn BHARANI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [HAMAL(), BETA_ARIETIS(), BHARANI()]
+    [hamal(), beta_arietis(), bharani()]
 }

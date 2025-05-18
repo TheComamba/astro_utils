@@ -10,7 +10,7 @@ use crate::{
     units::{mass::solar_mass, time::gigayear},
 };
 
-fn GAMMA2_NORMAE() -> RealData {
+fn gamma2_normae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ² Normae",
@@ -28,7 +28,7 @@ fn GAMMA2_NORMAE() -> RealData {
     }
 }
 
-fn EPSILON_NORMAE() -> RealData {
+fn epsilon_normae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Normae",
@@ -46,7 +46,7 @@ fn EPSILON_NORMAE() -> RealData {
     }
 }
 
-fn IOTA1_NORMAE() -> RealData {
+fn iota1_normae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ι¹ Normae",
@@ -65,5 +65,5 @@ fn IOTA1_NORMAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [GAMMA2_NORMAE(), EPSILON_NORMAE(), IOTA1_NORMAE()]
+    [gamma2_normae(), epsilon_normae(), iota1_normae()]
 }

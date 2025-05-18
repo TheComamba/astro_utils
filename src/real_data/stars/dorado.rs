@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_DORADUS() -> RealData {
+fn alpha_doradus() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Doradus",
@@ -28,7 +28,7 @@ fn ALPHA_DORADUS() -> RealData {
     }
 }
 
-fn BETA_DORADUS() -> RealData {
+fn beta_doradus() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Doradus",
@@ -46,7 +46,7 @@ fn BETA_DORADUS() -> RealData {
     }
 }
 
-fn GAMMA_DORADUS() -> RealData {
+fn gamma_doradus() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Doradus",
@@ -64,7 +64,7 @@ fn GAMMA_DORADUS() -> RealData {
     }
 }
 
-fn R_DORADUS() -> RealData {
+fn r_doradus() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "R Doradus",
@@ -84,9 +84,9 @@ fn R_DORADUS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 4] {
     [
-        ALPHA_DORADUS(),
-        BETA_DORADUS(),
-        GAMMA_DORADUS(),
-        R_DORADUS(),
+        alpha_doradus(),
+        beta_doradus(),
+        gamma_doradus(),
+        r_doradus(),
     ]
 }

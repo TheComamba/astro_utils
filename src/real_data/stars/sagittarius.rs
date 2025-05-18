@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn KAUS_AUSTRALIS() -> RealData {
+fn kaus_australis() -> RealData {
     RealData {
         common_name: "Kaus Australis",
         astronomical_name: "ε Sagittarii",
@@ -28,7 +28,7 @@ fn KAUS_AUSTRALIS() -> RealData {
     }
 }
 
-fn NUNKI() -> RealData {
+fn nunki() -> RealData {
     RealData {
         common_name: "Nunki",
         astronomical_name: "σ Sagittarii",
@@ -46,7 +46,7 @@ fn NUNKI() -> RealData {
     }
 }
 
-fn NAMALWARID() -> RealData {
+fn namalwarid() -> RealData {
     RealData {
         common_name: "Namalwarid",
         astronomical_name: "η Sagittarii",
@@ -64,7 +64,7 @@ fn NAMALWARID() -> RealData {
     }
 }
 
-fn KAUS_MEDIA() -> RealData {
+fn kaus_media() -> RealData {
     RealData {
         common_name: "Kaus Media",
         astronomical_name: "δ Sagittarii",
@@ -83,5 +83,5 @@ fn KAUS_MEDIA() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [KAUS_AUSTRALIS(), NUNKI(), NAMALWARID(), KAUS_MEDIA()]
+    [kaus_australis(), nunki(), namalwarid(), kaus_media()]
 }

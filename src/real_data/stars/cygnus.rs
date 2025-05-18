@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn DENEB() -> RealData {
+fn deneb() -> RealData {
     RealData {
         common_name: "Deneb",
         astronomical_name: "α Cygni",
@@ -28,7 +28,7 @@ fn DENEB() -> RealData {
     }
 }
 
-fn SADIR() -> RealData {
+fn sadir() -> RealData {
     RealData {
         common_name: "Sadir",
         astronomical_name: "γ Cygni",
@@ -46,7 +46,7 @@ fn SADIR() -> RealData {
     }
 }
 
-fn ALJANAH() -> RealData {
+fn aljanah() -> RealData {
     RealData {
         common_name: "Aljanah",
         astronomical_name: "ε Cygni",
@@ -65,5 +65,5 @@ fn ALJANAH() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [DENEB(), SADIR(), ALJANAH()]
+    [deneb(), sadir(), aljanah()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn NAVI() -> RealData {
+fn navi() -> RealData {
     RealData {
         common_name: "Navi",
         astronomical_name: "γ Cassiopeiae",
@@ -28,7 +28,7 @@ fn NAVI() -> RealData {
     }
 }
 
-fn SCHEDAR() -> RealData {
+fn schedar() -> RealData {
     RealData {
         common_name: "Schedar",
         astronomical_name: "α Cassiopeiae",
@@ -46,7 +46,7 @@ fn SCHEDAR() -> RealData {
     }
 }
 
-fn CAPH() -> RealData {
+fn caph() -> RealData {
     RealData {
         common_name: "Caph",
         astronomical_name: "β Cassiopeiae",
@@ -65,5 +65,5 @@ fn CAPH() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [NAVI(), SCHEDAR(), CAPH()]
+    [navi(), schedar(), caph()]
 }

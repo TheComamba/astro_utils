@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn GHURAB() -> RealData {
+fn ghurab() -> RealData {
     RealData {
         common_name: "Ghurab",
         astronomical_name: "γ Corvi",
@@ -28,7 +28,7 @@ fn GHURAB() -> RealData {
     }
 }
 
-fn KRAZ() -> RealData {
+fn kraz() -> RealData {
     RealData {
         common_name: "Kraz",
         astronomical_name: "β Corvi",
@@ -46,7 +46,7 @@ fn KRAZ() -> RealData {
     }
 }
 
-fn ALGORAB() -> RealData {
+fn algorab() -> RealData {
     RealData {
         common_name: "Algorab",
         astronomical_name: "δ Corvi",
@@ -64,7 +64,7 @@ fn ALGORAB() -> RealData {
     }
 }
 
-fn EPSILON_CORVI() -> RealData {
+fn epsilon_corvi() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Corvi",
@@ -83,5 +83,5 @@ fn EPSILON_CORVI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [GHURAB(), KRAZ(), ALGORAB(), EPSILON_CORVI()]
+    [ghurab(), kraz(), algorab(), epsilon_corvi()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn PRAECIPUA() -> RealData {
+fn praecipua() -> RealData {
     RealData {
         common_name: "Praecipua",
         astronomical_name: "46 Leonis Minoris",
@@ -28,7 +28,7 @@ fn PRAECIPUA() -> RealData {
     }
 }
 
-fn BETA_LEONIS_MINORIS() -> RealData {
+fn beta_leonis_minoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Leonis Minoris",
@@ -46,7 +46,7 @@ fn BETA_LEONIS_MINORIS() -> RealData {
     }
 }
 
-fn TWENTYFOUR_LEONIS_MINORIS() -> RealData {
+fn twentyfour_leonis_minoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "21 Leonis Minoris",
@@ -66,8 +66,8 @@ fn TWENTYFOUR_LEONIS_MINORIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 3] {
     [
-        BETA_LEONIS_MINORIS(),
-        PRAECIPUA(),
-        TWENTYFOUR_LEONIS_MINORIS(),
+        beta_leonis_minoris(),
+        praecipua(),
+        twentyfour_leonis_minoris(),
     ]
 }

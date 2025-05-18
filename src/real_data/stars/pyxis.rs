@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_PYXIDIS() -> RealData {
+fn alpha_pyxidis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Pyxidis",
@@ -28,7 +28,7 @@ fn ALPHA_PYXIDIS() -> RealData {
     }
 }
 
-fn BETA_PYXIDIS() -> RealData {
+fn beta_pyxidis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Pyxidis",
@@ -46,7 +46,7 @@ fn BETA_PYXIDIS() -> RealData {
     }
 }
 
-fn GAMMA_PYXIDIS() -> RealData {
+fn gamma_pyxidis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Pyxidis",
@@ -65,5 +65,5 @@ fn GAMMA_PYXIDIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_PYXIDIS(), BETA_PYXIDIS(), GAMMA_PYXIDIS()]
+    [alpha_pyxidis(), beta_pyxidis(), gamma_pyxidis()]
 }

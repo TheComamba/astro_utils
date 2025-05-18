@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn SUALOCIN() -> RealData {
+fn sualocin() -> RealData {
     RealData {
         common_name: "Sualocin",
         astronomical_name: "α Delphini",
@@ -28,7 +28,7 @@ fn SUALOCIN() -> RealData {
     }
 }
 
-fn ROTANEV() -> RealData {
+fn rotanev() -> RealData {
     RealData {
         common_name: "Rotanev",
         astronomical_name: "β Delphini",
@@ -46,7 +46,7 @@ fn ROTANEV() -> RealData {
     }
 }
 
-fn GAMMA_DELPHINI() -> RealData {
+fn gamma_delphini() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Delphini",
@@ -64,7 +64,7 @@ fn GAMMA_DELPHINI() -> RealData {
     }
 }
 
-fn DELTA_DELPHINI() -> RealData {
+fn delta_delphini() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Delphini",
@@ -82,7 +82,7 @@ fn DELTA_DELPHINI() -> RealData {
     }
 }
 
-fn ALDULFIN() -> RealData {
+fn aldulfin() -> RealData {
     RealData {
         common_name: "Aldulfin",
         astronomical_name: "ε Delphini",
@@ -102,10 +102,10 @@ fn ALDULFIN() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 5] {
     [
-        SUALOCIN(),
-        ROTANEV(),
-        GAMMA_DELPHINI(),
-        DELTA_DELPHINI(),
-        ALDULFIN(),
+        sualocin(),
+        rotanev(),
+        gamma_delphini(),
+        delta_delphini(),
+        aldulfin(),
     ]
 }

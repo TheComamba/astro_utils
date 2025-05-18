@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn UNUKALHAI() -> RealData {
+fn unukalhai() -> RealData {
     RealData {
         common_name: "Unukalhai",
         astronomical_name: "α Serpentis",
@@ -28,7 +28,7 @@ fn UNUKALHAI() -> RealData {
     }
 }
 
-fn BETA_SERPENTIS() -> RealData {
+fn beta_serpentis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Serpentis",
@@ -46,7 +46,7 @@ fn BETA_SERPENTIS() -> RealData {
     }
 }
 
-fn MU_SERPENTIS() -> RealData {
+fn mu_serpentis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "μ Serpentis",
@@ -65,5 +65,5 @@ fn MU_SERPENTIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [UNUKALHAI(), BETA_SERPENTIS(), MU_SERPENTIS()]
+    [unukalhai(), beta_serpentis(), mu_serpentis()]
 }

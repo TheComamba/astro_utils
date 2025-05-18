@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn COR_CAROLI() -> RealData {
+fn cor_caroli() -> RealData {
     RealData {
         common_name: "Cor Caroli",
         astronomical_name: "α² Canum Venaticorum",
@@ -29,7 +29,7 @@ fn COR_CAROLI() -> RealData {
     }
 }
 
-fn CHARA() -> RealData {
+fn chara() -> RealData {
     RealData {
         common_name: "Chara",
         astronomical_name: "β Canum Venaticorum",
@@ -47,7 +47,7 @@ fn CHARA() -> RealData {
     }
 }
 
-fn TWENTYFOUR_CANUM_VENATICORUM() -> RealData {
+fn twentyfour_canum_venaticorum() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "24 Canum Venaticorum",
@@ -66,5 +66,5 @@ fn TWENTYFOUR_CANUM_VENATICORUM() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [COR_CAROLI(), CHARA(), TWENTYFOUR_CANUM_VENATICORUM()]
+    [cor_caroli(), chara(), twentyfour_canum_venaticorum()]
 }

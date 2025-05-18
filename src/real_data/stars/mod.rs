@@ -30,7 +30,7 @@ use crate::{
 //     age: Some(Time{s:* .s}),
 // };
 
-pub fn SUN() -> RealData {
+pub fn sun() -> RealData {
     RealData {
         common_name: "Sun",
         astronomical_name: "Sol",

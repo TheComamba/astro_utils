@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn SADALSUUD() -> RealData {
+fn sadalsuud() -> RealData {
     RealData {
         common_name: "Sadalsuud",
         astronomical_name: "β Aquarii",
@@ -28,7 +28,7 @@ fn SADALSUUD() -> RealData {
     }
 }
 
-fn SADALMELIK() -> RealData {
+fn sadalmelik() -> RealData {
     RealData {
         common_name: "Sadalmelik",
         astronomical_name: "α Aquarii",
@@ -46,7 +46,7 @@ fn SADALMELIK() -> RealData {
     }
 }
 
-fn SKAT() -> RealData {
+fn skat() -> RealData {
     RealData {
         common_name: "Skat",
         astronomical_name: "δ Aquarii",
@@ -65,5 +65,5 @@ fn SKAT() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [SADALSUUD(), SADALMELIK(), SKAT()]
+    [sadalsuud(), sadalmelik(), skat()]
 }

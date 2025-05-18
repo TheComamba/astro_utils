@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ANKAA() -> RealData {
+fn ankaa() -> RealData {
     RealData {
         common_name: "Ankaa",
         astronomical_name: "α Phoenicis",
@@ -28,7 +28,7 @@ fn ANKAA() -> RealData {
     }
 }
 
-fn BETA_PHOENICIS() -> RealData {
+fn beta_phoenicis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Phoenicis",
@@ -46,7 +46,7 @@ fn BETA_PHOENICIS() -> RealData {
     }
 }
 
-fn GAMMA_PHOENICIS() -> RealData {
+fn gamma_phoenicis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Phoenicis",
@@ -65,5 +65,5 @@ fn GAMMA_PHOENICIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ANKAA(), BETA_PHOENICIS(), GAMMA_PHOENICIS()]
+    [ankaa(), beta_phoenicis(), gamma_phoenicis()]
 }

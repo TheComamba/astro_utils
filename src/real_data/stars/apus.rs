@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_APODIS() -> RealData {
+fn alpha_apodis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Apodis",
@@ -28,7 +28,7 @@ fn ALPHA_APODIS() -> RealData {
     }
 }
 
-fn GAMMA_APODIS() -> RealData {
+fn gamma_apodis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Apodis",
@@ -46,7 +46,7 @@ fn GAMMA_APODIS() -> RealData {
     }
 }
 
-fn BETA_APODIS() -> RealData {
+fn beta_apodis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Apodis",
@@ -65,5 +65,5 @@ fn BETA_APODIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_APODIS(), GAMMA_APODIS(), BETA_APODIS()]
+    [alpha_apodis(), gamma_apodis(), beta_apodis()]
 }

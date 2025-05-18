@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_ARAE() -> RealData {
+fn alpha_arae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Arae",
@@ -28,7 +28,7 @@ fn ALPHA_ARAE() -> RealData {
     }
 }
 
-fn BETA_ARAE() -> RealData {
+fn beta_arae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Arae",
@@ -46,7 +46,7 @@ fn BETA_ARAE() -> RealData {
     }
 }
 
-fn GAMMA_ARAE() -> RealData {
+fn gamma_arae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Arae",
@@ -64,7 +64,7 @@ fn GAMMA_ARAE() -> RealData {
     }
 }
 
-fn DELTA_ARAE() -> RealData {
+fn delta_arae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Arae",
@@ -82,7 +82,7 @@ fn DELTA_ARAE() -> RealData {
     }
 }
 
-fn ZETA_ARAE() -> RealData {
+fn zeta_arae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Arae",
@@ -102,10 +102,10 @@ fn ZETA_ARAE() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 5] {
     [
-        ALPHA_ARAE(),
-        BETA_ARAE(),
-        GAMMA_ARAE(),
-        DELTA_ARAE(),
-        ZETA_ARAE(),
+        alpha_arae(),
+        beta_arae(),
+        gamma_arae(),
+        delta_arae(),
+        zeta_arae(),
     ]
 }

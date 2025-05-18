@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn TARF() -> RealData {
+fn tarf() -> RealData {
     RealData {
         common_name: "Tarf",
         astronomical_name: "β Cancri",
@@ -28,7 +28,7 @@ fn TARF() -> RealData {
     }
 }
 
-fn ASELLUS_AUSTRALIS() -> RealData {
+fn asellus_australis() -> RealData {
     RealData {
         common_name: "Asellus Australis",
         astronomical_name: "δ Cancri",
@@ -46,7 +46,7 @@ fn ASELLUS_AUSTRALIS() -> RealData {
     }
 }
 
-fn IOTA_CANCRI() -> RealData {
+fn iota_cancri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ι Cancri",
@@ -65,5 +65,5 @@ fn IOTA_CANCRI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [TARF(), ASELLUS_AUSTRALIS(), IOTA_CANCRI()]
+    [tarf(), asellus_australis(), iota_cancri()]
 }

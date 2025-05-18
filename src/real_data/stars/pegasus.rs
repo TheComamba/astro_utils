@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ENIF() -> RealData {
+fn enif() -> RealData {
     RealData {
         common_name: "Enif",
         astronomical_name: "ε Pegasi",
@@ -28,7 +28,7 @@ fn ENIF() -> RealData {
     }
 }
 
-fn SCHEAT() -> RealData {
+fn scheat() -> RealData {
     RealData {
         common_name: "Scheat",
         astronomical_name: "β Pegasi",
@@ -46,7 +46,7 @@ fn SCHEAT() -> RealData {
     }
 }
 
-fn MARKAB() -> RealData {
+fn markab() -> RealData {
     RealData {
         common_name: "Markab",
         astronomical_name: "α Pegasi",
@@ -65,5 +65,5 @@ fn MARKAB() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ENIF(), SCHEAT(), MARKAB()]
+    [enif(), scheat(), markab()]
 }

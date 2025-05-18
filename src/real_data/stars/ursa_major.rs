@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALIOTH() -> RealData {
+fn alioth() -> RealData {
     RealData {
         common_name: "Alioth",
         astronomical_name: "ε Ursae Majoris",
@@ -28,7 +28,7 @@ fn ALIOTH() -> RealData {
     }
 }
 
-fn DUBHE() -> RealData {
+fn dubhe() -> RealData {
     RealData {
         common_name: "Dubhe",
         astronomical_name: "α Ursae Majoris",
@@ -46,7 +46,7 @@ fn DUBHE() -> RealData {
     }
 }
 
-fn ALKAID() -> RealData {
+fn alkaid() -> RealData {
     RealData {
         common_name: "Alkaid",
         astronomical_name: "η Ursae Majoris",
@@ -64,7 +64,7 @@ fn ALKAID() -> RealData {
     }
 }
 
-fn MIZAR() -> RealData {
+fn mizar() -> RealData {
     RealData {
         common_name: "Mizar",
         astronomical_name: "ζ Ursae Majoris",
@@ -82,7 +82,7 @@ fn MIZAR() -> RealData {
     }
 }
 
-fn MERAK() -> RealData {
+fn merak() -> RealData {
     RealData {
         common_name: "Merak",
         astronomical_name: "β Ursae Majoris",
@@ -100,7 +100,7 @@ fn MERAK() -> RealData {
     }
 }
 
-fn PHECDA() -> RealData {
+fn phecda() -> RealData {
     RealData {
         common_name: "Phecda",
         astronomical_name: "γ Ursae Majoris",
@@ -118,7 +118,7 @@ fn PHECDA() -> RealData {
     }
 }
 
-fn TANIA_AUSTRALIS() -> RealData {
+fn tania_australis() -> RealData {
     RealData {
         common_name: "Tania Australis",
         astronomical_name: "μ Ursae Majoris",
@@ -136,7 +136,7 @@ fn TANIA_AUSTRALIS() -> RealData {
     }
 }
 
-fn MEGREZ() -> RealData {
+fn megrez() -> RealData {
     RealData {
         common_name: "Megrez",
         astronomical_name: "δ Ursae Majoris",
@@ -156,13 +156,13 @@ fn MEGREZ() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 8] {
     [
-        ALIOTH(),
-        DUBHE(),
-        ALKAID(),
-        MIZAR(),
-        MERAK(),
-        PHECDA(),
-        TANIA_AUSTRALIS(),
-        MEGREZ(),
+        alioth(),
+        dubhe(),
+        alkaid(),
+        mizar(),
+        merak(),
+        phecda(),
+        tania_australis(),
+        megrez(),
     ]
 }

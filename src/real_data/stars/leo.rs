@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn REGULUS() -> RealData {
+fn regulus() -> RealData {
     RealData {
         common_name: "Regulus",
         astronomical_name: "α Leonis",
@@ -28,7 +28,7 @@ fn REGULUS() -> RealData {
     }
 }
 
-fn ALGIEBA() -> RealData {
+fn algieba() -> RealData {
     RealData {
         common_name: "Algieba",
         astronomical_name: "γ Leonis",
@@ -46,7 +46,7 @@ fn ALGIEBA() -> RealData {
     }
 }
 
-fn DENEBOLA() -> RealData {
+fn denebola() -> RealData {
     RealData {
         common_name: "Denebola",
         astronomical_name: "β Leonis",
@@ -64,7 +64,7 @@ fn DENEBOLA() -> RealData {
     }
 }
 
-fn ZOSMA() -> RealData {
+fn zosma() -> RealData {
     RealData {
         common_name: "Zosma",
         astronomical_name: "δ Leonis",
@@ -83,5 +83,5 @@ fn ZOSMA() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [REGULUS(), ALGIEBA(), DENEBOLA(), ZOSMA()]
+    [regulus(), algieba(), denebola(), zosma()]
 }

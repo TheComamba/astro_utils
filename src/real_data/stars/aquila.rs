@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALTAIR() -> RealData {
+fn altair() -> RealData {
     RealData {
         common_name: "Altair",
         astronomical_name: "α Aquilae",
@@ -28,7 +28,7 @@ fn ALTAIR() -> RealData {
     }
 }
 
-fn TARAZED() -> RealData {
+fn tarazed() -> RealData {
     RealData {
         common_name: "Tarazed",
         astronomical_name: "γ Aquilae",
@@ -46,7 +46,7 @@ fn TARAZED() -> RealData {
     }
 }
 
-fn OKAB() -> RealData {
+fn okab() -> RealData {
     RealData {
         common_name: "Okab",
         astronomical_name: "ζ Aquilae",
@@ -64,7 +64,7 @@ fn OKAB() -> RealData {
     }
 }
 
-fn THETA_AQUILAE() -> RealData {
+fn theta_aquilae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "θ Aquilae",
@@ -82,7 +82,7 @@ fn THETA_AQUILAE() -> RealData {
     }
 }
 
-fn DELTA_AQUILAE() -> RealData {
+fn delta_aquilae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Aquilae",
@@ -100,7 +100,7 @@ fn DELTA_AQUILAE() -> RealData {
     }
 }
 
-fn LAMBDA_AQUILAE() -> RealData {
+fn lambda_aquilae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "λ Aquilae",
@@ -120,11 +120,11 @@ fn LAMBDA_AQUILAE() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 6] {
     [
-        ALTAIR(),
-        TARAZED(),
-        OKAB(),
-        THETA_AQUILAE(),
-        DELTA_AQUILAE(),
-        LAMBDA_AQUILAE(),
+        altair(),
+        tarazed(),
+        okab(),
+        theta_aquilae(),
+        delta_aquilae(),
+        lambda_aquilae(),
     ]
 }

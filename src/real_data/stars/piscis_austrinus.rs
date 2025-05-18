@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn FORMALHAUT() -> RealData {
+fn formalhaut() -> RealData {
     RealData {
         common_name: "Formalhaut",
         astronomical_name: "α Piscis Austrini",
@@ -28,7 +28,7 @@ fn FORMALHAUT() -> RealData {
     }
 }
 
-fn DELTA_PISCIS_AUSTRINI() -> RealData {
+fn delta_piscis_austrini() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Piscis Austrini",
@@ -46,7 +46,7 @@ fn DELTA_PISCIS_AUSTRINI() -> RealData {
     }
 }
 
-fn EPSILON_PISCIS_AUSTRINI() -> RealData {
+fn epsilon_piscis_austrini() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Piscis Austrini",
@@ -64,7 +64,7 @@ fn EPSILON_PISCIS_AUSTRINI() -> RealData {
     }
 }
 
-fn IOTA_PISCIS_AUSTRINI() -> RealData {
+fn iota_piscis_austrini() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ι Piscis Austrini",
@@ -84,9 +84,9 @@ fn IOTA_PISCIS_AUSTRINI() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 4] {
     [
-        FORMALHAUT(),
-        DELTA_PISCIS_AUSTRINI(),
-        EPSILON_PISCIS_AUSTRINI(),
-        IOTA_PISCIS_AUSTRINI(),
+        formalhaut(),
+        delta_piscis_austrini(),
+        epsilon_piscis_austrini(),
+        iota_piscis_austrini(),
     ]
 }

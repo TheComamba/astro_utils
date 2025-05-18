@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHARD() -> RealData {
+fn alphard() -> RealData {
     RealData {
         common_name: "Alphard",
         astronomical_name: "α Hydrae",
@@ -28,7 +28,7 @@ fn ALPHARD() -> RealData {
     }
 }
 
-fn GAMMA_HYDRAE() -> RealData {
+fn gamma_hydrae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Hydrae",
@@ -46,7 +46,7 @@ fn GAMMA_HYDRAE() -> RealData {
     }
 }
 
-fn ZETA_HYDRAE() -> RealData {
+fn zeta_hydrae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Hydrae",
@@ -64,7 +64,7 @@ fn ZETA_HYDRAE() -> RealData {
     }
 }
 
-fn NU_HYDRAE() -> RealData {
+fn nu_hydrae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ν Hydrae",
@@ -83,5 +83,5 @@ fn NU_HYDRAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [ALPHARD(), GAMMA_HYDRAE(), ZETA_HYDRAE(), NU_HYDRAE()]
+    [alphard(), gamma_hydrae(), zeta_hydrae(), nu_hydrae()]
 }

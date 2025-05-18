@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ACHERNAR() -> RealData {
+fn achernar() -> RealData {
     RealData {
         common_name: "Achernar",
         astronomical_name: "α Eridani",
@@ -28,7 +28,7 @@ fn ACHERNAR() -> RealData {
     }
 }
 
-fn ZAURAK() -> RealData {
+fn zaurak() -> RealData {
     RealData {
         common_name: "Zaurak",
         astronomical_name: "γ Eridani",
@@ -46,7 +46,7 @@ fn ZAURAK() -> RealData {
     }
 }
 
-fn CURSA() -> RealData {
+fn cursa() -> RealData {
     RealData {
         common_name: "Cursa",
         astronomical_name: "β Eridani",
@@ -64,7 +64,7 @@ fn CURSA() -> RealData {
     }
 }
 
-fn ACAMAR() -> RealData {
+fn acamar() -> RealData {
     RealData {
         common_name: "Acamar",
         astronomical_name: "θ Eridani",
@@ -83,5 +83,5 @@ fn ACAMAR() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 4] {
-    [ACHERNAR(), ZAURAK(), CURSA(), ACAMAR()]
+    [achernar(), zaurak(), cursa(), acamar()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_LUPI() -> RealData {
+fn alpha_lupi() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Lupi",
@@ -28,7 +28,7 @@ fn ALPHA_LUPI() -> RealData {
     }
 }
 
-fn BETA_LUPI() -> RealData {
+fn beta_lupi() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Lupi",
@@ -46,7 +46,7 @@ fn BETA_LUPI() -> RealData {
     }
 }
 
-fn GAMMA_LUPI() -> RealData {
+fn gamma_lupi() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Lupi",
@@ -65,5 +65,5 @@ fn GAMMA_LUPI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_LUPI(), BETA_LUPI(), GAMMA_LUPI()]
+    [alpha_lupi(), beta_lupi(), gamma_lupi()]
 }

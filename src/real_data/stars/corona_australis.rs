@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn MERIDIANA() -> RealData {
+fn meridiana() -> RealData {
     RealData {
         common_name: "Meridiana",
         astronomical_name: "α Coronae Australis",
@@ -28,7 +28,7 @@ fn MERIDIANA() -> RealData {
     }
 }
 
-fn BETA_CORONAE_AUSTRALIS() -> RealData {
+fn beta_coronae_australis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Coronae Australis",
@@ -46,7 +46,7 @@ fn BETA_CORONAE_AUSTRALIS() -> RealData {
     }
 }
 
-fn GAMMA_CORONAE_AUSTRALIS() -> RealData {
+fn gamma_coronae_australis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ¹ Coronae Australis",
@@ -66,8 +66,8 @@ fn GAMMA_CORONAE_AUSTRALIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 3] {
     [
-        MERIDIANA(),
-        BETA_CORONAE_AUSTRALIS(),
-        GAMMA_CORONAE_AUSTRALIS(),
+        meridiana(),
+        beta_coronae_australis(),
+        gamma_coronae_australis(),
     ]
 }

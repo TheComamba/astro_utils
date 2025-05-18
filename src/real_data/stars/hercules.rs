@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn RASALGETHI() -> RealData {
+fn rasalgethi() -> RealData {
     RealData {
         common_name: "Rasalgethi",
         astronomical_name: "α Herculis",
@@ -28,7 +28,7 @@ fn RASALGETHI() -> RealData {
     }
 }
 
-fn KORNEPHOROS() -> RealData {
+fn kornephoros() -> RealData {
     RealData {
         common_name: "Kornephoros",
         astronomical_name: "β Herculis",
@@ -46,7 +46,7 @@ fn KORNEPHOROS() -> RealData {
     }
 }
 
-fn SARIN() -> RealData {
+fn sarin() -> RealData {
     RealData {
         common_name: "Sarin",
         astronomical_name: "δ Herculis",
@@ -64,7 +64,7 @@ fn SARIN() -> RealData {
     }
 }
 
-fn ETA_HERCULIS() -> RealData {
+fn eta_herculis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "η Herculis",
@@ -82,7 +82,7 @@ fn ETA_HERCULIS() -> RealData {
     }
 }
 
-fn MU_HERCULIS() -> RealData {
+fn mu_herculis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "μ Herculis",
@@ -100,7 +100,7 @@ fn MU_HERCULIS() -> RealData {
     }
 }
 
-fn ZETA_HERCULIS() -> RealData {
+fn zeta_herculis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Herculis",
@@ -118,7 +118,7 @@ fn ZETA_HERCULIS() -> RealData {
     }
 }
 
-fn PI_HERCULIS() -> RealData {
+fn pi_herculis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "π Herculis",
@@ -138,12 +138,12 @@ fn PI_HERCULIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 7] {
     [
-        RASALGETHI(),
-        KORNEPHOROS(),
-        SARIN(),
-        ETA_HERCULIS(),
-        MU_HERCULIS(),
-        ZETA_HERCULIS(),
-        PI_HERCULIS(),
+        rasalgethi(),
+        kornephoros(),
+        sarin(),
+        eta_herculis(),
+        mu_herculis(),
+        zeta_herculis(),
+        pi_herculis(),
     ]
 }

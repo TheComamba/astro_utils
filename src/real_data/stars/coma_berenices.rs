@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn DIADEM() -> RealData {
+fn diadem() -> RealData {
     RealData {
         common_name: "Diadem",
         astronomical_name: "α Comae Berenices",
@@ -28,7 +28,7 @@ fn DIADEM() -> RealData {
     }
 }
 
-fn BETA_COMA_BERENICES() -> RealData {
+fn beta_coma_berenices() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Comae Berenices",
@@ -46,7 +46,7 @@ fn BETA_COMA_BERENICES() -> RealData {
     }
 }
 
-fn GAMMA_COMA_BERENICES() -> RealData {
+fn gamma_coma_berenices() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Comae Berenices",
@@ -65,5 +65,5 @@ fn GAMMA_COMA_BERENICES() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [DIADEM(), BETA_COMA_BERENICES(), GAMMA_COMA_BERENICES()]
+    [diadem(), beta_coma_berenices(), gamma_coma_berenices()]
 }

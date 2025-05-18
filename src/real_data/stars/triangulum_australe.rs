@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ATRIA() -> RealData {
+fn atria() -> RealData {
     RealData {
         common_name: "Atria",
         astronomical_name: "α Trianguli Australis",
@@ -28,7 +28,7 @@ fn ATRIA() -> RealData {
     }
 }
 
-fn BETA_TRIANGULI_AUSTRALIS() -> RealData {
+fn beta_trianguli_australis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Trianguli Australis",
@@ -46,7 +46,7 @@ fn BETA_TRIANGULI_AUSTRALIS() -> RealData {
     }
 }
 
-fn GAMMA_TRIANGULI_AUSTRALIS() -> RealData {
+fn gamma_trianguli_australis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Trianguli Australis",
@@ -66,8 +66,8 @@ fn GAMMA_TRIANGULI_AUSTRALIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 3] {
     [
-        ATRIA(),
-        BETA_TRIANGULI_AUSTRALIS(),
-        GAMMA_TRIANGULI_AUSTRALIS(),
+        atria(),
+        beta_trianguli_australis(),
+        gamma_trianguli_australis(),
     ]
 }

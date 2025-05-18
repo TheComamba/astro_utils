@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_LYNCIS() -> RealData {
+fn alpha_lyncis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Lyncis",
@@ -28,7 +28,7 @@ fn ALPHA_LYNCIS() -> RealData {
     }
 }
 
-fn THIRTYEIGHT_LYNCIS() -> RealData {
+fn thirtyeight_lyncis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "38 Lyncis",
@@ -46,7 +46,7 @@ fn THIRTYEIGHT_LYNCIS() -> RealData {
     }
 }
 
-fn THIRTYONE_LYNCIS() -> RealData {
+fn thirtyone_lyncis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "31 Lyncis",
@@ -65,5 +65,5 @@ fn THIRTYONE_LYNCIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_LYNCIS(), THIRTYEIGHT_LYNCIS(), THIRTYONE_LYNCIS()]
+    [alpha_lyncis(), thirtyeight_lyncis(), thirtyone_lyncis()]
 }

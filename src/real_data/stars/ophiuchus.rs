@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn RASALHAGUE() -> RealData {
+fn rasalhague() -> RealData {
     RealData {
         common_name: "Rasalhague",
         astronomical_name: "α Ophiuchi",
@@ -28,7 +28,7 @@ fn RASALHAGUE() -> RealData {
     }
 }
 
-fn SABIK() -> RealData {
+fn sabik() -> RealData {
     RealData {
         common_name: "Sabik",
         astronomical_name: "η Ophiuchi",
@@ -46,7 +46,7 @@ fn SABIK() -> RealData {
     }
 }
 
-fn HAN() -> RealData {
+fn han() -> RealData {
     RealData {
         common_name: "Han",
         astronomical_name: "ζ Ophiuchi",
@@ -64,7 +64,7 @@ fn HAN() -> RealData {
     }
 }
 
-fn YED_PRIOR() -> RealData {
+fn yed_prior() -> RealData {
     RealData {
         common_name: "Yed Prior",
         astronomical_name: "δ Ophiuchi",
@@ -82,7 +82,7 @@ fn YED_PRIOR() -> RealData {
     }
 }
 
-fn CEBALRAI() -> RealData {
+fn cebalrai() -> RealData {
     RealData {
         common_name: "Cebalrai",
         astronomical_name: "β Ophiuchi",
@@ -101,5 +101,5 @@ fn CEBALRAI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 5] {
-    [RASALHAGUE(), SABIK(), HAN(), YED_PRIOR(), CEBALRAI()]
+    [rasalhague(), sabik(), han(), yed_prior(), cebalrai()]
 }

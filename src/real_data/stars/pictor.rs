@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_PICTORIS() -> RealData {
+fn alpha_pictoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Pictoris",
@@ -28,7 +28,7 @@ fn ALPHA_PICTORIS() -> RealData {
     }
 }
 
-fn BETA_PICTORIS() -> RealData {
+fn beta_pictoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Pictoris",
@@ -46,7 +46,7 @@ fn BETA_PICTORIS() -> RealData {
     }
 }
 
-fn GAMMA_PICTORIS() -> RealData {
+fn gamma_pictoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Pictoris",
@@ -65,5 +65,5 @@ fn GAMMA_PICTORIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_PICTORIS(), BETA_PICTORIS(), GAMMA_PICTORIS()]
+    [alpha_pictoris(), beta_pictoris(), gamma_pictoris()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_VULPECULAE() -> RealData {
+fn alpha_vulpeculae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Vulpeculae",
@@ -28,7 +28,7 @@ fn ALPHA_VULPECULAE() -> RealData {
     }
 }
 
-fn TWENTYTHREE_VULPECULAE() -> RealData {
+fn twentythree_vulpeculae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "23 Vulpeculae",
@@ -46,7 +46,7 @@ fn TWENTYTHREE_VULPECULAE() -> RealData {
     }
 }
 
-fn THIRTYONE_VULPECULAE() -> RealData {
+fn thirtyone_vulpeculae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "31 Vulpeculae",
@@ -66,8 +66,8 @@ fn THIRTYONE_VULPECULAE() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 3] {
     [
-        ALPHA_VULPECULAE(),
-        TWENTYTHREE_VULPECULAE(),
-        THIRTYONE_VULPECULAE(),
+        alpha_vulpeculae(),
+        twentythree_vulpeculae(),
+        thirtyone_vulpeculae(),
     ]
 }

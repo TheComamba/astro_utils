@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn PROCYON() -> RealData {
+fn procyon() -> RealData {
     RealData {
         common_name: "Procyon",
         astronomical_name: "α Canis Minoris",
@@ -28,7 +28,7 @@ fn PROCYON() -> RealData {
     }
 }
 
-fn GOMEISA() -> RealData {
+fn gomeisa() -> RealData {
     RealData {
         common_name: "Gomeisa",
         astronomical_name: "β Canis Minoris",
@@ -46,7 +46,7 @@ fn GOMEISA() -> RealData {
     }
 }
 
-fn GAMMA_CANIS_MINORIS() -> RealData {
+fn gamma_canis_minoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Canis Minoris",
@@ -65,5 +65,5 @@ fn GAMMA_CANIS_MINORIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [PROCYON(), GOMEISA(), GAMMA_CANIS_MINORIS()]
+    [procyon(), gomeisa(), gamma_canis_minoris()]
 }

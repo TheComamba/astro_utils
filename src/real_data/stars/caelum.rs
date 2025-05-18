@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_CAELI() -> RealData {
+fn alpha_caeli() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Caeli",
@@ -28,7 +28,7 @@ fn ALPHA_CAELI() -> RealData {
     }
 }
 
-fn GAMMA1_CAELI() -> RealData {
+fn gamma1_caeli() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ¹ Caeli",
@@ -46,7 +46,7 @@ fn GAMMA1_CAELI() -> RealData {
     }
 }
 
-fn BETA_CAELI() -> RealData {
+fn beta_caeli() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Caeli",
@@ -65,5 +65,5 @@ fn BETA_CAELI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_CAELI(), GAMMA1_CAELI(), BETA_CAELI()]
+    [alpha_caeli(), gamma1_caeli(), beta_caeli()]
 }

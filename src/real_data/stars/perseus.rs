@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn MIRPHAK() -> RealData {
+fn mirphak() -> RealData {
     RealData {
         common_name: "Mirphak",
         astronomical_name: "α Persei",
@@ -28,7 +28,7 @@ fn MIRPHAK() -> RealData {
     }
 }
 
-fn ALGOL() -> RealData {
+fn algol() -> RealData {
     RealData {
         common_name: "Algol",
         astronomical_name: "β Persei",
@@ -46,7 +46,7 @@ fn ALGOL() -> RealData {
     }
 }
 
-fn GORGONEA_TERTIA() -> RealData {
+fn gorgonea_tertia() -> RealData {
     RealData {
         common_name: "Gorgonea Tertia",
         astronomical_name: "ρ Persei",
@@ -65,5 +65,5 @@ fn GORGONEA_TERTIA() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [MIRPHAK(), ALGOL(), GORGONEA_TERTIA()]
+    [mirphak(), algol(), gorgonea_tertia()]
 }

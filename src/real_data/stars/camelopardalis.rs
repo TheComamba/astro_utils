@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn BETA_CAMELOPARDALIS() -> RealData {
+fn beta_camelopardalis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Camelopardalis",
@@ -28,7 +28,7 @@ fn BETA_CAMELOPARDALIS() -> RealData {
     }
 }
 
-fn CS_CAMELOPARDALIS() -> RealData {
+fn cs_camelopardalis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "CS Camelopardalis",
@@ -46,7 +46,7 @@ fn CS_CAMELOPARDALIS() -> RealData {
     }
 }
 
-fn ALPHA_CAMELOPARDALIS() -> RealData {
+fn alpha_camelopardalis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Camelopardalis",
@@ -66,8 +66,8 @@ fn ALPHA_CAMELOPARDALIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 3] {
     [
-        BETA_CAMELOPARDALIS(),
-        CS_CAMELOPARDALIS(),
-        ALPHA_CAMELOPARDALIS(),
+        beta_camelopardalis(),
+        cs_camelopardalis(),
+        alpha_camelopardalis(),
     ]
 }

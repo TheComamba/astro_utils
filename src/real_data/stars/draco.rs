@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ELTANIN() -> RealData {
+fn eltanin() -> RealData {
     RealData {
         common_name: "Eltanin",
         astronomical_name: "γ Draconis",
@@ -28,7 +28,7 @@ fn ELTANIN() -> RealData {
     }
 }
 
-fn ATHEBYNE() -> RealData {
+fn athebyne() -> RealData {
     RealData {
         common_name: "Athebyne",
         astronomical_name: "η Draconis",
@@ -46,7 +46,7 @@ fn ATHEBYNE() -> RealData {
     }
 }
 
-fn THETA_DRACONIS() -> RealData {
+fn theta_draconis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "θ Draconis",
@@ -64,7 +64,7 @@ fn THETA_DRACONIS() -> RealData {
     }
 }
 
-fn KAPPA_DRACONIS() -> RealData {
+fn kappa_draconis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "κ Draconis",
@@ -82,7 +82,7 @@ fn KAPPA_DRACONIS() -> RealData {
     }
 }
 
-fn TYL() -> RealData {
+fn tyl() -> RealData {
     RealData {
         common_name: "Tyl",
         astronomical_name: "ε Draconis",
@@ -100,7 +100,7 @@ fn TYL() -> RealData {
     }
 }
 
-fn GIAUSAR() -> RealData {
+fn giausar() -> RealData {
     RealData {
         common_name: "Giausar",
         astronomical_name: "λ Draconis",
@@ -118,7 +118,7 @@ fn GIAUSAR() -> RealData {
     }
 }
 
-fn GRUMIUM() -> RealData {
+fn grumium() -> RealData {
     RealData {
         common_name: "Grumium",
         astronomical_name: "ξ Draconis",
@@ -136,7 +136,7 @@ fn GRUMIUM() -> RealData {
     }
 }
 
-fn THUBAN() -> RealData {
+fn thuban() -> RealData {
     RealData {
         common_name: "Thuban",
         astronomical_name: "α Draconis",
@@ -154,7 +154,7 @@ fn THUBAN() -> RealData {
     }
 }
 
-fn CHI_DRACONIS() -> RealData {
+fn chi_draconis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "χ Draconis",
@@ -172,7 +172,7 @@ fn CHI_DRACONIS() -> RealData {
     }
 }
 
-fn EDASICH() -> RealData {
+fn edasich() -> RealData {
     RealData {
         common_name: "Edasich",
         astronomical_name: "ι Draconis",
@@ -190,7 +190,7 @@ fn EDASICH() -> RealData {
     }
 }
 
-fn ALDHIBAH() -> RealData {
+fn aldhibah() -> RealData {
     RealData {
         common_name: "Aldhibah",
         astronomical_name: "ζ Draconis",
@@ -208,7 +208,7 @@ fn ALDHIBAH() -> RealData {
     }
 }
 
-fn ALTAIS() -> RealData {
+fn altais() -> RealData {
     RealData {
         common_name: "Altais",
         astronomical_name: "δ Draconis",
@@ -226,7 +226,7 @@ fn ALTAIS() -> RealData {
     }
 }
 
-fn RASTABAN() -> RealData {
+fn rastaban() -> RealData {
     RealData {
         common_name: "Rastaban",
         astronomical_name: "β Draconis",
@@ -246,18 +246,18 @@ fn RASTABAN() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 13] {
     [
-        ELTANIN(),
-        ATHEBYNE(),
-        THETA_DRACONIS(),
-        KAPPA_DRACONIS(),
-        TYL(),
-        GIAUSAR(),
-        GRUMIUM(),
-        THUBAN(),
-        CHI_DRACONIS(),
-        EDASICH(),
-        ALDHIBAH(),
-        ALTAIS(),
-        RASTABAN(),
+        eltanin(),
+        athebyne(),
+        theta_draconis(),
+        kappa_draconis(),
+        tyl(),
+        giausar(),
+        grumium(),
+        thuban(),
+        chi_draconis(),
+        edasich(),
+        aldhibah(),
+        altais(),
+        rastaban(),
     ]
 }

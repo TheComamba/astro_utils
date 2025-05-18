@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn SIRIUS() -> RealData {
+fn sirius() -> RealData {
     RealData {
         common_name: "Sirius",
         astronomical_name: "α Canis Majoris",
@@ -28,7 +28,7 @@ fn SIRIUS() -> RealData {
     }
 }
 
-fn ADHARA() -> RealData {
+fn adhara() -> RealData {
     RealData {
         common_name: "Adhara",
         astronomical_name: "ε Canis Majoris",
@@ -46,7 +46,7 @@ fn ADHARA() -> RealData {
     }
 }
 
-fn WEZEN() -> RealData {
+fn wezen() -> RealData {
     RealData {
         common_name: "Wezen",
         astronomical_name: "δ Canis Majoris",
@@ -64,7 +64,7 @@ fn WEZEN() -> RealData {
     }
 }
 
-fn MIRZAM() -> RealData {
+fn mirzam() -> RealData {
     RealData {
         common_name: "Mirzam",
         astronomical_name: "β Canis Majoris",
@@ -82,7 +82,7 @@ fn MIRZAM() -> RealData {
     }
 }
 
-fn ALUDRA() -> RealData {
+fn aludra() -> RealData {
     RealData {
         common_name: "Aludra",
         astronomical_name: "η Canis Majoris",
@@ -101,5 +101,5 @@ fn ALUDRA() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 5] {
-    [SIRIUS(), ADHARA(), WEZEN(), MIRZAM(), ALUDRA()]
+    [sirius(), adhara(), wezen(), mirzam(), aludra()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn SPICA() -> RealData {
+fn spica() -> RealData {
     RealData {
         common_name: "Spica",
         astronomical_name: "α Virginis",
@@ -28,7 +28,7 @@ fn SPICA() -> RealData {
     }
 }
 
-fn MINELAUVA() -> RealData {
+fn minelauva() -> RealData {
     RealData {
         common_name: "Minelauva",
         astronomical_name: "δ Virginis",
@@ -46,7 +46,7 @@ fn MINELAUVA() -> RealData {
     }
 }
 
-fn ZAVIJAVA() -> RealData {
+fn zavijava() -> RealData {
     RealData {
         common_name: "Zavijava",
         astronomical_name: "β Virginis",
@@ -64,7 +64,7 @@ fn ZAVIJAVA() -> RealData {
     }
 }
 
-fn SYRMA() -> RealData {
+fn syrma() -> RealData {
     RealData {
         common_name: "Syrma",
         astronomical_name: "ι Virginis",
@@ -82,7 +82,7 @@ fn SYRMA() -> RealData {
     }
 }
 
-fn HEZE() -> RealData {
+fn heze() -> RealData {
     RealData {
         common_name: "Heze",
         astronomical_name: "ζ Virginis",
@@ -100,7 +100,7 @@ fn HEZE() -> RealData {
     }
 }
 
-fn VINDEMIATRIX() -> RealData {
+fn vindemiatrix() -> RealData {
     RealData {
         common_name: "Vindemiatrix",
         astronomical_name: "ε Virginis",
@@ -118,7 +118,7 @@ fn VINDEMIATRIX() -> RealData {
     }
 }
 
-fn PORRIMA() -> RealData {
+fn porrima() -> RealData {
     RealData {
         common_name: "Porrima",
         astronomical_name: "γ Virginis",
@@ -138,12 +138,12 @@ fn PORRIMA() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 7] {
     [
-        SPICA(),
-        MINELAUVA(),
-        ZAVIJAVA(),
-        SYRMA(),
-        HEZE(),
-        VINDEMIATRIX(),
-        PORRIMA(),
+        spica(),
+        minelauva(),
+        zavijava(),
+        syrma(),
+        heze(),
+        vindemiatrix(),
+        porrima(),
     ]
 }

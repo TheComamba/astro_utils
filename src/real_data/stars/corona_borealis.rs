@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHECCA() -> RealData {
+fn alphecca() -> RealData {
     RealData {
         common_name: "Alphecca",
         astronomical_name: "α Coronae Borealis",
@@ -28,7 +28,7 @@ fn ALPHECCA() -> RealData {
     }
 }
 
-fn NAUSAKAN() -> RealData {
+fn nausakan() -> RealData {
     RealData {
         common_name: "Nausakan",
         astronomical_name: "β Coronae Borealis",
@@ -46,7 +46,7 @@ fn NAUSAKAN() -> RealData {
     }
 }
 
-fn GAMMA_CORONAE_BOREALIS() -> RealData {
+fn gamma_coronae_borealis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Coronae Borealis",
@@ -64,7 +64,7 @@ fn GAMMA_CORONAE_BOREALIS() -> RealData {
     }
 }
 
-fn DELTA_CORONAE_BOREALIS() -> RealData {
+fn delta_coronae_borealis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Coronae Borealis",
@@ -82,7 +82,7 @@ fn DELTA_CORONAE_BOREALIS() -> RealData {
     }
 }
 
-fn EPSILON_CORONAE_BOREALIS() -> RealData {
+fn epsilon_coronae_borealis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Coronae Borealis",
@@ -100,7 +100,7 @@ fn EPSILON_CORONAE_BOREALIS() -> RealData {
     }
 }
 
-fn IOTA_CORONAE_BOREALIS() -> RealData {
+fn iota_coronae_borealis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ι Coronae Borealis",
@@ -118,7 +118,7 @@ fn IOTA_CORONAE_BOREALIS() -> RealData {
     }
 }
 
-fn THETA_CORONAE_BOREALIS() -> RealData {
+fn theta_coronae_borealis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "θ Coronae Borealis",
@@ -138,12 +138,12 @@ fn THETA_CORONAE_BOREALIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 7] {
     [
-        ALPHECCA(),
-        NAUSAKAN(),
-        GAMMA_CORONAE_BOREALIS(),
-        DELTA_CORONAE_BOREALIS(),
-        EPSILON_CORONAE_BOREALIS(),
-        IOTA_CORONAE_BOREALIS(),
-        THETA_CORONAE_BOREALIS(),
+        alphecca(),
+        nausakan(),
+        gamma_coronae_borealis(),
+        delta_coronae_borealis(),
+        epsilon_coronae_borealis(),
+        iota_coronae_borealis(),
+        theta_coronae_borealis(),
     ]
 }

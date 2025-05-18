@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_INDI() -> RealData {
+fn alpha_indi() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Indi",
@@ -28,7 +28,7 @@ fn ALPHA_INDI() -> RealData {
     }
 }
 
-fn BETA_INDI() -> RealData {
+fn beta_indi() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Indi",
@@ -46,7 +46,7 @@ fn BETA_INDI() -> RealData {
     }
 }
 
-fn ETA_INDI() -> RealData {
+fn eta_indi() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "η Indi",
@@ -65,5 +65,5 @@ fn ETA_INDI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_INDI(), BETA_INDI(), ETA_INDI()]
+    [alpha_indi(), beta_indi(), eta_indi()]
 }

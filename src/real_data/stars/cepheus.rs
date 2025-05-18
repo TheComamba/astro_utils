@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALDERAMIN() -> RealData {
+fn alderamin() -> RealData {
     RealData {
         common_name: "Alderamin",
         astronomical_name: "α Cephei",
@@ -28,7 +28,7 @@ fn ALDERAMIN() -> RealData {
     }
 }
 
-fn ALFIRK() -> RealData {
+fn alfirk() -> RealData {
     RealData {
         common_name: "Alfirk",
         astronomical_name: "β Cephei",
@@ -46,7 +46,7 @@ fn ALFIRK() -> RealData {
     }
 }
 
-fn ERRAI() -> RealData {
+fn errai() -> RealData {
     RealData {
         common_name: "Errai",
         astronomical_name: "γ Cephei",
@@ -64,7 +64,7 @@ fn ERRAI() -> RealData {
     }
 }
 
-fn DELTA_CEPHERI() -> RealData {
+fn delta_cepheri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Cephei",
@@ -82,7 +82,7 @@ fn DELTA_CEPHERI() -> RealData {
     }
 }
 
-fn ETA_CEPHEI() -> RealData {
+fn eta_cephei() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "η Cephei",
@@ -100,7 +100,7 @@ fn ETA_CEPHEI() -> RealData {
     }
 }
 
-fn IOTA_CEPHEI() -> RealData {
+fn iota_cephei() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ι Cephei",
@@ -118,7 +118,7 @@ fn IOTA_CEPHEI() -> RealData {
     }
 }
 
-fn ZETA_CEPHEI() -> RealData {
+fn zeta_cephei() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Cephei",
@@ -136,7 +136,7 @@ fn ZETA_CEPHEI() -> RealData {
     }
 }
 
-fn ERAKIS() -> RealData {
+fn erakis() -> RealData {
     RealData {
         common_name: "Erakis",
         astronomical_name: "μ Cephei",
@@ -156,13 +156,13 @@ fn ERAKIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 8] {
     [
-        ALDERAMIN(),
-        ALFIRK(),
-        ERRAI(),
-        DELTA_CEPHERI(),
-        ETA_CEPHEI(),
-        IOTA_CEPHEI(),
-        ZETA_CEPHEI(),
-        ERAKIS(),
+        alderamin(),
+        alfirk(),
+        errai(),
+        delta_cepheri(),
+        eta_cephei(),
+        iota_cephei(),
+        zeta_cephei(),
+        erakis(),
     ]
 }

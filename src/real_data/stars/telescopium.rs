@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_TELESCOPII() -> RealData {
+fn alpha_telescopii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Telescopii",
@@ -28,7 +28,7 @@ fn ALPHA_TELESCOPII() -> RealData {
     }
 }
 
-fn ZETA_TELESCOPII() -> RealData {
+fn zeta_telescopii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Telescopii",
@@ -46,7 +46,7 @@ fn ZETA_TELESCOPII() -> RealData {
     }
 }
 
-fn EPSILON_TELESCOPII() -> RealData {
+fn epsilon_telescopii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Telescopii",
@@ -65,5 +65,5 @@ fn EPSILON_TELESCOPII() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_TELESCOPII(), ZETA_TELESCOPII(), EPSILON_TELESCOPII()]
+    [alpha_telescopii(), zeta_telescopii(), epsilon_telescopii()]
 }

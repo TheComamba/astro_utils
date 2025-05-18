@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn NAOS() -> RealData {
+fn naos() -> RealData {
     RealData {
         common_name: "Naos",
         astronomical_name: "ζ Puppis",
@@ -28,7 +28,7 @@ fn NAOS() -> RealData {
     }
 }
 
-fn AHADI() -> RealData {
+fn ahadi() -> RealData {
     RealData {
         common_name: "Ahadi",
         astronomical_name: "π Puppis",
@@ -46,7 +46,7 @@ fn AHADI() -> RealData {
     }
 }
 
-fn RHO_PUPPIS() -> RealData {
+fn rho_puppis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ρ Puppis",
@@ -64,7 +64,7 @@ fn RHO_PUPPIS() -> RealData {
     }
 }
 
-fn TAU_PUPPIS() -> RealData {
+fn tau_puppis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "τ Puppis",
@@ -82,7 +82,7 @@ fn TAU_PUPPIS() -> RealData {
     }
 }
 
-fn NU_PUPPIS() -> RealData {
+fn nu_puppis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ν Puppis",
@@ -101,5 +101,5 @@ fn NU_PUPPIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 5] {
-    [NAOS(), AHADI(), RHO_PUPPIS(), TAU_PUPPIS(), NU_PUPPIS()]
+    [naos(), ahadi(), rho_puppis(), tau_puppis(), nu_puppis()]
 }

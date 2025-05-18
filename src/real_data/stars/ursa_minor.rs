@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn POLARIS() -> RealData {
+fn polaris() -> RealData {
     RealData {
         common_name: "Polaris",
         astronomical_name: "α Ursae Minoris",
@@ -28,7 +28,7 @@ fn POLARIS() -> RealData {
     }
 }
 
-fn KOCHAB() -> RealData {
+fn kochab() -> RealData {
     RealData {
         common_name: "Kochab",
         astronomical_name: "β Ursae Minoris",
@@ -46,7 +46,7 @@ fn KOCHAB() -> RealData {
     }
 }
 
-fn ZETA_URSAE_MINORIS() -> RealData {
+fn zeta_ursae_minoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Ursae Minoris",
@@ -64,7 +64,7 @@ fn ZETA_URSAE_MINORIS() -> RealData {
     }
 }
 
-fn DELTA_URSAE_MINORIS() -> RealData {
+fn delta_ursae_minoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Ursae Minoris",
@@ -82,7 +82,7 @@ fn DELTA_URSAE_MINORIS() -> RealData {
     }
 }
 
-fn ETA_URSAE_MINORIS() -> RealData {
+fn eta_ursae_minoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "η Ursae Minoris",
@@ -100,7 +100,7 @@ fn ETA_URSAE_MINORIS() -> RealData {
     }
 }
 
-fn PHERKAD() -> RealData {
+fn pherkad() -> RealData {
     RealData {
         common_name: "Pherkad",
         astronomical_name: "γ Ursae Minoris",
@@ -118,7 +118,7 @@ fn PHERKAD() -> RealData {
     }
 }
 
-fn EPSILON_URSAE_MINORIS() -> RealData {
+fn epsilon_ursae_minoris() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Ursae Minoris",
@@ -138,12 +138,12 @@ fn EPSILON_URSAE_MINORIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 7] {
     [
-        POLARIS(),
-        KOCHAB(),
-        ZETA_URSAE_MINORIS(),
-        DELTA_URSAE_MINORIS(),
-        ETA_URSAE_MINORIS(),
-        PHERKAD(),
-        EPSILON_URSAE_MINORIS(),
+        polaris(),
+        kochab(),
+        zeta_ursae_minoris(),
+        delta_ursae_minoris(),
+        eta_ursae_minoris(),
+        pherkad(),
+        epsilon_ursae_minoris(),
     ]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_MONOCEROTIS() -> RealData {
+fn alpha_monocerotis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Monocerotis",
@@ -28,7 +28,7 @@ fn ALPHA_MONOCEROTIS() -> RealData {
     }
 }
 
-fn GAMMA_MONOCEROTIS() -> RealData {
+fn gamma_monocerotis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Monocerotis",
@@ -46,7 +46,7 @@ fn GAMMA_MONOCEROTIS() -> RealData {
     }
 }
 
-fn DELTA_MONOCEROTIS() -> RealData {
+fn delta_monocerotis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "δ Monocerotis",
@@ -66,8 +66,8 @@ fn DELTA_MONOCEROTIS() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 3] {
     [
-        ALPHA_MONOCEROTIS(),
-        GAMMA_MONOCEROTIS(),
-        DELTA_MONOCEROTIS(),
+        alpha_monocerotis(),
+        gamma_monocerotis(),
+        delta_monocerotis(),
     ]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn CAPELLA() -> RealData {
+fn capella() -> RealData {
     RealData {
         common_name: "Capella",
         astronomical_name: "α Aurigae",
@@ -28,7 +28,7 @@ fn CAPELLA() -> RealData {
     }
 }
 
-fn MENKALINAN() -> RealData {
+fn menkalinan() -> RealData {
     RealData {
         common_name: "Menkalinan",
         astronomical_name: "β Aurigae",
@@ -46,7 +46,7 @@ fn MENKALINAN() -> RealData {
     }
 }
 
-fn HASSALEH() -> RealData {
+fn hassaleh() -> RealData {
     RealData {
         common_name: "Hassaleh",
         astronomical_name: "ι Aurigae",
@@ -65,5 +65,5 @@ fn HASSALEH() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [CAPELLA(), MENKALINAN(), HASSALEH()]
+    [capella(), menkalinan(), hassaleh()]
 }

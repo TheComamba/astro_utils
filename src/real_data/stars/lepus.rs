@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ARNEB() -> RealData {
+fn arneb() -> RealData {
     RealData {
         common_name: "Arneb",
         astronomical_name: "α Leporis",
@@ -28,7 +28,7 @@ fn ARNEB() -> RealData {
     }
 }
 
-fn BETA_LEPORIS() -> RealData {
+fn beta_leporis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Leporis",
@@ -46,7 +46,7 @@ fn BETA_LEPORIS() -> RealData {
     }
 }
 
-fn EPSILON_LEPORIS() -> RealData {
+fn epsilon_leporis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Leporis",
@@ -65,5 +65,5 @@ fn EPSILON_LEPORIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ARNEB(), BETA_LEPORIS(), EPSILON_LEPORIS()]
+    [arneb(), beta_leporis(), epsilon_leporis()]
 }

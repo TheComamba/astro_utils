@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn RIGEL_KENTAURUS() -> RealData {
+fn rigel_kentaurus() -> RealData {
     RealData {
         common_name: "Rigel Kentaurus",
         astronomical_name: "α Centauri",
@@ -28,7 +28,7 @@ fn RIGEL_KENTAURUS() -> RealData {
     }
 }
 
-fn HADAR() -> RealData {
+fn hadar() -> RealData {
     RealData {
         common_name: "Hadar",
         astronomical_name: "β Centauri",
@@ -46,7 +46,7 @@ fn HADAR() -> RealData {
     }
 }
 
-fn MENKENT() -> RealData {
+fn menkent() -> RealData {
     RealData {
         common_name: "Menkent",
         astronomical_name: "θ Centauri",
@@ -64,7 +64,7 @@ fn MENKENT() -> RealData {
     }
 }
 
-fn MUHLIFAIN() -> RealData {
+fn muhlifain() -> RealData {
     RealData {
         common_name: "Muhlifain",
         astronomical_name: "γ Centauri",
@@ -82,7 +82,7 @@ fn MUHLIFAIN() -> RealData {
     }
 }
 
-fn EPSILON_CENTAURI() -> RealData {
+fn epsilon_centauri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Centauri",
@@ -100,7 +100,7 @@ fn EPSILON_CENTAURI() -> RealData {
     }
 }
 
-fn ETA_CENTAURI() -> RealData {
+fn eta_centauri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "η Centauri",
@@ -118,7 +118,7 @@ fn ETA_CENTAURI() -> RealData {
     }
 }
 
-fn ZETA_CENTAURI() -> RealData {
+fn zeta_centauri() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Centauri",
@@ -136,7 +136,7 @@ fn ZETA_CENTAURI() -> RealData {
     }
 }
 
-fn MA_WEI() -> RealData {
+fn ma_wei() -> RealData {
     RealData {
         common_name: "Ma Wei",
         astronomical_name: "δ Centauri",
@@ -156,13 +156,13 @@ fn MA_WEI() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 8] {
     [
-        RIGEL_KENTAURUS(),
-        HADAR(),
-        MENKENT(),
-        MUHLIFAIN(),
-        EPSILON_CENTAURI(),
-        ETA_CENTAURI(),
-        ZETA_CENTAURI(),
-        MA_WEI(),
+        rigel_kentaurus(),
+        hadar(),
+        menkent(),
+        muhlifain(),
+        epsilon_centauri(),
+        eta_centauri(),
+        zeta_centauri(),
+        ma_wei(),
     ]
 }

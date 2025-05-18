@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_CIRCINI() -> RealData {
+fn alpha_circini() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Circini",
@@ -28,7 +28,7 @@ fn ALPHA_CIRCINI() -> RealData {
     }
 }
 
-fn BETA_CIRCINI() -> RealData {
+fn beta_circini() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Circini",
@@ -46,7 +46,7 @@ fn BETA_CIRCINI() -> RealData {
     }
 }
 
-fn GAMMA_CIRCINI() -> RealData {
+fn gamma_circini() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Circini",
@@ -65,5 +65,5 @@ fn GAMMA_CIRCINI() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_CIRCINI(), BETA_CIRCINI(), GAMMA_CIRCINI()]
+    [alpha_circini(), beta_circini(), gamma_circini()]
 }

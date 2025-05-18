@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_SEXTANTIS() -> RealData {
+fn alpha_sextantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Sextantis",
@@ -28,7 +28,7 @@ fn ALPHA_SEXTANTIS() -> RealData {
     }
 }
 
-fn GAMMA_SEXTANTIS() -> RealData {
+fn gamma_sextantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Sextantis",
@@ -46,7 +46,7 @@ fn GAMMA_SEXTANTIS() -> RealData {
     }
 }
 
-fn BETA_SEXTANTIS() -> RealData {
+fn beta_sextantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Sextantis",
@@ -65,5 +65,5 @@ fn BETA_SEXTANTIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_SEXTANTIS(), GAMMA_SEXTANTIS(), BETA_SEXTANTIS()]
+    [alpha_sextantis(), gamma_sextantis(), beta_sextantis()]
 }

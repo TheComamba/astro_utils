@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ALPHA_ANTLIAE() -> RealData {
+fn alpha_antliae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Antliae",
@@ -28,7 +28,7 @@ fn ALPHA_ANTLIAE() -> RealData {
     }
 }
 
-fn EPSILON_ANTLIAE() -> RealData {
+fn epsilon_antliae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Antliae",
@@ -46,7 +46,7 @@ fn EPSILON_ANTLIAE() -> RealData {
     }
 }
 
-fn IOTA_ANTLIAE() -> RealData {
+fn iota_antliae() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ι Antliae",
@@ -65,5 +65,5 @@ fn IOTA_ANTLIAE() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [ALPHA_ANTLIAE(), EPSILON_ANTLIAE(), IOTA_ANTLIAE()]
+    [alpha_antliae(), epsilon_antliae(), iota_antliae()]
 }

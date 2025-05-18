@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn ANTARES() -> RealData {
+fn antares() -> RealData {
     RealData {
         common_name: "Antares",
         astronomical_name: "α Scorpii",
@@ -28,7 +28,7 @@ fn ANTARES() -> RealData {
     }
 }
 
-fn SHAULA() -> RealData {
+fn shaula() -> RealData {
     RealData {
         common_name: "Shaula",
         astronomical_name: "λ Scorpii",
@@ -46,7 +46,7 @@ fn SHAULA() -> RealData {
     }
 }
 
-fn SARGAS() -> RealData {
+fn sargas() -> RealData {
     RealData {
         common_name: "Sargas",
         astronomical_name: "θ Scorpii",
@@ -64,7 +64,7 @@ fn SARGAS() -> RealData {
     }
 }
 
-fn DSCHUBBA() -> RealData {
+fn dschubba() -> RealData {
     RealData {
         common_name: "Dschubba",
         astronomical_name: "δ Scorpii",
@@ -82,7 +82,7 @@ fn DSCHUBBA() -> RealData {
     }
 }
 
-fn LARAWAG() -> RealData {
+fn larawag() -> RealData {
     RealData {
         common_name: "Larawag",
         astronomical_name: "ε Scorpii",
@@ -100,7 +100,7 @@ fn LARAWAG() -> RealData {
     }
 }
 
-fn GIRTAB() -> RealData {
+fn girtab() -> RealData {
     RealData {
         common_name: "Girtab",
         astronomical_name: "κ Scorpii",
@@ -118,7 +118,7 @@ fn GIRTAB() -> RealData {
     }
 }
 
-fn ACRAB() -> RealData {
+fn acrab() -> RealData {
     RealData {
         common_name: "Acrab",
         astronomical_name: "β Scorpii",
@@ -138,12 +138,12 @@ fn ACRAB() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 7] {
     [
-        ANTARES(),
-        SHAULA(),
-        SARGAS(),
-        DSCHUBBA(),
-        LARAWAG(),
-        GIRTAB(),
-        ACRAB(),
+        antares(),
+        shaula(),
+        sargas(),
+        dschubba(),
+        larawag(),
+        girtab(),
+        acrab(),
     ]
 }

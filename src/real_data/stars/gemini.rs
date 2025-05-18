@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn POLLUX() -> RealData {
+fn pollux() -> RealData {
     RealData {
         common_name: "Pollux",
         astronomical_name: "β Geminorum",
@@ -28,7 +28,7 @@ fn POLLUX() -> RealData {
     }
 }
 
-fn CASTOR() -> RealData {
+fn castor() -> RealData {
     RealData {
         common_name: "Castor",
         astronomical_name: "α Geminorum",
@@ -46,7 +46,7 @@ fn CASTOR() -> RealData {
     }
 }
 
-fn ALHENA() -> RealData {
+fn alhena() -> RealData {
     RealData {
         common_name: "Alhena",
         astronomical_name: "γ Geminorum",
@@ -64,7 +64,7 @@ fn ALHENA() -> RealData {
     }
 }
 
-fn TEJAT() -> RealData {
+fn tejat() -> RealData {
     RealData {
         common_name: "Tejat",
         astronomical_name: "μ Geminorum",
@@ -82,7 +82,7 @@ fn TEJAT() -> RealData {
     }
 }
 
-fn PROPUS() -> RealData {
+fn propus() -> RealData {
     RealData {
         common_name: "Propus",
         astronomical_name: "η Geminorum",
@@ -101,5 +101,5 @@ fn PROPUS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 5] {
-    [POLLUX(), CASTOR(), ALHENA(), TEJAT(), PROPUS()]
+    [pollux(), castor(), alhena(), tejat(), propus()]
 }

@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn GAMMA_MICROSCOPII() -> RealData {
+fn gamma_microscopii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ Microscopii",
@@ -28,7 +28,7 @@ fn GAMMA_MICROSCOPII() -> RealData {
     }
 }
 
-fn EPSILON_MICROSCOPII() -> RealData {
+fn epsilon_microscopii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ε Microscopii",
@@ -46,7 +46,7 @@ fn EPSILON_MICROSCOPII() -> RealData {
     }
 }
 
-fn THETA1_MICROSCOPII() -> RealData {
+fn theta1_microscopii() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "θ¹ Microscopii",
@@ -66,8 +66,8 @@ fn THETA1_MICROSCOPII() -> RealData {
 
 pub(crate) fn stars() -> [RealData; 3] {
     [
-        GAMMA_MICROSCOPII(),
-        EPSILON_MICROSCOPII(),
-        THETA1_MICROSCOPII(),
+        gamma_microscopii(),
+        epsilon_microscopii(),
+        theta1_microscopii(),
     ]
 }

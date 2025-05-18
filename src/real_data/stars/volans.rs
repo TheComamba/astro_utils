@@ -10,7 +10,7 @@ use crate::{
     units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-fn GAMMA1_VOLANTIS() -> RealData {
+fn gamma1_volantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "γ¹ Volantis",
@@ -28,7 +28,7 @@ fn GAMMA1_VOLANTIS() -> RealData {
     }
 }
 
-fn BETA_VOLANTIS() -> RealData {
+fn beta_volantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Volantis",
@@ -46,7 +46,7 @@ fn BETA_VOLANTIS() -> RealData {
     }
 }
 
-fn ZETA_VOLANTIS() -> RealData {
+fn zeta_volantis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "ζ Volantis",
@@ -65,5 +65,5 @@ fn ZETA_VOLANTIS() -> RealData {
 }
 
 pub(crate) fn stars() -> [RealData; 3] {
-    [GAMMA1_VOLANTIS(), BETA_VOLANTIS(), ZETA_VOLANTIS()]
+    [gamma1_volantis(), beta_volantis(), zeta_volantis()]
 }
