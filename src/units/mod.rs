@@ -21,7 +21,7 @@ pub(crate) mod tests {
 
     use crate::tests::TEST_ACCURACY;
 
-    pub(crate) fn ANGLE_TEST_ACCURACY() -> Angle {
+    pub(crate) fn angle_test_accuracy() -> Angle {
         Angle::new::<radian>(TEST_ACCURACY)
     }
 }

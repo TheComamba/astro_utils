@@ -206,7 +206,7 @@ mod tests {
         units::{
             angle::angle_zero,
             illuminance::{lux, Illuminance},
-            tests::ANGLE_TEST_ACCURACY,
+            tests::angle_test_accuracy,
         },
     };
 
@@ -329,10 +329,10 @@ mod tests {
         let pos_1_2 = stars1[con1.to].get_pos();
         let pos_2_1 = stars2[con2.from].get_pos();
         let pos_2_2 = stars2[con2.to].get_pos();
-        let case1 = pos_1_1.eq_within(pos_2_1, ANGLE_TEST_ACCURACY())
-            && pos_1_2.eq_within(pos_2_2, ANGLE_TEST_ACCURACY());
-        let case2 = pos_1_1.eq_within(pos_2_2, ANGLE_TEST_ACCURACY())
-            && pos_1_2.eq_within(pos_2_1, ANGLE_TEST_ACCURACY());
+        let case1 = pos_1_1.eq_within(pos_2_1, angle_test_accuracy())
+            && pos_1_2.eq_within(pos_2_2, angle_test_accuracy());
+        let case2 = pos_1_1.eq_within(pos_2_2, angle_test_accuracy())
+            && pos_1_2.eq_within(pos_2_1, angle_test_accuracy());
         case1 || case2
     }
 
