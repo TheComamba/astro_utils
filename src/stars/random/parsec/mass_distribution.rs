@@ -113,7 +113,7 @@ mod tests {
         let distribution = get_mass_index_distribution().unwrap();
         let gen_masses = (0..num_stars).map(|_| masses[distribution.sample(&mut rand::rng())]);
         let mut thresholds = Vec::new();
-        for i in 0..gen_masses.len() - 1 {
+        for i in 0..masses.len() - 1 {
             thresholds.push(geometric_mean(masses[i], masses[i + 1]));
         }
         for threshold in thresholds {
