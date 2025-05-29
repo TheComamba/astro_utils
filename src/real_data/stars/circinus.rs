@@ -1,89 +1,69 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const ALPHA_CIRCINI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "α Circini",
-    constellation: "Circinus",
-    right_ascension: RightAscension::new(14, 42, 30.),
-    declination: Declination::new(Sgn::Neg, 64, 58, 30.),
-    apparent_magnitude: 3.18,
-    distance: Distance {
-        m: 54. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 2.18,
-    mass: Mass {
-        kg: 1.6 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 1.967 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 7500. },
-    age: Some(Time {
-        s: 0.012 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 2.08398753 * BILLION_YEARS.s,
-    },
-};
+fn alpha_circini() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "α Circini",
+        constellation: "Circinus",
+        right_ascension: RightAscension::new(14, 42, 30.),
+        declination: Declination::new(Sgn::Neg, 64, 58, 30.),
+        apparent_magnitude: 3.18,
+        distance: Length::new::<light_year>(54.),
+        absolute_magnitude: 2.18,
+        mass: Mass::new::<solar_mass>(1.6),
+        radius: Some(Length::new::<solar_radii>(1.967)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(7500.),
+        age: Some(Time::new::<gigayear>(0.012)),
+        lifetime: Time::new::<gigayear>(2.08398753),
+    }
+}
 
-const BETA_CIRCINI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "β Circini",
-    constellation: "Circinus",
-    right_ascension: RightAscension::new(15, 17, 31.),
-    declination: Declination::new(Sgn::Neg, 58, 48, 4.),
-    apparent_magnitude: 4.069,
-    distance: Distance {
-        m: 93. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 1.64,
-    mass: Mass {
-        kg: 2.2 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 1.3 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 8676. },
-    age: Some(Time {
-        s: 0.4 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 1.03650581 * BILLION_YEARS.s,
-    },
-};
+fn beta_circini() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "β Circini",
+        constellation: "Circinus",
+        right_ascension: RightAscension::new(15, 17, 31.),
+        declination: Declination::new(Sgn::Neg, 58, 48, 4.),
+        apparent_magnitude: 4.069,
+        distance: Length::new::<light_year>(93.),
+        absolute_magnitude: 1.64,
+        mass: Mass::new::<solar_mass>(2.2),
+        radius: Some(Length::new::<solar_radii>(1.3)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(8676.),
+        age: Some(Time::new::<gigayear>(0.4)),
+        lifetime: Time::new::<gigayear>(1.03650581),
+    }
+}
 
-const GAMMA_CIRCINI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "γ Circini",
-    constellation: "Circinus",
-    right_ascension: RightAscension::new(15, 23, 23.),
-    declination: Declination::new(Sgn::Neg, 59, 19, 15.),
-    apparent_magnitude: 4.51,
-    distance: Distance {
-        m: 450. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -1.18,
-    mass: Mass {
-        kg: 6. * SOLAR_MASS.kg,
-    },
-    radius: None,
-    temperature: Temperature { K: 15_135. },
-    age: Some(Time {
-        s: 0.0631 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.073299383 * BILLION_YEARS.s,
-    },
-};
+fn gamma_circini() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "γ Circini",
+        constellation: "Circinus",
+        right_ascension: RightAscension::new(15, 23, 23.),
+        declination: Declination::new(Sgn::Neg, 59, 19, 15.),
+        apparent_magnitude: 4.51,
+        distance: Length::new::<light_year>(450.),
+        absolute_magnitude: -1.18,
+        mass: Mass::new::<solar_mass>(6.),
+        radius: None,
+        temperature: ThermodynamicTemperature::new::<kelvin>(15_135.),
+        age: Some(Time::new::<gigayear>(0.0631)),
+        lifetime: Time::new::<gigayear>(0.073299383),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_CIRCINI, BETA_CIRCINI, GAMMA_CIRCINI];
+pub(crate) fn stars() -> [RealData; 3] {
+    [alpha_circini(), beta_circini(), gamma_circini()]
+}

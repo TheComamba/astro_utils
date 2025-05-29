@@ -1,89 +1,69 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const ALPHA_TUCANAE: RealData = RealData {
-    common_name: "",
-    astronomical_name: "α Tucanae",
-    constellation: "Tucana",
-    radius: Some(Distance {
-        m: 37. * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 2.5 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -1.05,
-    apparent_magnitude: 2.87,
-    temperature: Temperature { K: 4300. },
-    age: None,
-    right_ascension: RightAscension::new(22, 18, 30.),
-    declination: Declination::new(Sgn::Neg, 60, 15, 35.),
-    distance: Distance {
-        m: 198.5 * LIGHT_YEAR.m,
-    },
-    lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s,
-    },
-};
+fn alpha_tucanae() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "α Tucanae",
+        constellation: "Tucana",
+        radius: Some(Length::new::<solar_radii>(37.)),
+        mass: Mass::new::<solar_mass>(2.5),
+        absolute_magnitude: -1.05,
+        apparent_magnitude: 2.87,
+        temperature: ThermodynamicTemperature::new::<kelvin>(4300.),
+        age: None,
+        right_ascension: RightAscension::new(22, 18, 30.),
+        declination: Declination::new(Sgn::Neg, 60, 15, 35.),
+        distance: Length::new::<light_year>(198.5),
+        lifetime: Time::new::<gigayear>(0.800458342),
+    }
+}
 
-const GAMMA_TUCANAE: RealData = RealData {
-    common_name: "",
-    astronomical_name: "γ Tucanae",
-    constellation: "Tucana",
-    right_ascension: RightAscension::new(23, 17, 26.),
-    declination: Declination::new(Sgn::Neg, 58, 14, 9.),
-    apparent_magnitude: 3.99,
-    distance: Distance {
-        m: 75. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 2.18,
-    mass: Mass {
-        kg: 1.55 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 2.2 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 6679. },
-    age: Some(Time {
-        s: 1.414 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 2.29668629 * BILLION_YEARS.s,
-    },
-};
+fn gamma_tucanae() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "γ Tucanae",
+        constellation: "Tucana",
+        right_ascension: RightAscension::new(23, 17, 26.),
+        declination: Declination::new(Sgn::Neg, 58, 14, 9.),
+        apparent_magnitude: 3.99,
+        distance: Length::new::<light_year>(75.),
+        absolute_magnitude: 2.18,
+        mass: Mass::new::<solar_mass>(1.55),
+        radius: Some(Length::new::<solar_radii>(2.2)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(6679.),
+        age: Some(Time::new::<gigayear>(1.414)),
+        lifetime: Time::new::<gigayear>(2.29668629),
+    }
+}
 
-const ZETA_TUCANAE: RealData = RealData {
-    common_name: "",
-    astronomical_name: "ζ Tucanae",
-    constellation: "Tucana",
-    right_ascension: RightAscension::new(0, 20, 4.),
-    declination: Declination::new(Sgn::Neg, 64, 52, 29.),
-    apparent_magnitude: 4.23,
-    distance: Distance {
-        m: 28.01 * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 4.67,
-    mass: Mass {
-        kg: 0.99 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 1.08 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 5970. },
-    age: Some(Time {
-        s: 2.5 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 9.81519157 * BILLION_YEARS.s,
-    },
-};
+fn zeta_tucanae() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "ζ Tucanae",
+        constellation: "Tucana",
+        right_ascension: RightAscension::new(0, 20, 4.),
+        declination: Declination::new(Sgn::Neg, 64, 52, 29.),
+        apparent_magnitude: 4.23,
+        distance: Length::new::<light_year>(28.01),
+        absolute_magnitude: 4.67,
+        mass: Mass::new::<solar_mass>(0.99),
+        radius: Some(Length::new::<solar_radii>(1.08)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(5970.),
+        age: Some(Time::new::<gigayear>(2.5)),
+        lifetime: Time::new::<gigayear>(9.81519157),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_TUCANAE, GAMMA_TUCANAE, ZETA_TUCANAE];
+pub(crate) fn stars() -> [RealData; 3] {
+    [alpha_tucanae(), gamma_tucanae(), zeta_tucanae()]
+}

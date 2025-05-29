@@ -1,85 +1,69 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const GAMMA1_VOLANTIS: RealData = RealData {
-    common_name: "",
-    astronomical_name: "γ¹ Volantis",
-    constellation: "Volans",
-    right_ascension: RightAscension::new(7, 8, 42.),
-    declination: Declination::new(Sgn::Neg, 70, 29, 50.),
-    apparent_magnitude: 5.704,
-    distance: Distance {
-        m: 143. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 2.51,
-    mass: Mass {
-        kg: 1.69 * SOLAR_MASS.kg,
-    },
-    radius: None,
-    temperature: Temperature { K: 6541. },
-    age: Some(Time {
-        s: 1.4 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 1.73766023 * BILLION_YEARS.s,
-    },
-};
+fn gamma1_volantis() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "γ¹ Volantis",
+        constellation: "Volans",
+        right_ascension: RightAscension::new(7, 8, 42.),
+        declination: Declination::new(Sgn::Neg, 70, 29, 50.),
+        apparent_magnitude: 5.704,
+        distance: Length::new::<light_year>(143.),
+        absolute_magnitude: 2.51,
+        mass: Mass::new::<solar_mass>(1.69),
+        radius: None,
+        temperature: ThermodynamicTemperature::new::<kelvin>(6541.),
+        age: Some(Time::new::<gigayear>(1.4)),
+        lifetime: Time::new::<gigayear>(1.73766023),
+    }
+}
 
-const BETA_VOLANTIS: RealData = RealData {
-    common_name: "",
-    astronomical_name: "β Volantis",
-    constellation: "Volans",
-    right_ascension: RightAscension::new(8, 25, 44.),
-    declination: Declination::new(Sgn::Neg, 66, 8, 13.),
-    apparent_magnitude: 3.75,
-    distance: Distance {
-        m: 107.5 * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 1.18,
-    mass: Mass {
-        kg: 1.62 * SOLAR_MASS.kg,
-    },
-    radius: None,
-    temperature: Temperature { K: 4546. },
-    age: None,
-    lifetime: Time {
-        s: 2.08398753 * BILLION_YEARS.s,
-    },
-};
+fn beta_volantis() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "β Volantis",
+        constellation: "Volans",
+        right_ascension: RightAscension::new(8, 25, 44.),
+        declination: Declination::new(Sgn::Neg, 66, 8, 13.),
+        apparent_magnitude: 3.75,
+        distance: Length::new::<light_year>(107.5),
+        absolute_magnitude: 1.18,
+        mass: Mass::new::<solar_mass>(1.62),
+        radius: None,
+        temperature: ThermodynamicTemperature::new::<kelvin>(4546.),
+        age: None,
+        lifetime: Time::new::<gigayear>(2.08398753),
+    }
+}
 
-const ZETA_VOLANTIS: RealData = RealData {
-    common_name: "",
-    astronomical_name: "ζ Volantis",
-    constellation: "Volans",
-    right_ascension: RightAscension::new(7, 41, 49.),
-    declination: Declination::new(Sgn::Neg, 72, 36, 22.),
-    apparent_magnitude: 3.93,
-    distance: Distance {
-        m: 141. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 0.75,
-    mass: Mass {
-        kg: 1.74 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 11. * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 4721. },
-    age: Some(Time {
-        s: 1.5 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 1.59501327 * BILLION_YEARS.s,
-    },
-};
+fn zeta_volantis() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "ζ Volantis",
+        constellation: "Volans",
+        right_ascension: RightAscension::new(7, 41, 49.),
+        declination: Declination::new(Sgn::Neg, 72, 36, 22.),
+        apparent_magnitude: 3.93,
+        distance: Length::new::<light_year>(141.),
+        absolute_magnitude: 0.75,
+        mass: Mass::new::<solar_mass>(1.74),
+        radius: Some(Length::new::<solar_radii>(11.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4721.),
+        age: Some(Time::new::<gigayear>(1.5)),
+        lifetime: Time::new::<gigayear>(1.59501327),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] = [GAMMA1_VOLANTIS, BETA_VOLANTIS, ZETA_VOLANTIS];
+pub(crate) fn stars() -> [RealData; 3] {
+    [gamma1_volantis(), beta_volantis(), zeta_volantis()]
+}

@@ -1,13 +1,13 @@
 use crate::stars::appearance::StarAppearance;
 use serde::{Deserialize, Serialize};
-use simple_si_units::geometry::Angle;
 use std::cmp::Ordering;
+use uom::si::f64::Angle;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Connection {
     from: usize,
     to: usize,
-    distance: Angle<f64>,
+    distance: Angle,
 }
 
 impl Connection {
@@ -164,7 +164,7 @@ fn find_nearest_neighbour(
 
 #[cfg(test)]
 fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
-    use crate::units::angle::FULL_CIRC;
+    use crate::units::angle::full_circ;
 
     // This is Prim's algorithm
     let mut connections = Vec::new();
@@ -176,7 +176,7 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
         let mut current_best = Connection {
             to: 0,
             from: 0,
-            distance: FULL_CIRC,
+            distance: full_circ(),
         };
         for i in &visited {
             let nn = find_nearest_neighbour(*i, stars, &visited);
@@ -196,13 +196,18 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
 #[cfg(test)]
 mod tests {
     use astro_coords::spherical::Spherical;
-    use simple_si_units::electromagnetic::Illuminance;
+    use uom::si::{angle::degree, f64::Time, time::year};
 
     use crate::{
+        astro_display::AstroDisplay,
         color::srgb::sRGBColor,
         real_data::stars::all::get_many_stars,
         stars::constellation::collect_constellations,
-        units::{angle::ANGLE_ZERO, tests::ANGLE_TEST_ACCURACY, time::TIME_ZERO},
+        units::{
+            angle::angle_zero,
+            illuminance::{lux, Illuminance},
+            tests::angle_test_accuracy,
+        },
     };
 
     use super::*;
@@ -211,15 +216,15 @@ mod tests {
         let mut stars = Vec::new();
         for i in 0..size {
             // Making distances distinct
-            let longitude = Angle::from_degrees(10. * i as f64 + (i as f64).powi(2) / 100.);
-            assert!(longitude.to_degrees() < 179.0);
-            let pos = Spherical::new(longitude, ANGLE_ZERO).to_ecliptic();
+            let longitude = Angle::new::<degree>(10. * i as f64 + (i as f64).powi(2) / 100.);
+            assert!(longitude.get::<degree>() < 179.0);
+            let pos = Spherical::new(longitude, angle_zero()).to_ecliptic();
             stars.push(StarAppearance::new(
                 format!("Star {}", i),
-                Illuminance::from_lux(1.0),
+                Illuminance::new::<lux>(1.0),
                 sRGBColor::WHITE,
                 pos,
-                TIME_ZERO,
+                Time::new::<year>(0.),
             ));
         }
         stars
@@ -231,7 +236,7 @@ mod tests {
             connections.push(Connection {
                 from: i,
                 to: i + 1,
-                distance: ANGLE_ZERO,
+                distance: angle_zero(),
             });
         }
         connections
@@ -290,7 +295,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
+        let all_consteallations = collect_constellations(&all_stars[..], Time::new::<year>(0.));
         for constellation in all_consteallations {
             let mst = minimum_spanning_tree(&constellation.get_stars());
             assert!(mst.len() == constellation.get_stars().len() - 1);
@@ -303,7 +308,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
+        let all_consteallations = collect_constellations(&all_stars[..], Time::new::<year>(0.));
         for constellation in all_consteallations {
             println!("\nChecking {}", constellation.get_name());
             let connections = constellation.get_connections();
@@ -324,10 +329,10 @@ mod tests {
         let pos_1_2 = stars1[con1.to].get_pos();
         let pos_2_1 = stars2[con2.from].get_pos();
         let pos_2_2 = stars2[con2.to].get_pos();
-        let case1 = pos_1_1.eq_within(pos_2_1, ANGLE_TEST_ACCURACY)
-            && pos_1_2.eq_within(pos_2_2, ANGLE_TEST_ACCURACY);
-        let case2 = pos_1_1.eq_within(pos_2_2, ANGLE_TEST_ACCURACY)
-            && pos_1_2.eq_within(pos_2_1, ANGLE_TEST_ACCURACY);
+        let case1 = pos_1_1.eq_within(pos_2_1, angle_test_accuracy())
+            && pos_1_2.eq_within(pos_2_2, angle_test_accuracy());
+        let case2 = pos_1_1.eq_within(pos_2_2, angle_test_accuracy())
+            && pos_1_2.eq_within(pos_2_1, angle_test_accuracy());
         case1 || case2
     }
 
@@ -339,7 +344,12 @@ mod tests {
                 stars[connection.to].get_name(),
             ];
             names.sort();
-            println!("{} - {} : {}", names[0], names[1], connection.distance);
+            println!(
+                "{} - {} : {}",
+                names[0],
+                names[1],
+                connection.distance.astro_display()
+            );
         }
     }
 
@@ -349,7 +359,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let all_consteallations = collect_constellations(&all_stars[..], TIME_ZERO);
+        let all_consteallations = collect_constellations(&all_stars[..], Time::new::<year>(0.));
         for constellation in all_consteallations {
             println!("\nChecking {}", constellation.get_name());
             let connections = constellation.get_connections();

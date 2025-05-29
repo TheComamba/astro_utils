@@ -1,5 +1,8 @@
 #![warn(clippy::unwrap_used)]
 
+#[macro_use]
+extern crate uom;
+
 pub mod astro_display;
 pub mod color;
 pub mod error;

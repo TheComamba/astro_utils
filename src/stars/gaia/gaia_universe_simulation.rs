@@ -9,18 +9,23 @@ use gaia_access::{
     result::*,
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
-use simple_si_units::{
-    base::{Distance, Luminosity, Mass, Temperature, Time},
-    geometry::Angle,
-};
 use std::collections::HashMap;
+use uom::si::{
+    angle::degree,
+    f64::{Angle, Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time},
+    length::{light_year, parsec},
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     error::AstroUtilError,
     stars::{
         data::StarData, evolution::StarDataEvolution, physical_parameters::StarPhysicalParameters,
     },
-    units::{distance::SOLAR_RADIUS, luminous_intensity::absolute_magnitude_to_luminous_intensity},
+    units::{
+        length::solar_radii, luminous_intensity::absolute_magnitude_to_luminous_intensity,
+        mass::solar_mass, time::gigayear,
+    },
 };
 
 fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
@@ -28,42 +33,42 @@ fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
     Some(id.to_string())
 }
 
-fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<Temperature<f64>> {
+fn get_temperature(map: &HashMap<Col, GaiaCellData>) -> Option<ThermodynamicTemperature> {
     let temperature = get_float(map.get(&Col::teff)?)?;
-    Some(Temperature::from_K(temperature))
+    Some(ThermodynamicTemperature::new::<kelvin>(temperature))
 }
 
-fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass<f64>> {
+fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass> {
     let mass = get_float(map.get(&Col::mass)?)?;
-    Some(Mass::from_solar_mass(mass))
+    Some(Mass::new::<solar_mass>(mass))
 }
 
-fn get_radius(map: &HashMap<Col, GaiaCellData>) -> Option<Distance<f64>> {
+fn get_radius(map: &HashMap<Col, GaiaCellData>) -> Option<Length> {
     let radius = get_float(map.get(&Col::radius)?)?;
-    Some(radius * SOLAR_RADIUS)
+    Some(Length::new::<solar_radii>(radius))
 }
 
-fn get_luminous_intensity(map: &HashMap<Col, GaiaCellData>) -> Option<Luminosity<f64>> {
+fn get_luminous_intensity(map: &HashMap<Col, GaiaCellData>) -> Option<LuminousIntensity> {
     let mag = get_float(map.get(&Col::mean_absolute_v)?)?;
     Some(absolute_magnitude_to_luminous_intensity(mag))
 }
 
 fn get_pos(map: &HashMap<Col, GaiaCellData>) -> Option<Cartesian> {
     let ra = get_float(map.get(&Col::ra)?)?;
-    let ra = Angle::from_deg(ra);
+    let ra = Angle::new::<degree>(ra);
     let dec = get_float(map.get(&Col::dec)?)?;
-    let dec = Angle::from_deg(dec);
+    let dec = Angle::new::<degree>(dec);
     let distance = get_float(map.get(&Col::barycentric_distance)?)?;
-    let distance = Distance::from_parsec(distance);
+    let distance = Length::new::<parsec>(distance);
     let pos = EarthEquatorial::new(ra, dec)
         .to_direction()
         .to_cartesian(distance);
     Some(pos)
 }
 
-fn get_age(map: &HashMap<Col, GaiaCellData>) -> Option<Time<f64>> {
+fn get_age(map: &HashMap<Col, GaiaCellData>) -> Option<Time> {
     let age = get_float(map.get(&Col::age)?)?;
-    Some(Time::from_Gyr(age))
+    Some(Time::new::<gigayear>(age))
 }
 
 fn get_evolution(map: &HashMap<Col, GaiaCellData>) -> Option<StarDataEvolution> {
@@ -79,7 +84,8 @@ pub(crate) fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, Ast
         .map(|map| {
             let name = get_id(map).ok_or(AstroUtilError::DataNotAvailable("name".to_string()))?;
 
-            let temperature = get_temperature(map).unwrap_or(Temperature::from_K(0.));
+            let temperature =
+                get_temperature(map).unwrap_or(ThermodynamicTemperature::new::<kelvin>(0.));
             let mass = get_mass(map);
             let radius = get_radius(map);
             let luminous_intensity = get_luminous_intensity(map).ok_or(
@@ -105,7 +111,7 @@ pub(crate) fn to_star_data(result: GaiaResult<Col>) -> Result<Vec<StarData>, Ast
 }
 
 pub(crate) fn query_nearest_simulated_stars(
-    distance_threshold: Distance<f64>,
+    distance_threshold: Length,
     magnitude_threshold: Option<f64>,
 ) -> Result<GaiaResult<Col>, AstroUtilError> {
     let mut query = GaiaQueryBuilder::new(gaiadr3, gaia_universe_model)
@@ -122,7 +128,7 @@ pub(crate) fn query_nearest_simulated_stars(
         ])
         .where_clause(GaiaCondition::LessThan(
             Col::barycentric_distance,
-            distance_threshold.to_parsec(),
+            distance_threshold.get::<parsec>(),
         ))
         .where_clause(GaiaCondition::GreaterThan(Col::mass, 0.08));
     if let Some(mag) = magnitude_threshold {
@@ -132,7 +138,7 @@ pub(crate) fn query_nearest_simulated_stars(
 }
 
 pub fn fetch_brightest_stars_simulated_data() -> Result<Vec<StarData>, AstroUtilError> {
-    let max_distance = Distance::from_lyr(100_000.);
+    let max_distance = Length::new::<light_year>(100_000.);
     let min_brightness = Some(6.5);
     let resp = query_nearest_simulated_stars(max_distance, min_brightness)?;
     let gaia_stars = to_star_data(resp)?;
@@ -145,7 +151,7 @@ mod tests {
 
     #[test]
     fn every_model_star_has_a_mass() {
-        let max_distance = Distance::from_lyr(100_000.);
+        let max_distance = Length::new::<light_year>(100_000.);
         let min_brightness = Some(4.);
         let resp = query_nearest_simulated_stars(max_distance, min_brightness).unwrap();
         let stars = to_star_data(resp).unwrap();

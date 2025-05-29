@@ -1,114 +1,92 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const FORMALHAUT: RealData = RealData {
-    common_name: "Formalhaut",
-    astronomical_name: "α Piscis Austrini",
-    constellation: "Piscis Austrinus",
-    radius: Some(Distance {
-        m: 1.842 * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 1.92 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: 1.74,
-    apparent_magnitude: 1.17,
-    temperature: Temperature { K: 8590. },
-    age: Some(Time {
-        s: 0.44 * BILLION_YEARS.s,
-    }),
-    right_ascension: RightAscension::new(22, 57, 39.),
-    declination: Declination::new(Sgn::Neg, 29, 37, 20.),
-    distance: Distance {
-        m: 25. * LIGHT_YEAR.m,
-    },
-    lifetime: Time {
-        s: 1.54706939 * BILLION_YEARS.s,
-    },
-};
+fn formalhaut() -> RealData {
+    RealData {
+        common_name: "Formalhaut",
+        astronomical_name: "α Piscis Austrini",
+        constellation: "Piscis Austrinus",
+        radius: Some(Length::new::<solar_radii>(1.842)),
+        mass: Mass::new::<solar_mass>(1.92),
+        absolute_magnitude: 1.74,
+        apparent_magnitude: 1.17,
+        temperature: ThermodynamicTemperature::new::<kelvin>(8590.),
+        age: Some(Time::new::<gigayear>(0.44)),
+        right_ascension: RightAscension::new(22, 57, 39.),
+        declination: Declination::new(Sgn::Neg, 29, 37, 20.),
+        distance: Length::new::<light_year>(25.),
+        lifetime: Time::new::<gigayear>(1.54706939),
+    }
+}
 
-const DELTA_PISCIS_AUSTRINI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "δ Piscis Austrini",
-    constellation: "Piscis Austrinus",
-    right_ascension: RightAscension::new(22, 55, 57.),
-    declination: Declination::new(Sgn::Neg, 32, 32, 23.),
-    apparent_magnitude: 4.175,
-    distance: Distance {
-        m: 172. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 0.636,
-    mass: Mass {
-        kg: 1.42 * SOLAR_MASS.kg,
-    },
-    radius: None,
-    temperature: Temperature { K: 4828. },
-    age: Some(Time {
-        s: 3.1 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 3.10253119 * BILLION_YEARS.s,
-    },
-};
+fn delta_piscis_austrini() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "δ Piscis Austrini",
+        constellation: "Piscis Austrinus",
+        right_ascension: RightAscension::new(22, 55, 57.),
+        declination: Declination::new(Sgn::Neg, 32, 32, 23.),
+        apparent_magnitude: 4.175,
+        distance: Length::new::<light_year>(172.),
+        absolute_magnitude: 0.636,
+        mass: Mass::new::<solar_mass>(1.42),
+        radius: None,
+        temperature: ThermodynamicTemperature::new::<kelvin>(4828.),
+        age: Some(Time::new::<gigayear>(3.1)),
+        lifetime: Time::new::<gigayear>(3.10253119),
+    }
+}
 
-const EPSILON_PISCIS_AUSTRINI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "ε Piscis Austrini",
-    constellation: "Piscis Austrinus",
-    right_ascension: RightAscension::new(22, 40, 39.),
-    declination: Declination::new(Sgn::Neg, 27, 2, 37.),
-    apparent_magnitude: 4.18,
-    distance: Distance {
-        m: 744.3 * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -2.61,
-    mass: Mass {
-        kg: 4.1 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 3.2 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 11_066. },
-    age: None,
-    lifetime: Time {
-        s: 0.193156929 * BILLION_YEARS.s,
-    },
-};
+fn epsilon_piscis_austrini() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "ε Piscis Austrini",
+        constellation: "Piscis Austrinus",
+        right_ascension: RightAscension::new(22, 40, 39.),
+        declination: Declination::new(Sgn::Neg, 27, 2, 37.),
+        apparent_magnitude: 4.18,
+        distance: Length::new::<light_year>(744.3),
+        absolute_magnitude: -2.61,
+        mass: Mass::new::<solar_mass>(4.1),
+        radius: Some(Length::new::<solar_radii>(3.2)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(11_066.),
+        age: None,
+        lifetime: Time::new::<gigayear>(0.193156929),
+    }
+}
 
-const IOTA_PISCIS_AUSTRINI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "ι Piscis Austrini",
-    constellation: "Piscis Austrinus",
-    right_ascension: RightAscension::new(21, 44, 57.),
-    declination: Declination::new(Sgn::Neg, 33, 1, 33.),
-    apparent_magnitude: 4.35,
-    distance: Distance {
-        m: 204. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 0.37,
-    mass: Mass {
-        kg: 3.1 * SOLAR_MASS.kg,
-    },
-    radius: None,
-    temperature: Temperature { K: 9330. },
-    age: None,
-    lifetime: Time {
-        s: 0.420724107 * BILLION_YEARS.s,
-    },
-};
+fn iota_piscis_austrini() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "ι Piscis Austrini",
+        constellation: "Piscis Austrinus",
+        right_ascension: RightAscension::new(21, 44, 57.),
+        declination: Declination::new(Sgn::Neg, 33, 1, 33.),
+        apparent_magnitude: 4.35,
+        distance: Length::new::<light_year>(204.),
+        absolute_magnitude: 0.37,
+        mass: Mass::new::<solar_mass>(3.1),
+        radius: None,
+        temperature: ThermodynamicTemperature::new::<kelvin>(9330.),
+        age: None,
+        lifetime: Time::new::<gigayear>(0.420724107),
+    }
+}
 
-pub(crate) const STARS: [RealData; 4] = [
-    FORMALHAUT,
-    DELTA_PISCIS_AUSTRINI,
-    EPSILON_PISCIS_AUSTRINI,
-    IOTA_PISCIS_AUSTRINI,
-];
+pub(crate) fn stars() -> [RealData; 4] {
+    [
+        formalhaut(),
+        delta_piscis_austrini(),
+        epsilon_piscis_austrini(),
+        iota_piscis_austrini(),
+    ]
+}

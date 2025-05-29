@@ -1,91 +1,69 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const CAPELLA: RealData = RealData {
-    common_name: "Capella",
-    astronomical_name: "α Aurigae",
-    constellation: "Auriga",
-    radius: Some(Distance {
-        m: 11.98 * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 2.5687 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -0.48,
-    apparent_magnitude: 0.08,
-    temperature: Temperature { K: 4970. },
-    age: Some(Time {
-        s: 0.620 * BILLION_YEARS.s,
-    }),
-    right_ascension: RightAscension::new(5, 16, 41.),
-    declination: Declination::new(Sgn::Pos, 45, 59, 53.),
-    distance: Distance {
-        m: 42. * LIGHT_YEAR.m,
-    },
-    lifetime: Time {
-        s: 0.63513384 * BILLION_YEARS.s,
-    },
-};
+fn capella() -> RealData {
+    RealData {
+        common_name: "Capella",
+        astronomical_name: "α Aurigae",
+        constellation: "Auriga",
+        radius: Some(Length::new::<solar_radii>(11.98)),
+        mass: Mass::new::<solar_mass>(2.5687),
+        absolute_magnitude: -0.48,
+        apparent_magnitude: 0.08,
+        temperature: ThermodynamicTemperature::new::<kelvin>(4970.),
+        age: Some(Time::new::<gigayear>(0.620)),
+        right_ascension: RightAscension::new(5, 16, 41.),
+        declination: Declination::new(Sgn::Pos, 45, 59, 53.),
+        distance: Length::new::<light_year>(42.),
+        lifetime: Time::new::<gigayear>(0.63513384),
+    }
+}
 
-const MENKALINAN: RealData = RealData {
-    common_name: "Menkalinan",
-    astronomical_name: "β Aurigae",
-    constellation: "Auriga",
-    radius: Some(Distance {
-        m: 2.77 * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 2.389 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -0.10,
-    apparent_magnitude: 1.9,
-    temperature: Temperature { K: 9350. },
-    right_ascension: RightAscension::new(5, 59, 32.),
-    declination: Declination::new(Sgn::Pos, 44, 56, 51.),
-    distance: Distance {
-        m: 82. * LIGHT_YEAR.m,
-    },
-    age: Some(Time {
-        s: 0.570 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s,
-    },
-};
+fn menkalinan() -> RealData {
+    RealData {
+        common_name: "Menkalinan",
+        astronomical_name: "β Aurigae",
+        constellation: "Auriga",
+        radius: Some(Length::new::<solar_radii>(2.77)),
+        mass: Mass::new::<solar_mass>(2.389),
+        absolute_magnitude: -0.10,
+        apparent_magnitude: 1.9,
+        temperature: ThermodynamicTemperature::new::<kelvin>(9350.),
+        right_ascension: RightAscension::new(5, 59, 32.),
+        declination: Declination::new(Sgn::Pos, 44, 56, 51.),
+        distance: Length::new::<light_year>(82.),
+        age: Some(Time::new::<gigayear>(0.570)),
+        lifetime: Time::new::<gigayear>(0.800458342),
+    }
+}
 
-const HASSALEH: RealData = RealData {
-    common_name: "Hassaleh",
-    astronomical_name: "ι Aurigae",
-    constellation: "Auriga",
-    radius: Some(Distance {
-        m: 127. * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 7.1 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -3.20,
-    apparent_magnitude: 2.69,
-    temperature: Temperature { K: 4160. },
-    right_ascension: RightAscension::new(4, 56, 60.),
-    declination: Declination::new(Sgn::Pos, 33, 9, 58.),
-    distance: Distance {
-        m: 490. * LIGHT_YEAR.m,
-    },
-    age: Some(Time {
-        s: 0.04 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.052267043 * BILLION_YEARS.s,
-    },
-};
+fn hassaleh() -> RealData {
+    RealData {
+        common_name: "Hassaleh",
+        astronomical_name: "ι Aurigae",
+        constellation: "Auriga",
+        radius: Some(Length::new::<solar_radii>(127.)),
+        mass: Mass::new::<solar_mass>(7.1),
+        absolute_magnitude: -3.20,
+        apparent_magnitude: 2.69,
+        temperature: ThermodynamicTemperature::new::<kelvin>(4160.),
+        right_ascension: RightAscension::new(4, 56, 60.),
+        declination: Declination::new(Sgn::Pos, 33, 9, 58.),
+        distance: Length::new::<light_year>(490.),
+        age: Some(Time::new::<gigayear>(0.04)),
+        lifetime: Time::new::<gigayear>(0.052267043),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] = [CAPELLA, MENKALINAN, HASSALEH];
+pub(crate) fn stars() -> [RealData; 3] {
+    [capella(), menkalinan(), hassaleh()]
+}

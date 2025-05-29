@@ -1,13 +1,13 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{DISTANCE_ZERO, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
 //https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html
@@ -22,33 +22,31 @@ use crate::{
 //     right_ascension: RightAscension::new(),
 //     declination: Declination::new(),
 //     apparent_magnitude: ,
-//     distance: Distance{m:  * LIGHT_YEAR.m},
+//     distance: Length{m:  * .m},
 //     absolute_magnitude: ,
-//     mass: Some(Mass{kg: * SOLAR_MASS.kg}),
-//     radius: Some(Distance{m: * SOLAR_RADIUS.m}),
+//     mass: Some(Mass{kg: * .kg}),
+//     radius: Some(Length{m: * .m}),
 //     temperature: Temperature{K:}),
-//     age: Some(Time{s:* BILLION_YEARS.s}),
+//     age: Some(Time{s:* .s}),
 // };
 
-pub const SUN: RealData = RealData {
-    common_name: "Sun",
-    astronomical_name: "Sol",
-    constellation: "",
-    mass: SOLAR_MASS,
-    radius: Some(SOLAR_RADIUS),
-    absolute_magnitude: 4.83,
-    apparent_magnitude: -26.74, //seen from earth
-    temperature: Temperature { K: 5778.0 },
-    age: Some(Time {
-        s: 4.6 * BILLION_YEARS.s,
-    }),
-    right_ascension: RightAscension::new(0, 0, 0.),
-    declination: Declination::new(Sgn::Pos, 0, 0, 0.),
-    distance: DISTANCE_ZERO,
-    lifetime: Time {
-        s: 10.0 * BILLION_YEARS.s,
-    },
-};
+pub fn sun() -> RealData {
+    RealData {
+        common_name: "Sun",
+        astronomical_name: "Sol",
+        constellation: "",
+        mass: Mass::new::<solar_mass>(1.0),
+        radius: Some(Length::new::<solar_radii>(1.0)),
+        absolute_magnitude: 4.83,
+        apparent_magnitude: -26.74, //seen from earth
+        temperature: ThermodynamicTemperature::new::<kelvin>(5778.0),
+        age: Some(Time::new::<gigayear>(4.6)),
+        right_ascension: RightAscension::new(0, 0, 0.),
+        declination: Declination::new(Sgn::Pos, 0, 0, 0.),
+        distance: Length::new::<light_year>(0.),
+        lifetime: Time::new::<gigayear>(10.0),
+    }
+}
 
 pub mod all;
 pub mod andromeda;

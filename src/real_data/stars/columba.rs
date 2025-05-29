@@ -1,113 +1,87 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const PHACT: RealData = RealData {
-    common_name: "Phact",
-    astronomical_name: "α Columbae",
-    constellation: "Columba",
-    right_ascension: RightAscension::new(5, 39, 39.),
-    declination: Declination::new(Sgn::Neg, 34, 4, 27.),
-    apparent_magnitude: 2.645,
-    distance: Distance {
-        m: 261. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -1.87,
-    mass: Mass {
-        kg: 4.5 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 5.8 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 12_963. },
-    age: Some(Time {
-        s: 0.093 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.151849866 * BILLION_YEARS.s,
-    },
-};
+fn phact() -> RealData {
+    RealData {
+        common_name: "Phact",
+        astronomical_name: "α Columbae",
+        constellation: "Columba",
+        right_ascension: RightAscension::new(5, 39, 39.),
+        declination: Declination::new(Sgn::Neg, 34, 4, 27.),
+        apparent_magnitude: 2.645,
+        distance: Length::new::<light_year>(261.),
+        absolute_magnitude: -1.87,
+        mass: Mass::new::<solar_mass>(4.5),
+        radius: Some(Length::new::<solar_radii>(5.8)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_963.),
+        age: Some(Time::new::<gigayear>(0.093)),
+        lifetime: Time::new::<gigayear>(0.151849866),
+    }
+}
 
-const WAZN: RealData = RealData {
-    common_name: "Wazn",
-    astronomical_name: "β Columbae",
-    constellation: "Columba",
-    right_ascension: RightAscension::new(5, 50, 58.),
-    declination: Declination::new(Sgn::Neg, 35, 46, 6.),
-    apparent_magnitude: 3.105,
-    distance: Distance {
-        m: 87.41 * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 1.01,
-    mass: Mass {
-        kg: 1.1 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 11.5 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 4545. },
-    age: Some(Time {
-        s: 2. * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 6.97272616 * BILLION_YEARS.s,
-    },
-};
+fn wazn() -> RealData {
+    RealData {
+        common_name: "Wazn",
+        astronomical_name: "β Columbae",
+        constellation: "Columba",
+        right_ascension: RightAscension::new(5, 50, 58.),
+        declination: Declination::new(Sgn::Neg, 35, 46, 6.),
+        apparent_magnitude: 3.105,
+        distance: Length::new::<light_year>(87.41),
+        absolute_magnitude: 1.01,
+        mass: Mass::new::<solar_mass>(1.1),
+        radius: Some(Length::new::<solar_radii>(11.5)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4545.),
+        age: Some(Time::new::<gigayear>(2.)),
+        lifetime: Time::new::<gigayear>(6.97272616),
+    }
+}
 
-const DELTA_COLUMBAE: RealData = RealData {
-    common_name: "",
-    astronomical_name: "δ Columbae",
-    constellation: "Columba",
-    right_ascension: RightAscension::new(6, 22, 7.),
-    declination: Declination::new(Sgn::Neg, 33, 26, 11.),
-    apparent_magnitude: 3.85,
-    distance: Distance {
-        m: 234. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -0.32,
-    mass: Mass {
-        kg: 3.7 * SOLAR_MASS.kg,
-    },
-    radius: None,
-    temperature: Temperature { K: 5136. },
-    age: None,
-    lifetime: Time {
-        s: 0.254814649 * BILLION_YEARS.s,
-    },
-};
+fn delta_columbae() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "δ Columbae",
+        constellation: "Columba",
+        right_ascension: RightAscension::new(6, 22, 7.),
+        declination: Declination::new(Sgn::Neg, 33, 26, 11.),
+        apparent_magnitude: 3.85,
+        distance: Length::new::<light_year>(234.),
+        absolute_magnitude: -0.32,
+        mass: Mass::new::<solar_mass>(3.7),
+        radius: None,
+        temperature: ThermodynamicTemperature::new::<kelvin>(5136.),
+        age: None,
+        lifetime: Time::new::<gigayear>(0.254814649),
+    }
+}
 
-const EPSILON_COLUMBAE: RealData = RealData {
-    common_name: "",
-    astronomical_name: "ε Columbae",
-    constellation: "Columba",
-    right_ascension: RightAscension::new(5, 31, 13.),
-    declination: Declination::new(Sgn::Neg, 35, 28, 14.),
-    apparent_magnitude: 3.87,
-    distance: Distance {
-        m: 262. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -0.67,
-    mass: Mass {
-        kg: 2.47 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 25.2 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 4575. },
-    age: Some(Time {
-        s: 0.8 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s,
-    },
-};
+fn epsilon_columbae() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "ε Columbae",
+        constellation: "Columba",
+        right_ascension: RightAscension::new(5, 31, 13.),
+        declination: Declination::new(Sgn::Neg, 35, 28, 14.),
+        apparent_magnitude: 3.87,
+        distance: Length::new::<light_year>(262.),
+        absolute_magnitude: -0.67,
+        mass: Mass::new::<solar_mass>(2.47),
+        radius: Some(Length::new::<solar_radii>(25.2)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4575.),
+        age: Some(Time::new::<gigayear>(0.8)),
+        lifetime: Time::new::<gigayear>(0.800458342),
+    }
+}
 
-pub(crate) const STARS: [RealData; 4] = [PHACT, WAZN, DELTA_COLUMBAE, EPSILON_COLUMBAE];
+pub(crate) fn stars() -> [RealData; 4] {
+    [phact(), wazn(), delta_columbae(), epsilon_columbae()]
+}

@@ -1,91 +1,69 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const DENEB: RealData = RealData {
-    common_name: "Deneb",
-    astronomical_name: "α Cygni",
-    constellation: "Cygnus",
-    radius: Some(Distance {
-        m: 203. * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 19. * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -7.13,
-    apparent_magnitude: 1.25,
-    temperature: Temperature { K: 8515. },
-    right_ascension: RightAscension::new(20, 41, 26.),
-    declination: Declination::new(Sgn::Pos, 45, 16, 49.),
-    distance: Distance {
-        m: 1548. * LIGHT_YEAR.m,
-    },
-    age: Some(Time {
-        s: 0.011 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.011037517 * BILLION_YEARS.s,
-    },
-};
+fn deneb() -> RealData {
+    RealData {
+        common_name: "Deneb",
+        astronomical_name: "α Cygni",
+        constellation: "Cygnus",
+        radius: Some(Length::new::<solar_radii>(203.)),
+        mass: Mass::new::<solar_mass>(19.),
+        absolute_magnitude: -7.13,
+        apparent_magnitude: 1.25,
+        temperature: ThermodynamicTemperature::new::<kelvin>(8515.),
+        right_ascension: RightAscension::new(20, 41, 26.),
+        declination: Declination::new(Sgn::Pos, 45, 16, 49.),
+        distance: Length::new::<light_year>(1548.),
+        age: Some(Time::new::<gigayear>(0.011)),
+        lifetime: Time::new::<gigayear>(0.011037517),
+    }
+}
 
-const SADIR: RealData = RealData {
-    common_name: "Sadir",
-    astronomical_name: "γ Cygni",
-    constellation: "Cygnus",
-    radius: Some(Distance {
-        m: 150. * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 12.11 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -6.12,
-    apparent_magnitude: 2.23,
-    temperature: Temperature { K: 5790. },
-    age: Some(Time {
-        s: 0.012 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.019450199 * BILLION_YEARS.s,
-    },
-    right_ascension: RightAscension::new(20, 22, 14.),
-    declination: Declination::new(Sgn::Pos, 40, 15, 24.),
-    distance: Distance {
-        m: 1522. * LIGHT_YEAR.m,
-    },
-};
+fn sadir() -> RealData {
+    RealData {
+        common_name: "Sadir",
+        astronomical_name: "γ Cygni",
+        constellation: "Cygnus",
+        radius: Some(Length::new::<solar_radii>(150.)),
+        mass: Mass::new::<solar_mass>(12.11),
+        absolute_magnitude: -6.12,
+        apparent_magnitude: 2.23,
+        temperature: ThermodynamicTemperature::new::<kelvin>(5790.),
+        age: Some(Time::new::<gigayear>(0.012)),
+        lifetime: Time::new::<gigayear>(0.019450199),
+        right_ascension: RightAscension::new(20, 22, 14.),
+        declination: Declination::new(Sgn::Pos, 40, 15, 24.),
+        distance: Length::new::<light_year>(1522.),
+    }
+}
 
-const ALJANAH: RealData = RealData {
-    common_name: "Aljanah",
-    astronomical_name: "ε Cygni",
-    constellation: "Cygnus",
-    radius: Some(Distance {
-        m: 10.82 * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 2. * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: 0.76,
-    apparent_magnitude: 2.48,
-    temperature: Temperature { K: 4710. },
-    age: Some(Time {
-        s: 1.3 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 1.36020165 * BILLION_YEARS.s,
-    },
-    right_ascension: RightAscension::new(20, 46, 13.),
-    declination: Declination::new(Sgn::Pos, 33, 58, 13.),
-    distance: Distance {
-        m: 72. * LIGHT_YEAR.m,
-    },
-};
+fn aljanah() -> RealData {
+    RealData {
+        common_name: "Aljanah",
+        astronomical_name: "ε Cygni",
+        constellation: "Cygnus",
+        radius: Some(Length::new::<solar_radii>(10.82)),
+        mass: Mass::new::<solar_mass>(2.),
+        absolute_magnitude: 0.76,
+        apparent_magnitude: 2.48,
+        temperature: ThermodynamicTemperature::new::<kelvin>(4710.),
+        age: Some(Time::new::<gigayear>(1.3)),
+        lifetime: Time::new::<gigayear>(1.36020165),
+        right_ascension: RightAscension::new(20, 46, 13.),
+        declination: Declination::new(Sgn::Pos, 33, 58, 13.),
+        distance: Length::new::<light_year>(72.),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] = [DENEB, SADIR, ALJANAH];
+pub(crate) fn stars() -> [RealData; 3] {
+    [deneb(), sadir(), aljanah()]
+}

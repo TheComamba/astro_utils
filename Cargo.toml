@@ -8,19 +8,19 @@ name         = "astro_utils"
 crate-type   = ["rlib"]
 
 [dependencies]
-astro_coords = { git = "https://github.com/TheComamba/AstroCoords.git", tag = "before-uom" }
-directories = { version = "5.0", default-features = false } # Standard locations on file system
+astro_coords = { git = "https://github.com/TheComamba/AstroCoords.git", branch = "main" }
+etcetera = { version = "0.10.0", default-features = false } # Standard locations on file system
 flate2 = { version = "1.0", default-features = false, features = ["zlib-ng-compat"] } # Decompression
 fraction = { version = "0.15.0", default-features = false }
 gaia_access = { version = "0.1.0", features = ["gaiadr3_gaia_source", "gaiadr3_gaia_universe_model"] }
 lazy_static = { version = "1.4", default-features = false }
-parsec_access = { version = "1.0", default-features = false }
-rand = { version = "0.8.0", default-features = false, features = ["std", "std_rng"] } # Random number generation
-rand_distr = { version = "0.4.0", default-features = false, features = ["alloc"] } # WeightedAliasIndex
+parsec_access = { version = "2.0", default-features = false }
+rand = { version = "0.9.0", default-features = false, features = ["std", "std_rng", "thread_rng"] } # Random number generation
+rand_distr = { version = "0.5.0", default-features = false, features = ["alloc"] } # WeightedAliasIndex
 rayon = { version = "1.8", default-features = false } # Parallelism
-reqwest = { version = "0.12.0", default-features = false, features = ["blocking", "rustls-tls"] } # Downloading files
+reqwest = { version = "0.12.0", default-features = false, features = ["blocking", "default-tls"] } # Downloading files
 rmp-serde = { version = "1.1", default-features = false }
 serde = { version = "1.0", default-features = false, features = ["derive"] } # (De)Serialization
 serde_json = { version = "1.0", default-features = false, features = ["std"] }
-simple-si-units = { version = "1.1", default-features = false, features = ["serde"] }
 tar = { version = "0.4.0", default-features = false } # Decompression
+uom = { version = "0.36.0", default-features = false, features = ["f64", "si", "std"] } # Physical quantities

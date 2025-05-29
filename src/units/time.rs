@@ -1,16 +1,20 @@
+use uom::si::{
+    f64::Time,
+    time::{day, hour, minute, second, year},
+};
+
 use crate::astro_display::AstroDisplay;
 
 use super::DISPLAY_THRESHOLD;
-use simple_si_units::base::Time;
 
-pub const TIME_ZERO: Time<f64> = Time { s: 0. };
-pub const HOUR: Time<f64> = Time { s: 60. * 60. };
-pub const DAY: Time<f64> = Time { s: 24. * HOUR.s };
-pub const YEAR: Time<f64> = Time { s: 365.25 * DAY.s };
-pub(crate) const TEN_MILLENIA: Time<f64> = Time {
-    s: 10_000. * 365.25 * 24. * 60. * 60.,
-};
-pub const BILLION_YEARS: Time<f64> = Time { s: 1e9 * YEAR.s };
+unit! {
+    system: uom::si;
+
+    quantity: uom::si::time;
+    @kiloyear: 3.1536_E10; "kyr", "kiloyear", "kiloyears";
+    @megayear: 3.1536_E13; "Myr", "megayear", "megayears";
+    @gigayear: 3.1536_E16; "Gyr", "gigayear", "gigayears";
+}
 
 pub enum TimeUnit {
     Seconds,
@@ -23,34 +27,34 @@ pub enum TimeUnit {
     BillionYears,
 }
 
-pub(crate) fn display_time_in_units(time: &Time<f64>, units: TimeUnit) -> String {
+pub(crate) fn display_time_in_units(time: &Time, units: TimeUnit) -> String {
     match units {
-        TimeUnit::Seconds => format!("{:.2} sec", time.to_seconds()),
-        TimeUnit::Minutes => format!("{:.2} min", time.to_min()),
-        TimeUnit::Hours => format!("{:.2} hrs", time.to_hr()),
-        TimeUnit::Days => format!("{:.2} days", time.to_days()),
-        TimeUnit::Years => format!("{:.2} yrs", time.to_yr()),
-        TimeUnit::ThousandYears => format!("{:.2} kyr", time.to_kyr()),
-        TimeUnit::MillionYears => format!("{:.2} Myrs", time.to_Myr()),
-        TimeUnit::BillionYears => format!("{:.2} Gyrs", time.to_Gyr()),
+        TimeUnit::Seconds => format!("{:.2} sec", time.get::<second>()),
+        TimeUnit::Minutes => format!("{:.2} min", time.get::<minute>()),
+        TimeUnit::Hours => format!("{:.2} hrs", time.get::<hour>()),
+        TimeUnit::Days => format!("{:.2} days", time.get::<day>()),
+        TimeUnit::Years => format!("{:.2} yrs", time.get::<year>()),
+        TimeUnit::ThousandYears => format!("{:.2} kyr", time.get::<kiloyear>()),
+        TimeUnit::MillionYears => format!("{:.2} Myrs", time.get::<megayear>()),
+        TimeUnit::BillionYears => format!("{:.2} Gyrs", time.get::<gigayear>()),
     }
 }
 
-impl AstroDisplay for Time<f64> {
+impl AstroDisplay for Time {
     fn astro_display(&self) -> String {
-        let units = if self.to_Gyr().abs() > DISPLAY_THRESHOLD {
+        let units = if self.get::<gigayear>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::BillionYears
-        } else if self.to_Myr().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<megayear>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::MillionYears
-        } else if self.to_kyr().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<kiloyear>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::ThousandYears
-        } else if self.to_yr().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<year>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::Years
-        } else if self.to_days().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<day>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::Days
-        } else if self.to_hr().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<hour>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::Hours
-        } else if self.to_min().abs() > DISPLAY_THRESHOLD {
+        } else if self.get::<minute>().abs() > DISPLAY_THRESHOLD {
             TimeUnit::Minutes
         } else {
             TimeUnit::Seconds
@@ -67,47 +71,47 @@ mod tests {
 
     #[test]
     fn test_time_display() {
-        let time = Time::from_seconds(1.);
+        let time = Time::new::<second>(1.);
         assert_eq!(time.astro_display(), "1.00 sec");
-        let time = Time::from_min(1.);
+        let time = Time::new::<minute>(1.);
         assert_eq!(time.astro_display(), "1.00 min");
-        let time = Time::from_hr(1.);
+        let time = Time::new::<hour>(1.);
         assert_eq!(time.astro_display(), "1.00 hrs");
-        let time = Time::from_days(1.);
+        let time = Time::new::<day>(1.);
         assert_eq!(time.astro_display(), "1.00 days");
-        let time = Time::from_yr(1.);
+        let time = Time::new::<year>(1.);
         assert_eq!(time.astro_display(), "1.00 yrs");
-        let time = Time::from_kyr(1.);
+        let time = Time::new::<kiloyear>(1.);
         assert_eq!(time.astro_display(), "1.00 kyr");
-        let time = Time::from_Myr(1.);
+        let time = Time::new::<megayear>(1.);
         assert_eq!(time.astro_display(), "1.00 Myrs");
-        let time = Time::from_Gyr(1.);
+        let time = Time::new::<gigayear>(1.);
         assert_eq!(time.astro_display(), "1.00 Gyrs");
     }
 
     #[test]
     fn test_time_negative_display() {
-        let time = Time::from_seconds(-1.);
+        let time = Time::new::<second>(-1.);
         assert_eq!(time.astro_display(), "-1.00 sec");
-        let time = Time::from_min(-1.);
+        let time = Time::new::<minute>(-1.);
         assert_eq!(time.astro_display(), "-1.00 min");
-        let time = Time::from_hr(-1.);
+        let time = Time::new::<hour>(-1.);
         assert_eq!(time.astro_display(), "-1.00 hrs");
-        let time = Time::from_days(-1.);
+        let time = Time::new::<day>(-1.);
         assert_eq!(time.astro_display(), "-1.00 days");
-        let time = Time::from_yr(-1.);
+        let time = Time::new::<year>(-1.);
         assert_eq!(time.astro_display(), "-1.00 yrs");
-        let time = Time::from_kyr(-1.);
+        let time = Time::new::<kiloyear>(-1.);
         assert_eq!(time.astro_display(), "-1.00 kyr");
-        let time = Time::from_Myr(-1.);
+        let time = Time::new::<megayear>(-1.);
         assert_eq!(time.astro_display(), "-1.00 Myrs");
-        let time = Time::from_Gyr(-1.);
+        let time = Time::new::<gigayear>(-1.);
         assert_eq!(time.astro_display(), "-1.00 Gyrs");
     }
 
     #[test]
     fn test_infinite_time_display() {
-        let time = Time { s: INFINITY };
+        let time = Time::new::<second>(INFINITY);
         assert_eq!(time.astro_display(), "inf Gyrs");
     }
 }

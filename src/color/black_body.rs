@@ -1,14 +1,18 @@
-use simple_si_units::base::{Distance, Temperature};
+use uom::si::{
+    f64::{Length, ThermodynamicTemperature},
+    length::meter,
+    thermodynamic_temperature::kelvin,
+};
 
 pub(crate) fn planck_radiant_emittance(
-    wavelength: Distance<f64>,
-    temperature: Temperature<f64>,
+    wavelength: Length,
+    temperature: ThermodynamicTemperature,
 ) -> f64 {
     const H: f64 = 6.62607015e-34;
     const C: f64 = 299792458.0;
     const K: f64 = 1.380649e-23;
-    let lambda = wavelength.to_meters();
-    let t = temperature.K;
+    let lambda = wavelength.get::<meter>();
+    let t = temperature.get::<kelvin>();
     let a = 2.0 * H * C * C;
     let exp_arg = H * C / (lambda * K * t);
     let numerator = a / (lambda * lambda * lambda * lambda * lambda);
@@ -18,11 +22,13 @@ pub(crate) fn planck_radiant_emittance(
 
 #[cfg(test)]
 mod tests {
+    use uom::si::length::nanometer;
+
     use super::*;
 
     struct TestExpectance {
-        wavelength: Distance<f64>,
-        temperature: Temperature<f64>,
+        wavelength: Length,
+        temperature: ThermodynamicTemperature,
         expected: f64,
     }
 
@@ -30,33 +36,33 @@ mod tests {
     fn test_planck_radiant_emittance() {
         let expectations = vec![
             TestExpectance {
-                wavelength: Distance::from_nm(100.),
-                temperature: Temperature::from_K(5000.0),
+                wavelength: Length::new::<nanometer>(100.),
+                temperature: ThermodynamicTemperature::new::<kelvin>(5000.0),
                 expected: 3.792e6,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(500.),
-                temperature: Temperature::from_K(5000.0),
+                wavelength: Length::new::<nanometer>(500.),
+                temperature: ThermodynamicTemperature::new::<kelvin>(5000.0),
                 expected: 1.211e13,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(1_000.),
-                temperature: Temperature::from_K(5000.0),
+                wavelength: Length::new::<nanometer>(1_000.),
+                temperature: ThermodynamicTemperature::new::<kelvin>(5000.0),
                 expected: 7.102e12,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(100.),
-                temperature: Temperature::from_K(6000.0),
+                wavelength: Length::new::<nanometer>(100.),
+                temperature: ThermodynamicTemperature::new::<kelvin>(6000.0),
                 expected: 4.589e8,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(500.),
-                temperature: Temperature::from_K(6000.0),
+                wavelength: Length::new::<nanometer>(500.),
+                temperature: ThermodynamicTemperature::new::<kelvin>(6000.0),
                 expected: 3.176e13,
             },
             TestExpectance {
-                wavelength: Distance::from_nm(1000.),
-                temperature: Temperature::from_K(6000.0),
+                wavelength: Length::new::<nanometer>(1000.),
+                temperature: ThermodynamicTemperature::new::<kelvin>(6000.0),
                 expected: 1.191e13,
             },
         ];
@@ -67,8 +73,8 @@ mod tests {
             let ratio = result / expected;
             println!(
                 "wavelength: {}, temperature: {}, expected: {}, result: {}, ratio: {}",
-                expectation.wavelength.to_nm(),
-                expectation.temperature.K,
+                expectation.wavelength.get::<nanometer>(),
+                expectation.temperature.get::<kelvin>(),
                 expected,
                 result,
                 ratio

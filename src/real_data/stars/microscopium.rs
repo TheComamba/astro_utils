@@ -1,92 +1,73 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const GAMMA_MICROSCOPII: RealData = RealData {
-    common_name: "",
-    astronomical_name: "γ Microscopii",
-    constellation: "Microscopium",
-    right_ascension: RightAscension::new(21, 1, 17.),
-    declination: Declination::new(Sgn::Neg, 32, 15, 28.),
-    apparent_magnitude: 4.680,
-    distance: Distance {
-        m: 223. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 0.49,
-    mass: Mass {
-        kg: 2.5 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 10. * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 5050. },
-    age: Some(Time {
-        s: 0.620 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s,
-    },
-};
+fn gamma_microscopii() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "γ Microscopii",
+        constellation: "Microscopium",
+        right_ascension: RightAscension::new(21, 1, 17.),
+        declination: Declination::new(Sgn::Neg, 32, 15, 28.),
+        apparent_magnitude: 4.680,
+        distance: Length::new::<light_year>(223.),
+        absolute_magnitude: 0.49,
+        mass: Mass::new::<solar_mass>(2.5),
+        radius: Some(Length::new::<solar_radii>(10.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(5050.),
+        age: Some(Time::new::<gigayear>(0.620)),
+        lifetime: Time::new::<gigayear>(0.800458342),
+    }
+}
 
-const EPSILON_MICROSCOPII: RealData = RealData {
-    common_name: "",
-    astronomical_name: "ε Microscopii",
-    constellation: "Microscopium",
-    right_ascension: RightAscension::new(21, 17, 56.),
-    declination: Declination::new(Sgn::Neg, 32, 10, 21.),
-    apparent_magnitude: 4.71,
-    distance: Distance {
-        m: 166. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 0.97,
-    mass: Mass {
-        kg: 2.18 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 2.2 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 9126. },
-    age: Some(Time {
-        s: 0.525 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 1.03650581 * BILLION_YEARS.s,
-    },
-};
+fn epsilon_microscopii() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "ε Microscopii",
+        constellation: "Microscopium",
+        right_ascension: RightAscension::new(21, 17, 56.),
+        declination: Declination::new(Sgn::Neg, 32, 10, 21.),
+        apparent_magnitude: 4.71,
+        distance: Length::new::<light_year>(166.),
+        absolute_magnitude: 0.97,
+        mass: Mass::new::<solar_mass>(2.18),
+        radius: Some(Length::new::<solar_radii>(2.2)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(9126.),
+        age: Some(Time::new::<gigayear>(0.525)),
+        lifetime: Time::new::<gigayear>(1.03650581),
+    }
+}
 
-const THETA1_MICROSCOPII: RealData = RealData {
-    common_name: "",
-    astronomical_name: "θ¹ Microscopii",
-    constellation: "Microscopium",
-    right_ascension: RightAscension::new(21, 20, 46.),
-    declination: Declination::new(Sgn::Neg, 40, 48, 34.),
-    apparent_magnitude: 4.82,
-    distance: Distance {
-        m: 179. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 1.03,
-    mass: Mass {
-        kg: 2.32 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 2.35 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 9240. },
-    age: Some(Time {
-        s: 0.437 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.916355612 * BILLION_YEARS.s,
-    },
-};
+fn theta1_microscopii() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "θ¹ Microscopii",
+        constellation: "Microscopium",
+        right_ascension: RightAscension::new(21, 20, 46.),
+        declination: Declination::new(Sgn::Neg, 40, 48, 34.),
+        apparent_magnitude: 4.82,
+        distance: Length::new::<light_year>(179.),
+        absolute_magnitude: 1.03,
+        mass: Mass::new::<solar_mass>(2.32),
+        radius: Some(Length::new::<solar_radii>(2.35)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(9240.),
+        age: Some(Time::new::<gigayear>(0.437)),
+        lifetime: Time::new::<gigayear>(0.916355612),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] =
-    [GAMMA_MICROSCOPII, EPSILON_MICROSCOPII, THETA1_MICROSCOPII];
+pub(crate) fn stars() -> [RealData; 3] {
+    [
+        gamma_microscopii(),
+        epsilon_microscopii(),
+        theta1_microscopii(),
+    ]
+}

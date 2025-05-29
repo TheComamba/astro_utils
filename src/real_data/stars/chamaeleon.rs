@@ -1,90 +1,73 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const ALPHA_CHAMAELEONTIS: RealData = RealData {
-    common_name: "",
-    astronomical_name: "α Chamaeleontis",
-    constellation: "Chamaeleon",
-    right_ascension: RightAscension::new(8, 18, 32.),
-    declination: Declination::new(Sgn::Neg, 76, 55, 11.),
-    apparent_magnitude: 4.06,
-    distance: Distance {
-        m: 63.8 * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 2.59,
-    mass: Mass {
-        kg: 1.42 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 2.11 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 6580. },
-    age: Some(Time {
-        s: 1.8 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 3.10253119 * BILLION_YEARS.s,
-    },
-};
+fn alpha_chamaeleontis() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "α Chamaeleontis",
+        constellation: "Chamaeleon",
+        right_ascension: RightAscension::new(8, 18, 32.),
+        declination: Declination::new(Sgn::Neg, 76, 55, 11.),
+        apparent_magnitude: 4.06,
+        distance: Length::new::<light_year>(63.8),
+        absolute_magnitude: 2.59,
+        mass: Mass::new::<solar_mass>(1.42),
+        radius: Some(Length::new::<solar_radii>(2.11)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(6580.),
+        age: Some(Time::new::<gigayear>(1.8)),
+        lifetime: Time::new::<gigayear>(3.10253119),
+    }
+}
 
-const GAMMA_CHAMAELEONTIS: RealData = RealData {
-    common_name: "",
-    astronomical_name: "γ Chamaeleontis",
-    constellation: "Chamaeleon",
-    right_ascension: RightAscension::new(10, 35, 28.),
-    declination: Declination::new(Sgn::Neg, 78, 36, 28.),
-    apparent_magnitude: 4.12,
-    distance: Distance {
-        m: 418. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -1.43,
-    mass: Mass {
-        kg: 2.4 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 67. * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 4035. },
-    age: None,
-    lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s,
-    },
-};
+fn gamma_chamaeleontis() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "γ Chamaeleontis",
+        constellation: "Chamaeleon",
+        right_ascension: RightAscension::new(10, 35, 28.),
+        declination: Declination::new(Sgn::Neg, 78, 36, 28.),
+        apparent_magnitude: 4.12,
+        distance: Length::new::<light_year>(418.),
+        absolute_magnitude: -1.43,
+        mass: Mass::new::<solar_mass>(2.4),
+        radius: Some(Length::new::<solar_radii>(67.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4035.),
+        age: None,
+        lifetime: Time::new::<gigayear>(0.800458342),
+    }
+}
 
-const BETA_CHAMAELEONIS: RealData = RealData {
-    common_name: "",
-    astronomical_name: "β Chamaeleontis",
-    constellation: "Chamaeleon",
-    right_ascension: RightAscension::new(12, 18, 21.),
-    declination: Declination::new(Sgn::Neg, 79, 18, 44.),
-    apparent_magnitude: 4.24,
-    distance: Distance {
-        m: 298. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -0.57,
-    mass: Mass {
-        kg: 5.9 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 2.84 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 14_495. },
-    age: Some(Time {
-        s: 0.0227 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.078916095 * BILLION_YEARS.s,
-    },
-};
+fn beta_chamaeleonis() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "β Chamaeleontis",
+        constellation: "Chamaeleon",
+        right_ascension: RightAscension::new(12, 18, 21.),
+        declination: Declination::new(Sgn::Neg, 79, 18, 44.),
+        apparent_magnitude: 4.24,
+        distance: Length::new::<light_year>(298.),
+        absolute_magnitude: -0.57,
+        mass: Mass::new::<solar_mass>(5.9),
+        radius: Some(Length::new::<solar_radii>(2.84)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(14_495.),
+        age: Some(Time::new::<gigayear>(0.0227)),
+        lifetime: Time::new::<gigayear>(0.078916095),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] =
-    [ALPHA_CHAMAELEONTIS, GAMMA_CHAMAELEONTIS, BETA_CHAMAELEONIS];
+pub(crate) fn stars() -> [RealData; 3] {
+    [
+        alpha_chamaeleontis(),
+        gamma_chamaeleontis(),
+        beta_chamaeleonis(),
+    ]
+}

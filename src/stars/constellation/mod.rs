@@ -1,6 +1,6 @@
 use crate::stars::{appearance::StarAppearance, data::StarData};
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::Time;
+use uom::si::f64::Time;
 
 use self::connection::{collect_connections, Connection};
 
@@ -56,7 +56,7 @@ fn collect_stars_in_constellation<'a>(
 
 pub fn collect_constellations(
     all_stars: &[StarData],
-    time_since_epoch: Time<f64>,
+    time_since_epoch: Time,
 ) -> Vec<Constellation> {
     let constellation_names = collect_constellation_names(all_stars);
     let mut constellations: Vec<Constellation> = Vec::new();
@@ -78,7 +78,9 @@ pub fn collect_constellations(
 
 #[cfg(test)]
 mod tests {
-    use crate::{real_data::stars::all::get_many_stars, units::time::TIME_ZERO};
+    use uom::si::time::year;
+
+    use crate::real_data::stars::all::get_many_stars;
 
     use super::*;
 
@@ -180,7 +182,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let constellations = collect_constellations(&all_stars, TIME_ZERO);
+        let constellations = collect_constellations(&all_stars, Time::new::<year>(0.));
         let mut constellation_names = constellations
             .iter()
             .map(|constellation| constellation.get_name())
@@ -209,7 +211,7 @@ mod tests {
             .iter()
             .map(|star| star.to_star_data())
             .collect::<Vec<_>>();
-        let constellations = collect_constellations(&all_stars, TIME_ZERO);
+        let constellations = collect_constellations(&all_stars, Time::new::<year>(0.));
         for constellation in constellations {
             assert!(
                 constellation.get_stars().len() >= 3,

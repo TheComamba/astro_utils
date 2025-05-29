@@ -1,80 +1,72 @@
 use std::f64::consts::PI;
 
-use crate::astro_display::AstroDisplay;
-use simple_si_units::{
-    base::Distance,
-    geometry::{Area, SolidAngle},
+use uom::si::{
+    f64::{Area, Length, SolidAngle},
+    solid_angle::steradian,
 };
 
-pub const SOLID_ANGLE_ZERO: SolidAngle<f64> = SolidAngle { sr: 0.0 };
+use crate::astro_display::AstroDisplay;
 
-impl AstroDisplay for SolidAngle<f64> {
+impl AstroDisplay for SolidAngle {
     fn astro_display(&self) -> String {
-        format!("{:.2} sr", self.sr)
+        format!("{:.2} sr", self.get::<steradian>())
     }
 }
 
-pub fn area_and_distance_to_solid_angle(
-    surface_area: Area<f64>,
-    distance: Distance<f64>,
-) -> SolidAngle<f64> {
-    SolidAngle {
-        sr: surface_area / (distance * distance),
-    }
+pub fn area_and_distance_to_solid_angle(surface_area: Area, distance: Length) -> SolidAngle {
+    (surface_area / (distance * distance)).into()
 }
 
-pub fn radius_and_distance_to_solid_angle(
-    radius: Distance<f64>,
-    distance: Distance<f64>,
-) -> SolidAngle<f64> {
+pub fn radius_and_distance_to_solid_angle(radius: Length, distance: Length) -> SolidAngle {
     area_and_distance_to_solid_angle(PI * radius * radius, distance)
 }
 
-pub fn solid_angle_to_area_at_distance(
-    solid_angle: SolidAngle<f64>,
-    distance: Distance<f64>,
-) -> Area<f64> {
-    solid_angle.sr * (distance * distance)
+pub fn solid_angle_to_area_at_distance(solid_angle: SolidAngle, distance: Length) -> Area {
+    (solid_angle * distance * distance).into()
 }
 
 #[cfg(test)]
 mod tests {
+    use uom::si::{area::square_meter, length::meter};
+
     use super::*;
     use crate::{
-        real_data::planets::{EARTH, MOON},
+        real_data::planets::{earth, luna},
         tests::eq,
-        units::distance::SOLAR_RADIUS,
+        units::length::solar_radii,
     };
 
     #[test]
     fn test_area_and_distance_to_solid_angle() {
-        let surface_area = Area { m2: 1.0 };
-        let distance = Distance { m: 1.0 };
+        let surface_area = Area::new::<square_meter>(1.0);
+        let distance = Length::new::<meter>(1.0);
         let solid_angle = area_and_distance_to_solid_angle(surface_area, distance);
-        assert!(eq(solid_angle.sr, 1.0));
+        assert!(eq(solid_angle.get::<steradian>(), 1.0));
     }
 
     #[test]
     fn test_solid_angle_to_area_at_distance() {
-        let solid_angle = SolidAngle { sr: 1.0 };
-        let distance = Distance { m: 1.0 };
+        let solid_angle = SolidAngle::new::<steradian>(1.);
+        let distance = Length::new::<meter>(1.0);
         let surface_area = solid_angle_to_area_at_distance(solid_angle, distance);
-        assert!(eq(surface_area.m2, 1.0));
+        assert!(eq(surface_area.get::<square_meter>(), 1.0));
     }
 
     #[test]
     fn solid_angle_of_sun() {
-        let expected = SolidAngle { sr: 7e-5 };
-        let actual =
-            radius_and_distance_to_solid_angle(SOLAR_RADIUS, EARTH.orbit.get_semi_major_axis());
-        assert!(eq(actual.sr, expected.sr));
+        let expected = SolidAngle::new::<steradian>(7e-5);
+        let actual = radius_and_distance_to_solid_angle(
+            Length::new::<solar_radii>(1.),
+            earth().orbit.get_semi_major_axis(),
+        );
+        assert!(eq(actual.value, expected.value));
     }
 
     #[test]
     fn solid_angle_of_full_moon() {
-        let expected = SolidAngle { sr: 6.4e-5 };
+        let expected = SolidAngle::new::<steradian>(6.4e-5);
         let actual =
-            radius_and_distance_to_solid_angle(MOON.radius, MOON.orbit.get_semi_major_axis());
-        assert!(eq(actual.sr, expected.sr));
+            radius_and_distance_to_solid_angle(luna().radius, luna().orbit.get_semi_major_axis());
+        assert!(eq(actual.value, expected.value));
     }
 }

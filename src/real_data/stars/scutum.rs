@@ -1,83 +1,69 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const ALPHA_SCUTI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "α Scuti",
-    constellation: "Scutum",
-    right_ascension: RightAscension::new(18, 35, 12.),
-    declination: Declination::new(Sgn::Neg, 8, 14, 39.),
-    apparent_magnitude: 3.83,
-    distance: Distance {
-        m: 199. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -0.08,
-    mass: Mass {
-        kg: 1.33 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 20. * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 4315. },
-    age: None,
-    lifetime: Time {
-        s: 3.46068223 * BILLION_YEARS.s,
-    },
-};
+fn alpha_scuti() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "α Scuti",
+        constellation: "Scutum",
+        right_ascension: RightAscension::new(18, 35, 12.),
+        declination: Declination::new(Sgn::Neg, 8, 14, 39.),
+        apparent_magnitude: 3.83,
+        distance: Length::new::<light_year>(199.),
+        absolute_magnitude: -0.08,
+        mass: Mass::new::<solar_mass>(1.33),
+        radius: Some(Length::new::<solar_radii>(20.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4315.),
+        age: None,
+        lifetime: Time::new::<gigayear>(3.46068223),
+    }
+}
 
-const BETA_SCUTI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "β Scuti",
-    constellation: "Scutum",
-    right_ascension: RightAscension::new(18, 47, 10.),
-    declination: Declination::new(Sgn::Neg, 4, 44, 52.),
-    apparent_magnitude: 4.22,
-    distance: Distance {
-        m: 900. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -2.99,
-    mass: Mass {
-        kg: 3.0 * SOLAR_MASS.kg,
-    },
-    radius: None,
-    temperature: Temperature { K: 4622. },
-    age: None,
-    lifetime: Time {
-        s: 0.420724107 * BILLION_YEARS.s,
-    },
-};
+fn beta_scuti() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "β Scuti",
+        constellation: "Scutum",
+        right_ascension: RightAscension::new(18, 47, 10.),
+        declination: Declination::new(Sgn::Neg, 4, 44, 52.),
+        apparent_magnitude: 4.22,
+        distance: Length::new::<light_year>(900.),
+        absolute_magnitude: -2.99,
+        mass: Mass::new::<solar_mass>(3.0),
+        radius: None,
+        temperature: ThermodynamicTemperature::new::<kelvin>(4622.),
+        age: None,
+        lifetime: Time::new::<gigayear>(0.420724107),
+    }
+}
 
-const ZETA_SCUTI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "ζ Scuti",
-    constellation: "Scutum",
-    right_ascension: RightAscension::new(18, 23, 40.),
-    declination: Declination::new(Sgn::Neg, 8, 56, 4.),
-    apparent_magnitude: 4.66,
-    distance: Distance {
-        m: 210. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 0.66,
-    mass: Mass {
-        kg: 1.29 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 9.3 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 4750. },
-    age: None,
-    lifetime: Time {
-        s: 3.9126515 * BILLION_YEARS.s,
-    },
-};
+fn zeta_scuti() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "ζ Scuti",
+        constellation: "Scutum",
+        right_ascension: RightAscension::new(18, 23, 40.),
+        declination: Declination::new(Sgn::Neg, 8, 56, 4.),
+        apparent_magnitude: 4.66,
+        distance: Length::new::<light_year>(210.),
+        absolute_magnitude: 0.66,
+        mass: Mass::new::<solar_mass>(1.29),
+        radius: Some(Length::new::<solar_radii>(9.3)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4750.),
+        age: None,
+        lifetime: Time::new::<gigayear>(3.9126515),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] = [ALPHA_SCUTI, BETA_SCUTI, ZETA_SCUTI];
+pub(crate) fn stars() -> [RealData; 3] {
+    [alpha_scuti(), beta_scuti(), zeta_scuti()]
+}

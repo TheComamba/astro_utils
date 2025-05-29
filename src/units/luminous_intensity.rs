@@ -1,46 +1,57 @@
-use crate::astro_display::AstroDisplay;
-
-use super::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude};
-use simple_si_units::{
-    base::{Distance, Luminosity},
-    electromagnetic::Illuminance,
-    geometry::SolidAngle,
+use uom::si::{
+    f64::{Length, LuminousIntensity, SolidAngle},
+    length::parsec,
+    luminous_intensity::candela,
+    solid_angle::steradian,
 };
 
-pub const LUMINOSITY_ZERO: Luminosity<f64> = Luminosity { cd: 0. };
-pub const SOLAR_LUMINOUS_INTENSITY: Luminosity<f64> = Luminosity { cd: 2.98e27 };
+use crate::astro_display::AstroDisplay;
 
-pub fn luminous_intensity_to_solar_luminosities(luminous_intensity: Luminosity<f64>) -> f64 {
-    luminous_intensity / SOLAR_LUMINOUS_INTENSITY
+use super::illuminance::{
+    apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude, Illuminance,
+};
+
+#[inline(always)]
+pub fn solar_luminous_intensity() -> LuminousIntensity {
+    LuminousIntensity::new::<candela>(2.98e27)
 }
 
-pub fn absolute_magnitude_to_luminous_intensity(absolute_magnitude: f64) -> Luminosity<f64> {
-    let ten_pc = Distance::from_parsec(10.);
+#[inline(always)]
+pub fn luminous_intensity_to_solar_luminosities(luminous_intensity: LuminousIntensity) -> f64 {
+    (luminous_intensity / solar_luminous_intensity()).into()
+}
+
+#[inline(always)]
+pub fn absolute_magnitude_to_luminous_intensity(absolute_magnitude: f64) -> LuminousIntensity {
+    let ten_pc = Length::new::<parsec>(10.);
     let illuminance = apparent_magnitude_to_illuminance(absolute_magnitude);
-    illuminance_to_luminous_intensity(&illuminance, &ten_pc)
+    illuminance_to_luminous_intensity(illuminance, ten_pc)
 }
 
-pub fn luminous_intensity_to_absolute_magnitude(luminous_intensity: Luminosity<f64>) -> f64 {
-    let ten_pc = Distance::from_parsec(10.);
-    let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &ten_pc);
-    illuminance_to_apparent_magnitude(&illuminance)
+#[inline(always)]
+pub fn luminous_intensity_to_absolute_magnitude(luminous_intensity: LuminousIntensity) -> f64 {
+    let ten_pc = Length::new::<parsec>(10.);
+    let illuminance = luminous_intensity_to_illuminance(luminous_intensity, ten_pc);
+    illuminance_to_apparent_magnitude(illuminance)
 }
 
+#[inline(always)]
 pub fn luminous_intensity_to_illuminance(
-    luminous_intensity: &Luminosity<f64>,
-    distance: &Distance<f64>,
-) -> Illuminance<f64> {
-    luminous_intensity * SolidAngle::from_steradians(1.) / (distance * distance)
+    luminous_intensity: LuminousIntensity,
+    distance: Length,
+) -> Illuminance {
+    luminous_intensity * SolidAngle::new::<steradian>(1.) / (distance * distance)
 }
 
+#[inline(always)]
 pub fn illuminance_to_luminous_intensity(
-    illuminance: &Illuminance<f64>,
-    distance: &Distance<f64>,
-) -> Luminosity<f64> {
-    illuminance * (distance * distance) / SolidAngle::from_steradians(1.)
+    illuminance: Illuminance,
+    distance: Length,
+) -> LuminousIntensity {
+    illuminance * (distance * distance) / SolidAngle::new::<steradian>(1.)
 }
 
-impl AstroDisplay for Luminosity<f64> {
+impl AstroDisplay for LuminousIntensity {
     fn astro_display(&self) -> String {
         let absolute_magnitude = luminous_intensity_to_absolute_magnitude(*self);
         format!("{:.2} abs. mag.", absolute_magnitude)
@@ -49,8 +60,13 @@ impl AstroDisplay for Luminosity<f64> {
 
 #[cfg(test)]
 mod tests {
+    use uom::si::length::meter;
+
     use super::*;
-    use crate::tests::{eq, eq_within};
+    use crate::{
+        tests::{eq, eq_within},
+        units::illuminance::lux,
+    };
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
     const ILLUMINANCE_AT_UNIT_DISTANCE: f64 = 1.;
@@ -59,11 +75,11 @@ mod tests {
     fn illuminance_roundtrip() {
         for i in -10..10 {
             let input = i as f64;
-            let luminous_intensity = Luminosity::from_cd(input);
-            let distance = Distance::from_m(1.);
-            let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
-            let output = illuminance_to_luminous_intensity(&illuminance, &distance);
-            assert!(eq(input, output.cd));
+            let luminous_intensity = LuminousIntensity::new::<candela>(input);
+            let distance = Length::new::<meter>(1.);
+            let illuminance = luminous_intensity_to_illuminance(luminous_intensity, distance);
+            let output = illuminance_to_luminous_intensity(illuminance, distance);
+            assert!(eq(input, output.value));
         }
     }
 
@@ -79,10 +95,10 @@ mod tests {
 
     #[test]
     fn illuminance_of_1_cd_source_at_1_m() {
-        let luminous_intensity = Luminosity::from_cd(1.);
-        let distance = Distance::from_m(1.);
-        let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
-        let actual = illuminance.to_lux();
+        let luminous_intensity = LuminousIntensity::new::<candela>(1.);
+        let distance = Length::new::<meter>(1.);
+        let illuminance = luminous_intensity_to_illuminance(luminous_intensity, distance);
+        let actual = illuminance.get::<lux>();
         let expected = ILLUMINANCE_AT_UNIT_DISTANCE;
         assert!(eq(actual, expected));
     }
@@ -91,11 +107,11 @@ mod tests {
     fn illuminance_is_proportional_to_luminous_intensity() {
         for i in 1..10 {
             let cd = i as f64;
-            let luminous_intensity = Luminosity::from_cd(cd);
-            let distance = Distance::from_m(1.);
-            let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
+            let luminous_intensity = LuminousIntensity::new::<candela>(cd);
+            let distance = Length::new::<meter>(1.);
+            let illuminance = luminous_intensity_to_illuminance(luminous_intensity, distance);
             let expected = cd * ILLUMINANCE_AT_UNIT_DISTANCE;
-            let actual = illuminance.to_lux();
+            let actual = illuminance.get::<lux>();
             assert!(eq(actual, expected));
         }
     }
@@ -103,23 +119,23 @@ mod tests {
     #[test]
     fn illuminance_is_inversely_proportional_to_distance_squared() {
         for d in 1..10 {
-            let distance = Distance::from_m(d as f64);
-            let luminous_intensity = Luminosity::from_cd(1.);
-            let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
+            let distance = Length::new::<meter>(d as f64);
+            let luminous_intensity = LuminousIntensity::new::<candela>(1.);
+            let illuminance = luminous_intensity_to_illuminance(luminous_intensity, distance);
             let expected = ILLUMINANCE_AT_UNIT_DISTANCE / (d * d) as f64;
-            let actual = illuminance.to_lux();
+            let actual = illuminance.get::<lux>();
             assert!(eq(actual, expected));
         }
     }
 
     #[test]
-    fn apparent_and_absolute_magnitude_at_ten_parsecs_are_equal() {
-        let ten_pc = Distance::from_parsec(10.);
+    fn apparent_and_absolute_magnitude_at_ten_parsecs_are_the_same() {
+        let ten_pc = Length::new::<parsec>(10.);
         for i in -10..10 {
             let input = i as f64;
             let luminous_intensity = absolute_magnitude_to_luminous_intensity(input);
-            let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &ten_pc);
-            let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+            let illuminance = luminous_intensity_to_illuminance(luminous_intensity, ten_pc);
+            let apparent_magnitude = illuminance_to_apparent_magnitude(illuminance);
             let absolute_magnitude = luminous_intensity_to_absolute_magnitude(luminous_intensity);
             assert!(eq(apparent_magnitude, absolute_magnitude));
         }
@@ -127,14 +143,15 @@ mod tests {
 
     #[test]
     fn test_the_sun() {
-        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(SOLAR_LUMINOUS_INTENSITY);
+        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(solar_luminous_intensity());
         let expected = 4.83;
         assert!(eq_within(sun_abs_mag, expected, REAL_DATA_TEST_ACCURACY));
     }
 
     #[test]
     fn test_sirius() {
-        let sun_abs_mag = luminous_intensity_to_absolute_magnitude(22. * SOLAR_LUMINOUS_INTENSITY);
+        let sun_abs_mag =
+            luminous_intensity_to_absolute_magnitude(22. * solar_luminous_intensity());
         let expected = 1.43;
         assert!(eq_within(sun_abs_mag, expected, REAL_DATA_TEST_ACCURACY));
     }

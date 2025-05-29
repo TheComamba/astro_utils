@@ -1,89 +1,69 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const ALNAIR: RealData = RealData {
-    common_name: "Alnair",
-    astronomical_name: "α Gruis",
-    constellation: "Grus",
-    radius: Some(Distance {
-        m: 3.4 * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 4. * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -0.73,
-    apparent_magnitude: 1.73,
-    temperature: Temperature { K: 13_920. },
-    age: Some(Time {
-        s: 0.1 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.193156929 * BILLION_YEARS.s,
-    },
-    right_ascension: RightAscension::new(22, 8, 14.),
-    declination: Declination::new(Sgn::Neg, 46, 57, 40.),
-    distance: Distance {
-        m: 101. * LIGHT_YEAR.m,
-    },
-};
+fn alnair() -> RealData {
+    RealData {
+        common_name: "Alnair",
+        astronomical_name: "α Gruis",
+        constellation: "Grus",
+        radius: Some(Length::new::<solar_radii>(3.4)),
+        mass: Mass::new::<solar_mass>(4.),
+        absolute_magnitude: -0.73,
+        apparent_magnitude: 1.73,
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_920.),
+        age: Some(Time::new::<gigayear>(0.1)),
+        lifetime: Time::new::<gigayear>(0.193156929),
+        right_ascension: RightAscension::new(22, 8, 14.),
+        declination: Declination::new(Sgn::Neg, 46, 57, 40.),
+        distance: Length::new::<light_year>(101.),
+    }
+}
 
-const TIAKI: RealData = RealData {
-    common_name: "Tiaki",
-    astronomical_name: "β Gruis",
-    constellation: "Grus",
-    radius: Some(Distance {
-        m: 180. * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 2.4 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -1.52,
-    apparent_magnitude: 2.07,
-    temperature: Temperature { K: 3480. },
-    age: None,
-    lifetime: Time {
-        s: 0.800458342 * BILLION_YEARS.s,
-    },
-    right_ascension: RightAscension::new(22, 42, 40.),
-    declination: Declination::new(Sgn::Neg, 46, 53, 4.),
-    distance: Distance {
-        m: 170. * LIGHT_YEAR.m,
-    },
-};
+fn tiaki() -> RealData {
+    RealData {
+        common_name: "Tiaki",
+        astronomical_name: "β Gruis",
+        constellation: "Grus",
+        radius: Some(Length::new::<solar_radii>(180.)),
+        mass: Mass::new::<solar_mass>(2.4),
+        absolute_magnitude: -1.52,
+        apparent_magnitude: 2.07,
+        temperature: ThermodynamicTemperature::new::<kelvin>(3480.),
+        age: None,
+        lifetime: Time::new::<gigayear>(0.800458342),
+        right_ascension: RightAscension::new(22, 42, 40.),
+        declination: Declination::new(Sgn::Neg, 46, 53, 4.),
+        distance: Length::new::<light_year>(170.),
+    }
+}
 
-const ALDHANAB: RealData = RealData {
-    common_name: "Aldhanab",
-    astronomical_name: "γ Gruis",
-    constellation: "Grus",
-    right_ascension: RightAscension::new(21, 53, 56.),
-    declination: Declination::new(Sgn::Neg, 37, 21, 53.),
-    apparent_magnitude: 3.003,
-    distance: Distance {
-        m: 211. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -1.05,
-    mass: Mass {
-        kg: 3.06 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 4.5 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 12_520. },
-    age: Some(Time {
-        s: 0.075 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.420724107 * BILLION_YEARS.s,
-    },
-};
+fn aldhanab() -> RealData {
+    RealData {
+        common_name: "Aldhanab",
+        astronomical_name: "γ Gruis",
+        constellation: "Grus",
+        right_ascension: RightAscension::new(21, 53, 56.),
+        declination: Declination::new(Sgn::Neg, 37, 21, 53.),
+        apparent_magnitude: 3.003,
+        distance: Length::new::<light_year>(211.),
+        absolute_magnitude: -1.05,
+        mass: Mass::new::<solar_mass>(3.06),
+        radius: Some(Length::new::<solar_radii>(4.5)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_520.),
+        age: Some(Time::new::<gigayear>(0.075)),
+        lifetime: Time::new::<gigayear>(0.420724107),
+    }
+}
 
-pub(crate) const STARS: [RealData; 3] = [ALNAIR, TIAKI, ALDHANAB];
+pub(crate) fn stars() -> [RealData; 3] {
+    [alnair(), tiaki(), aldhanab()]
+}

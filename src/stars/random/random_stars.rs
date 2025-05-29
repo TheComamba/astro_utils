@@ -1,39 +1,53 @@
-use super::{params::GenerationParams, parsec::getters::get_star_data_if_visible};
+use std::f64::consts::PI;
+
+use astro_coords::{cartesian::Cartesian, direction::Direction};
+use rand::{distr::Uniform, rngs::ThreadRng, Rng};
+use rand_distr::{weighted::WeightedAliasIndex, Distribution};
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
+use uom::si::{
+    f64::{Length, Time, Velocity},
+    length::{astronomical_unit, light_year, meter},
+    velocity::kilometer_per_second,
+};
+
 use crate::{
     error::AstroUtilError,
     stars::{data::StarData, random::parsec::mass_distribution::get_mass_index_distribution},
-    units::time::TEN_MILLENIA,
+    units::{
+        illuminance::{lux, Illuminance},
+        time::{kiloyear, megayear},
+    },
 };
-use astro_coords::{cartesian::Cartesian, direction::Direction};
-use rand::{distributions::Uniform, rngs::ThreadRng, Rng};
-use rand_distr::{Distribution, WeightedAliasIndex};
-use rayon::iter::{IntoParallelIterator, ParallelIterator};
-use simple_si_units::{
-    base::{Distance, Time},
-    electromagnetic::Illuminance,
-    mechanical::Velocity,
-};
-use std::f64::consts::PI;
+
+use super::{params::GenerationParams, parsec::getters::get_star_data_if_visible};
 
 // https://en.wikipedia.org/wiki/Stellar_density
 // But more or less arbitrarily adjusted to reproduce Gaia data.
 pub(super) const STARS_PER_LY_CUBED: f64 = 3e-3;
 // https://ui.adsabs.harvard.edu/abs/1985ApJ...289..373S/abstract
 // 6000 star forming regions are currently in the milky way
-pub(super) const NURSERY_LIFETIME: Time<f64> = Time {
-    s: 5e7 * 365.25 * 24. * 60. * 60.,
-};
-pub(super) const AGE_OF_MILKY_WAY_THIN_DISK: Time<f64> = Time {
-    s: 8.8e9 * 365.25 * 24. * 3600.,
-};
+#[inline(always)]
+pub(super) fn nursery_lifetime() -> Time {
+    Time::new::<megayear>(50.)
+}
+#[inline(always)]
+pub(super) fn age_of_milky_way_thin_disk() -> Time {
+    Time::new::<megayear>(8.8e3)
+}
 const NURSERIES_PER_LY_CUBED: f64 = 6_000. / 8e12 * 10.; //* AGE_OF_MILKY_WAY_THIN_DISK.s / NURSERY_LIFETIME.s;
 pub(super) const NUMBER_OF_STARS_FORMED_IN_NURSERY: usize = 20_000;
-pub(super) const STELLAR_VELOCITY: Velocity<f64> = Velocity { mps: 20_000. };
-pub(super) const DIMMEST_ILLUMINANCE: Illuminance<f64> = Illuminance { lux: 6.5309e-9 };
+#[inline(always)]
+pub(super) fn stellar_velocity() -> Velocity {
+    Velocity::new::<kilometer_per_second>(20.)
+}
+#[inline(always)]
+pub(super) fn dimmest_illuminance() -> Illuminance {
+    Illuminance::new::<lux>(6.5309e-9)
+}
 
 pub(super) const METALLICITY_INDEX: usize = 8;
 
-pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData>, AstroUtilError> {
+pub fn generate_random_stars(max_distance: Length) -> Result<Vec<StarData>, AstroUtilError> {
     if !parsec_access::getters::is_data_ready() {
         return Err(AstroUtilError::DataNotAvailable(
             "Parsec data not ready".to_string(),
@@ -42,7 +56,7 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let mass_index_distr = get_mass_index_distribution()?;
 
     let number_star_forming_regions = number_in_sphere(NURSERIES_PER_LY_CUBED, max_distance) + 1;
-    let age_distribution = Uniform::new(0., AGE_OF_MILKY_WAY_THIN_DISK.s);
+    let age_distribution = Uniform::new(0., age_of_milky_way_thin_disk().get::<megayear>())?;
     println!(
         "Number of star forming regions: {}",
         number_star_forming_regions
@@ -50,14 +64,12 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     let stars = (0..number_star_forming_regions)
         .into_par_iter()
         .map(|i| {
-            let mut rng = rand::thread_rng();
+            let mut rng = rand::rng();
             let mut params = if i == 0 {
                 GenerationParams::old_stars(max_distance)
             } else {
                 let pos = random_point_in_sphere(&mut rng, max_distance);
-                let max_age = Time {
-                    s: rng.sample(age_distribution),
-                };
+                let max_age = Time::new::<megayear>(rng.sample(age_distribution));
                 GenerationParams::nursery(pos, max_age)
             };
             params.adjust_distance_for_performance();
@@ -68,26 +80,29 @@ pub fn generate_random_stars(max_distance: Distance<f64>) -> Result<Vec<StarData
     Ok(stars)
 }
 
-pub(crate) fn get_min_age(max_age: Time<f64>) -> Time<f64> {
-    max_age - NURSERY_LIFETIME - TEN_MILLENIA
+pub(crate) fn get_min_age(max_age: Time) -> Time {
+    max_age - nursery_lifetime() - Time::new::<kiloyear>(10.)
 }
 
-pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Distance<f64>) -> usize {
-    (num_per_lyr * 4. / 3. * PI * max_distance.to_lyr().powi(3)) as usize
+pub(super) fn number_in_sphere(num_per_lyr: f64, max_distance: Length) -> usize {
+    (num_per_lyr * 4. / 3. * PI * max_distance.get::<light_year>().powi(3)) as usize
 }
 
 fn generate_random_stars_with_params(
     params: GenerationParams,
     mass_index_distr: &WeightedAliasIndex<f64>,
 ) -> Vec<StarData> {
-    let age_distribution = Uniform::new(0., NURSERY_LIFETIME.s);
+    let age_distribution = match Uniform::new(0., nursery_lifetime().get::<megayear>()) {
+        Ok(distr) => distr,
+        Err(e) => {
+            eprintln!("Error creating age distribution: {}", e);
+            return vec![];
+        }
+    };
     (0..=params.number)
         .filter_map(|_| {
-            let mut rng = rand::thread_rng();
-            let age = params.max_age
-                - Time {
-                    s: rng.sample(age_distribution),
-                };
+            let mut rng = rand::rng();
+            let age = params.max_age - Time::new::<megayear>(rng.sample(age_distribution));
             generate_visible_random_star(
                 &params.pos,
                 params.radius,
@@ -99,33 +114,31 @@ fn generate_random_stars_with_params(
         .collect::<Vec<StarData>>()
 }
 
-pub fn generate_random_star(
-    max_distance: Option<Distance<f64>>,
-) -> Result<StarData, AstroUtilError> {
-    let max_distance_or_1 = max_distance.unwrap_or(Distance { m: 1. });
+pub fn generate_random_star(max_distance: Option<Length>) -> Result<StarData, AstroUtilError> {
+    let max_distance_or_1 = max_distance.unwrap_or(Length::new::<astronomical_unit>(1.));
 
     let mass_index_distr = get_mass_index_distribution()?;
 
     let mut star = definetely_generate_visible_random_star(max_distance_or_1, mass_index_distr);
     if max_distance.is_none() {
-        star.pos = Cartesian::ORIGIN;
+        star.pos = Cartesian::origin();
     }
     Ok(star)
 }
 
 fn definetely_generate_visible_random_star(
-    max_distance_or_1: Distance<f64>,
+    max_distance_or_1: Length,
     mass_distr: WeightedAliasIndex<f64>,
 ) -> StarData {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
     let mut star = None;
     loop {
         match star {
             None => {
                 star = generate_visible_random_star(
-                    &Cartesian::ORIGIN,
+                    &Cartesian::origin(),
                     max_distance_or_1,
-                    AGE_OF_MILKY_WAY_THIN_DISK,
+                    age_of_milky_way_thin_disk(),
                     &mut rng,
                     &mass_distr,
                 );
@@ -137,8 +150,8 @@ fn definetely_generate_visible_random_star(
 
 fn generate_visible_random_star(
     origin: &Cartesian,
-    max_distance: Distance<f64>,
-    age: Time<f64>,
+    max_distance: Length,
+    age: Time,
     rng: &mut ThreadRng,
     mass_index_distr: &WeightedAliasIndex<f64>,
 ) -> Option<StarData> {
@@ -149,20 +162,26 @@ fn generate_visible_random_star(
 }
 
 fn random_point_in_unit_sphere(rng: &mut ThreadRng) -> Cartesian {
-    let distr = Uniform::new(-1., 1.);
+    let distr = match Uniform::new(-1., 1.) {
+        Ok(distr) => distr,
+        Err(e) => {
+            eprintln!("Error creating uniform distribution: {}", e);
+            return Cartesian::origin();
+        }
+    };
     let (mut x, mut y, mut z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     while x * x + y * y + z * z > 1. {
         (x, y, z) = (rng.sample(distr), rng.sample(distr), rng.sample(distr));
     }
-    let x = Distance { m: x };
-    let y = Distance { m: y };
-    let z = Distance { m: z };
+    let x = Length::new::<meter>(x);
+    let y = Length::new::<meter>(y);
+    let z = Length::new::<meter>(z);
     Cartesian::new(x, y, z)
 }
 
-fn random_point_in_sphere(rng: &mut ThreadRng, max_distance: Distance<f64>) -> Cartesian {
+fn random_point_in_sphere(rng: &mut ThreadRng, max_distance: Length) -> Cartesian {
     let point = random_point_in_unit_sphere(rng);
-    point * max_distance.m
+    point * max_distance.get::<meter>()
 }
 
 pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
@@ -182,13 +201,13 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 #[cfg(test)]
 mod tests {
     use parsec_access::getters::get_closest_metallicity_index_from_mass_fraction;
-    use simple_si_units::base::Mass;
+    use uom::si::{f64::Mass, time::year};
 
     use crate::{
         astro_display::AstroDisplay,
         stars::fate::StarFate,
         tests::eq,
-        units::{illuminance::illuminance_to_apparent_magnitude, time::TIME_ZERO},
+        units::{illuminance::illuminance_to_apparent_magnitude, mass::solar_mass},
     };
 
     use super::*;
@@ -202,7 +221,7 @@ mod tests {
 
     #[test]
     fn dimmest_illuminance_is_magnitude_6_5() {
-        let dimmest = illuminance_to_apparent_magnitude(&DIMMEST_ILLUMINANCE);
+        let dimmest = illuminance_to_apparent_magnitude(dimmest_illuminance());
         assert!(eq(dimmest, 6.5));
     }
 
@@ -211,7 +230,7 @@ mod tests {
     fn generate_random_stars_stress_test() {
         assert!(parsec_access::getters::is_data_ready());
 
-        let max_distance = Distance::from_lyr(25_000.);
+        let max_distance = Length::new::<light_year>(25_000.);
         let max_seconds = 60;
 
         let start = Instant::now();
@@ -231,13 +250,13 @@ mod tests {
 
     #[test]
     fn generating_a_distant_random_star() {
-        let max_distance = Distance::from_lyr(1000.);
+        let max_distance = Length::new::<light_year>(1000.);
         let _ = generate_random_star(Some(max_distance)).unwrap();
     }
 
     #[test]
     fn generated_stars_are_not_further_away_than_max_distance() {
-        let max_distance = Distance::from_lyr(100.);
+        let max_distance = Length::new::<light_year>(100.);
         let stars = generate_random_stars(max_distance).unwrap();
         for star in stars {
             assert!(star.get_distance_at_epoch() < max_distance * 1.01);
@@ -246,19 +265,19 @@ mod tests {
 
     #[test]
     fn random_stars_have_a_non_vanishing_lifetime() {
-        let max_distance = Distance::from_lyr(500.);
+        let max_distance = Length::new::<light_year>(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
-            assert!(star.get_lifetime() > TIME_ZERO);
+            assert!(star.get_lifetime() > Time::new::<year>(0.));
         }
     }
 
     #[test]
     fn random_stars_below_8_sun_masses_become_white_dwarfs() {
-        let max_distance = Distance::from_lyr(500.);
+        let max_distance = Length::new::<light_year>(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
-            if star.params.mass.unwrap() < Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() < Mass::new::<solar_mass>(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::WhiteDwarf);
             }
         }
@@ -266,10 +285,10 @@ mod tests {
 
     #[test]
     fn random_stars_above_8_sun_masses_go_supernova() {
-        let max_distance = Distance::from_lyr(500.);
+        let max_distance = Length::new::<light_year>(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
-            if star.params.mass.unwrap() > Mass::from_solar_mass(8.0) {
+            if star.params.mass.unwrap() > Mass::new::<solar_mass>(8.0) {
                 assert_eq!(star.get_fate(), &StarFate::TypeIISupernova);
             }
         }
@@ -277,7 +296,7 @@ mod tests {
 
     #[test]
     fn random_stars_have_an_age() {
-        let max_distance = Distance::from_lyr(500.);
+        let max_distance = Length::new::<light_year>(500.);
         let star_data: Vec<StarData> = generate_random_stars(max_distance).unwrap();
         for star in star_data {
             assert!(star.get_age_at_epoch().is_some());

@@ -11,7 +11,7 @@ pub enum AstroUtilError {
     MutexPoison,
     RmpSerialization(rmp_serde::encode::Error),
     RmpDeserialization(rmp_serde::decode::Error),
-    WightedError(rand_distr::WeightedError),
+    RandError(String),
 }
 
 impl fmt::Display for AstroUtilError {
@@ -30,7 +30,7 @@ impl fmt::Display for AstroUtilError {
             AstroUtilError::RmpDeserialization(err) => {
                 write!(f, "MessagePack deserialization error: {}", err)
             }
-            AstroUtilError::WightedError(err) => write!(f, "Weighted error: {}", err),
+            AstroUtilError::RandError(err) => write!(f, "Rand error: {}", err),
         }
     }
 }
@@ -77,9 +77,15 @@ impl From<rmp_serde::decode::Error> for AstroUtilError {
     }
 }
 
-impl From<rand_distr::WeightedError> for AstroUtilError {
-    fn from(err: rand_distr::WeightedError) -> Self {
-        AstroUtilError::WightedError(err)
+impl From<rand_distr::weighted::Error> for AstroUtilError {
+    fn from(err: rand_distr::weighted::Error) -> Self {
+        AstroUtilError::RandError(err.to_string())
+    }
+}
+
+impl From<rand_distr::uniform::Error> for AstroUtilError {
+    fn from(err: rand_distr::uniform::Error) -> Self {
+        AstroUtilError::RandError(err.to_string())
     }
 }
 

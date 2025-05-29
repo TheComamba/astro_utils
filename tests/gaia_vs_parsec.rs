@@ -5,17 +5,19 @@ use astro_utils::{
         gaia::gaia_universe_simulation::fetch_brightest_stars_simulated_data,
         random::random_stars::generate_random_stars,
     },
-    units::{
-        illuminance::illuminance_to_apparent_magnitude, temperature::TEMPERATURE_ZERO,
-        time::TIME_ZERO,
-    },
+    units::illuminance::illuminance_to_apparent_magnitude,
 };
-use simple_si_units::base::{Distance, Temperature};
+use uom::si::{
+    f64::{Length, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+    time::year,
+};
 
 #[test]
 #[ignore]
 fn parsec_generates_data_similar_to_gaia() {
-    let max_distance: Distance<f64> = Distance::from_lyr(15_000.);
+    let max_distance = Length::new::<light_year>(15_000.);
 
     let randoms_stars = generate_random_stars(max_distance).unwrap();
     println!(
@@ -29,16 +31,16 @@ fn parsec_generates_data_similar_to_gaia() {
         .collect();
     let parsec_stars = parsec_data
         .iter()
-        .map(|s| s.to_star_appearance(TIME_ZERO))
+        .map(|s| s.to_star_appearance(Time::new::<year>(0.)))
         .collect::<Vec<_>>();
     let gaia_simulated_data = fetch_brightest_stars_simulated_data()
         .unwrap()
         .into_iter()
-        .filter(|s| s.get_temperature_at_epoch() > TEMPERATURE_ZERO)
+        .filter(|s| s.get_temperature_at_epoch().value > 0.)
         .collect::<Vec<_>>();
     let gaia_stars = gaia_simulated_data
         .iter()
-        .map(|s| s.to_star_appearance(TIME_ZERO))
+        .map(|s| s.to_star_appearance(Time::new::<year>(0.)))
         .collect::<Vec<_>>();
 
     let total_num_is_similar = total_number_is_similar(&parsec_stars, &gaia_stars);
@@ -82,38 +84,38 @@ fn parsec_generates_data_similar_to_gaia() {
     let temperatures_in_range_1_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        Temperature::from_K(10.),
-        Temperature::from_K(2_000.),
+        ThermodynamicTemperature::new::<kelvin>(10.),
+        ThermodynamicTemperature::new::<kelvin>(2_000.),
     );
     let temperatures_in_range_2_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        Temperature::from_K(2_000.),
-        Temperature::from_K(4_000.),
+        ThermodynamicTemperature::new::<kelvin>(2_000.),
+        ThermodynamicTemperature::new::<kelvin>(4_000.),
     );
     let temperatures_in_range_3_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        Temperature::from_K(4_000.),
-        Temperature::from_K(8_000.),
+        ThermodynamicTemperature::new::<kelvin>(4_000.),
+        ThermodynamicTemperature::new::<kelvin>(8_000.),
     );
     let temperatures_in_range_4_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        Temperature::from_K(8_000.),
-        Temperature::from_K(16_000.),
+        ThermodynamicTemperature::new::<kelvin>(8_000.),
+        ThermodynamicTemperature::new::<kelvin>(16_000.),
     );
     let temperatures_in_range_5_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        Temperature::from_K(16_000.),
-        Temperature::from_K(32_000.),
+        ThermodynamicTemperature::new::<kelvin>(16_000.),
+        ThermodynamicTemperature::new::<kelvin>(32_000.),
     );
     let temperatures_in_range_6_are_similar = number_of_stars_in_temperature_range_is_similar(
         &parsec_data,
         &gaia_simulated_data,
-        Temperature::from_K(32_000.),
-        Temperature::from_K(64_000.),
+        ThermodynamicTemperature::new::<kelvin>(32_000.),
+        ThermodynamicTemperature::new::<kelvin>(64_000.),
     );
     let temperature_is_similar = mean_temperature_is_similar(&parsec_data, &gaia_simulated_data);
     assert!(total_num_is_similar);
@@ -194,8 +196,8 @@ fn number_of_stars_in_apparent_magnitude_range_is_similar(
 fn number_of_stars_in_temperature_range_is_similar(
     parsec: &[StarData],
     gaia: &[StarData],
-    lower: Temperature<f64>,
-    upper: Temperature<f64>,
+    lower: ThermodynamicTemperature,
+    upper: ThermodynamicTemperature,
 ) -> bool {
     let parsec_in_range = parsec
         .iter()
@@ -232,8 +234,8 @@ fn mean_temperature(data: &[StarData]) -> f64 {
     let temperatures = data
         .iter()
         .map(|s| s.get_temperature_at_epoch())
-        .filter_map(|t| if t > TEMPERATURE_ZERO { Some(t) } else { None })
-        .map(|t| t.to_K())
+        .filter_map(|t| if t.value > 0. { Some(t) } else { None })
+        .map(|t| t.get::<kelvin>())
         .collect::<Vec<_>>();
     temperatures.iter().sum::<f64>() / temperatures.len() as f64
 }

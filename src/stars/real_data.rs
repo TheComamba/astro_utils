@@ -2,14 +2,16 @@ use astro_coords::{
     earth_equatorial::EarthEquatorial,
     ra_and_dec::{Declination, RightAscension},
 };
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
-use std::fmt::Display;
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    time::year,
+};
 
 use crate::{
     color::srgb::sRGBColor,
     units::{
         illuminance::apparent_magnitude_to_illuminance,
-        luminous_intensity::absolute_magnitude_to_luminous_intensity, time::TIME_ZERO,
+        luminous_intensity::absolute_magnitude_to_luminous_intensity,
     },
 };
 
@@ -22,22 +24,16 @@ pub struct RealData {
     pub common_name: &'static str,
     pub astronomical_name: &'static str,
     pub constellation: &'static str,
-    pub mass: Mass<f64>,
-    pub radius: Option<Distance<f64>>,
+    pub mass: Mass,
+    pub radius: Option<Length>,
     pub absolute_magnitude: f64,
     pub apparent_magnitude: f64,
-    pub temperature: Temperature<f64>,
-    pub age: Option<Time<f64>>,
-    pub lifetime: Time<f64>,
+    pub temperature: ThermodynamicTemperature,
+    pub age: Option<Time>,
+    pub lifetime: Time,
     pub right_ascension: RightAscension,
     pub declination: Declination,
-    pub distance: Distance<f64>,
-}
-
-impl Display for RealData {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        <Distance<f64> as Display>::fmt(&self.distance, f)
-    }
+    pub distance: Length,
 }
 
 impl RealData {
@@ -95,20 +91,24 @@ impl RealData {
             illuminance,
             color,
             pos,
-            time_since_epoch: TIME_ZERO,
+            time_since_epoch: Time::new::<year>(0.),
         }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use simple_si_units::base::Mass;
+
+    use uom::si::{
+        f64::{Mass, Time},
+        time::year,
+    };
 
     use crate::{
         real_data::stars::all::get_many_stars,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
-            luminous_intensity::luminous_intensity_to_illuminance, time::TIME_ZERO,
+            luminous_intensity::luminous_intensity_to_illuminance, mass::solar_mass,
         },
     };
 
@@ -117,11 +117,9 @@ mod tests {
         for star_data in get_many_stars() {
             let star = star_data.to_star_data();
             let luminous_intensity = star.get_luminous_intensity_at_epoch();
-            let illuminance = luminous_intensity_to_illuminance(
-                &luminous_intensity,
-                &star.get_distance_at_epoch(),
-            );
-            let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+            let illuminance =
+                luminous_intensity_to_illuminance(luminous_intensity, star.get_distance_at_epoch());
+            let apparent_magnitude = illuminance_to_apparent_magnitude(illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             assert!(
                 difference.abs() < 0.3,
@@ -139,7 +137,7 @@ mod tests {
         for star_data in get_many_stars() {
             let star_data = star_data.to_star_data();
             assert!(!star_data.name.is_empty());
-            let star_appearance = star_data.to_star_appearance(TIME_ZERO);
+            let star_appearance = star_data.to_star_appearance(Time::new::<year>(0.));
             assert!(!star_appearance.name.is_empty());
         }
     }
@@ -179,7 +177,7 @@ mod tests {
         for star_data in get_many_stars() {
             if let Some(age) = star_data.age {
                 assert!(
-                    age.to_yr() < 13.8e9,
+                    age.get::<year>() < 13.8e9,
                     "{} is older than the universe",
                     star_data.astronomical_name
                 );
@@ -190,7 +188,7 @@ mod tests {
     #[test]
     fn no_star_is_older_than_its_lifetime() {
         for star_data in get_many_stars() {
-            assert!(star_data.lifetime > TIME_ZERO);
+            assert!(star_data.lifetime > Time::new::<year>(0.));
             if let Some(age) = star_data.age {
                 assert!(
                     age < star_data.lifetime,
@@ -204,11 +202,11 @@ mod tests {
     #[test]
     fn all_supernova_stars_have_a_time_until_death() {
         for star_data in get_many_stars() {
-            if star_data.mass > Mass::from_solar_mass(8.) {
+            if star_data.mass > Mass::new::<solar_mass>(8.) {
                 assert!(
                     star_data
                         .to_star_data()
-                        .get_time_until_death(TIME_ZERO)
+                        .get_time_until_death(Time::new::<year>(0.))
                         .is_some(),
                     "{} is a supernova star without a time until death",
                     star_data.astronomical_name

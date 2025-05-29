@@ -3,8 +3,8 @@
 pub mod acceleration;
 pub mod angle;
 pub mod density;
-pub mod distance;
 pub mod illuminance;
+pub mod length;
 pub mod luminosity;
 pub mod luminous_intensity;
 pub mod mass;
@@ -13,12 +13,15 @@ pub mod temperature;
 pub mod time;
 pub mod velocity;
 
-pub(super) const DISPLAY_THRESHOLD: f64 = 0.099;
+pub(super) const DISPLAY_THRESHOLD: f64 = 0.085;
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use crate::tests::TEST_ACCURACY;
-    use simple_si_units::geometry::Angle;
+    use uom::si::{angle::radian, f64::Angle};
 
-    pub(crate) const ANGLE_TEST_ACCURACY: Angle<f64> = Angle { rad: TEST_ACCURACY };
+    use crate::tests::TEST_ACCURACY;
+
+    pub(crate) fn angle_test_accuracy() -> Angle {
+        Angle::new::<radian>(TEST_ACCURACY)
+    }
 }

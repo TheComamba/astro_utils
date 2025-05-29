@@ -1,7 +1,7 @@
 use crate::{error::AstroUtilError, stars::random::random_stars::METALLICITY_INDEX};
 
 use parsec_access::getters::get_masses_in_solar;
-use rand_distr::WeightedAliasIndex;
+use rand_distr::weighted::WeightedAliasIndex;
 
 const MIN_MASS_FOR_HYDROGEN_FUSION: f64 = 0.08;
 
@@ -66,7 +66,7 @@ fn integrate_kroupa(lower: f64, upper: f64) -> f64 {
 mod tests {
     use rand_distr::Distribution;
     use rayon::iter::{IntoParallelIterator, ParallelIterator};
-    use simple_si_units::base::Distance;
+    use uom::si::{f64::Length, length::light_year};
 
     use crate::stars::random::random_stars::{number_in_sphere, STARS_PER_LY_CUBED};
 
@@ -111,10 +111,9 @@ mod tests {
         let masses = get_masses_in_solar(METALLICITY_INDEX);
         let num_stars = 100_000;
         let distribution = get_mass_index_distribution().unwrap();
-        let gen_masses =
-            (0..num_stars).map(|_| masses[distribution.sample(&mut rand::thread_rng())]);
+        let gen_masses = (0..num_stars).map(|_| masses[distribution.sample(&mut rand::rng())]);
         let mut thresholds = Vec::new();
-        for i in 0..gen_masses.len() - 1 {
+        for i in 0..masses.len() - 1 {
             thresholds.push(geometric_mean(masses[i], masses[i + 1]));
         }
         for threshold in thresholds {
@@ -139,14 +138,14 @@ mod tests {
     fn there_are_less_than_10_supermassive_stars_within_1000_lyr() {
         // The closest star above 50 Sun masses ist 3000 lyr away.
         let masses = get_masses_in_solar(METALLICITY_INDEX);
-        let max_distance = Distance::from_lyr(1000.);
+        let max_distance = Length::new::<light_year>(1000.);
         let num_stars = number_in_sphere(STARS_PER_LY_CUBED, max_distance);
         println!("Number of stars: {}", num_stars);
         let distribution = get_mass_index_distribution().unwrap();
         let num_supermassive_stars = (0..num_stars)
             .into_par_iter()
             .map(|_| {
-                let mut rng = rand::thread_rng();
+                let mut rng = rand::rng();
                 masses[distribution.sample(&mut rng)]
             })
             .filter(|&m| m >= 99.)

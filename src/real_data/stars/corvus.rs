@@ -1,111 +1,87 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const GHURAB: RealData = RealData {
-    common_name: "Ghurab",
-    astronomical_name: "γ Corvi",
-    constellation: "Corvus",
-    radius: None,
-    mass: Mass {
-        kg: 4.2 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -0.94,
-    apparent_magnitude: 2.58,
-    temperature: Temperature { K: 12_000. },
-    age: Some(Time {
-        s: 0.160 * BILLION_YEARS.s,
-    }),
-    right_ascension: RightAscension::new(12, 15, 48.),
-    declination: Declination::new(Sgn::Neg, 17, 32, 31.),
-    distance: Distance {
-        m: 165. * LIGHT_YEAR.m,
-    },
-    lifetime: Time {
-        s: 0.170765802 * BILLION_YEARS.s,
-    },
-};
+fn ghurab() -> RealData {
+    RealData {
+        common_name: "Ghurab",
+        astronomical_name: "γ Corvi",
+        constellation: "Corvus",
+        radius: None,
+        mass: Mass::new::<solar_mass>(4.2),
+        absolute_magnitude: -0.94,
+        apparent_magnitude: 2.58,
+        temperature: ThermodynamicTemperature::new::<kelvin>(12_000.),
+        age: Some(Time::new::<gigayear>(0.160)),
+        right_ascension: RightAscension::new(12, 15, 48.),
+        declination: Declination::new(Sgn::Neg, 17, 32, 31.),
+        distance: Length::new::<light_year>(165.),
+        lifetime: Time::new::<gigayear>(0.170765802),
+    }
+}
 
-const KRAZ: RealData = RealData {
-    common_name: "Kraz",
-    astronomical_name: "β Corvi",
-    constellation: "Corvus",
-    radius: Some(Distance {
-        m: 16. * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 3.7 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -0.61,
-    apparent_magnitude: 2.65,
-    temperature: Temperature { K: 5100. },
-    age: Some(Time {
-        s: 0.206 * BILLION_YEARS.s,
-    }),
-    right_ascension: RightAscension::new(12, 34, 23.),
-    declination: Declination::new(Sgn::Neg, 23, 23, 48.),
-    distance: Distance {
-        m: 146. * LIGHT_YEAR.m,
-    },
-    lifetime: Time {
-        s: 0.254814649 * BILLION_YEARS.s,
-    },
-};
+fn kraz() -> RealData {
+    RealData {
+        common_name: "Kraz",
+        astronomical_name: "β Corvi",
+        constellation: "Corvus",
+        radius: Some(Length::new::<solar_radii>(16.)),
+        mass: Mass::new::<solar_mass>(3.7),
+        absolute_magnitude: -0.61,
+        apparent_magnitude: 2.65,
+        temperature: ThermodynamicTemperature::new::<kelvin>(5100.),
+        age: Some(Time::new::<gigayear>(0.206)),
+        right_ascension: RightAscension::new(12, 34, 23.),
+        declination: Declination::new(Sgn::Neg, 23, 23, 48.),
+        distance: Length::new::<light_year>(146.),
+        lifetime: Time::new::<gigayear>(0.254814649),
+    }
+}
 
-const ALGORAB: RealData = RealData {
-    common_name: "Algorab",
-    astronomical_name: "δ Corvi",
-    constellation: "Corvus",
-    right_ascension: RightAscension::new(12, 29, 52.),
-    declination: Declination::new(Sgn::Neg, 16, 30, 56.),
-    apparent_magnitude: 2.94,
-    distance: Distance {
-        m: 87.85 * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: 0.787,
-    mass: Mass {
-        kg: 2.74 * SOLAR_MASS.kg,
-    },
-    radius: None,
-    temperature: Temperature { K: 10_400. },
-    age: Some(Time {
-        s: 0.260 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.513076303 * BILLION_YEARS.s,
-    },
-};
+fn algorab() -> RealData {
+    RealData {
+        common_name: "Algorab",
+        astronomical_name: "δ Corvi",
+        constellation: "Corvus",
+        right_ascension: RightAscension::new(12, 29, 52.),
+        declination: Declination::new(Sgn::Neg, 16, 30, 56.),
+        apparent_magnitude: 2.94,
+        distance: Length::new::<light_year>(87.85),
+        absolute_magnitude: 0.787,
+        mass: Mass::new::<solar_mass>(2.74),
+        radius: None,
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_400.),
+        age: Some(Time::new::<gigayear>(0.260)),
+        lifetime: Time::new::<gigayear>(0.513076303),
+    }
+}
 
-const EPSILON_CORVI: RealData = RealData {
-    common_name: "",
-    astronomical_name: "ε Corvi",
-    constellation: "Corvus",
-    right_ascension: RightAscension::new(12, 10, 7.),
-    declination: Declination::new(Sgn::Neg, 22, 37, 11.),
-    apparent_magnitude: 3.024,
-    distance: Distance {
-        m: 318. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -1.82,
-    mass: Mass {
-        kg: 3.2 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 52. * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 4320. },
-    age: None,
-    lifetime: Time {
-        s: 0.351318702 * BILLION_YEARS.s,
-    },
-};
+fn epsilon_corvi() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "ε Corvi",
+        constellation: "Corvus",
+        right_ascension: RightAscension::new(12, 10, 7.),
+        declination: Declination::new(Sgn::Neg, 22, 37, 11.),
+        apparent_magnitude: 3.024,
+        distance: Length::new::<light_year>(318.),
+        absolute_magnitude: -1.82,
+        mass: Mass::new::<solar_mass>(3.2),
+        radius: Some(Length::new::<solar_radii>(52.)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(4320.),
+        age: None,
+        lifetime: Time::new::<gigayear>(0.351318702),
+    }
+}
 
-pub(crate) const STARS: [RealData; 4] = [GHURAB, KRAZ, ALGORAB, EPSILON_CORVI];
+pub(crate) fn stars() -> [RealData; 4] {
+    [ghurab(), kraz(), algorab(), epsilon_corvi()]
+}

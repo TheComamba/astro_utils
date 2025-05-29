@@ -1,111 +1,87 @@
 use astro_coords::ra_and_dec::*;
-use simple_si_units::base::{Distance, Mass, Temperature, Time};
+use uom::si::{
+    f64::{Length, Mass, ThermodynamicTemperature, Time},
+    length::light_year,
+    thermodynamic_temperature::kelvin,
+};
 
 use crate::{
     stars::real_data::RealData,
-    units::{
-        distance::{LIGHT_YEAR, SOLAR_RADIUS},
-        mass::SOLAR_MASS,
-        time::BILLION_YEARS,
-    },
+    units::{length::solar_radii, mass::solar_mass, time::gigayear},
 };
 
-const VEGA: RealData = RealData {
-    common_name: "Vega",
-    astronomical_name: "α Lyrae",
-    constellation: "Lyra",
-    radius: Some(Distance {
-        m: 2.362 * SOLAR_RADIUS.m,
-    }),
-    mass: Mass {
-        kg: 2.135 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: 0.58,
-    apparent_magnitude: 0.03,
-    temperature: Temperature { K: 9602. },
-    age: Some(Time {
-        s: 0.455 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 1.09929685 * BILLION_YEARS.s,
-    },
-    right_ascension: RightAscension::new(18, 36, 56.),
-    declination: Declination::new(Sgn::Pos, 38, 47, 1.),
-    distance: Distance {
-        m: 25. * LIGHT_YEAR.m,
-    },
-};
+fn vega() -> RealData {
+    RealData {
+        common_name: "Vega",
+        astronomical_name: "α Lyrae",
+        constellation: "Lyra",
+        radius: Some(Length::new::<solar_radii>(2.362)),
+        mass: Mass::new::<solar_mass>(2.135),
+        absolute_magnitude: 0.58,
+        apparent_magnitude: 0.03,
+        temperature: ThermodynamicTemperature::new::<kelvin>(9602.),
+        age: Some(Time::new::<gigayear>(0.455)),
+        lifetime: Time::new::<gigayear>(1.09929685),
+        right_ascension: RightAscension::new(18, 36, 56.),
+        declination: Declination::new(Sgn::Pos, 38, 47, 1.),
+        distance: Length::new::<light_year>(25.),
+    }
+}
 
-const R_LYRAE: RealData = RealData {
-    common_name: "",
-    astronomical_name: "R Lyrae",
-    constellation: "Lyra",
-    radius: None,
-    mass: Mass {
-        kg: 1.8 * SOLAR_MASS.kg,
-    },
-    absolute_magnitude: -1.07,
-    apparent_magnitude: 4.08,
-    temperature: Temperature { K: 3313. },
-    age: None,
-    lifetime: Time {
-        s: 1.46605285 * BILLION_YEARS.s,
-    },
-    right_ascension: RightAscension::new(18, 55, 20.),
-    declination: Declination::new(Sgn::Pos, 43, 56, 46.),
-    distance: Distance {
-        m: 349.4 * LIGHT_YEAR.m,
-    },
-};
+fn r_lyrae() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "R Lyrae",
+        constellation: "Lyra",
+        radius: None,
+        mass: Mass::new::<solar_mass>(1.8),
+        absolute_magnitude: -1.07,
+        apparent_magnitude: 4.08,
+        temperature: ThermodynamicTemperature::new::<kelvin>(3313.),
+        age: None,
+        lifetime: Time::new::<gigayear>(1.46605285),
+        right_ascension: RightAscension::new(18, 55, 20.),
+        declination: Declination::new(Sgn::Pos, 43, 56, 46.),
+        distance: Length::new::<light_year>(349.4),
+    }
+}
 
-const GAMMA_LYRAE: RealData = RealData {
-    common_name: "",
-    astronomical_name: "γ Lyrae",
-    constellation: "Lyra",
-    right_ascension: RightAscension::new(18, 58, 57.),
-    declination: Declination::new(Sgn::Pos, 32, 41, 22.),
-    apparent_magnitude: 3.261,
-    distance: Distance {
-        m: 620. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -3.140,
-    mass: Mass {
-        kg: 5.76 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 15.40 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 10_000. },
-    age: None,
-    lifetime: Time {
-        s: 0.078916095 * BILLION_YEARS.s,
-    },
-};
+fn gamma_lyrae() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "γ Lyrae",
+        constellation: "Lyra",
+        right_ascension: RightAscension::new(18, 58, 57.),
+        declination: Declination::new(Sgn::Pos, 32, 41, 22.),
+        apparent_magnitude: 3.261,
+        distance: Length::new::<light_year>(620.),
+        absolute_magnitude: -3.140,
+        mass: Mass::new::<solar_mass>(5.76),
+        radius: Some(Length::new::<solar_radii>(15.40)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(10_000.),
+        age: None,
+        lifetime: Time::new::<gigayear>(0.078916095),
+    }
+}
 
-const BETA_LYRAE: RealData = RealData {
-    common_name: "",
-    astronomical_name: "β Lyrae",
-    constellation: "Lyra",
-    right_ascension: RightAscension::new(18, 50, 5.),
-    declination: Declination::new(Sgn::Pos, 33, 21, 46.),
-    apparent_magnitude: 3.52,
-    distance: Distance {
-        m: 960. * LIGHT_YEAR.m,
-    },
-    absolute_magnitude: -3.82,
-    mass: Mass {
-        kg: 2.97 * SOLAR_MASS.kg,
-    },
-    radius: Some(Distance {
-        m: 15.2 * SOLAR_RADIUS.m,
-    }),
-    temperature: Temperature { K: 13_300. },
-    age: Some(Time {
-        s: 0.023 * BILLION_YEARS.s,
-    }),
-    lifetime: Time {
-        s: 0.420724107 * BILLION_YEARS.s,
-    },
-};
+fn beta_lyrae() -> RealData {
+    RealData {
+        common_name: "",
+        astronomical_name: "β Lyrae",
+        constellation: "Lyra",
+        right_ascension: RightAscension::new(18, 50, 5.),
+        declination: Declination::new(Sgn::Pos, 33, 21, 46.),
+        apparent_magnitude: 3.52,
+        distance: Length::new::<light_year>(960.),
+        absolute_magnitude: -3.82,
+        mass: Mass::new::<solar_mass>(2.97),
+        radius: Some(Length::new::<solar_radii>(15.2)),
+        temperature: ThermodynamicTemperature::new::<kelvin>(13_300.),
+        age: Some(Time::new::<gigayear>(0.023)),
+        lifetime: Time::new::<gigayear>(0.420724107),
+    }
+}
 
-pub(crate) const STARS: [RealData; 4] = [VEGA, R_LYRAE, GAMMA_LYRAE, BETA_LYRAE];
+pub(crate) fn stars() -> [RealData; 4] {
+    [vega(), r_lyrae(), gamma_lyrae(), beta_lyrae()]
+}

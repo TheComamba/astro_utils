@@ -1,38 +1,54 @@
+use uom::si::heat_flux_density::watt_per_square_meter;
+
 use crate::astro_display::AstroDisplay;
-use simple_si_units::electromagnetic::Illuminance;
 
-pub const IRRADIANCE_ZERO: Illuminance<f64> = Illuminance { lux: 0. };
-pub const APARENT_VISIBLE_MAGNITUDE_ZERO: Illuminance<f64> = Illuminance { lux: 2.6e-6 };
-pub const IRRADIANCE_OF_BOLOMETRIC_ZERO: Illuminance<f64> = Illuminance { lux: 2.518e-8 }; // W/m^2, not lux
+pub type Illuminance = uom::si::f64::Luminance; // Hack until https://github.com/iliekturtles/uom/pull/512 is merged
+#[allow(non_camel_case_types)]
+pub type lux = uom::si::luminance::candela_per_square_meter;
+pub type Irradiance = uom::si::f64::HeatFluxDensity;
 
-pub const fn from_lux(lux: f64) -> Illuminance<f64> {
-    Illuminance { lux }
+#[inline(always)]
+pub fn aparent_visible_magnitude_zero() -> Illuminance {
+    Illuminance::new::<lux>(2.6e-6)
 }
 
-pub fn apparent_magnitude_to_illuminance(apparent_magnitude: f64) -> Illuminance<f64> {
+#[inline(always)]
+pub fn irradiance_of_bolometric_zero() -> Irradiance {
+    Irradiance::new::<watt_per_square_meter>(2.518e-8)
+}
+
+#[inline(always)]
+pub fn apparent_magnitude_to_illuminance(apparent_magnitude: f64) -> Illuminance {
     let exponent = apparent_magnitude / -2.5;
-    APARENT_VISIBLE_MAGNITUDE_ZERO * 10_f64.powf(exponent)
+    aparent_visible_magnitude_zero() * 10_f64.powf(exponent)
 }
 
-pub fn illuminance_to_apparent_magnitude(illuminance: &Illuminance<f64>) -> f64 {
-    -2.5 * (illuminance / &APARENT_VISIBLE_MAGNITUDE_ZERO).log10()
+#[inline(always)]
+pub fn illuminance_to_apparent_magnitude(illuminance: Illuminance) -> f64 {
+    -2.5 * (illuminance / aparent_visible_magnitude_zero())
+        .log10()
+        .value
 }
 
-impl AstroDisplay for Illuminance<f64> {
+impl AstroDisplay for Illuminance {
     fn astro_display(&self) -> String {
-        let apparent_magnitude = illuminance_to_apparent_magnitude(self);
+        let apparent_magnitude = illuminance_to_apparent_magnitude(*self);
         format!("{:.2} app. mag.", apparent_magnitude)
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use uom::si::{
+        f64::Length,
+        length::{astronomical_unit, light_year},
+    };
+
     use super::*;
     use crate::{
         tests::{eq, eq_within},
-        units::luminous_intensity::{luminous_intensity_to_illuminance, SOLAR_LUMINOUS_INTENSITY},
+        units::luminous_intensity::{luminous_intensity_to_illuminance, solar_luminous_intensity},
     };
-    use simple_si_units::base::Distance;
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
 
@@ -41,7 +57,7 @@ mod tests {
         for apparent_magnitude in -10..10 {
             let input = apparent_magnitude as f64;
             let illuminance = apparent_magnitude_to_illuminance(input);
-            let output = illuminance_to_apparent_magnitude(&illuminance);
+            let output = illuminance_to_apparent_magnitude(illuminance);
             assert!(eq(input, output));
         }
     }
@@ -53,17 +69,17 @@ mod tests {
             let illuminance = apparent_magnitude_to_illuminance(i as f64);
             let illuminance_plus_1 = apparent_magnitude_to_illuminance((i + 1) as f64);
             let ratio = illuminance / illuminance_plus_1;
-            println!("i: {}, ratio: {}", i, ratio);
-            assert!(eq(ratio, expected));
+            println!("i: {}, ratio: {}", i, ratio.value);
+            assert!(eq(ratio.value, expected));
         }
     }
 
     #[test]
     fn test_sunlight() {
-        let luminous_intensity = SOLAR_LUMINOUS_INTENSITY;
-        let distance = Distance::from_au(1.);
-        let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
-        let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+        let luminous_intensity = solar_luminous_intensity();
+        let distance = Length::new::<astronomical_unit>(1.);
+        let illuminance = luminous_intensity_to_illuminance(luminous_intensity, distance);
+        let apparent_magnitude = illuminance_to_apparent_magnitude(illuminance);
         let expected_app_mag = -26.74;
         assert!(eq_within(apparent_magnitude, expected_app_mag, 0.05));
     }
@@ -75,7 +91,7 @@ mod tests {
 
         let expected_lux = 107_527.;
         assert!(eq_within(
-            illuminance.lux,
+            illuminance.value,
             expected_lux,
             5. * REAL_DATA_TEST_ACCURACY * expected_lux
         ));
@@ -83,10 +99,10 @@ mod tests {
 
     #[test]
     fn test_sirius() {
-        let luminous_intensity = 22. * SOLAR_LUMINOUS_INTENSITY;
-        let distance = Distance::from_lyr(8.6);
-        let illuminance = luminous_intensity_to_illuminance(&luminous_intensity, &distance);
-        let apparent_magnitude = illuminance_to_apparent_magnitude(&illuminance);
+        let luminous_intensity = 22. * solar_luminous_intensity();
+        let distance = Length::new::<light_year>(8.6);
+        let illuminance = luminous_intensity_to_illuminance(luminous_intensity, distance);
+        let apparent_magnitude = illuminance_to_apparent_magnitude(illuminance);
         let expected_app_mag = -1.46;
         assert!(eq_within(apparent_magnitude, expected_app_mag, 0.05));
     }

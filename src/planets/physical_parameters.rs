@@ -1,26 +1,26 @@
 use astro_coords::direction::Direction;
 use serde::{Deserialize, Serialize};
-use simple_si_units::base::{Distance, Mass, Time};
+use uom::si::f64::{Length, Mass, Time};
 
 use crate::color::srgb::sRGBColor;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PlanetPhysicalParameters {
-    pub(super) mass: Mass<f64>,
-    pub(super) radius: Distance<f64>,
+    pub(super) mass: Mass,
+    pub(super) radius: Length,
     pub(super) geometric_albedo: f64,
     pub(super) color: sRGBColor,
-    pub(super) sideral_rotation_period: Time<f64>,
+    pub(super) sideral_rotation_period: Time,
     pub(super) rotation_axis: Direction,
 }
 
 impl PlanetPhysicalParameters {
     pub fn new(
-        mass: Mass<f64>,
-        radius: Distance<f64>,
+        mass: Mass,
+        radius: Length,
         geometric_albedo: f64,
         color: sRGBColor,
-        sideral_rotation_period: Time<f64>,
+        sideral_rotation_period: Time,
         rotation_axis: Direction,
     ) -> Self {
         Self {
@@ -33,11 +33,11 @@ impl PlanetPhysicalParameters {
         }
     }
 
-    pub fn mass(&self) -> Mass<f64> {
+    pub fn mass(&self) -> Mass {
         self.mass
     }
 
-    pub fn radius(&self) -> Distance<f64> {
+    pub fn radius(&self) -> Length {
         self.radius
     }
 
@@ -49,7 +49,7 @@ impl PlanetPhysicalParameters {
         &self.color
     }
 
-    pub fn sideral_rotation_period(&self) -> Time<f64> {
+    pub fn sideral_rotation_period(&self) -> Time {
         self.sideral_rotation_period
     }
 
