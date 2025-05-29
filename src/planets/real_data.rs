@@ -47,7 +47,7 @@ impl RealData {
 
 #[cfg(test)]
 mod tests {
-    use uom::si::mass_density::kilogram_per_cubic_meter;
+    use uom::si::mass_density::gram_per_cubic_centimeter;
 
     use crate::real_data::planets::*;
 
@@ -59,33 +59,42 @@ mod tests {
             assert!(
                 (planet.mass_density() - expected)
                     .abs()
-                    .get::<kilogram_per_cubic_meter>()
+                    .get::<gram_per_cubic_centimeter>()
                     < 0.1
             );
         }
 
-        //TODO: Look up actual numbers
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(13.6);
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(5.427);
         expect_mass_density(mercury(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(5.2);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(5.243);
         expect_mass_density(venus(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(5.5);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(5.513);
         expect_mass_density(earth(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(3.9);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(3.9335);
         expect_mass_density(mars(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(3.9);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(2.1616);
         expect_mass_density(ceres(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(1.3);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(1.326);
         expect_mass_density(jupiter(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(0.7);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(0.687);
         expect_mass_density(saturn(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(1.2);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(1.27);
         expect_mass_density(uranus(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(1.6);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(1.638);
         expect_mass_density(neptune(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(2.0);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(1.853);
         expect_mass_density(pluto(), expected);
-        let expected = MassDensity::new::<kilogram_per_cubic_meter>(2.0);
+
+        let expected = MassDensity::new::<gram_per_cubic_centimeter>(3.344);
         expect_mass_density(luna(), expected);
     }
 }
