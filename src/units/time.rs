@@ -93,7 +93,7 @@ mod tests {
     fn test_time_negative_display() {
         let time = Time::new::<second>(-1.);
         assert_eq!(time.astro_display(), "-1.00 sec");
-        let time = Time::new::<minute>(1.);
+        let time = Time::new::<minute>(-1.);
         assert_eq!(time.astro_display(), "-1.00 min");
         let time = Time::new::<hour>(-1.);
         assert_eq!(time.astro_display(), "-1.00 hrs");
