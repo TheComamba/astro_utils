@@ -1,3 +1,5 @@
+use astro_coords::direction::Direction;
+
 pub trait AstroDisplay {
     fn astro_display(&self) -> String;
 }
@@ -11,6 +13,12 @@ impl AstroDisplay for f64 {
 impl AstroDisplay for String {
     fn astro_display(&self) -> String {
         self.clone()
+    }
+}
+
+impl AstroDisplay for Direction {
+    fn astro_display(&self) -> String {
+        self.to_string()
     }
 }
 
