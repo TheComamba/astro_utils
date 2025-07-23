@@ -5,8 +5,6 @@ use uom::si::{
 
 use super::luminous_intensity::solar_luminous_intensity;
 
-pub type Luminosity = Power;
-
 #[inline(always)]
 fn solar_luminosity() -> Power {
     Power::new::<watt>(3.828e26)

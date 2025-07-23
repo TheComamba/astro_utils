@@ -7,14 +7,6 @@ use crate::astro_display::AstroDisplay;
 
 use super::DISPLAY_THRESHOLD;
 
-unit! {
-    system: uom::si;
-
-    quantity: uom::si::length;
-    @earth_radii: 6.371e6; "R🜨", "Earth radius", "Earth radii";
-    @solar_radii: 6.957e8; "R☉", "solar radius", "solar radii";
-}
-
 pub enum LengthUnit {
     Nanometers,
     Micrometers,

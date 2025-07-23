@@ -1,12 +1,5 @@
 use uom::si::heat_flux_density::watt_per_square_meter;
 
-use crate::astro_display::AstroDisplay;
-
-pub type Illuminance = uom::si::f64::Luminance; // Hack until https://github.com/iliekturtles/uom/pull/512 is merged
-#[allow(non_camel_case_types)]
-pub type lux = uom::si::luminance::candela_per_square_meter;
-pub type Irradiance = uom::si::f64::HeatFluxDensity;
-
 #[inline(always)]
 pub fn aparent_visible_magnitude_zero() -> Illuminance {
     Illuminance::new::<lux>(2.6e-6)
@@ -28,13 +21,6 @@ pub fn illuminance_to_apparent_magnitude(illuminance: Illuminance) -> f64 {
     -2.5 * (illuminance / aparent_visible_magnitude_zero())
         .log10()
         .value
-}
-
-impl AstroDisplay for Illuminance {
-    fn astro_display(&self) -> String {
-        let apparent_magnitude = illuminance_to_apparent_magnitude(*self);
-        format!("{:.2} app. mag.", apparent_magnitude)
-    }
 }
 
 #[cfg(test)]

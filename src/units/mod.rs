@@ -1,8 +1,5 @@
 // https://www.astro.princeton.edu/~gk/A403/constants.pdf
 
-pub mod acceleration;
-pub mod angle;
-pub mod density;
 pub mod illuminance;
 pub mod length;
 pub mod luminosity;
@@ -23,5 +20,14 @@ pub(crate) mod tests {
 
     pub(crate) fn angle_test_accuracy() -> Angle {
         Angle::new::<radian>(TEST_ACCURACY)
+    }
+
+    #[cfg(test)]
+    pub(crate) fn angle_eq(actual: Angle, expected: Angle) -> bool {
+        use uom::si::angle::radian;
+
+        use crate::tests::TEST_ACCURACY;
+
+        angle_eq_within(actual, expected, Angle::new::<radian>(TEST_ACCURACY))
     }
 }
