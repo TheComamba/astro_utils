@@ -143,7 +143,7 @@ impl StarDataEvolution {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             let temp_diff =
                 lifestage_evolution.temperature_per_year * time_since_epoch.get::<year>();
-            return temperature + temp_diff.into();
+            return temperature + temp_diff;
         }
         temperature
     }

@@ -14,7 +14,7 @@ pub fn surface_normal_at_time(
     if siderial_day.get::<second>().abs() > 1. {
         let time_of_siderial_day = time_since_epoch % siderial_day;
         let rotation = angle_at_epoch + (time_of_siderial_day / siderial_day).value * full_circ();
-        observer.spherical.longitude = observer.spherical.longitude + rotation;
+        observer.spherical.longitude += rotation;
     }
     observer.to_direction()
 }

@@ -53,6 +53,7 @@ fn gamma_lyrae() -> RealData {
         declination: Declination::new(Sgn::Pos, 32, 41, 22.),
         apparent_magnitude: 3.261,
         distance: Length::new::<light_year>(620.),
+        #[allow(clippy::approx_constant)] // Clippy thinks this is -PI. :D
         absolute_magnitude: -3.140,
         mass: Mass::new::<solar_mass>(5.76),
         radius: Some(Length::new::<solar_radius>(15.40)),

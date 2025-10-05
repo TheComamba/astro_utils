@@ -35,6 +35,7 @@ fn delta_equulei() -> RealData {
         declination: Declination::new(Sgn::Pos, 10, 0, 25.),
         apparent_magnitude: 4.47,
         distance: Length::new::<light_year>(60.25),
+        #[allow(clippy::approx_constant)] // Clippy thinks this is PI. :D
         absolute_magnitude: 3.140,
         mass: Mass::new::<solar_mass>(1.192),
         radius: Some(Length::new::<solar_radius>(1.30)),

@@ -88,12 +88,3 @@ impl From<rand_distr::uniform::Error> for AstroUtilError {
         AstroUtilError::RandError(err.to_string())
     }
 }
-
-impl<T> From<&T> for AstroUtilError
-where
-    T: From<AstroUtilError>,
-{
-    fn from(err: &T) -> Self {
-        err.into()
-    }
-}
