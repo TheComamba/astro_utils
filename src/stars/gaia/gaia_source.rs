@@ -10,7 +10,6 @@ use gaia_access::{
     result::{get_float, get_string, GaiaCellData, GaiaResult},
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
-use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, time::Instant};
 use uom::si::{
     angle::degree,
@@ -20,18 +19,6 @@ use uom::si::{
 };
 
 use crate::{color::srgb::sRGBColor, error::AstroUtilError, stars::appearance::StarAppearance};
-
-#[derive(Serialize, Deserialize)]
-struct GaiaMetadataLine {
-    name: String,
-    datatype: String,
-    xtype: Option<String>,
-    arraysize: Option<String>,
-    description: String,
-    unit: Option<String>,
-    ucd: String,
-    utype: Option<String>,
-}
 
 fn get_designation(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
     get_string(map.get(&Col::designation)?)
