@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_caeli() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Caeli",
         constellation: "Caelum",
-        radius: Some(Length::new::<solar_radii>(1.3)),
+        radius: Some(Length::new::<solar_radius>(1.3)),
         mass: Mass::new::<solar_mass>(1.48),
         absolute_magnitude: 2.92,
         apparent_magnitude: 4.44,
@@ -33,7 +31,7 @@ fn gamma1_caeli() -> RealData {
         common_name: "",
         astronomical_name: "γ¹ Caeli",
         constellation: "Caelum",
-        radius: Some(Length::new::<solar_radii>(14.31)),
+        radius: Some(Length::new::<solar_radius>(14.31)),
         mass: Mass::new::<solar_mass>(1.4),
         absolute_magnitude: 0.781,
         apparent_magnitude: 4.57,
@@ -51,7 +49,7 @@ fn beta_caeli() -> RealData {
         common_name: "",
         astronomical_name: "β Caeli",
         constellation: "Caelum",
-        radius: Some(Length::new::<solar_radii>(1.3)),
+        radius: Some(Length::new::<solar_radius>(1.3)),
         mass: Mass::new::<solar_mass>(1.32),
         absolute_magnitude: 2.64,
         apparent_magnitude: 5.04,

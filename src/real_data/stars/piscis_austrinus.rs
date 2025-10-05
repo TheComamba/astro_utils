@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn formalhaut() -> RealData {
     RealData {
         common_name: "Formalhaut",
         astronomical_name: "α Piscis Austrini",
         constellation: "Piscis Austrinus",
-        radius: Some(Length::new::<solar_radii>(1.842)),
+        radius: Some(Length::new::<solar_radius>(1.842)),
         mass: Mass::new::<solar_mass>(1.92),
         absolute_magnitude: 1.74,
         apparent_magnitude: 1.17,
@@ -57,7 +55,7 @@ fn epsilon_piscis_austrini() -> RealData {
         distance: Length::new::<light_year>(744.3),
         absolute_magnitude: -2.61,
         mass: Mass::new::<solar_mass>(4.1),
-        radius: Some(Length::new::<solar_radii>(3.2)),
+        radius: Some(Length::new::<solar_radius>(3.2)),
         temperature: ThermodynamicTemperature::new::<kelvin>(11_066.),
         age: None,
         lifetime: Time::new::<gigayear>(0.193156929),

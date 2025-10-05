@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 //https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html
 // Gaia data that was not found in the list of 100 brightest stars
@@ -36,7 +34,7 @@ pub fn sun() -> RealData {
         astronomical_name: "Sol",
         constellation: "",
         mass: Mass::new::<solar_mass>(1.0),
-        radius: Some(Length::new::<solar_radii>(1.0)),
+        radius: Some(Length::new::<solar_radius>(1.0)),
         absolute_magnitude: 4.83,
         apparent_magnitude: -26.74, //seen from earth
         temperature: ThermodynamicTemperature::new::<kelvin>(5778.0),

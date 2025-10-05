@@ -1,6 +1,10 @@
 use std::f64::consts::PI;
 
 use astro_coords::{cartesian::Cartesian, direction::Direction};
+use astro_units::{
+    illuminance::{lux, Illuminance},
+    time::{kiloyear, megayear},
+};
 use rand::{distr::Uniform, rngs::ThreadRng, Rng};
 use rand_distr::{weighted::WeightedAliasIndex, Distribution};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
@@ -13,10 +17,6 @@ use uom::si::{
 use crate::{
     error::AstroUtilError,
     stars::{data::StarData, random::parsec::mass_distribution::get_mass_index_distribution},
-    units::{
-        illuminance::{lux, Illuminance},
-        time::{kiloyear, megayear},
-    },
 };
 
 use super::{params::GenerationParams, parsec::getters::get_star_data_if_visible};
@@ -200,15 +200,11 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 #[cfg(test)]
 mod tests {
+    use astro_units::{illuminance::illuminance_to_apparent_magnitude, mass::solar_mass};
     use parsec_access::getters::get_closest_metallicity_index_from_mass_fraction;
     use uom::si::{f64::Mass, time::year};
 
-    use crate::{
-        astro_display::AstroDisplay,
-        stars::fate::StarFate,
-        tests::eq,
-        units::{illuminance::illuminance_to_apparent_magnitude, mass::solar_mass},
-    };
+    use crate::{astro_display::AstroDisplay, stars::fate::StarFate, tests::eq};
 
     use super::*;
     use std::time::Instant;

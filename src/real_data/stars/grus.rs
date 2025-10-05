@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alnair() -> RealData {
     RealData {
         common_name: "Alnair",
         astronomical_name: "α Gruis",
         constellation: "Grus",
-        radius: Some(Length::new::<solar_radii>(3.4)),
+        radius: Some(Length::new::<solar_radius>(3.4)),
         mass: Mass::new::<solar_mass>(4.),
         absolute_magnitude: -0.73,
         apparent_magnitude: 1.73,
@@ -33,7 +31,7 @@ fn tiaki() -> RealData {
         common_name: "Tiaki",
         astronomical_name: "β Gruis",
         constellation: "Grus",
-        radius: Some(Length::new::<solar_radii>(180.)),
+        radius: Some(Length::new::<solar_radius>(180.)),
         mass: Mass::new::<solar_mass>(2.4),
         absolute_magnitude: -1.52,
         apparent_magnitude: 2.07,
@@ -57,7 +55,7 @@ fn aldhanab() -> RealData {
         distance: Length::new::<light_year>(211.),
         absolute_magnitude: -1.05,
         mass: Mass::new::<solar_mass>(3.06),
-        radius: Some(Length::new::<solar_radii>(4.5)),
+        radius: Some(Length::new::<solar_radius>(4.5)),
         temperature: ThermodynamicTemperature::new::<kelvin>(12_520.),
         age: Some(Time::new::<gigayear>(0.075)),
         lifetime: Time::new::<gigayear>(0.420724107),

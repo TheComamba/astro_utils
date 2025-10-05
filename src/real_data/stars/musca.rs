@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_muscae() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_muscae() -> RealData {
         distance: Length::new::<light_year>(315.),
         absolute_magnitude: -2.2,
         mass: Mass::new::<solar_mass>(8.8),
-        radius: Some(Length::new::<solar_radii>(4.8)),
+        radius: Some(Length::new::<solar_radius>(4.8)),
         temperature: ThermodynamicTemperature::new::<kelvin>(21_400.),
         age: Some(Time::new::<gigayear>(0.0183)),
         lifetime: Time::new::<gigayear>(0.03224554),

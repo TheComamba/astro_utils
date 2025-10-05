@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn achernar() -> RealData {
     RealData {
         common_name: "Achernar",
         astronomical_name: "α Eridani",
         constellation: "Eridanus",
-        radius: Some(Length::new::<solar_radii>(6.78)),
+        radius: Some(Length::new::<solar_radius>(6.78)),
         mass: Mass::new::<solar_mass>(6.0),
         absolute_magnitude: -2.77,
         apparent_magnitude: 0.45,
@@ -33,7 +31,7 @@ fn zaurak() -> RealData {
         common_name: "Zaurak",
         astronomical_name: "γ Eridani",
         constellation: "Eridanus",
-        radius: Some(Length::new::<solar_radii>(80.)),
+        radius: Some(Length::new::<solar_radius>(80.)),
         mass: Mass::new::<solar_mass>(1.2),
         absolute_magnitude: -1.19,
         apparent_magnitude: 2.97,
@@ -57,7 +55,7 @@ fn cursa() -> RealData {
         distance: Length::new::<light_year>(90.),
         absolute_magnitude: 0.59,
         mass: Mass::new::<solar_mass>(2.),
-        radius: Some(Length::new::<solar_radii>(2.4)),
+        radius: Some(Length::new::<solar_radius>(2.4)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8360.),
         age: None,
         lifetime: Time::new::<gigayear>(1.36020165),
@@ -75,7 +73,7 @@ fn acamar() -> RealData {
         distance: Length::new::<light_year>(164.),
         absolute_magnitude: -0.59,
         mass: Mass::new::<solar_mass>(2.6),
-        radius: Some(Length::new::<solar_radii>(4.85)),
+        radius: Some(Length::new::<solar_radius>(4.85)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8200.),
         age: None,
         lifetime: Time::new::<gigayear>(0.63513384),

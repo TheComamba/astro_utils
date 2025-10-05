@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn regor() -> RealData {
     RealData {
         common_name: "Regor",
         astronomical_name: "γ Velorum",
         constellation: "Vela",
-        radius: Some(Length::new::<solar_radii>(17.)),
+        radius: Some(Length::new::<solar_radius>(17.)),
         mass: Mass::new::<solar_mass>(28.5),
         absolute_magnitude: -5.31,
         apparent_magnitude: 1.75,
@@ -33,7 +31,7 @@ fn alsephina() -> RealData {
         common_name: "Alsephina",
         astronomical_name: "δ Velorum",
         constellation: "Vela",
-        radius: Some(Length::new::<solar_radii>(2.4)),
+        radius: Some(Length::new::<solar_radius>(2.4)),
         mass: Mass::new::<solar_mass>(2.27),
         absolute_magnitude: -0.01,
         apparent_magnitude: 1.93,
@@ -51,7 +49,7 @@ fn suhail() -> RealData {
         common_name: "Suhail",
         astronomical_name: "λ Velorum",
         constellation: "Vela",
-        radius: Some(Length::new::<solar_radii>(210.)),
+        radius: Some(Length::new::<solar_radius>(210.)),
         mass: Mass::new::<solar_mass>(7.),
         absolute_magnitude: -3.99,
         apparent_magnitude: 2.23,
@@ -69,7 +67,7 @@ fn markeb() -> RealData {
         common_name: "Markeb",
         astronomical_name: "κ Velorum",
         constellation: "Vela",
-        radius: Some(Length::new::<solar_radii>(9.1)),
+        radius: Some(Length::new::<solar_radius>(9.1)),
         mass: Mass::new::<solar_mass>(10.5),
         absolute_magnitude: -3.62,
         apparent_magnitude: 2.47,

@@ -1,14 +1,13 @@
 use std::f64::consts::PI;
 
 use astro_coords::{cartesian::Cartesian, spherical::Spherical};
+use astro_units::angle::{full_circ, normalized_angle};
 use uom::si::{
     angle::radian,
     f64::{Angle, Length, Mass, Time},
     specific_volume::cubic_meter_per_kilogram,
     time::second,
 };
-
-use crate::units::angle::{full_circ, normalized_angle};
 
 use super::orbit_parameters::OrbitParameters;
 
@@ -107,6 +106,10 @@ pub fn position_relative_to_central_body(
 
 #[cfg(test)]
 mod tests {
+    use astro_units::{
+        angle::{angle_eq_within, half_circ, quarter_circ, three_quarter_circ},
+        mass::solar_mass,
+    };
     use uom::si::{
         angle::degree,
         length::{astronomical_unit, meter},
@@ -117,7 +120,7 @@ mod tests {
         astro_display::AstroDisplay,
         real_data::planets::*,
         tests::{eq, eq_within},
-        units::{angle::*, mass::solar_mass},
+        units::tests::angle_eq,
     };
 
     use super::*;
@@ -413,7 +416,7 @@ mod tests {
             Length::new::<astronomical_unit>(0.),
         );
 
-        let eccentric_anom = angle_zero();
+        let eccentric_anom = Angle::new::<radian>(0.);
         let true_anom = true_anomaly(eccentric_anom, eccentricity);
         let point = Cartesian::new(
             semi_major_axis,

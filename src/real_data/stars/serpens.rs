@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn unukalhai() -> RealData {
     RealData {
         common_name: "Unukalhai",
         astronomical_name: "α Serpentis",
         constellation: "Serpens",
-        radius: Some(Length::new::<solar_radii>(13.48)),
+        radius: Some(Length::new::<solar_radius>(13.48)),
         mass: Mass::new::<solar_mass>(1.66),
         absolute_magnitude: 0.88,
         apparent_magnitude: 2.63,

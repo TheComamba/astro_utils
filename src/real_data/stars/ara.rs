@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_arae() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_arae() -> RealData {
         distance: Length::new::<light_year>(270.),
         absolute_magnitude: -1.72,
         mass: Mass::new::<solar_mass>(9.6),
-        radius: Some(Length::new::<solar_radii>(4.5)),
+        radius: Some(Length::new::<solar_radius>(4.5)),
         temperature: ThermodynamicTemperature::new::<kelvin>(18_044.),
         age: Some(Time::new::<gigayear>(0.026)),
         lifetime: Time::new::<gigayear>(0.026540021),
@@ -33,7 +31,7 @@ fn beta_arae() -> RealData {
         common_name: "",
         astronomical_name: "β Arae",
         constellation: "Ara",
-        radius: Some(Length::new::<solar_radii>(142.)),
+        radius: Some(Length::new::<solar_radius>(142.)),
         mass: Mass::new::<solar_mass>(8.21),
         absolute_magnitude: -3.49,
         apparent_magnitude: 2.84,
@@ -57,7 +55,7 @@ fn gamma_arae() -> RealData {
         distance: Length::new::<light_year>(1136.),
         absolute_magnitude: -4.4,
         mass: Mass::new::<solar_mass>(20.),
-        radius: Some(Length::new::<solar_radii>(23.)),
+        radius: Some(Length::new::<solar_radius>(23.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(21_500.),
         age: Some(Time::new::<gigayear>(0.009)),
         lifetime: Time::new::<gigayear>(0.009767659),
@@ -75,7 +73,7 @@ fn delta_arae() -> RealData {
         distance: Length::new::<light_year>(198.),
         absolute_magnitude: -0.31,
         mass: Mass::new::<solar_mass>(3.56),
-        radius: Some(Length::new::<solar_radii>(3.12)),
+        radius: Some(Length::new::<solar_radius>(3.12)),
         temperature: ThermodynamicTemperature::new::<kelvin>(11_962.),
         age: Some(Time::new::<gigayear>(0.125)),
         lifetime: Time::new::<gigayear>(0.254814649),
@@ -93,7 +91,7 @@ fn zeta_arae() -> RealData {
         distance: Length::new::<light_year>(573.9),
         absolute_magnitude: -3.11,
         mass: Mass::new::<solar_mass>(7.5),
-        radius: Some(Length::new::<solar_radii>(114.)),
+        radius: Some(Length::new::<solar_radius>(114.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4246.),
         age: Some(Time::new::<gigayear>(0.045)),
         lifetime: Time::new::<gigayear>(0.052267043),

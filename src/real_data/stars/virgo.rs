@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn spica() -> RealData {
     RealData {
         common_name: "Spica",
         astronomical_name: "α Virginis",
         constellation: "Virgo",
-        radius: Some(Length::new::<solar_radii>(7.47)),
+        radius: Some(Length::new::<solar_radius>(7.47)),
         mass: Mass::new::<solar_mass>(11.43),
         absolute_magnitude: -3.55,
         apparent_magnitude: 0.98,
@@ -33,7 +31,7 @@ fn minelauva() -> RealData {
         common_name: "Minelauva",
         astronomical_name: "δ Virginis",
         constellation: "Virgo",
-        radius: Some(Length::new::<solar_radii>(48.)),
+        radius: Some(Length::new::<solar_radius>(48.)),
         mass: Mass::new::<solar_mass>(1.4),
         absolute_magnitude: -0.575,
         apparent_magnitude: 3.39,
@@ -57,7 +55,7 @@ fn zavijava() -> RealData {
         distance: Length::new::<light_year>(35.65),
         absolute_magnitude: 3.41,
         mass: Mass::new::<solar_mass>(1.413),
-        radius: Some(Length::new::<solar_radii>(1.681)),
+        radius: Some(Length::new::<solar_radius>(1.681)),
         temperature: ThermodynamicTemperature::new::<kelvin>(6132.),
         age: Some(Time::new::<gigayear>(2.9)),
         lifetime: Time::new::<gigayear>(3.10253119),
@@ -75,7 +73,7 @@ fn syrma() -> RealData {
         distance: Length::new::<light_year>(72.5),
         absolute_magnitude: 2.4,
         mass: Mass::new::<solar_mass>(1.5),
-        radius: Some(Length::new::<solar_radii>(2.5)),
+        radius: Some(Length::new::<solar_radius>(2.5)),
         temperature: ThermodynamicTemperature::new::<kelvin>(6282.),
         age: None,
         lifetime: Time::new::<gigayear>(2.54186931),
@@ -93,7 +91,7 @@ fn heze() -> RealData {
         distance: Length::new::<light_year>(74.1),
         absolute_magnitude: 1.64,
         mass: Mass::new::<solar_mass>(2.041),
-        radius: Some(Length::new::<solar_radii>(2.079)),
+        radius: Some(Length::new::<solar_radius>(2.079)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8247.),
         age: Some(Time::new::<gigayear>(0.51)),
         lifetime: Time::new::<gigayear>(1.25731981),
@@ -111,7 +109,7 @@ fn vindemiatrix() -> RealData {
         distance: Length::new::<light_year>(109.6),
         absolute_magnitude: 0.37,
         mass: Mass::new::<solar_mass>(2.64),
-        radius: Some(Length::new::<solar_radii>(10.6)),
+        radius: Some(Length::new::<solar_radius>(10.6)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5086.),
         age: Some(Time::new::<gigayear>(0.560)),
         lifetime: Time::new::<gigayear>(0.63513384),

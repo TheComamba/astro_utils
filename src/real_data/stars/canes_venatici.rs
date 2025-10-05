@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn cor_caroli() -> RealData {
     RealData {
         common_name: "Cor Caroli",
         astronomical_name: "α² Canum Venaticorum",
         constellation: "Canes Venatici",
-        radius: Some(Length::new::<solar_radii>(2.49)),
+        radius: Some(Length::new::<solar_radius>(2.49)),
         mass: Mass::new::<solar_mass>(2.97),
         absolute_magnitude: 0.246,
         apparent_magnitude: 2.89,
@@ -34,7 +32,7 @@ fn chara() -> RealData {
         common_name: "Chara",
         astronomical_name: "β Canum Venaticorum",
         constellation: "Canes Venatici",
-        radius: Some(Length::new::<solar_radii>(1.123)),
+        radius: Some(Length::new::<solar_radius>(1.123)),
         mass: Mass::new::<solar_mass>(0.97),
         absolute_magnitude: 4.64,
         apparent_magnitude: 4.25,
@@ -58,7 +56,7 @@ fn twentyfour_canum_venaticorum() -> RealData {
         distance: Length::new::<light_year>(180.),
         absolute_magnitude: 0.85,
         mass: Mass::new::<solar_mass>(1.74),
-        radius: Some(Length::new::<solar_radii>(1.90)),
+        radius: Some(Length::new::<solar_radius>(1.90)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8285.),
         age: Some(Time::new::<gigayear>(0.360)),
         lifetime: Time::new::<gigayear>(1.59501327),

@@ -2,18 +2,16 @@ use astro_coords::{
     earth_equatorial::EarthEquatorial,
     ra_and_dec::{Declination, RightAscension},
 };
+use astro_units::{
+    illuminance::apparent_magnitude_to_illuminance,
+    luminous_intensity::absolute_magnitude_to_luminous_intensity,
+};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     time::year,
 };
 
-use crate::{
-    color::srgb::sRGBColor,
-    units::{
-        illuminance::apparent_magnitude_to_illuminance,
-        luminous_intensity::absolute_magnitude_to_luminous_intensity,
-    },
-};
+use crate::color::srgb::sRGBColor;
 
 use super::{
     appearance::StarAppearance, data::StarData, evolution::StarDataEvolution, fate::StarFate,
@@ -99,18 +97,16 @@ impl RealData {
 #[cfg(test)]
 mod tests {
 
+    use astro_units::{
+        illuminance::illuminance_to_apparent_magnitude,
+        luminous_intensity::luminous_intensity_to_illuminance, mass::solar_mass,
+    };
     use uom::si::{
         f64::{Mass, Time},
         time::year,
     };
 
-    use crate::{
-        real_data::stars::all::get_many_stars,
-        units::{
-            illuminance::illuminance_to_apparent_magnitude,
-            luminous_intensity::luminous_intensity_to_illuminance, mass::solar_mass,
-        },
-    };
+    use crate::real_data::stars::all::get_many_stars;
 
     #[test]
     fn calculate_apparent_magnitude() {

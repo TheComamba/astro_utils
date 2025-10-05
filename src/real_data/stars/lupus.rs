@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_lupi() -> RealData {
     RealData {
@@ -39,7 +37,7 @@ fn beta_lupi() -> RealData {
         distance: Length::new::<light_year>(523.3),
         absolute_magnitude: -3.35,
         mass: Mass::new::<solar_mass>(8.8),
-        radius: Some(Length::new::<solar_radii>(6.6)),
+        radius: Some(Length::new::<solar_radius>(6.6)),
         temperature: ThermodynamicTemperature::new::<kelvin>(24_090.),
         age: Some(Time::new::<gigayear>(0.0246)),
         lifetime: Time::new::<gigayear>(0.03224554),

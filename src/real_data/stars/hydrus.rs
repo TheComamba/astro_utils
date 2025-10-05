@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_hydri() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_hydri() -> RealData {
         distance: Length::new::<light_year>(71.8),
         absolute_magnitude: 1.153,
         mass: Mass::new::<solar_mass>(2.),
-        radius: Some(Length::new::<solar_radii>(3.040)),
+        radius: Some(Length::new::<solar_radius>(3.040)),
         temperature: ThermodynamicTemperature::new::<kelvin>(7087.),
         age: Some(Time::new::<gigayear>(0.810)),
         lifetime: Time::new::<gigayear>(1.36020165),
@@ -39,7 +37,7 @@ fn beta_hydri() -> RealData {
         distance: Length::new::<light_year>(24.33),
         absolute_magnitude: 3.45,
         mass: Mass::new::<solar_mass>(1.08),
-        radius: Some(Length::new::<solar_radii>(1.809)),
+        radius: Some(Length::new::<solar_radius>(1.809)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5872.),
         age: Some(Time::new::<gigayear>(6.4)),
         lifetime: Time::new::<gigayear>(6.97272616),
@@ -51,7 +49,7 @@ fn gamma_hydri() -> RealData {
         common_name: "",
         astronomical_name: "γ Hydri",
         constellation: "Hydrus",
-        radius: Some(Length::new::<solar_radii>(62.)),
+        radius: Some(Length::new::<solar_radius>(62.)),
         mass: Mass::new::<solar_mass>(1.),
         absolute_magnitude: -0.83,
         apparent_magnitude: 3.26,

@@ -1,5 +1,13 @@
 use std::ops::Range;
 
+use astro_units::{
+    length::solar_radius,
+    luminous_intensity::{
+        absolute_magnitude_to_luminous_intensity, luminous_intensity_to_absolute_magnitude,
+    },
+    mass::solar_mass,
+    time::kiloyear,
+};
 use serde::{Deserialize, Serialize};
 use uom::si::{
     f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time},
@@ -8,17 +16,7 @@ use uom::si::{
     time::day,
 };
 
-use crate::{
-    astro_display::AstroDisplay,
-    units::{
-        length::solar_radii,
-        luminous_intensity::{
-            absolute_magnitude_to_luminous_intensity, luminous_intensity_to_absolute_magnitude,
-        },
-        mass::solar_mass,
-        time::kiloyear,
-    },
-};
+use crate::astro_display::AstroDisplay;
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub enum StarFate {
@@ -50,7 +48,7 @@ impl StarFate {
 
     pub(crate) fn apply_to_radius(&self) -> Length {
         match self {
-            StarFate::WhiteDwarf => Length::new::<solar_radii>(0.0084), // Sirius B
+            StarFate::WhiteDwarf => Length::new::<solar_radius>(0.0084), // Sirius B
             StarFate::TypeIISupernova => Length::new::<kilometer>(20.), // Neutron star or black hole
         }
     }
@@ -164,9 +162,8 @@ impl AstroDisplay for StarFate {
 
 #[cfg(test)]
 mod tests {
+    use astro_units::luminous_intensity::solar_luminous_intensity;
     use uom::si::luminous_intensity::candela;
-
-    use crate::units::luminous_intensity::solar_luminous_intensity;
 
     use super::*;
 

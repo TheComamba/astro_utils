@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_horologii() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_horologii() -> RealData {
         distance: Length::new::<light_year>(115.),
         absolute_magnitude: 1.08,
         mass: Mass::new::<solar_mass>(1.55),
-        radius: Some(Length::new::<solar_radii>(8.)),
+        radius: Some(Length::new::<solar_radius>(8.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5028.),
         age: None,
         lifetime: Time::new::<gigayear>(2.29668629),
@@ -57,7 +55,7 @@ fn beta_horologii() -> RealData {
         distance: Length::new::<light_year>(312.),
         absolute_magnitude: 0.2,
         mass: Mass::new::<solar_mass>(3.3),
-        radius: Some(Length::new::<solar_radii>(1.4)),
+        radius: Some(Length::new::<solar_radius>(1.4)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8303.),
         age: None,
         lifetime: Time::new::<gigayear>(0.351318702),

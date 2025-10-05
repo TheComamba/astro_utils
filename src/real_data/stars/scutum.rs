@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_scuti() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_scuti() -> RealData {
         distance: Length::new::<light_year>(199.),
         absolute_magnitude: -0.08,
         mass: Mass::new::<solar_mass>(1.33),
-        radius: Some(Length::new::<solar_radii>(20.)),
+        radius: Some(Length::new::<solar_radius>(20.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4315.),
         age: None,
         lifetime: Time::new::<gigayear>(3.46068223),
@@ -57,7 +55,7 @@ fn zeta_scuti() -> RealData {
         distance: Length::new::<light_year>(210.),
         absolute_magnitude: 0.66,
         mass: Mass::new::<solar_mass>(1.29),
-        radius: Some(Length::new::<solar_radii>(9.3)),
+        radius: Some(Length::new::<solar_radius>(9.3)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4750.),
         age: None,
         lifetime: Time::new::<gigayear>(3.9126515),

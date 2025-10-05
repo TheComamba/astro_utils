@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_vulpeculae() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_vulpeculae() -> RealData {
         distance: Length::new::<light_year>(291.),
         absolute_magnitude: -0.36,
         mass: Mass::new::<solar_mass>(0.97),
-        radius: Some(Length::new::<solar_radii>(43.14)),
+        radius: Some(Length::new::<solar_radius>(43.14)),
         temperature: ThermodynamicTemperature::new::<kelvin>(3690.),
         age: Some(Time::new::<gigayear>(11.3)),
         lifetime: Time::new::<gigayear>(11.7800188),
@@ -57,7 +55,7 @@ fn thirtyone_vulpeculae() -> RealData {
         distance: Length::new::<light_year>(216.5),
         absolute_magnitude: 0.449,
         mass: Mass::new::<solar_mass>(2.4),
-        radius: Some(Length::new::<solar_radii>(8.01)),
+        radius: Some(Length::new::<solar_radius>(8.01)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5261.),
         age: Some(Time::new::<gigayear>(0.7)),
         lifetime: Time::new::<gigayear>(0.800458342),

@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn sualocin() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn sualocin() -> RealData {
         distance: Length::new::<light_year>(254.),
         absolute_magnitude: -0.4,
         mass: Mass::new::<solar_mass>(3.83),
-        radius: Some(Length::new::<solar_radii>(3.92)),
+        radius: Some(Length::new::<solar_radius>(3.92)),
         temperature: ThermodynamicTemperature::new::<kelvin>(11_643.),
         age: Some(Time::new::<gigayear>(0.22)),
         lifetime: Time::new::<gigayear>(0.220601963),
@@ -57,7 +55,7 @@ fn gamma_delphini() -> RealData {
         distance: Length::new::<light_year>(114.8),
         absolute_magnitude: 2.24,
         mass: Mass::new::<solar_mass>(1.61),
-        radius: Some(Length::new::<solar_radii>(2.6)),
+        radius: Some(Length::new::<solar_radius>(2.6)),
         temperature: ThermodynamicTemperature::new::<kelvin>(6295.),
         age: Some(Time::new::<gigayear>(1.85)),
         lifetime: Time::new::<gigayear>(2.08398753),
@@ -75,7 +73,7 @@ fn delta_delphini() -> RealData {
         distance: Length::new::<light_year>(223.),
         absolute_magnitude: 0.25,
         mass: Mass::new::<solar_mass>(1.78),
-        radius: Some(Length::new::<solar_radii>(3.43)),
+        radius: Some(Length::new::<solar_radius>(3.43)),
         temperature: ThermodynamicTemperature::new::<kelvin>(7440.),
         age: Some(Time::new::<gigayear>(0.945)),
         lifetime: Time::new::<gigayear>(1.46605285),
@@ -93,7 +91,7 @@ fn aldulfin() -> RealData {
         distance: Length::new::<light_year>(358.6),
         absolute_magnitude: -1.18,
         mass: Mass::new::<solar_mass>(6.4),
-        radius: Some(Length::new::<solar_radii>(4.6)),
+        radius: Some(Length::new::<solar_radius>(4.6)),
         temperature: ThermodynamicTemperature::new::<kelvin>(13_614.),
         age: Some(Time::new::<gigayear>(0.06)),
         lifetime: Time::new::<gigayear>(0.063411557),

@@ -1,5 +1,8 @@
 use std::f64::consts::PI;
 
+use astro_units::{
+    length::earth_radius, luminosity::luminous_intensity_to_luminosity, mass::earth_mass,
+};
 use fraction::Fraction;
 use uom::si::{
     acceleration::standard_gravity,
@@ -12,12 +15,7 @@ use uom::si::{
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    astro_display::AstroDisplay,
-    error::AstroUtilError,
-    stars::data::StarData,
-    units::{length::earth_radii, luminosity::luminous_intensity_to_luminosity, mass::earth_mass},
-};
+use crate::{astro_display::AstroDisplay, error::AstroUtilError, stars::data::StarData};
 
 use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
 
@@ -116,7 +114,7 @@ impl DerivedPlanetData {
 }
 
 fn surface_gravity(mass: Mass, radius: Length) -> Acceleration {
-    mass.get::<earth_mass>() / radius.get::<earth_radii>().powi(2)
+    mass.get::<earth_mass>() / radius.get::<earth_radius>().powi(2)
         * Acceleration::new::<standard_gravity>(1.)
 }
 

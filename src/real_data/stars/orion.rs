@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -6,17 +7,14 @@ use uom::si::{
     time::year,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn rigel() -> RealData {
     RealData {
         common_name: "Rigel",
         astronomical_name: "β Orionis",
         constellation: "Orion",
-        radius: Some(Length::new::<solar_radii>(78.9)),
+        radius: Some(Length::new::<solar_radius>(78.9)),
         mass: Mass::new::<solar_mass>(21.),
         absolute_magnitude: -6.69,
         apparent_magnitude: 0.18,
@@ -35,7 +33,7 @@ fn betelgeuse() -> RealData {
         common_name: "Betelgeuse",
         astronomical_name: "α Orionis",
         constellation: "Orion",
-        radius: Some(Length::new::<solar_radii>(887.)),
+        radius: Some(Length::new::<solar_radius>(887.)),
         mass: Mass::new::<solar_mass>(16.5),
         absolute_magnitude: -5.14,
         apparent_magnitude: 0.9,
@@ -53,7 +51,7 @@ fn bellatrix() -> RealData {
         common_name: "Bellatrix",
         astronomical_name: "γ Orionis",
         constellation: "Orion",
-        radius: Some(Length::new::<solar_radii>(5.75)),
+        radius: Some(Length::new::<solar_radius>(5.75)),
         mass: Mass::new::<solar_mass>(7.7),
         absolute_magnitude: -2.72,
         apparent_magnitude: 1.64,
@@ -71,7 +69,7 @@ fn alnilam() -> RealData {
         common_name: "Alnilam",
         astronomical_name: "ε Orionis",
         constellation: "Orion",
-        radius: Some(Length::new::<solar_radii>(42.)),
+        radius: Some(Length::new::<solar_radius>(42.)),
         mass: Mass::new::<solar_mass>(34.6),
         absolute_magnitude: -6.38,
         apparent_magnitude: 1.69,
@@ -89,7 +87,7 @@ fn alnitak() -> RealData {
         common_name: "Alnitak",
         astronomical_name: "ζ Orionis",
         constellation: "Orion",
-        radius: Some(Length::new::<solar_radii>(20.)),
+        radius: Some(Length::new::<solar_radius>(20.)),
         mass: Mass::new::<solar_mass>(31.0),
         absolute_magnitude: -5.26,
         apparent_magnitude: 1.74,
@@ -107,7 +105,7 @@ fn saiph() -> RealData {
         common_name: "Saiph",
         astronomical_name: "κ Orionis",
         constellation: "Orion",
-        radius: Some(Length::new::<solar_radii>(22.2)),
+        radius: Some(Length::new::<solar_radius>(22.2)),
         mass: Mass::new::<solar_mass>(15.5),
         absolute_magnitude: -4.65,
         apparent_magnitude: 2.07,
@@ -125,7 +123,7 @@ fn mintaka() -> RealData {
         common_name: "Mintaka",
         astronomical_name: "δ Orionis",
         constellation: "Orion",
-        radius: Some(Length::new::<solar_radii>(16.5)),
+        radius: Some(Length::new::<solar_radius>(16.5)),
         mass: Mass::new::<solar_mass>(24.),
         absolute_magnitude: -4.99,
         apparent_magnitude: 2.25,

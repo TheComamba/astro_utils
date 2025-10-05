@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn rasalhague() -> RealData {
     RealData {
         common_name: "Rasalhague",
         astronomical_name: "α Ophiuchi",
         constellation: "Ophiuchus",
-        radius: Some(Length::new::<solar_radii>(2.6)),
+        radius: Some(Length::new::<solar_radius>(2.6)),
         mass: Mass::new::<solar_mass>(2.4),
         absolute_magnitude: 1.30,
         apparent_magnitude: 2.08,
@@ -51,7 +49,7 @@ fn han() -> RealData {
         common_name: "Han",
         astronomical_name: "ζ Ophiuchi",
         constellation: "Ophiuchus",
-        radius: Some(Length::new::<solar_radii>(8.5)),
+        radius: Some(Length::new::<solar_radius>(8.5)),
         mass: Mass::new::<solar_mass>(20.2),
         absolute_magnitude: -3.20,
         apparent_magnitude: 2.54,
@@ -69,7 +67,7 @@ fn yed_prior() -> RealData {
         common_name: "Yed Prior",
         astronomical_name: "δ Ophiuchi",
         constellation: "Ophiuchus",
-        radius: Some(Length::new::<solar_radii>(59.)),
+        radius: Some(Length::new::<solar_radius>(59.)),
         mass: Mass::new::<solar_mass>(1.5),
         absolute_magnitude: -0.90,
         apparent_magnitude: 2.73,
@@ -87,7 +85,7 @@ fn cebalrai() -> RealData {
         common_name: "Cebalrai",
         astronomical_name: "β Ophiuchi",
         constellation: "Ophiuchus",
-        radius: Some(Length::new::<solar_radii>(12.42)),
+        radius: Some(Length::new::<solar_radius>(12.42)),
         mass: Mass::new::<solar_mass>(1.13),
         absolute_magnitude: 0.77,
         apparent_magnitude: 2.76,

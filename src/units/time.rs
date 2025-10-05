@@ -1,3 +1,4 @@
+use astro_units::time::{gigayear, kiloyear, megayear};
 use uom::si::{
     f64::Time,
     time::{day, hour, minute, second, year},
@@ -6,15 +7,6 @@ use uom::si::{
 use crate::astro_display::AstroDisplay;
 
 use super::DISPLAY_THRESHOLD;
-
-unit! {
-    system: uom::si;
-
-    quantity: uom::si::time;
-    @kiloyear: 3.1536_E10; "kyr", "kiloyear", "kiloyears";
-    @megayear: 3.1536_E13; "Myr", "megayear", "megayears";
-    @gigayear: 3.1536_E16; "Gyr", "gigayear", "gigayears";
-}
 
 pub enum TimeUnit {
     Seconds,

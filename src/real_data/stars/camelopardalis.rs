@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn beta_camelopardalis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "β Camelopardalis",
         constellation: "Camelopardalis",
-        radius: Some(Length::new::<solar_radii>(58.)),
+        radius: Some(Length::new::<solar_radius>(58.)),
         mass: Mass::new::<solar_mass>(6.5),
         absolute_magnitude: -3.1,
         apparent_magnitude: 4.02,
@@ -33,7 +31,7 @@ fn cs_camelopardalis() -> RealData {
         common_name: "",
         astronomical_name: "CS Camelopardalis",
         constellation: "Camelopardalis",
-        radius: Some(Length::new::<solar_radii>(85.7)),
+        radius: Some(Length::new::<solar_radius>(85.7)),
         mass: Mass::new::<solar_mass>(19.),
         absolute_magnitude: -6.39,
         apparent_magnitude: 4.21,
@@ -51,7 +49,7 @@ fn alpha_camelopardalis() -> RealData {
         common_name: "",
         astronomical_name: "α Camelopardalis",
         constellation: "Camelopardalis",
-        radius: Some(Length::new::<solar_radii>(32.5)),
+        radius: Some(Length::new::<solar_radius>(32.5)),
         mass: Mass::new::<solar_mass>(37.6),
         absolute_magnitude: -7.1,
         apparent_magnitude: 4.29,

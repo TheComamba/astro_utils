@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn capella() -> RealData {
     RealData {
         common_name: "Capella",
         astronomical_name: "α Aurigae",
         constellation: "Auriga",
-        radius: Some(Length::new::<solar_radii>(11.98)),
+        radius: Some(Length::new::<solar_radius>(11.98)),
         mass: Mass::new::<solar_mass>(2.5687),
         absolute_magnitude: -0.48,
         apparent_magnitude: 0.08,
@@ -33,7 +31,7 @@ fn menkalinan() -> RealData {
         common_name: "Menkalinan",
         astronomical_name: "β Aurigae",
         constellation: "Auriga",
-        radius: Some(Length::new::<solar_radii>(2.77)),
+        radius: Some(Length::new::<solar_radius>(2.77)),
         mass: Mass::new::<solar_mass>(2.389),
         absolute_magnitude: -0.10,
         apparent_magnitude: 1.9,
@@ -51,7 +49,7 @@ fn hassaleh() -> RealData {
         common_name: "Hassaleh",
         astronomical_name: "ι Aurigae",
         constellation: "Auriga",
-        radius: Some(Length::new::<solar_radii>(127.)),
+        radius: Some(Length::new::<solar_radius>(127.)),
         mass: Mass::new::<solar_mass>(7.1),
         absolute_magnitude: -3.20,
         apparent_magnitude: 2.69,

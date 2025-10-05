@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_reticuli() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_reticuli() -> RealData {
         distance: Length::new::<light_year>(161.6),
         absolute_magnitude: -0.17,
         mass: Mass::new::<solar_mass>(3.11),
-        radius: Some(Length::new::<solar_radii>(12.8)),
+        radius: Some(Length::new::<solar_radius>(12.8)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5196.),
         age: Some(Time::new::<gigayear>(0.33)),
         lifetime: Time::new::<gigayear>(0.351318702),
@@ -39,7 +37,7 @@ fn beta_reticuli() -> RealData {
         distance: Length::new::<light_year>(97.),
         absolute_magnitude: 1.46,
         mass: Mass::new::<solar_mass>(1.2),
-        radius: Some(Length::new::<solar_radii>(9.3)),
+        radius: Some(Length::new::<solar_radius>(9.3)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4580.),
         age: Some(Time::new::<gigayear>(5.)),
         lifetime: Time::new::<gigayear>(5.06543331),
@@ -57,7 +55,7 @@ fn epsilon_reticuli() -> RealData {
         distance: Length::new::<light_year>(60.1),
         absolute_magnitude: 3.1,
         mass: Mass::new::<solar_mass>(1.46),
-        radius: Some(Length::new::<solar_radii>(3.18)),
+        radius: Some(Length::new::<solar_radius>(3.18)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4961.),
         age: Some(Time::new::<gigayear>(2.8)),
         lifetime: Time::new::<gigayear>(2.82957282),

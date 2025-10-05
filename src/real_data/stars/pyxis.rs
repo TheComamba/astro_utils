@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_pyxidis() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_pyxidis() -> RealData {
         distance: Length::new::<light_year>(880.),
         absolute_magnitude: -3.47,
         mass: Mass::new::<solar_mass>(10.7),
-        radius: Some(Length::new::<solar_radii>(6.3)),
+        radius: Some(Length::new::<solar_radius>(6.3)),
         temperature: ThermodynamicTemperature::new::<kelvin>(24_300.),
         age: Some(Time::new::<gigayear>(0.026)),
         lifetime: Time::new::<gigayear>(0.026540021),
@@ -39,7 +37,7 @@ fn beta_pyxidis() -> RealData {
         distance: Length::new::<light_year>(388.1),
         absolute_magnitude: -1.41,
         mass: Mass::new::<solar_mass>(1.2),
-        radius: Some(Length::new::<solar_radii>(24.)),
+        radius: Some(Length::new::<solar_radius>(24.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5124.),
         age: None,
         lifetime: Time::new::<gigayear>(5.06543331),
@@ -57,7 +55,7 @@ fn gamma_pyxidis() -> RealData {
         distance: Length::new::<light_year>(207.),
         absolute_magnitude: 0.,
         mass: Mass::new::<solar_mass>(1.64),
-        radius: Some(Length::new::<solar_radii>(21.87)),
+        radius: Some(Length::new::<solar_radius>(21.87)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4270.),
         age: Some(Time::new::<gigayear>(1.8)),
         lifetime: Time::new::<gigayear>(1.89665739),

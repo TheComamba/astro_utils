@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn pollux() -> RealData {
     RealData {
         common_name: "Pollux",
         astronomical_name: "β Geminorum",
         constellation: "Gemini",
-        radius: Some(Length::new::<solar_radii>(9.06)),
+        radius: Some(Length::new::<solar_radius>(9.06)),
         mass: Mass::new::<solar_mass>(1.91),
         absolute_magnitude: 1.09,
         apparent_magnitude: 1.16,
@@ -33,7 +31,7 @@ fn castor() -> RealData {
         common_name: "Castor",
         astronomical_name: "α Geminorum",
         constellation: "Gemini",
-        radius: Some(Length::new::<solar_radii>(2.089)),
+        radius: Some(Length::new::<solar_radius>(2.089)),
         mass: Mass::new::<solar_mass>(2.37),
         absolute_magnitude: 0.59,
         apparent_magnitude: 1.58,
@@ -51,7 +49,7 @@ fn alhena() -> RealData {
         common_name: "Alhena",
         astronomical_name: "γ Geminorum",
         constellation: "Gemini",
-        radius: Some(Length::new::<solar_radii>(3.3)),
+        radius: Some(Length::new::<solar_radius>(3.3)),
         mass: Mass::new::<solar_mass>(2.81),
         absolute_magnitude: -0.60,
         apparent_magnitude: 1.93,
@@ -69,7 +67,7 @@ fn tejat() -> RealData {
         common_name: "Tejat",
         astronomical_name: "μ Geminorum",
         constellation: "Gemini",
-        radius: Some(Length::new::<solar_radii>(90.)),
+        radius: Some(Length::new::<solar_radius>(90.)),
         mass: Mass::new::<solar_mass>(2.1),
         absolute_magnitude: -1.42,
         apparent_magnitude: 2.75,
@@ -87,7 +85,7 @@ fn propus() -> RealData {
         common_name: "Propus",
         astronomical_name: "η Geminorum",
         constellation: "Gemini",
-        radius: Some(Length::new::<solar_radii>(275.)),
+        radius: Some(Length::new::<solar_radius>(275.)),
         mass: Mass::new::<solar_mass>(2.5),
         absolute_magnitude: -1.84,
         apparent_magnitude: 3.31,

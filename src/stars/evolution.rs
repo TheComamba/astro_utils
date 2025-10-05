@@ -1,3 +1,4 @@
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use serde::{Deserialize, Serialize};
 use uom::si::{
     f64::{Length, LuminousIntensity, Mass, TemperatureInterval, ThermodynamicTemperature, Time},
@@ -6,8 +7,6 @@ use uom::si::{
     thermodynamic_temperature,
     time::year,
 };
-
-use crate::units::{length::solar_radii, mass::solar_mass, time::gigayear};
 
 use super::{data::StarData, fate::StarFate};
 
@@ -144,7 +143,7 @@ impl StarDataEvolution {
         if let Some(lifestage_evolution) = &self.lifestage_evolution {
             let temp_diff =
                 lifestage_evolution.temperature_per_year * time_since_epoch.get::<year>();
-            return temperature + temp_diff.into();
+            return temperature + temp_diff;
         }
         temperature
     }
@@ -160,7 +159,7 @@ impl StarDataEvolution {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.radius_per_year)
-            .unwrap_or_else(|| Length::new::<solar_radii>(0.))
+            .unwrap_or_else(|| Length::new::<solar_radius>(0.))
     }
 
     pub fn get_lifestage_luminous_intensity_per_year(&self) -> LuminousIntensity {
@@ -194,7 +193,7 @@ impl StarDataLifestageEvolution {
         };
         let radius_per_year = match (now.params.radius, then.params.radius) {
             (Some(now_radius), Some(then_radius)) => (now_radius - then_radius) / years,
-            _ => Length::new::<solar_radii>(0.),
+            _ => Length::new::<solar_radius>(0.),
         };
         let luminous_intensity_per_year =
             (now.params.luminous_intensity - then.params.luminous_intensity) / years;
@@ -256,7 +255,7 @@ mod tests {
         let now = Time::new::<year>(2000.);
         let lifestage_evolution = StarDataLifestageEvolution {
             mass_per_year: Mass::new::<solar_mass>(0.),
-            radius_per_year: Length::new::<solar_radii>(0.),
+            radius_per_year: Length::new::<solar_radius>(0.),
             luminous_intensity_per_year: LuminousIntensity::new::<candela>(0.),
             temperature_per_year: TemperatureInterval::new::<kelvin>(0.),
         };

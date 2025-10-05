@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn canopus() -> RealData {
     RealData {
         common_name: "Canopus",
         astronomical_name: "α Carinae",
         constellation: "Carina",
-        radius: Some(Length::new::<solar_radii>(72.)),
+        radius: Some(Length::new::<solar_radius>(72.)),
         mass: Mass::new::<solar_mass>(9.),
         absolute_magnitude: -5.53,
         apparent_magnitude: -0.62,
@@ -33,7 +31,7 @@ fn miaplacidus() -> RealData {
         common_name: "Miaplacidus",
         astronomical_name: "β Carinae",
         constellation: "Carina",
-        radius: Some(Length::new::<solar_radii>(6.8)),
+        radius: Some(Length::new::<solar_radius>(6.8)),
         mass: Mass::new::<solar_mass>(3.5),
         absolute_magnitude: -0.99,
         apparent_magnitude: 1.67,
@@ -69,7 +67,7 @@ fn aspidiske() -> RealData {
         common_name: "Aspidiske",
         astronomical_name: "ι Carinae",
         constellation: "Carina",
-        radius: Some(Length::new::<solar_radii>(43.)),
+        radius: Some(Length::new::<solar_radius>(43.)),
         mass: Mass::new::<solar_mass>(7.4),
         absolute_magnitude: -4.42,
         apparent_magnitude: 2.21,

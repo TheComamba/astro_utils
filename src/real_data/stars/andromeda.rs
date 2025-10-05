@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpheratz() -> RealData {
     RealData {
         common_name: "Alpheratz",
         astronomical_name: "α Andromedae",
         constellation: "Andromeda",
-        radius: Some(Length::new::<solar_radii>(2.7)),
+        radius: Some(Length::new::<solar_radius>(2.7)),
         mass: Mass::new::<solar_mass>(3.8),
         absolute_magnitude: -0.30,
         apparent_magnitude: 2.07,
@@ -33,7 +31,7 @@ fn mirach() -> RealData {
         common_name: "Mirach",
         astronomical_name: "β Andromedae",
         constellation: "Andromeda",
-        radius: Some(Length::new::<solar_radii>(100.)),
+        radius: Some(Length::new::<solar_radius>(100.)),
         mass: Mass::new::<solar_mass>(2.49),
         absolute_magnitude: -1.86,
         apparent_magnitude: 2.07,
@@ -51,7 +49,7 @@ fn almach() -> RealData {
         common_name: "Almach",
         astronomical_name: "γ Andromedae",
         constellation: "Andromeda",
-        radius: Some(Length::new::<solar_radii>(80.)),
+        radius: Some(Length::new::<solar_radius>(80.)),
         mass: Mass::new::<solar_mass>(23.7),
         absolute_magnitude: -3.08,
         apparent_magnitude: 2.1,

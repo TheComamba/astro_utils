@@ -1,4 +1,5 @@
 use astro_coords::{ecliptic::Ecliptic, spherical::Spherical};
+use astro_units::illuminance::{apparent_magnitude_to_illuminance, Illuminance};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{
@@ -9,7 +10,6 @@ use gaia_access::{
     result::{get_float, get_string, GaiaCellData, GaiaResult},
 };
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
-use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, time::Instant};
 use uom::si::{
     angle::degree,
@@ -18,24 +18,7 @@ use uom::si::{
     time::year,
 };
 
-use crate::{
-    color::srgb::sRGBColor,
-    error::AstroUtilError,
-    stars::appearance::StarAppearance,
-    units::illuminance::{apparent_magnitude_to_illuminance, Illuminance},
-};
-
-#[derive(Serialize, Deserialize)]
-struct GaiaMetadataLine {
-    name: String,
-    datatype: String,
-    xtype: Option<String>,
-    arraysize: Option<String>,
-    description: String,
-    unit: Option<String>,
-    ucd: String,
-    utype: Option<String>,
-}
+use crate::{color::srgb::sRGBColor, error::AstroUtilError, stars::appearance::StarAppearance};
 
 fn get_designation(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
     get_string(map.get(&Col::designation)?)
@@ -148,13 +131,10 @@ pub fn fetch_brightest_stars(
 
 #[cfg(test)]
 mod tests {
+    use astro_units::illuminance::{illuminance_to_apparent_magnitude, lux};
     use uom::si::angle::second;
 
-    use crate::{
-        astro_display::AstroDisplay,
-        real_data::stars::all::get_many_stars,
-        units::illuminance::{illuminance_to_apparent_magnitude, lux, Illuminance},
-    };
+    use crate::{astro_display::AstroDisplay, real_data::stars::all::get_many_stars};
 
     use super::*;
 

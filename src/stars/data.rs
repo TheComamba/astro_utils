@@ -2,8 +2,9 @@ use super::{
     appearance::StarAppearance, evolution::StarDataEvolution, fate::StarFate,
     physical_parameters::StarPhysicalParameters,
 };
-use crate::{color::srgb::sRGBColor, units::luminous_intensity::luminous_intensity_to_illuminance};
+use crate::color::srgb::sRGBColor;
 use astro_coords::{cartesian::Cartesian, ecliptic::Ecliptic};
+use astro_units::luminous_intensity::luminous_intensity_to_illuminance;
 use serde::{Deserialize, Serialize};
 use uom::si::f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time};
 
@@ -185,6 +186,7 @@ impl StarData {
 
 #[cfg(test)]
 mod tests {
+    use astro_units::mass::solar_mass;
     use uom::si::{
         length::{light_year, meter},
         luminous_intensity::candela,
@@ -194,7 +196,7 @@ mod tests {
     };
 
     use super::*;
-    use crate::{real_data::stars::all::get_many_stars, units::mass::solar_mass};
+    use crate::real_data::stars::all::get_many_stars;
 
     #[test]
     fn real_stars_have_a_non_vanishing_lifetime() {

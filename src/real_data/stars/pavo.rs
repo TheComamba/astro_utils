@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn peacock() -> RealData {
     RealData {
         common_name: "Peacock",
         astronomical_name: "α Pavonis",
         constellation: "Pavo",
-        radius: Some(Length::new::<solar_radii>(4.83)),
+        radius: Some(Length::new::<solar_radius>(4.83)),
         mass: Mass::new::<solar_mass>(5.91),
         absolute_magnitude: -1.81,
         apparent_magnitude: 1.94,
@@ -39,7 +37,7 @@ fn beta_pavonis() -> RealData {
         distance: Length::new::<light_year>(135.1),
         absolute_magnitude: 0.33,
         mass: Mass::new::<solar_mass>(2.51),
-        radius: Some(Length::new::<solar_radii>(2.3)),
+        radius: Some(Length::new::<solar_radius>(2.3)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8184.),
         age: Some(Time::new::<gigayear>(0.305)),
         lifetime: Time::new::<gigayear>(0.63513384),
@@ -57,7 +55,7 @@ fn delta_pavonis() -> RealData {
         distance: Length::new::<light_year>(19.89),
         absolute_magnitude: 4.62,
         mass: Mass::new::<solar_mass>(1.051),
-        radius: Some(Length::new::<solar_radii>(1.197)),
+        radius: Some(Length::new::<solar_radius>(1.197)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5571.),
         age: Some(Time::new::<gigayear>(6.7)),
         lifetime: Time::new::<gigayear>(8.24015833),

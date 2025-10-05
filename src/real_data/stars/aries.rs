@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn hamal() -> RealData {
     RealData {
         common_name: "Hamal",
         astronomical_name: "α Arietis",
         constellation: "Aries",
-        radius: Some(Length::new::<solar_radii>(14.9)),
+        radius: Some(Length::new::<solar_radius>(14.9)),
         mass: Mass::new::<solar_mass>(1.5),
         absolute_magnitude: 0.48,
         apparent_magnitude: 2.01,
@@ -39,7 +37,7 @@ fn beta_arietis() -> RealData {
         distance: Length::new::<light_year>(59.6),
         absolute_magnitude: 1.55,
         mass: Mass::new::<solar_mass>(2.34),
-        radius: Some(Length::new::<solar_radii>(23.)),
+        radius: Some(Length::new::<solar_radius>(23.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(9000.),
         age: Some(Time::new::<gigayear>(0.3)),
         lifetime: Time::new::<gigayear>(0.916355612),

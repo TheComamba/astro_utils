@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn nu_octantis() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn nu_octantis() -> RealData {
         distance: Length::new::<light_year>(63.3),
         absolute_magnitude: 2.10,
         mass: Mass::new::<solar_mass>(1.04),
-        radius: Some(Length::new::<solar_radii>(5.9)),
+        radius: Some(Length::new::<solar_radius>(5.9)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4860.),
         age: Some(Time::new::<gigayear>(2.5)),
         lifetime: Time::new::<gigayear>(8.24015833),
@@ -39,7 +37,7 @@ fn beta_octantis() -> RealData {
         distance: Length::new::<light_year>(149.),
         absolute_magnitude: 0.83,
         mass: Mass::new::<solar_mass>(2.27),
-        radius: Some(Length::new::<solar_radii>(3.2)),
+        radius: Some(Length::new::<solar_radius>(3.2)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8006.),
         age: Some(Time::new::<gigayear>(0.496)),
         lifetime: Time::new::<gigayear>(0.964406929),
@@ -57,7 +55,7 @@ fn delta_octantis() -> RealData {
         distance: Length::new::<light_year>(299.),
         absolute_magnitude: -0.35,
         mass: Mass::new::<solar_mass>(1.06),
-        radius: Some(Length::new::<solar_radii>(24.61)),
+        radius: Some(Length::new::<solar_radius>(24.61)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4311.),
         age: None,
         lifetime: Time::new::<gigayear>(8.24015833),

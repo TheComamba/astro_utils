@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_piscium() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_piscium() -> RealData {
         distance: Length::new::<light_year>(151.),
         absolute_magnitude: 0.5,
         mass: Mass::new::<solar_mass>(2.55),
-        radius: Some(Length::new::<solar_radii>(2.45)),
+        radius: Some(Length::new::<solar_radius>(2.45)),
         temperature: ThermodynamicTemperature::new::<kelvin>(10_233.),
         age: None,
         lifetime: Time::new::<gigayear>(0.63513384),
@@ -39,7 +37,7 @@ fn delta_piscium() -> RealData {
         distance: Length::new::<light_year>(311.),
         absolute_magnitude: -0.46,
         mass: Mass::new::<solar_mass>(1.65),
-        radius: Some(Length::new::<solar_radii>(44.)),
+        radius: Some(Length::new::<solar_radius>(44.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(3963.),
         age: Some(Time::new::<gigayear>(0.00298)),
         lifetime: Time::new::<gigayear>(1.89665739),
@@ -57,7 +55,7 @@ fn nu_piscium() -> RealData {
         distance: Length::new::<light_year>(363.),
         absolute_magnitude: -0.78,
         mass: Mass::new::<solar_mass>(1.66),
-        radius: Some(Length::new::<solar_radii>(34.)),
+        radius: Some(Length::new::<solar_radius>(34.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4154.),
         age: Some(Time::new::<gigayear>(1.8)),
         lifetime: Time::new::<gigayear>(1.89665739),
@@ -75,7 +73,7 @@ fn iota_piscium() -> RealData {
         distance: Length::new::<light_year>(44.73),
         absolute_magnitude: 3.43,
         mass: Mass::new::<solar_mass>(1.3),
-        radius: Some(Length::new::<solar_radii>(1.595)),
+        radius: Some(Length::new::<solar_radius>(1.595)),
         temperature: ThermodynamicTemperature::new::<kelvin>(6288.),
         age: Some(Time::new::<gigayear>(3.8)),
         lifetime: Time::new::<gigayear>(3.9126515),
@@ -93,7 +91,7 @@ fn omicron_piscium() -> RealData {
         distance: Length::new::<light_year>(280.),
         absolute_magnitude: -0.22,
         mass: Mass::new::<solar_mass>(3.03),
-        radius: Some(Length::new::<solar_radii>(14.57)),
+        radius: Some(Length::new::<solar_radius>(14.57)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5004.),
         age: Some(Time::new::<gigayear>(0.390)),
         lifetime: Time::new::<gigayear>(0.420724107),
@@ -111,7 +109,7 @@ fn epsilon_piscium() -> RealData {
         distance: Length::new::<light_year>(182.),
         absolute_magnitude: 0.44,
         mass: Mass::new::<solar_mass>(2.27),
-        radius: Some(Length::new::<solar_radii>(10.9)),
+        radius: Some(Length::new::<solar_radius>(10.9)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4814.),
         age: Some(Time::new::<gigayear>(0.9)),
         lifetime: Time::new::<gigayear>(0.964406929),
@@ -129,7 +127,7 @@ fn theta_piscium() -> RealData {
         distance: Length::new::<light_year>(149.),
         absolute_magnitude: 0.83,
         mass: Mass::new::<solar_mass>(1.58),
-        radius: Some(Length::new::<solar_radii>(11.)),
+        radius: Some(Length::new::<solar_radius>(11.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4684.),
         age: Some(Time::new::<gigayear>(0.00245)),
         lifetime: Time::new::<gigayear>(2.08398753),
@@ -147,7 +145,7 @@ fn eta_piscium() -> RealData {
         distance: Length::new::<light_year>(350.),
         absolute_magnitude: -1.52,
         mass: Mass::new::<solar_mass>(3.78),
-        radius: Some(Length::new::<solar_radii>(26.48)),
+        radius: Some(Length::new::<solar_radius>(26.48)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4937.),
         age: Some(Time::new::<gigayear>(0.220)),
         lifetime: Time::new::<gigayear>(0.220601963),
@@ -165,7 +163,7 @@ fn gamma_piscium() -> RealData {
         distance: Length::new::<light_year>(135.),
         absolute_magnitude: 0.68,
         mass: Mass::new::<solar_mass>(0.97),
-        radius: Some(Length::new::<solar_radii>(11.28)),
+        radius: Some(Length::new::<solar_radius>(11.28)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4833.),
         age: Some(Time::new::<gigayear>(4.58)),
         lifetime: Time::new::<gigayear>(11.7800188),

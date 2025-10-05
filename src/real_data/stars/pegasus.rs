@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn enif() -> RealData {
     RealData {
         common_name: "Enif",
         astronomical_name: "ε Pegasi",
         constellation: "Pegasus",
-        radius: Some(Length::new::<solar_radii>(211.)),
+        radius: Some(Length::new::<solar_radius>(211.)),
         mass: Mass::new::<solar_mass>(7.07),
         absolute_magnitude: -4.19,
         apparent_magnitude: 2.38,
@@ -33,7 +31,7 @@ fn scheat() -> RealData {
         common_name: "Scheat",
         astronomical_name: "β Pegasi",
         constellation: "Pegasus",
-        radius: Some(Length::new::<solar_radii>(95.)),
+        radius: Some(Length::new::<solar_radius>(95.)),
         mass: Mass::new::<solar_mass>(2.1),
         absolute_magnitude: -1.49,
         apparent_magnitude: 2.44,
@@ -51,7 +49,7 @@ fn markab() -> RealData {
         common_name: "Markab",
         astronomical_name: "α Pegasi",
         constellation: "Pegasus",
-        radius: Some(Length::new::<solar_radii>(4.62)),
+        radius: Some(Length::new::<solar_radius>(4.62)),
         mass: Mass::new::<solar_mass>(3.5),
         absolute_magnitude: -0.67,
         apparent_magnitude: 2.49,

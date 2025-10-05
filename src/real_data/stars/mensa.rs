@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_mensae() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alpha_mensae() -> RealData {
         distance: Length::new::<light_year>(33.31),
         absolute_magnitude: 5.03,
         mass: Mass::new::<solar_mass>(0.964),
-        radius: Some(Length::new::<solar_radii>(0.960)),
+        radius: Some(Length::new::<solar_radius>(0.960)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5569.),
         age: Some(Time::new::<gigayear>(6.2)),
         lifetime: Time::new::<gigayear>(11.7800188),
@@ -39,7 +37,7 @@ fn beta_mensae() -> RealData {
         distance: Length::new::<light_year>(641.7),
         absolute_magnitude: -1.17,
         mass: Mass::new::<solar_mass>(3.58),
-        radius: Some(Length::new::<solar_radii>(25.85)),
+        radius: Some(Length::new::<solar_radius>(25.85)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5088.),
         age: Some(Time::new::<gigayear>(0.250)),
         lifetime: Time::new::<gigayear>(0.254814649),
@@ -57,7 +55,7 @@ fn gamma_mensae() -> RealData {
         distance: Length::new::<light_year>(104.9),
         absolute_magnitude: 2.70,
         mass: Mass::new::<solar_mass>(1.04),
-        radius: Some(Length::new::<solar_radii>(4.99)),
+        radius: Some(Length::new::<solar_radius>(4.99)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4491.),
         age: Some(Time::new::<gigayear>(8.)),
         lifetime: Time::new::<gigayear>(8.24015833),

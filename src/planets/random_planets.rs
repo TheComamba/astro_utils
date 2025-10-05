@@ -1,5 +1,6 @@
 use std::f64::consts::PI;
 
+use astro_units::length::earth_radius;
 use rand::Rng;
 use uom::si::{
     angle::degree,
@@ -11,7 +12,6 @@ use uom::si::{
 
 use crate::{
     color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
-    units::length::earth_radii,
 };
 
 use super::{
@@ -24,9 +24,9 @@ pub fn generate_random_planet() -> PlanetData {
 
     let name = String::new();
 
-    let min = mercury().radius.get::<earth_radii>() * 0.5;
-    let max = jupiter().radius.get::<earth_radii>() * 2.0;
-    let radius = Length::new::<earth_radii>(rng.random_range(min..max));
+    let min = mercury().radius.get::<earth_radius>() * 0.5;
+    let max = jupiter().radius.get::<earth_radius>() * 2.0;
+    let radius = Length::new::<earth_radius>(rng.random_range(min..max));
 
     let min = saturn().mass_density().get::<kilogram_per_cubic_meter>() * 0.9;
     let max = earth().mass_density().get::<kilogram_per_cubic_meter>() * 1.1;

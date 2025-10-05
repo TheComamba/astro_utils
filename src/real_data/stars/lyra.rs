@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn vega() -> RealData {
     RealData {
         common_name: "Vega",
         astronomical_name: "α Lyrae",
         constellation: "Lyra",
-        radius: Some(Length::new::<solar_radii>(2.362)),
+        radius: Some(Length::new::<solar_radius>(2.362)),
         mass: Mass::new::<solar_mass>(2.135),
         absolute_magnitude: 0.58,
         apparent_magnitude: 0.03,
@@ -55,9 +53,10 @@ fn gamma_lyrae() -> RealData {
         declination: Declination::new(Sgn::Pos, 32, 41, 22.),
         apparent_magnitude: 3.261,
         distance: Length::new::<light_year>(620.),
+        #[allow(clippy::approx_constant)] // Clippy thinks this is -PI. :D
         absolute_magnitude: -3.140,
         mass: Mass::new::<solar_mass>(5.76),
-        radius: Some(Length::new::<solar_radii>(15.40)),
+        radius: Some(Length::new::<solar_radius>(15.40)),
         temperature: ThermodynamicTemperature::new::<kelvin>(10_000.),
         age: None,
         lifetime: Time::new::<gigayear>(0.078916095),
@@ -75,7 +74,7 @@ fn beta_lyrae() -> RealData {
         distance: Length::new::<light_year>(960.),
         absolute_magnitude: -3.82,
         mass: Mass::new::<solar_mass>(2.97),
-        radius: Some(Length::new::<solar_radii>(15.2)),
+        radius: Some(Length::new::<solar_radius>(15.2)),
         temperature: ThermodynamicTemperature::new::<kelvin>(13_300.),
         age: Some(Time::new::<gigayear>(0.023)),
         lifetime: Time::new::<gigayear>(0.420724107),

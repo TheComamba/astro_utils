@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alkes() -> RealData {
     RealData {
@@ -21,7 +19,7 @@ fn alkes() -> RealData {
         distance: Length::new::<light_year>(174.2),
         absolute_magnitude: 0.44,
         mass: Mass::new::<solar_mass>(1.81),
-        radius: Some(Length::new::<solar_radii>(12.32)),
+        radius: Some(Length::new::<solar_radius>(12.32)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4691.),
         age: Some(Time::new::<gigayear>(1.4)),
         lifetime: Time::new::<gigayear>(1.46605285),
@@ -57,7 +55,7 @@ fn gamma_crateris() -> RealData {
         distance: Length::new::<light_year>(85.6),
         absolute_magnitude: 2.05,
         mass: Mass::new::<solar_mass>(1.81),
-        radius: Some(Length::new::<solar_radii>(1.3)),
+        radius: Some(Length::new::<solar_radius>(1.3)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8020.),
         age: Some(Time::new::<gigayear>(0.757)),
         lifetime: Time::new::<gigayear>(1.46605285),
@@ -75,7 +73,7 @@ fn delta_crateris() -> RealData {
         distance: Length::new::<light_year>(194.6),
         absolute_magnitude: -0.321,
         mass: Mass::new::<solar_mass>(1.56),
-        radius: Some(Length::new::<solar_radii>(22.44)),
+        radius: Some(Length::new::<solar_radius>(22.44)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4510.),
         age: Some(Time::new::<gigayear>(2.2)),
         lifetime: Time::new::<gigayear>(2.29668629),

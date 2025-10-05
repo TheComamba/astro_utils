@@ -1,4 +1,8 @@
 use astro_coords::{cartesian::Cartesian, earth_equatorial::EarthEquatorial};
+use astro_units::{
+    length::solar_radius, luminous_intensity::absolute_magnitude_to_luminous_intensity,
+    mass::solar_mass, time::gigayear,
+};
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{
@@ -22,10 +26,6 @@ use crate::{
     stars::{
         data::StarData, evolution::StarDataEvolution, physical_parameters::StarPhysicalParameters,
     },
-    units::{
-        length::solar_radii, luminous_intensity::absolute_magnitude_to_luminous_intensity,
-        mass::solar_mass, time::gigayear,
-    },
 };
 
 fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {
@@ -45,7 +45,7 @@ fn get_mass(map: &HashMap<Col, GaiaCellData>) -> Option<Mass> {
 
 fn get_radius(map: &HashMap<Col, GaiaCellData>) -> Option<Length> {
     let radius = get_float(map.get(&Col::radius)?)?;
-    Some(Length::new::<solar_radii>(radius))
+    Some(Length::new::<solar_radius>(radius))
 }
 
 fn get_luminous_intensity(map: &HashMap<Col, GaiaCellData>) -> Option<LuminousIntensity> {

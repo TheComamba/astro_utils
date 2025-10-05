@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_lyncis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Lyncis",
         constellation: "Lynx",
-        radius: Some(Length::new::<solar_radii>(54.5)),
+        radius: Some(Length::new::<solar_radius>(54.5)),
         mass: Mass::new::<solar_mass>(2.),
         absolute_magnitude: -1.02,
         apparent_magnitude: 3.15,
@@ -39,7 +37,7 @@ fn thirtyeight_lyncis() -> RealData {
         distance: Length::new::<light_year>(117.),
         absolute_magnitude: 0.98,
         mass: Mass::new::<solar_mass>(1.9),
-        radius: Some(Length::new::<solar_radii>(3.07)),
+        radius: Some(Length::new::<solar_radius>(3.07)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8862.),
         age: Some(Time::new::<gigayear>(0.213)),
         lifetime: Time::new::<gigayear>(1.54706939),
@@ -57,7 +55,7 @@ fn thirtyone_lyncis() -> RealData {
         distance: Length::new::<light_year>(380.),
         absolute_magnitude: -1.09,
         mass: Mass::new::<solar_mass>(1.95),
-        radius: Some(Length::new::<solar_radii>(53.27)),
+        radius: Some(Length::new::<solar_radius>(53.27)),
         temperature: ThermodynamicTemperature::new::<kelvin>(3921.),
         age: Some(Time::new::<gigayear>(1.32)),
         lifetime: Time::new::<gigayear>(1.46316038),

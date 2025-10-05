@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn gamma1_volantis() -> RealData {
     RealData {
@@ -57,7 +55,7 @@ fn zeta_volantis() -> RealData {
         distance: Length::new::<light_year>(141.),
         absolute_magnitude: 0.75,
         mass: Mass::new::<solar_mass>(1.74),
-        radius: Some(Length::new::<solar_radii>(11.)),
+        radius: Some(Length::new::<solar_radius>(11.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4721.),
         age: Some(Time::new::<gigayear>(1.5)),
         lifetime: Time::new::<gigayear>(1.59501327),

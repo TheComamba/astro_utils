@@ -1,15 +1,12 @@
 use astro_coords::ecliptic::Ecliptic;
+use astro_units::illuminance::{lux, Illuminance};
 use serde::{Deserialize, Serialize};
 use uom::si::{
     angle::degree,
     f64::{Angle, Time},
 };
 
-use crate::{
-    astro_display::AstroDisplay,
-    color::srgb::sRGBColor,
-    units::illuminance::{lux, Illuminance},
-};
+use crate::{astro_display::AstroDisplay, color::srgb::sRGBColor};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {

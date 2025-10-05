@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn rigel_kentaurus() -> RealData {
     RealData {
         common_name: "Rigel Kentaurus",
         astronomical_name: "α Centauri",
         constellation: "Centaurus",
-        radius: Some(Length::new::<solar_radii>(1.2175)),
+        radius: Some(Length::new::<solar_radius>(1.2175)),
         mass: Mass::new::<solar_mass>(1.0788),
         absolute_magnitude: 4.34,
         apparent_magnitude: -0.27,
@@ -33,7 +31,7 @@ fn hadar() -> RealData {
         common_name: "Hadar",
         astronomical_name: "β Centauri",
         constellation: "Centaurus",
-        radius: Some(Length::new::<solar_radii>(9.)),
+        radius: Some(Length::new::<solar_radius>(9.)),
         mass: Mass::new::<solar_mass>(12.02),
         absolute_magnitude: -5.42,
         apparent_magnitude: 0.61,
@@ -51,7 +49,7 @@ fn menkent() -> RealData {
         common_name: "Menkent",
         astronomical_name: "θ Centauri",
         constellation: "Centaurus",
-        radius: Some(Length::new::<solar_radii>(10.6)),
+        radius: Some(Length::new::<solar_radius>(10.6)),
         mass: Mass::new::<solar_mass>(1.27),
         absolute_magnitude: 0.70,
         apparent_magnitude: 2.06,
@@ -105,7 +103,7 @@ fn eta_centauri() -> RealData {
         common_name: "",
         astronomical_name: "η Centauri",
         constellation: "Centaurus",
-        radius: Some(Length::new::<solar_radii>(6.1)),
+        radius: Some(Length::new::<solar_radius>(6.1)),
         mass: Mass::new::<solar_mass>(12.0),
         absolute_magnitude: -2.55,
         apparent_magnitude: 2.29,
@@ -123,7 +121,7 @@ fn zeta_centauri() -> RealData {
         common_name: "",
         astronomical_name: "ζ Centauri",
         constellation: "Centaurus",
-        radius: Some(Length::new::<solar_radii>(5.8)),
+        radius: Some(Length::new::<solar_radius>(5.8)),
         mass: Mass::new::<solar_mass>(7.8),
         absolute_magnitude: -2.81,
         apparent_magnitude: 2.55,
@@ -141,7 +139,7 @@ fn ma_wei() -> RealData {
         common_name: "Ma Wei",
         astronomical_name: "δ Centauri",
         constellation: "Centaurus",
-        radius: Some(Length::new::<solar_radii>(6.5)),
+        radius: Some(Length::new::<solar_radius>(6.5)),
         mass: Mass::new::<solar_mass>(8.7),
         absolute_magnitude: -2.84,
         apparent_magnitude: 2.58,

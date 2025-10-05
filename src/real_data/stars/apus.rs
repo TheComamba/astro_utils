@@ -1,21 +1,19 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn alpha_apodis() -> RealData {
     RealData {
         common_name: "",
         astronomical_name: "α Apodis",
         constellation: "Apus",
-        radius: Some(Length::new::<solar_radii>(48.)),
+        radius: Some(Length::new::<solar_radius>(48.)),
         mass: Mass::new::<solar_mass>(1.2),
         absolute_magnitude: -1.67,
         apparent_magnitude: 3.825,
@@ -51,7 +49,7 @@ fn beta_apodis() -> RealData {
         common_name: "",
         astronomical_name: "β Apodis",
         constellation: "Apus",
-        radius: Some(Length::new::<solar_radii>(11.)),
+        radius: Some(Length::new::<solar_radius>(11.)),
         mass: Mass::new::<solar_mass>(1.84),
         absolute_magnitude: 0.819,
         apparent_magnitude: 4.24,
