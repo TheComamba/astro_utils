@@ -1,6 +1,8 @@
 use std::f64::consts::PI;
 
-use astro_units::{length::earth_radius, mass::earth_mass};
+use astro_units::{
+    length::earth_radius, luminosity::luminous_intensity_to_luminosity, mass::earth_mass,
+};
 use fraction::Fraction;
 use uom::si::{
     acceleration::standard_gravity,
@@ -13,10 +15,7 @@ use uom::si::{
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    astro_display::AstroDisplay, error::AstroUtilError, stars::data::StarData,
-    units::luminosity::luminous_intensity_to_luminosity,
-};
+use crate::{astro_display::AstroDisplay, error::AstroUtilError, stars::data::StarData};
 
 use super::{kepler_orbit::orbital_period, planet_data::PlanetData};
 

@@ -1,8 +1,6 @@
 // https://www.astro.princeton.edu/~gk/A403/constants.pdf
 
-pub mod illuminance;
 pub mod length;
-pub mod luminosity;
 pub mod luminous_intensity;
 pub mod mass;
 pub mod solid_angle;
@@ -24,6 +22,7 @@ pub(crate) mod tests {
 
     #[cfg(test)]
     pub(crate) fn angle_eq(actual: Angle, expected: Angle) -> bool {
+        use astro_units::angle::angle_eq_within;
         use uom::si::angle::radian;
 
         use crate::tests::TEST_ACCURACY;

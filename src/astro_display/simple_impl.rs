@@ -1,5 +1,5 @@
 use astro_coords::direction::Direction;
-use astro_units::illuminance::Illuminance;
+use astro_units::illuminance::{illuminance_to_apparent_magnitude, Illuminance};
 use uom::si::{
     acceleration::standard_gravity,
     angle::degree,
@@ -7,7 +7,7 @@ use uom::si::{
     mass_density::kilogram_per_cubic_meter,
 };
 
-use crate::{astro_display::AstroDisplay, units::illuminance::illuminance_to_apparent_magnitude};
+use crate::astro_display::AstroDisplay;
 
 impl AstroDisplay for Acceleration {
     fn astro_display(&self) -> String {

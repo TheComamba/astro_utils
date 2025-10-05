@@ -2,8 +2,9 @@ use super::{
     appearance::StarAppearance, evolution::StarDataEvolution, fate::StarFate,
     physical_parameters::StarPhysicalParameters,
 };
-use crate::{color::srgb::sRGBColor, units::luminous_intensity::luminous_intensity_to_illuminance};
+use crate::color::srgb::sRGBColor;
 use astro_coords::{cartesian::Cartesian, ecliptic::Ecliptic};
+use astro_units::luminous_intensity::luminous_intensity_to_illuminance;
 use serde::{Deserialize, Serialize};
 use uom::si::f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time};
 

@@ -1,3 +1,4 @@
+use astro_units::illuminance::illuminance_to_apparent_magnitude;
 use astro_utils::{
     astro_display::AstroDisplay,
     stars::{
@@ -5,7 +6,6 @@ use astro_utils::{
         gaia::gaia_universe_simulation::fetch_brightest_stars_simulated_data,
         random::random_stars::generate_random_stars,
     },
-    units::illuminance::illuminance_to_apparent_magnitude,
 };
 use uom::si::{
     f64::{Length, ThermodynamicTemperature, Time},

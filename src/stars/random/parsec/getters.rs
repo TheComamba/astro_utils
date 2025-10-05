@@ -1,4 +1,7 @@
 use astro_coords::cartesian::Cartesian;
+use astro_units::luminous_intensity::{
+    absolute_magnitude_to_luminous_intensity, solar_luminous_intensity,
+};
 use astro_units::mass::solar_mass;
 use astro_units::time::kiloyear;
 use parsec_access::getters::{
@@ -15,9 +18,6 @@ use crate::stars::evolution::{StarDataEvolution, StarDataLifestageEvolution};
 use crate::stars::fate::{StarFate, TYPE_II_SUPERNOVA_PEAK_MAGNITUDE};
 use crate::stars::physical_parameters::StarPhysicalParameters;
 use crate::stars::random::random_stars::{dimmest_illuminance, get_min_age, METALLICITY_INDEX};
-use crate::units::luminous_intensity::{
-    absolute_magnitude_to_luminous_intensity, solar_luminous_intensity,
-};
 
 pub(crate) fn get_star_data_if_visible(
     mass_index: usize,
@@ -138,14 +138,11 @@ fn get_lifestage_evolution(
 #[cfg(test)]
 mod tests {
     use astro_coords::direction::Direction;
-    use astro_units::time::gigayear;
+    use astro_units::{luminous_intensity::luminous_intensity_to_illuminance, time::gigayear};
     use uom::si::{f64::Length, length::light_year};
 
     use super::*;
-    use crate::{
-        astro_display::AstroDisplay, real_data::stars::all::get_many_stars,
-        units::luminous_intensity::luminous_intensity_to_illuminance,
-    };
+    use crate::{astro_display::AstroDisplay, real_data::stars::all::get_many_stars};
     use parsec_access::getters::get_closest_mass_index;
 
     #[test]

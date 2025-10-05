@@ -200,14 +200,11 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 #[cfg(test)]
 mod tests {
-    use astro_units::mass::solar_mass;
+    use astro_units::{illuminance::illuminance_to_apparent_magnitude, mass::solar_mass};
     use parsec_access::getters::get_closest_metallicity_index_from_mass_fraction;
     use uom::si::{f64::Mass, time::year};
 
-    use crate::{
-        astro_display::AstroDisplay, stars::fate::StarFate, tests::eq,
-        units::illuminance::illuminance_to_apparent_magnitude,
-    };
+    use crate::{astro_display::AstroDisplay, stars::fate::StarFate, tests::eq};
 
     use super::*;
     use std::time::Instant;

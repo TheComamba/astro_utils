@@ -1,20 +1,17 @@
 use std::f64::consts::PI;
 
 use astro_coords::cartesian::Cartesian;
-use astro_units::illuminance::Illuminance;
+use astro_units::{
+    illuminance::Illuminance, luminous_intensity::luminous_intensity_to_illuminance,
+    solid_angle::radius_and_distance_to_solid_angle,
+};
 use uom::si::{
     angle::radian,
     f64::{Angle, Length, LuminousIntensity},
     solid_angle::steradian,
 };
 
-use crate::{
-    error::AstroUtilError,
-    units::{
-        luminous_intensity::luminous_intensity_to_illuminance,
-        solid_angle::radius_and_distance_to_solid_angle,
-    },
-};
+use crate::error::AstroUtilError;
 
 /*
  * Refraction is awfully complicated:
@@ -52,19 +49,14 @@ pub fn planet_brightness(
 
 #[cfg(test)]
 mod tests {
-    use astro_units::illuminance::lux;
+    use astro_units::{
+        illuminance::{apparent_magnitude_to_illuminance, lux},
+        luminous_intensity::solar_luminous_intensity,
+    };
     use uom::si::length::astronomical_unit;
 
     use super::*;
-    use crate::{
-        astro_display::AstroDisplay,
-        real_data::planets::*,
-        tests::eq_within,
-        units::{
-            illuminance::apparent_magnitude_to_illuminance,
-            luminous_intensity::solar_luminous_intensity,
-        },
-    };
+    use crate::{astro_display::AstroDisplay, real_data::planets::*, tests::eq_within};
     const REAL_ILLUMINANCE_TEST_ACCURACY_FACTOR: f64 = 0.5;
 
     #[test]
