@@ -171,6 +171,8 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
     }
     let mut visited = vec![0];
     while visited.len() < stars.len() {
+        use astro_units::angle::full_circ;
+
         let mut current_best = Connection {
             to: 0,
             from: 0,
@@ -194,7 +196,12 @@ fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
 #[cfg(test)]
 mod tests {
     use astro_coords::spherical::Spherical;
-    use uom::si::{angle::degree, f64::Time, time::year};
+    use astro_units::illuminance::{lux, Illuminance};
+    use uom::si::{
+        angle::{degree, radian},
+        f64::Time,
+        time::year,
+    };
 
     use crate::{
         astro_display::AstroDisplay, color::srgb::sRGBColor, real_data::stars::all::get_many_stars,
@@ -209,7 +216,7 @@ mod tests {
             // Making distances distinct
             let longitude = Angle::new::<degree>(10. * i as f64 + (i as f64).powi(2) / 100.);
             assert!(longitude.get::<degree>() < 179.0);
-            let pos = Spherical::new(longitude, angle_zero()).to_ecliptic();
+            let pos = Spherical::new(longitude, Angle::new::<radian>(0.)).to_ecliptic();
             stars.push(StarAppearance::new(
                 format!("Star {}", i),
                 Illuminance::new::<lux>(1.0),
@@ -227,7 +234,7 @@ mod tests {
             connections.push(Connection {
                 from: i,
                 to: i + 1,
-                distance: angle_zero(),
+                distance: Angle::new::<radian>(0.),
             });
         }
         connections

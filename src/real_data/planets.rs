@@ -1,5 +1,7 @@
 use astro_coords::earth_equatorial::EarthEquatorial;
+use astro_units::angle::quarter_circ;
 use uom::si::angle::degree;
+use uom::si::angle::radian;
 use uom::si::f64::Angle;
 use uom::si::f64::Length;
 use uom::si::f64::Mass;
@@ -80,7 +82,7 @@ pub fn earth() -> RealData {
         mass: Mass::new::<kilogram>(5.97e24),
         siderial_rotation_period: Time::new::<hour>(0.997_269_68 * 24.),
         axis_tilt: Angle::new::<degree>(23.439_281),
-        rotation_axis: EarthEquatorial::new(angle_zero(), quarter_circ()),
+        rotation_axis: EarthEquatorial::new(Angle::new::<radian>(0.), quarter_circ()),
     }
 }
 
