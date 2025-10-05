@@ -33,7 +33,6 @@ mod tests {
     use crate::{
         real_data::planets::{earth, luna},
         tests::eq,
-        units::length::solar_radii,
     };
 
     #[test]

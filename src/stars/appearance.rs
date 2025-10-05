@@ -5,11 +5,7 @@ use uom::si::{
     f64::{Angle, Time},
 };
 
-use crate::{
-    astro_display::AstroDisplay,
-    color::srgb::sRGBColor,
-    units::illuminance::{lux, Illuminance},
-};
+use crate::{astro_display::AstroDisplay, color::srgb::sRGBColor};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StarAppearance {

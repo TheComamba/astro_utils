@@ -10,13 +10,8 @@ use uom::si::{
 
 use crate::{
     astro_display::AstroDisplay,
-    units::{
-        length::solar_radii,
-        luminous_intensity::{
-            absolute_magnitude_to_luminous_intensity, luminous_intensity_to_absolute_magnitude,
-        },
-        mass::solar_mass,
-        time::kiloyear,
+    units::luminous_intensity::{
+        absolute_magnitude_to_luminous_intensity, luminous_intensity_to_absolute_magnitude,
     },
 };
 

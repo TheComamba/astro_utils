@@ -4,8 +4,6 @@ use uom::si::{
     time::second,
 };
 
-use crate::units::angle::full_circ;
-
 pub fn surface_normal_at_time(
     mut observer: Equatorial,
     angle_at_epoch: Angle,

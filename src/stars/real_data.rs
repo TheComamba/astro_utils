@@ -108,7 +108,7 @@ mod tests {
         real_data::stars::all::get_many_stars,
         units::{
             illuminance::illuminance_to_apparent_magnitude,
-            luminous_intensity::luminous_intensity_to_illuminance, mass::solar_mass,
+            luminous_intensity::luminous_intensity_to_illuminance,
         },
     };
 

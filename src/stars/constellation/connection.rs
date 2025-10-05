@@ -164,8 +164,6 @@ fn find_nearest_neighbour(
 
 #[cfg(test)]
 fn minimum_spanning_tree(stars: &[StarAppearance]) -> Vec<Connection> {
-    use crate::units::angle::full_circ;
-
     // This is Prim's algorithm
     let mut connections = Vec::new();
     if stars.len() < 2 {
@@ -199,15 +197,8 @@ mod tests {
     use uom::si::{angle::degree, f64::Time, time::year};
 
     use crate::{
-        astro_display::AstroDisplay,
-        color::srgb::sRGBColor,
-        real_data::stars::all::get_many_stars,
-        stars::constellation::collect_constellations,
-        units::{
-            angle::angle_zero,
-            illuminance::{lux, Illuminance},
-            tests::angle_test_accuracy,
-        },
+        astro_display::AstroDisplay, color::srgb::sRGBColor, real_data::stars::all::get_many_stars,
+        stars::constellation::collect_constellations, units::tests::angle_test_accuracy,
     };
 
     use super::*;

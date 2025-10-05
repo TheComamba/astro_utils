@@ -11,7 +11,6 @@ use uom::si::{
 
 use crate::{
     color::srgb::sRGBColor, real_data::planets::*, stars::random::random_stars::random_direction,
-    units::length::earth_radii,
 };
 
 use super::{

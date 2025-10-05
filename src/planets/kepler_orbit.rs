@@ -8,8 +8,6 @@ use uom::si::{
     time::second,
 };
 
-use crate::units::angle::{full_circ, normalized_angle};
-
 use super::orbit_parameters::OrbitParameters;
 
 pub(crate) const GRAVITATIONAL_CONSTANT: f64 = 6.67430e-11;
@@ -117,7 +115,6 @@ mod tests {
         astro_display::AstroDisplay,
         real_data::planets::*,
         tests::{eq, eq_within},
-        units::{angle::*, mass::solar_mass},
     };
 
     use super::*;

@@ -22,10 +22,7 @@ use crate::{
     stars::{
         data::StarData, evolution::StarDataEvolution, physical_parameters::StarPhysicalParameters,
     },
-    units::{
-        length::solar_radii, luminous_intensity::absolute_magnitude_to_luminous_intensity,
-        mass::solar_mass, time::gigayear,
-    },
+    units::luminous_intensity::absolute_magnitude_to_luminous_intensity,
 };
 
 fn get_id(map: &HashMap<Col, GaiaCellData>) -> Option<String> {

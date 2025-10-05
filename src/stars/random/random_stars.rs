@@ -13,10 +13,6 @@ use uom::si::{
 use crate::{
     error::AstroUtilError,
     stars::{data::StarData, random::parsec::mass_distribution::get_mass_index_distribution},
-    units::{
-        illuminance::{lux, Illuminance},
-        time::{kiloyear, megayear},
-    },
 };
 
 use super::{params::GenerationParams, parsec::getters::get_star_data_if_visible};
@@ -204,10 +200,8 @@ mod tests {
     use uom::si::{f64::Mass, time::year};
 
     use crate::{
-        astro_display::AstroDisplay,
-        stars::fate::StarFate,
-        tests::eq,
-        units::{illuminance::illuminance_to_apparent_magnitude, mass::solar_mass},
+        astro_display::AstroDisplay, stars::fate::StarFate, tests::eq,
+        units::illuminance::illuminance_to_apparent_magnitude,
     };
 
     use super::*;

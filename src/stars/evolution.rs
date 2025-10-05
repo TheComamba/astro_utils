@@ -7,8 +7,6 @@ use uom::si::{
     time::year,
 };
 
-use crate::units::{length::solar_radii, mass::solar_mass, time::gigayear};
-
 use super::{data::StarData, fate::StarFate};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

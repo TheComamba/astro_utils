@@ -89,9 +89,7 @@ mod test {
 
     use uom::si::{angle::radian, f64::Angle};
 
-    use crate::{
-        astro_display::AstroDisplay, real_data::planets::*, units::angle::angle_eq_within,
-    };
+    use crate::{astro_display::AstroDisplay, real_data::planets::*};
 
     fn tilt_accuracy() -> Angle {
         Angle::new::<radian>(2e-3)

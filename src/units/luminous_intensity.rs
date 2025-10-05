@@ -7,9 +7,7 @@ use uom::si::{
 
 use crate::astro_display::AstroDisplay;
 
-use super::illuminance::{
-    apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude, Illuminance,
-};
+use super::illuminance::{apparent_magnitude_to_illuminance, illuminance_to_apparent_magnitude};
 
 #[inline(always)]
 pub fn solar_luminous_intensity() -> LuminousIntensity {
@@ -63,10 +61,7 @@ mod tests {
     use uom::si::length::meter;
 
     use super::*;
-    use crate::{
-        tests::{eq, eq_within},
-        units::illuminance::lux,
-    };
+    use crate::tests::{eq, eq_within};
 
     const REAL_DATA_TEST_ACCURACY: f64 = 0.05;
     const ILLUMINANCE_AT_UNIT_DISTANCE: f64 = 1.;

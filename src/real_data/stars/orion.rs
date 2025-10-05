@@ -6,10 +6,7 @@ use uom::si::{
     time::year,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn rigel() -> RealData {
     RealData {

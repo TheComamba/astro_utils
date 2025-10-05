@@ -16,8 +16,6 @@ use crate::stars::random::random_stars::{dimmest_illuminance, get_min_age, METAL
 use crate::units::luminous_intensity::{
     absolute_magnitude_to_luminous_intensity, solar_luminous_intensity,
 };
-use crate::units::mass::solar_mass;
-use crate::units::time::kiloyear;
 
 pub(crate) fn get_star_data_if_visible(
     mass_index: usize,
@@ -142,9 +140,8 @@ mod tests {
 
     use super::*;
     use crate::{
-        astro_display::AstroDisplay,
-        real_data::stars::all::get_many_stars,
-        units::{luminous_intensity::luminous_intensity_to_illuminance, time::gigayear},
+        astro_display::AstroDisplay, real_data::stars::all::get_many_stars,
+        units::luminous_intensity::luminous_intensity_to_illuminance,
     };
     use parsec_access::getters::get_closest_mass_index;
 

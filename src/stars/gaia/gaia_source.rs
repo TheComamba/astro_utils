@@ -19,10 +19,8 @@ use uom::si::{
 };
 
 use crate::{
-    color::srgb::sRGBColor,
-    error::AstroUtilError,
-    stars::appearance::StarAppearance,
-    units::illuminance::{apparent_magnitude_to_illuminance, Illuminance},
+    color::srgb::sRGBColor, error::AstroUtilError, stars::appearance::StarAppearance,
+    units::illuminance::apparent_magnitude_to_illuminance,
 };
 
 #[derive(Serialize, Deserialize)]
@@ -151,9 +149,8 @@ mod tests {
     use uom::si::angle::second;
 
     use crate::{
-        astro_display::AstroDisplay,
-        real_data::stars::all::get_many_stars,
-        units::illuminance::{illuminance_to_apparent_magnitude, lux, Illuminance},
+        astro_display::AstroDisplay, real_data::stars::all::get_many_stars,
+        units::illuminance::illuminance_to_apparent_magnitude,
     };
 
     use super::*;

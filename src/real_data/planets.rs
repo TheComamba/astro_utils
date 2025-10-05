@@ -11,7 +11,6 @@ use uom::si::time::hour;
 use crate::color::srgb::sRGBColor;
 use crate::planets::orbit_parameters::OrbitParameters;
 use crate::planets::real_data::RealData;
-use crate::units::angle::*;
 
 #[inline(always)]
 pub fn mercury() -> RealData {

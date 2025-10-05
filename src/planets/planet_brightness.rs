@@ -10,7 +10,7 @@ use uom::si::{
 use crate::{
     error::AstroUtilError,
     units::{
-        illuminance::Illuminance, luminous_intensity::luminous_intensity_to_illuminance,
+        luminous_intensity::luminous_intensity_to_illuminance,
         solid_angle::radius_and_distance_to_solid_angle,
     },
 };
@@ -59,7 +59,7 @@ mod tests {
         real_data::planets::*,
         tests::eq_within,
         units::{
-            illuminance::{apparent_magnitude_to_illuminance, lux},
+            illuminance::apparent_magnitude_to_illuminance,
             luminous_intensity::solar_luminous_intensity,
         },
     };

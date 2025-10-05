@@ -5,10 +5,7 @@ use uom::si::{
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{length::solar_radii, mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 //https://web.pa.msu.edu/people/horvatin/Astronomy_Facts/brightest_stars.html
 // Gaia data that was not found in the list of 100 brightest stars

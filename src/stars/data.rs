@@ -194,7 +194,7 @@ mod tests {
     };
 
     use super::*;
-    use crate::{real_data::stars::all::get_many_stars, units::mass::solar_mass};
+    use crate::real_data::stars::all::get_many_stars;
 
     #[test]
     fn real_stars_have_a_non_vanishing_lifetime() {

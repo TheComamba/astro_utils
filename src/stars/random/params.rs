@@ -1,8 +1,6 @@
 use astro_coords::cartesian::Cartesian;
 use uom::si::f64::{Length, Time};
 
-use crate::units::length::solar_radii;
-
 use super::{
     parsec::getters::get_most_luminous_intensity_possible,
     random_stars::{
@@ -67,10 +65,7 @@ mod tests {
     use parsec_access::getters::is_data_ready;
     use uom::si::length::{light_year, meter};
 
-    use crate::{
-        tests::{eq_within, TEST_ACCURACY},
-        units::time::kiloyear,
-    };
+    use crate::tests::{eq_within, TEST_ACCURACY};
 
     use super::*;
 
