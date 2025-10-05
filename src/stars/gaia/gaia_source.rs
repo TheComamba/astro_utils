@@ -1,4 +1,5 @@
 use astro_coords::{ecliptic::Ecliptic, spherical::Spherical};
+use astro_units::illuminance::Illuminance;
 use gaia_access::{
     condition::GaiaCondition,
     data::gaiadr3::{
@@ -146,6 +147,7 @@ pub fn fetch_brightest_stars(
 
 #[cfg(test)]
 mod tests {
+    use astro_units::illuminance::lux;
     use uom::si::angle::second;
 
     use crate::{

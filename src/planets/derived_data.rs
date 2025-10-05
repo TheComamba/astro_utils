@@ -1,5 +1,6 @@
 use std::f64::consts::PI;
 
+use astro_units::{length::earth_radius, mass::earth_mass};
 use fraction::Fraction;
 use uom::si::{
     acceleration::standard_gravity,
@@ -114,7 +115,7 @@ impl DerivedPlanetData {
 }
 
 fn surface_gravity(mass: Mass, radius: Length) -> Acceleration {
-    mass.get::<earth_mass>() / radius.get::<earth_radii>().powi(2)
+    mass.get::<earth_mass>() / radius.get::<earth_radius>().powi(2)
         * Acceleration::new::<standard_gravity>(1.)
 }
 

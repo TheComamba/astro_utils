@@ -1,3 +1,4 @@
+use astro_units::mass::{earth_mass, gigaton, kiloton, lunar_mass, megaton, solar_mass};
 use uom::si::{
     f64::Mass,
     mass::{kilogram, ton},

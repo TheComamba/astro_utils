@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn regulus() -> RealData {
         common_name: "Regulus",
         astronomical_name: "α Leonis",
         constellation: "Leo",
-        radius: Some(Length::new::<solar_radii>(4.35)),
+        radius: Some(Length::new::<solar_radius>(4.35)),
         mass: Mass::new::<solar_mass>(3.8),
         absolute_magnitude: -0.52,
         apparent_magnitude: 1.36,
@@ -30,7 +31,7 @@ fn algieba() -> RealData {
         common_name: "Algieba",
         astronomical_name: "γ Leonis",
         constellation: "Leo",
-        radius: Some(Length::new::<solar_radii>(31.88)),
+        radius: Some(Length::new::<solar_radius>(31.88)),
         mass: Mass::new::<solar_mass>(1.23),
         absolute_magnitude: -0.92,
         apparent_magnitude: 2.01,
@@ -48,7 +49,7 @@ fn denebola() -> RealData {
         common_name: "Denebola",
         astronomical_name: "β Leonis",
         constellation: "Leo",
-        radius: Some(Length::new::<solar_radii>(1.728)),
+        radius: Some(Length::new::<solar_radius>(1.728)),
         mass: Mass::new::<solar_mass>(1.78),
         absolute_magnitude: 1.92,
         apparent_magnitude: 2.14,
@@ -66,7 +67,7 @@ fn zosma() -> RealData {
         common_name: "Zosma",
         astronomical_name: "δ Leonis",
         constellation: "Leo",
-        radius: Some(Length::new::<solar_radii>(2.14)),
+        radius: Some(Length::new::<solar_radius>(2.14)),
         mass: Mass::new::<solar_mass>(2.2),
         absolute_magnitude: 1.32,
         apparent_magnitude: 2.56,

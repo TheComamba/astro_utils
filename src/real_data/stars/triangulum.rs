@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -36,7 +37,7 @@ fn alpha_trianguli() -> RealData {
         distance: Length::new::<light_year>(63.3),
         absolute_magnitude: 1.98,
         mass: Mass::new::<solar_mass>(1.70),
-        radius: Some(Length::new::<solar_radii>(3.22)),
+        radius: Some(Length::new::<solar_radius>(3.22)),
         temperature: ThermodynamicTemperature::new::<kelvin>(6288.),
         age: Some(Time::new::<gigayear>(1.6)),
         lifetime: Time::new::<gigayear>(1.73766023),
@@ -54,7 +55,7 @@ fn gamma_trianguli() -> RealData {
         distance: Length::new::<light_year>(112.3),
         absolute_magnitude: 1.35,
         mass: Mass::new::<solar_mass>(2.7),
-        radius: Some(Length::new::<solar_radii>(1.96)),
+        radius: Some(Length::new::<solar_radius>(1.96)),
         temperature: ThermodynamicTemperature::new::<kelvin>(9440.),
         age: Some(Time::new::<gigayear>(0.3)),
         lifetime: Time::new::<gigayear>(0.63513384),

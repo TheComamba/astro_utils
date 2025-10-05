@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn acrux() -> RealData {
         common_name: "Acrux",
         astronomical_name: "α Crucis",
         constellation: "Crux",
-        radius: Some(Length::new::<solar_radii>(7.8)),
+        radius: Some(Length::new::<solar_radius>(7.8)),
         mass: Mass::new::<solar_mass>(17.8),
         absolute_magnitude: -4.19,
         apparent_magnitude: 0.77,
@@ -30,7 +31,7 @@ fn mimosa() -> RealData {
         common_name: "Mimosa",
         astronomical_name: "β Crucis",
         constellation: "Crux",
-        radius: Some(Length::new::<solar_radii>(8.4)),
+        radius: Some(Length::new::<solar_radius>(8.4)),
         mass: Mass::new::<solar_mass>(16.),
         absolute_magnitude: -3.92,
         apparent_magnitude: 1.25,
@@ -48,7 +49,7 @@ fn gacrux() -> RealData {
         common_name: "Gacrux",
         astronomical_name: "γ Crucis",
         constellation: "Crux",
-        radius: Some(Length::new::<solar_radii>(120.)),
+        radius: Some(Length::new::<solar_radius>(120.)),
         mass: Mass::new::<solar_mass>(1.5),
         absolute_magnitude: -0.56,
         apparent_magnitude: 1.59,

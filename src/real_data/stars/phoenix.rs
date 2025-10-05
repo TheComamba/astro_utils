@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn ankaa() -> RealData {
         common_name: "Ankaa",
         astronomical_name: "α Phoenicis",
         constellation: "Phoenix",
-        radius: Some(Length::new::<solar_radii>(15.)),
+        radius: Some(Length::new::<solar_radius>(15.)),
         mass: Mass::new::<solar_mass>(1.57),
         absolute_magnitude: 0.52,
         apparent_magnitude: 2.4,
@@ -54,7 +55,7 @@ fn gamma_phoenicis() -> RealData {
         distance: Length::new::<light_year>(234.),
         absolute_magnitude: -0.86,
         mass: Mass::new::<solar_mass>(1.3),
-        radius: Some(Length::new::<solar_radii>(52.)),
+        radius: Some(Length::new::<solar_radius>(52.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(3802.),
         age: None,
         lifetime: Time::new::<gigayear>(3.9126515),

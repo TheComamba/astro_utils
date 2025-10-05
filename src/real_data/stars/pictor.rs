@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn alpha_pictoris() -> RealData {
         distance: Length::new::<light_year>(97.),
         absolute_magnitude: 0.86,
         mass: Mass::new::<solar_mass>(2.04),
-        radius: Some(Length::new::<solar_radii>(1.6)),
+        radius: Some(Length::new::<solar_radius>(1.6)),
         temperature: ThermodynamicTemperature::new::<kelvin>(7530.),
         age: Some(Time::new::<gigayear>(0.660)),
         lifetime: Time::new::<gigayear>(1.25731981),
@@ -36,7 +37,7 @@ fn beta_pictoris() -> RealData {
         distance: Length::new::<light_year>(63.4),
         absolute_magnitude: 2.402,
         mass: Mass::new::<solar_mass>(1.75),
-        radius: Some(Length::new::<solar_radii>(1.8)),
+        radius: Some(Length::new::<solar_radius>(1.8)),
         temperature: ThermodynamicTemperature::new::<kelvin>(8052.),
         age: Some(Time::new::<gigayear>(0.023)),
         lifetime: Time::new::<gigayear>(1.59501327),
@@ -54,7 +55,7 @@ fn gamma_pictoris() -> RealData {
         distance: Length::new::<light_year>(177.),
         absolute_magnitude: 0.83,
         mass: Mass::new::<solar_mass>(1.59),
-        radius: Some(Length::new::<solar_radii>(11.)),
+        radius: Some(Length::new::<solar_radius>(11.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4600.),
         age: None,
         lifetime: Time::new::<gigayear>(2.08398753),

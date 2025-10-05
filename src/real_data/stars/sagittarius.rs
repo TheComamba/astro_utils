@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn kaus_australis() -> RealData {
         common_name: "Kaus Australis",
         astronomical_name: "ε Sagittarii",
         constellation: "Sagittarius",
-        radius: Some(Length::new::<solar_radii>(6.8)),
+        radius: Some(Length::new::<solar_radius>(6.8)),
         mass: Mass::new::<solar_mass>(3.515),
         absolute_magnitude: -1.44,
         apparent_magnitude: 1.79,
@@ -30,7 +31,7 @@ fn nunki() -> RealData {
         common_name: "Nunki",
         astronomical_name: "σ Sagittarii",
         constellation: "Sagittarius",
-        radius: Some(Length::new::<solar_radii>(4.5)),
+        radius: Some(Length::new::<solar_radius>(4.5)),
         mass: Mass::new::<solar_mass>(7.8),
         absolute_magnitude: -2.14,
         apparent_magnitude: 2.05,
@@ -66,7 +67,7 @@ fn kaus_media() -> RealData {
         common_name: "Kaus Media",
         astronomical_name: "δ Sagittarii",
         constellation: "Sagittarius",
-        radius: Some(Length::new::<solar_radii>(16.)),
+        radius: Some(Length::new::<solar_radius>(16.)),
         mass: Mass::new::<solar_mass>(3.21),
         absolute_magnitude: -2.14,
         apparent_magnitude: 2.72,

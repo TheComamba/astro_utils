@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn alpha_telescopii() -> RealData {
         distance: Length::new::<light_year>(278.),
         absolute_magnitude: -1.25,
         mass: Mass::new::<solar_mass>(5.2),
-        radius: Some(Length::new::<solar_radii>(3.3)),
+        radius: Some(Length::new::<solar_radius>(3.3)),
         temperature: ThermodynamicTemperature::new::<kelvin>(16_700.),
         age: Some(Time::new::<gigayear>(0.0241)),
         lifetime: Time::new::<gigayear>(0.10143918),
@@ -36,7 +37,7 @@ fn zeta_telescopii() -> RealData {
         distance: Length::new::<light_year>(126.),
         absolute_magnitude: 1.171,
         mass: Mass::new::<solar_mass>(1.53),
-        radius: Some(Length::new::<solar_radii>(9.)),
+        radius: Some(Length::new::<solar_radius>(9.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4801.),
         age: None,
         lifetime: Time::new::<gigayear>(2.29668629),

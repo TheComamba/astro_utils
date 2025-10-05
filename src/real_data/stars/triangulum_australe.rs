@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn atria() -> RealData {
         common_name: "Atria",
         astronomical_name: "α Trianguli Australis",
         constellation: "Triangulum Australe",
-        radius: Some(Length::new::<solar_radii>(143.)),
+        radius: Some(Length::new::<solar_radius>(143.)),
         mass: Mass::new::<solar_mass>(7.),
         absolute_magnitude: -3.62,
         apparent_magnitude: 1.91,
@@ -36,7 +37,7 @@ fn beta_trianguli_australis() -> RealData {
         distance: Length::new::<light_year>(40.37),
         absolute_magnitude: 2.37,
         mass: Mass::new::<solar_mass>(1.56),
-        radius: Some(Length::new::<solar_radii>(1.976)),
+        radius: Some(Length::new::<solar_radius>(1.976)),
         temperature: ThermodynamicTemperature::new::<kelvin>(7171.),
         age: Some(Time::new::<gigayear>(0.674)),
         lifetime: Time::new::<gigayear>(2.29668629),
@@ -54,7 +55,7 @@ fn gamma_trianguli_australis() -> RealData {
         distance: Length::new::<light_year>(184.),
         absolute_magnitude: -0.89,
         mass: Mass::new::<solar_mass>(1.99),
-        radius: Some(Length::new::<solar_radii>(5.86)),
+        radius: Some(Length::new::<solar_radius>(5.86)),
         temperature: ThermodynamicTemperature::new::<kelvin>(9306.),
         age: Some(Time::new::<gigayear>(0.260)),
         lifetime: Time::new::<gigayear>(1.36020165),

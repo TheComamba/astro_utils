@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -36,7 +37,7 @@ fn deneb_algedi() -> RealData {
         distance: Length::new::<light_year>(38.7),
         absolute_magnitude: 2.48,
         mass: Mass::new::<solar_mass>(2.),
-        radius: Some(Length::new::<solar_radii>(1.91)),
+        radius: Some(Length::new::<solar_radius>(1.91)),
         temperature: ThermodynamicTemperature::new::<kelvin>(7301.),
         age: None,
         lifetime: Time::new::<gigayear>(1.36020165),
@@ -54,7 +55,7 @@ fn omega_capricorni() -> RealData {
         distance: Length::new::<light_year>(628.1),
         absolute_magnitude: -2.3,
         mass: Mass::new::<solar_mass>(6.8),
-        radius: Some(Length::new::<solar_radii>(172.1)),
+        radius: Some(Length::new::<solar_radius>(172.1)),
         temperature: ThermodynamicTemperature::new::<kelvin>(3915.),
         age: Some(Time::new::<gigayear>(0.0481)),
         lifetime: Time::new::<gigayear>(0.052267043),

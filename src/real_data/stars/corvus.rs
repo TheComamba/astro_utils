@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -30,7 +31,7 @@ fn kraz() -> RealData {
         common_name: "Kraz",
         astronomical_name: "β Corvi",
         constellation: "Corvus",
-        radius: Some(Length::new::<solar_radii>(16.)),
+        radius: Some(Length::new::<solar_radius>(16.)),
         mass: Mass::new::<solar_mass>(3.7),
         absolute_magnitude: -0.61,
         apparent_magnitude: 2.65,
@@ -72,7 +73,7 @@ fn epsilon_corvi() -> RealData {
         distance: Length::new::<light_year>(318.),
         absolute_magnitude: -1.82,
         mass: Mass::new::<solar_mass>(3.2),
-        radius: Some(Length::new::<solar_radii>(52.)),
+        radius: Some(Length::new::<solar_radius>(52.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4320.),
         age: None,
         lifetime: Time::new::<gigayear>(0.351318702),

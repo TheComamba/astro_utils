@@ -1,4 +1,6 @@
 use astro_coords::cartesian::Cartesian;
+use astro_units::mass::solar_mass;
+use astro_units::time::kiloyear;
 use parsec_access::getters::{
     get_closest_age_index, get_masses_in_solar, get_parameters, get_trajectory,
 };
@@ -136,6 +138,7 @@ fn get_lifestage_evolution(
 #[cfg(test)]
 mod tests {
     use astro_coords::direction::Direction;
+    use astro_units::time::gigayear;
     use uom::si::{f64::Length, length::light_year};
 
     use super::*;

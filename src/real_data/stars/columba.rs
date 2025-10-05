@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn phact() -> RealData {
         distance: Length::new::<light_year>(261.),
         absolute_magnitude: -1.87,
         mass: Mass::new::<solar_mass>(4.5),
-        radius: Some(Length::new::<solar_radii>(5.8)),
+        radius: Some(Length::new::<solar_radius>(5.8)),
         temperature: ThermodynamicTemperature::new::<kelvin>(12_963.),
         age: Some(Time::new::<gigayear>(0.093)),
         lifetime: Time::new::<gigayear>(0.151849866),
@@ -36,7 +37,7 @@ fn wazn() -> RealData {
         distance: Length::new::<light_year>(87.41),
         absolute_magnitude: 1.01,
         mass: Mass::new::<solar_mass>(1.1),
-        radius: Some(Length::new::<solar_radii>(11.5)),
+        radius: Some(Length::new::<solar_radius>(11.5)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4545.),
         age: Some(Time::new::<gigayear>(2.)),
         lifetime: Time::new::<gigayear>(6.97272616),
@@ -72,7 +73,7 @@ fn epsilon_columbae() -> RealData {
         distance: Length::new::<light_year>(262.),
         absolute_magnitude: -0.67,
         mass: Mass::new::<solar_mass>(2.47),
-        radius: Some(Length::new::<solar_radii>(25.2)),
+        radius: Some(Length::new::<solar_radius>(25.2)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4575.),
         age: Some(Time::new::<gigayear>(0.8)),
         lifetime: Time::new::<gigayear>(0.800458342),

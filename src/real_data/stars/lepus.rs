@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn arneb() -> RealData {
         common_name: "Arneb",
         astronomical_name: "α Leporis",
         constellation: "Lepus",
-        radius: Some(Length::new::<solar_radii>(75.)),
+        radius: Some(Length::new::<solar_radius>(75.)),
         mass: Mass::new::<solar_mass>(13.9),
         absolute_magnitude: -5.40,
         apparent_magnitude: 2.58,
@@ -36,7 +37,7 @@ fn beta_leporis() -> RealData {
         distance: Length::new::<light_year>(160.),
         absolute_magnitude: -0.65,
         mass: Mass::new::<solar_mass>(3.5),
-        radius: Some(Length::new::<solar_radii>(16.)),
+        radius: Some(Length::new::<solar_radius>(16.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5450.),
         age: Some(Time::new::<gigayear>(0.240)),
         lifetime: Time::new::<gigayear>(0.297402042),
@@ -54,7 +55,7 @@ fn epsilon_leporis() -> RealData {
         distance: Length::new::<light_year>(209.),
         absolute_magnitude: -1.02,
         mass: Mass::new::<solar_mass>(1.7),
-        radius: Some(Length::new::<solar_radii>(40.1)),
+        radius: Some(Length::new::<solar_radius>(40.1)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4131.),
         age: Some(Time::new::<gigayear>(1.72)),
         lifetime: Time::new::<gigayear>(1.73766023),

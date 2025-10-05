@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn deneb() -> RealData {
         common_name: "Deneb",
         astronomical_name: "α Cygni",
         constellation: "Cygnus",
-        radius: Some(Length::new::<solar_radii>(203.)),
+        radius: Some(Length::new::<solar_radius>(203.)),
         mass: Mass::new::<solar_mass>(19.),
         absolute_magnitude: -7.13,
         apparent_magnitude: 1.25,
@@ -30,7 +31,7 @@ fn sadir() -> RealData {
         common_name: "Sadir",
         astronomical_name: "γ Cygni",
         constellation: "Cygnus",
-        radius: Some(Length::new::<solar_radii>(150.)),
+        radius: Some(Length::new::<solar_radius>(150.)),
         mass: Mass::new::<solar_mass>(12.11),
         absolute_magnitude: -6.12,
         apparent_magnitude: 2.23,
@@ -48,7 +49,7 @@ fn aljanah() -> RealData {
         common_name: "Aljanah",
         astronomical_name: "ε Cygni",
         constellation: "Cygnus",
-        radius: Some(Length::new::<solar_radii>(10.82)),
+        radius: Some(Length::new::<solar_radius>(10.82)),
         mass: Mass::new::<solar_mass>(2.),
         absolute_magnitude: 0.76,
         apparent_magnitude: 2.48,

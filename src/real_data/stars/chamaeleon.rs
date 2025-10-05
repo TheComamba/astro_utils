@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn alpha_chamaeleontis() -> RealData {
         distance: Length::new::<light_year>(63.8),
         absolute_magnitude: 2.59,
         mass: Mass::new::<solar_mass>(1.42),
-        radius: Some(Length::new::<solar_radii>(2.11)),
+        radius: Some(Length::new::<solar_radius>(2.11)),
         temperature: ThermodynamicTemperature::new::<kelvin>(6580.),
         age: Some(Time::new::<gigayear>(1.8)),
         lifetime: Time::new::<gigayear>(3.10253119),
@@ -36,7 +37,7 @@ fn gamma_chamaeleontis() -> RealData {
         distance: Length::new::<light_year>(418.),
         absolute_magnitude: -1.43,
         mass: Mass::new::<solar_mass>(2.4),
-        radius: Some(Length::new::<solar_radii>(67.)),
+        radius: Some(Length::new::<solar_radius>(67.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4035.),
         age: None,
         lifetime: Time::new::<gigayear>(0.800458342),
@@ -54,7 +55,7 @@ fn beta_chamaeleonis() -> RealData {
         distance: Length::new::<light_year>(298.),
         absolute_magnitude: -0.57,
         mass: Mass::new::<solar_mass>(5.9),
-        radius: Some(Length::new::<solar_radii>(2.84)),
+        radius: Some(Length::new::<solar_radius>(2.84)),
         temperature: ThermodynamicTemperature::new::<kelvin>(14_495.),
         age: Some(Time::new::<gigayear>(0.0227)),
         lifetime: Time::new::<gigayear>(0.078916095),

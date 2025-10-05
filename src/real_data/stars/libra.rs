@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -36,7 +37,7 @@ fn zubeneschamali() -> RealData {
         distance: Length::new::<light_year>(185.),
         absolute_magnitude: -1.16,
         mass: Mass::new::<solar_mass>(3.5),
-        radius: Some(Length::new::<solar_radii>(4.9)),
+        radius: Some(Length::new::<solar_radius>(4.9)),
         temperature: ThermodynamicTemperature::new::<kelvin>(12_300.),
         age: Some(Time::new::<gigayear>(0.08)),
         lifetime: Time::new::<gigayear>(0.297402042),
@@ -48,7 +49,7 @@ fn brachium() -> RealData {
         common_name: "Brachium",
         astronomical_name: "σ Librae",
         constellation: "Libra",
-        radius: Some(Length::new::<solar_radii>(108.)),
+        radius: Some(Length::new::<solar_radius>(108.)),
         mass: Mass::new::<solar_mass>(2.2),
         absolute_magnitude: -1.5,
         apparent_magnitude: 3.21,

@@ -1,6 +1,7 @@
 use std::f64::consts::PI;
 
 use astro_coords::{cartesian::Cartesian, spherical::Spherical};
+use astro_units::angle::normalized_angle;
 use uom::si::{
     angle::radian,
     f64::{Angle, Length, Mass, Time},
@@ -105,6 +106,7 @@ pub fn position_relative_to_central_body(
 
 #[cfg(test)]
 mod tests {
+    use astro_units::mass::solar_mass;
     use uom::si::{
         angle::degree,
         length::{astronomical_unit, meter},
@@ -115,6 +117,7 @@ mod tests {
         astro_display::AstroDisplay,
         real_data::planets::*,
         tests::{eq, eq_within},
+        units::tests::angle_eq,
     };
 
     use super::*;

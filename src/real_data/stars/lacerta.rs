@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn alpha_lacertae() -> RealData {
         distance: Length::new::<light_year>(102.6),
         absolute_magnitude: 1.27,
         mass: Mass::new::<solar_mass>(2.194),
-        radius: Some(Length::new::<solar_radii>(2.1432)),
+        radius: Some(Length::new::<solar_radius>(2.1432)),
         temperature: ThermodynamicTemperature::new::<kelvin>(9050.),
         age: Some(Time::new::<gigayear>(0.4)),
         lifetime: Time::new::<gigayear>(1.03650581),
@@ -36,7 +37,7 @@ fn beta_lacertae() -> RealData {
         distance: Length::new::<light_year>(170.),
         absolute_magnitude: 0.67,
         mass: Mass::new::<solar_mass>(0.97),
-        radius: Some(Length::new::<solar_radii>(10.96)),
+        radius: Some(Length::new::<solar_radius>(10.96)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4803.),
         age: Some(Time::new::<gigayear>(6.76)),
         lifetime: Time::new::<gigayear>(11.7800188),
@@ -54,7 +55,7 @@ fn five_lacertae() -> RealData {
         distance: Length::new::<light_year>(1164.),
         absolute_magnitude: -3.42,
         mass: Mass::new::<solar_mass>(5.11),
-        radius: Some(Length::new::<solar_radii>(319.2)),
+        radius: Some(Length::new::<solar_radius>(319.2)),
         temperature: ThermodynamicTemperature::new::<kelvin>(3713.),
         age: Some(Time::new::<gigayear>(0.1)),
         lifetime: Time::new::<gigayear>(0.10143918),

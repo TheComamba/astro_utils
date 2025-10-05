@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn navi() -> RealData {
         common_name: "Navi",
         astronomical_name: "γ Cassiopeiae",
         constellation: "Cassiopeia",
-        radius: Some(Length::new::<solar_radii>(10.)),
+        radius: Some(Length::new::<solar_radius>(10.)),
         mass: Mass::new::<solar_mass>(13.),
         absolute_magnitude: -4.22,
         apparent_magnitude: 2.20,
@@ -30,7 +31,7 @@ fn schedar() -> RealData {
         common_name: "Schedar",
         astronomical_name: "α Cassiopeiae",
         constellation: "Cassiopeia",
-        radius: Some(Length::new::<solar_radii>(45.39)),
+        radius: Some(Length::new::<solar_radius>(45.39)),
         mass: Mass::new::<solar_mass>(3.98),
         absolute_magnitude: -1.99,
         apparent_magnitude: 2.24,
@@ -48,7 +49,7 @@ fn caph() -> RealData {
         common_name: "Caph",
         astronomical_name: "β Cassiopeiae",
         constellation: "Cassiopeia",
-        radius: Some(Length::new::<solar_radii>(3.5)),
+        radius: Some(Length::new::<solar_radius>(3.5)),
         mass: Mass::new::<solar_mass>(1.91),
         absolute_magnitude: 1.17,
         apparent_magnitude: 2.28,

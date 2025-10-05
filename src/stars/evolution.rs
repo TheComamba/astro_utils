@@ -1,3 +1,4 @@
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use serde::{Deserialize, Serialize};
 use uom::si::{
     f64::{Length, LuminousIntensity, Mass, TemperatureInterval, ThermodynamicTemperature, Time},
@@ -158,7 +159,7 @@ impl StarDataEvolution {
         self.lifestage_evolution
             .as_ref()
             .map(|e| e.radius_per_year)
-            .unwrap_or_else(|| Length::new::<solar_radii>(0.))
+            .unwrap_or_else(|| Length::new::<solar_radius>(0.))
     }
 
     pub fn get_lifestage_luminous_intensity_per_year(&self) -> LuminousIntensity {
@@ -192,7 +193,7 @@ impl StarDataLifestageEvolution {
         };
         let radius_per_year = match (now.params.radius, then.params.radius) {
             (Some(now_radius), Some(then_radius)) => (now_radius - then_radius) / years,
-            _ => Length::new::<solar_radii>(0.),
+            _ => Length::new::<solar_radius>(0.),
         };
         let luminous_intensity_per_year =
             (now.params.luminous_intensity - then.params.luminous_intensity) / years;
@@ -254,7 +255,7 @@ mod tests {
         let now = Time::new::<year>(2000.);
         let lifestage_evolution = StarDataLifestageEvolution {
             mass_per_year: Mass::new::<solar_mass>(0.),
-            radius_per_year: Length::new::<solar_radii>(0.),
+            radius_per_year: Length::new::<solar_radius>(0.),
             luminous_intensity_per_year: LuminousIntensity::new::<candela>(0.),
             temperature_per_year: TemperatureInterval::new::<kelvin>(0.),
         };

@@ -1,6 +1,10 @@
 use std::f64::consts::PI;
 
 use astro_coords::{cartesian::Cartesian, direction::Direction};
+use astro_units::{
+    illuminance::{lux, Illuminance},
+    time::{kiloyear, megayear},
+};
 use rand::{distr::Uniform, rngs::ThreadRng, Rng};
 use rand_distr::{weighted::WeightedAliasIndex, Distribution};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
@@ -196,6 +200,7 @@ pub(crate) fn random_direction(rng: &mut ThreadRng) -> Direction {
 
 #[cfg(test)]
 mod tests {
+    use astro_units::mass::solar_mass;
     use parsec_access::getters::get_closest_metallicity_index_from_mass_fraction;
     use uom::si::{f64::Mass, time::year};
 

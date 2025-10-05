@@ -1,4 +1,5 @@
 use astro_coords::ecliptic::Ecliptic;
+use astro_units::illuminance::{lux, Illuminance};
 use serde::{Deserialize, Serialize};
 use uom::si::{
     angle::degree,

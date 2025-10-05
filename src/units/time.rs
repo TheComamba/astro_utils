@@ -1,3 +1,4 @@
+use astro_units::time::{gigayear, kiloyear, megayear};
 use uom::si::{
     f64::Time,
     time::{day, hour, minute, second, year},

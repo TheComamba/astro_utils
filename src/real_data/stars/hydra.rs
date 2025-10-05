@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn alphard() -> RealData {
         common_name: "Alphard",
         astronomical_name: "α Hydrae",
         constellation: "Hydra",
-        radius: Some(Length::new::<solar_radii>(50.5)),
+        radius: Some(Length::new::<solar_radius>(50.5)),
         mass: Mass::new::<solar_mass>(3.03),
         absolute_magnitude: -1.69,
         apparent_magnitude: 1.99,
@@ -36,7 +37,7 @@ fn gamma_hydrae() -> RealData {
         distance: Length::new::<light_year>(133.8),
         absolute_magnitude: -0.15,
         mass: Mass::new::<solar_mass>(2.94),
-        radius: Some(Length::new::<solar_radii>(16.)),
+        radius: Some(Length::new::<solar_radius>(16.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5087.),
         age: Some(Time::new::<gigayear>(0.372)),
         lifetime: Time::new::<gigayear>(0.420724107),
@@ -54,7 +55,7 @@ fn zeta_hydrae() -> RealData {
         distance: Length::new::<light_year>(167.),
         absolute_magnitude: -0.24,
         mass: Mass::new::<solar_mass>(4.2),
-        radius: Some(Length::new::<solar_radii>(17.9)),
+        radius: Some(Length::new::<solar_radius>(17.9)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4925.),
         age: Some(Time::new::<gigayear>(0.17)),
         lifetime: Time::new::<gigayear>(0.170765802),
@@ -72,7 +73,7 @@ fn nu_hydrae() -> RealData {
         distance: Length::new::<light_year>(137.1),
         absolute_magnitude: -0.11,
         mass: Mass::new::<solar_mass>(2.0),
-        radius: Some(Length::new::<solar_radii>(21.)),
+        radius: Some(Length::new::<solar_radius>(21.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4335.),
         age: None,
         lifetime: Time::new::<gigayear>(1.36020165),

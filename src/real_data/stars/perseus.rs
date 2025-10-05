@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn mirphak() -> RealData {
         common_name: "Mirphak",
         astronomical_name: "α Persei",
         constellation: "Perseus",
-        radius: Some(Length::new::<solar_radii>(68.)),
+        radius: Some(Length::new::<solar_radius>(68.)),
         mass: Mass::new::<solar_mass>(8.5),
         absolute_magnitude: -4.50,
         apparent_magnitude: 1.79,
@@ -30,7 +31,7 @@ fn algol() -> RealData {
         common_name: "Algol",
         astronomical_name: "β Persei",
         constellation: "Perseus",
-        radius: Some(Length::new::<solar_radii>(2.73)),
+        radius: Some(Length::new::<solar_radius>(2.73)),
         mass: Mass::new::<solar_mass>(3.17),
         absolute_magnitude: -0.18,
         apparent_magnitude: 2.09,
@@ -48,7 +49,7 @@ fn gorgonea_tertia() -> RealData {
         common_name: "Gorgonea Tertia",
         astronomical_name: "ρ Persei",
         constellation: "Perseus",
-        radius: Some(Length::new::<solar_radii>(143.)),
+        radius: Some(Length::new::<solar_radius>(143.)),
         mass: Mass::new::<solar_mass>(1.9),
         absolute_magnitude: -1.67,
         apparent_magnitude: 3.32,

@@ -185,6 +185,7 @@ impl StarData {
 
 #[cfg(test)]
 mod tests {
+    use astro_units::mass::solar_mass;
     use uom::si::{
         length::{light_year, meter},
         luminous_intensity::candela,

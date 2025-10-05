@@ -1,4 +1,5 @@
 use astro_coords::cartesian::Cartesian;
+use astro_units::length::solar_radius;
 use uom::si::f64::{Length, Time};
 
 use super::{
@@ -50,7 +51,7 @@ impl GenerationParams {
         let farthest_possible = distance_to_origin + self.radius;
         if distance_to_origin > self.radius {
             if closest_possible > required_distance {
-                self.radius = Length::new::<solar_radii>(0.);
+                self.radius = Length::new::<solar_radius>(0.);
             }
         } else if farthest_possible > required_distance {
             self.radius = required_distance - distance_to_origin
@@ -62,6 +63,7 @@ impl GenerationParams {
 #[cfg(test)]
 mod tests {
     use astro_coords::direction::Direction;
+    use astro_units::time::kiloyear;
     use parsec_access::getters::is_data_ready;
     use uom::si::length::{light_year, meter};
 

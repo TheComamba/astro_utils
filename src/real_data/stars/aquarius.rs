@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn sadalsuud() -> RealData {
         common_name: "Sadalsuud",
         astronomical_name: "β Aquarii",
         constellation: "Aquarius",
-        radius: Some(Length::new::<solar_radii>(47.88)),
+        radius: Some(Length::new::<solar_radius>(47.88)),
         mass: Mass::new::<solar_mass>(4.97),
         absolute_magnitude: -3.04,
         apparent_magnitude: 2.87,
@@ -30,7 +31,7 @@ fn sadalmelik() -> RealData {
         common_name: "Sadalmelik",
         astronomical_name: "α Aquarii",
         constellation: "Aquarius",
-        radius: Some(Length::new::<solar_radii>(53.89)),
+        radius: Some(Length::new::<solar_radius>(53.89)),
         mass: Mass::new::<solar_mass>(5.13),
         absolute_magnitude: -3.882,
         apparent_magnitude: 2.942,
@@ -48,7 +49,7 @@ fn skat() -> RealData {
         common_name: "Skat",
         astronomical_name: "δ Aquarii",
         constellation: "Aquarius",
-        radius: Some(Length::new::<solar_radii>(2.4)),
+        radius: Some(Length::new::<solar_radius>(2.4)),
         mass: Mass::new::<solar_mass>(2.51),
         absolute_magnitude: -0.178,
         apparent_magnitude: 3.27,

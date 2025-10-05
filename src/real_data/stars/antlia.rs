@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn alpha_antliae() -> RealData {
         common_name: "",
         astronomical_name: "α Antliae",
         constellation: "Antlia",
-        radius: Some(Length::new::<solar_radii>(41.)),
+        radius: Some(Length::new::<solar_radius>(41.)),
         mass: Mass::new::<solar_mass>(2.2),
         absolute_magnitude: -0.973,
         apparent_magnitude: 4.28,
@@ -30,7 +31,7 @@ fn epsilon_antliae() -> RealData {
         common_name: "",
         astronomical_name: "ε Antliae",
         constellation: "Antlia",
-        radius: Some(Length::new::<solar_radii>(56.3)),
+        radius: Some(Length::new::<solar_radius>(56.3)),
         mass: Mass::new::<solar_mass>(2.),
         absolute_magnitude: -2.15,
         apparent_magnitude: 4.51,
@@ -48,7 +49,7 @@ fn iota_antliae() -> RealData {
         common_name: "",
         astronomical_name: "ι Antliae",
         constellation: "Antlia",
-        radius: Some(Length::new::<solar_radii>(12.1)),
+        radius: Some(Length::new::<solar_radius>(12.1)),
         mass: Mass::new::<solar_mass>(1.55),
         absolute_magnitude: 0.674,
         apparent_magnitude: 4.60,

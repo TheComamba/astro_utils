@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn tarf() -> RealData {
         common_name: "Tarf",
         astronomical_name: "β Cancri",
         constellation: "Cancer",
-        radius: Some(Length::new::<solar_radii>(47.2)),
+        radius: Some(Length::new::<solar_radius>(47.2)),
         mass: Mass::new::<solar_mass>(1.7),
         absolute_magnitude: -1.218,
         apparent_magnitude: 3.50,
@@ -30,7 +31,7 @@ fn asellus_australis() -> RealData {
         common_name: "Asellus Australis",
         astronomical_name: "δ Cancri",
         constellation: "Cancer",
-        radius: Some(Length::new::<solar_radii>(11.)),
+        radius: Some(Length::new::<solar_radius>(11.)),
         mass: Mass::new::<solar_mass>(1.71),
         absolute_magnitude: 0.843,
         apparent_magnitude: 3.94,
@@ -48,7 +49,7 @@ fn iota_cancri() -> RealData {
         common_name: "",
         astronomical_name: "ι Cancri",
         constellation: "Cancer",
-        radius: Some(Length::new::<solar_radii>(21.)),
+        radius: Some(Length::new::<solar_radius>(21.)),
         mass: Mass::new::<solar_mass>(3.43),
         absolute_magnitude: -0.79,
         apparent_magnitude: 4.02,

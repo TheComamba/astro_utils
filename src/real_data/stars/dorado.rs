@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn alpha_doradus() -> RealData {
         distance: Length::new::<light_year>(169.),
         absolute_magnitude: -0.357,
         mass: Mass::new::<solar_mass>(3.33),
-        radius: Some(Length::new::<solar_radii>(3.5)),
+        radius: Some(Length::new::<solar_radius>(3.5)),
         temperature: ThermodynamicTemperature::new::<kelvin>(11_588.),
         age: None,
         lifetime: Time::new::<gigayear>(0.297402042),
@@ -36,7 +37,7 @@ fn beta_doradus() -> RealData {
         distance: Length::new::<light_year>(1050.),
         absolute_magnitude: -3.91,
         mass: Mass::new::<solar_mass>(7.7),
-        radius: Some(Length::new::<solar_radii>(67.8)),
+        radius: Some(Length::new::<solar_radius>(67.8)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5445.),
         age: Some(Time::new::<gigayear>(0.04)),
         lifetime: Time::new::<gigayear>(0.040555762),
@@ -54,7 +55,7 @@ fn gamma_doradus() -> RealData {
         distance: Length::new::<light_year>(66.7),
         absolute_magnitude: 2.72,
         mass: Mass::new::<solar_mass>(1.56),
-        radius: Some(Length::new::<solar_radii>(1.85)),
+        radius: Some(Length::new::<solar_radius>(1.85)),
         temperature: ThermodynamicTemperature::new::<kelvin>(6906.),
         age: Some(Time::new::<gigayear>(0.535)),
         lifetime: Time::new::<gigayear>(2.29668629),
@@ -66,7 +67,7 @@ fn r_doradus() -> RealData {
         common_name: "",
         astronomical_name: "R Doradus",
         constellation: "",
-        radius: Some(Length::new::<solar_radii>(298.)),
+        radius: Some(Length::new::<solar_radius>(298.)),
         mass: Mass::new::<solar_mass>(0.8),
         absolute_magnitude: 1.61,
         apparent_magnitude: 5.59,

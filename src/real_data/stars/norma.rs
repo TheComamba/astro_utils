@@ -1,14 +1,12 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
     thermodynamic_temperature::kelvin,
 };
 
-use crate::{
-    stars::real_data::RealData,
-    units::{mass::solar_mass, time::gigayear},
-};
+use crate::stars::real_data::RealData;
 
 fn gamma2_normae() -> RealData {
     RealData {

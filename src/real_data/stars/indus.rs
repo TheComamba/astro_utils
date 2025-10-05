@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn alpha_indi() -> RealData {
         distance: Length::new::<light_year>(98.3),
         absolute_magnitude: 0.65,
         mass: Mass::new::<solar_mass>(2.0),
-        radius: Some(Length::new::<solar_radii>(12.)),
+        radius: Some(Length::new::<solar_radius>(12.)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4893.),
         age: Some(Time::new::<gigayear>(1.)),
         lifetime: Time::new::<gigayear>(1.36020165),
@@ -36,7 +37,7 @@ fn beta_indi() -> RealData {
         distance: Length::new::<light_year>(600.),
         absolute_magnitude: -2.664,
         mass: Mass::new::<solar_mass>(6.7),
-        radius: Some(Length::new::<solar_radii>(55.58)),
+        radius: Some(Length::new::<solar_radius>(55.58)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4541.),
         age: Some(Time::new::<gigayear>(0.0532)),
         lifetime: Time::new::<gigayear>(0.063411557),
@@ -54,7 +55,7 @@ fn eta_indi() -> RealData {
         distance: Length::new::<light_year>(78.8),
         absolute_magnitude: 2.59,
         mass: Mass::new::<solar_mass>(1.6),
-        radius: Some(Length::new::<solar_radii>(2.27)),
+        radius: Some(Length::new::<solar_radius>(2.27)),
         temperature: ThermodynamicTemperature::new::<kelvin>(7694.),
         age: Some(Time::new::<gigayear>(0.1)),
         lifetime: Time::new::<gigayear>(2.08398753),

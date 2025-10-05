@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -33,7 +34,7 @@ pub fn sun() -> RealData {
         astronomical_name: "Sol",
         constellation: "",
         mass: Mass::new::<solar_mass>(1.0),
-        radius: Some(Length::new::<solar_radii>(1.0)),
+        radius: Some(Length::new::<solar_radius>(1.0)),
         absolute_magnitude: 4.83,
         apparent_magnitude: -26.74, //seen from earth
         temperature: ThermodynamicTemperature::new::<kelvin>(5778.0),

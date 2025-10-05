@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn alpha_monocerotis() -> RealData {
         distance: Length::new::<light_year>(148.),
         absolute_magnitude: 0.71,
         mass: Mass::new::<solar_mass>(2.02),
-        radius: Some(Length::new::<solar_radii>(10.1)),
+        radius: Some(Length::new::<solar_radius>(10.1)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4879.),
         age: Some(Time::new::<gigayear>(1.18)),
         lifetime: Time::new::<gigayear>(1.36020165),

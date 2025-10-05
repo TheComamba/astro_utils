@@ -1,6 +1,7 @@
 use std::f64::consts::PI;
 
 use astro_coords::cartesian::Cartesian;
+use astro_units::illuminance::Illuminance;
 use uom::si::{
     angle::radian,
     f64::{Angle, Length, LuminousIntensity},
@@ -51,6 +52,7 @@ pub fn planet_brightness(
 
 #[cfg(test)]
 mod tests {
+    use astro_units::illuminance::lux;
     use uom::si::length::astronomical_unit;
 
     use super::*;

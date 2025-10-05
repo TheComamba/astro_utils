@@ -1,5 +1,6 @@
 use std::ops::Range;
 
+use astro_units::{length::solar_radius, mass::solar_mass, time::kiloyear};
 use serde::{Deserialize, Serialize};
 use uom::si::{
     f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time},
@@ -45,7 +46,7 @@ impl StarFate {
 
     pub(crate) fn apply_to_radius(&self) -> Length {
         match self {
-            StarFate::WhiteDwarf => Length::new::<solar_radii>(0.0084), // Sirius B
+            StarFate::WhiteDwarf => Length::new::<solar_radius>(0.0084), // Sirius B
             StarFate::TypeIISupernova => Length::new::<kilometer>(20.), // Neutron star or black hole
         }
     }

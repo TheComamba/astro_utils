@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -36,7 +37,7 @@ fn beta_coma_berenices() -> RealData {
         distance: Length::new::<light_year>(29.95),
         absolute_magnitude: 4.46,
         mass: Mass::new::<solar_mass>(1.15),
-        radius: Some(Length::new::<solar_radii>(1.106)),
+        radius: Some(Length::new::<solar_radius>(1.106)),
         temperature: ThermodynamicTemperature::new::<kelvin>(5936.),
         age: Some(Time::new::<gigayear>(2.)),
         lifetime: Time::new::<gigayear>(5.9461393),
@@ -54,7 +55,7 @@ fn gamma_coma_berenices() -> RealData {
         distance: Length::new::<light_year>(169.),
         absolute_magnitude: 0.76,
         mass: Mass::new::<solar_mass>(1.65),
-        radius: Some(Length::new::<solar_radii>(11.76)),
+        radius: Some(Length::new::<solar_radius>(11.76)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4652.),
         age: Some(Time::new::<gigayear>(1.8)),
         lifetime: Time::new::<gigayear>(1.89665739),

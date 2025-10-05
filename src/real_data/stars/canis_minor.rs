@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -12,7 +13,7 @@ fn procyon() -> RealData {
         common_name: "Procyon",
         astronomical_name: "α Canis Minoris",
         constellation: "Canis Minor",
-        radius: Some(Length::new::<solar_radii>(2.048)),
+        radius: Some(Length::new::<solar_radius>(2.048)),
         mass: Mass::new::<solar_mass>(1.499),
         absolute_magnitude: 2.68,
         apparent_magnitude: 0.40,
@@ -36,7 +37,7 @@ fn gomeisa() -> RealData {
         distance: Length::new::<light_year>(160.),
         absolute_magnitude: -0.59,
         mass: Mass::new::<solar_mass>(3.5),
-        radius: Some(Length::new::<solar_radii>(3.5)),
+        radius: Some(Length::new::<solar_radius>(3.5)),
         temperature: ThermodynamicTemperature::new::<kelvin>(11_772.),
         age: Some(Time::new::<gigayear>(0.160)),
         lifetime: Time::new::<gigayear>(0.297402042),
@@ -54,7 +55,7 @@ fn gamma_canis_minoris() -> RealData {
         distance: Length::new::<light_year>(320.),
         absolute_magnitude: -0.5,
         mass: Mass::new::<solar_mass>(1.88),
-        radius: Some(Length::new::<solar_radii>(36.8)),
+        radius: Some(Length::new::<solar_radius>(36.8)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4036.),
         age: Some(Time::new::<gigayear>(1.3)),
         lifetime: Time::new::<gigayear>(1.54706939),

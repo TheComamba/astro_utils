@@ -1,4 +1,5 @@
 use astro_coords::ra_and_dec::*;
+use astro_units::{length::solar_radius, mass::solar_mass, time::gigayear};
 use uom::si::{
     f64::{Length, Mass, ThermodynamicTemperature, Time},
     length::light_year,
@@ -18,7 +19,7 @@ fn meridiana() -> RealData {
         distance: Length::new::<light_year>(125.),
         absolute_magnitude: 1.11,
         mass: Mass::new::<solar_mass>(2.57),
-        radius: Some(Length::new::<solar_radii>(2.21)),
+        radius: Some(Length::new::<solar_radius>(2.21)),
         temperature: ThermodynamicTemperature::new::<kelvin>(9916.),
         age: Some(Time::new::<gigayear>(0.254)),
         lifetime: Time::new::<gigayear>(0.63513384),
@@ -36,7 +37,7 @@ fn beta_coronae_australis() -> RealData {
         distance: Length::new::<light_year>(470.),
         absolute_magnitude: -1.71,
         mass: Mass::new::<solar_mass>(5.17),
-        radius: Some(Length::new::<solar_radii>(38.5)),
+        radius: Some(Length::new::<solar_radius>(38.5)),
         temperature: ThermodynamicTemperature::new::<kelvin>(4575.),
         age: None,
         lifetime: Time::new::<gigayear>(0.10143918),
@@ -54,7 +55,7 @@ fn gamma_coronae_australis() -> RealData {
         distance: Length::new::<light_year>(58.33),
         absolute_magnitude: 2.97,
         mass: Mass::new::<solar_mass>(1.15),
-        radius: Some(Length::new::<solar_radii>(1.47)),
+        radius: Some(Length::new::<solar_radius>(1.47)),
         temperature: ThermodynamicTemperature::new::<kelvin>(6090.),
         age: Some(Time::new::<gigayear>(5.)),
         lifetime: Time::new::<gigayear>(5.9461393),

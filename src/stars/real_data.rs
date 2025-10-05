@@ -99,6 +99,7 @@ impl RealData {
 #[cfg(test)]
 mod tests {
 
+    use astro_units::mass::solar_mass;
     use uom::si::{
         f64::{Mass, Time},
         time::year,
