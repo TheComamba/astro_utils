@@ -98,8 +98,8 @@ impl RealData {
 mod tests {
 
     use astro_units::{
-        illuminance::illuminance_to_apparent_magnitude,
-        luminous_intensity::luminous_intensity_to_illuminance, mass::solar_mass,
+        illuminance::illuminance_to_apparent_magnitude, luminous_intensity::calc_illuminance,
+        mass::solar_mass,
     };
     use uom::si::{
         f64::{Mass, Time},
@@ -113,8 +113,7 @@ mod tests {
         for star_data in get_many_stars() {
             let star = star_data.to_star_data();
             let luminous_intensity = star.get_luminous_intensity_at_epoch();
-            let illuminance =
-                luminous_intensity_to_illuminance(luminous_intensity, star.get_distance_at_epoch());
+            let illuminance = calc_illuminance(luminous_intensity, star.get_distance_at_epoch());
             let apparent_magnitude = illuminance_to_apparent_magnitude(illuminance);
             let difference = star_data.apparent_magnitude - apparent_magnitude;
             assert!(

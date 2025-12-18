@@ -4,7 +4,7 @@ use super::{
 };
 use crate::color::srgb::sRGBColor;
 use astro_coords::{cartesian::Cartesian, ecliptic::Ecliptic};
-use astro_units::luminous_intensity::luminous_intensity_to_illuminance;
+use astro_units::luminous_intensity::calc_illuminance;
 use serde::{Deserialize, Serialize};
 use uom::si::f64::{Length, LuminousIntensity, Mass, ThermodynamicTemperature, Time};
 
@@ -162,10 +162,7 @@ impl StarData {
 
     pub fn to_star_appearance(&self, time_since_epoch: Time) -> StarAppearance {
         let luminous_intensity = self.get_luminous_intensity(time_since_epoch);
-        let illuminance = luminous_intensity_to_illuminance(
-            luminous_intensity,
-            self.get_distance(time_since_epoch),
-        );
+        let illuminance = calc_illuminance(luminous_intensity, self.get_distance(time_since_epoch));
 
         let color = sRGBColor::from_temperature(self.get_temperature(time_since_epoch));
 

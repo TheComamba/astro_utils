@@ -2,7 +2,7 @@ use std::f64::consts::PI;
 
 use astro_coords::cartesian::Cartesian;
 use astro_units::{
-    illuminance::Illuminance, luminous_intensity::luminous_intensity_to_illuminance,
+    illuminance::Illuminance, luminous_intensity::calc_illuminance,
     solid_angle::radius_and_distance_to_solid_angle,
 };
 use uom::si::{
@@ -38,8 +38,7 @@ pub fn planet_brightness(
     let planet_to_star = star_position - planet_position;
     let planet_to_observer = observer_position - planet_position;
     let reflection_angle = planet_to_star.angle_to(&planet_to_observer)?;
-    let planet_illuminance =
-        luminous_intensity_to_illuminance(star_luminous_intensity, planet_to_star.length());
+    let planet_illuminance = calc_illuminance(star_luminous_intensity, planet_to_star.length());
     let planet_flat_surface_luminance = (planet_illuminance * geometric_albedo) / PI;
     let solid_angle =
         radius_and_distance_to_solid_angle(planet_radius, planet_to_observer.length());

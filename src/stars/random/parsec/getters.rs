@@ -138,7 +138,7 @@ fn get_lifestage_evolution(
 #[cfg(test)]
 mod tests {
     use astro_coords::direction::Direction;
-    use astro_units::{luminous_intensity::luminous_intensity_to_illuminance, time::gigayear};
+    use astro_units::{luminous_intensity::calc_illuminance, time::gigayear};
     use uom::si::{f64::Length, length::light_year};
 
     use super::*;
@@ -207,7 +207,7 @@ mod tests {
         let mut successes = 0;
         let mut failures = 0;
         for star in stars {
-            let illuminance = luminous_intensity_to_illuminance(
+            let illuminance = calc_illuminance(
                 star.get_luminous_intensity_at_epoch(),
                 star.get_distance_at_epoch(),
             );

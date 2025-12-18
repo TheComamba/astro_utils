@@ -9,7 +9,7 @@ crate-type   = ["rlib"]
 
 [dependencies]
 astro_coords = { git = "https://github.com/TheComamba/astro_coords.git", branch = "main" }
-astro_units = { git = "https://github.com/TheComamba/astro_units.git", branch = "main" }
+astro_units = { version = "1.0", default-features = false, features = [] }
 etcetera = { version = "0.11.0", default-features = false } # Standard locations on file system
 flate2 = { version = "1.0", default-features = false, features = ["zlib-ng-compat"] } # Decompression
 fraction = { version = "0.15.0", default-features = false }
