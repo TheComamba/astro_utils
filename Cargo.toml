@@ -13,13 +13,12 @@ astro_units = { version = "1.0", default-features = false, features = [] }
 etcetera = { version = "0.11.0", default-features = false } # Standard locations on file system
 flate2 = { version = "1.0", default-features = false, features = ["zlib-ng-compat"] } # Decompression
 fraction = { version = "0.15.0", default-features = false }
-gaia_access = { version = "0.1.0", features = ["gaiadr3_gaia_source", "gaiadr3_gaia_universe_model"] }
+gaia_access = { version = "0.2.0", features = ["gaiadr3_gaia_source", "gaiadr3_gaia_universe_model"] }
 lazy_static = { version = "1.4", default-features = false }
-parsec_access = { version = "2.0", default-features = false }
+parsec_access = { version = "3.0", default-features = false }
 rand = { version = "0.9.0", default-features = false, features = ["std", "std_rng", "thread_rng"] } # Random number generation
 rand_distr = { version = "0.5.0", default-features = false, features = ["alloc"] } # WeightedAliasIndex
 rayon = { version = "1.8", default-features = false } # Parallelism
-reqwest = { version = "0.12.0", default-features = false, features = ["blocking", "default-tls"] } # Downloading files
 rmp-serde = { version = "1.1", default-features = false }
 serde = { version = "1.0", default-features = false, features = ["derive"] } # (De)Serialization
 serde_json = { version = "1.0", default-features = false, features = ["std"] }
