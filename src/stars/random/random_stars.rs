@@ -5,7 +5,7 @@ use astro_units::{
     illuminance::{lux, Illuminance},
     time::{kiloyear, megayear},
 };
-use rand::{distr::Uniform, rngs::ThreadRng, Rng};
+use rand::{distr::Uniform, rngs::ThreadRng, RngExt};
 use rand_distr::{weighted::WeightedAliasIndex, Distribution};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 use uom::si::{

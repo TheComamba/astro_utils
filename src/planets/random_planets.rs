@@ -1,7 +1,7 @@
 use std::f64::consts::PI;
 
 use astro_units::length::earth_radius;
-use rand::Rng;
+use rand::RngExt;
 use uom::si::{
     angle::degree,
     f64::{Angle, Length, MassDensity, Time},
