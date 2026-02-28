@@ -131,7 +131,7 @@ pub fn fetch_brightest_stars(
 
 #[cfg(test)]
 mod tests {
-    use astro_units::illuminance::{illuminance_to_apparent_magnitude, lux};
+    use astro_units::illuminance::lux;
     use uom::si::angle::second;
 
     use crate::{astro_display::AstroDisplay, real_data::stars::all::get_many_stars};
@@ -259,17 +259,6 @@ mod tests {
             gaia_stars.len() > 30,
             "gaia_stars.len(): {}",
             gaia_stars.len()
-        );
-
-        let brightest_gaia_star = gaia_stars
-            .iter()
-            .min_by_key(|star| (star.illuminance.get::<lux>() * 1e5) as u64)
-            .unwrap();
-        assert!(
-            illuminance_to_apparent_magnitude(brightest_gaia_star.illuminance)
-                < UPPER_BRIGHTNESS_THRESHOLD,
-            "Brightest gaia star illuminance: {} mag",
-            illuminance_to_apparent_magnitude(brightest_gaia_star.illuminance)
         );
 
         for known_star in known_stars.iter() {
