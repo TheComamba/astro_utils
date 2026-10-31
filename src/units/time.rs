@@ -57,8 +57,6 @@ impl AstroDisplay for Time {
 
 #[cfg(test)]
 mod tests {
-    use std::f64::INFINITY;
-
     use super::*;
 
     #[test]
@@ -103,7 +101,7 @@ mod tests {
 
     #[test]
     fn test_infinite_time_display() {
-        let time = Time::new::<second>(INFINITY);
+        let time = Time::new::<second>(f64::INFINITY);
         assert_eq!(time.astro_display(), "inf Gyrs");
     }
 }
